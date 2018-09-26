@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:LED_Display_Controller-cache
 EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
@@ -135,19 +136,19 @@ Wire Wire Line
 Wire Wire Line
 	5520 6320 5520 6280
 Connection ~ 5420 6320
-Wire Wire Line
-	5770 6360 5770 6280
 Text GLabel 3170 6030 0    50   Input ~ 0
 ~MCLR
 $Comp
 L power:GND #PWR?
 U 1 1 5BABCD8C
-P 5770 6360
-F 0 "#PWR?" H 5770 6110 50  0001 C CNN
-F 1 "GND" H 5770 6210 50  0000 C CNN
-F 2 "" H 5770 6360 50  0001 C CNN
-F 3 "" H 5770 6360 50  0001 C CNN
-	1    5770 6360
+P 4520 6360
+F 0 "#PWR?" H 4520 6110 50  0001 C CNN
+F 1 "GND" H 4520 6210 50  0000 C CNN
+F 2 "" H 4520 6360 50  0001 C CNN
+F 3 "" H 4520 6360 50  0001 C CNN
+	1    4520 6360
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4520 6360 4520 6280
 $EndSCHEMATC
