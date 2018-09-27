@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 6 12
+Sheet 6 14
 Title ""
 Date ""
 Rev ""
@@ -798,4 +798,26 @@ F 3 "" H 8220 5280 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8140 5280 8220 5280
+$Comp
+L Custom_Library:TL331 U?
+U 1 1 5BAD628B
+P 3640 4530
+F 0 "U?" H 3690 4730 50  0000 C CNN
+F 1 "TL331" H 3790 4330 50  0000 C CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23-5" H 3640 4630 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl331.pdf" H 3640 4730 50  0001 C CNN
+	1    3640 4530
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:PicKit3_Header J?
+U 1 1 5BAD6505
+P 2170 2930
+F 0 "J?" H 2470 2530 60  0000 C CNN
+F 1 "PicKit3_Header" V 1870 2930 60  0000 C CNN
+F 2 "" H 2170 3280 60  0001 C CNN
+F 3 "" H 2170 3280 60  0001 C CNN
+	1    2170 2930
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
