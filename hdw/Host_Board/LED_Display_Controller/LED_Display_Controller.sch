@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 12
+Sheet 1 14
 Title ""
 Date ""
 Rev ""
@@ -79,5 +79,17 @@ S 8730 4470 500  150
 U 5BAAE2DF
 F0 "Panel_Power_Connectors" 50
 F1 "Panel_Power_Connectors.sch" 50
+$EndSheet
+$Sheet
+S 8730 4810 500  150 
+U 5BAD6D37
+F0 "External_RAM" 50
+F1 "External_RAM.sch" 50
+$EndSheet
+$Sheet
+S 8730 5180 500  150 
+U 5BAD6D3A
+F0 "External_Flash" 50
+F1 "External_Flash.sch" 50
 $EndSheet
 $EndSCHEMATC
