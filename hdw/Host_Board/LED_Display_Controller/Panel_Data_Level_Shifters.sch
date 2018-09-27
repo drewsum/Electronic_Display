@@ -15,14 +15,14 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L 74xx:74HC244 U?
-U 1 1 5BAD396C
-P 5520 3420
-F 0 "U?" H 5220 4070 50  0000 C CNN
-F 1 "74HC244" H 5220 2770 50  0000 C CNN
-F 2 "" H 5520 3420 50  0001 C CNN
-F 3 "http://www.nxp.com/documents/data_sheet/74HC_HCT244.pdf" H 5520 3420 50  0001 C CNN
-	1    5520 3420
+L 74xx:74HCT541 U?
+U 1 1 5BAD3B80
+P 5510 3500
+F 0 "U?" H 5210 4150 50  0000 C CNN
+F 1 "74HCT541" H 5210 2850 50  0000 C CNN
+F 2 "" H 5510 3500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5510 3500 50  0001 C CNN
+	1    5510 3500
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
