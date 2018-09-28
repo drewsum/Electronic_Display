@@ -5,6 +5,11 @@ D Unpolarized capacitor
 K cap capacitor
 $ENDCMP
 #
+$CMP FT234XD
+D Basic UART USB Bridge
+F http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT234XD.pdf
+$ENDCMP
+#
 $CMP L_Custom
 D Inductor
 K inductor choke coil reactor magnetic
@@ -19,6 +24,12 @@ $ENDCMP
 $CMP R_Custom
 D Resistor
 K Resistor
+$ENDCMP
+#
+$CMP TL331
+D Single General-Purpose Comparator, SOT-23-5/SC-70-5
+K single comparator
+F http://www.ti.com/lit/ds/symlink/tl331.pdf
 $ENDCMP
 #
 #End Doc Library
