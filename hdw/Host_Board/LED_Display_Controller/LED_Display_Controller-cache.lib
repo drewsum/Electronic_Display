@@ -40,6 +40,23 @@ X A7 9 -500 -200 200 R 50 50 1 0 I
 ENDDRAW
 ENDDEF
 #
+# Connector:TestPoint
+#
+DEF Connector:TestPoint TP 0 30 N N 1 F N
+F0 "TP" 0 270 50 H V C CNN
+F1 "Connector:TestPoint" 0 200 50 H V C CNN
+F2 "" 200 0 50 H I C CNN
+F3 "" 200 0 50 H I C CNN
+$FPLIST
+ Pin*
+ Test*
+$ENDFPLIST
+DRAW
+C 0 130 30 0 1 0 N
+X 1 1 0 0 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Connector:USB_B_Mini
 #
 DEF Connector:USB_B_Mini J 0 40 Y Y 1 F N
@@ -73,6 +90,27 @@ X D+ 3 300 0 100 L 50 50 1 1 P
 X ID 4 300 -200 100 L 50 50 1 1 P
 X GND 5 0 -400 100 U 50 50 1 1 w
 X Shield 6 -100 -400 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Device:Ferrite_Bead
+#
+DEF Device:Ferrite_Bead L 0 0 N Y 1 F N
+F0 "L" -150 25 50 V V C CNN
+F1 "Device:Ferrite_Bead" 150 0 50 V V C CNN
+F2 "" -70 0 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Inductor_*
+ L_*
+ *Ferrite*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -50 0 -48 N
+P 2 0 1 0 0 50 0 51 N
+P 5 0 1 0 -109 16 -67 89 109 -12 66 -85 -109 16 N
+X ~ 1 0 150 100 D 50 50 1 1 P
+X ~ 2 0 -150 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -366,6 +404,51 @@ X 2 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
+# LED_Display_Local_Library:TPD3S014DBVR
+#
+DEF LED_Display_Local_Library:TPD3S014DBVR U 0 20 Y Y 1 F N
+F0 "U" -300 -250 50 H V C CNN
+F1 "LED_Display_Local_Library:TPD3S014DBVR" 0 250 50 H V C CNN
+F2 "Package_TO_SOT_SMD:SOT-23-6" 0 350 50 H I C CNN
+F3 "http://www.ti.com/lit/ds/symlink/tpd3s014.pdf" -200 250 50 H I C CNN
+F4 "296-38835-1-ND" -200 -150 50 H I C CNN "Digi-Key PN"
+$FPLIST
+ SOT?23*
+$ENDFPLIST
+DRAW
+S -300 200 300 -200 0 1 10 f
+X EN 1 400 150 100 L 50 50 1 1 I
+X GND 2 0 -300 100 U 50 50 1 1 W
+X IN 3 400 0 100 L 50 50 1 1 W
+X OUT 4 -400 50 100 R 50 50 1 1 w
+X D2 5 150 -300 100 U 50 50 1 1 P
+X D1 6 250 -300 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# LED_Display_Local_Library:Yellow
+#
+DEF LED_Display_Local_Library:Yellow D 0 40 Y N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "LED_Display_Local_Library:Yellow" 0 -100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ LED*
+ LED_SMD:*
+ LED_THT:*
+$ENDFPLIST
+DRAW
+P 2 0 1 8 -50 -50 -50 50 N
+P 2 0 1 0 -50 0 50 0 N
+P 4 0 1 8 50 -50 50 50 -50 0 50 -50 F
+P 5 0 1 0 -120 -30 -180 -90 -150 -90 -180 -90 -180 -60 N
+P 5 0 1 0 -70 -30 -130 -90 -100 -90 -130 -90 -130 -60 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # power:+3.3V
 #
 DEF power:+3.3V #PWR 0 0 Y Y 1 F P
@@ -407,6 +490,19 @@ F3 "" 0 0 50 H I C CNN
 DRAW
 P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
 X GND 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# power:PWR_FLAG
+#
+DEF power:PWR_FLAG #FLG 0 0 N N 1 F P
+F0 "#FLG" 0 75 50 H I C CNN
+F1 "power:PWR_FLAG" 0 150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 50 -40 75 0 100 40 75 0 50 N
+X pwr 1 0 0 0 U 50 50 0 0 w
 ENDDRAW
 ENDDEF
 #
