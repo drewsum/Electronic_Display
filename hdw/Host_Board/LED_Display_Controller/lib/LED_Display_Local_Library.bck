@@ -5,6 +5,16 @@ D Unpolarized capacitor
 K cap capacitor
 $ENDCMP
 #
+$CMP FT234XD
+D Basic UART USB Bridge
+F http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT234XD.pdf
+$ENDCMP
+#
+$CMP L_Custom
+D Inductor
+K inductor choke coil reactor magnetic
+$ENDCMP
+#
 $CMP PIC32MZ2048EFH100_IPF
 D 32-bit MCUs, 2 MB Flash, 512 KB SRAM, with FPU, Audio and Graphics Interfaces, HS USB, Ethernet, and Advanced Analog
 K PIC32 PIC32MZ PIC 32 bit
