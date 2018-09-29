@@ -14,4 +14,298 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L Connector:USB_B_Mini J?
+U 1 1 5BAEA883
+P 7390 3780
+F 0 "J?" H 7161 3771 50  0000 R CNN
+F 1 "USB_B_Mini" H 7161 3680 50  0000 R CNN
+F 2 "" H 7540 3730 50  0001 C CNN
+F 3 "~" H 7540 3730 50  0001 C CNN
+	1    7390 3780
+	-1   0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:FT234XD U?
+U 1 1 5BAEAC0F
+P 3760 3830
+F 0 "U?" H 4310 3430 60  0000 R CNN
+F 1 "FT234XD" H 3760 3830 60  0000 C CNN
+F 2 "Housings_DFN_QFN:DFN-12-1EP_3x3mm_Pitch0.45mm" H 3760 4230 60  0001 C CNN
+F 3 "http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT234XD.pdf" H 3760 4230 60  0001 C CNN
+F 4 "768-1178-1-ND" H 4410 3530 60  0001 C CNN "Digi-Key PN"
+	1    3760 3830
+	-1   0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:GND_USB #PWR?
+U 1 1 5BAEB69F
+P 3860 4280
+F 0 "#PWR?" H 3860 4030 50  0001 C CNN
+F 1 "GND_USB" H 3980 4130 50  0000 C CNN
+F 2 "" H 3860 4280 50  0001 C CNN
+F 3 "" H 3860 4280 50  0001 C CNN
+	1    3860 4280
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:GND_USB #PWR?
+U 1 1 5BAEB6B5
+P 3660 4280
+F 0 "#PWR?" H 3660 4030 50  0001 C CNN
+F 1 "GND_USB" H 3420 4140 50  0000 C CNN
+F 2 "" H 3660 4280 50  0001 C CNN
+F 3 "" H 3660 4280 50  0001 C CNN
+	1    3660 4280
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:GND_USB #PWR?
+U 1 1 5BAEB774
+P 7390 4180
+F 0 "#PWR?" H 7390 3930 50  0001 C CNN
+F 1 "GND_USB" H 7390 4030 50  0000 C CNN
+F 2 "" H 7390 4180 50  0001 C CNN
+F 3 "" H 7390 4180 50  0001 C CNN
+	1    7390 4180
+	1    0    0    -1  
+$EndComp
+NoConn ~ 7490 4180
+$Comp
+L LED_Display_Local_Library:+5V_USB #PWR?
+U 1 1 5BAEE5F8
+P 3660 3380
+F 0 "#PWR?" H 3660 3230 50  0001 C CNN
+F 1 "+5V_USB" H 3580 3520 50  0000 C CNN
+F 2 "" H 3660 3380 50  0001 C CNN
+F 3 "" H 3660 3380 50  0001 C CNN
+	1    3660 3380
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:+5V_USB #PWR?
+U 1 1 5BAEE620
+P 3860 3380
+F 0 "#PWR?" H 3860 3230 50  0001 C CNN
+F 1 "+5V_USB" H 3960 3520 50  0000 C CNN
+F 2 "" H 3860 3380 50  0001 C CNN
+F 3 "" H 3860 3380 50  0001 C CNN
+	1    3860 3380
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BAEE754
+P 2910 5330
+F 0 "C?" H 2935 5430 50  0000 L CNN
+F 1 "0.1uF" H 2935 5230 50  0000 L CNN
+F 2 "" H 2948 5180 50  0001 C CNN
+F 3 "" H 2935 5430 50  0001 C CNN
+F 4 "0603" H 2760 5430 50  0000 R CNN "display_footprint"
+F 5 "50V" H 2760 5330 50  0000 R CNN "Voltage"
+F 6 "X7R" H 2760 5230 50  0000 R CNN "Dielectric"
+F 7 "PN" H 3335 5830 60  0001 C CNN "Digi-Key PN"
+	1    2910 5330
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BAEE8C5
+P 3640 5330
+F 0 "C?" H 3665 5430 50  0000 L CNN
+F 1 "0.1uF" H 3665 5230 50  0000 L CNN
+F 2 "" H 3678 5180 50  0001 C CNN
+F 3 "" H 3665 5430 50  0001 C CNN
+F 4 "0603" H 3490 5430 50  0000 R CNN "display_footprint"
+F 5 "50V" H 3490 5330 50  0000 R CNN "Voltage"
+F 6 "X7R" H 3490 5230 50  0000 R CNN "Dielectric"
+F 7 "PN" H 4065 5830 60  0001 C CNN "Digi-Key PN"
+	1    3640 5330
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BAF11F6
+P 4330 5330
+F 0 "C?" H 4355 5430 50  0000 L CNN
+F 1 "4.7uF" H 4355 5230 50  0000 L CNN
+F 2 "" H 4368 5180 50  0001 C CNN
+F 3 "" H 4355 5430 50  0001 C CNN
+F 4 "0805" H 4180 5430 50  0000 R CNN "display_footprint"
+F 5 "10V" H 4180 5330 50  0000 R CNN "Voltage"
+F 6 "X7R" H 4180 5230 50  0000 R CNN "Dielectric"
+F 7 "PN" H 4755 5830 60  0001 C CNN "Digi-Key PN"
+	1    4330 5330
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:GND_USB #PWR?
+U 1 1 5BAF15F7
+P 2910 5480
+F 0 "#PWR?" H 2910 5230 50  0001 C CNN
+F 1 "GND_USB" H 2910 5330 50  0000 C CNN
+F 2 "" H 2910 5480 50  0001 C CNN
+F 3 "" H 2910 5480 50  0001 C CNN
+	1    2910 5480
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:GND_USB #PWR?
+U 1 1 5BAF168D
+P 3640 5480
+F 0 "#PWR?" H 3640 5230 50  0001 C CNN
+F 1 "GND_USB" H 3640 5330 50  0000 C CNN
+F 2 "" H 3640 5480 50  0001 C CNN
+F 3 "" H 3640 5480 50  0001 C CNN
+	1    3640 5480
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:GND_USB #PWR?
+U 1 1 5BAF16A2
+P 4330 5480
+F 0 "#PWR?" H 4330 5230 50  0001 C CNN
+F 1 "GND_USB" H 4330 5330 50  0000 C CNN
+F 2 "" H 4330 5480 50  0001 C CNN
+F 3 "" H 4330 5480 50  0001 C CNN
+	1    4330 5480
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:+5V_USB #PWR?
+U 1 1 5BAF170B
+P 2910 5180
+F 0 "#PWR?" H 2910 5030 50  0001 C CNN
+F 1 "+5V_USB" H 2910 5320 50  0000 C CNN
+F 2 "" H 2910 5180 50  0001 C CNN
+F 3 "" H 2910 5180 50  0001 C CNN
+	1    2910 5180
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:+5V_USB #PWR?
+U 1 1 5BAF1727
+P 3640 5180
+F 0 "#PWR?" H 3640 5030 50  0001 C CNN
+F 1 "+5V_USB" H 3640 5320 50  0000 C CNN
+F 2 "" H 3640 5180 50  0001 C CNN
+F 3 "" H 3640 5180 50  0001 C CNN
+	1    3640 5180
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:+5V_USB #PWR?
+U 1 1 5BAF173C
+P 4330 5180
+F 0 "#PWR?" H 4330 5030 50  0001 C CNN
+F 1 "+5V_USB" H 4330 5320 50  0000 C CNN
+F 2 "" H 4330 5180 50  0001 C CNN
+F 3 "" H 4330 5180 50  0001 C CNN
+	1    4330 5180
+	1    0    0    -1  
+$EndComp
+Text GLabel 3110 3580 0    50   Output ~ 0
+USB_UART_RX_ISO
+Text GLabel 3110 3680 0    50   Input ~ 0
+USB_UART_TX_ISO
+NoConn ~ 3110 3780
+NoConn ~ 3110 3880
+NoConn ~ 7090 3980
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BAF24FB
+P 1950 4320
+F 0 "C?" H 1975 4420 50  0000 L CNN
+F 1 "0.1uF" H 1975 4220 50  0000 L CNN
+F 2 "" H 1988 4170 50  0001 C CNN
+F 3 "" H 1975 4420 50  0001 C CNN
+F 4 "0603" H 1800 4420 50  0000 R CNN "display_footprint"
+F 5 "50V" H 1800 4320 50  0000 R CNN "Voltage"
+F 6 "X7R" H 1800 4220 50  0000 R CNN "Dielectric"
+F 7 "PN" H 2375 4820 60  0001 C CNN "Digi-Key PN"
+	1    1950 4320
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BAF2627
+P 1950 3890
+F 0 "R?" V 1850 3890 50  0000 C CNN
+F 1 "10k" V 1950 3890 50  0000 C CNN
+F 2 "" H 1950 3890 50  0001 C CNN
+F 3 "" H 1950 3890 50  0001 C CNN
+F 4 "0603" H 2050 3980 50  0000 L CNN "display_footprint"
+F 5 "1%" H 2050 3890 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 2060 3810 50  0000 L CNN "Wattage"
+F 7 "PN" H 2250 4290 60  0001 C CNN "Digi-Key PN"
+	1    1950 3890
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:GND_USB #PWR?
+U 1 1 5BAF2C9F
+P 1950 4470
+F 0 "#PWR?" H 1950 4220 50  0001 C CNN
+F 1 "GND_USB" H 1950 4320 50  0000 C CNN
+F 2 "" H 1950 4470 50  0001 C CNN
+F 3 "" H 1950 4470 50  0001 C CNN
+	1    1950 4470
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:+5V_USB #PWR?
+U 1 1 5BAF2EC2
+P 1950 3740
+F 0 "#PWR?" H 1950 3590 50  0001 C CNN
+F 1 "+5V_USB" H 1950 3880 50  0000 C CNN
+F 2 "" H 1950 3740 50  0001 C CNN
+F 3 "" H 1950 3740 50  0001 C CNN
+	1    1950 3740
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3110 4080 1950 4080
+Wire Wire Line
+	1950 4080 1950 4040
+Wire Wire Line
+	1950 4170 1950 4080
+Connection ~ 1950 4080
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BAF57DA
+P 5780 3780
+F 0 "R?" V 5680 3600 50  0000 C CNN
+F 1 "27k" V 5780 3780 50  0000 C CNN
+F 2 "" H 5780 3780 50  0001 C CNN
+F 3 "" H 5780 3780 50  0001 C CNN
+F 4 "0603" V 5510 3690 50  0000 L CNN "display_footprint"
+F 5 "1%" V 5600 3740 50  0000 L CNN "Tolerance"
+F 6 "1/10W" V 5680 3670 50  0000 L CNN "Wattage"
+F 7 "PN" H 6080 4180 60  0001 C CNN "Digi-Key PN"
+	1    5780 3780
+	0    1    1    0   
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BAF5B41
+P 5780 3880
+F 0 "R?" V 5870 3700 50  0000 C CNN
+F 1 "27k" V 5780 3880 50  0000 C CNN
+F 2 "" H 5780 3880 50  0001 C CNN
+F 3 "" H 5780 3880 50  0001 C CNN
+F 4 "0603" V 5870 3780 50  0000 L CNN "display_footprint"
+F 5 "1%" V 5960 3830 50  0000 L CNN "Tolerance"
+F 6 "1/10W" V 6060 3750 50  0000 L CNN "Wattage"
+F 7 "PN" H 6080 4280 60  0001 C CNN "Digi-Key PN"
+	1    5780 3880
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4410 3780 5630 3780
+Wire Wire Line
+	4410 3880 5630 3880
+Wire Wire Line
+	5930 3780 7090 3780
+Wire Wire Line
+	5930 3880 7090 3880
 $EndSCHEMATC

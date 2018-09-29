@@ -1,8 +1,28 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP +5V
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
 $CMP C_Custom
 D Unpolarized capacitor
 K cap capacitor
+$ENDCMP
+#
+$CMP FT234XD
+D Basic UART USB Bridge
+F http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT234XD.pdf
+$ENDCMP
+#
+$CMP GND_USB
+D GROUND power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
+$CMP L_Custom
+D Inductor
+K inductor choke coil reactor magnetic
 $ENDCMP
 #
 $CMP PIC32MZ2048EFH100_IPF
@@ -14,6 +34,12 @@ $ENDCMP
 $CMP R_Custom
 D Resistor
 K Resistor
+$ENDCMP
+#
+$CMP TL331
+D Single General-Purpose Comparator, SOT-23-5/SC-70-5
+K single comparator
+F http://www.ti.com/lit/ds/symlink/tl331.pdf
 $ENDCMP
 #
 #End Doc Library
