@@ -26,4 +26,10 @@ D Resistor
 K Resistor
 $ENDCMP
 #
+$CMP TL331
+D Single General-Purpose Comparator, SOT-23-5/SC-70-5
+K single comparator
+F http://www.ti.com/lit/ds/symlink/tl331.pdf
+$ENDCMP
+#
 #End Doc Library
