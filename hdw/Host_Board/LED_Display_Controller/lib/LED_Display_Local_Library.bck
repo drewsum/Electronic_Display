@@ -1,6 +1,6 @@
 EESchema-DOCLIB  Version 2.0
 #
-$CMP +5V
+$CMP +5V_USB
 D power-flag symbol
 K Power Flag Symbol
 $ENDCMP
@@ -40,6 +40,24 @@ $CMP TL331
 D Single General-Purpose Comparator, SOT-23-5/SC-70-5
 K single comparator
 F http://www.ti.com/lit/ds/symlink/tl331.pdf
+$ENDCMP
+#
+$CMP TPD3S014DBVR
+D Current Limit Switch and D+/D– ESD Protection for USB Host Port, 0.5A, SOT-23-6
+K ESD-Protection
+F http://www.ti.com/lit/ds/symlink/tpd3s014.pdf
+$ENDCMP
+#
+$CMP TPD3S044
+D Current Limit Switch and D+/D– ESD Protection for USB Host Port, 1.5A, SOT-23-6
+K ESD-Protection
+F http://www.ti.com/lit/ds/symlink/tpd3s014.pdf
+$ENDCMP
+#
+$CMP Yellow
+D LED generic
+K led diode
+F ~
 $ENDCMP
 #
 #End Doc Library
