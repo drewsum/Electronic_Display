@@ -1,5 +1,10 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP +3.3V
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
 $CMP +5V_USB
 D power-flag symbol
 K Power Flag Symbol
