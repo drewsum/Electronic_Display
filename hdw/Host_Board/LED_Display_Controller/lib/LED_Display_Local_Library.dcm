@@ -21,6 +21,11 @@ K PIC32 PIC32MZ PIC 32 bit
 F http://ww1.microchip.com/downloads/en/DeviceDoc/60001320E.pdf
 $ENDCMP
 #
+$CMP PIC32MZ2048EFH144_IPL
+D PIC32MZ 32 bit Micro, 2048KB Flash, 512k SRAM, TQFP-144
+F http://ww1.microchip.com/downloads/en/DeviceDoc/60001320D.pdf
+$ENDCMP
+#
 $CMP R_Custom
 D Resistor
 K Resistor
