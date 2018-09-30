@@ -9,8 +9,8 @@ text_color_t foreground_color;
 text_color_t background_color;
 
 
-#define USB_UART_TX_BUFFER_SIZE 64
-#define USB_UART_RX_BUFFER_SIZE 64
+#define USB_UART_TX_BUFFER_SIZE 128
+#define USB_UART_RX_BUFFER_SIZE 128
 
 /**
   Section: Global Variables
