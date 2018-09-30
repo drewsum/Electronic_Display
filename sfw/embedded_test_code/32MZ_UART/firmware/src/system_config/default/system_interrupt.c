@@ -114,8 +114,15 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) IntHandlerDrvTmrInstance0(void)
     count++;
     
     // Clear line, reset cursor to beginning of line, saved earlier
-    USB_UART_clearLine();
-    USB_UART_returnCursor();
+    // USB_UART_clearLine();
+    // USB_UART_returnCursor();
+    
+    // Setup terminal for printing
+    USB_UART_clearTerminal();
+    USB_UART_setCursorHome();
+
+    // Dump a bunch of stuff to term
+    printTestMessage();
     
     // Print information on count
     USB_UART_Print("Timer 1 Interrupt has occurred ");

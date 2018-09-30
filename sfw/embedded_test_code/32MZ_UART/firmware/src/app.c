@@ -240,7 +240,7 @@ void APP_Tasks ( void )
             printTestMessage();
                         
             // Save cursor position where it's at, will be used in timer 1 ISR
-            USB_UART_saveCursor();
+            // USB_UART_saveCursor();
             
             // Setup RE4 as output pin
             TRISECLR = 0x10;
