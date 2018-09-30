@@ -27,18 +27,12 @@ F 3 "http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7
 $EndComp
 Text GLabel 2850 3370 0    50   Output ~ 0
 USB_UART_RX
-Text GLabel 2850 3470 0    50   Input ~ 0
+Text GLabel 2850 3570 0    50   Input ~ 0
 USB_UART_TX
 Text GLabel 8310 3370 2    50   Input ~ 0
 USB_UART_RX_ISO
-Text GLabel 8330 3470 2    50   Output ~ 0
+Text GLabel 8330 3570 2    50   Output ~ 0
 USB_UART_TX_ISO
-Wire Wire Line
-	5120 3470 4730 3470
-Wire Wire Line
-	5920 3370 6900 3370
-Wire Wire Line
-	5920 3470 6270 3470
 $Comp
 L LED_Display_Local_Library:+5V_USB #PWR?
 U 1 1 5BB15594
@@ -111,9 +105,9 @@ Wire Wire Line
 	5920 2970 6500 2970
 Wire Wire Line
 	6500 2970 6500 3120
-NoConn ~ 5920 3570
+NoConn ~ 5920 3470
 NoConn ~ 5920 3670
-NoConn ~ 5120 3570
+NoConn ~ 5120 3470
 NoConn ~ 5120 3670
 $Comp
 L LED_Display_Local_Library:R_Custom R?
@@ -184,15 +178,9 @@ F 7 "PN" H 7200 4270 60  0001 C CNN "Digi-Key PN"
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	6270 3720 6270 3470
-Connection ~ 6270 3470
-Wire Wire Line
-	6270 3470 8330 3470
+	6270 3720 6270 3570
 Wire Wire Line
 	6900 3720 6900 3370
-Connection ~ 6900 3370
-Wire Wire Line
-	6900 3370 8310 3370
 Wire Wire Line
 	4130 3700 4130 3370
 Wire Wire Line
@@ -200,11 +188,6 @@ Wire Wire Line
 Connection ~ 4130 3370
 Wire Wire Line
 	4130 3370 5120 3370
-Wire Wire Line
-	4730 3700 4730 3470
-Connection ~ 4730 3470
-Wire Wire Line
-	4730 3470 2850 3470
 $Comp
 L power:GND #PWR?
 U 1 1 5BB186B0
@@ -370,4 +353,21 @@ Wire Wire Line
 	5640 4900 5970 4900
 Wire Wire Line
 	5970 4900 5970 4970
+Wire Wire Line
+	6270 3570 8330 3570
+Connection ~ 6900 3370
+Wire Wire Line
+	6900 3370 8310 3370
+Wire Wire Line
+	5920 3370 6900 3370
+Wire Wire Line
+	5920 3570 6270 3570
+Connection ~ 6270 3570
+Wire Wire Line
+	2850 3570 4730 3570
+Wire Wire Line
+	4730 3700 4730 3570
+Connection ~ 4730 3570
+Wire Wire Line
+	4730 3570 5120 3570
 $EndSCHEMATC
