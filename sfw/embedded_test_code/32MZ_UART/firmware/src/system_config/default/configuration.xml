@@ -158,7 +158,7 @@
       <Template dnOrder="4">
         <Name dnOrder="0">drv_usart_mapping.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/usart/src</Path>
-        <Checksum dnOrder="2">689C2F724D2D39EBEBDA50B7FE8DB06B</Checksum>
+        <Checksum dnOrder="2">84D12D754B67B6F268A7243A5A473239</Checksum>
       </Template>
       <Template dnOrder="5">
         <Name dnOrder="0">sys_devcon_local.h</Name>
@@ -171,47 +171,48 @@
         <Checksum dnOrder="2">07580DCDEF89D9C79B062544109C5367</Checksum>
       </Template>
       <Template dnOrder="7">
+        <Name dnOrder="0">drv_usart_static_byte_model.c</Name>
+        <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/usart/src</Path>
+        <Checksum dnOrder="2">B984EFF6A7FF6AD828EE634E1351AE46</Checksum>
+      </Template>
+      <Template dnOrder="8">
         <Name dnOrder="0">system_interrupt.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default</Path>
         <Checksum dnOrder="2">DB64DE761507E7478A6BA1C30AD185E4</Checksum>
-      </Template>
-      <Template dnOrder="8">
-        <Name dnOrder="0">drv_usart_static.c</Name>
-        <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/usart/src</Path>
-        <Checksum dnOrder="2">5FF7EEA18D90F47643FE282600B5041E</Checksum>
+        <ProjectFileChecksum dnOrder="3">CB9C47D77AA1E8AE4C3C73C63C5D2EEC</ProjectFileChecksum>
       </Template>
       <Template dnOrder="9">
+        <Name dnOrder="0">drv_usart_static.c</Name>
+        <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/usart/src</Path>
+        <Checksum dnOrder="2">F8817CD7E98925F3F0A7711916B36463</Checksum>
+      </Template>
+      <Template dnOrder="10">
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default</Path>
         <Checksum dnOrder="2">92217E03A2A85870991FF029C0E880A4</Checksum>
       </Template>
-      <Template dnOrder="10">
+      <Template dnOrder="11">
         <Name dnOrder="0">main.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app</Path>
       </Template>
-      <Template dnOrder="11">
+      <Template dnOrder="12">
         <Name dnOrder="0">system_definitions.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default</Path>
         <Checksum dnOrder="2">160202DD4C65ECB425A7511C7A7C392E</Checksum>
       </Template>
-      <Template dnOrder="12">
+      <Template dnOrder="13">
         <Name dnOrder="0">system_exceptions.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default</Path>
         <Checksum dnOrder="2">9836A04F3E98D3971DB91DF539160F34</Checksum>
       </Template>
-      <Template dnOrder="13">
+      <Template dnOrder="14">
         <Name dnOrder="0">sys_devcon.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">54ADBD4A35BCA03C42C74182FCE41849</Checksum>
       </Template>
-      <Template dnOrder="14">
+      <Template dnOrder="15">
         <Name dnOrder="0">app.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app</Path>
-      </Template>
-      <Template dnOrder="15">
-        <Name dnOrder="0">drv_usart_static_read_write.c</Name>
-        <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/usart/src</Path>
-        <Checksum dnOrder="2">26AB1E08AE52232F790E8E4CE17BE4F7</Checksum>
       </Template>
       <Template dnOrder="16">
         <Name dnOrder="0">sys_devcon_cache_pic32mz.S</Name>
@@ -221,7 +222,7 @@
       <Template dnOrder="17">
         <Name dnOrder="0">drv_usart_static.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default/framework/driver/usart</Path>
-        <Checksum dnOrder="2">4F903E1EDE0EF77152FE7B6FFF630CC5</Checksum>
+        <Checksum dnOrder="2">5CECAF42B01CE886D52A8868E39E7772</Checksum>
       </Template>
       <Template dnOrder="18">
         <Name dnOrder="0">sys_devcon_pic32mz.c</Name>
@@ -236,7 +237,7 @@
       <Template dnOrder="20">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">882A7ADFF24212E460BA9CBB6B469FBA</Checksum>
+        <Checksum dnOrder="2">D21A29CAE6884B976B4426A773FE09C4</Checksum>
       </Template>
       <Template dnOrder="21">
         <Name dnOrder="0">app.h</Name>
@@ -255,7 +256,7 @@
       <Template dnOrder="24">
         <Name dnOrder="0">drv_usart_static_local.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default/framework/driver/usart/src</Path>
-        <Checksum dnOrder="2">C50138FDA1710057BBE25AF99897FC5C</Checksum>
+        <Checksum dnOrder="2">9563F23392942CF4B5C01E1065907D06</Checksum>
       </Template>
     </Templates>
     <CompilerItems dnOrder="2">

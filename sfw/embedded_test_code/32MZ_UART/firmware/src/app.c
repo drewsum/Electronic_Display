@@ -203,7 +203,7 @@ void APP_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
-
+    
     
     /* TODO: Initialize your application's state machine and other
      * parameters.
@@ -229,18 +229,25 @@ void APP_Tasks ( void )
         case APP_STATE_INIT:
         {
             
+            // Setup custom UART driver
+            USB_UART_Initialize();
+            
             // Setup terminal for printing
             USB_UART_clearTerminal();
             USB_UART_setCursorHome();
             
             // Dump a bunch of stuff to term
             printTestMessage();
-            
+                        
             // Save cursor position where it's at, will be used in timer 1 ISR
             USB_UART_saveCursor();
             
             // Setup RE4 as output pin
             TRISECLR = 0x10;
+            
+            
+            // PLIB_INT_SourceEnable(INT_ID_0,INT_SOURCE_USART_1_TRANSMIT);
+            // PLIB_INT_SourceEnable(INT_ID_0,INT_SOURCE_USART_1_RECEIVE);
             
             // Setup timer 1 interrupt for counting
             PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_1);

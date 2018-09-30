@@ -93,12 +93,16 @@ DRV_USART_ERROR DRV_USART0_ErrorGet(void);
 
 // *********************************************************************************************
 // *********************************************************************************************
-// Section: Read Write Model Client Interface Headers for the Instance 0 of USART static driver
+// Section: Byte Model Client Interface Headers for the Instance 0 of USART static driver
 // *********************************************************************************************
 // *********************************************************************************************
 
-size_t DRV_USART0_Read( void * buffer,const size_t numbytes);
-size_t DRV_USART0_Write( void * buffer, const size_t numbytes);
+uint8_t DRV_USART0_ReadByte( void);
+void DRV_USART0_WriteByte( const uint8_t byte);
+unsigned int DRV_USART0_ReceiverBufferSizeGet(void);
+unsigned int DRV_USART0_TransmitBufferSizeGet(void);
+bool DRV_USART0_ReceiverBufferIsEmpty( void );
+bool DRV_USART0_TransmitBufferIsFull(void);
 
 // *********************************************************************************************
 // *********************************************************************************************

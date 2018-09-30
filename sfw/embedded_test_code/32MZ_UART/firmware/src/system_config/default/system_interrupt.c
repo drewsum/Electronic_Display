@@ -75,11 +75,15 @@ extern volatile int count;
  
 void __ISR(_UART1_TX_VECTOR, ipl2AUTO) _IntHandlerDrvUsartTransmitInstance0(void)
 {
-    DRV_USART_TasksTransmit(sysObj.drvUsart0);
+    //DRV_USART_TasksTransmit(sysObj.drvUsart0);
+    USB_UART_Transmit_Handler();
+    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_USART_1_TRANSMIT);
 }
 void __ISR(_UART1_RX_VECTOR, ipl2AUTO) _IntHandlerDrvUsartReceiveInstance0(void)
 {
-    DRV_USART_TasksReceive(sysObj.drvUsart0);
+    //DRV_USART_TasksReceive(sysObj.drvUsart0);
+    USB_UART_Receive_Handler();
+    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_USART_1_RECEIVE);
 }
 void __ISR(_UART1_FAULT_VECTOR, ipl2AUTO) _IntHandlerDrvUsartErrorInstance0(void)
 {

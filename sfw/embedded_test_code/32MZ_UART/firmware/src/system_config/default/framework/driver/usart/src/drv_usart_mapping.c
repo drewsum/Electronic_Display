@@ -271,11 +271,12 @@ DRV_USART_ERROR DRV_USART_ErrorGet(const DRV_HANDLE handle)
 }
 
 
-//File System Model
-size_t DRV_USART_Read(const DRV_HANDLE handle,void * buffer, const size_t numbytes)
+
+//Byte Model
+uint8_t DRV_USART_ReadByte( const DRV_HANDLE handle )
 {
     uintptr_t instance;
-    size_t returnValue;
+    uint8_t returnValue;
 
     instance = handle & 0x00FF;
     //As we are handling single client, only multiple instance is taken care.
@@ -283,22 +284,22 @@ size_t DRV_USART_Read(const DRV_HANDLE handle,void * buffer, const size_t numbyt
     {
         case DRV_USART_INDEX_0:
         {
-            returnValue = DRV_USART0_Read(buffer, numbytes);
+            returnValue = DRV_USART0_ReadByte();
             break;
         }
         default:
         {
-            returnValue = DRV_USART_READ_ERROR;
+            SYS_ASSERT(false, "Incorrect Driver Handle");
+            returnValue = 0;
             break;
         }
     }
     return returnValue;
 }
 
-size_t DRV_USART_Write(const DRV_HANDLE handle,void * buffer,const size_t numbytes)
+void DRV_USART_WriteByte( const DRV_HANDLE handle, const uint8_t byte)
 {
     uintptr_t instance;
-    size_t returnValue;
 
     instance = handle & 0x00FF;
     //As we are handling single client, only multiple instance is taken care.
@@ -306,19 +307,107 @@ size_t DRV_USART_Write(const DRV_HANDLE handle,void * buffer,const size_t numbyt
     {
         case DRV_USART_INDEX_0:
         {
-            returnValue = DRV_USART0_Write(buffer, numbytes);
+            DRV_USART0_WriteByte(byte);
             break;
         }
         default:
         {
-            returnValue = DRV_USART_WRITE_ERROR;
+            break;
+        }
+    }
+}
+
+unsigned int DRV_USART_ReceiverBufferSizeGet( const DRV_HANDLE handle )
+{
+    uintptr_t instance;
+    unsigned int returnValue;
+
+    instance = handle & 0x00FF;
+    //As we are handling single client, only multiple instance is taken care.
+    switch(instance)
+    {
+        case DRV_USART_INDEX_0:
+        {
+            returnValue = DRV_USART0_ReceiverBufferSizeGet();
+            break;
+        }
+        default:
+        {
+            returnValue = (unsigned int)NULL;
             break;
         }
     }
     return returnValue;
 }
 
+unsigned int DRV_USART_TransmitBufferSizeGet( const DRV_HANDLE handle )
+{
+    uintptr_t instance;
+    unsigned int returnValue;
 
+    instance = handle & 0x00FF;
+    //As we are handling single client, only multiple instance is taken care.
+    switch(instance)
+    {
+        case DRV_USART_INDEX_0:
+        {
+            returnValue = DRV_USART0_TransmitBufferSizeGet();
+            break;
+        }
+        default:
+        {
+            returnValue = (unsigned int)NULL;
+            break;
+        }
+    }
+    return returnValue;
+}
+
+bool DRV_USART_ReceiverBufferIsEmpty( const DRV_HANDLE handle )
+{
+    uintptr_t instance;
+    bool returnValue;
+
+    instance = handle & 0x00FF;
+    //As we are handling single client, only multiple instance is taken care.
+    switch(instance)
+    {
+        case DRV_USART_INDEX_0:
+        {
+            returnValue = DRV_USART0_ReceiverBufferIsEmpty();
+            break;
+        }
+        default:
+        {
+            returnValue = false;
+            break;
+        }
+    }
+    return returnValue;
+}
+
+bool DRV_USART_TransmitBufferIsFull( const DRV_HANDLE handle )
+{
+    uintptr_t instance;
+    bool returnValue;
+
+    instance = handle & 0x00FF;
+    //As we are handling single client, only multiple instance is taken care.
+    switch(instance)
+    {
+        case DRV_USART_INDEX_0:
+        {
+            returnValue = DRV_USART0_TransmitBufferIsFull();
+            break;
+        }
+        default:
+        {
+            returnValue = false;
+            break;
+        }
+    }
+    return returnValue;
+}
 
 DRV_USART_BAUD_SET_RESULT DRV_USART_BaudSet(const DRV_HANDLE handle, uint32_t baud)
 {

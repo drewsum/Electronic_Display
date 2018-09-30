@@ -105,21 +105,6 @@ bool DRV_USART0_TransmitBufferIsFull(void)
     return(PLIB_USART_TransmitterBufferIsFull(USART_ID_1));
 }
 
-void DRV_USART0_ByteTransmitCallbackSet(const DRV_USART_BYTE_EVENT_HANDLER eventHandler)
-{
-        gDrvUSART0Obj.transmitCallback = eventHandler;
-}
-
-void DRV_USART0_ByteReceiveCallbackSet(const DRV_USART_BYTE_EVENT_HANDLER eventHandler)
-{
-        gDrvUSART0Obj.receiveCallback = eventHandler;
-}
-
-void DRV_USART0_ByteErrorCallbackSet(const DRV_USART_BYTE_EVENT_HANDLER eventHandler)
-{
-        gDrvUSART0Obj.errorCallback = eventHandler;
-}
-
 /*******************************************************************************
  End of File
 */

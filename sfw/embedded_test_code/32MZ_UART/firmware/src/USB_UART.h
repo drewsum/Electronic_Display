@@ -8,7 +8,11 @@
 #include <stdio.h>
 
 // Output character buffer
-char buff[64];
+char output_buff[64];
+
+extern volatile uint8_t usb_uart_TxBufferRemaining;
+extern volatile uint8_t usb_uart_RxCount;
+
 
 // Enumeration holding attributes data for setting text fanciness
 typedef enum {
@@ -37,6 +41,15 @@ typedef enum {
 } text_color_t;
 
 
+void USB_UART_Initialize(void);
+
+uint8_t USB_UART_Read_Byte(void);
+
+void USB_UART_Write_Byte(uint8_t txData);
+
+void USB_UART_Transmit_Handler(void);
+
+void USB_UART_Receive_Handler(void);
 
 // Basic text output function, feed it a string, everything is built off of this
 void USB_UART_Print(char charArray[]);

@@ -76,21 +76,8 @@ SYS_MODULE_OBJ DRV_USART0_Initialize(void)
 {
     uint32_t clockSource;
 
-    DRV_USART_OBJ *dObj = (DRV_USART_OBJ*)NULL;
-    dObj = &gDrvUSART0Obj;
-
     /* Disable the USART module to configure it*/
     PLIB_USART_Disable (USART_ID_1);
-
-    /* Update the USART OBJECT parameters. */
-    dObj->interruptNestingCount = 0;
-    dObj->queueSizeCurrentRead  = 0;
-    dObj->queueSizeCurrentWrite = 0;
-    dObj->queueRead             = NULL;
-    dObj->queueWrite            = NULL;
-    dObj->eventHandler          = NULL;
-    dObj->context               = (uintptr_t)NULL;
-    dObj->error                 = DRV_USART_ERROR_NONE;
 
     /* Initialize the USART based on configuration settings */
     PLIB_USART_InitializeModeGeneral(USART_ID_1,
@@ -126,6 +113,8 @@ SYS_MODULE_OBJ DRV_USART0_Initialize(void)
     /* Enable the error interrupt source */
     SYS_INT_SourceEnable(INT_SOURCE_USART_1_ERROR);
 
+    /* Enable the Receive interrupt source */
+    SYS_INT_SourceEnable(INT_SOURCE_USART_1_RECEIVE);
 
     /* Return the driver instance value*/
     return (SYS_MODULE_OBJ)DRV_USART_INDEX_0;
@@ -164,11 +153,8 @@ void DRV_USART0_TasksTransmit(void)
     /* Reading the transmit interrupt flag */
     if(SYS_INT_SourceStatusGet(INT_SOURCE_USART_1_TRANSMIT))
     {
-        /* The USART driver is configured to generate an
-           interrupt when the FIFO is empty. Additionally
-           the queue is not empty. Which means there is
-           work to be done in this routine. */
-        _DRV_USART0_BufferQueueTxTasks();
+        /* Disable the interrupt, to avoid calling ISR continuously*/
+        SYS_INT_SourceDisable(INT_SOURCE_USART_1_TRANSMIT);
 
         /* Clear up the interrupt flag */
         SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_TRANSMIT);
@@ -184,7 +170,6 @@ void DRV_USART0_TasksReceive(void)
     /* Reading the receive interrupt flag */
     if(SYS_INT_SourceStatusGet(INT_SOURCE_USART_1_RECEIVE))
     {
-        _DRV_USART0_BufferQueueRxTasks();
 
         /* Clear up the interrupt flag */
         SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_RECEIVE);
@@ -202,7 +187,6 @@ void DRV_USART0_TasksError(void)
     if(SYS_INT_SourceStatusGet(INT_SOURCE_USART_1_ERROR))
     {
         /* This means an error has occurred */
-        _DRV_USART0_BufferQueueErrorTasks();
         /* Clear up the error interrupt flag */
         SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_ERROR);
     }
@@ -267,255 +251,6 @@ DRV_USART_ERROR DRV_USART0_ErrorGet(void)
     return(error);
 }
 
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Local functions
-// *****************************************************************************
-// *****************************************************************************
-
-void _DRV_USART0_BufferQueueRxTasks(void)
-{
-    DRV_USART_BUFFER_OBJ * bufferObj;
-    DRV_USART_OBJ *dObj = (DRV_USART_OBJ*)NULL;
-    bool status;
-
-    dObj = &gDrvUSART0Obj;
-
-    /* In this function, the driver checks if there are any buffers in queue. If
-       so the buffer is serviced. A buffer that is serviced completely is
-       removed from the queue. Start by getting the buffer at the head of the
-       queue */
-
-    bufferObj = dObj->queueRead;
-
-    if(bufferObj != NULL)
-    {
-        /* The USART driver is configured to generate an interrupt when the FIFO
-           is not empty. Additionally the queue is not empty. Which means there
-           is work to done in this routine. Read data from the FIFO until either
-           the FIFO is empty or until we have read the requested number of bytes.
-           */
-
-        while((PLIB_USART_ReceiverDataIsAvailable(USART_ID_1))
-                && (bufferObj->nCurrentBytes < bufferObj->size ))
-        {
-            bufferObj->buffer[bufferObj->nCurrentBytes] = PLIB_USART_ReceiverByteReceive(USART_ID_1);
-            bufferObj->nCurrentBytes ++;
-        }
-
-        /* Check if this buffer is done */
-
-        if(bufferObj->nCurrentBytes >= bufferObj->size)
-        {
-            /* This means the buffer is completed. If there
-               is a callback registered with client, then
-               call it */
-
-            if((dObj->eventHandler != NULL) && (bufferObj->flags & DRV_USART_BUFFER_OBJ_FLAG_BUFFER_ADD))
-            {
-                /* Call the event handler. We additionally increment the
-                   interrupt nesting count which lets the driver functions
-                   that are called from the event handler know that an
-                   interrupt context is active.
-                   */
-
-                dObj->interruptNestingCount ++;
-
-                dObj->eventHandler(DRV_USART_BUFFER_EVENT_COMPLETE,
-                        bufferObj->bufferHandle,
-                        dObj->context);
-
-                dObj->interruptNestingCount --;
-            }
-
-            /* Get the next buffer in the queue and deallocate
-               this buffer */
-
-            dObj->queueRead = bufferObj->next;
-            bufferObj->inUse = false;
-            dObj->queueSizeCurrentRead --;
-
-            /* Reset the next and previous pointers */
-            bufferObj->next = NULL;
-            bufferObj->previous = NULL;
-
-            /* Reset the current head's previous pointer */
-            if (dObj->queueRead != NULL)
-            {
-                dObj->queueRead->previous = NULL;
-            }
-
-        }
-    }
-
-    if(dObj->queueRead == NULL)
-    {
-        /* The queue is empty. We can disable the interrupt */
-        status = SYS_INT_SourceDisable(INT_SOURCE_USART_1_RECEIVE);
-        /* Ignore the warning */
-        (void)status;
-    }
-
-}
-
-void _DRV_USART0_BufferQueueTxTasks(void)
-{
-    /* Start by getting the buffer at the head of queue. */
-
-    DRV_USART_BUFFER_OBJ * bufferObj;
-    DRV_USART_OBJ *dObj = (DRV_USART_OBJ*)NULL;
-    bool status;
-
-    dObj = &gDrvUSART0Obj;
-    bufferObj = dObj->queueWrite;
-
-    if(bufferObj != NULL)
-    {
-        /* This means the queue is not empty. Check if this buffer is done */
-        if(bufferObj->nCurrentBytes >= bufferObj->size)
-        {
-            /* This means the buffer is completed. If there
-               is a callback registered with client, then
-               call it */
-
-            if((dObj->eventHandler != NULL) && (bufferObj->flags & DRV_USART_BUFFER_OBJ_FLAG_BUFFER_ADD))
-            {
-                /* Before calling the event handler, the interrupt nesting
-                   counter is incremented. This will allow driver routine that
-                   are called from the event handler to know the interrupt
-                   nesting level. Events are only generated for buffers that
-                   were submitted using the buffer add routine */
-
-                dObj->interruptNestingCount ++;
-
-                dObj->eventHandler(DRV_USART_BUFFER_EVENT_COMPLETE,
-                        bufferObj->bufferHandle,
-                        dObj->context);
-
-                /* Decrement the nesting count */
-                dObj->interruptNestingCount -- ;
-            }
-
-            /* Get the next buffer in the queue and deallocate
-             * this buffer */
-
-            dObj->queueWrite = bufferObj->next;
-            bufferObj->inUse = false;
-            dObj->queueSizeCurrentWrite --;
-
-            /* Reset the next and previous pointers */
-            bufferObj->next = NULL;
-            bufferObj->previous = NULL;
-
-            /* Reset the current head's previous pointer */
-            if (dObj->queueWrite != NULL)
-            {
-                dObj->queueWrite->previous = NULL;
-            }
-
-        }
-    }
-
-    /* Check if the queue is still not empty and process
-       the buffer */
-
-    if(dObj->queueWrite != NULL)
-    {
-        bufferObj = dObj->queueWrite;
-
-        /* Fill up the FIFO with data until the FIFO is full
-           and we have data to send */
-        while((!PLIB_USART_TransmitterBufferIsFull(USART_ID_1))
-                && (bufferObj->nCurrentBytes < bufferObj->size ))
-        {
-            PLIB_USART_TransmitterByteSend(USART_ID_1, bufferObj->buffer[bufferObj->nCurrentBytes]);
-            bufferObj->nCurrentBytes ++;
-        }
-    }
-    else
-    {
-        /* If the queue is empty, then disable the TX interrupt */
-        status = SYS_INT_SourceDisable(INT_SOURCE_USART_1_TRANSMIT);
-        /* Ignore the warning */
-        (void)status;
-    }
-
-}
-
-void _DRV_USART0_BufferQueueErrorTasks(void)
-{
-    DRV_USART_OBJ *dObj = (DRV_USART_OBJ*)NULL;
-    DRV_USART_BUFFER_OBJ * bufferObj;
-    bool mutexGrabbed  = true;
-    bool status = false;
-
-    dObj = &gDrvUSART0Obj;
-
-    /* USART driver will take care that TX erros( like overflow etc) are not
-     * going to occur at any time based on checks before write.
-     * So, only RX errors are to be handled/reported */
-
-    /* Get the RX buffer at the head */
-    bufferObj = dObj->queueRead;
-
-    /* mutexGrabbed will always be true for non-RTOS case.
-     * Will be false when mutex aquisition timed out in RTOS mode */
-    if(true == mutexGrabbed)
-    {
-        if(bufferObj != NULL)
-        {
-            /* Get the USART errors */
-            dObj->error = PLIB_USART_ErrorsGet(USART_ID_1);
-
-	        /* Clear error condition */
-            _DRV_USART0_ErrorConditionClear();
-
-            /* Call event handler in Buffer queue request only.
-             * If it's a File i/o request then DRV_USART_Read call itself
-             * will return with error result */
-            if((dObj->eventHandler != NULL) && (bufferObj->flags & DRV_USART_BUFFER_OBJ_FLAG_BUFFER_ADD))
-            {
-                /* Call the event handler with buffer event error state */
-                dObj->eventHandler(DRV_USART_BUFFER_EVENT_ERROR,
-                        bufferObj->bufferHandle,
-                        dObj->context);
-            }
-
-            /* Get the next buffer in the queue and deallocate
-             * this buffer */
-
-            dObj->queueRead = bufferObj->next;
-            bufferObj->inUse = false;
-            dObj->queueSizeCurrentRead --;
-
-            /* Reset the next and previous pointers */
-            bufferObj->next = NULL;
-            bufferObj->previous = NULL;
-
-            /* If queue head is not null, update buffer pointer parameters*/
-            if (dObj->queueRead != NULL)
-            {
-                /* Reset the updated head's previous pointer */
-                dObj->queueRead->previous = NULL;
-            }
-            else
-            {
-                /* Queue is empty disable the RX interrupt */
-                status = SYS_INT_SourceDisable(INT_SOURCE_USART_1_RECEIVE);
-
-                /* Ignore the warning */
-                (void)status;
-            }
-        }
-        else
-        {
-            /* There is no buffer in the queue.
-             * Flush the RX to clear the error condition */
-            _DRV_USART0_ErrorConditionClear();
-        }
-    }
-}
 
 void _DRV_USART0_ErrorConditionClear()
 {
