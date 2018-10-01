@@ -53,8 +53,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
-int count = 0;
-
 #include "app.h"
 
 #include <xc.h>
@@ -84,6 +82,13 @@ int count = 0;
 
 APP_DATA appData;
 
+extern volatile uint8_t usb_uart_RxStringReady;
+
+extern volatile uint8_t Timer1_Print_Flag;
+
+
+int count = 0;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -92,6 +97,7 @@ APP_DATA appData;
 
 /* TODO:  Add any necessary callback functions.
 */
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -245,6 +251,8 @@ void APP_Tasks ( void )
             // Setup RE4 as output pin
             TRISECLR = 0x10;
             
+            // Set RE3 as output pin as well
+            TRISECLR = (1 << 3);
             
             // PLIB_INT_SourceEnable(INT_ID_0,INT_SOURCE_USART_1_TRANSMIT);
             // PLIB_INT_SourceEnable(INT_ID_0,INT_SOURCE_USART_1_RECEIVE);
@@ -268,7 +276,13 @@ void APP_Tasks ( void )
 
         case APP_STATE_SERVICE_TASKS:
         {
-        
+            
+            if(usb_uart_RxStringReady) {
+             
+                ringBufferPull();
+                
+            }
+            
             break;
         }
 

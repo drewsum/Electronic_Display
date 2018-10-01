@@ -73,7 +73,7 @@ extern volatile int count;
 // *****************************************************************************
 // *****************************************************************************
  
-void __ISR(_UART1_TX_VECTOR, ipl2AUTO) _IntHandlerDrvUsartTransmitInstance0(void)
+void __ISR(_UART1_TX_VECTOR, ipl3AUTO) _IntHandlerDrvUsartTransmitInstance0(void)
 {
     //DRV_USART_TasksTransmit(sysObj.drvUsart0);
     USB_UART_Transmit_Handler();
@@ -85,10 +85,11 @@ void __ISR(_UART1_RX_VECTOR, ipl2AUTO) _IntHandlerDrvUsartReceiveInstance0(void)
     USB_UART_Receive_Handler();
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_USART_1_RECEIVE);
 }
-void __ISR(_UART1_FAULT_VECTOR, ipl2AUTO) _IntHandlerDrvUsartErrorInstance0(void)
-{
-    DRV_USART_TasksError(sysObj.drvUsart0);
-}
+//void __ISR(_UART1_FAULT_VECTOR, ipl2AUTO) _IntHandlerDrvUsartErrorInstance0(void)
+//{
+//    //DRV_USART_TasksError(sysObj.drvUsart0);
+//    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_USART_1_ERROR);
+//}
  
  
 
@@ -112,23 +113,6 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) IntHandlerDrvTmrInstance0(void)
     
     // Increment count
     count++;
-    
-    // Clear line, reset cursor to beginning of line, saved earlier
-    // USB_UART_clearLine();
-    // USB_UART_returnCursor();
-    
-    // Setup terminal for printing
-    USB_UART_clearTerminal();
-    USB_UART_setCursorHome();
-
-    // Dump a bunch of stuff to term
-    printTestMessage();
-    
-    // Print information on count
-    USB_UART_Print("Timer 1 Interrupt has occurred ");
-    char buff[10];
-    USB_UART_Print(itoa(buff, count, 10));
-    USB_UART_Print(" times since device reset");
     
     // Clear IRQ
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_1);
