@@ -17,12 +17,12 @@ $EndDescr
 $Comp
 L Connector:USB_B_Mini J?
 U 1 1 5BAEA883
-P 7710 3780
-F 0 "J?" H 7481 3771 50  0000 R CNN
-F 1 "USB_B_Mini" H 7481 3680 50  0000 R CNN
-F 2 "" H 7860 3730 50  0001 C CNN
-F 3 "~" H 7860 3730 50  0001 C CNN
-	1    7710 3780
+P 7930 3780
+F 0 "J?" H 7701 3771 50  0000 R CNN
+F 1 "USB_B_Mini" H 7701 3680 50  0000 R CNN
+F 2 "" H 8080 3730 50  0001 C CNN
+F 3 "~" H 8080 3730 50  0001 C CNN
+	1    7930 3780
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -62,15 +62,15 @@ $EndComp
 $Comp
 L LED_Display_Local_Library:GND_USB #PWR?
 U 1 1 5BAEB774
-P 7710 4180
-F 0 "#PWR?" H 7710 3930 50  0001 C CNN
-F 1 "GND_USB" H 7710 4030 50  0000 C CNN
-F 2 "" H 7710 4180 50  0001 C CNN
-F 3 "" H 7710 4180 50  0001 C CNN
-	1    7710 4180
+P 7930 4180
+F 0 "#PWR?" H 7930 3930 50  0001 C CNN
+F 1 "GND_USB" H 7930 4030 50  0000 C CNN
+F 2 "" H 7930 4180 50  0001 C CNN
+F 3 "" H 7930 4180 50  0001 C CNN
+	1    7930 4180
 	1    0    0    -1  
 $EndComp
-NoConn ~ 7810 4180
+NoConn ~ 8030 4180
 $Comp
 L LED_Display_Local_Library:+5V_USB #PWR?
 U 1 1 5BAEE5F8
@@ -102,7 +102,7 @@ F 1 "47pF" H 5155 4330 50  0000 L CNN
 F 2 "" H 5168 4280 50  0001 C CNN
 F 3 "" H 5155 4530 50  0001 C CNN
 F 4 "0603" H 4980 4530 50  0000 R CNN "display_footprint"
-F 5 "25V" H 4980 4430 50  0000 R CNN "Voltage"
+F 5 "50V" H 4980 4430 50  0000 R CNN "Voltage"
 F 6 "X7R" H 4980 4330 50  0000 R CNN "Dielectric"
 F 7 "PN" H 5555 4930 60  0001 C CNN "Digi-Key PN"
 	1    5130 4430
@@ -210,7 +210,7 @@ Text GLabel 2540 3680 0    50   Input ~ 0
 USB_UART_TX_ISO
 NoConn ~ 2540 3780
 NoConn ~ 2540 3880
-NoConn ~ 7410 3980
+NoConn ~ 7630 3980
 $Comp
 L LED_Display_Local_Library:C_Custom C?
 U 1 1 5BAF24FB
@@ -310,7 +310,7 @@ F 1 "47pF" H 5735 4330 50  0000 L CNN
 F 2 "" H 5748 4280 50  0001 C CNN
 F 3 "" H 5735 4530 50  0001 C CNN
 F 4 "0603" H 5560 4530 50  0000 R CNN "display_footprint"
-F 5 "25V" H 5560 4430 50  0000 R CNN "Voltage"
+F 5 "50V" H 5560 4430 50  0000 R CNN "Voltage"
 F 6 "X7R" H 5560 4330 50  0000 R CNN "Dielectric"
 F 7 "PN" H 6135 4930 60  0001 C CNN "Digi-Key PN"
 	1    5710 4430
@@ -372,7 +372,7 @@ F 1 "0.1uF" H 4575 4330 50  0000 L CNN
 F 2 "" H 4588 4280 50  0001 C CNN
 F 3 "" H 4575 4530 50  0001 C CNN
 F 4 "0603" H 4400 4530 50  0000 R CNN "display_footprint"
-F 5 "25V" H 4400 4430 50  0000 R CNN "Voltage"
+F 5 "50V" H 4400 4430 50  0000 R CNN "Voltage"
 F 6 "X7R" H 4400 4330 50  0000 R CNN "Dielectric"
 F 7 "PN" H 4975 4930 60  0001 C CNN "Digi-Key PN"
 	1    4550 4430
@@ -425,9 +425,8 @@ F 4 "296-38835-1-ND" H 6350 2560 50  0001 C CNN "Digi-Key PN"
 $EndComp
 Wire Wire Line
 	6700 3010 6700 3780
-Connection ~ 6700 3780
 Wire Wire Line
-	6800 3010 6800 3880
+	6800 3010 6800 3780
 $Comp
 L LED_Display_Local_Library:C_Custom C?
 U 1 1 5BB03D51
@@ -493,9 +492,9 @@ Wire Wire Line
 Connection ~ 1570 4080
 Wire Wire Line
 	1570 4080 1570 4170
-Text GLabel 3840 4080 2    50   Input ~ 0
+Text GLabel 3840 4080 2    50   UnSpc ~ 0
 ~USB_ACTIVE
-Text GLabel 6310 5850 3    50   Output ~ 0
+Text GLabel 6310 5850 3    50   UnSpc ~ 0
 ~USB_ACTIVE
 $Comp
 L LED_Display_Local_Library:R_Custom R?
@@ -529,25 +528,18 @@ Wire Wire Line
 $Comp
 L Device:Ferrite_Bead L?
 U 1 1 5BB0BDEE
-P 7090 3150
-F 0 "L?" V 6940 3175 50  0000 C CNN
-F 1 "600R 0.5A" V 7240 3150 50  0000 C CNN
-F 2 "" V 7020 3150 50  0001 C CNN
-F 3 "~" H 7090 3150 50  0001 C CNN
-	1    7090 3150
+P 7090 3200
+F 0 "L?" V 6940 3225 50  0000 C CNN
+F 1 "600R 0.5A" V 7240 3200 50  0000 C CNN
+F 2 "" V 7020 3200 50  0001 C CNN
+F 3 "~" H 7090 3200 50  0001 C CNN
+	1    7090 3200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7410 3880 6800 3880
-Connection ~ 6800 3880
+	7090 3050 7090 2710
 Wire Wire Line
-	6700 3780 7410 3780
-Wire Wire Line
-	7090 3580 7410 3580
-Wire Wire Line
-	7090 3000 7090 2710
-Wire Wire Line
-	7090 3300 7090 3580
+	7090 3350 7090 3580
 $Comp
 L Connector:TestPoint TP?
 U 1 1 5BB0EA95
@@ -625,4 +617,22 @@ F 3 "" H 6310 5160 50  0001 C CNN
 	1    6310 5160
 	1    0    0    -1  
 $EndComp
+Text Label 3940 3780 0    50   ~ 0
+BRIDGE_USB+
+Text Label 3940 3880 0    50   ~ 0
+BRIDGE_USB-
+Text Label 6950 3780 0    50   ~ 0
+CONN_USB+
+Text Label 6950 3880 0    50   ~ 0
+CONN_USB-
+Wire Wire Line
+	6800 3780 7630 3780
+Connection ~ 6800 3780
+Wire Wire Line
+	6800 3780 6800 3880
+Wire Wire Line
+	6800 3880 7630 3880
+Connection ~ 6800 3880
+Wire Wire Line
+	7090 3580 7630 3580
 $EndSCHEMATC
