@@ -1,5 +1,11 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP CY7C1011DV33
+D Cypress Parallel SRAM, 2Mb (128k x 16b), 44 TSSOP II
+K SRAM Cypress PArallel
+F http://www.cypress.com/file/42816/download
+$ENDCMP
+#
 $CMP C_Custom
 D Unpolarized capacitor
 K cap capacitor
@@ -29,6 +35,12 @@ $ENDCMP
 $CMP R_Custom
 D Resistor
 K Resistor
+$ENDCMP
+#
+$CMP SST25PF020B
+D 2Mb Serial DataFlash, 2.7V Vcc, SOIC-8
+K Microhip DataFlash
+F http://ww1.microchip.com/downloads/en/DeviceDoc/20005135B.pdf
 $ENDCMP
 #
 $CMP TL331
