@@ -1,5 +1,10 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP +12V
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
 $CMP +3.3V
 D power-flag symbol
 K Power Flag Symbol
@@ -8,6 +13,12 @@ $ENDCMP
 $CMP +5V_USB
 D power-flag symbol
 K Power Flag Symbol
+$ENDCMP
+#
+$CMP 74LVC1G86_POWER
+D Single EX-OR Gate, Low-Voltage CMOS
+K Single Gate EX-OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP C_Custom
