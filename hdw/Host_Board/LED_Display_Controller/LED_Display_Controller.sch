@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 14
+Sheet 1 15
 Title ""
 Date ""
 Rev ""
@@ -63,12 +63,6 @@ F0 "USB_UART_Bridge" 50
 F1 "USB_UART_Bridge.sch" 50
 $EndSheet
 $Sheet
-S 8730 3800 500  150 
-U 5BAAE2B6
-F0 "Panel_Data_Level_Shifters" 50
-F1 "Panel_Data_Level_Shifters.sch" 50
-$EndSheet
-$Sheet
 S 8730 4150 500  150 
 U 5BAAE2CE
 F0 "Panel_Data_Connectors" 50
@@ -91,5 +85,17 @@ S 8730 5180 500  150
 U 5BAD6D3A
 F0 "External_Flash" 50
 F1 "External_Flash.sch" 50
+$EndSheet
+$Sheet
+S 5340 2520 500  150 
+U 5BB6CF6D
+F0 "Panel_Data_Level_Shifters_1" 50
+F1 "Panel_Data_Level_Shifters_1.sch" 50
+$EndSheet
+$Sheet
+S 5340 2930 500  150 
+U 5BB6CF70
+F0 "Panel_Data_Level_Shifters_2" 50
+F1 "Panel_Data_Level_Shifters_2.sch" 50
 $EndSheet
 $EndSCHEMATC
