@@ -1,9 +1,12 @@
 EESchema-DOCLIB  Version 2.0
 #
-$CMP AT45DB161-RC
-D 16Mb Serial DataFlash, 2.7V Vcc, SOIC-28
-K Atmel DataFlash
-F http://ww1.microchip.com/downloads/en/devicedoc/doc0807.pdf
+$CMP +12Vin
+K POWER, PWR
+$ENDCMP
+#
+$CMP CP_Tant_Custom
+D Polarised capacitor
+K cap capacitor
 $ENDCMP
 #
 $CMP CY7C1011DV33
@@ -20,6 +23,12 @@ $ENDCMP
 $CMP FT234XD
 D Basic UART USB Bridge
 F http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT234XD.pdf
+$ENDCMP
+#
+$CMP LTC4365DDB
+D Overvoltage, Undervoltage and Reverse Supply Protection Controller, 3x2mm DFN-8 package, 50Hz/60Hz noise rejection
+K overvoltage undervoltage reverse-polarity protection
+F http://cds.linear.com/docs/en/datasheet/4365fa.pdf
 $ENDCMP
 #
 $CMP L_Custom

@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 20
+Sheet 1 24
 Title ""
 Date ""
 Rev ""
@@ -127,5 +127,29 @@ S 7170 3240 500  150
 U 5BB25AF0
 F0 "External Flash 5" 50
 F1 "External_Flash_5.sch" 50
+$EndSheet
+$Sheet
+S 7170 3610 500  150 
+U 5BB53D61
+F0 "External Flash 6" 50
+F1 "External_Flash_6.sch" 50
+$EndSheet
+$Sheet
+S 7170 3950 500  150 
+U 5BB53D64
+F0 "External Flash 7" 50
+F1 "External_Flash_7.sch" 50
+$EndSheet
+$Sheet
+S 7170 4300 500  150 
+U 5BB53D67
+F0 "External Flash 8" 50
+F1 "External_Flash_8.sch" 50
+$EndSheet
+$Sheet
+S 7170 4680 500  150 
+U 5BB844FD
+F0 "Status LEDs 1" 50
+F1 "Status_LEDs_1.sch" 50
 $EndSheet
 $EndSCHEMATC
