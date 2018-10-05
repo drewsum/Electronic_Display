@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 15
+Sheet 1 16
 Title ""
 Date ""
 Rev ""
@@ -97,5 +97,11 @@ S 5340 2930 500  150
 U 5BB6CF70
 F0 "Panel_Data_Level_Shifters_2" 50
 F1 "Panel_Data_Level_Shifters_2.sch" 50
+$EndSheet
+$Sheet
+S 5340 3410 500  150 
+U 5BB856E8
+F0 "Panel_Data_Level_Shifters_3.sch" 50
+F1 "Panel_Data_Level_Shifters_3.sch" 50
 $EndSheet
 $EndSCHEMATC
