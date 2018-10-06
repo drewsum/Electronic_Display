@@ -169,6 +169,7 @@ void USB_UART_textAttributesReset(void);
 // Misc functions
 void USB_UART_printNewline(void);
 void USB_UART_printHelpMessage(void);
+void USB_UART_printTestMessage(void);
 #endif /* _EXAMPLE_FILE_NAME_H */
 
 /* *****************************************************************************
