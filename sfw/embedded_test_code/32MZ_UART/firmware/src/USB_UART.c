@@ -202,7 +202,7 @@ void USB_UART_Receive_Handler(void) {
 void USB_UART_Print(char charArray[]) {
     
     int i;
-    for (i = 0; i < strlen(charArray); i++) {
+    for (i = 0; i <= strlen(charArray); i++) {
      
         USB_UART_Write_Byte(charArray[i]);
         
@@ -289,18 +289,22 @@ void ringBufferLUT(char * line_in) {
     }    
     
     // Print Timer 1 ISR counter
-    else if(strstr(line_in, "Timer 1 ISR Count") != NULL) {
+    else if(strstr(line_in, "Timer 1 ISR Count?") != NULL) {
      
+        USB_UART_textAttributesReset();
+        USB_UART_Print("Timer 1 ISR has executed ");
+        
         char buff[10];
         itoa(buff, count, 10);
         USB_UART_Print(buff);
-        USB_UART_Print("\n\r");
+        USB_UART_Print(" times since device reset\n\r");
         
     }
     
     else if(strstr(line_in, "Print Test Message") != NULL) {
         
         USB_UART_printNewline();
+        USB_UART_textAttributesReset();
         printTestMessage();
         USB_UART_printNewline();
             
@@ -321,6 +325,21 @@ void ringBufferLUT(char * line_in) {
         unsigned int dummy;
         dummy = RSWRST;
 
+    }
+    
+    // Clear the terminal command
+    else if(strstr(line_in, "Clear") != NULL) {
+     
+        USB_UART_clearTerminal();
+        USB_UART_setCursorHome();
+        
+    }
+    
+    // Identification command
+    else if(strstr(line_in, "*IDN?") != NULL) {
+     
+        USB_UART_Print("PIC32MZ2048EFH100 USB UART Test\n\r");
+        
     }
     
     // Stop Timer
@@ -344,8 +363,6 @@ void ringBufferLUT(char * line_in) {
     
     }
     
-    // Clear ring buffer once we're done
-    USB_UART_Initialize();
     
 }
 
@@ -512,9 +529,11 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_Print("    LED On: Sets RE3\n\r");
     USB_UART_Print("    LED Off: Clears RE3\n\r");
     USB_UART_Print("    Reset: Software Reset\n\r");
+    USB_UART_Print("    Clear: Clears the terminal\n\r");
+    USB_UART_Print("    *IDN?: Returns identification string\n\r");
     USB_UART_Print("    Timer 1 Start: Start Timer 1 blinking LED and counting\n\r");
     USB_UART_Print("    Timer 1 Stop: Stop Timer 1\n\r");
-    USB_UART_Print("    Timer 1 ISR Count: Returns the number of ISR executions since reset\n\r");
+    USB_UART_Print("    Timer 1 ISR Count?: Returns the number of Timer 1 ISR executions since reset\n\r");
     USB_UART_Print("    Print Test Message: Print out terminal test data\n\r");
     USB_UART_Print("    Help: This Command\n\r");
     

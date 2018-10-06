@@ -5,9 +5,7 @@
         <group>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/app.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/USB_UART.h</file>
-            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/system_config/default/system_interrupt.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/USB_UART.c</file>
-            <file>file:/C:/Program%20Files%20(x86)/Microchip/xc32/v2.10/pic32mx/include/stdlib.h</file>
         </group>
     </open-files>
 </project-private>
