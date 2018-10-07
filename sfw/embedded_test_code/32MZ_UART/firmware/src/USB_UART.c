@@ -272,7 +272,7 @@ void ringBufferLUT(char * line_in) {
     // ACT ON IT
 
     // If we receive the string 'LED On'
-    if (strstr(line_in, "LED On") != NULL) {
+    if (strcmp(line_in, "LED On") == 0) {
     
         // Set RD0
         LATESET = (1 << 3);
@@ -281,7 +281,7 @@ void ringBufferLUT(char * line_in) {
     
 
     // Else if we've received LED Off
-    else if(strstr(line_in, "LED Off") != NULL) {
+    else if(strcmp(line_in, "LED Off") == 0) {
 
         // Clear RD0
         LATECLR = (1 << 3);
@@ -289,7 +289,7 @@ void ringBufferLUT(char * line_in) {
     }    
     
     // Print Timer 1 ISR counter
-    else if(strstr(line_in, "Timer 1 ISR Count?") != NULL) {
+    else if(strcmp(line_in, "Timer 1 ISR Count?") == 0) {
      
         USB_UART_textAttributesReset();
         USB_UART_Print("Timer 1 ISR has executed ");
@@ -301,7 +301,7 @@ void ringBufferLUT(char * line_in) {
         
     }
     
-    else if(strstr(line_in, "Print Test Message") != NULL) {
+    else if(strcmp(line_in, "Print Test Message") == 0) {
         
         USB_UART_printNewline();
         USB_UART_textAttributesReset();
@@ -311,7 +311,7 @@ void ringBufferLUT(char * line_in) {
     }
 
     // Clear Screen, reset
-    else if(strstr(line_in, "Reset") != NULL) {
+    else if(strcmp(line_in, "Reset") == 0) {
         
         // Reset
         SYS_INT_Disable();
@@ -328,7 +328,7 @@ void ringBufferLUT(char * line_in) {
     }
     
     // Clear the terminal command
-    else if(strstr(line_in, "Clear") != NULL) {
+    else if(strcmp(line_in, "Clear") == 0) {
      
         USB_UART_clearTerminal();
         USB_UART_setCursorHome();
@@ -336,31 +336,44 @@ void ringBufferLUT(char * line_in) {
     }
     
     // Identification command
-    else if(strstr(line_in, "*IDN?") != NULL) {
+    else if(strcmp(line_in, "*IDN?") == 0) {
      
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
         USB_UART_Print("PIC32MZ2048EFH100 USB UART Test\n\r");
+        USB_UART_textAttributesReset();
         
     }
     
     // Stop Timer
-    else if(strstr(line_in, "Timer 1 Stop") != NULL) {
+    else if(strcmp(line_in, "Timer 1 Stop") == 0) {
         
         DRV_TMR0_Stop();
+        LATECLR = 1 << 4;
         
     }
     
     // Start Timer
-    else if(strstr(line_in, "Timer 1 Start") != NULL) {
+    else if(strcmp(line_in, "Timer 1 Start") == 0) {
         
         DRV_TMR0_Start();
         
     }
     
     // Help message
-    else if(strstr(line_in, "Help") != NULL) {
+    else if(strcmp(line_in, "Help") == 0) {
      
         USB_UART_printHelpMessage();
     
+    }
+    
+    
+    
+    else if(strlen(line_in) >= 1) {
+     
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_Print("Unsupported command, try Help for a list of supported commands\n\r");
+        USB_UART_textAttributesReset();
+        
     }
     
     
@@ -524,7 +537,7 @@ void USB_UART_printNewline(void) {
 // Print help message, used in a command above
 void USB_UART_printHelpMessage(void) {
  
-    USB_UART_textAttributesReset();
+    USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
     USB_UART_Print("Supported Commands:\n\r");
     USB_UART_Print("    LED On: Sets RE3\n\r");
     USB_UART_Print("    LED Off: Clears RE3\n\r");
@@ -536,7 +549,8 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_Print("    Timer 1 ISR Count?: Returns the number of Timer 1 ISR executions since reset\n\r");
     USB_UART_Print("    Print Test Message: Print out terminal test data\n\r");
     USB_UART_Print("    Help: This Command\n\r");
-    
+    USB_UART_textAttributesReset();
+
 }
 
 // tests all the function written for this example
