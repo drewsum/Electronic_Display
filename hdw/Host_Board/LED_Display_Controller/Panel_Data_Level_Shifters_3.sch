@@ -838,7 +838,7 @@ F 3 "" H 3510 2560 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 2840 3870 0    50   Input ~ 0
-LVL_SHFT_EN
+~LVL_SHFT_EN
 Wire Wire Line
 	2840 3870 3510 3870
 Connection ~ 3510 3870

@@ -827,7 +827,7 @@ F 3 "" H 3320 1310 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 2650 2620 0    50   Input ~ 0
-LVL_SHFT_EN
+~LVL_SHFT_EN
 Wire Wire Line
 	2650 2620 3320 2620
 Wire Wire Line
@@ -1654,7 +1654,7 @@ F 3 "" H 3320 3840 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 2650 5150 0    50   Input ~ 0
-LVL_SHFT_EN
+~LVL_SHFT_EN
 Wire Wire Line
 	2650 5150 3320 5150
 Wire Wire Line
