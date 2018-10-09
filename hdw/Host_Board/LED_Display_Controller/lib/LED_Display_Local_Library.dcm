@@ -13,6 +13,25 @@ $CMP CY7C1011DV33
 D Cypress Parallel SRAM, 2Mb (128k x 16b), 44 TSSOP II
 K SRAM Cypress PArallel
 F http://www.cypress.com/file/42816/download
+$CMP +12V
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
+$CMP +3.3V
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
+$CMP +5V_USB
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
+$CMP 74LVC1G86_POWER
+D Single EX-OR Gate, Low-Voltage CMOS
+K Single Gate EX-OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP C_Custom
@@ -29,6 +48,11 @@ $CMP LTC4365DDB
 D Overvoltage, Undervoltage and Reverse Supply Protection Controller, 3x2mm DFN-8 package, 50Hz/60Hz noise rejection
 K overvoltage undervoltage reverse-polarity protection
 F http://cds.linear.com/docs/en/datasheet/4365fa.pdf
+$ENDCMP
+#
+$CMP GND_USB
+D GROUND power-flag symbol
+K Power Flag Symbol
 $ENDCMP
 #
 $CMP L_Custom
@@ -66,6 +90,23 @@ $ENDCMP
 #
 $CMP TP
 D Test Point
+=======
+$CMP TPD3S014DBVR
+D Current Limit Switch and D+/D– ESD Protection for USB Host Port, 0.5A, SOT-23-6
+K ESD-Protection
+F http://www.ti.com/lit/ds/symlink/tpd3s014.pdf
+$ENDCMP
+#
+$CMP TPD3S044
+D Current Limit Switch and D+/D– ESD Protection for USB Host Port, 1.5A, SOT-23-6
+K ESD-Protection
+F http://www.ti.com/lit/ds/symlink/tpd3s014.pdf
+$ENDCMP
+#
+$CMP Yellow
+D LED generic
+K led diode
+F ~
 $ENDCMP
 #
 #End Doc Library
