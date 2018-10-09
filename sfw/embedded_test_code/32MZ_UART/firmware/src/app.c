@@ -170,9 +170,10 @@ void APP_Tasks ( void )
             // Setup timer 1 interrupt for counting
             PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_1);
             
-            // Start timer 1
+            // Start timer 1, which blinks LED and increments an integer 'count'
             DRV_TMR0_Start();
-                        
+                       
+            // Tell framework app is up and running
             bool appInitialized = true;
        
         
@@ -187,9 +188,11 @@ void APP_Tasks ( void )
         case APP_STATE_SERVICE_TASKS:
         {
             
+            // If we've received a full line of input
+            // Marked by sending a newline or carriage return over term
             if(usb_uart_RxStringReady) {
              
-                ringBufferPull();
+                USB_UART_ringBufferPull();
                 
             }
             

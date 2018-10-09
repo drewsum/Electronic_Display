@@ -5,9 +5,7 @@
         <group>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/app.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/USB_UART.h</file>
-            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/system_config/default/system_interrupt.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/USB_UART.c</file>
-            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/32MZ_UART/firmware/src/system_config/default/framework/driver/usart/src/drv_usart_static.c</file>
         </group>
     </open-files>
 </project-private>

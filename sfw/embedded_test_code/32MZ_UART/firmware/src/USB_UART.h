@@ -76,7 +76,7 @@
  * Add this to APP_SERVICE_TASKS case:
     if(usb_uart_RxStringReady) {
 
-        ringBufferPull();
+        USB_UART_ringBufferPull();
 
     }
             
@@ -92,7 +92,7 @@
 #include "app.h"
 
 #include <xc.h>
-#include <stdio.h>
+#include <stdarg.h>
 
 // Sizes of TX and RX ring buffers
 #define USB_UART_TX_BUFFER_SIZE 64
@@ -104,7 +104,7 @@ char output_buff[USB_UART_TX_BUFFER_SIZE];
 
 // Received String from EUSART rx ring buffer, this is what we actually compare
 // against command strings
-char line[USB_UART_RX_BUFFER_SIZE];
+char USB_UART_line[USB_UART_RX_BUFFER_SIZE];
 
 // ring buffer counters
 extern volatile uint8_t usb_uart_TxBufferRemaining;
@@ -140,16 +140,18 @@ typedef enum {
 // Function Prototypes
 void USB_UART_Initialize(void);
 uint8_t USB_UART_Read_Byte(void);
-void USB_UART_Write_Byte(uint8_t txData);
+void USB_UART_putchar(uint8_t txData);
 void USB_UART_Transmit_Handler(void);
 void USB_UART_Receive_Handler(void);
 
 // Basic text output function, feed it a string, everything is built off of this
-void USB_UART_Print(char charArray[]);
+void USB_UART_print(char charArray[]);
+void USB_UART_printf(char *, ...);
+char* convert(unsigned int, int);
 
 // Ring buffer interface functions
-void ringBufferPull(void);
-void ringBufferLUT(char * line);
+void USB_UART_ringBufferPull(void);
+void USB_UART_ringBufferLUT(char * USB_UART_line);
 
 // Terminal manipulation functions
 void USB_UART_clearTerminal(void);  // clears the whole terminal

@@ -30,8 +30,6 @@ c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/
                               c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(cache-err-exception.o) (_cache_err_exception_handler)
 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
                               c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(simple-tlb-refill-exception.o) (_simple_tlb_refill_exception_handler)
-c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
-                              build/default/production/_ext/1360937237/USB_UART.o (itoa)
 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
                               build/default/production/_ext/1360937237/USB_UART.o (strncpy)
 
@@ -43,12 +41,12 @@ usb_uart_TxBuffer   0x40              build/default/production/_ext/1360937237/U
 appData             0x4               build/default/production/_ext/1360937237/app.o
 usb_uart_TxBufferRemaining
                     0x1               build/default/production/_ext/1360937237/USB_UART.o
-line                0x40              build/default/production/_ext/1360937237/app.o
 gDrvUSART0Obj       0x4               build/default/production/_ext/327000265/drv_usart_static.o
 sysObj              0x8               build/default/production/_ext/1688732426/system_init.o
 attribute           0x4               build/default/production/_ext/1360937237/USB_UART.o
 usb_uart_RxBuffer   0x40              build/default/production/_ext/1360937237/USB_UART.o
 sysDevconObj        0x8               build/default/production/_ext/340578644/sys_devcon.o
+USB_UART_line       0x40              build/default/production/_ext/1360937237/app.o
 foreground_color    0x4               build/default/production/_ext/1360937237/USB_UART.o
 background_color    0x4               build/default/production/_ext/1360937237/USB_UART.o
 output_buff         0x40              build/default/production/_ext/1360937237/app.o
@@ -59,73 +57,74 @@ kseg0 Program-Memory Usage
 section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
 .simple_tlb_refill_excp 0x9d000000           0x10          16   
-.text.ringBufferPull    0x9d000010           0xe8         232   
+.text.USB_UART_ringBuff 0x9d000010           0xe8         232   
 .text.APP_Initialize    0x9d0000f8            0x8           8   
 .cache_err_excpt        0x9d000100           0x10          16   
 .text.USB_UART_Read_Byt 0x9d000110           0x70         112   
 .app_excpt              0x9d000180           0x10          16  General-Exception 
 .text.DRV_TMR0_Tasks    0x9d000190           0x6c         108   
 .vectors                0x9d000200           0x60          96   
-.rodata                 0x9d000260          0x608        1544  Read-only const 
-.text.USB_UART_textAttr 0x9d000868          0x56c        1388   
-.dinit                  0x9d000dd4          0x400        1024   
-.text.USB_UART_printTes 0x9d0011d4          0x2d4         724   
-.text.IntHandlerDrvTmrI 0x9d0014a8          0x278         632   
-.text.ringBufferLUT     0x9d001720          0x268         616   
-.text._IntHandlerDrvUsa 0x9d001988          0x264         612   
-.text._IntHandlerDrvUsa 0x9d001bec          0x264         612   
-.text.USB_UART_Receive_ 0x9d001e50          0x1e0         480   
-.text.DRV_USART0_Initia 0x9d002030          0x180         384   
-.text.SYS_PORTS_Initial 0x9d0021b0          0x17c         380   
-.text                   0x9d00232c          0x168         360  App's exec code 
-.rodata                 0x9d002494          0x128         296  Read-only const 
-.text                   0x9d0025bc          0x120         288  App's exec code 
-.text.SYS_Initialize    0x9d0026dc          0x108         264   
-.text.SYS_DEVCON_Perfor 0x9d0027e4          0x104         260   
-.text.SYS_CLK_Initializ 0x9d0028e8           0xf8         248   
-.text.general_exception 0x9d0029e0           0xdc         220   
-.text._cache_err_except 0x9d002abc           0xd8         216   
-.text.simple_tlb_refill 0x9d002b94           0xd8         216   
-.tlb.__pic32_tlb_init_e 0x9d002c6c           0xbc         188   
-.text.USB_UART_printHel 0x9d002d28           0xb0         176   
-.text.USB_UART_Write_By 0x9d002dd8           0xa0         160   
-.text.APP_Tasks         0x9d002e78           0x94         148   
-.text.DRV_TMR0_Initiali 0x9d002f0c           0x88         136   
-.text                   0x9d002f94           0x84         132  App's exec code 
-.text.itoa              0x9d003018           0x84         132   
-.text.USB_UART_Transmit 0x9d00309c           0x7c         124   
-.text.SYS_CLK_Periphera 0x9d003118           0x78         120   
-.text.strncpy           0x9d003190           0x74         116   
-.text.USB_UART_Initiali 0x9d003204           0x5c          92   
-.text.SYS_DEVCON_System 0x9d003260           0x58          88   
-.text.USB_UART_Print    0x9d0032b8           0x58          88   
-.text.main_entry        0x9d003310           0x54          84   
-.text.SYS_DEVCON_System 0x9d003364           0x48          72   
-.text._bootstrap_except 0x9d0033ac           0x48          72   
-.text._cache_err_except 0x9d0033f4           0x48          72   
-.text._simple_tlb_refil 0x9d00343c           0x48          72   
-.text                   0x9d003484           0x44          68  App's exec code 
-.text._general_exceptio 0x9d0034c8           0x3c          60   
-.text._DRV_TMR0_Resume  0x9d003504           0x38          56   
-.text._DRV_TMR0_Suspend 0x9d00353c           0x34          52   
-.text.DRV_TMR0_Stop     0x9d003570           0x34          52   
-.text.DRV_USART_Initial 0x9d0035a4           0x30          48   
-.text.DRV_TMR0_Start    0x9d0035d4           0x28          40   
-.text.DRV_TMR0_AlarmDis 0x9d0035fc           0x24          36   
-.text.USB_UART_textAttr 0x9d003620           0x24          36   
-.text.main              0x9d003644           0x20          32   
-.text.SYS_INT_Disable   0x9d003664           0x20          32   
-.text.USB_UART_clearTer 0x9d003684           0x20          32   
-.text.USB_UART_setCurso 0x9d0036a4           0x20          32   
-.text.USB_UART_printNew 0x9d0036c4           0x20          32   
-.text.SYS_Tasks         0x9d0036e4           0x1c          28   
-.text                   0x9d003700           0x18          24  App's exec code 
-.text.SYS_DEVCON_Initia 0x9d003718           0x14          20   
-.text.SYS_INT_Initializ 0x9d00372c           0x14          20   
-.text.SYS_CLK_SystemFre 0x9d003740            0xc          12   
-.text._on_reset         0x9d00374c            0x8           8   
-.text._on_bootstrap     0x9d003754            0x8           8   
-      Total kseg0_program_mem used  :      0x3758       14168  0.7% of 0x200000
+.rodata                 0x9d000260          0x808        2056  Read-only const 
+.text.USB_UART_textAttr 0x9d000a68          0x56c        1388   
+.dinit                  0x9d000fd4          0x410        1040   
+.text.USB_UART_printTes 0x9d0013e4          0x3c8         968   
+.text.IntHandlerDrvTmrI 0x9d0017ac          0x278         632   
+.text._IntHandlerDrvUsa 0x9d001a24          0x264         612   
+.text._IntHandlerDrvUsa 0x9d001c88          0x264         612   
+.text.USB_UART_ringBuff 0x9d001eec          0x238         568   
+.text.USB_UART_printf   0x9d002124          0x218         536   
+.text.USB_UART_Receive_ 0x9d00233c          0x1e0         480   
+.text.DRV_USART0_Initia 0x9d00251c          0x180         384   
+.text.SYS_PORTS_Initial 0x9d00269c          0x17c         380   
+.text                   0x9d002818          0x168         360  App's exec code 
+.rodata                 0x9d002980          0x128         296  Read-only const 
+.text                   0x9d002aa8          0x120         288  App's exec code 
+.text.SYS_Initialize    0x9d002bc8          0x108         264   
+.text.SYS_DEVCON_Perfor 0x9d002cd0          0x104         260   
+.text.SYS_CLK_Initializ 0x9d002dd4           0xf8         248   
+.text.general_exception 0x9d002ecc           0xdc         220   
+.text._cache_err_except 0x9d002fa8           0xd8         216   
+.text.simple_tlb_refill 0x9d003080           0xd8         216   
+.tlb.__pic32_tlb_init_e 0x9d003158           0xbc         188   
+.text.USB_UART_printHel 0x9d003214           0xb0         176   
+.text.USB_UART_putchar  0x9d0032c4           0xa0         160   
+.text.APP_Tasks         0x9d003364           0x94         148   
+.text.DRV_TMR0_Initiali 0x9d0033f8           0x88         136   
+.text                   0x9d003480           0x84         132  App's exec code 
+.text.USB_UART_Transmit 0x9d003504           0x7c         124   
+.text.SYS_CLK_Periphera 0x9d003580           0x78         120   
+.text.strncpy           0x9d0035f8           0x74         116   
+.text.USB_UART_Initiali 0x9d00366c           0x5c          92   
+.text.SYS_DEVCON_System 0x9d0036c8           0x58          88   
+.text.USB_UART_print    0x9d003720           0x58          88   
+.text.main_entry        0x9d003778           0x54          84   
+.text.SYS_DEVCON_System 0x9d0037cc           0x48          72   
+.text._bootstrap_except 0x9d003814           0x48          72   
+.text._cache_err_except 0x9d00385c           0x48          72   
+.text._simple_tlb_refil 0x9d0038a4           0x48          72   
+.text                   0x9d0038ec           0x44          68  App's exec code 
+.text.convert           0x9d003930           0x40          64   
+.text._general_exceptio 0x9d003970           0x3c          60   
+.text._DRV_TMR0_Resume  0x9d0039ac           0x38          56   
+.text._DRV_TMR0_Suspend 0x9d0039e4           0x34          52   
+.text.DRV_TMR0_Stop     0x9d003a18           0x34          52   
+.text.DRV_USART_Initial 0x9d003a4c           0x30          48   
+.text.DRV_TMR0_Start    0x9d003a7c           0x28          40   
+.text.DRV_TMR0_AlarmDis 0x9d003aa4           0x24          36   
+.text.USB_UART_textAttr 0x9d003ac8           0x24          36   
+.text.main              0x9d003aec           0x20          32   
+.text.SYS_INT_Disable   0x9d003b0c           0x20          32   
+.text.USB_UART_clearTer 0x9d003b2c           0x20          32   
+.text.USB_UART_setCurso 0x9d003b4c           0x20          32   
+.text.USB_UART_printNew 0x9d003b6c           0x20          32   
+.text.SYS_Tasks         0x9d003b8c           0x1c          28   
+.text                   0x9d003ba8           0x18          24  App's exec code 
+.text.SYS_DEVCON_Initia 0x9d003bc0           0x14          20   
+.text.SYS_INT_Initializ 0x9d003bd4           0x14          20   
+.text.SYS_CLK_SystemFre 0x9d003be8            0xc          12   
+.text._on_reset         0x9d003bf4            0x8           8   
+.text._on_bootstrap     0x9d003bfc            0x8           8   
+      Total kseg0_program_mem used  :      0x3c00       15360  0.7% of 0x200000
 
 kseg0 Boot-Memory Usage
 section                    address  length [bytes]      (dec)  Description
@@ -139,7 +138,7 @@ section                    address  length [bytes]      (dec)  Description
 .bev_excpt              0xbfc00380           0x10          16  BEV-Exception 
          Total kseg1_boot_mem used  :       0x1d0         464  40.3% of 0x480
         --------------------------------------------------------------------------
-         Total Program Memory used  :      0x3928       14632  0.7% of 0x200480
+         Total Program Memory used  :      0x3dd0       15824  0.8% of 0x200480
         --------------------------------------------------------------------------
 
 
@@ -149,18 +148,18 @@ section                    address  length [bytes]      (dec)  Description
 .sdata                  0x80000000           0x24          36  Small init data 
 .sbss                   0x80000024           0x44          68  Small uninit data 
 .bss                    0x80000068          0x100         256  Uninitialized data 
-.bss                    0x80000168           0x14          20  Uninitialized data 
-         Total kseg0_data_mem used  :       0x17c         380  0.1% of 0x80000
+.bss                    0x80000168           0x48          72  Uninitialized data 
+         Total kseg0_data_mem used  :       0x1b0         432  0.1% of 0x80000
         --------------------------------------------------------------------------
-            Total Data Memory used  :       0x17c         380  0.1% of 0x80000
+            Total Data Memory used  :       0x1b0         432  0.1% of 0x80000
         --------------------------------------------------------------------------
 
 
 Dynamic Data-Memory Reservation
 section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
-heap                    0x80000180              0           0  Reserved for heap 
-stack                   0x80000198        0x7fe58      523864  Reserved for stack 
+heap                    0x800001b8              0           0  Reserved for heap 
+stack                   0x800001d0        0x7fe28      523816  Reserved for stack 
 
         --------------------------------------------------------------------------
 
@@ -559,7 +558,6 @@ Discarded input sections
                 0x00000000       0x28 build/default/production/_ext/1020727214/sys_int_pic32.o
  .text          0x00000000        0x0 build/default/production/_ext/1360937237/USB_UART.o
  .data          0x00000000        0x0 build/default/production/_ext/1360937237/USB_UART.o
- .bss           0x00000000        0x0 build/default/production/_ext/1360937237/USB_UART.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/1360937237/USB_UART.o
  .text.USB_UART_clearLine
                 0x00000000       0x20 build/default/production/_ext/1360937237/USB_UART.o
@@ -641,11 +639,6 @@ Discarded input sections
  .data          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
  .bss           0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
  .reginfo       0x00000000       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .data          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .bss           0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .reginfo       0x00000000       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .text.utoa     0x00000000       0x68 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
  .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
  .data          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
  .bss           0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
@@ -2288,7 +2281,7 @@ END GROUP
  *(.dynbss)
  *(COMMON)
  COMMON         0x80000068       0x80 build/default/production/_ext/1360937237/app.o
-                0x80000068                line
+                0x80000068                USB_UART_line
                 0x800000a8                output_buff
  COMMON         0x800000e8       0x80 build/default/production/_ext/1360937237/USB_UART.o
                 0x800000e8                usb_uart_TxBuffer
@@ -2342,7 +2335,6 @@ END GROUP
  .mdebug.abi32  0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
  .mdebug.abi32  0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
  .mdebug.abi32  0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .mdebug.abi32  0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
  .mdebug.abi32  0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
 .mdebug.abiN32
@@ -2414,7 +2406,6 @@ END GROUP
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
 .debug
@@ -2433,7 +2424,7 @@ END GROUP
  *.elf(.debug_sfnames)
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x8f0
+.debug_aranges  0x00000000      0x8d8
  *.elf(.debug_aranges)
  *(.debug_aranges)
  .debug_aranges
@@ -2469,29 +2460,27 @@ END GROUP
  .debug_aranges
                 0x000006f8       0x48 build/default/production/_ext/1020727214/sys_int_pic32.o
  .debug_aranges
-                0x00000740       0xa8 build/default/production/_ext/1360937237/USB_UART.o
+                0x00000740       0xb8 build/default/production/_ext/1360937237/USB_UART.o
  .debug_aranges
-                0x000007e8       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+                0x000007f8       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_aranges
-                0x00000808       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+                0x00000818       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .debug_aranges
-                0x00000828       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+                0x00000838       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
  .debug_aranges
-                0x00000848       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+                0x00000858       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
  .debug_aranges
-                0x00000868       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+                0x00000878       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
  .debug_aranges
-                0x00000888       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+                0x00000898       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
  .debug_aranges
-                0x000008a8       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .debug_aranges
-                0x000008d0       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
+                0x000008b8       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
 .debug_pubnames
  *.elf(.debug_pubnames)
  *(.debug_pubnames)
 
-.debug_info     0x00000000    0x28e7c
+.debug_info     0x00000000    0x290ba
  *.elf(.debug_info .gnu.linkonce.wi.*)
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000     0x599e build/default/production/_ext/1407244131/drv_tmr_static.o
@@ -2507,20 +2496,19 @@ END GROUP
  .debug_info    0x0001cd03     0x2192 build/default/production/_ext/1688732426/system_interrupt.o
  .debug_info    0x0001ee95      0xca7 build/default/production/_ext/1688732426/system_exceptions.o
  .debug_info    0x0001fb3c      0xa5d build/default/production/_ext/1688732426/system_tasks.o
- .debug_info    0x00020599     0x239d build/default/production/_ext/1360937237/app.o
- .debug_info    0x00022936      0x1b6 build/default/production/_ext/1360937237/main.o
- .debug_info    0x00022aec     0x1efc build/default/production/_ext/1020727214/sys_int_pic32.o
- .debug_info    0x000249e8     0x3d8d build/default/production/_ext/1360937237/USB_UART.o
- .debug_info    0x00028775       0xf2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_info    0x00028867       0xcb c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_info    0x00028932       0xd3 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_info    0x00028a05       0xe5 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_info    0x00028aea       0xf2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_info    0x00028bdc      0x102 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .debug_info    0x00028cde       0xd9 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .debug_info    0x00028db7       0xc5 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
+ .debug_info    0x00020599     0x23af build/default/production/_ext/1360937237/app.o
+ .debug_info    0x00022948      0x1b6 build/default/production/_ext/1360937237/main.o
+ .debug_info    0x00022afe     0x1efc build/default/production/_ext/1020727214/sys_int_pic32.o
+ .debug_info    0x000249fa     0x4092 build/default/production/_ext/1360937237/USB_UART.o
+ .debug_info    0x00028a8c       0xf2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_info    0x00028b7e       0xcb c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_info    0x00028c49       0xd3 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_info    0x00028d1c       0xe5 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_info    0x00028e01       0xf2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_info    0x00028ef3      0x102 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_info    0x00028ff5       0xc5 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
-.debug_abbrev   0x00000000     0x292f
+.debug_abbrev   0x00000000     0x2930
  *.elf(.debug_abbrev)
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x423 build/default/production/_ext/1407244131/drv_tmr_static.o
@@ -2539,17 +2527,16 @@ END GROUP
  .debug_abbrev  0x00001fd0      0x20d build/default/production/_ext/1360937237/app.o
  .debug_abbrev  0x000021dd       0x93 build/default/production/_ext/1360937237/main.o
  .debug_abbrev  0x00002270      0x223 build/default/production/_ext/1020727214/sys_int_pic32.o
- .debug_abbrev  0x00002493      0x33d build/default/production/_ext/1360937237/USB_UART.o
- .debug_abbrev  0x000027d0       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_abbrev  0x000027f8       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_abbrev  0x00002820       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_abbrev  0x00002848       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_abbrev  0x00002870       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_abbrev  0x00002898       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .debug_abbrev  0x000028c0       0x47 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .debug_abbrev  0x00002907       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
+ .debug_abbrev  0x00002493      0x385 build/default/production/_ext/1360937237/USB_UART.o
+ .debug_abbrev  0x00002818       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_abbrev  0x00002840       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_abbrev  0x00002868       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_abbrev  0x00002890       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_abbrev  0x000028b8       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_abbrev  0x000028e0       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_abbrev  0x00002908       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
-.debug_line     0x00000000     0x55f4
+.debug_line     0x00000000     0x55f1
  *.elf(.debug_line)
  *(.debug_line)
  .debug_line    0x00000000      0x7a1 build/default/production/_ext/1407244131/drv_tmr_static.o
@@ -2565,18 +2552,17 @@ END GROUP
  .debug_line    0x00003d48      0x2df build/default/production/_ext/1688732426/system_interrupt.o
  .debug_line    0x00004027      0x1e9 build/default/production/_ext/1688732426/system_exceptions.o
  .debug_line    0x00004210      0x19b build/default/production/_ext/1688732426/system_tasks.o
- .debug_line    0x000043ab      0x33f build/default/production/_ext/1360937237/app.o
- .debug_line    0x000046ea       0xc5 build/default/production/_ext/1360937237/main.o
- .debug_line    0x000047af      0x2d5 build/default/production/_ext/1020727214/sys_int_pic32.o
- .debug_line    0x00004a84      0x6ba build/default/production/_ext/1360937237/USB_UART.o
- .debug_line    0x0000513e       0xa4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_line    0x000051e2       0x91 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_line    0x00005273       0x95 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_line    0x00005308       0xa3 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_line    0x000053ab       0xa4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_line    0x0000544f       0xac c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .debug_line    0x000054fb       0x7b c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .debug_line    0x00005576       0x7e c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
+ .debug_line    0x000043ab      0x343 build/default/production/_ext/1360937237/app.o
+ .debug_line    0x000046ee       0xc5 build/default/production/_ext/1360937237/main.o
+ .debug_line    0x000047b3      0x2d5 build/default/production/_ext/1020727214/sys_int_pic32.o
+ .debug_line    0x00004a88      0x72e build/default/production/_ext/1360937237/USB_UART.o
+ .debug_line    0x000051b6       0xa4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_line    0x0000525a       0x91 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_line    0x000052eb       0x95 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_line    0x00005380       0xa3 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_line    0x00005423       0xa4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_line    0x000054c7       0xac c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_line    0x00005573       0x7e c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
 .debug_frame    0x00000000     0x14e4
  *.elf(.debug_frame)
@@ -2597,14 +2583,13 @@ END GROUP
  .debug_frame   0x00001110       0x38 build/default/production/_ext/1360937237/app.o
  .debug_frame   0x00001148       0x28 build/default/production/_ext/1360937237/main.o
  .debug_frame   0x00001170       0x90 build/default/production/_ext/1020727214/sys_int_pic32.o
- .debug_frame   0x00001200      0x1b0 build/default/production/_ext/1360937237/USB_UART.o
- .debug_frame   0x000013b0       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_frame   0x000013dc       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_frame   0x000013fc       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_frame   0x0000141c       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_frame   0x0000143c       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_frame   0x00001468       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .debug_frame   0x00001494       0x30 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
+ .debug_frame   0x00001200      0x1e0 build/default/production/_ext/1360937237/USB_UART.o
+ .debug_frame   0x000013e0       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_frame   0x0000140c       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_frame   0x0000142c       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_frame   0x0000144c       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_frame   0x0000146c       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_frame   0x00001498       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
  .debug_frame   0x000014c4       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
 .debug_str      0x00000000      0x349
@@ -2633,10 +2618,9 @@ END GROUP
  .debug_str     0x00000349        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
  .debug_str     0x00000349        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
  .debug_str     0x00000349        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .debug_str     0x00000349        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
  .debug_str     0x00000349        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
-.debug_loc      0x00000000     0x26de
+.debug_loc      0x00000000     0x282e
  *.elf(.debug_loc)
  *(.debug_loc)
  .debug_loc     0x00000000      0x433 build/default/production/_ext/1407244131/drv_tmr_static.o
@@ -2650,10 +2634,10 @@ END GROUP
  .debug_loc     0x0000237f       0x21 build/default/production/_ext/1688732426/system_init.o
  .debug_loc     0x000023a0       0x3c build/default/production/_ext/1360937237/app.o
  .debug_loc     0x000023dc       0x7c build/default/production/_ext/1020727214/sys_int_pic32.o
- .debug_loc     0x00002458      0x202 build/default/production/_ext/1360937237/USB_UART.o
- .debug_loc     0x0000265a       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_loc     0x00002686       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_loc     0x000026b2       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_loc     0x00002458      0x352 build/default/production/_ext/1360937237/USB_UART.o
+ .debug_loc     0x000027aa       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_loc     0x000027d6       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_loc     0x00002802       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
 .debug_macinfo
  *.elf(.debug_macinfo)
@@ -2679,7 +2663,7 @@ END GROUP
  *.elf(.debug_pubtypes)
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x7e8
+.debug_ranges   0x00000000      0x7e0
  *.elf(.debug_ranges)
  *(.debug_ranges)
  .debug_ranges  0x00000000       0xf0 build/default/production/_ext/1407244131/drv_tmr_static.o
@@ -2698,15 +2682,14 @@ END GROUP
  .debug_ranges  0x00000650       0x18 build/default/production/_ext/1360937237/app.o
  .debug_ranges  0x00000668       0x10 build/default/production/_ext/1360937237/main.o
  .debug_ranges  0x00000678       0x50 build/default/production/_ext/1020727214/sys_int_pic32.o
- .debug_ranges  0x000006c8       0x98 build/default/production/_ext/1360937237/USB_UART.o
- .debug_ranges  0x00000760       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_ranges  0x00000770       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_ranges  0x00000780       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_ranges  0x00000790       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_ranges  0x000007a0       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_ranges  0x000007b0       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
- .debug_ranges  0x000007c0       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .debug_ranges  0x000007d8       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
+ .debug_ranges  0x000006c8       0xa8 build/default/production/_ext/1360937237/USB_UART.o
+ .debug_ranges  0x00000770       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_ranges  0x00000780       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_ranges  0x00000790       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_ranges  0x000007a0       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_ranges  0x000007b0       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_ranges  0x000007c0       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_ranges  0x000007d0       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
 
 .gnu.attributes
                 0x00000000       0x10
@@ -2758,9 +2741,7 @@ END GROUP
  .gnu.attributes
                 0x00000160       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
  .gnu.attributes
-                0x00000170       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
- .gnu.attributes
-                0x00000180       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
+                0x00000170       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
                 0x9d000000                PROVIDE (__pic32_init_cache_program_base_addr, 0x9d000000)
                 0x80000000                PROVIDE (__pic32_init_cache_data_base_addr, 0x80000000)
                 0xd0000000                PROVIDE (__pic32_init_sqi_kseg2_virtual_base_addr, 0xd0000000)
@@ -2853,8 +2834,8 @@ LOAD data_init
 .reginfo        0x00000000       0x18
  .reginfo       0x00000000       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
 
-.stack          0x80000198      0x400
- .stack         0x80000198      0x400 stack
+.stack          0x800001d0      0x400
+ .stack         0x800001d0      0x400 stack
 
 .__vector_offset_BF810540_data
                 0xbf810540      0x178
@@ -2901,8 +2882,9 @@ LOAD data_init
  .__vector_offset_BF810894_data
                 0xbf810894        0x4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\vector_offset_init.o
 
-.bss            0x80000168       0x14
- .bss           0x80000168       0x14 build/default/production/_ext/1407244131/drv_tmr_static.o
+.bss            0x80000168       0x48
+ .bss           0x80000168       0x34 build/default/production/_ext/1360937237/USB_UART.o
+ .bss           0x8000019c       0x14 build/default/production/_ext/1407244131/drv_tmr_static.o
 
 ._debug_exception
                 0xbfc00480       0x2c
@@ -2910,172 +2892,174 @@ LOAD data_init
                 0xbfc00480       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
                 0xbfc00480                __DbgExecReturn
 
-.rodata         0x9d000260      0x608
- .rodata        0x9d000260      0x608 build/default/production/_ext/1360937237/USB_UART.o
+.rodata         0x9d000260      0x808
+ .rodata        0x9d000260      0x808 build/default/production/_ext/1360937237/USB_UART.o
 
 .text.USB_UART_textAttributes
-                0x9d000868      0x56c
+                0x9d000a68      0x56c
  .text.USB_UART_textAttributes
-                0x9d000868      0x56c build/default/production/_ext/1360937237/USB_UART.o
-                0x9d000868                USB_UART_textAttributes
+                0x9d000a68      0x56c build/default/production/_ext/1360937237/USB_UART.o
+                0x9d000a68                USB_UART_textAttributes
 
-.dinit          0x9d000dd4      0x400
- .dinit         0x9d000dd4      0x400 data_init
+.dinit          0x9d000fd4      0x410
+ .dinit         0x9d000fd4      0x410 data_init
 
 .text.USB_UART_printTestMessage
-                0x9d0011d4      0x2d4
+                0x9d0013e4      0x3c8
  .text.USB_UART_printTestMessage
-                0x9d0011d4      0x2d4 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d0011d4                USB_UART_printTestMessage
+                0x9d0013e4      0x3c8 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d0013e4                USB_UART_printTestMessage
 
 .text.IntHandlerDrvTmrInstance0
-                0x9d0014a8      0x278
+                0x9d0017ac      0x278
  .text.IntHandlerDrvTmrInstance0
-                0x9d0014a8      0x278 build/default/production/_ext/1688732426/system_interrupt.o
-                0x9d0014a8                IntHandlerDrvTmrInstance0
-
-.text.ringBufferLUT
-                0x9d001720      0x268
- .text.ringBufferLUT
-                0x9d001720      0x268 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d001720                ringBufferLUT
+                0x9d0017ac      0x278 build/default/production/_ext/1688732426/system_interrupt.o
+                0x9d0017ac                IntHandlerDrvTmrInstance0
 
 .text._IntHandlerDrvUsartTransmitInstance0
-                0x9d001988      0x264
+                0x9d001a24      0x264
  .text._IntHandlerDrvUsartTransmitInstance0
-                0x9d001988      0x264 build/default/production/_ext/1688732426/system_interrupt.o
-                0x9d001988                _IntHandlerDrvUsartTransmitInstance0
+                0x9d001a24      0x264 build/default/production/_ext/1688732426/system_interrupt.o
+                0x9d001a24                _IntHandlerDrvUsartTransmitInstance0
 
 .text._IntHandlerDrvUsartReceiveInstance0
-                0x9d001bec      0x264
+                0x9d001c88      0x264
  .text._IntHandlerDrvUsartReceiveInstance0
-                0x9d001bec      0x264 build/default/production/_ext/1688732426/system_interrupt.o
-                0x9d001bec                _IntHandlerDrvUsartReceiveInstance0
+                0x9d001c88      0x264 build/default/production/_ext/1688732426/system_interrupt.o
+                0x9d001c88                _IntHandlerDrvUsartReceiveInstance0
+
+.text.USB_UART_ringBufferLUT
+                0x9d001eec      0x238
+ .text.USB_UART_ringBufferLUT
+                0x9d001eec      0x238 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d001eec                USB_UART_ringBufferLUT
+
+.text.USB_UART_printf
+                0x9d002124      0x218
+ .text.USB_UART_printf
+                0x9d002124      0x218 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d002124                USB_UART_printf
 
 .text.USB_UART_Receive_Handler
-                0x9d001e50      0x1e0
+                0x9d00233c      0x1e0
  .text.USB_UART_Receive_Handler
-                0x9d001e50      0x1e0 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d001e50                USB_UART_Receive_Handler
+                0x9d00233c      0x1e0 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d00233c                USB_UART_Receive_Handler
 
 .text.DRV_USART0_Initialize
-                0x9d002030      0x180
+                0x9d00251c      0x180
  .text.DRV_USART0_Initialize
-                0x9d002030      0x180 build/default/production/_ext/327000265/drv_usart_static.o
-                0x9d002030                DRV_USART0_Initialize
+                0x9d00251c      0x180 build/default/production/_ext/327000265/drv_usart_static.o
+                0x9d00251c                DRV_USART0_Initialize
 
 .text.SYS_PORTS_Initialize
-                0x9d0021b0      0x17c
+                0x9d00269c      0x17c
  .text.SYS_PORTS_Initialize
-                0x9d0021b0      0x17c build/default/production/_ext/822048611/sys_ports_static.o
-                0x9d0021b0                SYS_PORTS_Initialize
+                0x9d00269c      0x17c build/default/production/_ext/822048611/sys_ports_static.o
+                0x9d00269c                SYS_PORTS_Initialize
 
-.text           0x9d00232c      0x168
- .text          0x9d00232c      0x168 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(strlen.o)
-                0x9d00232c                strlen
+.text           0x9d002818      0x168
+ .text          0x9d002818      0x168 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(strlen.o)
+                0x9d002818                strlen
 
-.rodata         0x9d002494      0x128
- .rodata        0x9d002494      0x128 build/default/production/_ext/1688732426/system_exceptions.o
+.rodata         0x9d002980      0x128
+ .rodata        0x9d002980      0x128 build/default/production/_ext/1688732426/system_exceptions.o
 
-.text           0x9d0025bc      0x120
- .text          0x9d0025bc      0x120 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(strcmp.o)
-                0x9d0025bc                strcmp
+.text           0x9d002aa8      0x120
+ .text          0x9d002aa8      0x120 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(strcmp.o)
+                0x9d002aa8                strcmp
 
 .text.SYS_Initialize
-                0x9d0026dc      0x108
+                0x9d002bc8      0x108
  .text.SYS_Initialize
-                0x9d0026dc      0x108 build/default/production/_ext/1688732426/system_init.o
-                0x9d0026dc                SYS_Initialize
+                0x9d002bc8      0x108 build/default/production/_ext/1688732426/system_init.o
+                0x9d002bc8                SYS_Initialize
 
 .text.SYS_DEVCON_PerformanceConfig
-                0x9d0027e4      0x104
+                0x9d002cd0      0x104
  .text.SYS_DEVCON_PerformanceConfig
-                0x9d0027e4      0x104 build/default/production/_ext/340578644/sys_devcon_pic32mz.o
-                0x9d0027e4                SYS_DEVCON_PerformanceConfig
+                0x9d002cd0      0x104 build/default/production/_ext/340578644/sys_devcon_pic32mz.o
+                0x9d002cd0                SYS_DEVCON_PerformanceConfig
 
 .text.SYS_CLK_Initialize
-                0x9d0028e8       0xf8
+                0x9d002dd4       0xf8
  .text.SYS_CLK_Initialize
-                0x9d0028e8       0xf8 build/default/production/_ext/639803181/sys_clk_pic32mz.o
-                0x9d0028e8                SYS_CLK_Initialize
+                0x9d002dd4       0xf8 build/default/production/_ext/639803181/sys_clk_pic32mz.o
+                0x9d002dd4                SYS_CLK_Initialize
 
-.text.ringBufferPull
+.text.USB_UART_ringBufferPull
                 0x9d000010       0xe8
- .text.ringBufferPull
+ .text.USB_UART_ringBufferPull
                 0x9d000010       0xe8 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d000010                ringBufferPull
+                0x9d000010                USB_UART_ringBufferPull
 
 .text.general_exception
-                0x9d0029e0       0xdc
+                0x9d002ecc       0xdc
  .text.general_exception
-                0x9d0029e0       0xdc c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(general-exception.o)
-                0x9d0029e0                _general_exception_context
+                0x9d002ecc       0xdc c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(general-exception.o)
+                0x9d002ecc                _general_exception_context
 
 .text._cache_err_exception_context
-                0x9d002abc       0xd8
+                0x9d002fa8       0xd8
  .text._cache_err_exception_context
-                0x9d002abc       0xd8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(cache-err-exception.o)
-                0x9d002abc                _cache_err_exception_context
+                0x9d002fa8       0xd8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(cache-err-exception.o)
+                0x9d002fa8                _cache_err_exception_context
 
 .text.simple_tlb_refill_context
-                0x9d002b94       0xd8
+                0x9d003080       0xd8
  .text.simple_tlb_refill_context
-                0x9d002b94       0xd8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(simple-tlb-refill-exception.o)
-                0x9d002b94                _simple_tlb_refill_exception_context
+                0x9d003080       0xd8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(simple-tlb-refill-exception.o)
+                0x9d003080                _simple_tlb_refill_exception_context
 
 .tlb.__pic32_tlb_init_ebi_sqi
-                0x9d002c6c       0xbc
+                0x9d003158       0xbc
  .tlb.__pic32_tlb_init_ebi_sqi
-                0x9d002c6c       0xbc c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_tlb_ebi_sqi.o)
-                0x9d002c6c                __pic32_tlb_init_ebi_sqi
+                0x9d003158       0xbc c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_tlb_ebi_sqi.o)
+                0x9d003158                __pic32_tlb_init_ebi_sqi
 
 .text.USB_UART_printHelpMessage
-                0x9d002d28       0xb0
+                0x9d003214       0xb0
  .text.USB_UART_printHelpMessage
-                0x9d002d28       0xb0 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d002d28                USB_UART_printHelpMessage
+                0x9d003214       0xb0 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d003214                USB_UART_printHelpMessage
 
-.text.USB_UART_Write_Byte
-                0x9d002dd8       0xa0
- .text.USB_UART_Write_Byte
-                0x9d002dd8       0xa0 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d002dd8                USB_UART_Write_Byte
+.text.USB_UART_putchar
+                0x9d0032c4       0xa0
+ .text.USB_UART_putchar
+                0x9d0032c4       0xa0 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d0032c4                USB_UART_putchar
 
 .text.APP_Tasks
-                0x9d002e78       0x94
+                0x9d003364       0x94
  .text.APP_Tasks
-                0x9d002e78       0x94 build/default/production/_ext/1360937237/app.o
-                0x9d002e78                APP_Tasks
+                0x9d003364       0x94 build/default/production/_ext/1360937237/app.o
+                0x9d003364                APP_Tasks
 
 .text.DRV_TMR0_Initialize
-                0x9d002f0c       0x88
+                0x9d0033f8       0x88
  .text.DRV_TMR0_Initialize
-                0x9d002f0c       0x88 build/default/production/_ext/1407244131/drv_tmr_static.o
-                0x9d002f0c                DRV_TMR0_Initialize
+                0x9d0033f8       0x88 build/default/production/_ext/1407244131/drv_tmr_static.o
+                0x9d0033f8                DRV_TMR0_Initialize
 
-.text           0x9d002f94       0x84
- .text          0x9d002f94       0x84 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init.o)
-                0x9d002f94                __pic32_data_init
-
-.text.itoa      0x9d003018       0x84
- .text.itoa     0x9d003018       0x84 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(itoa.o)
-                0x9d003018                itoa
+.text           0x9d003480       0x84
+ .text          0x9d003480       0x84 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init.o)
+                0x9d003480                __pic32_data_init
 
 .text.USB_UART_Transmit_Handler
-                0x9d00309c       0x7c
+                0x9d003504       0x7c
  .text.USB_UART_Transmit_Handler
-                0x9d00309c       0x7c build/default/production/_ext/1360937237/USB_UART.o
-                0x9d00309c                USB_UART_Transmit_Handler
+                0x9d003504       0x7c build/default/production/_ext/1360937237/USB_UART.o
+                0x9d003504                USB_UART_Transmit_Handler
 
 .text.SYS_CLK_PeripheralFrequencyGet
-                0x9d003118       0x78
+                0x9d003580       0x78
  .text.SYS_CLK_PeripheralFrequencyGet
-                0x9d003118       0x78 build/default/production/_ext/639803181/sys_clk_pic32mz.o
-                0x9d003118                SYS_CLK_PeripheralFrequencyGet
+                0x9d003580       0x78 build/default/production/_ext/639803181/sys_clk_pic32mz.o
+                0x9d003580                SYS_CLK_PeripheralFrequencyGet
 
-.text.strncpy   0x9d003190       0x74
- .text.strncpy  0x9d003190       0x74 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
-                0x9d003190                strncpy
+.text.strncpy   0x9d0035f8       0x74
+ .text.strncpy  0x9d0035f8       0x74 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libc.a(strncpy.o)
+                0x9d0035f8                strncpy
 
 .text.USB_UART_Read_Byte
                 0x9d000110       0x70
@@ -3090,158 +3074,162 @@ LOAD data_init
                 0x9d000190                DRV_TMR0_Tasks
 
 .text.USB_UART_Initialize
-                0x9d003204       0x5c
+                0x9d00366c       0x5c
  .text.USB_UART_Initialize
-                0x9d003204       0x5c build/default/production/_ext/1360937237/USB_UART.o
-                0x9d003204                USB_UART_Initialize
+                0x9d00366c       0x5c build/default/production/_ext/1360937237/USB_UART.o
+                0x9d00366c                USB_UART_Initialize
 
 .text.SYS_DEVCON_SystemUnlock
-                0x9d003260       0x58
+                0x9d0036c8       0x58
  .text.SYS_DEVCON_SystemUnlock
-                0x9d003260       0x58 build/default/production/_ext/340578644/sys_devcon.o
-                0x9d003260                SYS_DEVCON_SystemUnlock
+                0x9d0036c8       0x58 build/default/production/_ext/340578644/sys_devcon.o
+                0x9d0036c8                SYS_DEVCON_SystemUnlock
 
-.text.USB_UART_Print
-                0x9d0032b8       0x58
- .text.USB_UART_Print
-                0x9d0032b8       0x58 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d0032b8                USB_UART_Print
+.text.USB_UART_print
+                0x9d003720       0x58
+ .text.USB_UART_print
+                0x9d003720       0x58 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d003720                USB_UART_print
 
 .text.main_entry
-                0x9d003310       0x54
+                0x9d003778       0x54
  .text.main_entry
-                0x9d003310       0x54 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
-                0x9d003344                __crt0_exit
+                0x9d003778       0x54 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
+                0x9d0037ac                __crt0_exit
 
 .text.SYS_DEVCON_SystemLock
-                0x9d003364       0x48
+                0x9d0037cc       0x48
  .text.SYS_DEVCON_SystemLock
-                0x9d003364       0x48 build/default/production/_ext/340578644/sys_devcon.o
-                0x9d003364                SYS_DEVCON_SystemLock
+                0x9d0037cc       0x48 build/default/production/_ext/340578644/sys_devcon.o
+                0x9d0037cc                SYS_DEVCON_SystemLock
 
 .text._bootstrap_exception_handler
-                0x9d0033ac       0x48
+                0x9d003814       0x48
  .text._bootstrap_exception_handler
-                0x9d0033ac       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
-                0x9d0033ac                _bootstrap_exception_handler
+                0x9d003814       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+                0x9d003814                _bootstrap_exception_handler
 
 .text._cache_err_exception_handler
-                0x9d0033f4       0x48
+                0x9d00385c       0x48
  .text._cache_err_exception_handler
-                0x9d0033f4       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
-                0x9d0033f4                _cache_err_exception_handler
+                0x9d00385c       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+                0x9d00385c                _cache_err_exception_handler
 
 .text._simple_tlb_refill_exception_handler
-                0x9d00343c       0x48
+                0x9d0038a4       0x48
  .text._simple_tlb_refill_exception_handler
-                0x9d00343c       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
-                0x9d00343c                _simple_tlb_refill_exception_handler
+                0x9d0038a4       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+                0x9d0038a4                _simple_tlb_refill_exception_handler
 
-.text           0x9d003484       0x44
- .text          0x9d003484       0x44 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
-                0x9d003484                __pic32_software_reset
+.text           0x9d0038ec       0x44
+ .text          0x9d0038ec       0x44 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
+                0x9d0038ec                __pic32_software_reset
+
+.text.convert   0x9d003930       0x40
+ .text.convert  0x9d003930       0x40 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d003930                convert
 
 .text._general_exception_handler
-                0x9d0034c8       0x3c
+                0x9d003970       0x3c
  .text._general_exception_handler
-                0x9d0034c8       0x3c build/default/production/_ext/1688732426/system_exceptions.o
-                0x9d0034c8                _general_exception_handler
+                0x9d003970       0x3c build/default/production/_ext/1688732426/system_exceptions.o
+                0x9d003970                _general_exception_handler
 
 .text._DRV_TMR0_Resume
-                0x9d003504       0x38
+                0x9d0039ac       0x38
  .text._DRV_TMR0_Resume
-                0x9d003504       0x38 build/default/production/_ext/1407244131/drv_tmr_static.o
+                0x9d0039ac       0x38 build/default/production/_ext/1407244131/drv_tmr_static.o
 
 .text._DRV_TMR0_Suspend
-                0x9d00353c       0x34
+                0x9d0039e4       0x34
  .text._DRV_TMR0_Suspend
-                0x9d00353c       0x34 build/default/production/_ext/1407244131/drv_tmr_static.o
+                0x9d0039e4       0x34 build/default/production/_ext/1407244131/drv_tmr_static.o
 
 .text.DRV_TMR0_Stop
-                0x9d003570       0x34
+                0x9d003a18       0x34
  .text.DRV_TMR0_Stop
-                0x9d003570       0x34 build/default/production/_ext/1407244131/drv_tmr_static.o
-                0x9d003570                DRV_TMR0_Stop
+                0x9d003a18       0x34 build/default/production/_ext/1407244131/drv_tmr_static.o
+                0x9d003a18                DRV_TMR0_Stop
 
 .text.DRV_USART_Initialize
-                0x9d0035a4       0x30
+                0x9d003a4c       0x30
  .text.DRV_USART_Initialize
-                0x9d0035a4       0x30 build/default/production/_ext/327000265/drv_usart_mapping.o
-                0x9d0035a4                DRV_USART_Initialize
+                0x9d003a4c       0x30 build/default/production/_ext/327000265/drv_usart_mapping.o
+                0x9d003a4c                DRV_USART_Initialize
 
 .text.DRV_TMR0_Start
-                0x9d0035d4       0x28
+                0x9d003a7c       0x28
  .text.DRV_TMR0_Start
-                0x9d0035d4       0x28 build/default/production/_ext/1407244131/drv_tmr_static.o
-                0x9d0035d4                DRV_TMR0_Start
+                0x9d003a7c       0x28 build/default/production/_ext/1407244131/drv_tmr_static.o
+                0x9d003a7c                DRV_TMR0_Start
 
 .text.DRV_TMR0_AlarmDisable
-                0x9d0035fc       0x24
+                0x9d003aa4       0x24
  .text.DRV_TMR0_AlarmDisable
-                0x9d0035fc       0x24 build/default/production/_ext/1407244131/drv_tmr_static.o
-                0x9d0035fc                DRV_TMR0_AlarmDisable
+                0x9d003aa4       0x24 build/default/production/_ext/1407244131/drv_tmr_static.o
+                0x9d003aa4                DRV_TMR0_AlarmDisable
 
 .text.USB_UART_textAttributesReset
-                0x9d003620       0x24
+                0x9d003ac8       0x24
  .text.USB_UART_textAttributesReset
-                0x9d003620       0x24 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d003620                USB_UART_textAttributesReset
+                0x9d003ac8       0x24 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d003ac8                USB_UART_textAttributesReset
 
-.text.main      0x9d003644       0x20
- .text.main     0x9d003644       0x20 build/default/production/_ext/1360937237/main.o
-                0x9d003644                main
+.text.main      0x9d003aec       0x20
+ .text.main     0x9d003aec       0x20 build/default/production/_ext/1360937237/main.o
+                0x9d003aec                main
 
 .text.SYS_INT_Disable
-                0x9d003664       0x20
+                0x9d003b0c       0x20
  .text.SYS_INT_Disable
-                0x9d003664       0x20 build/default/production/_ext/1020727214/sys_int_pic32.o
-                0x9d003664                SYS_INT_Disable
+                0x9d003b0c       0x20 build/default/production/_ext/1020727214/sys_int_pic32.o
+                0x9d003b0c                SYS_INT_Disable
 
 .text.USB_UART_clearTerminal
-                0x9d003684       0x20
+                0x9d003b2c       0x20
  .text.USB_UART_clearTerminal
-                0x9d003684       0x20 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d003684                USB_UART_clearTerminal
+                0x9d003b2c       0x20 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d003b2c                USB_UART_clearTerminal
 
 .text.USB_UART_setCursorHome
-                0x9d0036a4       0x20
+                0x9d003b4c       0x20
  .text.USB_UART_setCursorHome
-                0x9d0036a4       0x20 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d0036a4                USB_UART_setCursorHome
+                0x9d003b4c       0x20 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d003b4c                USB_UART_setCursorHome
 
 .text.USB_UART_printNewline
-                0x9d0036c4       0x20
+                0x9d003b6c       0x20
  .text.USB_UART_printNewline
-                0x9d0036c4       0x20 build/default/production/_ext/1360937237/USB_UART.o
-                0x9d0036c4                USB_UART_printNewline
+                0x9d003b6c       0x20 build/default/production/_ext/1360937237/USB_UART.o
+                0x9d003b6c                USB_UART_printNewline
 
 .text.SYS_Tasks
-                0x9d0036e4       0x1c
+                0x9d003b8c       0x1c
  .text.SYS_Tasks
-                0x9d0036e4       0x1c build/default/production/_ext/1688732426/system_tasks.o
-                0x9d0036e4                SYS_Tasks
+                0x9d003b8c       0x1c build/default/production/_ext/1688732426/system_tasks.o
+                0x9d003b8c                SYS_Tasks
 
-.text           0x9d003700       0x18
- .text          0x9d003700       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-nmi-handler.o)
-                0x9d003700                _nmi_handler
+.text           0x9d003ba8       0x18
+ .text          0x9d003ba8       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-nmi-handler.o)
+                0x9d003ba8                _nmi_handler
 
 .text.SYS_DEVCON_Initialize
-                0x9d003718       0x14
+                0x9d003bc0       0x14
  .text.SYS_DEVCON_Initialize
-                0x9d003718       0x14 build/default/production/_ext/340578644/sys_devcon.o
-                0x9d003718                SYS_DEVCON_Initialize
+                0x9d003bc0       0x14 build/default/production/_ext/340578644/sys_devcon.o
+                0x9d003bc0                SYS_DEVCON_Initialize
 
 .text.SYS_INT_Initialize
-                0x9d00372c       0x14
+                0x9d003bd4       0x14
  .text.SYS_INT_Initialize
-                0x9d00372c       0x14 build/default/production/_ext/1020727214/sys_int_pic32.o
-                0x9d00372c                SYS_INT_Initialize
+                0x9d003bd4       0x14 build/default/production/_ext/1020727214/sys_int_pic32.o
+                0x9d003bd4                SYS_INT_Initialize
 
 .text.SYS_CLK_SystemFrequencyGet
-                0x9d003740        0xc
+                0x9d003be8        0xc
  .text.SYS_CLK_SystemFrequencyGet
-                0x9d003740        0xc build/default/production/_ext/639803181/sys_clk_pic32mz.o
-                0x9d003740                SYS_CLK_SystemFrequencyGet
+                0x9d003be8        0xc build/default/production/_ext/639803181/sys_clk_pic32mz.o
+                0x9d003be8                SYS_CLK_SystemFrequencyGet
 
 .text.APP_Initialize
                 0x9d0000f8        0x8
@@ -3250,13 +3238,13 @@ LOAD data_init
                 0x9d0000f8                APP_Initialize
 
 .text._on_reset
-                0x9d00374c        0x8
+                0x9d003bf4        0x8
  .text._on_reset
-                0x9d00374c        0x8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
-                0x9d00374c                _on_reset
+                0x9d003bf4        0x8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+                0x9d003bf4                _on_reset
 
 .text._on_bootstrap
-                0x9d003754        0x8
+                0x9d003bfc        0x8
  .text._on_bootstrap
-                0x9d003754        0x8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
-                0x9d003754                _on_bootstrap
+                0x9d003bfc        0x8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+                0x9d003bfc                _on_bootstrap
