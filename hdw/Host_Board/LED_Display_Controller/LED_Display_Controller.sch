@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 24
+Sheet 1 26
 Title ""
 Date ""
 Rev ""
@@ -25,12 +25,6 @@ S 3050 1800 500  150
 U 5BAAE10E
 F0 "POS3P3 Power Supply" 50
 F1 "POS3P3_Power_Supply.sch" 50
-$EndSheet
-$Sheet
-S 3050 2140 500  150 
-U 5BAAE127
-F0 "POS5 LED Power Supply" 50
-F1 "POS5_LED_Power_Supply.sch" 50
 $EndSheet
 $Sheet
 S 3050 2470 500  150 
@@ -55,12 +49,6 @@ S 3050 3600 500  150
 U 5BAAE1F3
 F0 "USB UART Bridge" 50
 F1 "USB_UART_Bridge.sch" 50
-$EndSheet
-$Sheet
-S 3050 3910 500  150 
-U 5BAAE2B6
-F0 "Panel Data Level Shifters" 50
-F1 "Panel_Data_Level_Shifters.sch" 50
 $EndSheet
 $Sheet
 S 3050 4260 500  150 
@@ -152,4 +140,24 @@ U 5BB844FD
 F0 "Status LEDs 1" 50
 F1 "Status_LEDs_1.sch" 50
 $EndSheet
+$Sheet
+S 7170 5030 500  150 
+U 5BBE424C
+F0 "Panel Data Level Shifters 1" 50
+F1 "Panel_Data_Level_Shifters_1.sch" 50
+$EndSheet
+$Sheet
+S 7170 5370 500  150 
+U 5BBE424F
+F0 "Panel Data Level Shifters 2" 50
+F1 "Panel_Data_Level_Shifters_2.sch" 50
+$EndSheet
+$Sheet
+S 7170 5680 500  150 
+U 5BBE4252
+F0 "Panel Data Level Shifters 3" 50
+F1 "Panel_Data_Level_Shifters_3.sch" 50
+$EndSheet
+Text Notes 1050 7760 0    50   ~ 0
+To Do:\n* Add +5V LED Power Supply\n* Pull ups instead of pull downs on USB_UART\n* Mechanical sheet\n* Design Power Input Circuit\n* Add more power input connectors\n* Add status LEDs\n*
 $EndSCHEMATC
