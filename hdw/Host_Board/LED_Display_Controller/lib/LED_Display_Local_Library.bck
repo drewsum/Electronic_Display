@@ -1,8 +1,39 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP +12Vin
+K POWER, PWR
+$ENDCMP
+#
+$CMP CP_Tant_Custom
+D Polarised capacitor
+K cap capacitor
+$ENDCMP
+#
+$CMP CY7C1011DV33
+D Cypress Parallel SRAM, 2Mb (128k x 16b), 44 TSSOP II
+K SRAM Cypress PArallel
+F http://www.cypress.com/file/42816/download
+$ENDCMP
+#
 $CMP C_Custom
 D Unpolarized capacitor
 K cap capacitor
+$ENDCMP
+#
+$CMP FT234XD
+D Basic UART USB Bridge
+F http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT234XD.pdf
+$ENDCMP
+#
+$CMP LTC4365DDB
+D Overvoltage, Undervoltage and Reverse Supply Protection Controller, 3x2mm DFN-8 package, 50Hz/60Hz noise rejection
+K overvoltage undervoltage reverse-polarity protection
+F http://cds.linear.com/docs/en/datasheet/4365fa.pdf
+$ENDCMP
+#
+$CMP L_Custom
+D Inductor
+K inductor choke coil reactor magnetic
 $ENDCMP
 #
 $CMP PIC32MZ2048EFH100_IPF
@@ -11,9 +42,26 @@ K PIC32 PIC32MZ PIC 32 bit
 F http://ww1.microchip.com/downloads/en/DeviceDoc/60001320E.pdf
 $ENDCMP
 #
+$CMP PIC32MZ2048EFH144_IPL
+D PIC32MZ 32 bit Micro, 2048KB Flash, 512k SRAM, TQFP-144
+F http://ww1.microchip.com/downloads/en/DeviceDoc/60001320D.pdf
+$ENDCMP
+#
 $CMP R_Custom
 D Resistor
 K Resistor
+$ENDCMP
+#
+$CMP SST25PF020B
+D 2Mb Serial DataFlash, 2.7V Vcc, SOIC-8
+K Microhip DataFlash
+F http://ww1.microchip.com/downloads/en/DeviceDoc/20005135B.pdf
+$ENDCMP
+#
+$CMP TL331
+D Single General-Purpose Comparator, SOT-23-5/SC-70-5
+K single comparator
+F http://www.ti.com/lit/ds/symlink/tl331.pdf
 $ENDCMP
 #
 #End Doc Library
