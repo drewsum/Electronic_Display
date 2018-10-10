@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 13 25
+Sheet 11 25
 Title ""
 Date ""
 Rev ""
@@ -116,4 +116,20 @@ Text GLabel 1260 3020 0    40   Input ~ 0
 ~FLASH_CE7
 Text GLabel 1260 3120 0    40   Input ~ 0
 ~FLASH_CE8
+Text GLabel 1180 1160 0    40   Output ~ 0
+~FLASH_WP1
+Text GLabel 1180 1260 0    40   Output ~ 0
+~FLASH_WP2
+Text GLabel 1180 1360 0    40   Output ~ 0
+~FLASH_WP3
+Text GLabel 1180 1460 0    40   Output ~ 0
+~FLASH_WP4
+Text GLabel 1180 1560 0    40   Output ~ 0
+~FLASH_WP5
+Text GLabel 1180 1660 0    40   Output ~ 0
+~FLASH_WP6
+Text GLabel 1180 1760 0    40   Output ~ 0
+~FLASH_WP7
+Text GLabel 1180 1860 0    40   Output ~ 0
+~FLASH_WP8
 $EndSCHEMATC
