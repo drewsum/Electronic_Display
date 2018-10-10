@@ -4,6 +4,17 @@ $CMP +12Vin
 K POWER, PWR
 $ENDCMP
 #
+$CMP +5V_USB
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
+$CMP 74LVC1G86_Power
+D Single EX-OR Gate, Low-Voltage CMOS
+K Single Gate EX-OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP CP_Tant_Custom
 D Polarised capacitor
 K cap capacitor
@@ -23,6 +34,11 @@ $ENDCMP
 $CMP FT234XD
 D Basic UART USB Bridge
 F http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT234XD.pdf
+$ENDCMP
+#
+$CMP GND_USB
+D GROUND power-flag symbol
+K Power Flag Symbol
 $ENDCMP
 #
 $CMP LTC4365DDB
@@ -66,6 +82,12 @@ $ENDCMP
 #
 $CMP TP
 D Test Point
+$ENDCMP
+#
+$CMP TPD3S014DBVR
+D TPD3S0x4 Current Limit Switch and D+/D– ESD Protection for USB Host Ports, SOT-23-6
+K ESD, current limit
+F http://www.ti.com/lit/ds/symlink/tpd3s014.pdf
 $ENDCMP
 #
 #End Doc Library

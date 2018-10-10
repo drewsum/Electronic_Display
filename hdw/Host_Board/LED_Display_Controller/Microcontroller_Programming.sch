@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 5 26
+Sheet 4 25
 Title ""
 Date ""
 Rev ""
@@ -14,4 +14,467 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L Connector_Generic:Conn_01x06 J?
+U 1 1 5BB4A695
+P 4380 4840
+F 0 "J?" H 4380 5140 50  0000 C CNN
+F 1 "PROG" H 4380 4440 50  0000 C CNN
+F 2 "" H 4380 4840 50  0001 C CNN
+F 3 "~" H 4380 4840 50  0001 C CNN
+	1    4380 4840
+	1    0    0    -1  
+$EndComp
+Text GLabel 4180 4640 0    50   UnSpc ~ 0
+~MCLR
+Text GLabel 4180 4940 0    50   BiDi ~ 0
+ICSPDAT
+Text GLabel 4180 5040 0    50   Output ~ 0
+ICSPCLK
+$Comp
+L power:GND #PWR?
+U 1 1 5BB4A7C4
+P 3660 4890
+F 0 "#PWR?" H 3660 4640 50  0001 C CNN
+F 1 "GND" H 3660 4740 50  0000 C CNN
+F 2 "" H 3660 4890 50  0001 C CNN
+F 3 "" H 3660 4890 50  0001 C CNN
+	1    3660 4890
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3660 4670 3660 4740
+Wire Wire Line
+	3660 4740 4180 4740
+Wire Wire Line
+	3660 4890 3660 4840
+Wire Wire Line
+	3660 4840 4180 4840
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BB4A85B
+P 6880 3890
+F 0 "C?" H 6905 3990 50  0000 L CNN
+F 1 "0.1uF" H 6905 3790 50  0000 L CNN
+F 2 "" H 6918 3740 50  0001 C CNN
+F 3 "" H 6905 3990 50  0001 C CNN
+F 4 "0603" H 6730 3990 50  0000 R CNN "display_footprint"
+F 5 "50V" H 6730 3890 50  0000 R CNN "Voltage"
+F 6 "X7R" H 6730 3790 50  0000 R CNN "Dielectric"
+F 7 "PN" H 7305 4390 60  0001 C CNN "Digi-Key PN"
+	1    6880 3890
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BB4A953
+P 6880 4040
+F 0 "#PWR?" H 6880 3790 50  0001 C CNN
+F 1 "GND" H 6880 3890 50  0000 C CNN
+F 2 "" H 6880 4040 50  0001 C CNN
+F 3 "" H 6880 4040 50  0001 C CNN
+	1    6880 4040
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:BSS214NW Q?
+U 1 1 5BB4AA83
+P 6270 5500
+F 0 "Q?" H 6470 5575 50  0000 L CNN
+F 1 "BSS214NW" H 6470 5500 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-323_SC-70" H 6470 5425 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-BSS214NW-DS-v02_02-en.pdf?fileId=db3a30431b3e89eb011b695aebc01bde" H 6270 5500 50  0001 L CNN
+	1    6270 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BB4AAE4
+P 6370 5700
+F 0 "#PWR?" H 6370 5450 50  0001 C CNN
+F 1 "GND" H 6370 5550 50  0000 C CNN
+F 2 "" H 6370 5700 50  0001 C CNN
+F 3 "" H 6370 5700 50  0001 C CNN
+	1    6370 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D?
+U 1 1 5BB4AC7C
+P 6370 5150
+F 0 "D?" H 6370 5250 50  0000 C CNN
+F 1 "Red" V 6400 4960 50  0000 C CNN
+F 2 "" H 6370 5150 50  0001 C CNN
+F 3 "~" H 6370 5150 50  0001 C CNN
+F 4 "0603" V 6320 4970 50  0000 C CNN "foot"
+	1    6370 5150
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BB4B41C
+P 6370 4850
+AR Path="/5BAAE1F3/5BB4B41C" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BB4B41C" Ref="R?"  Part="1" 
+AR Path="/5BAAE16C/5BB4B41C" Ref="R?"  Part="1" 
+F 0 "R?" H 6270 4850 50  0000 C CNN
+F 1 "1k" V 6370 4850 50  0000 C CNN
+F 2 "" H 6370 4850 50  0001 C CNN
+F 3 "" H 6370 4850 50  0001 C CNN
+F 4 "0603" H 6560 4930 50  0000 C CNN "display_footprint"
+F 5 "1%" H 6550 4850 50  0000 C CNN "Tolerance"
+F 6 "1/10W" H 6580 4780 50  0000 C CNN "Wattage"
+F 7 "PN" H 6670 5250 60  0001 C CNN "Digi-Key PN"
+	1    6370 4850
+	-1   0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BB4B510
+P 5920 5500
+F 0 "R?" V 5820 5500 50  0000 C CNN
+F 1 "10" V 5920 5500 50  0000 C CNN
+F 2 "" H 5920 5500 50  0001 C CNN
+F 3 "" H 5920 5500 50  0001 C CNN
+F 4 "0603" V 6020 5500 50  0000 C CNN "display_footprint"
+F 5 "1%" V 6120 5500 50  0000 C CNN "Tolerance"
+F 6 "1/10W" V 6220 5500 50  0000 C CNN "Wattage"
+F 7 "PN" H 6220 5900 60  0001 C CNN "Digi-Key PN"
+	1    5920 5500
+	0    1    1    0   
+$EndComp
+Text GLabel 5770 5500 0    50   Input ~ 0
+ICSP_DETECT
+$Comp
+L LED_Display_Local_Library:TL331 U?
+U 1 1 5BB4BBED
+P 5020 3060
+F 0 "U?" H 5070 3260 50  0000 C CNN
+F 1 "TL331" H 5170 2860 50  0000 C CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23-5" H 5020 3160 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl331.pdf" H 5020 3260 50  0001 C CNN
+	1    5020 3060
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:BZT52Bxx D?
+U 1 1 5BB4C064
+P 3650 3350
+F 0 "D?" V 3650 3470 50  0000 C CNN
+F 1 "BZT52C5V6S" V 3550 3010 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 3650 3175 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Diodes%20PDFs/BZT52C2V0S-BZT52C39S.pdf" H 3650 3350 50  0001 C CNN
+F 4 "SOD323" V 3640 3100 50  0000 C CNN "footer"
+F 5 "5.6V" V 3720 3160 50  0000 C CNN "rating"
+	1    3650 3350
+	0    1    1    0   
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BB4D12E
+P 4300 3350
+F 0 "C?" H 4325 3450 50  0000 L CNN
+F 1 "0.1uF" H 4325 3250 50  0000 L CNN
+F 2 "" H 4338 3200 50  0001 C CNN
+F 3 "" H 4325 3450 50  0001 C CNN
+F 4 "0603" H 4150 3450 50  0000 R CNN "display_footprint"
+F 5 "50V" H 4150 3350 50  0000 R CNN "Voltage"
+F 6 "X7R" H 4150 3250 50  0000 R CNN "Dielectric"
+F 7 "PN" H 4725 3850 60  0001 C CNN "Digi-Key PN"
+	1    4300 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BB4D13B
+P 4300 3500
+F 0 "#PWR?" H 4300 3250 50  0001 C CNN
+F 1 "GND" H 4300 3350 50  0000 C CNN
+F 2 "" H 4300 3500 50  0001 C CNN
+F 3 "" H 4300 3500 50  0001 C CNN
+	1    4300 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BB4D5EF
+P 3650 3500
+F 0 "#PWR?" H 3650 3250 50  0001 C CNN
+F 1 "GND" H 3650 3350 50  0000 C CNN
+F 2 "" H 3650 3500 50  0001 C CNN
+F 3 "" H 3650 3500 50  0001 C CNN
+	1    3650 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4720 3160 4300 3160
+Wire Wire Line
+	3650 3160 3650 3200
+Wire Wire Line
+	4300 3200 4300 3160
+Connection ~ 4300 3160
+Wire Wire Line
+	4300 3160 3650 3160
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BB4D9D6
+P 3650 2920
+AR Path="/5BAAE1F3/5BB4D9D6" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BB4D9D6" Ref="R?"  Part="1" 
+AR Path="/5BAAE16C/5BB4D9D6" Ref="R?"  Part="1" 
+F 0 "R?" H 3550 2920 50  0000 C CNN
+F 1 "10k" V 3650 2920 50  0000 C CNN
+F 2 "" H 3650 2920 50  0001 C CNN
+F 3 "" H 3650 2920 50  0001 C CNN
+F 4 "0603" H 3840 3000 50  0000 C CNN "display_footprint"
+F 5 "1%" H 3830 2920 50  0000 C CNN "Tolerance"
+F 6 "1/10W" H 3860 2850 50  0000 C CNN "Wattage"
+F 7 "PN" H 3950 3320 60  0001 C CNN "Digi-Key PN"
+	1    3650 2920
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 3070 3650 3160
+Connection ~ 3650 3160
+Text GLabel 4720 2960 0    50   Input ~ 0
+~MCLR
+$Comp
+L power:GND #PWR?
+U 1 1 5BB4E85A
+P 4920 3360
+F 0 "#PWR?" H 4920 3110 50  0001 C CNN
+F 1 "GND" H 4920 3210 50  0000 C CNN
+F 2 "" H 4920 3360 50  0001 C CNN
+F 3 "" H 4920 3360 50  0001 C CNN
+	1    4920 3360
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BB4EB37
+P 5670 2810
+AR Path="/5BAAE1F3/5BB4EB37" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BB4EB37" Ref="R?"  Part="1" 
+AR Path="/5BAAE16C/5BB4EB37" Ref="R?"  Part="1" 
+F 0 "R?" H 5570 2810 50  0000 C CNN
+F 1 "10k" V 5670 2810 50  0000 C CNN
+F 2 "" H 5670 2810 50  0001 C CNN
+F 3 "" H 5670 2810 50  0001 C CNN
+F 4 "0603" H 5860 2890 50  0000 C CNN "display_footprint"
+F 5 "1%" H 5850 2810 50  0000 C CNN "Tolerance"
+F 6 "1/10W" H 5880 2740 50  0000 C CNN "Wattage"
+F 7 "PN" H 5970 3210 60  0001 C CNN "Digi-Key PN"
+	1    5670 2810
+	-1   0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BB4ED6F
+P 6270 2810
+AR Path="/5BAAE1F3/5BB4ED6F" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BB4ED6F" Ref="R?"  Part="1" 
+AR Path="/5BAAE16C/5BB4ED6F" Ref="R?"  Part="1" 
+F 0 "R?" H 6170 2810 50  0000 C CNN
+F 1 "10k" V 6270 2810 50  0000 C CNN
+F 2 "" H 6270 2810 50  0001 C CNN
+F 3 "" H 6270 2810 50  0001 C CNN
+F 4 "0603" H 6460 2890 50  0000 C CNN "display_footprint"
+F 5 "1%" H 6450 2810 50  0000 C CNN "Tolerance"
+F 6 "1/10W" H 6480 2740 50  0000 C CNN "Wattage"
+F 7 "PN" H 6570 3210 60  0001 C CNN "Digi-Key PN"
+	1    6270 2810
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5320 3060 5670 3060
+Wire Wire Line
+	5670 2960 5670 3060
+Connection ~ 5670 3060
+Wire Wire Line
+	5670 3060 6590 3060
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BB4F06B
+P 6270 3560
+AR Path="/5BAAE1F3/5BB4F06B" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BB4F06B" Ref="R?"  Part="1" 
+AR Path="/5BAAE16C/5BB4F06B" Ref="R?"  Part="1" 
+F 0 "R?" H 6170 3560 50  0000 C CNN
+F 1 "0" V 6270 3560 50  0000 C CNN
+F 2 "" H 6270 3560 50  0001 C CNN
+F 3 "" H 6270 3560 50  0001 C CNN
+F 4 "0603" H 6460 3640 50  0000 C CNN "display_footprint"
+F 5 "1%" H 6450 3560 50  0000 C CNN "Tolerance"
+F 6 "1/10W" H 6480 3490 50  0000 C CNN "Wattage"
+F 7 "PN" H 6570 3960 60  0001 C CNN "Digi-Key PN"
+	1    6270 3560
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6270 2960 6270 3160
+Wire Wire Line
+	6590 3160 6270 3160
+Connection ~ 6270 3160
+Wire Wire Line
+	6270 3160 6270 3410
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BB504E8
+P 7640 3570
+AR Path="/5BAAE1F3/5BB504E8" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BB504E8" Ref="R?"  Part="1" 
+AR Path="/5BAAE16C/5BB504E8" Ref="R?"  Part="1" 
+F 0 "R?" H 7540 3570 50  0000 C CNN
+F 1 "10k" V 7640 3570 50  0000 C CNN
+F 2 "" H 7640 3570 50  0001 C CNN
+F 3 "" H 7640 3570 50  0001 C CNN
+F 4 "0603" H 7830 3650 50  0000 C CNN "display_footprint"
+F 5 "1%" H 7820 3570 50  0000 C CNN "Tolerance"
+F 6 "1/10W" H 7850 3500 50  0000 C CNN "Wattage"
+F 7 "PN" H 7940 3970 60  0001 C CNN "Digi-Key PN"
+	1    7640 3570
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	7140 3110 7640 3110
+Wire Wire Line
+	7640 3110 7640 3420
+Text GLabel 8120 3110 2    50   Output ~ 0
+ISCP_DETECT
+Wire Wire Line
+	8120 3110 7640 3110
+Connection ~ 7640 3110
+$Comp
+L power:GND #PWR?
+U 1 1 5BB50FF4
+P 6270 3710
+F 0 "#PWR?" H 6270 3460 50  0001 C CNN
+F 1 "GND" H 6270 3560 50  0000 C CNN
+F 2 "" H 6270 3710 50  0001 C CNN
+F 3 "" H 6270 3710 50  0001 C CNN
+	1    6270 3710
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BB5101F
+P 7640 3720
+F 0 "#PWR?" H 7640 3470 50  0001 C CNN
+F 1 "GND" H 7640 3570 50  0000 C CNN
+F 2 "" H 7640 3720 50  0001 C CNN
+F 3 "" H 7640 3720 50  0001 C CNN
+	1    7640 3720
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BB54983
+P 6890 3210
+F 0 "#PWR?" H 6890 2960 50  0001 C CNN
+F 1 "GND" H 6890 3060 50  0000 C CNN
+F 2 "" H 6890 3210 50  0001 C CNN
+F 3 "" H 6890 3210 50  0001 C CNN
+	1    6890 3210
+	1    0    0    -1  
+$EndComp
+NoConn ~ 4180 5140
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BBE4B62
+P 6270 2660
+F 0 "#PWR?" H 6270 2510 50  0001 C CNN
+F 1 "+3.3V" H 6270 2800 50  0000 C CNN
+F 2 "" H 6270 2660 50  0001 C CNN
+F 3 "" H 6270 2660 50  0001 C CNN
+	1    6270 2660
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BBE4BCE
+P 5670 2660
+F 0 "#PWR?" H 5670 2510 50  0001 C CNN
+F 1 "+3.3V" H 5670 2800 50  0000 C CNN
+F 2 "" H 5670 2660 50  0001 C CNN
+F 3 "" H 5670 2660 50  0001 C CNN
+	1    5670 2660
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BBE4BF7
+P 6880 3740
+F 0 "#PWR?" H 6880 3590 50  0001 C CNN
+F 1 "+3.3V" H 6880 3880 50  0000 C CNN
+F 2 "" H 6880 3740 50  0001 C CNN
+F 3 "" H 6880 3740 50  0001 C CNN
+	1    6880 3740
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BBE4CB6
+P 6370 4700
+F 0 "#PWR?" H 6370 4550 50  0001 C CNN
+F 1 "+3.3V" H 6370 4840 50  0000 C CNN
+F 2 "" H 6370 4700 50  0001 C CNN
+F 3 "" H 6370 4700 50  0001 C CNN
+	1    6370 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BBE4D2A
+P 3660 4670
+F 0 "#PWR?" H 3660 4520 50  0001 C CNN
+F 1 "+3.3V" H 3660 4810 50  0000 C CNN
+F 2 "" H 3660 4670 50  0001 C CNN
+F 3 "" H 3660 4670 50  0001 C CNN
+	1    3660 4670
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+12V #PWR?
+U 1 1 5BBE521A
+P 3650 2770
+F 0 "#PWR?" H 3650 2620 50  0001 C CNN
+F 1 "+12V" H 3650 2910 50  0000 C CNN
+F 2 "" H 3650 2770 50  0001 C CNN
+F 3 "" H 3650 2770 50  0001 C CNN
+	1    3650 2770
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+12V #PWR?
+U 1 1 5BBE5277
+P 4920 2760
+F 0 "#PWR?" H 4920 2610 50  0001 C CNN
+F 1 "+12V" H 4920 2900 50  0000 C CNN
+F 2 "" H 4920 2760 50  0001 C CNN
+F 3 "" H 4920 2760 50  0001 C CNN
+	1    4920 2760
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:74LVC1G86_Power U?
+U 1 1 5BBE80CF
+P 6890 3110
+F 0 "U?" H 7050 3270 50  0000 L CNN
+F 1 "74LVC1G86" H 7040 2970 50  0000 L CNN
+F 2 "" H 6890 3110 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6890 3110 50  0001 C CNN
+	1    6890 3110
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BBE8219
+P 6890 3010
+F 0 "#PWR?" H 6890 2860 50  0001 C CNN
+F 1 "+3.3V" H 6890 3150 50  0000 C CNN
+F 2 "" H 6890 3010 50  0001 C CNN
+F 3 "" H 6890 3010 50  0001 C CNN
+	1    6890 3010
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
