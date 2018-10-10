@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 17 25
+Sheet 15 25
 Title ""
 Date ""
 Rev ""
@@ -510,4 +510,23 @@ Wire Wire Line
 Connection ~ 5110 3550
 Text GLabel 3270 3550 0    40   Input ~ 0
 ~FLASH_Hold
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BC1C038
+P 3420 3650
+F 0 "R?" V 3380 3780 50  0000 L CNN
+F 1 "100" V 3420 3650 50  0000 C CNN
+F 2 "" H 3420 3650 50  0001 C CNN
+F 3 "" H 3420 3650 50  0001 C CNN
+F 4 "0603" V 3520 3650 50  0001 C CNN "display_footprint"
+F 5 "1%" V 3620 3650 50  0001 C CNN "Tolerance"
+F 6 "1/10W" V 3720 3650 50  0001 C CNN "Wattage"
+F 7 "PN" H 3720 4050 60  0001 C CNN "Digi-Key PN"
+	1    3420 3650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3570 3650 3930 3650
+Text GLabel 3270 3650 0    40   Input ~ 0
+~FLASH_WP2
 $EndSCHEMATC
