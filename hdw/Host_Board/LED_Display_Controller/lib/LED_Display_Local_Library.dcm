@@ -1,18 +1,24 @@
 EESchema-DOCLIB  Version 2.0
 #
-$CMP +12Vin
-K POWER, PWR
+$CMP +12V
+D power-flag symbol
+K Power Flag Symbol
 $ENDCMP
 #
-$CMP CP_Tant_Custom
-D Polarised capacitor
-K cap capacitor
+$CMP +3.3V
+D power-flag symbol
+K Power Flag Symbol
 $ENDCMP
 #
-$CMP CY7C1011DV33
-D Cypress Parallel SRAM, 2Mb (128k x 16b), 44 TSSOP II
-K SRAM Cypress PArallel
-F http://www.cypress.com/file/42816/download
+$CMP +5V_USB
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
+$CMP 74LVC1G86_POWER
+D Single EX-OR Gate, Low-Voltage CMOS
+K Single Gate EX-OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP C_Custom
@@ -25,10 +31,9 @@ D Basic UART USB Bridge
 F http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT234XD.pdf
 $ENDCMP
 #
-$CMP LTC4365DDB
-D Overvoltage, Undervoltage and Reverse Supply Protection Controller, 3x2mm DFN-8 package, 50Hz/60Hz noise rejection
-K overvoltage undervoltage reverse-polarity protection
-F http://cds.linear.com/docs/en/datasheet/4365fa.pdf
+$CMP GND_USB
+D GROUND power-flag symbol
+K Power Flag Symbol
 $ENDCMP
 #
 $CMP L_Custom
@@ -42,20 +47,9 @@ K PIC32 PIC32MZ PIC 32 bit
 F http://ww1.microchip.com/downloads/en/DeviceDoc/60001320E.pdf
 $ENDCMP
 #
-$CMP PIC32MZ2048EFH144_IPL
-D PIC32MZ 32 bit Micro, 2048KB Flash, 512k SRAM, TQFP-144
-F http://ww1.microchip.com/downloads/en/DeviceDoc/60001320D.pdf
-$ENDCMP
-#
 $CMP R_Custom
 D Resistor
 K Resistor
-$ENDCMP
-#
-$CMP SST25PF020B
-D 2Mb Serial DataFlash, 2.7V Vcc, SOIC-8
-K Microhip DataFlash
-F http://ww1.microchip.com/downloads/en/DeviceDoc/20005135B.pdf
 $ENDCMP
 #
 $CMP TL331
@@ -64,8 +58,22 @@ K single comparator
 F http://www.ti.com/lit/ds/symlink/tl331.pdf
 $ENDCMP
 #
-$CMP TP
-D Test Point
+$CMP TPD3S014DBVR
+D Current Limit Switch and D+/D– ESD Protection for USB Host Port, 0.5A, SOT-23-6
+K ESD-Protection
+F http://www.ti.com/lit/ds/symlink/tpd3s014.pdf
+$ENDCMP
+#
+$CMP TPD3S044
+D Current Limit Switch and D+/D– ESD Protection for USB Host Port, 1.5A, SOT-23-6
+K ESD-Protection
+F http://www.ti.com/lit/ds/symlink/tpd3s014.pdf
+$ENDCMP
+#
+$CMP Yellow
+D LED generic
+K led diode
+F ~
 $ENDCMP
 #
 #End Doc Library
