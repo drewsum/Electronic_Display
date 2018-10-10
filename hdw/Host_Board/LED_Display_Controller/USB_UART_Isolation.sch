@@ -382,6 +382,4 @@ F 3 "" H 3170 4800 50  0001 C CNN
 	1    3170 4800
 	1    0    0    -1  
 $EndComp
-Text Label 2890 4380 0    50   ~ 0
-**ADD_CUSTOM_FOOTPRINT**
 $EndSCHEMATC

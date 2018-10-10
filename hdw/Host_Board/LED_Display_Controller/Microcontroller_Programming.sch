@@ -456,6 +456,17 @@ F 4 "296-9854-1-ND" H 6890 3110 50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
+L power:GND #PWR?
+U 1 1 5BB54983
+P 6890 3210
+F 0 "#PWR?" H 6890 2960 50  0001 C CNN
+F 1 "GND" H 6890 3060 50  0000 C CNN
+F 2 "" H 6890 3210 50  0001 C CNN
+F 3 "" H 6890 3210 50  0001 C CNN
+	1    6890 3210
+	1    0    0    -1  
+$EndComp
+$Comp
 L LED_Display_Local_Library:+3.3V #PWR?
 U 1 1 5BB549AE
 P 6890 3010
@@ -467,15 +478,4 @@ F 3 "" H 6890 3010 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 NoConn ~ 4180 5140
-$Comp
-L power:GND #PWR?
-U 1 1 5BB54983
-P 6890 3210
-F 0 "#PWR?" H 6890 2960 50  0001 C CNN
-F 1 "GND" H 6890 3060 50  0000 C CNN
-F 2 "" H 6890 3210 50  0001 C CNN
-F 3 "" H 6890 3210 50  0001 C CNN
-	1    6890 3210
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC
