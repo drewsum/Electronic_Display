@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 7 25
+Sheet 7 26
 Title ""
 Date ""
 Rev ""
@@ -464,17 +464,6 @@ F 3 "~" H 8390 3600 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector:TestPoint TP?
-U 1 1 5BB0EA95
-P 5480 2730
-F 0 "TP?" H 5480 2940 50  0000 C CNN
-F 1 "TestPoint" H 5480 2930 50  0001 C CNN
-F 2 "" H 5680 2730 50  0001 C CNN
-F 3 "~" H 5680 2730 50  0001 C CNN
-	1    5480 2730
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:PWR_FLAG #FLG?
 U 1 1 5BB0EBE2
 P 5030 2670
@@ -488,33 +477,6 @@ $EndComp
 Connection ~ 5960 2730
 Wire Wire Line
 	5030 2670 5030 2730
-$Comp
-L LED_Display_Local_Library:GND_USB #PWR?
-U 1 1 5BB0FDBA
-P 5940 5430
-F 0 "#PWR?" H 5940 5180 50  0001 C CNN
-F 1 "GND_USB" H 5940 5280 50  0000 C CNN
-F 2 "" H 5940 5430 50  0001 C CNN
-F 3 "" H 5940 5430 50  0001 C CNN
-	1    5940 5430
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5BB0FDEB
-P 5940 5430
-F 0 "TP?" H 5940 5640 50  0000 C CNN
-F 1 "TestPoint" H 5940 5630 50  0001 C CNN
-F 2 "" H 6140 5430 50  0001 C CNN
-F 3 "~" H 6140 5430 50  0001 C CNN
-	1    5940 5430
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5030 2730 5480 2730
-Connection ~ 5480 2730
-Wire Wire Line
-	5480 2730 5960 2730
 $Comp
 L power:PWR_FLAG #FLG?
 U 1 1 5BB10D97
@@ -674,4 +636,6 @@ Wire Wire Line
 	8240 3600 7620 3600
 Wire Wire Line
 	7620 2730 7620 3600
+Wire Wire Line
+	5030 2730 5960 2730
 $EndSCHEMATC

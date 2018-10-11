@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 6 25
+Sheet 6 26
 Title ""
 Date ""
 Rev ""
@@ -318,19 +318,6 @@ Connection ~ 4730 3570
 Wire Wire Line
 	4730 3570 5120 3570
 $Comp
-L Connector_Generic:Conn_01x03 J?
-U 1 1 5BB40CE0
-P 3370 4700
-F 0 "J?" H 3370 4900 50  0000 C CNN
-F 1 "UART" H 3370 4500 50  0000 C CNN
-F 2 "" H 3370 4700 50  0001 C CNN
-F 3 "~" H 3370 4700 50  0001 C CNN
-	1    3370 4700
-	1    0    0    -1  
-$EndComp
-Text GLabel 3170 4600 0    50   UnSpc ~ 0
-USB_UART_TX
-$Comp
 L Isolator:ISO7321C U?
 U 1 1 5BB4118F
 P 5520 3370
@@ -347,19 +334,6 @@ Wire Wire Line
 	5920 3470 6900 3470
 Wire Wire Line
 	4130 3470 5120 3470
-Text GLabel 3170 4700 0    50   UnSpc ~ 0
-USB_UART_RX
-$Comp
-L power:GND #PWR?
-U 1 1 5BB44422
-P 3170 4800
-F 0 "#PWR?" H 3170 4550 50  0001 C CNN
-F 1 "GND" H 3170 4650 50  0000 C CNN
-F 2 "" H 3170 4800 50  0001 C CNN
-F 3 "" H 3170 4800 50  0001 C CNN
-	1    3170 4800
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+3.3V #PWR?
 U 1 1 5BBE892D
