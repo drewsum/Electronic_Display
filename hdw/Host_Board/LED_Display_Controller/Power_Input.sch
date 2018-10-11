@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 2 25
+Sheet 2 26
 Title ""
 Date ""
 Rev ""
@@ -617,19 +617,6 @@ $EndComp
 Wire Wire Line
 	7750 2650 7750 2720
 $Comp
-L Custom_Library:TP TP?
-U 1 1 5BB7B6E2
-P 7000 2650
-F 0 "TP?" H 7000 2800 50  0000 C CNN
-F 1 "TP" H 7000 2800 50  0001 C CNN
-F 2 "" H 7000 2650 60  0000 C CNN
-F 3 "" H 7000 2650 60  0000 C CNN
-	1    7000 2650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7000 2650 7000 2720
-$Comp
 L power:GND #PWR?
 U 1 1 5BB7FEE9
 P 2660 3260
@@ -649,28 +636,6 @@ F 1 "PWR_FLAG" H 2660 3410 50  0000 C CNN
 F 2 "" H 2660 3260 50  0001 C CNN
 F 3 "~" H 2660 3260 50  0001 C CNN
 	1    2660 3260
-	1    0    0    -1  
-$EndComp
-$Comp
-L Custom_Library:TP TP?
-U 1 1 5BB80406
-P 2440 3810
-F 0 "TP?" H 2440 3960 50  0000 C CNN
-F 1 "TP" H 2440 3960 50  0001 C CNN
-F 2 "" H 2440 3810 60  0000 C CNN
-F 3 "" H 2440 3810 60  0000 C CNN
-	1    2440 3810
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BB80478
-P 2440 3810
-F 0 "#PWR?" H 2440 3560 50  0001 C CNN
-F 1 "GND" H 2440 3660 50  0000 C CNN
-F 2 "" H 2440 3810 50  0001 C CNN
-F 3 "" H 2440 3810 50  0001 C CNN
-	1    2440 3810
 	1    0    0    -1  
 $EndComp
 $Comp
