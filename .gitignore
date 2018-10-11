@@ -1,1 +1,8 @@
 *.bak
+*.bck
+*.c.un~
+*.c~
+*.h.un~
+*.h~
+..gitignore.un~
+.gitignore~
