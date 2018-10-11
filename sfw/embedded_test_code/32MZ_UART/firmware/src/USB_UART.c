@@ -190,7 +190,7 @@ void USB_UART_Receive_Handler(void) {
         
         if(usb_uart_RxHead != usb_uart_RxTail) {
         
-            usb_uart_RxBuffer[usb_uart_RxHead] = '\0';
+            usb_uart_RxBuffer[usb_uart_RxHead - 1] = '\0';
             usb_uart_RxHead--;
 
         }
@@ -481,8 +481,34 @@ void USB_UART_ringBufferLUT(char * line_in) {
     
     }
     
+    // Credits
+    else if(strcmp(line_in, "Credits") == 0) {
+     
+        USB_UART_print("Credits:\n\r");
+        USB_UART_printNewline();
+        USB_UART_textAttributes(YELLOW, BLUE, BOLD);
+        USB_UART_print("Marquette Senior Design 2018-2019\n\r");
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        USB_UART_textAttributes(BLUE, YELLOW, BOLD);
+        USB_UART_print("Team E44: EECE Office LED Display\n\r");
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        USB_UART_textAttributes(CYAN, BLACK, NORMAL);
+        USB_UART_print("Logan Wedel\n\r");
+        USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
+        USB_UART_print("Caroline Gilger\n\r");
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("Drew Maatman\n\r");
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Kevin Etta\n\r");
+        USB_UART_textAttributes(MAGENTA, BLACK, NORMAL);
+        USB_UART_print("Tuoxuan Ren\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
     
-    
+    // If we've received a string that doesn't match, tell the user
     else if(strlen(line_in) >= 1) {
      
         USB_UART_textAttributes(RED, BLACK, NORMAL);
@@ -663,6 +689,7 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Timer 1 Stop: Stop Timer 1\n\r");
     USB_UART_print("    Timer 1 ISR Count?: Returns the number of Timer 1 ISR executions since reset\n\r");
     USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
+    USB_UART_print("    Credits: Displays creators\n\r");
     USB_UART_print("    Help: This Command\n\r");
     USB_UART_textAttributesReset();
 
