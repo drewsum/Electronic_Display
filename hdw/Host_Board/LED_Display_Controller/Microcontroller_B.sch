@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 12 26
+Sheet 12 32
 Title ""
 Date ""
 Rev ""
@@ -47,18 +47,8 @@ Text GLabel 7130 2880 2    50   Output ~ 0
 EBI_A13
 Text GLabel 7130 3380 2    50   Output ~ 0
 EBI_A16
-Text GLabel 7130 2680 2    40   Output ~ 0
-~EBI_BHE
-Text GLabel 7130 2580 2    40   Output ~ 0
-~EBI_BLE
 Text GLabel 7130 1980 2    40   Input ~ 0
 ~EBI_CE
-Text GLabel 4030 2680 0    50   BiDi ~ 0
-EBI_IO8
-Text GLabel 4030 2780 0    50   BiDi ~ 0
-EBI_IO9
-Text GLabel 4030 1680 0    50   BiDi ~ 0
-EBI_IO10
-Text GLabel 4030 1580 0    50   BiDi ~ 0
-EBI_IO11
+Text GLabel 7130 3680 2    50   Output ~ 0
+EBI_A17
 $EndSCHEMATC
