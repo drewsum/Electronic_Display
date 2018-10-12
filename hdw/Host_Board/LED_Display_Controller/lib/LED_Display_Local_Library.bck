@@ -20,6 +20,12 @@ D Polarised capacitor
 K cap capacitor
 $ENDCMP
 #
+$CMP CY7C1010DV33
+D Cypress Parallel SRAM, 2Mb (256k x 8b), 44 TSSOP II
+K SRAM Cypress Parallel 8 bit
+F http://www.cypress.com/file/42781/download
+$ENDCMP
+#
 $CMP CY7C1011DV33
 D Cypress Parallel SRAM, 2Mb (128k x 16b), 44 TSSOP II
 K SRAM Cypress PArallel
@@ -82,6 +88,12 @@ $ENDCMP
 #
 $CMP TP
 D Test Point
+$ENDCMP
+#
+$CMP TPD3S014DBVR
+D TPD3S0x4 Current Limit Switch and D+/D– ESD Protection for USB Host Ports, SOT-23-6
+K ESD, current limit
+F http://www.ti.com/lit/ds/symlink/tpd3s014.pdf
 $ENDCMP
 #
 #End Doc Library
