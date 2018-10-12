@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 13 26
+Sheet 13 32
 Title ""
 Date ""
 Rev ""
@@ -344,4 +344,6 @@ F 4 "428-1960-ND" H 5530 3900 50  0001 C CNN "Digi-Key PN"
 $EndComp
 Text GLabel 4780 4500 0    50   Input ~ 0
 EBI_A17
+Text Notes 2060 5440 0    50   ~ 0
+Consider strapping ~CS~ high since we only have one device on the EBI bus\nThis may or may not work, need to look deeper into EBI reference manual\nIf pins are available, leave this pin connected to the micro, not strapped
 $EndSCHEMATC
