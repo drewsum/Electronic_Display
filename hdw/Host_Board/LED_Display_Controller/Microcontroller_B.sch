@@ -47,10 +47,6 @@ Text GLabel 7130 2880 2    50   Output ~ 0
 EBI_A13
 Text GLabel 7130 3380 2    50   Output ~ 0
 EBI_A16
-Text GLabel 7130 2680 2    40   Output ~ 0
-~EBI_BHE
-Text GLabel 7130 2580 2    40   Output ~ 0
-~EBI_BLE
 Text GLabel 7130 1980 2    40   Input ~ 0
 ~EBI_CE
 Text GLabel 7130 3680 2    50   Output ~ 0
