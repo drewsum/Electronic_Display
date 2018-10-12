@@ -80,14 +80,6 @@ Text GLabel 7130 3880 2    50   BiDi ~ 0
 EBI_IO6
 Text GLabel 7130 3980 2    50   BiDi ~ 0
 EBI_IO7
-Text GLabel 7130 2680 2    50   BiDi ~ 0
-EBI_IO12
-Text GLabel 7130 2780 2    50   BiDi ~ 0
-EBI_IO13
-Text GLabel 7130 1780 2    50   BiDi ~ 0
-EBI_IO14
-Text GLabel 7130 1880 2    50   BiDi ~ 0
-EBI_IO15
 Text GLabel 4030 4980 0    40   Output ~ 0
 ~EBI_WE
 Text GLabel 4030 5080 0    40   Input ~ 0
