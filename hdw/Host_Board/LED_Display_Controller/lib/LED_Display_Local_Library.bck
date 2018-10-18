@@ -53,6 +53,11 @@ K overvoltage undervoltage reverse-polarity protection
 F http://cds.linear.com/docs/en/datasheet/4365fa.pdf
 $ENDCMP
 #
+$CMP LTC7851UHH
+D Quad Output, Multiphase Step-Down Voltage Mode DC/DC Controller with Accurate Current Sharing, QFN-58
+F http://www.analog.com/media/en/technical-documentation/data-sheets/LTC7851.pdf
+$ENDCMP
+#
 $CMP L_Custom
 D Inductor
 K inductor choke coil reactor magnetic
@@ -78,6 +83,15 @@ $CMP SST25PF020B
 D 2Mb Serial DataFlash, 2.7V Vcc, SOIC-8
 K Microhip DataFlash
 F http://ww1.microchip.com/downloads/en/DeviceDoc/20005135B.pdf
+$ENDCMP
+#
+$CMP SiC779
+D Integrated DrMOS Power Stage, 40A, 12VIN, PowerPAK MLP 6mm x 6mm 40
+F http://www.vishay.com/docs/67538/sic779.pdf
+$ENDCMP
+#
+$CMP Standoff
+D Hardware, Standoff
 $ENDCMP
 #
 $CMP TL331

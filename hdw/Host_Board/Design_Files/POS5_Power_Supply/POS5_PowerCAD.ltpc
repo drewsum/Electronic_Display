@@ -9,9 +9,9 @@
       <OutputNum>One</OutputNum>
       <IcThetaJA>0</IcThetaJA>
       <IcTa>25</IcTa>
-      <SolutionAreamm2>1228.7</SolutionAreamm2>
-      <SolutionComponentCount>41</SolutionComponentCount>
-      <SolutionMaxHeightmm>8.9</SolutionMaxHeightmm>
+      <SolutionAreamm2>1575.6</SolutionAreamm2>
+      <SolutionComponentCount>50</SolutionComponentCount>
+      <SolutionMaxHeightmm>4</SolutionMaxHeightmm>
     </ConverterSpec>
   </ConverterSpecs>
   <ProgramUserInfos>
@@ -30,118 +30,147 @@
       <Freqmin>250</Freqmin>
       <Freqmax>2250</Freqmax>
       <VinToCalc>12</VinToCalc>
-      <IoToCalc>120</IoToCalc>
-      <MaxVin>14</MaxVin>
+      <IoToCalc>80</IoToCalc>
+      <MaxVin>13.2</MaxVin>
       <NomVin>12</NomVin>
-      <MinVin>7</MinVin>
-      <SwitchingFreq>403000</SwitchingFreq>
-      <OutputVol>1.2</OutputVol>
-      <OutputCur>120</OutputCur>
+      <MinVin>10.8</MinVin>
+      <SwitchingFreq>989000</SwitchingFreq>
+      <OutputVol>4.98</OutputVol>
+      <OutputCur>80</OutputCur>
       <NPh>4</NPh>
       <NIc>1</NIc>
       <Ta>25</Ta>
-      <InductorRipplePercentDesired>40</InductorRipplePercentDesired>
-      <Lo>2.5E-07</Lo>
-      <DCR>0.00032</DCR>
-      <InductorManufacturer>WURTH</InductorManufacturer>
-      <InductorPartNumber>744301025</InductorPartNumber>
-      <InductorLength>11.3</InductorLength>
-      <InductorWidth>11</InductorWidth>
-      <InductorHeight>8.9</InductorHeight>
-      <InductorIsat>65</InductorIsat>
-      <InductorIheat>40</InductorIheat>
-      <InductorTheat>50</InductorTheat>
-      <InductorThetaWA>80.4</InductorThetaWA>
+      <InductorRipplePercentDesired>30</InductorRipplePercentDesired>
+      <Lo>4.6999999999999995E-07</Lo>
+      <DCR>0.0015300000000000001</DCR>
+      <InductorManufacturer>VISHAY</InductorManufacturer>
+      <InductorPartNumber>IHLP4040DZERR56M01</InductorPartNumber>
+      <InductorLength>10.3</InductorLength>
+      <InductorWidth>11.5</InductorWidth>
+      <InductorHeight>4</InductorHeight>
+      <InductorIsat>49</InductorIsat>
+      <InductorIheat>27.5</InductorIheat>
+      <InductorTheat>40</InductorTheat>
+      <InductorThetaWA>26.6</InductorThetaWA>
       <DcrDeratingEnabled>false</DcrDeratingEnabled>
-      <Cin>1.0374571E-05</Cin>
+      <Cin>1.425E-05</Cin>
       <CinESR>0.002</CinESR>
+      <CinESL>1.14E-09</CinESL>
       <NCin>8</NCin>
       <CinLength>3.2</CinLength>
       <CinWidth>2.5</CinWidth>
-      <CinHeight>2.7</CinHeight>
+      <CinHeight>2.8</CinHeight>
       <CinPackage>1210</CinPackage>
-      <CinPartNumber>GRM32ER71E226KE15</CinPartNumber>
-      <CinManufacturer>MURATA</CinManufacturer>
-      <CinAtHalfRated>9.67E-06</CinAtHalfRated>
-      <CinAtFullRated>4.77E-06</CinAtFullRated>
+      <CinPartNumber>C3225X5R1C226M</CinPartNumber>
+      <CinManufacturer>TDK</CinManufacturer>
+      <CinAtHalfRated>1.79E-05</CinAtHalfRated>
+      <CinAtFullRated>1.06E-05</CinAtFullRated>
       <CinAtNoVoltage>2.2E-05</CinAtNoVoltage>
-      <CinDerated>1.0374571428571429E-05</CinDerated>
-      <CinVoltageRating>25</CinVoltageRating>
+      <CinDerated>1.425E-05</CinDerated>
+      <CinVoltageRating>16</CinVoltageRating>
+      <CinCeramic>1.0000000949949049E-05</CinCeramic>
+      <CinCeramicESR>0.0050000002374872565</CinCeramicESR>
+      <CinCeramicESL>1.0000001424923606E-09</CinCeramicESL>
       <NCinCeramic>1</NCinCeramic>
       <InputLCFilterEnabled>false</InputLCFilterEnabled>
-      <EMISpec>CISPR22</EMISpec>
+      <EMISpec>MIL-STD-461G [CS101]</EMISpec>
+      <Cf_in>4.7000004464760529E-06</Cf_in>
+      <ESRCf_in>0.0030000001424923539</ESRCf_in>
+      <ESLCf_in>1.0000001424923606E-09</ESLCf_in>
       <NumCf_in>1</NumCf_in>
+      <Cf_inAtNoVoltage>4.7000004464760529E-06</Cf_inAtNoVoltage>
+      <Lf_in>2.0000001899898097E-07</Lf_in>
+      <ESRLf_in>0.0050000002374872565</ESRLf_in>
+      <EPCLf_in>3.0000005699694555E-12</EPCLf_in>
+      <Cd_in>0.00010000000949949049</Cd_in>
+      <ESRCd_in>0.0050000002374872565</ESRCd_in>
+      <ESLCd_in>1.0000001424923606E-09</ESLCd_in>
       <NumCd_in>1</NumCd_in>
+      <Cd_inAtNoVoltage>0.00010000000949949049</Cd_inAtNoVoltage>
+      <Rd1_in>500</Rd1_in>
+      <Cd3>0.00010000000949949049</Cd3>
+      <ESRCd3>0.0050000002374872565</ESRCd3>
+      <ESLCd3>1.0000001424923606E-09</ESLCd3>
       <NumCd3>1</NumCd3>
-      <Cob>0.00033</Cob>
-      <ESRb>0.0090000000000000011</ESRb>
-      <ESLb>2E-09</ESLb>
-      <Numb>12</Numb>
-      <BulkCapacitorManufacturer>PANASONIC</BulkCapacitorManufacturer>
-      <BulkCapacitorPartNumber>EEFSX0E331ER</BulkCapacitorPartNumber>
-      <CobAtNoVoltage>0.00033</CobAtNoVoltage>
-      <Coc>9.3070476E-05</Coc>
-      <ESRc>0.0025</ESRc>
-      <ESLc>3.5320000000000003E-10</ESLc>
+      <Cd3AtNoVoltage>0.00010000000949949049</Cd3AtNoVoltage>
+      <Rd3>500</Rd3>
+      <Cob>0.0001</Cob>
+      <ESRb>0.07</ESRb>
+      <ESLb>1.2E-09</ESLb>
+      <Numb>20</Numb>
+      <BulkCapacitorManufacturer>KEMET</BulkCapacitorManufacturer>
+      <BulkCapacitorPartNumber>T520T107M006ATE070</BulkCapacitorPartNumber>
+      <BulkCapacitorLength>3.5</BulkCapacitorLength>
+      <BulkCapacitorWidth>2.8</BulkCapacitorWidth>
+      <BulkCapacitorHeight>1.2</BulkCapacitorHeight>
+      <BulkCapacitorPackage>T</BulkCapacitorPackage>
+      <CobAtHalfRated>0.0001</CobAtHalfRated>
+      <CobAtFullRated>0.0001</CobAtFullRated>
+      <CobAtNoVoltage>0.0001</CobAtNoVoltage>
+      <CobDerated>0.0001</CobDerated>
+      <CobVoltageRating>6.3</CobVoltageRating>
+      <Coc>3.962E-05</Coc>
+      <ESRc>0.002</ESRc>
+      <ESLc>1.2700000000000002E-09</ESLc>
       <Numc>8</Numc>
-      <CeramicCapacitorManufacturer>MURATA</CeramicCapacitorManufacturer>
-      <CeramicCapacitorPartNumber>GRM31CR60J107ME39</CeramicCapacitorPartNumber>
+      <CeramicCapacitorManufacturer>TDK</CeramicCapacitorManufacturer>
+      <CeramicCapacitorPartNumber>C3225X5R0J107M</CeramicCapacitorPartNumber>
       <CeramicCapacitorLength>3.2</CeramicCapacitorLength>
-      <CeramicCapacitorWidth>1.6</CeramicCapacitorWidth>
-      <CeramicCapacitorHeight>1.9</CeramicCapacitorHeight>
-      <CeramicCapacitorPackage>1206</CeramicCapacitorPackage>
-      <CocAtHalfRated>4.008E-05</CocAtHalfRated>
-      <CocAtFullRated>1.807E-05</CocAtFullRated>
+      <CeramicCapacitorWidth>2.5</CeramicCapacitorWidth>
+      <CeramicCapacitorHeight>2.8</CeramicCapacitorHeight>
+      <CeramicCapacitorPackage>1210</CeramicCapacitorPackage>
+      <CocAtHalfRated>5.67E-05</CocAtHalfRated>
+      <CocAtFullRated>2.73E-05</CocAtFullRated>
       <CocAtNoVoltage>0.0001</CocAtNoVoltage>
-      <CocDerated>9.30704761904762E-05</CocDerated>
+      <CocDerated>3.962E-05</CocDerated>
       <CocVoltageRating>6.3</CocVoltageRating>
       <CapacitorDeratingEnabled>true</CapacitorDeratingEnabled>
-      <RfbTopActual>10000</RfbTopActual>
-      <RfbBotActual>10000</RfbBotActual>
-      <FcDesired>62500</FcDesired>
+      <RfbTopActual>100000</RfbTopActual>
+      <RfbBotActual>13700</RfbBotActual>
+      <FcDesired>200000</FcDesired>
       <PhaseBoostDesired>10</PhaseBoostDesired>
       <PhaseMarginDesired>60</PhaseMarginDesired>
-      <Ilim>0.0162</Ilim>
-      <MarginIoLimit>150</MarginIoLimit>
+      <Ilim>0.0415</Ilim>
+      <MarginIoLimit>120</MarginIoLimit>
       <Rsense>0.001</Rsense>
       <RsenseFilterR>200</RsenseFilterR>
       <RsenseFilterC>1E-09</RsenseFilterC>
       <SenseC>2.1999999999999999E-07</SenseC>
       <SenseRp>1000000000000</SenseRp>
-      <SenseRs>3570</SenseRs>
+      <SenseRs>1400</SenseRs>
       <Vforward>0.5</Vforward>
       <NumOfSchottky>1</NumOfSchottky>
-      <SwitchingFreqDesired>403000</SwitchingFreqDesired>
-      <Rfreq>30900</Rfreq>
-      <LoadStepHigh>60</LoadStepHigh>
+      <SwitchingFreqDesired>989000</SwitchingFreqDesired>
+      <Rfreq>51100</Rfreq>
+      <LoadStepHigh>80</LoadStepHigh>
       <LoadStepSlewRate>10000000</LoadStepSlewRate>
       <TonMin>1.1E-07</TonMin>
-      <ProjectName>Ref. design modified from DC2380A-C</ProjectName>
-      <ProjectDate>February 2017</ProjectDate>
-      <ProjectDesigner>M.S.</ProjectDesigner>
-      <VinStartUp>7</VinStartUp>
-      <VSD_Desired>7</VSD_Desired>
-      <VOV_Latch_Desired>7</VOV_Latch_Desired>
-      <VOV_NonLatch_Desired>7</VOV_NonLatch_Desired>
+      <ProjectName>LED Display POS5 Supply</ProjectName>
+      <ProjectDate>October 2018</ProjectDate>
+      <ProjectDesigner>E44</ProjectDesigner>
+      <VinStartUp>10.8</VinStartUp>
+      <VSD_Desired>10.8</VSD_Desired>
+      <VOV_Latch_Desired>10.8</VOV_Latch_Desired>
+      <VOV_NonLatch_Desired>10.8</VOV_NonLatch_Desired>
       <PartLength>5</PartLength>
       <PartWidth>9</PartWidth>
       <PartHeight>0.8</PartHeight>
       <FootprintClearanceFactor>1</FootprintClearanceFactor>
       <R1>10000</R1>
       <C3>3.3000000000000006E-09</C3>
-      <R3>332</R3>
+      <R3>320</R3>
       <C1>2.2000000000000003E-09</C1>
-      <R2>4120</R2>
-      <C2>2.2000000000000004E-10</C2>
-      <Z1>14090</Z1>
-      <Z2>14090</Z2>
-      <P1>53580</P1>
-      <P2>625000</P2>
-      <CompensatorGain>94.1</CompensatorGain>
-      <RLIM>41200</RLIM>
+      <R2>6040</R2>
+      <C2>1.0000000000000002E-10</C2>
+      <Z1>-37724.167859549809</Z1>
+      <Z2>65000</Z2>
+      <P1>800000</P1>
+      <P2>2000000</P2>
+      <CompensatorGain>128.73722657469489</CompensatorGain>
+      <RLIM>66500</RLIM>
       <VinD>7</VinD>
       <VoRipplePkPkMaxTargetPercent>1</VoRipplePkPkMaxTargetPercent>
-      <TotalVoRippleMaxTargetPercent>3</TotalVoRippleMaxTargetPercent>
+      <TotalVoRippleMaxTargetPercent>3.5</TotalVoRippleMaxTargetPercent>
       <VinRangeLimitsDisabled>false</VinRangeLimitsDisabled>
       <VoutMaxLimitsDisabled>false</VoutMaxLimitsDisabled>
       <IswMaxLimitsDisabled>false</IswMaxLimitsDisabled>
@@ -195,8 +224,8 @@
       <OutputLCFilterEnabled>false</OutputLCFilterEnabled>
       <OutputLCFilterSensingIsLocal>false</OutputLCFilterSensingIsLocal>
       <OutputLCFilterSensingIsRemote>false</OutputLCFilterSensingIsRemote>
-      <Efficiency>0.948</Efficiency>
-      <VoutRipplePercent>0.0011902224</VoutRipplePercent>
+      <Efficiency>0.9773</Efficiency>
+      <VoutRipplePercent>7.20488E-05</VoutRipplePercent>
       <LossCurveA2>0.000420604</LossCurveA2>
       <LossCurveA1>0.025133655</LossCurveA1>
       <LossCurveA0>0.458007558</LossCurveA0>
@@ -212,19 +241,5 @@
       <LossCurveFit_CMatrix_RowB0A0>0.7107935677,-2.0516026759,1.7020111673,0.9841477251;1,403000,0.8,1.2,1.8,7,12,14,120</LossCurveFit_CMatrix_RowB0A0>
     </OutputRailData>
   </OutputRailDatas>
-  <NotationLabelControls>
-    <NotationLabelControl>
-      <Left>264</Left>
-      <Top>40</Top>
-      <Width>628</Width>
-      <Height>40</Height>
-      <Text>Reference Design Modified from DC2380A-C Demo Board</Text>
-      <Background>#00FFFFFF</Background>
-      <FontFamily>Segoe UI</FontFamily>
-      <FontSize>20.25</FontSize>
-      <Foreground>#FF800000</Foreground>
-      <FontStyle>Normal</FontStyle>
-      <FontWeight>Normal</FontWeight>
-    </NotationLabelControl>
-  </NotationLabelControls>
+  <NotationLabelControls />
 </Root>

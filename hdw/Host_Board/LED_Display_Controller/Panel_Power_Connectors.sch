@@ -63,21 +63,6 @@ Wire Wire Line
 Wire Wire Line
 	2370 1840 2370 1650
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB7EDEF
-P 1990 1490
-F 0 "C?" H 2015 1590 50  0000 L CNN
-F 1 "C_Custom" H 2015 1390 50  0000 L CNN
-F 2 "" H 2028 1340 50  0001 C CNN
-F 3 "" H 2015 1590 50  0001 C CNN
-F 4 "Foot" H 1840 1590 50  0000 R CNN "display_footprint"
-F 5 "V" H 1840 1490 50  0000 R CNN "Voltage"
-F 6 "Er" H 1840 1390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 2415 1990 60  0001 C CNN "Digi-Key PN"
-	1    1990 1490
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB7EE3A
 P 1990 1340
@@ -147,21 +132,6 @@ Wire Wire Line
 	3870 1160 3870 1350
 Wire Wire Line
 	3870 1840 3870 1650
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB7F096
-P 3490 1490
-F 0 "C?" H 3515 1590 50  0000 L CNN
-F 1 "C_Custom" H 3515 1390 50  0000 L CNN
-F 2 "" H 3528 1340 50  0001 C CNN
-F 3 "" H 3515 1590 50  0001 C CNN
-F 4 "Foot" H 3340 1590 50  0000 R CNN "display_footprint"
-F 5 "V" H 3340 1490 50  0000 R CNN "Voltage"
-F 6 "Er" H 3340 1390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 3915 1990 60  0001 C CNN "Digi-Key PN"
-	1    3490 1490
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB7F09D
@@ -233,21 +203,6 @@ Wire Wire Line
 Wire Wire Line
 	5370 1840 5370 1650
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB7F1A1
-P 4990 1490
-F 0 "C?" H 5015 1590 50  0000 L CNN
-F 1 "C_Custom" H 5015 1390 50  0000 L CNN
-F 2 "" H 5028 1340 50  0001 C CNN
-F 3 "" H 5015 1590 50  0001 C CNN
-F 4 "Foot" H 4840 1590 50  0000 R CNN "display_footprint"
-F 5 "V" H 4840 1490 50  0000 R CNN "Voltage"
-F 6 "Er" H 4840 1390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 5415 1990 60  0001 C CNN "Digi-Key PN"
-	1    4990 1490
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB7F1A8
 P 4990 1340
@@ -317,21 +272,6 @@ Wire Wire Line
 	6870 1160 6870 1350
 Wire Wire Line
 	6870 1840 6870 1650
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB7F2C4
-P 6490 1490
-F 0 "C?" H 6515 1590 50  0000 L CNN
-F 1 "C_Custom" H 6515 1390 50  0000 L CNN
-F 2 "" H 6528 1340 50  0001 C CNN
-F 3 "" H 6515 1590 50  0001 C CNN
-F 4 "Foot" H 6340 1590 50  0000 R CNN "display_footprint"
-F 5 "V" H 6340 1490 50  0000 R CNN "Voltage"
-F 6 "Er" H 6340 1390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 6915 1990 60  0001 C CNN "Digi-Key PN"
-	1    6490 1490
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB7F2CB
@@ -403,21 +343,6 @@ Wire Wire Line
 Wire Wire Line
 	8370 1840 8370 1650
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB7F3E1
-P 7990 1490
-F 0 "C?" H 8015 1590 50  0000 L CNN
-F 1 "C_Custom" H 8015 1390 50  0000 L CNN
-F 2 "" H 8028 1340 50  0001 C CNN
-F 3 "" H 8015 1590 50  0001 C CNN
-F 4 "Foot" H 7840 1590 50  0000 R CNN "display_footprint"
-F 5 "V" H 7840 1490 50  0000 R CNN "Voltage"
-F 6 "Er" H 7840 1390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 8415 1990 60  0001 C CNN "Digi-Key PN"
-	1    7990 1490
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB7F3E8
 P 7990 1340
@@ -487,21 +412,6 @@ Wire Wire Line
 	2370 2660 2370 2850
 Wire Wire Line
 	2370 3340 2370 3150
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB80409
-P 1990 2990
-F 0 "C?" H 2015 3090 50  0000 L CNN
-F 1 "C_Custom" H 2015 2890 50  0000 L CNN
-F 2 "" H 2028 2840 50  0001 C CNN
-F 3 "" H 2015 3090 50  0001 C CNN
-F 4 "Foot" H 1840 3090 50  0000 R CNN "display_footprint"
-F 5 "V" H 1840 2990 50  0000 R CNN "Voltage"
-F 6 "Er" H 1840 2890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 2415 3490 60  0001 C CNN "Digi-Key PN"
-	1    1990 2990
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB80410
@@ -573,21 +483,6 @@ Wire Wire Line
 Wire Wire Line
 	3870 3340 3870 3150
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB8043C
-P 3490 2990
-F 0 "C?" H 3515 3090 50  0000 L CNN
-F 1 "C_Custom" H 3515 2890 50  0000 L CNN
-F 2 "" H 3528 2840 50  0001 C CNN
-F 3 "" H 3515 3090 50  0001 C CNN
-F 4 "Foot" H 3340 3090 50  0000 R CNN "display_footprint"
-F 5 "V" H 3340 2990 50  0000 R CNN "Voltage"
-F 6 "Er" H 3340 2890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 3915 3490 60  0001 C CNN "Digi-Key PN"
-	1    3490 2990
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB80443
 P 3490 2840
@@ -657,21 +552,6 @@ Wire Wire Line
 	5370 2660 5370 2850
 Wire Wire Line
 	5370 3340 5370 3150
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB8046F
-P 4990 2990
-F 0 "C?" H 5015 3090 50  0000 L CNN
-F 1 "C_Custom" H 5015 2890 50  0000 L CNN
-F 2 "" H 5028 2840 50  0001 C CNN
-F 3 "" H 5015 3090 50  0001 C CNN
-F 4 "Foot" H 4840 3090 50  0000 R CNN "display_footprint"
-F 5 "V" H 4840 2990 50  0000 R CNN "Voltage"
-F 6 "Er" H 4840 2890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 5415 3490 60  0001 C CNN "Digi-Key PN"
-	1    4990 2990
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB80476
@@ -743,21 +623,6 @@ Wire Wire Line
 Wire Wire Line
 	6870 3340 6870 3150
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB804A2
-P 6490 2990
-F 0 "C?" H 6515 3090 50  0000 L CNN
-F 1 "C_Custom" H 6515 2890 50  0000 L CNN
-F 2 "" H 6528 2840 50  0001 C CNN
-F 3 "" H 6515 3090 50  0001 C CNN
-F 4 "Foot" H 6340 3090 50  0000 R CNN "display_footprint"
-F 5 "V" H 6340 2990 50  0000 R CNN "Voltage"
-F 6 "Er" H 6340 2890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 6915 3490 60  0001 C CNN "Digi-Key PN"
-	1    6490 2990
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB804A9
 P 6490 2840
@@ -827,21 +692,6 @@ Wire Wire Line
 	8370 2660 8370 2850
 Wire Wire Line
 	8370 3340 8370 3150
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB804D5
-P 7990 2990
-F 0 "C?" H 8015 3090 50  0000 L CNN
-F 1 "C_Custom" H 8015 2890 50  0000 L CNN
-F 2 "" H 8028 2840 50  0001 C CNN
-F 3 "" H 8015 3090 50  0001 C CNN
-F 4 "Foot" H 7840 3090 50  0000 R CNN "display_footprint"
-F 5 "V" H 7840 2990 50  0000 R CNN "Voltage"
-F 6 "Er" H 7840 2890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 8415 3490 60  0001 C CNN "Digi-Key PN"
-	1    7990 2990
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB804DC
@@ -913,21 +763,6 @@ Wire Wire Line
 Wire Wire Line
 	2370 4840 2370 4650
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB80C4C
-P 1990 4490
-F 0 "C?" H 2015 4590 50  0000 L CNN
-F 1 "C_Custom" H 2015 4390 50  0000 L CNN
-F 2 "" H 2028 4340 50  0001 C CNN
-F 3 "" H 2015 4590 50  0001 C CNN
-F 4 "Foot" H 1840 4590 50  0000 R CNN "display_footprint"
-F 5 "V" H 1840 4490 50  0000 R CNN "Voltage"
-F 6 "Er" H 1840 4390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 2415 4990 60  0001 C CNN "Digi-Key PN"
-	1    1990 4490
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB80C53
 P 1990 4340
@@ -997,21 +832,6 @@ Wire Wire Line
 	3870 4160 3870 4350
 Wire Wire Line
 	3870 4840 3870 4650
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB80C7F
-P 3490 4490
-F 0 "C?" H 3515 4590 50  0000 L CNN
-F 1 "C_Custom" H 3515 4390 50  0000 L CNN
-F 2 "" H 3528 4340 50  0001 C CNN
-F 3 "" H 3515 4590 50  0001 C CNN
-F 4 "Foot" H 3340 4590 50  0000 R CNN "display_footprint"
-F 5 "V" H 3340 4490 50  0000 R CNN "Voltage"
-F 6 "Er" H 3340 4390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 3915 4990 60  0001 C CNN "Digi-Key PN"
-	1    3490 4490
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB80C86
@@ -1083,21 +903,6 @@ Wire Wire Line
 Wire Wire Line
 	5370 4840 5370 4650
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB80CB2
-P 4990 4490
-F 0 "C?" H 5015 4590 50  0000 L CNN
-F 1 "C_Custom" H 5015 4390 50  0000 L CNN
-F 2 "" H 5028 4340 50  0001 C CNN
-F 3 "" H 5015 4590 50  0001 C CNN
-F 4 "Foot" H 4840 4590 50  0000 R CNN "display_footprint"
-F 5 "V" H 4840 4490 50  0000 R CNN "Voltage"
-F 6 "Er" H 4840 4390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 5415 4990 60  0001 C CNN "Digi-Key PN"
-	1    4990 4490
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB80CB9
 P 4990 4340
@@ -1167,21 +972,6 @@ Wire Wire Line
 	6870 4160 6870 4350
 Wire Wire Line
 	6870 4840 6870 4650
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB80CE5
-P 6490 4490
-F 0 "C?" H 6515 4590 50  0000 L CNN
-F 1 "C_Custom" H 6515 4390 50  0000 L CNN
-F 2 "" H 6528 4340 50  0001 C CNN
-F 3 "" H 6515 4590 50  0001 C CNN
-F 4 "Foot" H 6340 4590 50  0000 R CNN "display_footprint"
-F 5 "V" H 6340 4490 50  0000 R CNN "Voltage"
-F 6 "Er" H 6340 4390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 6915 4990 60  0001 C CNN "Digi-Key PN"
-	1    6490 4490
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB80CEC
@@ -1253,21 +1043,6 @@ Wire Wire Line
 Wire Wire Line
 	8370 4840 8370 4650
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB80D18
-P 7990 4490
-F 0 "C?" H 8015 4590 50  0000 L CNN
-F 1 "C_Custom" H 8015 4390 50  0000 L CNN
-F 2 "" H 8028 4340 50  0001 C CNN
-F 3 "" H 8015 4590 50  0001 C CNN
-F 4 "Foot" H 7840 4590 50  0000 R CNN "display_footprint"
-F 5 "V" H 7840 4490 50  0000 R CNN "Voltage"
-F 6 "Er" H 7840 4390 50  0000 R CNN "Dielectric"
-F 7 "PN" H 8415 4990 60  0001 C CNN "Digi-Key PN"
-	1    7990 4490
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB80D1F
 P 7990 4340
@@ -1337,21 +1112,6 @@ Wire Wire Line
 	2370 5660 2370 5850
 Wire Wire Line
 	2370 6340 2370 6150
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB81BD3
-P 1990 5990
-F 0 "C?" H 2015 6090 50  0000 L CNN
-F 1 "C_Custom" H 2015 5890 50  0000 L CNN
-F 2 "" H 2028 5840 50  0001 C CNN
-F 3 "" H 2015 6090 50  0001 C CNN
-F 4 "Foot" H 1840 6090 50  0000 R CNN "display_footprint"
-F 5 "V" H 1840 5990 50  0000 R CNN "Voltage"
-F 6 "Er" H 1840 5890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 2415 6490 60  0001 C CNN "Digi-Key PN"
-	1    1990 5990
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB81BDA
@@ -1423,21 +1183,6 @@ Wire Wire Line
 Wire Wire Line
 	3870 6340 3870 6150
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB81C06
-P 3490 5990
-F 0 "C?" H 3515 6090 50  0000 L CNN
-F 1 "C_Custom" H 3515 5890 50  0000 L CNN
-F 2 "" H 3528 5840 50  0001 C CNN
-F 3 "" H 3515 6090 50  0001 C CNN
-F 4 "Foot" H 3340 6090 50  0000 R CNN "display_footprint"
-F 5 "V" H 3340 5990 50  0000 R CNN "Voltage"
-F 6 "Er" H 3340 5890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 3915 6490 60  0001 C CNN "Digi-Key PN"
-	1    3490 5990
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB81C0D
 P 3490 5840
@@ -1507,21 +1252,6 @@ Wire Wire Line
 	5370 5660 5370 5850
 Wire Wire Line
 	5370 6340 5370 6150
-$Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB81C39
-P 4990 5990
-F 0 "C?" H 5015 6090 50  0000 L CNN
-F 1 "C_Custom" H 5015 5890 50  0000 L CNN
-F 2 "" H 5028 5840 50  0001 C CNN
-F 3 "" H 5015 6090 50  0001 C CNN
-F 4 "Foot" H 4840 6090 50  0000 R CNN "display_footprint"
-F 5 "V" H 4840 5990 50  0000 R CNN "Voltage"
-F 6 "Er" H 4840 5890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 5415 6490 60  0001 C CNN "Digi-Key PN"
-	1    4990 5990
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5BB81C40
@@ -1593,21 +1323,6 @@ Wire Wire Line
 Wire Wire Line
 	6870 6340 6870 6150
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB81C6C
-P 6490 5990
-F 0 "C?" H 6515 6090 50  0000 L CNN
-F 1 "C_Custom" H 6515 5890 50  0000 L CNN
-F 2 "" H 6528 5840 50  0001 C CNN
-F 3 "" H 6515 6090 50  0001 C CNN
-F 4 "Foot" H 6340 6090 50  0000 R CNN "display_footprint"
-F 5 "V" H 6340 5990 50  0000 R CNN "Voltage"
-F 6 "Er" H 6340 5890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 6915 6490 60  0001 C CNN "Digi-Key PN"
-	1    6490 5990
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB81C73
 P 6490 5840
@@ -1678,21 +1393,6 @@ Wire Wire Line
 Wire Wire Line
 	8370 6340 8370 6150
 $Comp
-L LED_Display_Local_Library:C_Custom C?
-U 1 1 5BB81C9F
-P 7990 5990
-F 0 "C?" H 8015 6090 50  0000 L CNN
-F 1 "C_Custom" H 8015 5890 50  0000 L CNN
-F 2 "" H 8028 5840 50  0001 C CNN
-F 3 "" H 8015 6090 50  0001 C CNN
-F 4 "Foot" H 7840 6090 50  0000 R CNN "display_footprint"
-F 5 "V" H 7840 5990 50  0000 R CNN "Voltage"
-F 6 "Er" H 7840 5890 50  0000 R CNN "Dielectric"
-F 7 "PN" H 8415 6490 60  0001 C CNN "Digi-Key PN"
-	1    7990 5990
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5BB81CA6
 P 7990 5840
@@ -1712,6 +1412,286 @@ F 1 "GND" H 7990 5990 50  0000 C CNN
 F 2 "" H 7990 6140 50  0001 C CNN
 F 3 "" H 7990 6140 50  0001 C CNN
 	1    7990 6140
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC988CA
+P 1990 1490
+F 0 "C?" H 2015 1590 50  0000 L CNN
+F 1 "100uF" H 2015 1390 50  0000 L CNN
+F 2 "" H 2028 1340 50  0001 C CNN
+F 3 "" H 2015 1590 50  0001 C CNN
+F 4 "3528" H 1840 1590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 1840 1490 50  0000 R CNN "Voltage"
+F 6 "20%" H 1840 1390 50  0000 R CNN "Tolerance"
+	1    1990 1490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC98FB8
+P 3490 1490
+F 0 "C?" H 3515 1590 50  0000 L CNN
+F 1 "100uF" H 3515 1390 50  0000 L CNN
+F 2 "" H 3528 1340 50  0001 C CNN
+F 3 "" H 3515 1590 50  0001 C CNN
+F 4 "3528" H 3340 1590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 3340 1490 50  0000 R CNN "Voltage"
+F 6 "20%" H 3340 1390 50  0000 R CNN "Tolerance"
+	1    3490 1490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9911E
+P 4990 1490
+F 0 "C?" H 5015 1590 50  0000 L CNN
+F 1 "100uF" H 5015 1390 50  0000 L CNN
+F 2 "" H 5028 1340 50  0001 C CNN
+F 3 "" H 5015 1590 50  0001 C CNN
+F 4 "3528" H 4840 1590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 4840 1490 50  0000 R CNN "Voltage"
+F 6 "20%" H 4840 1390 50  0000 R CNN "Tolerance"
+	1    4990 1490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC992A8
+P 6490 1490
+F 0 "C?" H 6515 1590 50  0000 L CNN
+F 1 "100uF" H 6515 1390 50  0000 L CNN
+F 2 "" H 6528 1340 50  0001 C CNN
+F 3 "" H 6515 1590 50  0001 C CNN
+F 4 "3528" H 6340 1590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 6340 1490 50  0000 R CNN "Voltage"
+F 6 "20%" H 6340 1390 50  0000 R CNN "Tolerance"
+	1    6490 1490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9943C
+P 7990 1490
+F 0 "C?" H 8015 1590 50  0000 L CNN
+F 1 "100uF" H 8015 1390 50  0000 L CNN
+F 2 "" H 8028 1340 50  0001 C CNN
+F 3 "" H 8015 1590 50  0001 C CNN
+F 4 "3528" H 7840 1590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 7840 1490 50  0000 R CNN "Voltage"
+F 6 "20%" H 7840 1390 50  0000 R CNN "Tolerance"
+	1    7990 1490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC995E6
+P 7990 2990
+F 0 "C?" H 8015 3090 50  0000 L CNN
+F 1 "100uF" H 8015 2890 50  0000 L CNN
+F 2 "" H 8028 2840 50  0001 C CNN
+F 3 "" H 8015 3090 50  0001 C CNN
+F 4 "3528" H 7840 3090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 7840 2990 50  0000 R CNN "Voltage"
+F 6 "20%" H 7840 2890 50  0000 R CNN "Tolerance"
+	1    7990 2990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC997CC
+P 6490 2990
+F 0 "C?" H 6515 3090 50  0000 L CNN
+F 1 "100uF" H 6515 2890 50  0000 L CNN
+F 2 "" H 6528 2840 50  0001 C CNN
+F 3 "" H 6515 3090 50  0001 C CNN
+F 4 "3528" H 6340 3090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 6340 2990 50  0000 R CNN "Voltage"
+F 6 "20%" H 6340 2890 50  0000 R CNN "Tolerance"
+	1    6490 2990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9994F
+P 4990 2990
+F 0 "C?" H 5015 3090 50  0000 L CNN
+F 1 "100uF" H 5015 2890 50  0000 L CNN
+F 2 "" H 5028 2840 50  0001 C CNN
+F 3 "" H 5015 3090 50  0001 C CNN
+F 4 "3528" H 4840 3090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 4840 2990 50  0000 R CNN "Voltage"
+F 6 "20%" H 4840 2890 50  0000 R CNN "Tolerance"
+	1    4990 2990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC99AE7
+P 3490 2990
+F 0 "C?" H 3515 3090 50  0000 L CNN
+F 1 "100uF" H 3515 2890 50  0000 L CNN
+F 2 "" H 3528 2840 50  0001 C CNN
+F 3 "" H 3515 3090 50  0001 C CNN
+F 4 "3528" H 3340 3090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 3340 2990 50  0000 R CNN "Voltage"
+F 6 "20%" H 3340 2890 50  0000 R CNN "Tolerance"
+	1    3490 2990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC99CDA
+P 1990 2990
+F 0 "C?" H 2015 3090 50  0000 L CNN
+F 1 "100uF" H 2015 2890 50  0000 L CNN
+F 2 "" H 2028 2840 50  0001 C CNN
+F 3 "" H 2015 3090 50  0001 C CNN
+F 4 "3528" H 1840 3090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 1840 2990 50  0000 R CNN "Voltage"
+F 6 "20%" H 1840 2890 50  0000 R CNN "Tolerance"
+	1    1990 2990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC99EAA
+P 1990 4490
+F 0 "C?" H 2015 4590 50  0000 L CNN
+F 1 "100uF" H 2015 4390 50  0000 L CNN
+F 2 "" H 2028 4340 50  0001 C CNN
+F 3 "" H 2015 4590 50  0001 C CNN
+F 4 "3528" H 1840 4590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 1840 4490 50  0000 R CNN "Voltage"
+F 6 "20%" H 1840 4390 50  0000 R CNN "Tolerance"
+	1    1990 4490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9A19D
+P 3490 4490
+F 0 "C?" H 3515 4590 50  0000 L CNN
+F 1 "100uF" H 3515 4390 50  0000 L CNN
+F 2 "" H 3528 4340 50  0001 C CNN
+F 3 "" H 3515 4590 50  0001 C CNN
+F 4 "3528" H 3340 4590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 3340 4490 50  0000 R CNN "Voltage"
+F 6 "20%" H 3340 4390 50  0000 R CNN "Tolerance"
+	1    3490 4490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9A3EB
+P 4990 4490
+F 0 "C?" H 5015 4590 50  0000 L CNN
+F 1 "100uF" H 5015 4390 50  0000 L CNN
+F 2 "" H 5028 4340 50  0001 C CNN
+F 3 "" H 5015 4590 50  0001 C CNN
+F 4 "3528" H 4840 4590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 4840 4490 50  0000 R CNN "Voltage"
+F 6 "20%" H 4840 4390 50  0000 R CNN "Tolerance"
+	1    4990 4490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9A5FE
+P 6490 4490
+F 0 "C?" H 6515 4590 50  0000 L CNN
+F 1 "100uF" H 6515 4390 50  0000 L CNN
+F 2 "" H 6528 4340 50  0001 C CNN
+F 3 "" H 6515 4590 50  0001 C CNN
+F 4 "3528" H 6340 4590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 6340 4490 50  0000 R CNN "Voltage"
+F 6 "20%" H 6340 4390 50  0000 R CNN "Tolerance"
+	1    6490 4490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9A850
+P 7990 4490
+F 0 "C?" H 8015 4590 50  0000 L CNN
+F 1 "100uF" H 8015 4390 50  0000 L CNN
+F 2 "" H 8028 4340 50  0001 C CNN
+F 3 "" H 8015 4590 50  0001 C CNN
+F 4 "3528" H 7840 4590 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 7840 4490 50  0000 R CNN "Voltage"
+F 6 "20%" H 7840 4390 50  0000 R CNN "Tolerance"
+	1    7990 4490
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9AA50
+P 7990 5990
+F 0 "C?" H 8015 6090 50  0000 L CNN
+F 1 "100uF" H 8015 5890 50  0000 L CNN
+F 2 "" H 8028 5840 50  0001 C CNN
+F 3 "" H 8015 6090 50  0001 C CNN
+F 4 "3528" H 7840 6090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 7840 5990 50  0000 R CNN "Voltage"
+F 6 "20%" H 7840 5890 50  0000 R CNN "Tolerance"
+	1    7990 5990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9AD7A
+P 6490 5990
+F 0 "C?" H 6515 6090 50  0000 L CNN
+F 1 "100uF" H 6515 5890 50  0000 L CNN
+F 2 "" H 6528 5840 50  0001 C CNN
+F 3 "" H 6515 6090 50  0001 C CNN
+F 4 "3528" H 6340 6090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 6340 5990 50  0000 R CNN "Voltage"
+F 6 "20%" H 6340 5890 50  0000 R CNN "Tolerance"
+	1    6490 5990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9AFB1
+P 4990 5990
+F 0 "C?" H 5015 6090 50  0000 L CNN
+F 1 "100uF" H 5015 5890 50  0000 L CNN
+F 2 "" H 5028 5840 50  0001 C CNN
+F 3 "" H 5015 6090 50  0001 C CNN
+F 4 "3528" H 4840 6090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 4840 5990 50  0000 R CNN "Voltage"
+F 6 "20%" H 4840 5890 50  0000 R CNN "Tolerance"
+	1    4990 5990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9B0C9
+P 3490 5990
+F 0 "C?" H 3515 6090 50  0000 L CNN
+F 1 "100uF" H 3515 5890 50  0000 L CNN
+F 2 "" H 3528 5840 50  0001 C CNN
+F 3 "" H 3515 6090 50  0001 C CNN
+F 4 "3528" H 3340 6090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 3340 5990 50  0000 R CNN "Voltage"
+F 6 "20%" H 3340 5890 50  0000 R CNN "Tolerance"
+	1    3490 5990
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:CP_Tant_Custom C?
+U 1 1 5BC9B332
+P 1990 5990
+F 0 "C?" H 2015 6090 50  0000 L CNN
+F 1 "100uF" H 2015 5890 50  0000 L CNN
+F 2 "" H 2028 5840 50  0001 C CNN
+F 3 "" H 2015 6090 50  0001 C CNN
+F 4 "3528" H 1840 6090 50  0000 R CNN "display_footprint"
+F 5 "6.3V" H 1840 5990 50  0000 R CNN "Voltage"
+F 6 "20%" H 1840 5890 50  0000 R CNN "Tolerance"
+	1    1990 5990
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
