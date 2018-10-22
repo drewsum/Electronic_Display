@@ -6,3 +6,7 @@
 *.h~
 ..gitignore.un~
 .gitignore~
+*.raw
+*.op.raw
+*.log
+*.plt

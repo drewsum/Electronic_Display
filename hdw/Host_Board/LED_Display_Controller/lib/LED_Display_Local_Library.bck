@@ -9,6 +9,12 @@ D power-flag symbol
 K Power Flag Symbol
 $ENDCMP
 #
+$CMP 74LVC1G06_Power
+D Single NOT Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS Open Drain
+F http://www.ti.com/lit/ds/symlink/sn74lvc1g06.pdf
+$ENDCMP
+#
 $CMP 74LVC1G86_Power
 D Single EX-OR Gate, Low-Voltage CMOS
 K Single Gate EX-OR LVC CMOS
@@ -45,6 +51,11 @@ $ENDCMP
 $CMP GND_USB
 D GROUND power-flag symbol
 K Power Flag Symbol
+$ENDCMP
+#
+$CMP LTC3603_UF
+D 2.5A, 15V Monolithic Synchronous Step-Down Regulator, QFN-20
+F https://www.analog.com/media/en/technical-documentation/data-sheets/3603fc.pdf
 $ENDCMP
 #
 $CMP LTC4365DDB
