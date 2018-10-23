@@ -180,6 +180,7 @@ P 5770 3820
 AR Path="/5BB86F29/5BBAFF04" Ref="R?"  Part="1" 
 AR Path="/5BB9CE4B/5BBAFF04" Ref="R?"  Part="1" 
 AR Path="/5BC23720/5BBAFF04" Ref="R?"  Part="1" 
+AR Path="/5BCF6EEF/5BBAFF04" Ref="R?"  Part="1" 
 F 0 "R?" H 5670 3820 50  0000 R CNN
 F 1 "200" V 5770 3820 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 5770 3820 50  0001 C CNN
@@ -212,6 +213,7 @@ AR Path="/5BB86F2C/5BD4FFF4" Ref="C?"  Part="1"
 AR Path="/5BB86F2F/5BD4FFF4" Ref="C?"  Part="1" 
 AR Path="/5BB9CE4B/5BD4FFF4" Ref="C?"  Part="1" 
 AR Path="/5BC23720/5BD4FFF4" Ref="C?"  Part="1" 
+AR Path="/5BCF6EEF/5BD4FFF4" Ref="C?"  Part="1" 
 F 0 "C?" H 7065 3920 50  0000 L CNN
 F 1 "100uF" H 7065 3720 50  0000 L CNN
 F 2 "Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow" H 7078 3670 50  0001 C CNN
@@ -230,6 +232,7 @@ P 5770 4280
 AR Path="/5BB86F29/5BD50813" Ref="R?"  Part="1" 
 AR Path="/5BB9CE4B/5BD50813" Ref="R?"  Part="1" 
 AR Path="/5BC23720/5BD50813" Ref="R?"  Part="1" 
+AR Path="/5BCF6EEF/5BD50813" Ref="R?"  Part="1" 
 F 0 "R?" H 5670 4280 50  0000 R CNN
 F 1 "680" V 5770 4280 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 5770 4280 50  0001 C CNN
@@ -265,6 +268,7 @@ AR Path="/5BB86F2C/5BD5196E" Ref="C?"  Part="1"
 AR Path="/5BB86F2F/5BD5196E" Ref="C?"  Part="1" 
 AR Path="/5BB9CE4B/5BD5196E" Ref="C?"  Part="1" 
 AR Path="/5BC23720/5BD5196E" Ref="C?"  Part="1" 
+AR Path="/5BCF6EEF/5BD5196E" Ref="C?"  Part="1" 
 F 0 "C?" H 3825 3920 50  0000 L CNN
 F 1 "10uF" H 3825 3720 50  0000 L CNN
 F 2 "Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow" H 3838 3670 50  0001 C CNN
