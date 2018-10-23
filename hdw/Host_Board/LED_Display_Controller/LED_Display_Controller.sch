@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 26
+Sheet 1 31
 Title ""
 Date ""
 Rev ""
@@ -165,5 +165,41 @@ S 5450 5360 500  150
 U 5BBF5233
 F0 "Test Points" 50
 F1 "Test_Points.sch" 50
+$EndSheet
+$Sheet
+S 7340 800  500  150 
+U 5BCF6EE0
+F0 "POS5 Control" 50
+F1 "POS5_Control.sch" 50
+$EndSheet
+$Sheet
+S 7340 1140 500  150 
+U 5BCF6EE3
+F0 "POS5 Phase 1" 50
+F1 "POS5_Phase_1.sch" 50
+$EndSheet
+$Sheet
+S 7340 1480 500  150 
+U 5BCF6EE6
+F0 "POS5 Phase 2" 50
+F1 "POS5_Phase_2.sch" 50
+$EndSheet
+$Sheet
+S 7340 1810 500  150 
+U 5BCF6EE9
+F0 "POS5 Phase 3" 50
+F1 "POS5_Phase_3.sch" 50
+$EndSheet
+$Sheet
+S 7340 2190 500  150 
+U 5BCF6EEC
+F0 "POS5 Phase 4" 50
+F1 "POS5_Phase_4.sch" 50
+$EndSheet
+$Sheet
+S 7340 2580 500  150 
+U 5BCF6EEF
+F0 "POS5P5 MNG" 50
+F1 "POS5P5_MNG.sch" 50
 $EndSheet
 $EndSCHEMATC
