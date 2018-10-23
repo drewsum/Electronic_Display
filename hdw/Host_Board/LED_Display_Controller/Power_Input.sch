@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 2 31
+Sheet 2 32
 Title ""
 Date ""
 Rev ""
@@ -320,20 +320,6 @@ Wire Wire Line
 	4410 3790 4410 2720
 Wire Wire Line
 	4410 2720 4490 2720
-$Comp
-L Device:Fuse F?
-U 1 1 5BB64ED2
-P 2320 2720
-F 0 "F?" V 2400 2720 50  0000 C CNN
-F 1 "25A" V 2245 2720 50  0000 C CNN
-F 2 "Fuse_Holders_and_Fuses:Fuse_SMD1206_Reflow" V 2250 2720 50  0001 C CNN
-F 3 "~" H 2320 2720 50  0001 C CNN
-F 4 "507-1946-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	1    2320 2720
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2470 2720 2510 2720
 Connection ~ 2840 2720
 $Comp
 L LED_Display_Local_Library:+12Vin #PWR?
@@ -362,18 +348,14 @@ $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5BB6A1CD
-P 1880 3330
-F 0 "#PWR?" H 1880 3080 50  0001 C CNN
-F 1 "GND" H 1880 3180 50  0000 C CNN
-F 2 "" H 1880 3330 50  0001 C CNN
-F 3 "" H 1880 3330 50  0001 C CNN
-	1    1880 3330
+P 1880 4550
+F 0 "#PWR?" H 1880 4300 50  0001 C CNN
+F 1 "GND" H 1880 4400 50  0000 C CNN
+F 2 "" H 1880 4550 50  0001 C CNN
+F 3 "" H 1880 4550 50  0001 C CNN
+	1    1880 4550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1880 3330 1880 3250
-Wire Wire Line
-	1880 3250 1800 3250
 Wire Wire Line
 	5760 3790 6560 3790
 Wire Wire Line
@@ -406,10 +388,6 @@ F 3 "" H 7000 3100 50  0001 C CNN
 	1    7000 3100
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7000 2800 7000 2720
-Wire Wire Line
-	7000 2720 6560 2720
 Connection ~ 6560 2720
 $Comp
 L LED_Display_Local_Library:CP_Tant_Custom C?
@@ -465,9 +443,6 @@ F 3 "" H 8500 3100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7750 2800 7750 2720
-Wire Wire Line
-	7750 2720 7000 2720
-Connection ~ 7000 2720
 Wire Wire Line
 	8500 2800 8500 2720
 Wire Wire Line
@@ -532,60 +507,25 @@ $EndComp
 Wire Wire Line
 	7750 2650 7750 2720
 $Comp
-L Custom_Library:TP TP?
-U 1 1 5BB7B6E2
-P 7000 2650
-F 0 "TP?" H 7000 2800 50  0000 C CNN
-F 1 "TP" H 7000 2800 50  0001 C CNN
-F 2 "Measurement_Points:Measurement_Point_Round-SMD-Pad_Small" H 7000 2650 60  0001 C CNN
-F 3 "" H 7000 2650 60  0000 C CNN
-	1    7000 2650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7000 2650 7000 2720
-$Comp
 L power:GND #PWR?
 U 1 1 5BB7FEE9
-P 2100 3330
-F 0 "#PWR?" H 2100 3080 50  0001 C CNN
-F 1 "GND" H 2100 3180 50  0000 C CNN
-F 2 "" H 2100 3330 50  0001 C CNN
-F 3 "" H 2100 3330 50  0001 C CNN
-	1    2100 3330
+P 2100 4550
+F 0 "#PWR?" H 2100 4300 50  0001 C CNN
+F 1 "GND" H 2100 4400 50  0000 C CNN
+F 2 "" H 2100 4550 50  0001 C CNN
+F 3 "" H 2100 4550 50  0001 C CNN
+	1    2100 4550
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:PWR_FLAG #FLG?
 U 1 1 5BB80368
-P 2100 3330
-F 0 "#FLG?" H 2100 3405 50  0001 C CNN
-F 1 "PWR_FLAG" H 2100 3480 50  0000 C CNN
-F 2 "" H 2100 3330 50  0001 C CNN
-F 3 "~" H 2100 3330 50  0001 C CNN
-	1    2100 3330
-	1    0    0    -1  
-$EndComp
-$Comp
-L Custom_Library:TP TP?
-U 1 1 5BB80406
-P 1880 3880
-F 0 "TP?" H 1880 4030 50  0000 C CNN
-F 1 "TP" H 1880 4030 50  0001 C CNN
-F 2 "Pin_Headers:Pin_Header_Angled_1x01_Pitch2.54mm" H 1880 3880 60  0001 C CNN
-F 3 "" H 1880 3880 60  0000 C CNN
-	1    1880 3880
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BB80478
-P 1880 3880
-F 0 "#PWR?" H 1880 3630 50  0001 C CNN
-F 1 "GND" H 1880 3730 50  0000 C CNN
-F 2 "" H 1880 3880 50  0001 C CNN
-F 3 "" H 1880 3880 50  0001 C CNN
-	1    1880 3880
+P 2100 4550
+F 0 "#FLG?" H 2100 4625 50  0001 C CNN
+F 1 "PWR_FLAG" H 2100 4700 50  0000 C CNN
+F 2 "" H 2100 4550 50  0001 C CNN
+F 3 "~" H 2100 4550 50  0001 C CNN
+	1    2100 4550
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -601,32 +541,6 @@ F 3 "~" H 2840 2640 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2840 2640 2840 2720
-$Comp
-L Device:Fuse F?
-U 1 1 5BC39D4F
-P 2320 2450
-F 0 "F?" V 2400 2450 50  0000 C CNN
-F 1 "25A" V 2245 2450 50  0000 C CNN
-F 2 "Fuse_Holders_and_Fuses:Fuse_SMD1206_Reflow" V 2250 2450 50  0001 C CNN
-F 3 "~" H 2320 2450 50  0001 C CNN
-F 4 "507-1946-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	1    2320 2450
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2170 2450 2130 2450
-Wire Wire Line
-	2130 2450 2130 2720
-Connection ~ 2130 2720
-Wire Wire Line
-	2130 2720 2170 2720
-Wire Wire Line
-	2470 2450 2510 2450
-Wire Wire Line
-	2510 2450 2510 2720
-Connection ~ 2510 2720
-Wire Wire Line
-	2510 2720 2840 2720
 $Comp
 L Transistor_FET:BSC123N10LSG Q?
 U 1 1 5BC3F351
@@ -714,8 +628,6 @@ F 7 "1276-1921-1-ND" H 7425 4820 60  0001 C CNN "Digi-Key PN"
 	1    7000 4320
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1800 2720 2130 2720
 $Comp
 L Connector:Screw_Terminal_01x01 J?
 U 1 1 5BC409E0
@@ -729,21 +641,6 @@ F 2 "" H 1600 2720 50  0001 C CNN
 F 3 "~" H 1600 2720 50  0001 C CNN
 F 4 "732-3214-ND" H -3920 70  50  0001 C CNN "Digi-Key PN"
 	1    1600 2720
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Screw_Terminal_01x01 J?
-U 1 1 5BC43E0D
-P 1600 3250
-AR Path="/5BB9D026/5BC43E0D" Ref="J?"  Part="1" 
-AR Path="/5BB86F23/5BC43E0D" Ref="J?"  Part="1" 
-AR Path="/5BAAE0FA/5BC43E0D" Ref="J?"  Part="1" 
-F 0 "J?" H 1600 3350 50  0000 C CNN
-F 1 "GND IN" H 1600 3150 50  0000 C CNN
-F 2 "" H 1600 3250 50  0001 C CNN
-F 3 "~" H 1600 3250 50  0001 C CNN
-F 4 "732-3214-ND" H -3920 600 50  0001 C CNN "Digi-Key PN"
-	1    1600 3250
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -771,4 +668,114 @@ F 4 "LTC4365IDDB#TRMPBFCT-ND" H 5360 4540 50  0001 C CNN "Digi-Key PN"
 $EndComp
 Text Notes 540  690  0    100  ~ 20
 Power Input
+Wire Wire Line
+	1800 2720 1880 2720
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5BD0A7E0
+P 1600 3070
+AR Path="/5BB9D026/5BD0A7E0" Ref="J?"  Part="1" 
+AR Path="/5BB86F23/5BD0A7E0" Ref="J?"  Part="1" 
+AR Path="/5BAAE0FA/5BD0A7E0" Ref="J?"  Part="1" 
+F 0 "J?" H 1600 3170 50  0000 C CNN
+F 1 "+12V IN" H 1600 2970 50  0000 C CNN
+F 2 "" H 1600 3070 50  0001 C CNN
+F 3 "~" H 1600 3070 50  0001 C CNN
+F 4 "732-3214-ND" H -3920 420 50  0001 C CNN "Digi-Key PN"
+	1    1600 3070
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1800 3070 1880 3070
+Wire Wire Line
+	1880 3070 1880 2720
+Connection ~ 1880 2720
+Wire Wire Line
+	1880 2720 2840 2720
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5BD0BCB6
+P 1600 3420
+AR Path="/5BB9D026/5BD0BCB6" Ref="J?"  Part="1" 
+AR Path="/5BB86F23/5BD0BCB6" Ref="J?"  Part="1" 
+AR Path="/5BAAE0FA/5BD0BCB6" Ref="J?"  Part="1" 
+F 0 "J?" H 1600 3520 50  0000 C CNN
+F 1 "+12V IN" H 1600 3320 50  0000 C CNN
+F 2 "" H 1600 3420 50  0001 C CNN
+F 3 "~" H 1600 3420 50  0001 C CNN
+F 4 "732-3214-ND" H -3920 770 50  0001 C CNN "Digi-Key PN"
+	1    1600 3420
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1800 3420 1880 3420
+Wire Wire Line
+	1880 3420 1880 3070
+Connection ~ 1880 3070
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5BD0D3C3
+P 1600 3770
+AR Path="/5BB9D026/5BD0D3C3" Ref="J?"  Part="1" 
+AR Path="/5BB86F23/5BD0D3C3" Ref="J?"  Part="1" 
+AR Path="/5BAAE0FA/5BD0D3C3" Ref="J?"  Part="1" 
+F 0 "J?" H 1600 3870 50  0000 C CNN
+F 1 "GND IN" H 1600 3670 50  0000 C CNN
+F 2 "" H 1600 3770 50  0001 C CNN
+F 3 "~" H 1600 3770 50  0001 C CNN
+F 4 "732-3214-ND" H -3920 1120 50  0001 C CNN "Digi-Key PN"
+	1    1600 3770
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5BD0D53F
+P 1600 4120
+AR Path="/5BB9D026/5BD0D53F" Ref="J?"  Part="1" 
+AR Path="/5BB86F23/5BD0D53F" Ref="J?"  Part="1" 
+AR Path="/5BAAE0FA/5BD0D53F" Ref="J?"  Part="1" 
+F 0 "J?" H 1600 4220 50  0000 C CNN
+F 1 "GND IN" H 1600 4020 50  0000 C CNN
+F 2 "" H 1600 4120 50  0001 C CNN
+F 3 "~" H 1600 4120 50  0001 C CNN
+F 4 "732-3214-ND" H -3920 1470 50  0001 C CNN "Digi-Key PN"
+	1    1600 4120
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5BD0D5CD
+P 1600 4470
+AR Path="/5BB9D026/5BD0D5CD" Ref="J?"  Part="1" 
+AR Path="/5BB86F23/5BD0D5CD" Ref="J?"  Part="1" 
+AR Path="/5BAAE0FA/5BD0D5CD" Ref="J?"  Part="1" 
+F 0 "J?" H 1600 4570 50  0000 C CNN
+F 1 "GND IN" H 1600 4370 50  0000 C CNN
+F 2 "" H 1600 4470 50  0001 C CNN
+F 3 "~" H 1600 4470 50  0001 C CNN
+F 4 "732-3214-ND" H -3920 1820 50  0001 C CNN "Digi-Key PN"
+	1    1600 4470
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1880 4550 1880 4470
+Wire Wire Line
+	1880 4470 1800 4470
+Wire Wire Line
+	1880 4470 1880 4120
+Wire Wire Line
+	1880 4120 1800 4120
+Connection ~ 1880 4470
+Wire Wire Line
+	1880 4120 1880 3770
+Wire Wire Line
+	1880 3770 1800 3770
+Connection ~ 1880 4120
+Wire Wire Line
+	7750 2720 7000 2720
+Wire Wire Line
+	7000 2720 6560 2720
+Wire Wire Line
+	7000 2800 7000 2720
+Connection ~ 7000 2720
 $EndSCHEMATC

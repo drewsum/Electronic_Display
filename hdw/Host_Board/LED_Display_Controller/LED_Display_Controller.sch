@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 31
+Sheet 1 32
 Title ""
 Date ""
 Rev ""
@@ -159,7 +159,7 @@ F0 "Panel Data Level Shifters 3" 50
 F1 "Panel_Data_Level_Shifters_3.sch" 50
 $EndSheet
 Text Notes 710  7660 0    50   ~ 0
-To Do List:\n* Mechanical sheet\n* Decide on input power supply (AC/DC)\n* Add more power input connectors, match to AC/DC output connectors. Might need beefy Wuerth shanks\n* Add status LEDs, PGOOD stuff\n* +3.3V Power Supply (~~2A)\n* Add 5V Monitoring\n* Wi-Fi Module\n* Evaluate Micro AVDD/AVSS filter\n* Power pushbutton? vs set on app?\n* Brightness encoder? vs set on app?\n* Add graphical items to certain sheets (ESD warning, heat, etc)\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Add relevant design notes/routing notes to sheets\n* Add test points sheet\n* Re-order sheets\n* Wire everything to Micro\n* Assign Refdes's\n* Draw custom footprints\n* Assign footprints\n* Run ERC, resolve errors\n* Add firmware notes sheet\n* Add COM port settings note to USB sheet\n* Generate netlist\n* Generate BOM
+To Do List:\n* Mechanical sheet\n* Decide on input power supply (AC/DC)\n* Add status LEDs, PGOOD stuff\n* Add 5V Monitoring\n* Wi-Fi Module\n* Evaluate Micro AVDD/AVSS filter\n* Add graphical items to certain sheets (ESD warning, heat, etc)\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Add relevant design notes/routing notes to sheets\n* Add test points sheet\n* Re-order sheets\n* Wire everything to Micro\n* Assign Refdes's\n* Draw custom footprints\n* Assign footprints\n* Run ERC, resolve errors\n* Add firmware notes sheet\n* Add COM port settings note to USB sheet\n* Generate netlist\n* Generate BOM
 $Sheet
 S 5450 5360 500  150 
 U 5BBF5233
