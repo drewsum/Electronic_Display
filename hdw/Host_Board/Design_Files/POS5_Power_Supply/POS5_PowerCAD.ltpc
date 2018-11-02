@@ -97,7 +97,7 @@
       <Cob>0.0001</Cob>
       <ESRb>0.07</ESRb>
       <ESLb>1.2E-09</ESLb>
-      <Numb>9</Numb>
+      <Numb>20</Numb>
       <BulkCapacitorManufacturer>KEMET</BulkCapacitorManufacturer>
       <BulkCapacitorPartNumber>T520T107M006ATE070</BulkCapacitorPartNumber>
       <BulkCapacitorLength>3.5</BulkCapacitorLength>
@@ -225,7 +225,7 @@
       <OutputLCFilterSensingIsLocal>false</OutputLCFilterSensingIsLocal>
       <OutputLCFilterSensingIsRemote>false</OutputLCFilterSensingIsRemote>
       <Efficiency>0.9773</Efficiency>
-      <VoutRipplePercent>7.56127E-05</VoutRipplePercent>
+      <VoutRipplePercent>7.20488E-05</VoutRipplePercent>
       <LossCurveA2>0.000420604</LossCurveA2>
       <LossCurveA1>0.025133655</LossCurveA1>
       <LossCurveA0>0.458007558</LossCurveA0>

@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 2 32
+Sheet 2 25
 Title ""
 Date ""
 Rev ""
@@ -362,59 +362,7 @@ Wire Wire Line
 	6560 3790 6560 2720
 Wire Wire Line
 	6560 2720 6240 2720
-$Comp
-L LED_Display_Local_Library:CP_Tant_Custom C?
-U 1 1 5BB6F806
-P 7000 2950
-F 0 "C?" H 7025 3050 50  0000 L CNN
-F 1 "100uF" H 7025 2850 50  0000 L CNN
-F 2 "Capacitors_Tantalum_SMD:CP_Tantalum_Case-X_EIA-7343-43_Reflow" H 7038 2800 50  0001 C CNN
-F 3 "" H 7025 3050 50  0001 C CNN
-F 4 "718-1102-1-ND" H 7000 2950 50  0001 C CNN "Digi-Key PN"
-F 5 "7343" H 6850 3050 50  0000 R CNN "display_footprint"
-F 6 "16V" H 6850 2950 50  0000 R CNN "Voltage"
-F 7 "10%" H 6850 2850 50  0000 R CNN "Tolerance"
-	1    7000 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BB6F95F
-P 7000 3100
-F 0 "#PWR?" H 7000 2850 50  0001 C CNN
-F 1 "GND" H 7000 2950 50  0000 C CNN
-F 2 "" H 7000 3100 50  0001 C CNN
-F 3 "" H 7000 3100 50  0001 C CNN
-	1    7000 3100
-	1    0    0    -1  
-$EndComp
 Connection ~ 6560 2720
-$Comp
-L LED_Display_Local_Library:CP_Tant_Custom C?
-U 1 1 5BB71665
-P 7750 2950
-F 0 "C?" H 7775 3050 50  0000 L CNN
-F 1 "100uF" H 7775 2850 50  0000 L CNN
-F 2 "Capacitors_Tantalum_SMD:CP_Tantalum_Case-X_EIA-7343-43_Reflow" H 7788 2800 50  0001 C CNN
-F 3 "" H 7775 3050 50  0001 C CNN
-F 4 "718-1102-1-ND" H 7750 2950 50  0001 C CNN "Digi-Key PN"
-F 5 "7343" H 7600 3050 50  0000 R CNN "display_footprint"
-F 6 "16V" H 7600 2950 50  0000 R CNN "Voltage"
-F 7 "10%" H 7600 2850 50  0000 R CNN "Tolerance"
-	1    7750 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BB7166C
-P 7750 3100
-F 0 "#PWR?" H 7750 2850 50  0001 C CNN
-F 1 "GND" H 7750 2950 50  0000 C CNN
-F 2 "" H 7750 3100 50  0001 C CNN
-F 3 "" H 7750 3100 50  0001 C CNN
-	1    7750 3100
-	1    0    0    -1  
-$EndComp
 $Comp
 L LED_Display_Local_Library:CP_Tant_Custom C?
 U 1 1 5BB7221C
@@ -441,8 +389,6 @@ F 3 "" H 8500 3100 50  0001 C CNN
 	1    8500 3100
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7750 2800 7750 2720
 Wire Wire Line
 	8500 2800 8500 2720
 Wire Wire Line
@@ -668,80 +614,6 @@ F 4 "LTC4365IDDB#TRMPBFCT-ND" H 5360 4540 50  0001 C CNN "Digi-Key PN"
 $EndComp
 Text Notes 540  690  0    100  ~ 20
 Power Input
-Wire Wire Line
-	1800 2720 1880 2720
-$Comp
-L Connector:Screw_Terminal_01x01 J?
-U 1 1 5BD0A7E0
-P 1600 3070
-AR Path="/5BB9D026/5BD0A7E0" Ref="J?"  Part="1" 
-AR Path="/5BB86F23/5BD0A7E0" Ref="J?"  Part="1" 
-AR Path="/5BAAE0FA/5BD0A7E0" Ref="J?"  Part="1" 
-F 0 "J?" H 1600 3170 50  0000 C CNN
-F 1 "+12V IN" H 1600 2970 50  0000 C CNN
-F 2 "" H 1600 3070 50  0001 C CNN
-F 3 "~" H 1600 3070 50  0001 C CNN
-F 4 "732-3214-ND" H -3920 420 50  0001 C CNN "Digi-Key PN"
-	1    1600 3070
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1800 3070 1880 3070
-Wire Wire Line
-	1880 3070 1880 2720
-Connection ~ 1880 2720
-Wire Wire Line
-	1880 2720 2840 2720
-$Comp
-L Connector:Screw_Terminal_01x01 J?
-U 1 1 5BD0BCB6
-P 1600 3420
-AR Path="/5BB9D026/5BD0BCB6" Ref="J?"  Part="1" 
-AR Path="/5BB86F23/5BD0BCB6" Ref="J?"  Part="1" 
-AR Path="/5BAAE0FA/5BD0BCB6" Ref="J?"  Part="1" 
-F 0 "J?" H 1600 3520 50  0000 C CNN
-F 1 "+12V IN" H 1600 3320 50  0000 C CNN
-F 2 "" H 1600 3420 50  0001 C CNN
-F 3 "~" H 1600 3420 50  0001 C CNN
-F 4 "732-3214-ND" H -3920 770 50  0001 C CNN "Digi-Key PN"
-	1    1600 3420
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1800 3420 1880 3420
-Wire Wire Line
-	1880 3420 1880 3070
-Connection ~ 1880 3070
-$Comp
-L Connector:Screw_Terminal_01x01 J?
-U 1 1 5BD0D3C3
-P 1600 3770
-AR Path="/5BB9D026/5BD0D3C3" Ref="J?"  Part="1" 
-AR Path="/5BB86F23/5BD0D3C3" Ref="J?"  Part="1" 
-AR Path="/5BAAE0FA/5BD0D3C3" Ref="J?"  Part="1" 
-F 0 "J?" H 1600 3870 50  0000 C CNN
-F 1 "GND IN" H 1600 3670 50  0000 C CNN
-F 2 "" H 1600 3770 50  0001 C CNN
-F 3 "~" H 1600 3770 50  0001 C CNN
-F 4 "732-3214-ND" H -3920 1120 50  0001 C CNN "Digi-Key PN"
-	1    1600 3770
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Screw_Terminal_01x01 J?
-U 1 1 5BD0D53F
-P 1600 4120
-AR Path="/5BB9D026/5BD0D53F" Ref="J?"  Part="1" 
-AR Path="/5BB86F23/5BD0D53F" Ref="J?"  Part="1" 
-AR Path="/5BAAE0FA/5BD0D53F" Ref="J?"  Part="1" 
-F 0 "J?" H 1600 4220 50  0000 C CNN
-F 1 "GND IN" H 1600 4020 50  0000 C CNN
-F 2 "" H 1600 4120 50  0001 C CNN
-F 3 "~" H 1600 4120 50  0001 C CNN
-F 4 "732-3214-ND" H -3920 1470 50  0001 C CNN "Digi-Key PN"
-	1    1600 4120
-	-1   0    0    -1  
-$EndComp
 $Comp
 L Connector:Screw_Terminal_01x01 J?
 U 1 1 5BD0D5CD
@@ -762,20 +634,9 @@ Wire Wire Line
 Wire Wire Line
 	1880 4470 1800 4470
 Wire Wire Line
-	1880 4470 1880 4120
+	1800 2720 2840 2720
+Text Notes 4190 2120 0    100  ~ 20
+Choose NMOS, copy from nixie clock
 Wire Wire Line
-	1880 4120 1800 4120
-Connection ~ 1880 4470
-Wire Wire Line
-	1880 4120 1880 3770
-Wire Wire Line
-	1880 3770 1800 3770
-Connection ~ 1880 4120
-Wire Wire Line
-	7750 2720 7000 2720
-Wire Wire Line
-	7000 2720 6560 2720
-Wire Wire Line
-	7000 2800 7000 2720
-Connection ~ 7000 2720
+	6560 2720 7750 2720
 $EndSCHEMATC
