@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 10 25
+Sheet 9 25
 Title ""
 Date ""
 Rev ""
@@ -194,17 +194,6 @@ Wire Wire Line
 Wire Wire Line
 	7690 3290 7690 3390
 Connection ~ 7690 3390
-$Comp
-L Custom_Library:+3.3V #PWR?
-U 1 1 5BB203D2
-P 6430 3210
-F 0 "#PWR?" H 6430 3060 50  0001 C CNN
-F 1 "+3.3V" H 6430 3350 50  0000 C CNN
-F 2 "" H 6430 3210 50  0000 C CNN
-F 3 "" H 6430 3210 50  0000 C CNN
-	1    6430 3210
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6430 3210 6430 3290
 Wire Wire Line
@@ -1124,5 +1113,16 @@ F 2 "" H 2820 5790 50  0001 C CNN
 F 3 "" H 2820 5790 50  0001 C CNN
 	1    2820 5790
 	0    1    1    0   
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BDF09DC
+P 6430 3210
+F 0 "#PWR?" H 6430 3060 50  0001 C CNN
+F 1 "+3.3V" H 6430 3350 50  0000 C CNN
+F 2 "" H 6430 3210 50  0001 C CNN
+F 3 "" H 6430 3210 50  0001 C CNN
+	1    6430 3210
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
