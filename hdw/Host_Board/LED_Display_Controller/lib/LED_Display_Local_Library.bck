@@ -96,6 +96,10 @@ K Microhip DataFlash
 F http://ww1.microchip.com/downloads/en/DeviceDoc/20005135B.pdf
 $ENDCMP
 #
+$CMP Si4946BEY
+D MOSFET Dual N-Channel 60V 6.5A 8-SOIC
+$ENDCMP
+#
 $CMP SiC779
 D Integrated DrMOS Power Stage, 40A, 12VIN, PowerPAK MLP 6mm x 6mm 40
 F http://www.vishay.com/docs/67538/sic779.pdf

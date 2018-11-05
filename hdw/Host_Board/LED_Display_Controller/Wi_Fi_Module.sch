@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 5 25
+Sheet 5 30
 Title ""
 Date ""
 Rev ""
@@ -19,7 +19,7 @@ L Connector_Generic:Conn_02x04_Odd_Even J?
 U 1 1 5BDCD8E7
 P 3700 3540
 F 0 "J?" H 3750 3740 50  0000 C CNN
-F 1 "ESP8266_Socket" H 3750 3240 50  0000 C CNN
+F 1 "ESP8266 Socket" H 3750 3240 50  0000 C CNN
 F 2 "" H 3700 3540 50  0001 C CNN
 F 3 "~" H 3700 3540 50  0001 C CNN
 	1    3700 3540
@@ -40,9 +40,9 @@ Wire Wire Line
 	3340 3980 3340 3440
 Wire Wire Line
 	3340 3440 3500 3440
-Text GLabel 8300 3440 2    50   Output ~ 0
-WIFI_UART_TX
-Text GLabel 8300 3540 2    50   Input ~ 0
+Text GLabel 8600 3440 2    50   Output ~ 0
+WIFI_UART_RX
+Text GLabel 8600 3540 2    50   Input ~ 0
 WIFI_CHPD
 Text GLabel 8290 4040 2    40   Input ~ 0
 ~WIFI_RESET
@@ -61,8 +61,8 @@ Wire Wire Line
 	4200 3300 4200 3740
 Wire Wire Line
 	4200 3740 4000 3740
-Text GLabel 2780 3740 0    50   Input ~ 0
-WIFI_UART_RX
+Text GLabel 2480 3740 0    50   Input ~ 0
+WIFI_UART_TX
 $Comp
 L LED_Display_Local_Library:C_Custom C?
 U 1 1 5BDD13BB
@@ -324,9 +324,47 @@ NoConn ~ 3500 3640
 Wire Wire Line
 	4780 3440 8300 3440
 Connection ~ 4780 3440
-Wire Wire Line
-	4780 3540 8300 3540
 Connection ~ 4780 3540
 Wire Wire Line
 	4000 3640 5990 3640
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BE3C385
+P 8450 3440
+AR Path="/5BAAE2B6/5BE3C385" Ref="R?"  Part="1" 
+AR Path="/5BB6CF6D/5BE3C385" Ref="R?"  Part="1" 
+AR Path="/5BBE424C/5BE3C385" Ref="R?"  Part="1" 
+AR Path="/5BAAE1CB/5BE3C385" Ref="R?"  Part="1" 
+F 0 "R?" V 8410 3300 50  0000 R CNN
+F 1 "100" V 8450 3440 50  0000 C CNN
+F 2 "" H 8450 3440 50  0001 C CNN
+F 3 "" H 8450 3440 50  0001 C CNN
+F 4 "0603" V 8550 3440 50  0001 C CNN "display_footprint"
+F 5 "1%" V 8650 3440 50  0001 C CNN "Tolerance"
+F 6 "1/10W" V 8750 3440 50  0001 C CNN "Wattage"
+F 7 "PN" H 8750 3840 60  0001 C CNN "Digi-Key PN"
+	1    8450 3440
+	0    1    1    0   
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BE3C39B
+P 2630 3740
+AR Path="/5BAAE2B6/5BE3C39B" Ref="R?"  Part="1" 
+AR Path="/5BB6CF6D/5BE3C39B" Ref="R?"  Part="1" 
+AR Path="/5BBE424C/5BE3C39B" Ref="R?"  Part="1" 
+AR Path="/5BAAE1CB/5BE3C39B" Ref="R?"  Part="1" 
+F 0 "R?" V 2590 3600 50  0000 R CNN
+F 1 "100" V 2630 3740 50  0000 C CNN
+F 2 "" H 2630 3740 50  0001 C CNN
+F 3 "" H 2630 3740 50  0001 C CNN
+F 4 "0603" V 2730 3740 50  0001 C CNN "display_footprint"
+F 5 "1%" V 2830 3740 50  0001 C CNN "Tolerance"
+F 6 "1/10W" V 2930 3740 50  0001 C CNN "Wattage"
+F 7 "PN" H 2930 4140 60  0001 C CNN "Digi-Key PN"
+	1    2630 3740
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	4780 3540 8600 3540
 $EndSCHEMATC

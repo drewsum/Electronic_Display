@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 10 25
+Sheet 10 30
 Title ""
 Date ""
 Rev ""
@@ -191,4 +191,12 @@ Text GLabel 10040 4670 0    50   Input ~ 0
 LAT_POS3P3
 Text GLabel 10040 4770 0    50   Input ~ 0
 ~OE_POS3P3
+Text GLabel 8370 5590 2    50   Output ~ 0
+WIFI_UART_TX
+Text GLabel 8370 5690 2    50   Input ~ 0
+WIFI_CHPD
+Text GLabel 8360 6190 2    40   Input ~ 0
+~WIFI_RESET
+Text GLabel 8950 5840 0    50   Input ~ 0
+WIFI_UART_RX
 $EndSCHEMATC

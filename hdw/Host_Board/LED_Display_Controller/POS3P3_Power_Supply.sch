@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 3 25
+Sheet 3 30
 Title ""
 Date ""
 Rev ""
@@ -75,9 +75,9 @@ F 1 "0.22uF" H 5655 2820 50  0000 L CNN
 F 2 "" H 5668 2770 50  0001 C CNN
 F 3 "" H 5655 3020 50  0001 C CNN
 F 4 "PN" H 6055 3420 60  0001 C CNN "Digi-Key PN"
-F 5 "Foot" H 5480 3020 50  0000 R CNN "display_footprint"
-F 6 "V" H 5480 2920 50  0000 R CNN "Voltage"
-F 7 "Er" H 5480 2820 50  0000 R CNN "Dielectric"
+F 5 "0603" H 5480 3020 50  0000 R CNN "display_footprint"
+F 6 "50V" H 5480 2920 50  0000 R CNN "Voltage"
+F 7 "X7R" H 5480 2820 50  0000 R CNN "Dielectric"
 	1    5630 2920
 	1    0    0    -1  
 $EndComp
@@ -110,9 +110,9 @@ F 1 "1uF" H 6525 2250 50  0000 L CNN
 F 2 "" H 6538 2200 50  0001 C CNN
 F 3 "" H 6525 2450 50  0001 C CNN
 F 4 "PN" H 6925 2850 60  0001 C CNN "Digi-Key PN"
-F 5 "Foot" H 6350 2450 50  0000 R CNN "display_footprint"
-F 6 "V" H 6350 2350 50  0000 R CNN "Voltage"
-F 7 "Er" H 6350 2250 50  0000 R CNN "Dielectric"
+F 5 "0603" H 6350 2450 50  0000 R CNN "display_footprint"
+F 6 "25V" H 6350 2350 50  0000 R CNN "Voltage"
+F 7 "X7R" H 6350 2250 50  0000 R CNN "Dielectric"
 	1    6500 2350
 	1    0    0    -1  
 $EndComp

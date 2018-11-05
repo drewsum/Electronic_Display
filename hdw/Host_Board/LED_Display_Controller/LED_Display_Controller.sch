@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 25
+Sheet 1 30
 Title ""
 Date ""
 Rev ""
@@ -153,11 +153,41 @@ F0 "Panel Data Level Shifters 3" 50
 F1 "Panel_Data_Level_Shifters_3.sch" 50
 $EndSheet
 Text Notes 710  7660 0    50   ~ 0
-To Do List:\n* Mechanical sheet\n* Decide on input power supply (AC/DC)\n* Add status LEDs, PGOOD stuff\n* Add 5V Monitoring\n* Evaluate Micro AVDD/AVSS filter\n* Add on/off pushbutton\n* Add master brightness encoder\n* Copy LTC7851_Demo into repo\n* Add graphical items to certain sheets (ESD warning, heat, etc)\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Add relevant design notes/routing notes to sheets\n* Add test points sheet\n* Re-order sheets\n* Wire everything to Micro\n* Assign Refdes's\n* Draw custom footprints\n* Assign footprints\n* Run ERC, resolve errors\n* Add firmware notes sheet\n* Add COM port settings notes to USB sheet\n* Generate netlist\n* Generate BOM
+To Do List:\n* Mechanical sheet\n* Decide on input power supply (AC/DC)\n* Add status LEDs, PGOOD stuff\n* Add LED 5V Monitoring\n* Add small 5V supply for level shifters (LDO? Charge pump? Small Buck?)\n* Add voltage rail ADC dividers/filters\n* Add on/off pushbutton\n* Add master brightness encoder\n* ESD protection on output signals? (ehhhhh)\n* Add graphical items to certain sheets (ESD warning, heat, etc)\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Add relevant design notes/routing notes to sheets\n* Add test points sheet\n* Re-order sheets\n* Wire everything to Micro\n* Assign Refdes's\n* Draw custom footprints\n* Assign footprints\n* Run ERC, resolve errors\n* Add firmware notes sheet\n* Add COM port settings notes to USB sheet\n* Generate netlist\n* Generate BOM
 $Sheet
 S 5450 5360 500  150 
 U 5BBF5233
 F0 "Test Points" 50
 F1 "Test_Points.sch" 50
+$EndSheet
+$Sheet
+S 3050 3290 500  150 
+U 5BE48F98
+F0 "LED POS5 Monitoring" 50
+F1 "LED_POS5_Monitoring.sch" 50
+$EndSheet
+$Sheet
+S 5450 5700 500  150 
+U 5BE4F849
+F0 "Pushbuttons" 50
+F1 "Pushbuttons.sch" 50
+$EndSheet
+$Sheet
+S 5450 6040 500  150 
+U 5BE5222A
+F0 "POS5 Power Supply" 50
+F1 "POS5_Power_Supply.sch" 50
+$EndSheet
+$Sheet
+S 7070 800  500  150 
+U 5BE724F0
+F0 "Mechanical" 50
+F1 "Mechanical.sch" 50
+$EndSheet
+$Sheet
+S 7070 1140 500  150 
+U 5BE7BB83
+F0 "Internal Rail Monitoring" 50
+F1 "Internal_Rail_Monitoring.sch" 50
 $EndSheet
 $EndSCHEMATC

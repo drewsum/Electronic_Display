@@ -1,0 +1,162 @@
+EESchema Schematic File Version 4
+LIBS:LED_Display_Controller-cache
+EELAYER 26 0
+EELAYER END
+$Descr A 11000 8500
+encoding utf-8
+Sheet 27 30
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L LED_Display_Local_Library:MAX6816 U?
+U 1 1 5BE8273F
+P 5160 1920
+F 0 "U?" H 5310 1620 50  0000 L CNN
+F 1 "MAX6816" H 5310 2220 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-143" H 5310 2420 50  0001 L CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/MAX6816-MAX6818.pdf" H 5310 2320 50  0001 L CNN
+F 4 "MAX6816EUS+TCT-ND" H 5310 2520 50  0001 L CNN "Digi-Key PN"
+	1    5160 1920
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BE83CBB
+P 5160 2270
+F 0 "#PWR?" H 5160 2020 50  0001 C CNN
+F 1 "GND" H 5160 2120 50  0000 C CNN
+F 2 "" H 5160 2270 50  0001 C CNN
+F 3 "" H 5160 2270 50  0001 C CNN
+	1    5160 2270
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BE83D4B
+P 5160 1570
+F 0 "#PWR?" H 5160 1420 50  0001 C CNN
+F 1 "+3.3V" H 5160 1710 50  0000 C CNN
+F 2 "" H 5160 1570 50  0001 C CNN
+F 3 "" H 5160 1570 50  0001 C CNN
+	1    5160 1570
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5BE852DD
+P 4530 2200
+F 0 "SW?" V 4576 2348 50  0000 L CNN
+F 1 "Display Enable" V 4485 2348 50  0000 L CNN
+F 2 "" H 4530 2400 50  0001 C CNN
+F 3 "" H 4530 2400 50  0001 C CNN
+	1    4530 2200
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BE8532E
+P 4530 2400
+F 0 "#PWR?" H 4530 2150 50  0001 C CNN
+F 1 "GND" H 4530 2250 50  0000 C CNN
+F 2 "" H 4530 2400 50  0001 C CNN
+F 3 "" H 4530 2400 50  0001 C CNN
+	1    4530 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4530 2000 4530 1920
+Wire Wire Line
+	4530 1920 4710 1920
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BE8FF45
+P 6110 1640
+F 0 "R?" V 6010 1640 50  0000 C CNN
+F 1 "10k" V 6110 1640 50  0000 C CNN
+F 2 "" H 6110 1640 50  0001 C CNN
+F 3 "" H 6110 1640 50  0001 C CNN
+F 4 "0603" H 6210 1730 50  0000 L CNN "display_footprint"
+F 5 "1%" H 6210 1640 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 6220 1560 50  0000 L CNN "Wattage"
+F 7 "PN" H 6410 2040 60  0001 C CNN "Digi-Key PN"
+	1    6110 1640
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BE8FF56
+P 6110 1490
+F 0 "#PWR?" H 6110 1340 50  0001 C CNN
+F 1 "+3.3V" H 6110 1630 50  0000 C CNN
+F 2 "" H 6110 1490 50  0001 C CNN
+F 3 "" H 6110 1490 50  0001 C CNN
+	1    6110 1490
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6110 1790 6110 1920
+Wire Wire Line
+	6110 1920 5610 1920
+Text GLabel 6190 1920 2    50   Output ~ 0
+~Display_Enable
+Wire Wire Line
+	6190 1920 6110 1920
+Connection ~ 6110 1920
+$Comp
+L Device:Rotary_Encoder_Switch SW?
+U 1 1 5BE91568
+P 4070 4240
+F 0 "SW?" H 4070 4500 50  0000 C CNN
+F 1 "Brightness/Enable" H 4070 3980 50  0000 C CNN
+F 2 "" H 3920 4400 50  0001 C CNN
+F 3 "~" H 4070 4500 50  0001 C CNN
+	1    4070 4240
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4530 1920 3690 1920
+Wire Wire Line
+	3690 1920 3690 4140
+Connection ~ 4530 1920
+Wire Wire Line
+	3770 4140 3690 4140
+$Comp
+L power:GND #PWR?
+U 1 1 5BE941A9
+P 3690 4580
+F 0 "#PWR?" H 3690 4330 50  0001 C CNN
+F 1 "GND" H 3690 4430 50  0000 C CNN
+F 2 "" H 3690 4580 50  0001 C CNN
+F 3 "" H 3690 4580 50  0001 C CNN
+	1    3690 4580
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3690 4580 3690 4340
+Wire Wire Line
+	3690 4340 3770 4340
+$Comp
+L power:GND #PWR?
+U 1 1 5BE957A8
+P 4480 4580
+F 0 "#PWR?" H 4480 4330 50  0001 C CNN
+F 1 "GND" H 4480 4430 50  0000 C CNN
+F 2 "" H 4480 4580 50  0001 C CNN
+F 3 "" H 4480 4580 50  0001 C CNN
+	1    4480 4580
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4480 4580 4480 4240
+Wire Wire Line
+	4480 4240 4370 4240
+Text Notes 5450 4330 0    50   ~ 0
+Add flip flop encoder circuit
+$EndSCHEMATC
