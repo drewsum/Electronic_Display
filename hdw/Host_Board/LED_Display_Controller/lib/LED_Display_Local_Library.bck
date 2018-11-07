@@ -21,6 +21,12 @@ K Single Gate EX-OR LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
+$CMP 74LVC2G14_Power
+D Dual NOT Gate Schmitt Triggered, Low-Voltage CMOS
+K Dual Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP CP_Tant_Custom
 D Polarised capacitor
 K cap capacitor
@@ -72,6 +78,12 @@ $ENDCMP
 $CMP L_Custom
 D Inductor
 K inductor choke coil reactor magnetic
+$ENDCMP
+#
+$CMP MAX6816
+D ±15kV ESD-Protected, Single CMOS Switch Debouncer
+K Switch, Debounder, MAXIM, MAX
+F https://datasheets.maximintegrated.com/en/ds/MAX6816-MAX6818.pdf
 $ENDCMP
 #
 $CMP PIC32MZ2048EFH100_IPF
