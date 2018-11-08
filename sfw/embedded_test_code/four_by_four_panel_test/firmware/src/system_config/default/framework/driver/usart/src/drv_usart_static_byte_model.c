@@ -1,20 +1,29 @@
 /*******************************************************************************
-  System Definitions
+  USART driver static implementation of Byte model.
+
+  Company:
+    Microchip Technology Inc.
 
   File Name:
-    system_definitions.h
+    drv_usart_static_byte_model.c
 
   Summary:
-    MPLAB Harmony project system definitions.
+    Source code for the USART driver static implementation of Byte model.
 
   Description:
-    This file contains the system-wide prototypes and definitions for an MPLAB
-    Harmony project.
- *******************************************************************************/
+    This file contains the source code for the static implementation of the
+    USART driver Byte model.
+
+  Remarks:
+    Static interfaces incorporate the driver instance number within the names
+    of the routines, eliminating the need for an object ID or object handle.
+
+    Static single-open interfaces also eliminate the need for the open handle.
+*******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-Copyright (c) 2013-2014 released Microchip Technology Inc.  All rights reserved.
+Copyright (c) 2015 released Microchip Technology Inc.  All rights reserved.
 
 Microchip licenses to you the right to use, modify, copy and distribute
 Software only when embedded on a Microchip microcontroller or digital signal
@@ -34,81 +43,68 @@ INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
 CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
 SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
- *******************************************************************************/
+*******************************************************************************/
 //DOM-IGNORE-END
-#ifndef _SYS_DEFINITIONS_H
-#define _SYS_DEFINITIONS_H
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-#include "system/common/sys_common.h"
-#include "system/common/sys_module.h"
-#include "system/devcon/sys_devcon.h"
-#include "system/clk/sys_clk.h"
-#include "system/int/sys_int.h"
-#include "driver/usart/drv_usart_static.h"
-#include "system/ports/sys_ports.h"
-#include "app.h"
-
-
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
-
-#endif
-// DOM-IGNORE-END
+#include "system_config.h"
+#include "system_definitions.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Type Definitions
+// Section: Global Data
+// *****************************************************************************
+// *****************************************************************************
+extern DRV_USART_OBJ  gDrvUSART0Obj ;
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Instance 0 static driver functions
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* System Objects
-
-  Summary:
-    Structure holding the system's object handles
-
-  Description:
-    This structure contains the object handles for all objects in the
-    MPLAB Harmony project's system configuration.
-
-  Remarks:
-    These handles are returned from the "Initialize" functions for each module
-    and must be passed into the "Tasks" function for each module.
-*/
-
-typedef struct
+uint8_t DRV_USART0_ReadByte(void)
 {
+    uint8_t readValue;
+	
+    /* Receive one byte */
+    readValue = PLIB_USART_ReceiverByteReceive(USART_ID_1);
 
-    SYS_MODULE_OBJ  drvUsart0;
-
-} SYSTEM_OBJECTS;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: extern declarations
-// *****************************************************************************
-// *****************************************************************************
-
-extern SYSTEM_OBJECTS sysObj;
-
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
+    return readValue;
 }
-#endif
-//DOM-IGNORE-END
 
-#endif /* _SYS_DEFINITIONS_H */
+void DRV_USART0_WriteByte(const uint8_t byte)
+{
+    /* Send one byte */
+    PLIB_USART_TransmitterByteSend(USART_ID_1, byte);
+    SYS_INT_SourceEnable(INT_SOURCE_USART_1_TRANSMIT);
+}
+
+unsigned int DRV_USART0_ReceiverBufferSizeGet(void)
+{
+    return 8;
+}
+
+unsigned int DRV_USART0_TransmitBufferSizeGet(void)
+{
+    return 8;
+}
+
+bool DRV_USART0_ReceiverBufferIsEmpty( void )
+{
+    /* Check the status of receiver buffer */
+    return(!PLIB_USART_ReceiverDataIsAvailable(USART_ID_1));
+}
+
+bool DRV_USART0_TransmitBufferIsFull(void)
+{
+    /* Check the status of transmitter buffer */
+    return(PLIB_USART_TransmitterBufferIsFull(USART_ID_1));
+}
+
 /*******************************************************************************
  End of File
 */
-

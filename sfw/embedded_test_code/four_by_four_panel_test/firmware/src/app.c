@@ -55,6 +55,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "app.h"
 
+#include <xc.h>
+#include <stdio.h>
+#include "USB_UART.h"
+
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Data Definitions
@@ -77,6 +82,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 */
 
 APP_DATA appData;
+
+extern volatile uint8_t usb_uart_RxStringReady;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -142,6 +149,15 @@ void APP_Tasks ( void )
         case APP_STATE_INIT:
         {
             
+            // Set RE3 as an output
+            TRISECLR = (1 << 3);
+            
+            // Setup USB UART
+            USB_UART_Initialize();
+            USB_UART_clearTerminal();
+            USB_UART_setCursorHome();
+            
+            
             // Setup output pins for panel, and start pins in idle state
             panelPinInit();
             
@@ -150,7 +166,6 @@ void APP_Tasks ( void )
         
             if (appInitialized)
             {
-            
                 appData.state = APP_STATE_SERVICE_TASKS;
             }
             break;
@@ -159,6 +174,7 @@ void APP_Tasks ( void )
         case APP_STATE_SERVICE_TASKS:
         {
         
+            // Terrible hard-coded for loop implementation:
             
             int currentRow = 0;
             for (currentRow = 0; currentRow <= 32; currentRow++) {
@@ -171,9 +187,9 @@ void APP_Tasks ( void )
                 int clk_index;
                 for(clk_index = 0; clk_index <= 64; clk_index++) {
                     panelCLK = 0;
-                    setPanelRedBus(0x00);
+                    setPanelRedBus(0x02);
                     setPanelGreenBus(0xFF);
-                    setPanelBlueBus(0x00);
+                    setPanelBlueBus(0x01);
                     // crude delay
                     int i = 100;
                     while(i > 0) {
@@ -196,6 +212,14 @@ void APP_Tasks ( void )
                     i--;
                 }
             }
+            
+         
+            if(usb_uart_RxStringReady) {
+
+                USB_UART_ringBufferPull();
+
+            }
+            
             break;
         }
 

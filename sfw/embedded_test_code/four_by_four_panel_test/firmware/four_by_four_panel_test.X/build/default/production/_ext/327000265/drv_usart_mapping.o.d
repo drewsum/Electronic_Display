@@ -1,5 +1,5 @@
-build/default/production/_ext/1688732426/system_tasks.o:  \
- ../src/system_config/default/system_tasks.c  \
+build/default/production/_ext/327000265/drv_usart_mapping.o:  \
+ ../src/system_config/default/framework/driver/usart/src/drv_usart_mapping.c  \
  ../src/system_config/default/system_config.h  \
  ../src/system_config/default/system_definitions.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/system/common/sys_common.h  \
@@ -7,7 +7,6 @@ build/default/production/_ext/1688732426/system_tasks.o:  \
  ../../../../../../../microchip/harmony/v2_06/framework/system/devcon/sys_devcon.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/system/system.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/system/clk/sys_clk.h  \
- ../src/system_config/default/system_config.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/osc/plib_osc.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/osc/processor/osc_processor.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/osc/processor/osc_p32xxxx.h  \
@@ -219,6 +218,5 @@ build/default/production/_ext/1688732426/system_tasks.o:  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Default.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/plib_ports_compatibility.h  \
  ../src/app.h  \
-../src/system_config/default/system_definitions.h  \
- ../src/Panel_Pin_Init.h  \
+../src/Panel_Pin_Init.h  \
 ../src/app.h 
