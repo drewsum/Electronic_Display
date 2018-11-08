@@ -26,6 +26,7 @@ volatile uint8_t usb_uart_RxCount;
 
 volatile uint8_t usb_uart_RxStringReady = false;
 
+extern unsigned long device_on_time;
 
 void USB_UART_Initialize(void) {
  
@@ -408,12 +409,13 @@ void USB_UART_ringBufferLUT(char * line_in) {
     }    
     
     // Print Timer 1 ISR counter
-//    else if(strcmp(line_in, "Timer 1 ISR Count?") == 0) {
-//     
-//        USB_UART_textAttributesReset();
-//        USB_UART_printf("Timer 1 ISR has executed %d times since device reset\n\r", count);
-//        
-//    }
+    else if(strcmp(line_in, "Device On Time?") == 0) {
+     
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_printf("Device on time since last system reset is %d seconds\n\r", device_on_time);
+        USB_UART_textAttributesReset();
+        
+    }
     
     else if(strcmp(line_in, "Print Test Message") == 0) {
         
@@ -455,21 +457,6 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributesReset();
         
     }
-    
-    // Stop Timer
-//    else if(strcmp(line_in, "Timer 1 Stop") == 0) {
-//        
-//        DRV_TMR0_Stop();
-//        LATECLR = 1 << 4;
-//        
-//    }
-    
-    // Start Timer
-//    else if(strcmp(line_in, "Timer 1 Start") == 0) {
-//        
-//        DRV_TMR0_Start();
-//        
-//    }
     
     // Help message
     else if(strcmp(line_in, "Help") == 0) {
@@ -681,9 +668,7 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Reset: Software Reset\n\r");
     USB_UART_print("    Clear: Clears the terminal\n\r");
     USB_UART_print("    *IDN?: Returns identification string\n\r");
-    USB_UART_print("    Timer 1 Start: Start Timer 1 blinking LED and counting\n\r");
-    USB_UART_print("    Timer 1 Stop: Stop Timer 1\n\r");
-    USB_UART_print("    Timer 1 ISR Count?: Returns the number of Timer 1 ISR executions since reset\n\r");
+    USB_UART_print("    Device On Time?: Returns the device on time in seconds since last reset\n\r");
     USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
     USB_UART_print("    Credits: Displays creators\n\r");
     USB_UART_print("    Help: This Command\n\r");

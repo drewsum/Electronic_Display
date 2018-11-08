@@ -84,7 +84,7 @@ extern "C" {
 #define SYS_CLK_FREQ                        252000000ul
 #define SYS_CLK_BUS_PERIPHERAL_1            84000000ul
 #define SYS_CLK_BUS_PERIPHERAL_2            84000000ul
-#define SYS_CLK_BUS_PERIPHERAL_3            84000000ul
+#define SYS_CLK_BUS_PERIPHERAL_3            12600000ul
 #define SYS_CLK_BUS_PERIPHERAL_4            84000000ul
 #define SYS_CLK_BUS_PERIPHERAL_5            84000000ul
 #define SYS_CLK_BUS_PERIPHERAL_7            252000000ul
@@ -158,7 +158,24 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
-// *****************************************************************************
+/*** Timer Driver Configuration ***/
+#define DRV_TMR_INTERRUPT_MODE             true
+
+/*** Timer Driver 0 Configuration ***/
+#define DRV_TMR_PERIPHERAL_ID_IDX0          TMR_ID_1
+#define DRV_TMR_INTERRUPT_SOURCE_IDX0       INT_SOURCE_TIMER_1
+#define DRV_TMR_INTERRUPT_VECTOR_IDX0       INT_VECTOR_T1
+#define DRV_TMR_ISR_VECTOR_IDX0             _TIMER_1_VECTOR
+#define DRV_TMR_INTERRUPT_PRIORITY_IDX0     INT_PRIORITY_LEVEL7
+#define DRV_TMR_INTERRUPT_SUB_PRIORITY_IDX0 INT_SUBPRIORITY_LEVEL3
+#define DRV_TMR_CLOCK_SOURCE_IDX0           DRV_TMR_CLKSOURCE_INTERNAL
+#define DRV_TMR_PRESCALE_IDX0               TMR_PRESCALE_VALUE_256
+#define DRV_TMR_OPERATION_MODE_IDX0         DRV_TMR_OPERATION_MODE_16_BIT
+#define DRV_TMR_ASYNC_WRITE_ENABLE_IDX0     false
+#define DRV_TMR_POWER_STATE_IDX0            
+
+
+ // *****************************************************************************
 /* USART Driver Configuration Options
 */
 #define DRV_USART_INSTANCES_NUMBER                  1

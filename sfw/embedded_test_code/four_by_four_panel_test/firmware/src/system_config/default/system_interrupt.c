@@ -63,6 +63,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "app.h"
 #include "system_definitions.h"
 
+extern unsigned int device_on_time;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: System Interrupt Vector Functions
@@ -100,6 +102,17 @@ void __ISR(_UART1_RX_VECTOR, ipl2AUTO) _IntHandlerDrvUsartReceiveInstance0(void)
  
  
  
+
+void __ISR(_TIMER_1_VECTOR, ipl7AUTO) IntHandlerDrvTmrInstance0(void)
+{
+    
+    // toggle RE4
+    LATEINV = 0x10;
+    
+    device_on_time++;
+    
+    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_1);
+}
 /*******************************************************************************
  End of File
 */

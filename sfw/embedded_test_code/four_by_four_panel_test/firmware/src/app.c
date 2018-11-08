@@ -85,6 +85,8 @@ APP_DATA appData;
 
 extern volatile uint8_t usb_uart_RxStringReady;
 
+unsigned long device_on_time = 0;                   // Device on time in seconds
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -149,13 +151,22 @@ void APP_Tasks ( void )
         case APP_STATE_INIT:
         {
             
-            // Set RE3 as an output
+            // Set RE3/RE4 as an output
             TRISECLR = (1 << 3);
+            TRISECLR = (1 << 4);
+            
             
             // Setup USB UART
             USB_UART_Initialize();
             USB_UART_clearTerminal();
             USB_UART_setCursorHome();
+            
+            
+            // Setup timer 1 interrupt for counting
+            PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_1);
+            
+            // Start timer 1, which blinks LED and increments an integer 'count'
+            DRV_TMR0_Start();
             
             
             // Setup output pins for panel, and start pins in idle state
