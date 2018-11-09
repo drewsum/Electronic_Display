@@ -136,7 +136,6 @@ static bool _DRV_TMR_ClockPrescaleSet(TMR_MODULE_ID timerId, TMR_PRESCALE  presc
 // *****************************************************************************
 // *****************************************************************************
 
-static DRV_TMR_ALARM_OBJ      DRV_TMR0_DATA;
 static bool                   DRV_TMR0_Running;
 
 // *****************************************************************************
@@ -158,12 +157,7 @@ void DRV_TMR0_Initialize(void)
     /* Clear counter */ 
     PLIB_TMR_Counter16BitClear(TMR_ID_1);
     /*Set period */ 
-    PLIB_TMR_Period16BitSet(TMR_ID_1, 49219);
-    /* Initialize the data structure */
-    DRV_TMR0_DATA.alarmFunc = NULL;
-    DRV_TMR0_DATA.alarmCount = 0;
-    DRV_TMR0_DATA.alarmEnabled = false;
-    DRV_TMR0_DATA.alarmPeriodic = false;
+    PLIB_TMR_Period16BitSet(TMR_ID_1, 61523);
     /* Setup Interrupt */   
     PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T1, INT_PRIORITY_LEVEL7);
     PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_T1, INT_SUBPRIORITY_LEVEL3);          
@@ -318,90 +312,188 @@ bool DRV_TMR0_ClockSet
     return success;
 }
 
-bool DRV_TMR0_AlarmRegister
+// *****************************************************************************
+// *****************************************************************************
+// Section: Instance 1 static driver data
+// *****************************************************************************
+// *****************************************************************************
+
+static bool                   DRV_TMR1_Running;
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Instance 1 static driver functions
+// *****************************************************************************
+// *****************************************************************************
+void DRV_TMR1_Initialize(void)
+{   
+    /* Initialize Timer Instance1 */
+    /* Disable Timer */
+    PLIB_TMR_Stop(TMR_ID_2);
+    /* Select clock source */
+    PLIB_TMR_ClockSourceSelect ( TMR_ID_2, TMR_CLOCK_SOURCE_PERIPHERAL_CLOCK );
+    /* Select prescalar value */
+    PLIB_TMR_PrescaleSelect(TMR_ID_2, TMR_PRESCALE_VALUE_1);
+    /* Enable 16 bit mode */
+    PLIB_TMR_Mode16BitEnable(TMR_ID_2);
+    /* Clear counter */ 
+    PLIB_TMR_Counter16BitClear(TMR_ID_2);
+    /*Set period */ 
+    PLIB_TMR_Period16BitSet(TMR_ID_2, 250);
+    /* Setup Interrupt */   
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T2, INT_PRIORITY_LEVEL1);
+    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_T2, INT_SUBPRIORITY_LEVEL3);          
+}
+
+static void _DRV_TMR1_Resume(bool resume)
+{
+    if (resume)
+    {
+        PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_TIMER_2);
+        PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_2);
+        PLIB_TMR_Start(TMR_ID_2);
+    }
+}
+
+bool DRV_TMR1_Start(void)
+{
+    /* Start Timer*/
+    _DRV_TMR1_Resume(true);
+    DRV_TMR1_Running = true;
+    
+    return true;
+}
+
+static bool _DRV_TMR1_Suspend(void)
+{
+    if (DRV_TMR1_Running)
+    {
+        PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_TIMER_2);
+        PLIB_TMR_Stop(TMR_ID_2);
+        return (true);
+    }
+    
+    return (false);
+}
+
+void DRV_TMR1_Stop(void)
+{
+    _DRV_TMR1_Suspend();
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_TIMER_2);
+    DRV_TMR1_Running = false;
+}
+
+DRV_TMR_CLIENT_STATUS DRV_TMR1_ClientStatus ( void )
+{
+    if (DRV_TMR1_Running)
+        return DRV_TMR_CLIENT_STATUS_RUNNING;
+    else
+        return DRV_TMR_CLIENT_STATUS_READY;
+}
+
+void DRV_TMR1_CounterValueSet(uint32_t value)
+{
+    /* Set 16-bit counter value*/
+    PLIB_TMR_Counter16BitSet(TMR_ID_2, (uint16_t)value);
+}
+
+uint32_t DRV_TMR1_CounterValueGet(void)
+{
+    /* Get 16-bit counter value*/
+    return (uint32_t) PLIB_TMR_Counter16BitGet(TMR_ID_2);
+}
+
+void DRV_TMR1_CounterClear(void)
+{
+    /* Clear 16-bit counter value*/
+    PLIB_TMR_Counter16BitClear(TMR_ID_2);
+}
+
+DRV_TMR_OPERATION_MODE DRV_TMR1_DividerRangeGet
 (
-    uint32_t divider, 
-    bool isPeriodic, 
-    uintptr_t context, 
-    DRV_TMR_CALLBACK callBack 
+	DRV_TMR_DIVIDER_RANGE * pDivRange
 )
 {
-    bool success = (divider >= DRV_TIMER_DIVIDER_MIN_16BIT && 
-                    divider <= DRV_TIMER_DIVIDER_MAX_16BIT);
-    if (success)
-    {
-        PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_TIMER_1);
-        PLIB_TMR_Stop(TMR_ID_1);
-        PLIB_TMR_Period16BitSet(TMR_ID_1, (uint16_t)divider - 1);
-        DRV_TMR0_DATA.alarmPeriodic = isPeriodic;
-        DRV_TMR0_DATA.alarmContext = context;
-        DRV_TMR0_DATA.alarmFunc = callBack;
-        return (success);
-    }
-    else
-        return false;
+	if(pDivRange)
+	{
+        pDivRange->dividerMax = DRV_TIMER_DIVIDER_MAX_16BIT;
+        pDivRange->dividerMin = DRV_TIMER_DIVIDER_MIN_16BIT;
+		pDivRange->dividerStep = 1;
+		return DRV_TMR_OPERATION_MODE_16_BIT;
+	}
+	return DRV_TMR_OPERATION_MODE_NONE;
 }
 
-void DRV_TMR0_AlarmEnable(bool enable)
+uint32_t DRV_TMR1_CounterFrequencyGet(void)
 {
-    if (DRV_TMR0_DATA.alarmFunc != NULL)
-    {
-        DRV_TMR0_DATA.alarmEnabled = enable;
-        PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_1);
-    }
-}
-
-bool DRV_TMR0_AlarmDisable(void)
-{
-    bool retVal = DRV_TMR0_DATA.alarmEnabled;
-        PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_TIMER_1);
-    DRV_TMR0_DATA.alarmEnabled = false;
+    uint32_t prescale, tmrBaseFreq;
     
-    return retVal;
+    tmrBaseFreq = SYS_CLK_PeripheralFrequencyGet ( CLK_BUS_FOR_TIMER_PERIPHERAL );
+    prescale = PLIB_TMR_PrescaleGet(TMR_ID_2);
+    return ( tmrBaseFreq / prescale );
 }
 
-void DRV_TMR0_AlarmPeriodSet(uint32_t value)
+TMR_PRESCALE DRV_TMR1_PrescalerGet(void)
 {
-    bool resume = _DRV_TMR0_Suspend();
-    DRV_TMR0_DATA.alarmPeriod = value;
-    PLIB_TMR_Period16BitSet(TMR_ID_1, (uint16_t)value);
-    _DRV_TMR0_Resume(resume);
-}
-
-uint32_t DRV_TMR0_AlarmPeriodGet(void)
-{
-    return PLIB_TMR_Period16BitGet(TMR_ID_1);
-}
-
-void DRV_TMR0_AlarmDeregister(void)
-{
-    DRV_TMR0_DATA.alarmEnabled = false;
-    DRV_TMR0_DATA.alarmFunc = NULL;
-}
-
-uint32_t DRV_TMR0_AlarmHasElapsed(void)
-{
-    uint32_t alarmCountTemp = DRV_TMR0_DATA.alarmCount;
+    uint16_t prescale_value;
+    /* Call the PLIB directly */
+    prescale_value = PLIB_TMR_PrescaleGet(TMR_ID_2);
     
-    DRV_TMR0_DATA.alarmCount = 0;
-    return (alarmCountTemp);
-}
-
-void DRV_TMR0_Tasks(void)
-{
-    if (DRV_TMR0_DATA.alarmEnabled &&
-        (DRV_TMR0_DATA.alarmFunc != NULL))
-    {	
-		DRV_TMR0_DATA.alarmCount++;
-        DRV_TMR0_DATA.alarmFunc(
-            DRV_TMR0_DATA.alarmContext, 
-            DRV_TMR0_DATA.alarmCount);
-        if (!DRV_TMR0_DATA.alarmPeriodic)
-        {
-            DRV_TMR0_AlarmDisable();
-        }
+    switch(prescale_value)
+    {
+        case 1: return TMR_PRESCALE_VALUE_1;
+        case 2: return TMR_PRESCALE_VALUE_2;
+        case 4: return TMR_PRESCALE_VALUE_4;
+        case 8: return TMR_PRESCALE_VALUE_8;
+        case 16: return TMR_PRESCALE_VALUE_16;
+        case 32: return TMR_PRESCALE_VALUE_32;
+        case 64: return TMR_PRESCALE_VALUE_64;
+        case 256: return TMR_PRESCALE_VALUE_256;
+        default: return TMR_PRESCALE_VALUE_1;
     }
 }
+
+void DRV_TMR1_PeriodValueSet(uint32_t value)
+{
+    /* Set 16-bit counter value*/
+    PLIB_TMR_Period16BitSet(TMR_ID_2, (uint16_t)value);
+}
+
+uint32_t DRV_TMR1_PeriodValueGet(void)
+{
+    /* Get 16-bit counter value*/
+    return (uint32_t) PLIB_TMR_Period16BitGet(TMR_ID_2);
+}
+
+void DRV_TMR1_StopInIdleDisable(void)
+{
+    PLIB_TMR_StopInIdleDisable(TMR_ID_2);
+}
+
+void DRV_TMR1_StopInIdleEnable(void)
+{
+    PLIB_TMR_StopInIdleDisable(TMR_ID_2);
+}
+
+bool DRV_TMR1_ClockSet
+(
+    DRV_TMR_CLK_SOURCES clockSource,
+    TMR_PRESCALE        preScale
+)
+{
+    bool success = false;
+    bool resume = _DRV_TMR1_Suspend();
+    
+    if (_DRV_TMR_ClockSourceSet(TMR_ID_2, clockSource) &&
+        _DRV_TMR_ClockPrescaleSet(TMR_ID_2, preScale))
+    {
+        success = true;
+    }
+    
+    _DRV_TMR1_Resume(resume);
+    return success;
+}
+
  
  
 /*******************************************************************************

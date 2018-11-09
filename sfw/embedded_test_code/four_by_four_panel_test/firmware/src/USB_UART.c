@@ -458,6 +458,30 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
     }
     
+    // Identification command
+    else if(strcmp(line_in, "Enable Multiplexing") == 0) {
+     
+        // Disable multiplexing timer
+        PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_2);
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Multiplexing Enabled\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // disable multiplexing
+    else if(strcmp(line_in, "Disable Multiplexing") == 0) {
+     
+        // Disable multiplexing timer
+        PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_TIMER_2);
+        
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("Multiplexing Disabled\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
     // Help message
     else if(strcmp(line_in, "Help") == 0) {
      
@@ -668,6 +692,8 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Reset: Software Reset\n\r");
     USB_UART_print("    Clear: Clears the terminal\n\r");
     USB_UART_print("    *IDN?: Returns identification string\n\r");
+    USB_UART_print("    Enable Multiplexing: enables the multiplexing timer \n\r");
+    USB_UART_print("    Disable Multiplexing: disable the multiplexing timer \n\r");
     USB_UART_print("    Device On Time?: Returns the device on time in seconds since last reset\n\r");
     USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
     USB_UART_print("    Credits: Displays creators\n\r");
@@ -760,7 +786,7 @@ void USB_UART_printTestMessage(void) {
     USB_UART_textAttributesReset();
     USB_UART_print("This text is normal\n\r");
     
-    // Test custom printf function
+//    // Test custom printf function
     USB_UART_printNewline();
     USB_UART_print("Testing custom printf function: \n\r");
     USB_UART_printf("This string has the decimal %d in it: %d \n\r", 100, 100);

@@ -113,6 +113,11 @@ void __ISR(_TIMER_1_VECTOR, ipl7AUTO) IntHandlerDrvTmrInstance0(void)
     
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_1);
 }
+void __ISR(_TIMER_2_VECTOR, ipl1AUTO) IntHandlerDrvTmrInstance1(void)
+{
+    updateRowCallback();
+    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_2);
+}
 /*******************************************************************************
  End of File
 */

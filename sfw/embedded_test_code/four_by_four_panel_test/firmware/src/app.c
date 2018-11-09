@@ -57,6 +57,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include <xc.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "USB_UART.h"
 
 
@@ -83,9 +84,19 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 APP_DATA appData;
 
-extern volatile uint8_t usb_uart_RxStringReady;
+extern volatile uint8_t usb_uart_RxStringReady;     // USB UART RX ready flag
 
 unsigned long device_on_time = 0;                   // Device on time in seconds
+
+// Display update variables
+uint8_t current_shift_clock;
+uint8_t current_row;
+uint8_t current_PWM_frame;
+
+
+// gnarly internal RAM buffer for display
+uint8_t ram_buffer[49152];
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -93,8 +104,95 @@ unsigned long device_on_time = 0;                   // Device on time in seconds
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO:  Add any necessary callback functions.
-*/
+
+// Panel shift output callback function
+void updateRowCallback(void) {
+    
+    // Set latch low
+    panelLAT = 0;
+    
+    // Set clock low
+    panelCLK = 0;
+    
+    // loop through 64 shift clock cycles
+    for (current_shift_clock = 0; current_shift_clock <= 63; current_shift_clock++) {
+     
+        // Poor man's delay
+        uint8_t delay_index = 200;
+        while (delay_index > 0) {
+            delay_index--;
+        };
+        
+        // Set red pins from RAM buffer
+        uint32_t current_shift_clock_index = 3 * current_shift_clock;
+        uint32_t current_row_index = 192 * current_row;
+        uint32_t current_PWM_frame_index = 6144 * current_PWM_frame;
+        uint8_t redData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
+        setPanelRedBus(redData);
+        // Set green pins from RAM buffer
+        uint8_t greenData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 1];
+        setPanelGreenBus(greenData);
+        // Set blue pins from RAM buffer
+        uint8_t blueData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 2];
+        setPanelBlueBus(blueData);
+
+        // Poor man's delay
+        delay_index = 10;
+        while (delay_index > 0) {
+            delay_index--;
+        };
+        
+        // Clock data into panel
+        panelCLK = 1;
+        
+        // Poor man's delay
+        delay_index = 170;
+        while (delay_index > 0) {
+            delay_index--;
+        };
+        
+        // clear clock signal
+        panelCLK = 0;
+        
+    }
+    
+    // update row bus signals
+    setPanelRowBus(current_row);
+    
+    // Poor man's delay
+    uint8_t delay_index = 100;
+    while (delay_index > 0) {
+        delay_index--;
+    };
+    
+    // Latch shifter data into shift registers
+    panelLAT = 1;
+    
+    delay_index = 100;
+    while (delay_index > 0) {
+        delay_index--;
+    };
+    
+    // Next function call, update the next row
+    current_row++;
+    
+    // Reset current_row counter
+    if (current_row >= 32) {
+     
+        current_row = 0;
+        current_PWM_frame++;
+        
+    }
+    
+    // Reset current_PWM_frame counter
+    if (current_PWM_frame >= 8) {
+     
+        current_PWM_frame = 0;
+        
+    }
+    
+    
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -102,9 +200,34 @@ unsigned long device_on_time = 0;                   // Device on time in seconds
 // *****************************************************************************
 // *****************************************************************************
 
+// fill ram buffer with all white pixels
+void fillRamBufferWhite(void) {
+ 
+    unsigned int address_index;
+    
+    for (address_index = 0; address_index < 49152; address_index++) {
+     
+        ram_buffer[address_index] = 0xFF;
+        
+    }
+    
+}
 
-/* TODO:  Add any necessary local functions.
-*/
+// fill ram buffer with random data
+void fillRamBufferRand(void) {
+ 
+    unsigned int address_index;
+    
+    srand(100);
+    
+    for (address_index = 0; address_index < 49152; address_index++) {
+     
+        ram_buffer[address_index] = (uint8_t) rand() % 255;
+        
+    }
+    
+}
+
 
 
 // *****************************************************************************
@@ -161,16 +284,27 @@ void APP_Tasks ( void )
             USB_UART_clearTerminal();
             USB_UART_setCursorHome();
             
+            // Initialize ram buffer with data
+            fillRamBufferRand();
             
             // Setup timer 1 interrupt for counting
             PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_1);
             
+            // Setup timer 2 interrupt for data shifting
+            PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_2);
+            
+            
             // Start timer 1, which blinks LED and increments an integer 'count'
             DRV_TMR0_Start();
             
+            // Start timer 2 (data shifting timer)
+            DRV_TMR1_Start();
             
             // Setup output pins for panel, and start pins in idle state
             panelPinInit();
+            
+            // Enable panel display
+            panelnOE = 0;
             
             bool appInitialized = true;
        
@@ -184,46 +318,47 @@ void APP_Tasks ( void )
 
         case APP_STATE_SERVICE_TASKS:
         {
+            
         
             // Terrible hard-coded for loop implementation:
             
-            int currentRow = 0;
-            for (currentRow = 0; currentRow <= 32; currentRow++) {
-                setPanelRowBus(currentRow);
-                panelLAT = 0;
-                panelCLK = 0;
-                panelnOE = 1;
-
-                // Shift some garbage into the first row and 33rd row
-                int clk_index;
-                for(clk_index = 0; clk_index <= 64; clk_index++) {
-                    panelCLK = 0;
-                    setPanelRedBus(0x02);
-                    setPanelGreenBus(0xFF);
-                    setPanelBlueBus(0x01);
-                    // crude delay
-                    int i = 100;
-                    while(i > 0) {
-                        i--;   
-                    }
-                    panelCLK = 1;
-                    // another crude delay
-                    i = 100;
-                    while(i > 0) {
-                        i--;
-                    }
-                }
-
-                panelLAT = 1;
-                panelCLK = 0;
-                panelnOE = 0;
-
-                int i = 2000;
-                while(i > 0) {
-                    i--;
-                }
-            }
-            
+//            int currentRow = 0;
+//            for (currentRow = 0; currentRow <= 32; currentRow++) {
+//                setPanelRowBus(currentRow);
+//                panelLAT = 0;
+//                panelCLK = 0;
+//                panelnOE = 1;
+//
+//                // Shift some garbage into the first row and 33rd row
+//                int clk_index;
+//                for(clk_index = 0; clk_index <= 64; clk_index++) {
+//                    panelCLK = 0;
+//                    setPanelRedBus(0x03);
+//                    setPanelGreenBus(0x01);
+//                    setPanelBlueBus(0x01);
+//                    // crude delay
+//                    int i = 100;
+//                    while(i > 0) {
+//                        i--;   
+//                    }
+//                    panelCLK = 1;
+//                    // another crude delay
+//                    i = 100;
+//                    while(i > 0) {
+//                        i--;
+//                    }
+//                }
+//
+//                panelLAT = 1;
+//                panelCLK = 0;
+//                panelnOE = 0;
+//
+//                int i = 2000;
+//                while(i > 0) {
+//                    i--;
+//                }
+//            }
+//            
          
             if(usb_uart_RxStringReady) {
 

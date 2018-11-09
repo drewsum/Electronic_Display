@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/app.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/USB_UART.h</file>
+            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/Panel_Pin_Init.h</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/system_config/default/system_interrupt.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/USB_UART.c</file>
         </group>
