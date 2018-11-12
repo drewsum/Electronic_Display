@@ -15,6 +15,12 @@ K Single Gate NOT LVC CMOS Open Drain
 F http://www.ti.com/lit/ds/symlink/sn74lvc1g06.pdf
 $ENDCMP
 #
+$CMP 74LVC1G79_Power
+D Single D Flip-Flop, Low-Voltage CMOS
+K Single D Flip-Flop D CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP 74LVC1G86_Power
 D Single EX-OR Gate, Low-Voltage CMOS
 K Single Gate EX-OR LVC CMOS
