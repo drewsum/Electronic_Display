@@ -93,6 +93,9 @@ uint8_t current_shift_clock;
 uint8_t current_row;
 uint8_t current_PWM_frame;
 
+uint32_t current_shift_clock_index;
+uint32_t current_row_index;
+uint32_t current_PWM_frame_index;
 
 // gnarly internal RAM buffer for display
 uint8_t ram_buffer[49152];
@@ -108,6 +111,13 @@ uint8_t ram_buffer[49152];
 // Panel shift output callback function
 void updateRowCallback(void) {
     
+    // Stop on time timer and reset to 0
+    DRV_TMR1_Stop();
+    DRV_TMR1_CounterValueSet(0x00);
+    
+    // Disable output
+    panelnOE = 1;
+    
     // Set latch low
     panelLAT = 0;
     
@@ -118,15 +128,13 @@ void updateRowCallback(void) {
     for (current_shift_clock = 0; current_shift_clock <= 63; current_shift_clock++) {
      
         // Poor man's delay
-        uint8_t delay_index = 200;
+        uint8_t delay_index = 10;
         while (delay_index > 0) {
             delay_index--;
         };
         
         // Set red pins from RAM buffer
-        uint32_t current_shift_clock_index = 3 * current_shift_clock;
-        uint32_t current_row_index = 192 * current_row;
-        uint32_t current_PWM_frame_index = 6144 * current_PWM_frame;
+        current_shift_clock_index = 3 * current_shift_clock;
         uint8_t redData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
         setPanelRedBus(redData);
         // Set green pins from RAM buffer
@@ -146,7 +154,7 @@ void updateRowCallback(void) {
         panelCLK = 1;
         
         // Poor man's delay
-        delay_index = 170;
+        delay_index = 10;
         while (delay_index > 0) {
             delay_index--;
         };
@@ -159,19 +167,12 @@ void updateRowCallback(void) {
     // update row bus signals
     setPanelRowBus(current_row);
     
-    // Poor man's delay
-    uint8_t delay_index = 100;
-    while (delay_index > 0) {
-        delay_index--;
-    };
     
     // Latch shifter data into shift registers
     panelLAT = 1;
     
-    delay_index = 100;
-    while (delay_index > 0) {
-        delay_index--;
-    };
+    // Enable pixel output
+    panelnOE = 0;
     
     // Next function call, update the next row
     current_row++;
@@ -184,6 +185,9 @@ void updateRowCallback(void) {
         
     }
     
+    // Update row index variable
+    current_row_index = 192 * current_row;
+    
     // Reset current_PWM_frame counter
     if (current_PWM_frame >= 8) {
      
@@ -191,6 +195,11 @@ void updateRowCallback(void) {
         
     }
     
+    // Update PWM index variable
+    current_PWM_frame_index = 6144 * current_PWM_frame;
+    
+    // Restart on time timer
+    DRV_TMR1_Start();
     
 }
 
@@ -218,11 +227,11 @@ void fillRamBufferRand(void) {
  
     unsigned int address_index;
     
-    srand(100);
+    srand(10);
     
     for (address_index = 0; address_index < 49152; address_index++) {
      
-        ram_buffer[address_index] = (uint8_t) rand() % 255;
+        ram_buffer[address_index] = (uint8_t) rand() % 50;
         
     }
     
