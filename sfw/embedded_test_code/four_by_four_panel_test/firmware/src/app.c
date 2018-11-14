@@ -84,8 +84,10 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 APP_DATA appData;
 
+// USB UART ring buffer ready flag
 extern volatile uint8_t usb_uart_RxStringReady;     // USB UART RX ready flag
 
+// Total device on time 
 unsigned long device_on_time = 0;                   // Device on time in seconds
 
 // Display update variables
@@ -93,13 +95,13 @@ uint8_t current_shift_clock;
 uint8_t current_row;
 uint8_t current_PWM_frame;
 
+// ram buffer index variables
 uint32_t current_shift_clock_index;
 uint32_t current_row_index;
 uint32_t current_PWM_frame_index;
 
 // gnarly internal RAM buffer for display
 uint8_t ram_buffer[49152];
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -127,11 +129,11 @@ void updateRowCallback(void) {
     // loop through 64 shift clock cycles
     for (current_shift_clock = 0; current_shift_clock <= 63; current_shift_clock++) {
      
-        // Poor man's delay
-        uint8_t delay_index = 10;
-        while (delay_index > 0) {
-            delay_index--;
-        };
+//        // Poor man's delay
+//        uint8_t delay_index = 10;
+//        while (delay_index > 0) {
+//            delay_index--;
+//        };
         
         // Set red pins from RAM buffer
         current_shift_clock_index = 3 * current_shift_clock;
@@ -144,17 +146,17 @@ void updateRowCallback(void) {
         uint8_t blueData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 2];
         setPanelBlueBus(blueData);
 
-        // Poor man's delay
-        delay_index = 10;
-        while (delay_index > 0) {
-            delay_index--;
-        };
+//        // Poor man's delay
+//        uint8_t delay_index = 10;
+//        while (delay_index > 0) {
+//            delay_index--;
+//        };
         
         // Clock data into panel
         panelCLK = 1;
         
         // Poor man's delay
-        delay_index = 10;
+        uint8_t delay_index = 10;
         while (delay_index > 0) {
             delay_index--;
         };
@@ -166,7 +168,6 @@ void updateRowCallback(void) {
     
     // update row bus signals
     setPanelRowBus(current_row);
-    
     
     // Latch shifter data into shift registers
     panelLAT = 1;
