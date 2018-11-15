@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 13 32
+Sheet 12 30
 Title ""
 Date ""
 Rev ""
@@ -36,17 +36,6 @@ Wire Wire Line
 Wire Wire Line
 	5580 5290 5580 5250
 Connection ~ 5530 5290
-$Comp
-L Custom_Library:+3.3V #PWR?
-U 1 1 5BB4B21E
-P 5530 2460
-F 0 "#PWR?" H 5530 2310 50  0001 C CNN
-F 1 "+3.3V" H 5530 2600 50  0000 C CNN
-F 2 "" H 5530 2460 50  0000 C CNN
-F 3 "" H 5530 2460 50  0000 C CNN
-	1    5530 2460
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5530 2460 5530 2510
 Wire Wire Line
@@ -346,4 +335,15 @@ Text GLabel 4780 4500 0    50   Input ~ 0
 EBI_A17
 Text Notes 2060 5440 0    50   ~ 0
 Consider strapping ~CS~ high since we only have one device on the EBI bus\nThis may or may not work, need to look deeper into EBI reference manual\nIf pins are available, leave this pin connected to the micro, not strapped
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BDF2406
+P 5530 2460
+F 0 "#PWR?" H 5530 2310 50  0001 C CNN
+F 1 "+3.3V" H 5530 2600 50  0000 C CNN
+F 2 "" H 5530 2460 50  0001 C CNN
+F 3 "" H 5530 2460 50  0001 C CNN
+	1    5530 2460
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

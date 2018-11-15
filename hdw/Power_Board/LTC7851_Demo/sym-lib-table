@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name LED_Display_Local_Library)(type Legacy)(uri "C:/Users/Drew Maatman/Documents/KiCad Projects/Projects/Electronic_Display/hdw/Host_Board/LED_Display_Controller/lib/LED_Display_Local_Library.lib")(options "")(descr ""))
+)

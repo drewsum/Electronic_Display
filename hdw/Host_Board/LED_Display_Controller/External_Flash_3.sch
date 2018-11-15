@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 16 32
+Sheet 15 30
 Title ""
 Date ""
 Rev ""
@@ -35,17 +35,6 @@ F 1 "GND" H 6080 3900 50  0000 C CNN
 F 2 "" H 6080 4050 50  0001 C CNN
 F 3 "" H 6080 4050 50  0001 C CNN
 	1    6080 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Custom_Library:+3.3V #PWR?
-U 1 1 5BBE811B
-P 6080 3250
-F 0 "#PWR?" H 6080 3100 50  0001 C CNN
-F 1 "+3.3V" H 6080 3390 50  0000 C CNN
-F 2 "" H 6080 3250 50  0000 C CNN
-F 3 "" H 6080 3250 50  0000 C CNN
-	1    6080 3250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -172,39 +161,6 @@ F 3 "" H 6750 4000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+3.3V #PWR?
-U 1 1 5BBE8175
-P 5110 2980
-F 0 "#PWR?" H 5110 2830 50  0001 C CNN
-F 1 "+3.3V" H 5110 3120 50  0000 C CNN
-F 2 "" H 5110 2980 50  0000 C CNN
-F 3 "" H 5110 2980 50  0000 C CNN
-	1    5110 2980
-	1    0    0    -1  
-$EndComp
-$Comp
-L Custom_Library:+3.3V #PWR?
-U 1 1 5BBE817B
-P 4520 2980
-F 0 "#PWR?" H 4520 2830 50  0001 C CNN
-F 1 "+3.3V" H 4520 3120 50  0000 C CNN
-F 2 "" H 4520 2980 50  0000 C CNN
-F 3 "" H 4520 2980 50  0000 C CNN
-	1    4520 2980
-	1    0    0    -1  
-$EndComp
-$Comp
-L Custom_Library:+3.3V #PWR?
-U 1 1 5BBE8181
-P 3930 2980
-F 0 "#PWR?" H 3930 2830 50  0001 C CNN
-F 1 "+3.3V" H 3930 3120 50  0000 C CNN
-F 2 "" H 3930 2980 50  0000 C CNN
-F 3 "" H 3930 2980 50  0000 C CNN
-	1    3930 2980
-	1    0    0    -1  
-$EndComp
-$Comp
 L Custom_Library:R_Custom R?
 U 1 1 5BBE818B
 P 3420 3450
@@ -248,33 +204,7 @@ Wire Wire Line
 	3930 3280 3930 3650
 Wire Wire Line
 	3930 3650 5680 3650
-$Comp
-L Connector_Generic:Conn_02x01 J?
-U 1 1 5BBE81A2
-P 3930 4170
-AR Path="/5BB2595E/5BBE81A2" Ref="J?"  Part="1" 
-AR Path="/5BB25AEA/5BBE81A2" Ref="J?"  Part="1" 
-F 0 "J?" H 3980 4270 50  0000 C CNN
-F 1 "WP3" H 3980 4070 50  0000 C CNN
-F 2 "" H 3930 4170 50  0001 C CNN
-F 3 "~" H 3930 4170 50  0001 C CNN
-	1    3930 4170
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	3930 3970 3930 3650
 Connection ~ 3930 3650
-$Comp
-L power:GND #PWR?
-U 1 1 5BBE81AB
-P 3930 4470
-F 0 "#PWR?" H 3930 4220 50  0001 C CNN
-F 1 "GND" H 3930 4320 50  0000 C CNN
-F 2 "" H 3930 4470 50  0001 C CNN
-F 3 "" H 3930 4470 50  0001 C CNN
-	1    3930 4470
-	1    0    0    -1  
-$EndComp
 Text GLabel 3270 3450 0    50   Input ~ 0
 FLASH_MOSI
 Text GLabel 3270 3750 0    40   Input ~ 0
@@ -487,4 +417,48 @@ Wire Wire Line
 	3570 3650 3930 3650
 Text GLabel 3270 3650 0    40   Input ~ 0
 ~FLASH_WP3
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BDF71D3
+P 6080 3250
+F 0 "#PWR?" H 6080 3100 50  0001 C CNN
+F 1 "+3.3V" H 6080 3390 50  0000 C CNN
+F 2 "" H 6080 3250 50  0001 C CNN
+F 3 "" H 6080 3250 50  0001 C CNN
+	1    6080 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BDF7218
+P 5110 2980
+F 0 "#PWR?" H 5110 2830 50  0001 C CNN
+F 1 "+3.3V" H 5110 3120 50  0000 C CNN
+F 2 "" H 5110 2980 50  0001 C CNN
+F 3 "" H 5110 2980 50  0001 C CNN
+	1    5110 2980
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BDF7245
+P 4520 2980
+F 0 "#PWR?" H 4520 2830 50  0001 C CNN
+F 1 "+3.3V" H 4520 3120 50  0000 C CNN
+F 2 "" H 4520 2980 50  0001 C CNN
+F 3 "" H 4520 2980 50  0001 C CNN
+	1    4520 2980
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BDF7272
+P 3930 2980
+F 0 "#PWR?" H 3930 2830 50  0001 C CNN
+F 1 "+3.3V" H 3930 3120 50  0000 C CNN
+F 2 "" H 3930 2980 50  0001 C CNN
+F 3 "" H 3930 2980 50  0001 C CNN
+	1    3930 2980
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
