@@ -186,6 +186,29 @@ X ~ 4 250 0 150 L 40 40 2 1 O I
 ENDDRAW
 ENDDEF
 #
+# COM_Port_Settings
+#
+DEF ~COM_Port_Settings DOC 0 40 Y Y 1 F N
+F0 "DOC" 0 400 60 H I C CNN
+F1 "COM_Port_Settings" 0 500 60 H I C CNN
+F2 "" 0 500 60 H I C CNN
+F3 "" 0 500 60 H I C CNN
+F4 "Baud" 750 150 60 H V R CNN "Baud_Rate"
+F5 "Data Length" 750 50 60 H V R CNN "Data_Length"
+F6 "Parity" 750 -50 60 H V R CNN "Parity"
+F7 "Stop Bits" 750 -150 60 H V R CNN "Stop_Bits"
+F8 "Flow Control" 750 -250 60 H V R CNN "Flow_Control"
+DRAW
+T 0 -750 150 60 0 0 0 "Baud Rate:" Normal 0 L C
+T 0 -750 50 60 0 0 0 "Data Length:" Normal 0 L C
+T 0 -750 -250 60 0 0 0 "Flow Control:" Normal 0 L C
+T 0 -750 -50 60 0 0 0 Parity: Normal 0 L C
+T 0 -750 -150 60 0 0 0 "Stop Bits:" Normal 0 L C
+T 0 -750 250 60 0 0 0 "USB Virtual COM Port Settings:" Normal 1 L C
+S -800 350 800 -350 0 0 10 f
+ENDDRAW
+ENDDEF
+#
 # CP_Tant_Custom
 #
 DEF CP_Tant_Custom C 0 10 N Y 1 F N

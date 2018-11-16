@@ -32,10 +32,10 @@ Text GLabel 7130 4480 2    50   Input ~ 0
 NoConn ~ 7130 5380
 NoConn ~ 7130 5480
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0216
 U 1 1 5BB53596
 P 7320 5380
-F 0 "#PWR?" H 7320 5130 50  0001 C CNN
+F 0 "#PWR0216" H 7320 5130 50  0001 C CNN
 F 1 "GND" H 7320 5230 50  0000 C CNN
 F 2 "" H 7320 5380 50  0001 C CNN
 F 3 "" H 7320 5380 50  0001 C CNN
@@ -82,7 +82,7 @@ Text GLabel 7130 3980 2    50   BiDi ~ 0
 EBI_IO7
 Text GLabel 4030 4980 0    40   Output ~ 0
 ~EBI_WE
-Text GLabel 4030 5080 0    40   Input ~ 0
+Text GLabel 4030 5080 0    40   Output ~ 0
 ~EBI_OE
 Text GLabel 4030 4180 0    40   Output ~ 0
 ~FLASH_Hold

@@ -97,4 +97,44 @@ Text GLabel 7130 1780 2    50   Output ~ 0
 ~OE_POS3P3
 Text GLabel 4030 2680 0    50   Output ~ 0
 Panel_Dim_PWM
+Text GLabel 7130 4080 2    50   Input ~ 0
+POS3P3_PGOOD
+Text GLabel 4030 3580 0    40   Output ~ 0
+~ACTIVE_LED
+Text GLabel 4030 2880 0    50   Output ~ 0
+SPI_Error_LED
+Text GLabel 4030 3380 0    50   Output ~ 0
+WIFI_Error_LED
+Text GLabel 4030 2780 0    50   Output ~ 0
+EBI_Error_LED
+Text GLabel 4030 3480 0    50   Output ~ 0
+USB_Error_LED
+Text GLabel 4030 3280 0    50   Output ~ 0
+Panel_Enable_LED
+Text GLabel 4030 2180 0    50   Input ~ 0
+POS5P_PGOOD
+Text GLabel 4030 2280 0    40   Input ~ 0
+~POS5P_THWN
+Text GLabel 7130 3980 2    50   Input ~ 0
+ENCODER_DIR
+Text GLabel 7130 3880 2    50   Input ~ 0
+ENCODER_STEP
+Text GLabel 7130 3780 2    40   Input ~ 0
+~Display_Enable
+Text GLabel 4030 1880 0    50   Input ~ 0
+POS5_PGOOD
+Text GLabel 4030 1780 0    50   Output ~ 0
+POS5_RUN
+Text GLabel 4030 3880 0    50   Input ~ 0
+POS3P3_ADC
+Text GLabel 4030 3980 0    50   Input ~ 0
+POS12_ADC
+Text GLabel 4030 4380 0    50   Input ~ 0
+POS5_ADC
+Text GLabel 4030 4480 0    50   Input ~ 0
+POS5P_ADC
+Text GLabel 4030 2380 0    50   Output ~ 0
+POS5P_RUN
+Text GLabel 4030 4280 0    50   Input ~ 0
+POS5P5_ADC
 $EndSCHEMATC

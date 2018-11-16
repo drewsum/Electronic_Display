@@ -487,27 +487,6 @@ X D 5 100 200 100 D 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Custom_Library_LT1010
-#
-DEF Custom_Library_LT1010 U 0 20 Y Y 1 F N
-F0 "U" 250 100 50 H V C CNN
-F1 "Custom_Library_LT1010" 350 -100 50 H V C CNN
-F2 "" 0 0 50 H V C CNN
-F3 "" 0 0 50 H V C CNN
-DRAW
-P 2 0 1 0 100 200 0 100 N
-P 4 0 1 10 200 0 -200 200 -200 -200 200 0 f
-X V+ 1 -100 300 150 D 50 50 1 1 I
-X Bias 2 100 300 100 D 50 50 1 1 I
-X ~ 3 300 0 100 L 50 50 1 1 O
-X NC 4 150 -250 100 U 50 50 1 1 N N
-X NC 5 100 -250 100 U 50 50 1 1 N N
-X V- 6 -100 -300 150 U 50 50 1 1 I
-X NC 7 50 -250 100 U 50 50 1 1 N N
-X ~ 8 -300 0 100 R 50 50 1 1 I
-ENDDRAW
-ENDDEF
-#
 # Custom_Library_R_Custom
 #
 DEF Custom_Library_R_Custom R 0 40 N N 1 F N
@@ -660,6 +639,25 @@ DRAW
 P 2 0 1 0 50 0 -50 0 N
 P 4 0 1 8 50 50 50 -50 -50 0 50 50 N
 P 6 0 1 8 -75 25 -75 50 -50 50 -50 -50 -25 -50 -25 -25 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Diode_MM5Zxx
+#
+DEF Diode_MM5Zxx D 0 40 N N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "Diode_MM5Zxx" 0 -100 50 H V C CNN
+F2 "Diode_SMD:D_SOD-523" 0 -175 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ D?SOD?523*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 50 0 -50 0 N
+P 3 0 1 8 -50 -50 -50 50 -30 50 N
+P 4 0 1 8 50 -50 50 50 -50 0 50 -50 N
 X K 1 -150 0 100 R 50 50 1 1 P
 X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
@@ -857,6 +855,29 @@ X ~ 1 -300 0 150 R 40 40 1 1 I
 X ~ 6 250 0 150 L 40 40 1 1 O I
 X ~ 3 -300 0 150 R 40 40 2 1 I
 X ~ 4 250 0 150 L 40 40 2 1 O I
+ENDDRAW
+ENDDEF
+#
+# LED_Display_Local_Library_COM_Port_Settings
+#
+DEF ~LED_Display_Local_Library_COM_Port_Settings DOC 0 40 Y Y 1 F N
+F0 "DOC" 0 400 60 H I C CNN
+F1 "LED_Display_Local_Library_COM_Port_Settings" 0 500 60 H I C CNN
+F2 "" 0 500 60 H I C CNN
+F3 "" 0 500 60 H I C CNN
+F4 "Baud" 750 150 60 H V R CNN "Baud_Rate"
+F5 "Data Length" 750 50 60 H V R CNN "Data_Length"
+F6 "Parity" 750 -50 60 H V R CNN "Parity"
+F7 "Stop Bits" 750 -150 60 H V R CNN "Stop_Bits"
+F8 "Flow Control" 750 -250 60 H V R CNN "Flow_Control"
+DRAW
+T 0 -750 150 60 0 0 0 "Baud Rate:" Normal 0 L C
+T 0 -750 50 60 0 0 0 "Data Length:" Normal 0 L C
+T 0 -750 -250 60 0 0 0 "Flow Control:" Normal 0 L C
+T 0 -750 -50 60 0 0 0 Parity: Normal 0 L C
+T 0 -750 -150 60 0 0 0 "Stop Bits:" Normal 0 L C
+T 0 -750 250 60 0 0 0 "USB Virtual COM Port Settings:" Normal 1 L C
+S -800 350 800 -350 0 0 10 f
 ENDDRAW
 ENDDEF
 #
@@ -1417,48 +1438,6 @@ $FPLIST
 $ENDFPLIST
 DRAW
 C 0 0 50 0 1 50 N
-ENDDRAW
-ENDDEF
-#
-# Power_Protection_CM1213A-01SO
-#
-DEF Power_Protection_CM1213A-01SO D 0 20 Y N 1 F N
-F0 "D" 0 200 50 H V C CNN
-F1 "Power_Protection_CM1213A-01SO" 0 125 50 H V C CNN
-F2 "Package_TO_SOT_SMD:SOT-23" 50 -170 50 H I L CNN
-F3 "" -75 80 50 V I C CNN
-$FPLIST
- SOT?23*
-$ENDFPLIST
-DRAW
-C -100 0 8 0 1 0 F
-C 0 -80 8 0 1 0 F
-C 100 0 8 0 1 0 F
-S -120 -120 120 75 0 1 10 f
-P 2 0 1 0 -100 -80 -100 0 N
-P 2 0 1 0 -75 -105 -75 -55 N
-P 2 0 1 0 -40 0 -150 0 N
-P 2 0 1 0 -25 -80 -100 -80 N
-P 2 0 1 0 -25 -80 25 -80 N
-P 2 0 1 0 -10 -30 -10 30 N
-P 2 0 1 0 -10 30 -10 30 N
-P 2 0 1 0 0 -100 0 -80 N
-P 2 0 1 0 0 30 -10 30 N
-P 2 0 1 0 35 0 -40 0 N
-P 2 0 1 0 35 0 -40 0 N
-P 2 0 1 0 35 0 100 0 N
-P 2 0 1 0 50 -105 50 -55 N
-P 2 0 1 0 50 -105 50 -55 N
-P 2 0 1 0 100 -80 25 -80 N
-P 2 0 1 0 100 -80 25 -80 N
-P 2 0 1 0 100 -80 100 0 N
-P 4 0 1 0 -50 -105 -50 -55 -75 -80 -50 -105 N
-P 4 0 1 0 20 -30 20 30 -10 0 20 -30 N
-P 4 0 1 0 20 -30 20 30 -10 0 20 -30 N
-P 4 0 1 0 75 -105 75 -55 50 -80 75 -105 N
-X CH1 1 0 -200 100 U 50 50 1 1 P
-X VP 2 -200 0 100 R 50 50 1 1 P
-X VN 3 200 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
