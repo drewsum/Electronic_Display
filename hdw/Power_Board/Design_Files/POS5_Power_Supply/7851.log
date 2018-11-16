@@ -1,0 +1,42 @@
+Circuit: * C:\Users\Drew Maatman\Documents\KiCad Projects\Projects\Electronic_Display\hdw\Power_Board\Design_Files\POS5_Power_Supply\7851.asc
+
+C9: Increased Cpar to 1e-010
+C2: Increased Cpar to 1e-010
+Direct Newton iteration for .op point succeeded.
+Ignoring empty pin current: Ix(u1:5)
+Ignoring empty pin current: Ix(u2:1)
+Ignoring empty pin current: Ix(u2:2)
+Ignoring empty pin current: Ix(u3:1)
+Ignoring empty pin current: Ix(u3:2)
+Ignoring empty pin current: Ix(u4:1)
+Ignoring empty pin current: Ix(u4:2)
+Ignoring empty pin current: Ix(u5:1)
+Ignoring empty pin current: Ix(u5:2)
+Ignoring empty pin current: Ix(u1:5)
+Ignoring empty pin current: Ix(u2:1)
+Ignoring empty pin current: Ix(u2:2)
+Ignoring empty pin current: Ix(u3:1)
+Ignoring empty pin current: Ix(u3:2)
+Ignoring empty pin current: Ix(u4:1)
+Ignoring empty pin current: Ix(u4:2)
+Ignoring empty pin current: Ix(u5:1)
+Ignoring empty pin current: Ix(u5:2)
+
+Date: Thu Nov 15 15:56:04 2018
+Total elapsed time: 1248.580 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 8577713
+traniter = 8577692
+tranpoints = 2392547
+accept = 1709442
+rejected = 683105
+matrix size = 379
+fillins = 16
+solver = Alternate
+Thread vector: 328.5/89.1[4] 154.0/60.8[4] 20.3/15.8[4] 5.2/12.4[1]  2592/500
+Matrix Compiler1: 15.40 KB object code size  24.5/13.7/[6.0]
+Matrix Compiler2: 24.14 KB object code size  17.3/22.0/[5.5]
+

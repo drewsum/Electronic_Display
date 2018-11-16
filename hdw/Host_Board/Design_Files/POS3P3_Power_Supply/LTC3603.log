@@ -1,0 +1,33 @@
+Circuit: * C:\Users\Drew Maatman\Documents\KiCad Projects\Projects\Electronic_Display\hdw\Host_Board\Design_Files\POS3P3_Power_Supply\LTC3603.asc
+
+Coc1: Increased Cpar to 1e-011
+Cob1: Increased Cpar to 1e-010
+Direct Newton iteration for .op point succeeded.
+Ignoring empty pin current: Ix(u1:9)
+Ignoring empty pin current: Ix(u1:10)
+Ignoring empty pin current: Ix(u1:12)
+Ignoring empty pin current: Ix(u1:13)
+Ignoring empty pin current: Ix(u1:9)
+Ignoring empty pin current: Ix(u1:10)
+Ignoring empty pin current: Ix(u1:12)
+Ignoring empty pin current: Ix(u1:13)
+Heightened Def Con from 0.00310161 to 0.00310161
+
+Date: Mon Oct 22 16:15:04 2018
+Total elapsed time: 181.461 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 6781037
+traniter = 6781020
+tranpoints = 1952528
+accept = 1450849
+rejected = 501680
+matrix size = 65
+fillins = 10
+solver = Alternate
+Thread vector: 52.4/39.7[3] 38.6/27.6[3] 4.0/6.9[1] 1.6/3.9[1]  2592/500
+Matrix Compiler1: 2.74 KB object code size  5.4/4.0/[2.0]
+Matrix Compiler2: 4.33 KB object code size  4.0/6.6/[1.9]
+

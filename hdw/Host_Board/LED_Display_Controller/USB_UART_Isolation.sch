@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 6 32
+Sheet 6 31
 Title ""
 Date ""
 Rev ""
@@ -14,13 +14,13 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text GLabel 2850 3470 0    50   Output ~ 0
+Text GLabel 2550 3470 0    50   Output ~ 0
 USB_UART_RX
-Text GLabel 2850 3570 0    50   Input ~ 0
+Text GLabel 2550 3570 0    50   Input ~ 0
 USB_UART_TX
-Text GLabel 8310 3470 2    50   Input ~ 0
+Text GLabel 8610 3470 2    50   Input ~ 0
 USB_UART_RX_ISO
-Text GLabel 8330 3570 2    50   Output ~ 0
+Text GLabel 8610 3570 2    50   Output ~ 0
 USB_UART_TX_ISO
 $Comp
 L LED_Display_Local_Library:+5V_USB #PWR?
@@ -354,10 +354,86 @@ Wire Wire Line
 	6900 3180 6900 3570
 Connection ~ 6900 3570
 Wire Wire Line
-	6900 3570 8330 3570
+	6900 3570 8310 3570
 Wire Wire Line
 	7530 3180 7530 3470
 Connection ~ 7530 3470
 Wire Wire Line
 	7530 3470 8310 3470
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BE39290
+P 2700 3470
+AR Path="/5BAAE2B6/5BE39290" Ref="R?"  Part="1" 
+AR Path="/5BB6CF6D/5BE39290" Ref="R?"  Part="1" 
+AR Path="/5BBE424C/5BE39290" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BE39290" Ref="R?"  Part="1" 
+F 0 "R?" V 2660 3330 50  0000 R CNN
+F 1 "100" V 2700 3470 50  0000 C CNN
+F 2 "" H 2700 3470 50  0001 C CNN
+F 3 "" H 2700 3470 50  0001 C CNN
+F 4 "0603" V 2800 3470 50  0001 C CNN "display_footprint"
+F 5 "1%" V 2900 3470 50  0001 C CNN "Tolerance"
+F 6 "1/10W" V 3000 3470 50  0001 C CNN "Wattage"
+F 7 "PN" H 3000 3870 60  0001 C CNN "Digi-Key PN"
+	1    2700 3470
+	0    -1   1    0   
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BE3929B
+P 2700 3570
+AR Path="/5BAAE2B6/5BE3929B" Ref="R?"  Part="1" 
+AR Path="/5BB6CF6D/5BE3929B" Ref="R?"  Part="1" 
+AR Path="/5BBE424C/5BE3929B" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BE3929B" Ref="R?"  Part="1" 
+F 0 "R?" V 2660 3430 50  0000 R CNN
+F 1 "100" V 2700 3570 50  0000 C CNN
+F 2 "" H 2700 3570 50  0001 C CNN
+F 3 "" H 2700 3570 50  0001 C CNN
+F 4 "0603" V 2800 3570 50  0001 C CNN "display_footprint"
+F 5 "1%" V 2900 3570 50  0001 C CNN "Tolerance"
+F 6 "1/10W" V 3000 3570 50  0001 C CNN "Wattage"
+F 7 "PN" H 3000 3970 60  0001 C CNN "Digi-Key PN"
+	1    2700 3570
+	0    -1   1    0   
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BE39F31
+P 8460 3470
+AR Path="/5BAAE2B6/5BE39F31" Ref="R?"  Part="1" 
+AR Path="/5BB6CF6D/5BE39F31" Ref="R?"  Part="1" 
+AR Path="/5BBE424C/5BE39F31" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BE39F31" Ref="R?"  Part="1" 
+F 0 "R?" V 8420 3330 50  0000 R CNN
+F 1 "100" V 8460 3470 50  0000 C CNN
+F 2 "" H 8460 3470 50  0001 C CNN
+F 3 "" H 8460 3470 50  0001 C CNN
+F 4 "0603" V 8560 3470 50  0001 C CNN "display_footprint"
+F 5 "1%" V 8660 3470 50  0001 C CNN "Tolerance"
+F 6 "1/10W" V 8760 3470 50  0001 C CNN "Wattage"
+F 7 "PN" H 8760 3870 60  0001 C CNN "Digi-Key PN"
+	1    8460 3470
+	0    1    1    0   
+$EndComp
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5BE39F3C
+P 8460 3570
+AR Path="/5BAAE2B6/5BE39F3C" Ref="R?"  Part="1" 
+AR Path="/5BB6CF6D/5BE39F3C" Ref="R?"  Part="1" 
+AR Path="/5BBE424C/5BE39F3C" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5BE39F3C" Ref="R?"  Part="1" 
+F 0 "R?" V 8420 3430 50  0000 R CNN
+F 1 "100" V 8460 3570 50  0000 C CNN
+F 2 "" H 8460 3570 50  0001 C CNN
+F 3 "" H 8460 3570 50  0001 C CNN
+F 4 "0603" V 8560 3570 50  0001 C CNN "display_footprint"
+F 5 "1%" V 8660 3570 50  0001 C CNN "Tolerance"
+F 6 "1/10W" V 8760 3570 50  0001 C CNN "Wattage"
+F 7 "PN" H 8760 3970 60  0001 C CNN "Digi-Key PN"
+	1    8460 3570
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC

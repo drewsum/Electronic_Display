@@ -6,3 +6,5 @@
 *.h~
 ..gitignore.un~
 .gitignore~
+*.raw
+

@@ -9,9 +9,9 @@
       <OutputNum>One</OutputNum>
       <IcThetaJA>0</IcThetaJA>
       <IcTa>25</IcTa>
-      <SolutionAreamm2>25</SolutionAreamm2>
+      <SolutionAreamm2>65.1</SolutionAreamm2>
       <SolutionComponentCount>5</SolutionComponentCount>
-      <SolutionMaxHeightmm>0.8</SolutionMaxHeightmm>
+      <SolutionMaxHeightmm>3</SolutionMaxHeightmm>
     </ConverterSpec>
   </ConverterSpecs>
   <ProgramUserInfos>
@@ -31,7 +31,7 @@
       <IoToCalc>2.5</IoToCalc>
       <MaxVin>13.2</MaxVin>
       <NomVin>12</NomVin>
-      <MinVin>10.8</MinVin>
+      <MinVin>4.5</MinVin>
       <SwitchingFreq>1000000</SwitchingFreq>
       <OutputVol>3.31</OutputVol>
       <OutputCur>2.5</OutputCur>
@@ -39,13 +39,33 @@
       <NIc>1</NIc>
       <Ta>25</Ta>
       <InductorRipplePercentDesired>40</InductorRipplePercentDesired>
-      <Lo>1E-06</Lo>
-      <DCR>0.004</DCR>
+      <Lo>2.2E-06</Lo>
+      <DCR>0.0225</DCR>
+      <InductorManufacturer>VISHAY</InductorManufacturer>
+      <InductorPartNumber>IHLP2020CZER2R2M11</InductorPartNumber>
+      <InductorLength>5.49</InductorLength>
+      <InductorWidth>5.18</InductorWidth>
+      <InductorHeight>3</InductorHeight>
+      <InductorIsat>5.5</InductorIsat>
+      <InductorIheat>6.75</InductorIheat>
+      <InductorTheat>40</InductorTheat>
+      <InductorThetaWA>33.3</InductorThetaWA>
       <DcrDeratingEnabled>false</DcrDeratingEnabled>
       <NCin>1</NCin>
       <CinCeramic>2.2E-05</CinCeramic>
+      <CinCeramicESR>0.002</CinCeramicESR>
+      <CinCeramicESL>1.73E-09</CinCeramicESL>
       <NCinCeramic>1</NCinCeramic>
+      <CinCeramicLength>5.7</CinCeramicLength>
+      <CinCeramicWidth>5</CinCeramicWidth>
+      <CinCeramicHeight>2.8</CinCeramicHeight>
+      <CinCeramicPackage>2220</CinCeramicPackage>
+      <CinCeramicPartNumber>C5750X7R1E226M250KA</CinCeramicPartNumber>
+      <CinCeramicManufacturer>TDK</CinCeramicManufacturer>
+      <CinCeramicAtHalfRated>1.8365E-05</CinCeramicAtHalfRated>
+      <CinCeramicAtFullRated>1.2035E-05</CinCeramicAtFullRated>
       <CinCeramicAtNoVoltage>2.2E-05</CinCeramicAtNoVoltage>
+      <CinCeramicVoltageRating>25</CinCeramicVoltageRating>
       <InputLCFilterEnabled>false</InputLCFilterEnabled>
       <EMISpec>CISPR22</EMISpec>
       <NumCf_in>1</NumCf_in>
@@ -53,22 +73,40 @@
       <NumCd3>1</NumCd3>
       <Cob>9.9999999999999991E-05</Cob>
       <ESRb>0.015</ESRb>
-      <ESLb>1E-09</ESLb>
+      <ESLb>1.4E-09</ESLb>
       <Numb>1</Numb>
-      <CobAtNoVoltage>9.9999999999999991E-05</CobAtNoVoltage>
+      <BulkCapacitorManufacturer>KEMET</BulkCapacitorManufacturer>
+      <BulkCapacitorPartNumber>T520B107M006ATE015</BulkCapacitorPartNumber>
+      <BulkCapacitorLength>3.5</BulkCapacitorLength>
+      <BulkCapacitorWidth>2.8</BulkCapacitorWidth>
+      <BulkCapacitorHeight>2.1</BulkCapacitorHeight>
+      <BulkCapacitorPackage>B</BulkCapacitorPackage>
+      <CobAtHalfRated>0.0001</CobAtHalfRated>
+      <CobAtFullRated>0.0001</CobAtFullRated>
+      <CobAtNoVoltage>0.0001</CobAtNoVoltage>
+      <CobVoltageRating>6.3</CobVoltageRating>
       <Coc>9.9999999999999991E-06</Coc>
-      <ESRc>0.005</ESRc>
-      <ESLc>3E-10</ESLc>
+      <ESRc>0.0044800000000000005</ESRc>
+      <ESLc>8.89E-10</ESLc>
       <Numc>1</Numc>
-      <CocAtNoVoltage>9.9999999999999991E-06</CocAtNoVoltage>
+      <CeramicCapacitorManufacturer>TAIYO YUDEN</CeramicCapacitorManufacturer>
+      <CeramicCapacitorPartNumber>JMK316BJ106KLHT</CeramicCapacitorPartNumber>
+      <CeramicCapacitorLength>3.2</CeramicCapacitorLength>
+      <CeramicCapacitorWidth>1.6</CeramicCapacitorWidth>
+      <CeramicCapacitorHeight>1.8</CeramicCapacitorHeight>
+      <CeramicCapacitorPackage>1206</CeramicCapacitorPackage>
+      <CocAtHalfRated>9E-06</CocAtHalfRated>
+      <CocAtFullRated>6.5E-06</CocAtFullRated>
+      <CocAtNoVoltage>1E-05</CocAtNoVoltage>
+      <CocVoltageRating>6.3</CocVoltageRating>
       <CapacitorDeratingEnabled>false</CapacitorDeratingEnabled>
-      <Cth>1.0000000000000003E-09</Cth>
-      <Cthp>5.0000000000000005E-12</Cthp>
+      <Cth>3.3E-10</Cth>
+      <Cthp>1E-10</Cthp>
       <Rth>10000</Rth>
       <RfbTopActual>165000</RfbTopActual>
       <RfbBotActual>36500</RfbBotActual>
-      <CfbTopActual>6.8000000000000011E-11</CfbTopActual>
-      <FcDesired>166666.66666666666</FcDesired>
+      <CfbTopActual>2.2000000000000005E-11</CfbTopActual>
+      <FcDesired>50000</FcDesired>
       <PhaseBoostDesired>10</PhaseBoostDesired>
       <PhaseMarginDesired>60</PhaseMarginDesired>
       <Ilim>0.666</Ilim>
@@ -77,9 +115,12 @@
       <CurrentSensingConfigurationType>1</CurrentSensingConfigurationType>
       <SwitchingFreqDesired>1000000</SwitchingFreqDesired>
       <Rfreq>105000</Rfreq>
-      <LoadStepHigh>1.25</LoadStepHigh>
+      <LoadStepHigh>2.5</LoadStepHigh>
       <LoadStepSlewRate>10000000</LoadStepSlewRate>
       <TonMin>9E-08</TonMin>
+      <ProjectName>LED Display Controller +3.3V Supply</ProjectName>
+      <ProjectDate>10/22/2018</ProjectDate>
+      <ProjectDesigner>Drew Maatman</ProjectDesigner>
       <VinStartUp>10.8</VinStartUp>
       <VSD_Desired>10.8</VSD_Desired>
       <VOV_Latch_Desired>10.8</VOV_Latch_Desired>
@@ -103,8 +144,8 @@
       <OutputLCFilterEnabled>false</OutputLCFilterEnabled>
       <OutputLCFilterSensingIsLocal>false</OutputLCFilterSensingIsLocal>
       <OutputLCFilterSensingIsRemote>false</OutputLCFilterSensingIsRemote>
-      <Efficiency>0.9214</Efficiency>
-      <VoutRipplePercent>0.0038400979</VoutRipplePercent>
+      <Efficiency>0.9113</Efficiency>
+      <VoutRipplePercent>0.0015630212</VoutRipplePercent>
     </OutputRailData>
   </OutputRailDatas>
   <NotationLabelControls />
