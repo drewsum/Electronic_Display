@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 11 31
+Sheet 11 30
 Title ""
 Date ""
 Rev ""
@@ -51,4 +51,50 @@ Text GLabel 7130 1980 2    40   Input ~ 0
 ~EBI_CE
 Text GLabel 7130 3680 2    50   Output ~ 0
 EBI_A17
+Text GLabel 7130 2080 2    50   Output ~ 0
+G1_POS3P3
+Text GLabel 7130 2180 2    50   Output ~ 0
+G2_POS3P3
+Text GLabel 7130 2480 2    50   Output ~ 0
+G3_POS3P3
+Text GLabel 7130 2580 2    50   Output ~ 0
+G4_POS3P3
+Text GLabel 7130 2280 2    50   Output ~ 0
+G7_POS3P3
+Text GLabel 7130 2380 2    50   Output ~ 0
+G8_POS3P3
+Text GLabel 7130 2680 2    50   Output ~ 0
+G7_POS3P3
+Text GLabel 7130 2780 2    50   Output ~ 0
+G8_POS3P3
+Text GLabel 4030 4680 0    50   Output ~ 0
+B1_POS3P3
+Text GLabel 4030 4780 0    50   Output ~ 0
+B2_POS3P3
+Text GLabel 4030 4880 0    50   Output ~ 0
+B3_POS3P3
+Text GLabel 4030 4980 0    50   Output ~ 0
+B4_POS3P3
+Text GLabel 4030 5080 0    50   Output ~ 0
+B5_POS3P3
+Text GLabel 4030 5180 0    50   Output ~ 0
+B6_POS3P3
+Text GLabel 4030 5280 0    50   Output ~ 0
+B7_POS3P3
+Text GLabel 4030 5380 0    50   Output ~ 0
+B8_POS3P3
+Text GLabel 4030 1580 0    50   Input ~ 0
+USB_UART_RX
+Text GLabel 4030 3080 0    50   Output ~ 0
+WIFI_UART_TX
+Text GLabel 4030 2980 0    50   Input ~ 0
+WIFI_UART_RX
+Text GLabel 7130 1580 2    50   Output ~ 0
+CLK_POS3P3
+Text GLabel 7130 1680 2    50   Output ~ 0
+LAT_POS3P3
+Text GLabel 7130 1780 2    50   Output ~ 0
+~OE_POS3P3
+Text GLabel 4030 2680 0    40   Output ~ 0
+Panel_Dim_PWM
 $EndSCHEMATC
