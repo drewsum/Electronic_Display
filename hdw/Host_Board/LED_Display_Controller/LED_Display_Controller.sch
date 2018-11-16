@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 1 30
+Sheet 1 31
 Title ""
 Date ""
 Rev ""
@@ -153,7 +153,7 @@ F0 "Panel Data Level Shifters 3" 50
 F1 "Panel_Data_Level_Shifters_3.sch" 50
 $EndSheet
 Text Notes 710  7660 0    50   ~ 0
-To Do List:\n* Mechanical sheet\n* Decide on input power supply (AC/DC)\n* Add status LEDs, PGOOD stuff\n* Add small 5V supply for level shifters (LDO? Charge pump? Small Buck?)\n* Add voltage rail ADC dividers/filters\n* Power board fan control?\n* ESD protection on input and output signals\n* FIX LEVEL SHIFTER VOLTAGE RAIL ISSUE\n* Add tank cap for micro\n* AND OE (PWM AND Force disable)\n* Add graphical items to certain sheets (ESD warning, heat, etc)\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Add relevant design notes/routing notes to sheets\n* Add test points sheet\n* Re-order sheets\n* Wire everything to Micro\n* Assign Refdes's\n* Draw custom footprints\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Add firmware notes sheet\n* Add COM port settings notes to USB sheet\n* Generate netlist\n* Generate BOM\n* Layout PCB
+To Do List:\n* Add status LEDs, PGOOD stuff\n* Add voltage rail ADC dividers/filters\n* ESD protection on input and output signals\n* Add tank cap for micro\n* AND OE (PWM AND Force disable)\n* Add graphical items to certain sheets (ESD warning, heat, etc)\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Add relevant design notes/routing notes to sheets\n* Add test points sheet\n* Re-order sheets\n* Wire everything to Micro\n* Assign Refdes's\n* Draw custom footprints\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Add firmware notes sheet\n* Add COM port settings notes to USB sheet\n* Generate netlist\n* Generate BOM\n* Layout PCB
 $Sheet
 S 5450 5360 500  150 
 U 5BBF5233
@@ -189,5 +189,11 @@ S 7070 1140 500  150
 U 5BE7BB83
 F0 "Internal Rail Monitoring" 50
 F1 "Internal_Rail_Monitoring.sch" 50
+$EndSheet
+$Sheet
+S 7070 1480 500  150 
+U 5BF346B3
+F0 "Status LEDs 2" 50
+F1 "Status_LEDs_2.sch" 50
 $EndSheet
 $EndSCHEMATC

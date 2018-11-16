@@ -9,19 +9,19 @@
       <OutputNum>One</OutputNum>
       <IcThetaJA>0</IcThetaJA>
       <IcTa>25</IcTa>
-      <SolutionAreamm2>1575.6</SolutionAreamm2>
-      <SolutionComponentCount>50</SolutionComponentCount>
+      <SolutionAreamm2>1644</SolutionAreamm2>
+      <SolutionComponentCount>54</SolutionComponentCount>
       <SolutionMaxHeightmm>4</SolutionMaxHeightmm>
     </ConverterSpec>
   </ConverterSpecs>
   <ProgramUserInfos>
     <ProgramUserInfo>
-      <LastRecordedSyncDate>2018-10-03T00:00:00</LastRecordedSyncDate>
+      <LastRecordedSyncDate>2018-11-07T00:00:00</LastRecordedSyncDate>
       <ReleaseType>Customer</ReleaseType>
       <InstallationDate>2017-12-28T00:00:00</InstallationDate>
       <LTpowerCADVer>2</LTpowerCADVer>
       <LTpowerCADSubDesc>Release2</LTpowerCADSubDesc>
-      <LTpowerCADUpdateVer>55</LTpowerCADUpdateVer>
+      <LTpowerCADUpdateVer>56</LTpowerCADUpdateVer>
       <LTpowerCADUpdateVerDate>2018-04-13T00:00:00</LTpowerCADUpdateVerDate>
     </ProgramUserInfo>
   </ProgramUserInfos>
@@ -30,28 +30,28 @@
       <Freqmin>250</Freqmin>
       <Freqmax>2250</Freqmax>
       <VinToCalc>12</VinToCalc>
-      <IoToCalc>80</IoToCalc>
+      <IoToCalc>45</IoToCalc>
       <MaxVin>13.2</MaxVin>
       <NomVin>12</NomVin>
       <MinVin>10.8</MinVin>
       <SwitchingFreq>989000</SwitchingFreq>
       <OutputVol>4.98</OutputVol>
-      <OutputCur>80</OutputCur>
+      <OutputCur>45</OutputCur>
       <NPh>4</NPh>
       <NIc>1</NIc>
       <Ta>25</Ta>
       <InductorRipplePercentDesired>30</InductorRipplePercentDesired>
-      <Lo>4.6999999999999995E-07</Lo>
-      <DCR>0.0015300000000000001</DCR>
+      <Lo>1E-06</Lo>
+      <DCR>0.0023</DCR>
       <InductorManufacturer>VISHAY</InductorManufacturer>
-      <InductorPartNumber>IHLP4040DZERR56M01</InductorPartNumber>
+      <InductorPartNumber>IHLP4040DZER1R0M11</InductorPartNumber>
       <InductorLength>10.3</InductorLength>
       <InductorWidth>11.5</InductorWidth>
       <InductorHeight>4</InductorHeight>
-      <InductorIsat>49</InductorIsat>
-      <InductorIheat>27.5</InductorIheat>
+      <InductorIsat>20</InductorIsat>
+      <InductorIheat>25</InductorIheat>
       <InductorTheat>40</InductorTheat>
-      <InductorThetaWA>26.6</InductorThetaWA>
+      <InductorThetaWA>23.8</InductorThetaWA>
       <DcrDeratingEnabled>false</DcrDeratingEnabled>
       <Cin>1.425E-05</Cin>
       <CinESR>0.002</CinESR>
@@ -97,7 +97,7 @@
       <Cob>0.0001</Cob>
       <ESRb>0.07</ESRb>
       <ESLb>1.2E-09</ESLb>
-      <Numb>20</Numb>
+      <Numb>24</Numb>
       <BulkCapacitorManufacturer>KEMET</BulkCapacitorManufacturer>
       <BulkCapacitorPartNumber>T520T107M006ATE070</BulkCapacitorPartNumber>
       <BulkCapacitorLength>3.5</BulkCapacitorLength>
@@ -130,19 +130,19 @@
       <FcDesired>200000</FcDesired>
       <PhaseBoostDesired>10</PhaseBoostDesired>
       <PhaseMarginDesired>60</PhaseMarginDesired>
-      <Ilim>0.0415</Ilim>
+      <Ilim>0.034</Ilim>
       <MarginIoLimit>120</MarginIoLimit>
       <Rsense>0.001</Rsense>
       <RsenseFilterR>200</RsenseFilterR>
       <RsenseFilterC>1E-09</RsenseFilterC>
       <SenseC>2.1999999999999999E-07</SenseC>
       <SenseRp>1000000000000</SenseRp>
-      <SenseRs>1400</SenseRs>
+      <SenseRs>1960</SenseRs>
       <Vforward>0.5</Vforward>
       <NumOfSchottky>1</NumOfSchottky>
       <SwitchingFreqDesired>989000</SwitchingFreqDesired>
       <Rfreq>51100</Rfreq>
-      <LoadStepHigh>80</LoadStepHigh>
+      <LoadStepHigh>45</LoadStepHigh>
       <LoadStepSlewRate>10000000</LoadStepSlewRate>
       <TonMin>1.1E-07</TonMin>
       <ProjectName>LED Display POS5 Supply</ProjectName>
@@ -167,7 +167,7 @@
       <P1>800000</P1>
       <P2>2000000</P2>
       <CompensatorGain>128.73722657469489</CompensatorGain>
-      <RLIM>66500</RLIM>
+      <RLIM>59000</RLIM>
       <VinD>7</VinD>
       <VoRipplePkPkMaxTargetPercent>1</VoRipplePkPkMaxTargetPercent>
       <TotalVoRippleMaxTargetPercent>3.5</TotalVoRippleMaxTargetPercent>
@@ -224,8 +224,8 @@
       <OutputLCFilterEnabled>false</OutputLCFilterEnabled>
       <OutputLCFilterSensingIsLocal>false</OutputLCFilterSensingIsLocal>
       <OutputLCFilterSensingIsRemote>false</OutputLCFilterSensingIsRemote>
-      <Efficiency>0.9773</Efficiency>
-      <VoutRipplePercent>7.20488E-05</VoutRipplePercent>
+      <Efficiency>0.9817</Efficiency>
+      <VoutRipplePercent>3.32621E-05</VoutRipplePercent>
       <LossCurveA2>0.000420604</LossCurveA2>
       <LossCurveA1>0.025133655</LossCurveA1>
       <LossCurveA0>0.458007558</LossCurveA0>
