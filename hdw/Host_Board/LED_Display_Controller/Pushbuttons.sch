@@ -675,7 +675,7 @@ Wire Wire Line
 	9350 3850 7950 3850
 Connection ~ 7950 3850
 $Comp
-L Power_Protection:PESD3V3L4UG D?
+L LED_Display_Controller-rescue:PESD3V3L4UG-Power_Protection D?
 U 1 1 5BF48679
 P 2340 4720
 F 0 "D?" V 2294 4788 50  0000 L CNN
@@ -697,7 +697,7 @@ F 3 "" H 2340 4820 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Power_Protection:PESD3V3L4UG D?
+L LED_Display_Controller-rescue:PESD3V3L4UG-Power_Protection D?
 U 2 1 5BF4A271
 P 3010 4720
 F 0 "D?" V 2964 4788 50  0000 L CNN

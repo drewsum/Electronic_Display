@@ -112,7 +112,7 @@ Connection ~ 5990 3640
 Wire Wire Line
 	5990 3640 5990 3960
 $Comp
-L Custom_Library:2N7002 Q?
+L LED_Display_Controller-rescue:2N7002-Custom_Library Q?
 U 1 1 5BDD20D6
 P 7430 4040
 F 0 "Q?" H 7630 4115 50  0000 L CNN

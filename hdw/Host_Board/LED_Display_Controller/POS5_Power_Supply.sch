@@ -46,7 +46,7 @@ F 7 "PN" H 7345 4160 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BE635FD
 P 7530 3660
 F 0 "R?" V 7430 3660 50  0000 C CNN
@@ -109,7 +109,7 @@ Wire Wire Line
 	5510 5000 5510 4960
 Connection ~ 5460 5000
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BE6DA28
 P 7530 4550
 F 0 "R?" V 7430 4550 50  0000 C CNN
@@ -124,7 +124,7 @@ F 7 "PN" H 7830 4950 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BE6F15A
 P 3730 3970
 F 0 "R?" V 3630 3970 50  0000 C CNN
@@ -165,7 +165,7 @@ Wire Wire Line
 Wire Wire Line
 	4580 4710 4580 4880
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BE753C0
 P 3730 5030
 F 0 "R?" V 3630 5030 50  0000 C CNN
@@ -180,7 +180,7 @@ F 7 "PN" H 4030 5430 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BE75409
 P 4580 5030
 F 0 "R?" V 4480 5030 50  0000 C CNN
@@ -253,7 +253,7 @@ Connection ~ 3730 3710
 Wire Wire Line
 	3730 3710 3020 3710
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BE81C5D
 P 4530 3130
 F 0 "R?" V 4430 3130 50  0000 C CNN

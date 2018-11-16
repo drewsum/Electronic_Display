@@ -45,7 +45,7 @@ F 3 "" H 1780 1250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Controller-rescue:TP-Custom_Library TP?
 U 1 1 5BBF8ECA
 P 1640 5980
 AR Path="/5BAAE0FA/5BBF8ECA" Ref="TP?"  Part="1" 
@@ -84,7 +84,7 @@ F 3 "" H 2040 5980 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Controller-rescue:TP-Custom_Library TP?
 U 1 1 5BBF9883
 P 2040 5980
 AR Path="/5BAAE0FA/5BBF9883" Ref="TP?"  Part="1" 
@@ -97,7 +97,7 @@ F 3 "" H 2040 5980 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Controller-rescue:TP-Custom_Library TP?
 U 1 1 5BBF98E5
 P 2480 5980
 AR Path="/5BAAE0FA/5BBF98E5" Ref="TP?"  Part="1" 
@@ -147,7 +147,7 @@ F 3 "~" H 4880 6050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Controller-rescue:TP-Custom_Library TP?
 U 1 1 5BBFB09C
 P 5330 6010
 F 0 "TP?" H 5330 6160 50  0000 C CNN
@@ -158,7 +158,7 @@ F 3 "" H 5330 6010 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5V_USB #PWR?
+L LED_Display_Controller-rescue:+5V_USB-Custom_Library #PWR?
 U 1 1 5BBFB102
 P 5330 6010
 F 0 "#PWR?" H 5330 5860 50  0001 C CNN
@@ -274,7 +274,7 @@ Wire Wire Line
 Wire Wire Line
 	9420 2960 9340 2960
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Controller-rescue:TP-Custom_Library TP?
 U 1 1 5BD1E3B2
 P 2940 5980
 AR Path="/5BAAE0FA/5BD1E3B2" Ref="TP?"  Part="1" 

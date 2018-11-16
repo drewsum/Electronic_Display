@@ -631,7 +631,7 @@ F 3 "" H 4640 6720 50  0001 C CNN
 $EndComp
 Connection ~ 4640 4150
 $Comp
-L Custom_Library:BSC032N04LSATMA1 Q?
+L LED_Display_Controller-rescue:BSC032N04LSATMA1-Custom_Library Q?
 U 1 1 5BED5FAB
 P 5960 2680
 F 0 "Q?" V 6303 2680 50  0000 C CNN
@@ -643,7 +643,7 @@ F 4 "IPC100N04S51R7ATMA1CT-ND" H 6360 2955 60  0001 C CNN "Digi-Key PN"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Custom_Library:BSC032N04LSATMA1 Q?
+L LED_Display_Controller-rescue:BSC032N04LSATMA1-Custom_Library Q?
 U 1 1 5BEDD03C
 P 7310 2680
 F 0 "Q?" V 7653 2680 50  0000 C CNN
@@ -657,7 +657,7 @@ $EndComp
 Wire Wire Line
 	4640 4150 4640 5450
 $Comp
-L Power_Protection:NUP2105L D?
+L LED_Display_Controller-rescue:NUP2105L-Power_Protection D?
 U 1 1 5BEE25B1
 P 5100 5750
 F 0 "D?" H 5325 5850 50  0000 L CNN
