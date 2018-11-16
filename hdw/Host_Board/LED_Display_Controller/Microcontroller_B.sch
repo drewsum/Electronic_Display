@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 11 30
+Sheet 11 31
 Title ""
 Date ""
 Rev ""
@@ -95,6 +95,6 @@ Text GLabel 7130 1680 2    50   Output ~ 0
 LAT_POS3P3
 Text GLabel 7130 1780 2    50   Output ~ 0
 ~OE_POS3P3
-Text GLabel 4030 2680 0    40   Output ~ 0
+Text GLabel 4030 2680 0    50   Output ~ 0
 Panel_Dim_PWM
 $EndSCHEMATC
