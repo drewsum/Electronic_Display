@@ -8,10 +8,6 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="128dp"
         android:layout_height="27dp"
@@ -24,31 +20,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_add_device"
+        tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="288dp"
-        tools:layout_editor_absoluteX="84dp" />
+        android:contentDescription="TODO" />
 
     <Button
         android:id="@+id/button3"
+        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload Project"
-        tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="399dp" />
+        android:text="Upload Project" />
 
     <TextView
         android:id="@+id/textView3"
+        android:layout_gravity="bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Project:"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:text="Select Project:" />
 
     <TextView
         android:id="@+id/textView4"
+        android:layout_gravity="bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Device:"
-        tools:layout_editor_absoluteY="168dp"
-        tools:layout_editor_absoluteX="26dp" />
+        android:text="Select Device:" />
 
 </FrameLayout>
