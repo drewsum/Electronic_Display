@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 24 31
+Sheet 23 31
 Title ""
 Date ""
 Rev ""
@@ -595,20 +595,6 @@ Text GLabel 7880 2120 2    50   Output ~ 0
 G5_POS5
 Text GLabel 7880 2220 2    50   Output ~ 0
 G6_POS5
-$Comp
-L power:+3.3V #PWR?
-U 1 1 5BB71AEA
-P 5500 1420
-AR Path="/5BAAE2B6/5BB71AEA" Ref="#PWR?"  Part="1" 
-AR Path="/5BB6CF70/5BB71AEA" Ref="#PWR?"  Part="1" 
-AR Path="/5BBE424F/5BB71AEA" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 5500 1270 50  0001 C CNN
-F 1 "+3.3V" H 5500 1560 50  0000 C CNN
-F 2 "" H 5500 1420 50  0001 C CNN
-F 3 "" H 5500 1420 50  0001 C CNN
-	1    5500 1420
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5BB71AF0
@@ -1468,20 +1454,6 @@ G7_POS5
 Text GLabel 7880 4750 2    50   Output ~ 0
 G8_POS5
 $Comp
-L power:+3.3V #PWR?
-U 1 1 5BB71CCB
-P 5500 3950
-AR Path="/5BAAE2B6/5BB71CCB" Ref="#PWR?"  Part="1" 
-AR Path="/5BB6CF70/5BB71CCB" Ref="#PWR?"  Part="1" 
-AR Path="/5BBE424F/5BB71CCB" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 5500 3800 50  0001 C CNN
-F 1 "+3.3V" H 5500 4090 50  0000 C CNN
-F 2 "" H 5500 3950 50  0001 C CNN
-F 3 "" H 5500 3950 50  0001 C CNN
-	1    5500 3950
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5BB71CD1
 P 5500 5550
@@ -1839,20 +1811,6 @@ Wire Wire Line
 	2580 3380 2880 3380
 Wire Wire Line
 	2880 3380 2880 3340
-$Comp
-L power:+3.3V #PWR?
-U 1 1 5BB9D25C
-P 2580 2960
-AR Path="/5BAAE16C/5BB9D25C" Ref="#PWR?"  Part="1" 
-AR Path="/5BB6CF70/5BB9D25C" Ref="#PWR?"  Part="1" 
-AR Path="/5BBE424F/5BB9D25C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2580 2810 50  0001 C CNN
-F 1 "+3.3V" H 2580 3100 50  0000 C CNN
-F 2 "" H 2580 2960 50  0001 C CNN
-F 3 "" H 2580 2960 50  0001 C CNN
-	1    2580 2960
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2580 2960 2580 3000
 Wire Wire Line
@@ -1947,20 +1905,6 @@ Wire Wire Line
 	2580 5900 2880 5900
 Wire Wire Line
 	2880 5900 2880 5860
-$Comp
-L power:+3.3V #PWR?
-U 1 1 5BBD70FD
-P 2580 5480
-AR Path="/5BAAE16C/5BBD70FD" Ref="#PWR?"  Part="1" 
-AR Path="/5BB6CF70/5BBD70FD" Ref="#PWR?"  Part="1" 
-AR Path="/5BBE424F/5BBD70FD" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2580 5330 50  0001 C CNN
-F 1 "+3.3V" H 2580 5620 50  0000 C CNN
-F 2 "" H 2580 5480 50  0001 C CNN
-F 3 "" H 2580 5480 50  0001 C CNN
-	1    2580 5480
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2580 5480 2580 5520
 Wire Wire Line
@@ -1974,4 +1918,48 @@ Wire Wire Line
 	2580 5520 2580 5560
 Wire Wire Line
 	2580 5520 2880 5520
+$Comp
+L power:+5V #PWR?
+U 1 1 5BF4E41B
+P 5500 1420
+F 0 "#PWR?" H 5500 1270 50  0001 C CNN
+F 1 "+5V" H 5500 1560 50  0000 C CNN
+F 2 "" H 5500 1420 50  0001 C CNN
+F 3 "" H 5500 1420 50  0001 C CNN
+	1    5500 1420
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5BF4E5A1
+P 2580 2960
+F 0 "#PWR?" H 2580 2810 50  0001 C CNN
+F 1 "+5V" H 2580 3100 50  0000 C CNN
+F 2 "" H 2580 2960 50  0001 C CNN
+F 3 "" H 2580 2960 50  0001 C CNN
+	1    2580 2960
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5BF4E8D2
+P 5500 3950
+F 0 "#PWR?" H 5500 3800 50  0001 C CNN
+F 1 "+5V" H 5500 4090 50  0000 C CNN
+F 2 "" H 5500 3950 50  0001 C CNN
+F 3 "" H 5500 3950 50  0001 C CNN
+	1    5500 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5BF4ED50
+P 2580 5480
+F 0 "#PWR?" H 2580 5330 50  0001 C CNN
+F 1 "+5V" H 2580 5620 50  0000 C CNN
+F 2 "" H 2580 5480 50  0001 C CNN
+F 3 "" H 2580 5480 50  0001 C CNN
+	1    2580 5480
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

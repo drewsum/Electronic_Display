@@ -327,4 +327,34 @@ F 3 "" H 3420 1250 50  0001 C CNN
 	1    3420 1250
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic:Conn_01x04 J?
+U 1 1 5BF544D4
+P 5180 1150
+F 0 "J?" H 5260 1142 50  0000 L CNN
+F 1 "FLASH SPI" H 5260 1051 50  0000 L CNN
+F 2 "" H 5180 1150 50  0001 C CNN
+F 3 "~" H 5180 1150 50  0001 C CNN
+	1    5180 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BF54513
+P 4980 1350
+AR Path="/5BAAE1DC/5BF54513" Ref="#PWR?"  Part="1" 
+AR Path="/5BBF5233/5BF54513" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 4980 1100 50  0001 C CNN
+F 1 "GND" H 4980 1200 50  0000 C CNN
+F 2 "" H 4980 1350 50  0001 C CNN
+F 3 "" H 4980 1350 50  0001 C CNN
+	1    4980 1350
+	1    0    0    -1  
+$EndComp
+Text GLabel 4980 1250 0    50   UnSpc ~ 0
+FLASH_SCK
+Text GLabel 4980 1050 0    50   UnSpc ~ 0
+FLASH_MOSI
+Text GLabel 4980 1150 0    50   UnSpc ~ 0
+FLASH_MISO
 $EndSCHEMATC
