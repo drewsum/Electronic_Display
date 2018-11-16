@@ -137,4 +137,17 @@ Text GLabel 4030 2380 0    50   Output ~ 0
 POS5P_RUN
 Text GLabel 4030 4280 0    50   Input ~ 0
 POS5P5_ADC
+$Comp
+L Graphic:SYM_ESD_Large #SYM?
+U 1 1 5C01D864
+P 7890 4990
+AR Path="/5BAAE0FA/5C01D864" Ref="#SYM?"  Part="1" 
+AR Path="/5BB182B1/5C01D864" Ref="#SYM?"  Part="1" 
+F 0 "#SYM?" H 7890 5190 50  0001 C CNN
+F 1 "SYM_ESD_Large" H 7890 4740 50  0001 C CNN
+F 2 "" H 7885 4960 50  0001 C CNN
+F 3 "~" H 7885 4960 50  0001 C CNN
+	1    7890 4990
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

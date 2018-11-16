@@ -1405,4 +1405,17 @@ F 3 "" H 3150 2720 50  0001 C CNN
 	1    3150 2720
 	1    0    0    -1  
 $EndComp
+$Comp
+L Graphic:SYM_ESD_Large #SYM?
+U 1 1 5C04D744
+P 7650 4850
+AR Path="/5BAAE0FA/5C04D744" Ref="#SYM?"  Part="1" 
+AR Path="/5BB182B1/5C04D744" Ref="#SYM?"  Part="1" 
+F 0 "#SYM?" H 7650 5050 50  0001 C CNN
+F 1 "SYM_ESD_Large" H 7650 4600 50  0001 C CNN
+F 2 "" H 7645 4820 50  0001 C CNN
+F 3 "~" H 7645 4820 50  0001 C CNN
+	1    7650 4850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

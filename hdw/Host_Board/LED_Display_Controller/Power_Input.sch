@@ -691,4 +691,26 @@ Wire Wire Line
 Connection ~ 5000 5450
 Wire Wire Line
 	5000 5450 4640 5450
+$Comp
+L Graphic:SYM_ESD_Large #SYM?
+U 1 1 5BFFE119
+P 7480 5070
+F 0 "#SYM?" H 7480 5270 50  0001 C CNN
+F 1 "SYM_ESD_Large" H 7480 4820 50  0001 C CNN
+F 2 "" H 7475 5040 50  0001 C CNN
+F 3 "~" H 7475 5040 50  0001 C CNN
+	1    7480 5070
+	1    0    0    -1  
+$EndComp
+$Comp
+L Graphic:SYM_Hot_Large #SYM?
+U 1 1 5C0537B0
+P 6630 2000
+F 0 "#SYM?" H 6630 2200 50  0001 C CNN
+F 1 "SYM_Hot_Large" H 6630 1750 50  0001 C CNN
+F 2 "" H 6630 1800 50  0001 C CNN
+F 3 "~" H 6660 1800 50  0001 C CNN
+	1    6630 2000
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

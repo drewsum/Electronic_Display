@@ -641,4 +641,28 @@ Connection ~ 9130 3180
 Wire Wire Line
 	3120 2000 3120 2080
 Connection ~ 3120 2080
+$Comp
+L Graphic:SYM_ESD_Large #SYM?
+U 1 1 5BFFE1E9
+P 5990 4590
+AR Path="/5BAAE0FA/5BFFE1E9" Ref="#SYM?"  Part="1" 
+AR Path="/5BAAE10E/5BFFE1E9" Ref="#SYM?"  Part="1" 
+F 0 "#SYM?" H 5990 4790 50  0001 C CNN
+F 1 "SYM_ESD_Large" H 5990 4340 50  0001 C CNN
+F 2 "" H 5985 4560 50  0001 C CNN
+F 3 "~" H 5985 4560 50  0001 C CNN
+	1    5990 4590
+	1    0    0    -1  
+$EndComp
+$Comp
+L Graphic:SYM_Hot_Large #SYM?
+U 1 1 5C058FBE
+P 6690 4590
+F 0 "#SYM?" H 6690 4790 50  0001 C CNN
+F 1 "SYM_Hot_Large" H 6690 4340 50  0001 C CNN
+F 2 "" H 6690 4390 50  0001 C CNN
+F 3 "~" H 6720 4390 50  0001 C CNN
+	1    6690 4590
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

@@ -907,4 +907,15 @@ $EndComp
 Wire Wire Line
 	4510 4440 4510 4520
 Connection ~ 4510 4520
+$Comp
+L Graphic:SYM_Hot_Large #SYM?
+U 1 1 5C0676D2
+P 2320 3950
+F 0 "#SYM?" H 2320 4150 50  0001 C CNN
+F 1 "SYM_Hot_Large" H 2320 3700 50  0001 C CNN
+F 2 "" H 2320 3750 50  0001 C CNN
+F 3 "~" H 2350 3750 50  0001 C CNN
+	1    2320 3950
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

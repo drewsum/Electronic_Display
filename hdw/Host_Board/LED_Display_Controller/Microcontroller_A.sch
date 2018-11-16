@@ -159,4 +159,17 @@ Text GLabel 7130 2480 2    50   Output ~ 0
 USB_UART_TX
 Text GLabel 4030 1580 0    40   Output ~ 0
 ~LVL_SHFT_EN
+$Comp
+L Graphic:SYM_ESD_Large #SYM?
+U 1 1 5C01D836
+P 7890 4990
+AR Path="/5BAAE0FA/5C01D836" Ref="#SYM?"  Part="1" 
+AR Path="/5BB182B1/5C01D836" Ref="#SYM?"  Part="1" 
+F 0 "#SYM?" H 7890 5190 50  0001 C CNN
+F 1 "SYM_ESD_Large" H 7890 4740 50  0001 C CNN
+F 2 "" H 7885 4960 50  0001 C CNN
+F 3 "~" H 7885 4960 50  0001 C CNN
+	1    7890 4990
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
