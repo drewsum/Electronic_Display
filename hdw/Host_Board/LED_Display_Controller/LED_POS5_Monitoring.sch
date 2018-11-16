@@ -145,7 +145,7 @@ F 3 "" H 8350 1280 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR?
+L LED_Display_Controller-rescue:+5.5V-Custom_Library #PWR?
 U 1 1 5BEA3712
 P 8350 1080
 F 0 "#PWR?" H 8350 930 50  0001 C CNN
@@ -218,7 +218,7 @@ F 3 "" H 7080 1800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BEAE5DF
 P 6390 1180
 F 0 "R?" V 6290 1180 50  0000 C CNN
@@ -306,7 +306,7 @@ F 3 "" H 8350 2910 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR?
+L LED_Display_Controller-rescue:+5.5V-Custom_Library #PWR?
 U 1 1 5BEB81A9
 P 8350 2710
 F 0 "#PWR?" H 8350 2560 50  0001 C CNN
@@ -357,7 +357,7 @@ F 3 "" H 8200 3380 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BEB81DD
 P 6390 2810
 F 0 "R?" V 6290 2810 50  0000 C CNN
@@ -398,7 +398,7 @@ Wire Wire Line
 Wire Wire Line
 	6540 2810 7700 2810
 $Comp
-L Power_Protection:NUP2202 U?
+L LED_Display_Controller-rescue:NUP2202-Power_Protection U?
 U 1 1 5BEA6BA0
 P 7080 2000
 F 0 "U?" H 6870 1900 50  0000 R CNN
@@ -600,7 +600,7 @@ F 7 "PN" H 9440 3410 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:LT1010 U?
+L LED_Display_Controller-rescue:LT1010-Custom_Library U?
 U 1 1 5BEEB31E
 P 2250 3450
 F 0 "U?" H 2500 3550 50  0000 C CNN
@@ -622,7 +622,7 @@ F 3 "" H 2150 3750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR?
+L LED_Display_Controller-rescue:+5.5V-Custom_Library #PWR?
 U 1 1 5BEEB47C
 P 2150 3150
 F 0 "#PWR?" H 2150 3000 50  0001 C CNN
@@ -651,7 +651,7 @@ F 7 "PN" H 2650 3400 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR?
+L LED_Display_Controller-rescue:+5.5V-Custom_Library #PWR?
 U 1 1 5BEEB714
 P 2350 2850
 F 0 "#PWR?" H 2350 2700 50  0001 C CNN
@@ -690,7 +690,7 @@ Wire Wire Line
 Wire Wire Line
 	1950 3450 1600 3450
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BEEF52D
 P 3210 3450
 F 0 "R?" V 3110 3450 50  0000 C CNN
@@ -847,7 +847,7 @@ F 3 "" H 3030 4820 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR?
+L LED_Display_Controller-rescue:+5.5V-Custom_Library #PWR?
 U 1 1 5BEF3463
 P 3030 4360
 F 0 "#PWR?" H 3030 4210 50  0001 C CNN
@@ -888,7 +888,7 @@ F 3 "" H 2170 4740 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR?
+L LED_Display_Controller-rescue:+5.5V-Custom_Library #PWR?
 U 1 1 5BEF9543
 P 2170 4440
 F 0 "#PWR?" H 2170 4290 50  0001 C CNN
@@ -899,7 +899,7 @@ F 3 "" H 2170 4440 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR?
+L LED_Display_Controller-rescue:+5.5V-Custom_Library #PWR?
 U 1 1 5BEFBB6A
 P 1460 4440
 F 0 "#PWR?" H 1460 4290 50  0001 C CNN
@@ -960,7 +960,7 @@ F 3 "" H 8310 4730 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR?
+L LED_Display_Controller-rescue:+5.5V-Custom_Library #PWR?
 U 1 1 5BF0EF00
 P 8310 4530
 F 0 "#PWR?" H 8310 4380 50  0001 C CNN
@@ -1039,7 +1039,7 @@ Wire Wire Line
 Wire Wire Line
 	9530 4730 9530 4810
 $Comp
-L Power_Protection:NUP2202 U?
+L LED_Display_Controller-rescue:NUP2202-Power_Protection U?
 U 1 1 5BF1A47B
 P 9280 5230
 F 0 "U?" H 9070 5130 50  0000 R CNN

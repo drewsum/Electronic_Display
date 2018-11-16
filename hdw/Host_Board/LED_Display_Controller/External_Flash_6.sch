@@ -42,7 +42,7 @@ F 3 "" H 6080 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA3ED
 P 5330 4320
 AR Path="/5BB2595E/5BBEA3ED" Ref="R?"  Part="1" 
@@ -59,7 +59,7 @@ F 7 "PN" H 5630 4720 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA3F8
 P 4790 4320
 AR Path="/5BB2595E/5BBEA3F8" Ref="R?"  Part="1" 
@@ -76,7 +76,7 @@ F 7 "PN" H 5090 4720 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA403
 P 5110 3130
 AR Path="/5BB2595E/5BBEA403" Ref="R?"  Part="1" 
@@ -93,7 +93,7 @@ F 7 "PN" H 5410 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA40E
 P 4520 3130
 AR Path="/5BB2595E/5BBEA40E" Ref="R?"  Part="1" 
@@ -110,7 +110,7 @@ F 7 "PN" H 4820 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA419
 P 3930 3130
 AR Path="/5BB2595E/5BBEA419" Ref="R?"  Part="1" 
@@ -127,7 +127,7 @@ F 7 "PN" H 4230 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA424
 P 6750 3850
 AR Path="/5BB2595E/5BBEA424" Ref="R?"  Part="1" 
@@ -183,7 +183,7 @@ F 3 "" H 6750 4000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA453
 P 3420 3450
 AR Path="/5BB2595E/5BBEA453" Ref="R?"  Part="1" 
@@ -236,7 +236,7 @@ Text GLabel 3270 3750 0    40   Input ~ 0
 Text GLabel 3270 3850 0    50   Input ~ 0
 FLASH_SCK
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA480
 P 7130 3450
 AR Path="/5BB2595E/5BBEA480" Ref="R?"  Part="1" 
@@ -375,7 +375,7 @@ Wire Wire Line
 Wire Wire Line
 	6090 5240 6390 5240
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA4CB
 P 3420 3550
 AR Path="/5BB2595E/5BBEA4CB" Ref="R?"  Part="1" 
@@ -392,7 +392,7 @@ F 7 "PN" H 3720 3950 60  0001 C CNN "Digi-Key PN"
 	0    1    1    0   
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA4D6
 P 3420 3750
 AR Path="/5BB2595E/5BBEA4D6" Ref="R?"  Part="1" 
@@ -409,7 +409,7 @@ F 7 "PN" H 3720 4150 60  0001 C CNN "Digi-Key PN"
 	0    1    1    0   
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BBEA4E1
 P 3420 3850
 AR Path="/5BB2595E/5BBEA4E1" Ref="R?"  Part="1" 
@@ -431,7 +431,7 @@ Connection ~ 5110 3550
 Text GLabel 3270 3550 0    40   Input ~ 0
 ~FLASH_Hold
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Controller-rescue:R_Custom-Custom_Library R?
 U 1 1 5BC1EEE1
 P 3420 3650
 F 0 "R?" V 3380 3780 50  0000 L CNN

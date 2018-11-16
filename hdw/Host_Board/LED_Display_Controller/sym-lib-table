@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name LED_Display_Local_Library)(type Legacy)(uri ${KIPRJMOD}/lib/LED_Display_Local_Library.lib)(options "")(descr ""))
+  (lib (name LED_Display_Controller-rescue)(type Legacy)(uri ${KIPRJMOD}/LED_Display_Controller-rescue.lib)(options "")(descr ""))
 )
