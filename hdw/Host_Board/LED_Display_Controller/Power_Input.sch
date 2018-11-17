@@ -604,7 +604,7 @@ Wire Wire Line
 Wire Wire Line
 	3150 4330 3070 4330
 Wire Wire Line
-	3070 2580 4110 2580
+	3070 2580 3300 2580
 Wire Wire Line
 	7830 2580 9020 2580
 $Comp
@@ -713,4 +713,42 @@ F 3 "~" H 6660 1800 50  0001 C CNN
 	1    6630 2000
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:Barrel_Jack_Switch J?
+U 1 1 5BF0E9C8
+P 2920 3370
+F 0 "J?" H 2920 3580 50  0000 C CNN
+F 1 "+12V IN AUX" H 2920 3170 50  0000 C CNN
+F 2 "" H 2970 3330 50  0001 C CNN
+F 3 "~" H 2970 3330 50  0001 C CNN
+	1    2920 3370
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BF10B9D
+P 3300 3550
+F 0 "#PWR?" H 3300 3300 50  0001 C CNN
+F 1 "GND" H 3300 3400 50  0000 C CNN
+F 2 "" H 3300 3550 50  0001 C CNN
+F 3 "" H 3300 3550 50  0001 C CNN
+	1    3300 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3300 3550 3300 3470
+Wire Wire Line
+	3300 3470 3220 3470
+Wire Wire Line
+	3300 3470 3300 3370
+Wire Wire Line
+	3300 3370 3220 3370
+Connection ~ 3300 3470
+Wire Wire Line
+	3220 3270 3300 3270
+Wire Wire Line
+	3300 3270 3300 2580
+Connection ~ 3300 2580
+Wire Wire Line
+	3300 2580 4110 2580
 $EndSCHEMATC
