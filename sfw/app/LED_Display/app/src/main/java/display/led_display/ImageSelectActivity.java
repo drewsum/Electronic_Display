@@ -7,12 +7,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class ImageSelectActivity extends AppCompatActivity {
     TextView textTargetUri;
@@ -43,18 +47,37 @@ public class ImageSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK){
             Uri targetUri = data.getData();
             textTargetUri.setText(targetUri.toString());
             Bitmap bitmap;
+            Bitmap scaledBitmap;
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                targetImage.setImageBitmap(bitmap);
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap,64,64,true);
+                targetImage.setImageBitmap(scaledBitmap);
+                PixelsConverter pixelsConverter = new PixelsConverter();
+                byte[] printMe;
+                printMe = pixelsConverter.BitmapToByteArray(scaledBitmap);
+                File file = new File("/storage/emulated/0/Download" + "/values.txt");
+                Log.d("Filepath", file.getAbsolutePath());
+                try (PrintWriter out = new PrintWriter(file)) {
+                    out.print("[");
+                    for(int h = 0; h < printMe.length; h++) {
+                        String s = String.format("0x%02x, ", printMe[h]);
+                        out.print(s);
+                        if(h % 10 == 0)
+                        {
+                            out.println();
+                        }
+                    }
+                    out.print("]");
+                } catch (IOException io) {
+                    System.out.println(io);
+                }
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
