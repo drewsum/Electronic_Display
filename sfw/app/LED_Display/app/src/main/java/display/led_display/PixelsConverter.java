@@ -22,7 +22,7 @@ public class PixelsConverter {
             R = (pixels[i] & 0xff0000) >> 16;
             G = (pixels[i] & 0x00ff00) >> 8;
             B = (pixels[i] & 0x0000ff) >> 0;
-            //Log.d("R, G, B", "" + R + ", " + G + ", " + B);
+            Log.d("R, G, B", "" + R + ", " + G + ", " + B);
 
         }
         Log.d("Pixels Length: ", "" + pixels.length);
@@ -45,14 +45,14 @@ public class PixelsConverter {
         {
             int[] spacedValue = new int[8];
             int val = rgb.get(i);
-            spacedValue[0] = (val < 32) ? 1 : 0;
-            spacedValue[2] = (val < 64) ? 1 : 0;
-            spacedValue[4] = (val < 96) ? 1 : 0;
-            spacedValue[6] = (val < 128) ? 1 : 0;
-            spacedValue[1] = (val < 160) ? 1 : 0;
-            spacedValue[3] = (val < 192) ? 1 : 0;
-            spacedValue[5] = (val < 224) ? 1 : 0;
-            spacedValue[7] = (val < 256) ? 1 : 0;
+            spacedValue[0] = (val > 0) ? 1 : 0;
+            spacedValue[2] = (val > 32) ? 1 : 0;
+            spacedValue[4] = (val > 64) ? 1 : 0;
+            spacedValue[6] = (val > 96) ? 1 : 0;
+            spacedValue[1] = (val > 128) ? 1 : 0;
+            spacedValue[3] = (val > 160) ? 1 : 0;
+            spacedValue[5] = (val > 192) ? 1 : 0;
+            spacedValue[7] = (val > 224) ? 1 : 0;
             bytesOfData.add(spacedValue[0]);
             bytesOfData.add(spacedValue[1]);
             bytesOfData.add(spacedValue[2]);
@@ -68,11 +68,13 @@ public class PixelsConverter {
     public ArrayList<Integer> BitsToMicro(ArrayList<Integer> bits) {
         ArrayList<Integer> masterScript = new ArrayList<Integer>();
         ArrayList<Integer> finalScript = new ArrayList<Integer>();
-        ArrayList<Integer> secondHalf = new ArrayList<Integer>(bits.subList(bits.size() / 2, bits.size()-1));
+        ArrayList<Integer> secondHalf = new ArrayList<Integer>(bits.subList(bits.size() / 2, bits.size()));
+        Log.d("second half size: ", "" + secondHalf.size());
+        Log.d("bits size: ", "" + bits.size());
         for(int j = 0; j < 8; j++)
         {
             finalScript.clear();
-            for(int i = 0; i < secondHalf.size()/8; i++)
+            for(int i = 0; i < (secondHalf.size()/8); i++)
             {
                 finalScript.add(2*i, bits.get(8*i+j));
                 finalScript.add(2*i+1, secondHalf.get(8*i+j));
@@ -85,7 +87,8 @@ public class PixelsConverter {
     }
 
     public byte[] compilePanelLists(ArrayList<Integer> panel0, ArrayList<Integer> panel1, ArrayList<Integer> panel2, ArrayList<Integer> panel3) {
-        byte[] bites = new byte[panel1.size() / 2];
+        Log.d("Panel0 size: ", "" + panel0.size());
+        byte[] bites = new byte[panel0.size() / 2];
         for(int i = 0; i < panel0.size() / 2; i++)
         {
             byte bite = 0;
@@ -99,6 +102,7 @@ public class PixelsConverter {
             bite |= (panel3.get(2*i+1) << 7);
             bites[i] = bite;
         }
+        Log.d("bites size: ", "" + bites.length);
         return bites;
     }
 

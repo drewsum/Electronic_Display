@@ -64,16 +64,18 @@ public class ImageSelectActivity extends AppCompatActivity {
                 File file = new File("/storage/emulated/0/Download" + "/values.txt");
                 Log.d("Filepath", file.getAbsolutePath());
                 try (PrintWriter out = new PrintWriter(file)) {
-                    out.print("[");
                     for(int h = 0; h < printMe.length; h++) {
                         String s = String.format("0x%02x, ", printMe[h]);
-                        out.print(s);
+                        if(h == printMe.length-1)
+                        {
+                            s = String.format("0x%02x", printMe[h]);
+                        }
                         if(h % 10 == 0)
                         {
                             out.println();
                         }
+                        out.print(s);
                     }
-                    out.print("]");
                 } catch (IOException io) {
                     System.out.println(io);
                 }
