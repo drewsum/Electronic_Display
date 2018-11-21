@@ -515,4 +515,6 @@ F 3 "~" H 6360 4960 50  0001 C CNN
 	1    6330 5160
 	1    0    0    -1  
 $EndComp
+Text Notes 8240 4260 0    50   ~ 0
+Designed for 2A Max Iout
 $EndSCHEMATC

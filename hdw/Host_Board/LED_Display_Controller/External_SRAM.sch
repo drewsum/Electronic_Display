@@ -333,8 +333,6 @@ F 4 "428-1960-ND" H 5530 3900 50  0001 C CNN "Digi-Key PN"
 $EndComp
 Text GLabel 4780 4500 0    50   Input ~ 0
 EBI_A17
-Text Notes 2060 5440 0    50   ~ 0
-Consider strapping ~CS~ high since we only have one device on the EBI bus\nThis may or may not work, need to look deeper into EBI reference manual\nIf pins are available, leave this pin connected to the micro, not strapped
 $Comp
 L power:+3.3V #PWR0222
 U 1 1 5BDF2406
@@ -352,6 +350,7 @@ U 1 1 5C01F8C3
 P 6840 4160
 AR Path="/5BAAE0FA/5C01F8C3" Ref="#SYM?"  Part="1" 
 AR Path="/5BB182B1/5C01F8C3" Ref="#SYM?"  Part="1" 
+AR Path="/5BB2595B/5C01F8C3" Ref="#SYM?"  Part="1" 
 F 0 "#SYM?" H 6840 4360 50  0001 C CNN
 F 1 "SYM_ESD_Large" H 6840 3910 50  0001 C CNN
 F 2 "" H 6835 4130 50  0001 C CNN
@@ -359,4 +358,6 @@ F 3 "~" H 6835 4130 50  0001 C CNN
 	1    6840 4160
 	1    0    0    -1  
 $EndComp
+Text Notes 7530 4330 0    50   ~ 0
+External SRAM stores the current slide being displayed\nEach of the eight programmed slides are stored in external serial flash
 $EndSCHEMATC

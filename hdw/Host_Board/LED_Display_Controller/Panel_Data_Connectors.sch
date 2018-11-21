@@ -471,4 +471,6 @@ $EndComp
 NoConn ~ 10040 1480
 NoConn ~ 6290 2770
 NoConn ~ 6390 2770
+Text Notes 6710 5650 0    50   ~ 0
+String 1 is the top string,\nString 4 is the bottom string.\nEach string is 5 panels long\nEach panel is 64x64 pixels\nThis yields a 320x256 pixel overall display resolution
 $EndSCHEMATC

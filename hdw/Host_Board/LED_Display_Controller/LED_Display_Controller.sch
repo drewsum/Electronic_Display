@@ -153,7 +153,7 @@ F0 "Panel Data Level Shifters 3" 50
 F1 "Panel_Data_Level_Shifters_3.sch" 50
 $EndSheet
 Text Notes 710  7660 0    50   ~ 0
-To Do List:\n* Add modifications to power board KiCAD Project\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Add relevant design notes/routing notes to sheets\n* Re-order sheets\n* Assign Refdes's\n* Verify pinouts\n* Verify peripheral wiring on micro\n* Draw custom footprints\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Generate netlist\n* Generate BOM\n* Layout PCB
+To Do List:\n* Add modifications to power board KiCAD Project\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Re-order sheets\n* Assign Refdes's\n* Verify pinouts\n* Verify peripheral wiring on micro\n* Draw custom footprints\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Generate netlist\n* Generate BOM\n* Layout PCB
 $Sheet
 S 5450 5360 500  150 
 U 5BBF5233

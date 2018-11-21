@@ -665,4 +665,6 @@ F 3 "~" H 6720 4390 50  0001 C CNN
 	1    6690 4590
 	1    0    0    -1  
 $EndComp
+Text Notes 8620 4330 0    50   ~ 0
+Designed for 2.5A max Iout
 $EndSCHEMATC

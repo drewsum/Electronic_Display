@@ -29,8 +29,6 @@ F 5 "PIC32MZ2048EFH144-I/PL-ND" H 5580 3530 50  0001 C CNN "Digi-Key PN"
 $EndComp
 Text GLabel 7130 4480 2    50   Input ~ 0
 ~MCLR
-NoConn ~ 7130 5380
-NoConn ~ 7130 5480
 $Comp
 L power:GND #PWR0216
 U 1 1 5BB53596
@@ -124,7 +122,6 @@ Text GLabel 4030 1780 0    40   Output ~ 0
 ~FLASH_WP7
 Text GLabel 4030 1880 0    40   Output ~ 0
 ~FLASH_WP8
-NoConn ~ 7130 5180
 Text GLabel 7130 1580 2    50   Output ~ 0
 R1_POS3P3
 Text GLabel 7130 1680 2    50   Output ~ 0
@@ -172,4 +169,12 @@ F 3 "~" H 7885 4960 50  0001 C CNN
 	1    7890 4990
 	1    0    0    -1  
 $EndComp
+NoConn ~ 7130 5180
+NoConn ~ 7130 5480
+NoConn ~ 7130 5380
+NoConn ~ 4030 1680
+NoConn ~ 4030 4280
+NoConn ~ 4030 4480
+NoConn ~ 4030 5180
+NoConn ~ 4030 5480
 $EndSCHEMATC
