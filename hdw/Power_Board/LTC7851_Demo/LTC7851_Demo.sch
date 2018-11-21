@@ -95,7 +95,7 @@ $EndSheet
 Text Notes 540  690  0    100  ~ 20
 Table of Contents:
 Text Notes 4330 840  0    100  ~ 20
-LTC7851 Demo Board\nQuad-Phase 5V, 80A Buck Converter
+LTC7851 Demo Board\nQuad-Phase 5V, 45A Buck Converter
 Text Notes 1210 6460 0    80   ~ 16
 2. Power Input\n\n\n3. +5V Control\n\n\n4. +5V Phase 1\n\n\n5. +5V Phase 2\n\n\n6. +5V Phase 3\n\n\n7. +5V Phase 4\n\n\n8. +5.5V MNG\n\n\n9. Power Output\n\n\n10. Mechanical\n\n\n11. Active Load 1\n\n\n12. Active Load 2\n\n\n13. Active Load 3\n\n\n14. Loop Response
 $EndSCHEMATC
