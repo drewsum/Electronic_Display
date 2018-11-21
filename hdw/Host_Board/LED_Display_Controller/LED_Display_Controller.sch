@@ -15,185 +15,245 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 3050 1600 500  150 
+S 3760 1600 500  150 
 U 5BAAE0FA
 F0 "Power Input" 50
 F1 "Power_Input.sch" 50
 $EndSheet
 $Sheet
-S 3050 1940 500  150 
+S 3760 1940 500  150 
 U 5BAAE10E
 F0 "POS3P3 Power Supply" 50
 F1 "POS3P3_Power_Supply.sch" 50
 $EndSheet
 $Sheet
-S 3050 2630 500  150 
+S 3760 2630 500  150 
 U 5BAAE16C
 F0 "Microcontroller Programming" 50
 F1 "Microcontroller_Programming.sch" 50
 $EndSheet
 $Sheet
-S 3050 3990 500  150 
+S 3760 3990 500  150 
 U 5BAAE1CB
 F0 "WiFi Module" 50
 F1 "Wi_Fi_Module.sch" 50
 $EndSheet
 $Sheet
-S 3050 4330 500  150 
+S 3760 4330 500  150 
 U 5BAAE1DC
 F0 "USB UART Isolation" 50
 F1 "USB_UART_Isolation.sch" 50
 $EndSheet
 $Sheet
-S 3050 4670 500  150 
+S 3760 4670 500  150 
 U 5BAAE1F3
 F0 "USB UART Bridge" 50
 F1 "USB_UART_Bridge.sch" 50
 $EndSheet
 $Sheet
-S 8040 5690 500  150 
+S 8730 5690 500  150 
 U 5BAAE2CE
 F0 "Panel Data Connectors" 50
 F1 "Panel_Data_Connectors.sch" 50
 $EndSheet
 $Sheet
-S 3050 2970 500  150 
+S 3760 2970 500  150 
 U 5BB181D8
 F0 "Microcontroller Power" 50
 F1 "Microcontroller_Power.sch" 50
 $EndSheet
 $Sheet
-S 3050 3310 500  150 
+S 3760 3310 500  150 
 U 5BB182B1
-F0 "Microcontroller A" 50
-F1 "Microcontroller_A.sch" 50
+F0 "Microcontroller 1" 50
+F1 "Microcontroller_1.sch" 50
 $EndSheet
 $Sheet
-S 3050 3650 500  150 
+S 3760 3650 500  150 
 U 5BB1838A
-F0 "Microcontroller B" 50
-F1 "Microcontroller_B.sch" 50
+F0 "Microcontroller 2" 50
+F1 "Microcontroller_2.sch" 50
 $EndSheet
 $Sheet
-S 8040 1600 500  150 
+S 8730 1600 500  150 
 U 5BB2595B
 F0 "External SRAM" 50
 F1 "External_SRAM.sch" 50
 $EndSheet
 $Sheet
-S 8040 1940 500  150 
+S 8730 1940 500  150 
 U 5BB2595E
 F0 "External Flash 1" 50
 F1 "External_Flash_1.sch" 50
 $EndSheet
 $Sheet
-S 8040 2290 500  150 
+S 8730 2290 500  150 
 U 5BB25AE7
 F0 "External Flash 2" 50
 F1 "External_Flash_2.sch" 50
 $EndSheet
 $Sheet
-S 8040 2630 500  150 
+S 8730 2630 500  150 
 U 5BB25AEA
 F0 "External Flash 3" 50
 F1 "External_Flash_3.sch" 50
 $EndSheet
 $Sheet
-S 8040 2970 500  150 
+S 8730 2970 500  150 
 U 5BB25AED
 F0 "External Flash 4" 50
 F1 "External_Flash_4.sch" 50
 $EndSheet
 $Sheet
-S 8040 3310 500  150 
+S 8730 3310 500  150 
 U 5BB25AF0
 F0 "External Flash 5" 50
 F1 "External_Flash_5.sch" 50
 $EndSheet
 $Sheet
-S 8040 3650 500  150 
+S 8730 3650 500  150 
 U 5BB53D61
 F0 "External Flash 6" 50
 F1 "External_Flash_6.sch" 50
 $EndSheet
 $Sheet
-S 8040 3990 500  150 
+S 8730 3990 500  150 
 U 5BB53D64
 F0 "External Flash 7" 50
 F1 "External_Flash_7.sch" 50
 $EndSheet
 $Sheet
-S 8040 4330 500  150 
+S 8730 4330 500  150 
 U 5BB53D67
 F0 "External Flash 8" 50
 F1 "External_Flash_8.sch" 50
 $EndSheet
 $Sheet
-S 3050 5010 500  150 
+S 3760 5010 500  150 
 U 5BB844FD
 F0 "Status LEDs 1" 50
 F1 "Status_LEDs_1.sch" 50
 $EndSheet
 $Sheet
-S 8040 4670 500  150 
+S 8730 4670 500  150 
 U 5BBE424C
 F0 "Panel Data Level Shifters 1" 50
 F1 "Panel_Data_Level_Shifters_1.sch" 50
 $EndSheet
 $Sheet
-S 8040 5010 500  150 
+S 8730 5010 500  150 
 U 5BBE424F
 F0 "Panel Data Level Shifters 2" 50
 F1 "Panel_Data_Level_Shifters_2.sch" 50
 $EndSheet
 $Sheet
-S 8040 5350 500  150 
+S 8730 5350 500  150 
 U 5BBE4252
 F0 "Panel Data Level Shifters 3" 50
 F1 "Panel_Data_Level_Shifters_3.sch" 50
 $EndSheet
-Text Notes 710  7660 0    50   ~ 0
+Text Notes 710  7930 0    50   ~ 0
 To Do List:\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Re-order sheets\n* Assign Refdes's\n* Verify pinouts\n* Verify peripheral wiring on micro\n* Draw custom footprints\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Generate netlist\n* Generate BOM\n* Layout PCB
 $Sheet
-S 8040 6030 500  150 
+S 8730 6030 500  150 
 U 5BBF5233
 F0 "Test Points" 50
 F1 "Test_Points.sch" 50
 $EndSheet
 $Sheet
-S 3050 6370 500  150 
+S 3760 6370 500  150 
 U 5BE48F98
 F0 "LED POS5 Monitoring" 50
 F1 "LED_POS5_Monitoring.sch" 50
 $EndSheet
 $Sheet
-S 3050 5690 500  150 
+S 3760 5690 500  150 
 U 5BE4F849
 F0 "Pushbuttons" 50
 F1 "Pushbuttons.sch" 50
 $EndSheet
 $Sheet
-S 3050 2290 500  150 
+S 3760 2290 500  150 
 U 5BE5222A
 F0 "POS5 Power Supply" 50
 F1 "POS5_Power_Supply.sch" 50
 $EndSheet
 $Sheet
-S 8040 6370 500  150 
+S 8730 6370 500  150 
 U 5BE724F0
 F0 "Mechanical" 50
 F1 "Mechanical.sch" 50
 $EndSheet
 $Sheet
-S 3050 6030 500  150 
+S 3760 6030 500  150 
 U 5BE7BB83
 F0 "Internal Rail Monitoring" 50
 F1 "Internal_Rail_Monitoring.sch" 50
 $EndSheet
 $Sheet
-S 3050 5350 500  150 
+S 3760 5350 500  150 
 U 5BF346B3
 F0 "Status LEDs 2" 50
 F1 "Status_LEDs_2.sch" 50
 $EndSheet
+Text Notes 750  1750 0    100  ~ 20
+02. Power Input
+Text Notes 750  2090 0    100  ~ 20
+03. +3.3V Power Supply
+Text Notes 750  2440 0    100  ~ 20
+04. +5V Power Supply
+Text Notes 750  2780 0    100  ~ 20
+5. Microcontroller Programming
+Text Notes 750  3120 0    100  ~ 20
+6. Microcontroller Power
+Text Notes 750  3460 0    100  ~ 20
+7. Microcontroller IO Bank 1
+Text Notes 750  3800 0    100  ~ 20
+8. Microcontroller IO Bank 2
+Text Notes 750  4140 0    100  ~ 20
+9. WiFi Module
+Text Notes 750  4480 0    100  ~ 20
+10. USB UART Digital Isolation
+Text Notes 750  4820 0    100  ~ 20
+11. USB UART Bridge
+Text Notes 750  5160 0    100  ~ 20
+12. Status LEDs Bank 1
+Text Notes 750  5500 0    100  ~ 20
+13. Status LEDs Bank 2
+Text Notes 750  5840 0    100  ~ 20
+14. Pushbuttons
+Text Notes 750  6180 0    100  ~ 20
+15. Internal Rail Monitoring
+Text Notes 750  6520 0    100  ~ 20
+16. LED Power Supply Monitoring
+Text Notes 5780 1750 0    100  ~ 20
+17. External SRAM
+Text Notes 5780 2090 0    100  ~ 20
+18. External FLASH 1
+Text Notes 5780 2440 0    100  ~ 20
+19. External FLASH 2
+Text Notes 5780 2780 0    100  ~ 20
+20. External FLASH 3
+Text Notes 5780 3120 0    100  ~ 20
+21. External FLASH 4
+Text Notes 5780 3460 0    100  ~ 20
+22. External FLASH 5
+Text Notes 5780 3800 0    100  ~ 20
+23. External FLASH 6
+Text Notes 5780 4140 0    100  ~ 20
+24. External FLASH 7
+Text Notes 5780 4480 0    100  ~ 20
+25. External FLASH 8
+Text Notes 5780 4820 0    100  ~ 20
+26. Panel Data Level Shifters 1
+Text Notes 5780 5160 0    100  ~ 20
+27. Panel Data Level Shifters 2
+Text Notes 5780 5500 0    100  ~ 20
+28. Panel Data Level Shifters 3
+Text Notes 5780 5840 0    100  ~ 20
+29. Panel Data Connectors
+Text Notes 5780 6180 0    100  ~ 20
+30. Test Points
+Text Notes 5780 6520 0    100  ~ 20
+31. Mechanical
 $EndSCHEMATC
