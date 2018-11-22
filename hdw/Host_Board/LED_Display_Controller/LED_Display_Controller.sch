@@ -183,7 +183,7 @@ F0 "Panel Data Connectors" 50
 F1 "Panel_Data_Connectors.sch" 50
 $EndSheet
 Text Notes 710  7930 0    50   ~ 0
-To Do List:\n* Add MU Logo to each sheet\n* Add Titles to each sheet\n* Assign Refdes's\n* Verify pinouts\n* Verify peripheral wiring on micro\n* Draw custom footprints\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Generate netlist\n* Generate BOM\n* Layout PCB
+To Do List:\n* Assign Refdes's\n* Verify pinouts\n* Verify peripheral wiring on micro\n* Draw custom footprints\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Generate netlist\n* Generate BOM\n* Layout PCB
 $Sheet
 S 8730 6030 500  150 
 U 5BBF5233
@@ -256,4 +256,23 @@ Text Notes 5780 6180 0    100  ~ 20
 30. Test Points
 Text Notes 5780 6520 0    100  ~ 20
 31. Mechanical
+Text Notes 4480 770  0    120  ~ 24
+Electronic Display
+Text Notes 3240 990  0    100  ~ 0
+Marquette Universiy Senior Design 2018, Group E44 
+Text Notes 2800 1200 0    100  ~ 0
+Drew Maatman, Kevin Etta, Logan Wedel, Caroline Gilger, Tuoxuan Ren
+Text Notes 550  700  0    100  ~ 20
+01. Table of Contents
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFF0BEF
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

@@ -360,4 +360,17 @@ F 3 "~" H 6835 4130 50  0001 C CNN
 $EndComp
 Text Notes 7530 4330 0    50   ~ 0
 External SRAM stores the current slide being displayed\nEach of the eight programmed slides are stored in external serial flash
+Text Notes 550  700  0    100  ~ 20
+17. External SRAM
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFFDC68
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

@@ -177,4 +177,17 @@ NoConn ~ 4030 4280
 NoConn ~ 4030 4480
 NoConn ~ 4030 5180
 NoConn ~ 4030 5480
+Text Notes 550  700  0    100  ~ 20
+07. Microcontroller IO Bank 1
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFF2F9C
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

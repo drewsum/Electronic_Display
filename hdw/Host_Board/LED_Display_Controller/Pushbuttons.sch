@@ -781,4 +781,17 @@ Wire Wire Line
 Connection ~ 2760 4390
 Wire Wire Line
 	2760 4390 2490 4390
+Text Notes 550  700  0    100  ~ 20
+14. Pushbuttons
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFF7B2F
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

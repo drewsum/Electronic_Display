@@ -945,4 +945,17 @@ F 3 "~" H 3525 2320 50  0001 C CNN
 	1    3530 2350
 	1    0    0    -1  
 $EndComp
+Text Notes 550  700  0    100  ~ 20
+11. USB UART Bridge
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFF5254
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

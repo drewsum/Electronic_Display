@@ -582,8 +582,6 @@ F 4 "LTC4365IDDB#TRMPBFCT-ND" H 5870 4060 50  0001 C CNN "Digi-Key PN"
 	1    5870 4060
 	1    0    0    -1  
 $EndComp
-Text Notes 540  690  0    100  ~ 20
-Power Input
 $Comp
 L Connector:Screw_Terminal_01x01 J?
 U 1 1 5BD0D5CD
@@ -755,4 +753,17 @@ Text Notes 1500 4990 0    50   ~ 0
 UVLO threshold set to 10V\nOVLO threshold set to 14V
 Text Notes 2140 6220 0    50   ~ 0
 Shorting Master Power Sw \nallows for shutdown of entire system
+Text Notes 550  700  0    100  ~ 20
+02. Power Input
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFF2D7E
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
