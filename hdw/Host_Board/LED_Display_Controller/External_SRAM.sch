@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 12 31
+Sheet 17 31
 Title ""
 Date ""
 Rev ""
@@ -15,10 +15,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0217
 U 1 1 5BB4AFFE
 P 5530 5330
-F 0 "#PWR?" H 5530 5080 50  0001 C CNN
+F 0 "#PWR0217" H 5530 5080 50  0001 C CNN
 F 1 "GND" H 5530 5180 50  0000 C CNN
 F 2 "" H 5530 5330 50  0001 C CNN
 F 3 "" H 5530 5330 50  0001 C CNN
@@ -163,8 +163,8 @@ U 1 1 5BB4C329
 P 4870 6300
 AR Path="/5BAAE16C/5BB4C329" Ref="#PWR?"  Part="1" 
 AR Path="/5BB181D8/5BB4C329" Ref="#PWR?"  Part="1" 
-AR Path="/5BB2595B/5BB4C329" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 4870 6050 50  0001 C CNN
+AR Path="/5BB2595B/5BB4C329" Ref="#PWR0218"  Part="1" 
+F 0 "#PWR0218" H 4870 6050 50  0001 C CNN
 F 1 "GND" H 4870 6150 50  0000 C CNN
 F 2 "" H 4870 6300 50  0001 C CNN
 F 3 "" H 4870 6300 50  0001 C CNN
@@ -190,8 +190,8 @@ U 1 1 5BB4C336
 P 4870 5840
 AR Path="/5BAAE16C/5BB4C336" Ref="#PWR?"  Part="1" 
 AR Path="/5BB181D8/5BB4C336" Ref="#PWR?"  Part="1" 
-AR Path="/5BB2595B/5BB4C336" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 4870 5690 50  0001 C CNN
+AR Path="/5BB2595B/5BB4C336" Ref="#PWR0219"  Part="1" 
+F 0 "#PWR0219" H 4870 5690 50  0001 C CNN
 F 1 "+3.3V" H 4870 5980 50  0000 C CNN
 F 2 "" H 4870 5840 50  0001 C CNN
 F 3 "" H 4870 5840 50  0001 C CNN
@@ -271,8 +271,8 @@ U 1 1 5BB4C364
 P 6270 6300
 AR Path="/5BAAE16C/5BB4C364" Ref="#PWR?"  Part="1" 
 AR Path="/5BB181D8/5BB4C364" Ref="#PWR?"  Part="1" 
-AR Path="/5BB2595B/5BB4C364" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 6270 6050 50  0001 C CNN
+AR Path="/5BB2595B/5BB4C364" Ref="#PWR0220"  Part="1" 
+F 0 "#PWR0220" H 6270 6050 50  0001 C CNN
 F 1 "GND" H 6270 6150 50  0000 C CNN
 F 2 "" H 6270 6300 50  0001 C CNN
 F 3 "" H 6270 6300 50  0001 C CNN
@@ -298,8 +298,8 @@ U 1 1 5BB4C371
 P 6270 5840
 AR Path="/5BAAE16C/5BB4C371" Ref="#PWR?"  Part="1" 
 AR Path="/5BB181D8/5BB4C371" Ref="#PWR?"  Part="1" 
-AR Path="/5BB2595B/5BB4C371" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 6270 5690 50  0001 C CNN
+AR Path="/5BB2595B/5BB4C371" Ref="#PWR0221"  Part="1" 
+F 0 "#PWR0221" H 6270 5690 50  0001 C CNN
 F 1 "+3.3V" H 6270 5980 50  0000 C CNN
 F 2 "" H 6270 5840 50  0001 C CNN
 F 3 "" H 6270 5840 50  0001 C CNN
@@ -333,17 +333,44 @@ F 4 "428-1960-ND" H 5530 3900 50  0001 C CNN "Digi-Key PN"
 $EndComp
 Text GLabel 4780 4500 0    50   Input ~ 0
 EBI_A17
-Text Notes 2060 5440 0    50   ~ 0
-Consider strapping ~CS~ high since we only have one device on the EBI bus\nThis may or may not work, need to look deeper into EBI reference manual\nIf pins are available, leave this pin connected to the micro, not strapped
 $Comp
-L power:+3.3V #PWR?
+L power:+3.3V #PWR0222
 U 1 1 5BDF2406
 P 5530 2460
-F 0 "#PWR?" H 5530 2310 50  0001 C CNN
+F 0 "#PWR0222" H 5530 2310 50  0001 C CNN
 F 1 "+3.3V" H 5530 2600 50  0000 C CNN
 F 2 "" H 5530 2460 50  0001 C CNN
 F 3 "" H 5530 2460 50  0001 C CNN
 	1    5530 2460
+	1    0    0    -1  
+$EndComp
+$Comp
+L Graphic:SYM_ESD_Large #SYM?
+U 1 1 5C01F8C3
+P 6840 4160
+AR Path="/5BAAE0FA/5C01F8C3" Ref="#SYM?"  Part="1" 
+AR Path="/5BB182B1/5C01F8C3" Ref="#SYM?"  Part="1" 
+AR Path="/5BB2595B/5C01F8C3" Ref="#SYM?"  Part="1" 
+F 0 "#SYM?" H 6840 4360 50  0001 C CNN
+F 1 "SYM_ESD_Large" H 6840 3910 50  0001 C CNN
+F 2 "" H 6835 4130 50  0001 C CNN
+F 3 "~" H 6835 4130 50  0001 C CNN
+	1    6840 4160
+	1    0    0    -1  
+$EndComp
+Text Notes 7530 4330 0    50   ~ 0
+External SRAM stores the current slide being displayed\nEach of the eight programmed slides are stored in external serial flash
+Text Notes 550  700  0    100  ~ 20
+17. External SRAM
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFFDC68
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

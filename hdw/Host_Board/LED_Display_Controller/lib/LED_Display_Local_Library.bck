@@ -26,6 +26,12 @@ K Single Gate Buff Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
+$CMP 74LVC1G32_Power
+D Single OR Gate, Low-Voltage CMOS
+K Single Gate OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP 74LVC1G79_Power
 D Single D Flip-Flop, Low-Voltage CMOS
 K Single D Flip-Flop D CMOS
@@ -79,6 +85,11 @@ $ENDCMP
 $CMP LT1010DD
 D High speed analog Buffer, DFN8
 K Buffer
+$ENDCMP
+#
+$CMP LT6700-1-S6
+D Micropower, Low Voltage, Dual Comparator with 400mV Reference
+F http://www.analog.com/media/en/technical-documentation/data-sheets/6700123fh.pdf
 $ENDCMP
 #
 $CMP LTC3603_UF

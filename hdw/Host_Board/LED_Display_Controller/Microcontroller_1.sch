@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 10 31
+Sheet 7 31
 Title ""
 Date ""
 Rev ""
@@ -29,13 +29,11 @@ F 5 "PIC32MZ2048EFH144-I/PL-ND" H 5580 3530 50  0001 C CNN "Digi-Key PN"
 $EndComp
 Text GLabel 7130 4480 2    50   Input ~ 0
 ~MCLR
-NoConn ~ 7130 5380
-NoConn ~ 7130 5480
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0216
 U 1 1 5BB53596
 P 7320 5380
-F 0 "#PWR?" H 7320 5130 50  0001 C CNN
+F 0 "#PWR0216" H 7320 5130 50  0001 C CNN
 F 1 "GND" H 7320 5230 50  0000 C CNN
 F 2 "" H 7320 5380 50  0001 C CNN
 F 3 "" H 7320 5380 50  0001 C CNN
@@ -82,7 +80,7 @@ Text GLabel 7130 3980 2    50   BiDi ~ 0
 EBI_IO7
 Text GLabel 4030 4980 0    40   Output ~ 0
 ~EBI_WE
-Text GLabel 4030 5080 0    40   Input ~ 0
+Text GLabel 4030 5080 0    40   Output ~ 0
 ~EBI_OE
 Text GLabel 4030 4180 0    40   Output ~ 0
 ~FLASH_Hold
@@ -124,7 +122,6 @@ Text GLabel 4030 1780 0    40   Output ~ 0
 ~FLASH_WP7
 Text GLabel 4030 1880 0    40   Output ~ 0
 ~FLASH_WP8
-NoConn ~ 7130 5180
 Text GLabel 7130 1580 2    50   Output ~ 0
 R1_POS3P3
 Text GLabel 7130 1680 2    50   Output ~ 0
@@ -159,4 +156,38 @@ Text GLabel 7130 2480 2    50   Output ~ 0
 USB_UART_TX
 Text GLabel 4030 1580 0    40   Output ~ 0
 ~LVL_SHFT_EN
+$Comp
+L Graphic:SYM_ESD_Large #SYM?
+U 1 1 5C01D836
+P 7890 4990
+AR Path="/5BAAE0FA/5C01D836" Ref="#SYM?"  Part="1" 
+AR Path="/5BB182B1/5C01D836" Ref="#SYM?"  Part="1" 
+F 0 "#SYM?" H 7890 5190 50  0001 C CNN
+F 1 "SYM_ESD_Large" H 7890 4740 50  0001 C CNN
+F 2 "" H 7885 4960 50  0001 C CNN
+F 3 "~" H 7885 4960 50  0001 C CNN
+	1    7890 4990
+	1    0    0    -1  
+$EndComp
+NoConn ~ 7130 5180
+NoConn ~ 7130 5480
+NoConn ~ 7130 5380
+NoConn ~ 4030 1680
+NoConn ~ 4030 4280
+NoConn ~ 4030 4480
+NoConn ~ 4030 5180
+NoConn ~ 4030 5480
+Text Notes 550  700  0    100  ~ 20
+07. Microcontroller IO Bank 1
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFF2F9C
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

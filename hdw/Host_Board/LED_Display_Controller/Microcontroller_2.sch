@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 11 31
+Sheet 8 31
 Title ""
 Date ""
 Rev ""
@@ -97,4 +97,75 @@ Text GLabel 7130 1780 2    50   Output ~ 0
 ~OE_POS3P3
 Text GLabel 4030 2680 0    50   Output ~ 0
 Panel_Dim_PWM
+Text GLabel 7130 4080 2    50   Input ~ 0
+POS3P3_PGOOD
+Text GLabel 4030 3580 0    40   Output ~ 0
+~ACTIVE_LED
+Text GLabel 4030 2880 0    50   Output ~ 0
+SPI_Error_LED
+Text GLabel 4030 3380 0    50   Output ~ 0
+WIFI_Error_LED
+Text GLabel 4030 2780 0    50   Output ~ 0
+EBI_Error_LED
+Text GLabel 4030 3480 0    50   Output ~ 0
+USB_Error_LED
+Text GLabel 4030 3280 0    50   Output ~ 0
+Panel_Enable_LED
+Text GLabel 4030 2180 0    50   Input ~ 0
+POS5P_PGOOD
+Text GLabel 4030 2280 0    40   Input ~ 0
+~POS5P_THWN
+Text GLabel 7130 3980 2    50   Input ~ 0
+ENCODER_DIR
+Text GLabel 7130 3880 2    50   Input ~ 0
+ENCODER_STEP
+Text GLabel 7130 3780 2    40   Input ~ 0
+~Display_Enable
+Text GLabel 4030 1880 0    50   Input ~ 0
+POS5_PGOOD
+Text GLabel 4030 1780 0    50   Output ~ 0
+POS5_RUN
+Text GLabel 4030 3880 0    50   Input ~ 0
+POS3P3_ADC
+Text GLabel 4030 3980 0    50   Input ~ 0
+POS12_ADC
+Text GLabel 4030 4380 0    50   Input ~ 0
+POS5_ADC
+Text GLabel 4030 4480 0    50   Input ~ 0
+POS5P_ADC
+Text GLabel 4030 2380 0    50   Output ~ 0
+POS5P_RUN
+Text GLabel 4030 4280 0    50   Input ~ 0
+POS5P5_ADC
+$Comp
+L Graphic:SYM_ESD_Large #SYM?
+U 1 1 5C01D864
+P 7890 4990
+AR Path="/5BAAE0FA/5C01D864" Ref="#SYM?"  Part="1" 
+AR Path="/5BB182B1/5C01D864" Ref="#SYM?"  Part="1" 
+AR Path="/5BB1838A/5C01D864" Ref="#SYM?"  Part="1" 
+F 0 "#SYM?" H 7890 5190 50  0001 C CNN
+F 1 "SYM_ESD_Large" H 7890 4740 50  0001 C CNN
+F 2 "" H 7885 4960 50  0001 C CNN
+F 3 "~" H 7885 4960 50  0001 C CNN
+	1    7890 4990
+	1    0    0    -1  
+$EndComp
+NoConn ~ 4030 1680
+NoConn ~ 4030 4080
+NoConn ~ 4030 4180
+NoConn ~ 7130 1880
+Text Notes 550  700  0    100  ~ 20
+08. Microcontroller IO Bank 2
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5BFF2FC2
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

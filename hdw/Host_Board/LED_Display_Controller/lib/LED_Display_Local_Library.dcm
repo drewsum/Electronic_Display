@@ -87,6 +87,11 @@ D High speed analog Buffer, DFN8
 K Buffer
 $ENDCMP
 #
+$CMP LT6700-1-S6
+D Micropower, Low Voltage, Dual Comparator with 400mV Reference
+F http://www.analog.com/media/en/technical-documentation/data-sheets/6700123fh.pdf
+$ENDCMP
+#
 $CMP LTC3603_UF
 D 2.5A, 15V Monolithic Synchronous Step-Down Regulator, QFN-20
 F https://www.analog.com/media/en/technical-documentation/data-sheets/3603fc.pdf
