@@ -260,7 +260,7 @@ Text Notes 4480 770  0    120  ~ 24
 Electronic Display
 Text Notes 3240 990  0    100  ~ 0
 Marquette Universiy Senior Design 2018, Group E44 
-Text Notes 2800 1200 0    100  ~ 0
+Text Notes 2600 1200 0    100  ~ 0
 Drew Maatman, Kevin Etta, Logan Wedel, Caroline Gilger, Tuoxuan Ren
 Text Notes 550  700  0    100  ~ 20
 01. Table of Contents
