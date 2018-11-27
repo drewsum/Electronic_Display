@@ -150,5 +150,16 @@ Wire Wire Line
 	5640 4130 5640 4050
 Connection ~ 5640 4050
 Text Notes 540  690  0    100  ~ 20
-Open Loop Transfer Function Test Components
+14. Open Loop Transfer Function Test Components
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5C003FC2
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

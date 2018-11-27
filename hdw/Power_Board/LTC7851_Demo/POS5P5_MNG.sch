@@ -60,17 +60,17 @@ F 3 "" H 4460 3970 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C802
+L LED_Display_Local_Library:C_Custom C802
 U 1 1 5BBB0AFB
 P 4460 3820
 F 0 "C802" H 4485 3920 50  0000 L CNN
 F 1 "0.1uF" H 4485 3720 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 4498 3670 50  0001 C CNN
 F 3 "" H 4485 3920 50  0001 C CNN
-F 4 "0603" H 4310 3920 50  0000 R CNN "display_footprint"
-F 5 "50V" H 4310 3820 50  0000 R CNN "Voltage"
-F 6 "X7R" H 4310 3720 50  0000 R CNN "Dielectric"
-F 7 "490-4779-1-ND" H 4885 4320 60  0001 C CNN "Digi-Key PN"
+F 4 "490-4779-1-ND" H 4885 4320 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 4310 3920 50  0000 R CNN "display_footprint"
+F 6 "50V" H 4310 3820 50  0000 R CNN "Voltage"
+F 7 "X7R" H 4310 3720 50  0000 R CNN "Dielectric"
 	1    4460 3820
 	1    0    0    -1  
 $EndComp
@@ -118,17 +118,17 @@ F 3 "" H 6430 3970 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C804
+L LED_Display_Local_Library:C_Custom C804
 U 1 1 5BBB0328
 P 6430 3820
 F 0 "C804" H 6455 3920 50  0000 L CNN
 F 1 "0.1uF" H 6455 3720 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 6468 3670 50  0001 C CNN
 F 3 "" H 6455 3920 50  0001 C CNN
-F 4 "0603" H 6280 3920 50  0000 R CNN "display_footprint"
-F 5 "50V" H 6280 3820 50  0000 R CNN "Voltage"
-F 6 "X7R" H 6280 3720 50  0000 R CNN "Dielectric"
-F 7 "490-4779-1-ND" H 6855 4320 60  0001 C CNN "Digi-Key PN"
+F 4 "490-4779-1-ND" H 6855 4320 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 6280 3920 50  0000 R CNN "display_footprint"
+F 6 "50V" H 6280 3820 50  0000 R CNN "Voltage"
+F 7 "X7R" H 6280 3720 50  0000 R CNN "Dielectric"
 	1    6430 3820
 	1    0    0    -1  
 $EndComp
@@ -174,7 +174,7 @@ Connection ~ 5770 4040
 Wire Wire Line
 	5770 4130 5770 4040
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BBAFF04
 P 5770 3820
 AR Path="/5BB86F29/5BBAFF04" Ref="R?"  Part="1" 
@@ -203,7 +203,7 @@ F 4 "LM1117IMPX-ADJ/NOPBCT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:CP_Tant_Custom C?
+L LED_Display_Local_Library:CP_Tant_Custom C?
 U 1 1 5BD4FFF4
 P 7040 3820
 AR Path="/5BB86F29/5BD4FFF4" Ref="C?"  Part="1" 
@@ -222,7 +222,7 @@ F 7 "20%" H 6890 3720 50  0000 R CNN "Tolerance"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BD50813
 P 5770 4280
 AR Path="/5BB86F29/5BD50813" Ref="R?"  Part="1" 
@@ -239,22 +239,22 @@ F 7 "1/10W" H 5870 4200 50  0000 L CNN "Wattage"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C803
+L LED_Display_Local_Library:C_Custom C803
 U 1 1 5BD51214
 P 5130 4280
 F 0 "C803" H 5155 4380 50  0000 L CNN
 F 1 "0.1uF" H 5155 4180 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 5168 4130 50  0001 C CNN
 F 3 "" H 5155 4380 50  0001 C CNN
-F 4 "0603" H 4980 4380 50  0000 R CNN "display_footprint"
-F 5 "50V" H 4980 4280 50  0000 R CNN "Voltage"
-F 6 "X7R" H 4980 4180 50  0000 R CNN "Dielectric"
-F 7 "490-4779-1-ND" H 5555 4780 60  0001 C CNN "Digi-Key PN"
+F 4 "490-4779-1-ND" H 5555 4780 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 4980 4380 50  0000 R CNN "display_footprint"
+F 6 "50V" H 4980 4280 50  0000 R CNN "Voltage"
+F 7 "X7R" H 4980 4180 50  0000 R CNN "Dielectric"
 	1    5130 4280
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:CP_Tant_Custom C?
+L LED_Display_Local_Library:CP_Tant_Custom C?
 U 1 1 5BD5196E
 P 3800 3820
 AR Path="/5BB86F29/5BD5196E" Ref="C?"  Part="1" 
@@ -286,5 +286,16 @@ $EndComp
 Wire Wire Line
 	6430 3510 6430 3590
 Text Notes 540  690  0    100  ~ 20
-+5.5V MNG
+08. +5.5V MNG
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5C003E1C
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

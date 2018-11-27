@@ -1,0 +1,655 @@
+EESchema Schematic File Version 4
+LIBS:LED_Display_Controller-cache
+EELAYER 26 0
+EELAYER END
+$Descr A 11000 8500
+encoding utf-8
+Sheet 15 31
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BEF531C
+P 1510 2780
+AR Path="/5BE5222A/5BEF531C" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BEF531C" Ref="R1501"  Part="1" 
+F 0 "R1501" V 1410 2780 50  0000 C CNN
+F 1 "10k" V 1510 2780 50  0000 C CNN
+F 2 "" H 1510 2780 50  0001 C CNN
+F 3 "" H 1510 2780 50  0001 C CNN
+F 4 "0603" H 1580 2870 50  0000 L CNN "display_footprint"
+F 5 "1%" H 1580 2780 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 1580 2700 50  0000 L CNN "Wattage"
+F 7 "PN" H 1810 3180 60  0001 C CNN "Digi-Key PN"
+	1    1510 2780
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BEF532E
+P 1510 3240
+AR Path="/5BE5222A/5BEF532E" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BEF532E" Ref="R1502"  Part="1" 
+F 0 "R1502" V 1410 3240 50  0000 C CNN
+F 1 "10k" V 1510 3240 50  0000 C CNN
+F 2 "" H 1510 3240 50  0001 C CNN
+F 3 "" H 1510 3240 50  0001 C CNN
+F 4 "0603" H 1580 3330 50  0000 L CNN "display_footprint"
+F 5 "1%" H 1580 3240 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 1580 3160 50  0000 L CNN "Wattage"
+F 7 "PN" H 1810 3640 60  0001 C CNN "Digi-Key PN"
+	1    1510 3240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1510 3090 1510 3010
+$Comp
+L power:GND #PWR0526
+U 1 1 5BEF539B
+P 1510 3390
+F 0 "#PWR0526" H 1510 3140 50  0001 C CNN
+F 1 "GND" H 1510 3240 50  0000 C CNN
+F 2 "" H 1510 3390 50  0001 C CNN
+F 3 "" H 1510 3390 50  0001 C CNN
+	1    1510 3390
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0527
+U 1 1 5BEF542D
+P 1510 2630
+F 0 "#PWR0527" H 1510 2480 50  0001 C CNN
+F 1 "+3.3V" H 1510 2770 50  0000 C CNN
+F 2 "" H 1510 2630 50  0001 C CNN
+F 3 "" H 1510 2630 50  0001 C CNN
+	1    1510 2630
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BEF8700
+P 2290 3240
+AR Path="/5BAAE10E/5BEF8700" Ref="C?"  Part="1" 
+AR Path="/5BE7BB83/5BEF8700" Ref="C1501"  Part="1" 
+F 0 "C1501" H 2315 3340 50  0000 L CNN
+F 1 "330pF" H 2315 3140 50  0000 L CNN
+F 2 "" H 2328 3090 50  0001 C CNN
+F 3 "" H 2315 3340 50  0001 C CNN
+F 4 "PN" H 2715 3740 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 2140 3340 50  0000 R CNN "display_footprint"
+F 6 "50V" H 2140 3240 50  0000 R CNN "Voltage"
+F 7 "NP0" H 2140 3140 50  0000 R CNN "Dielectric"
+	1    2290 3240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2290 3090 2290 3010
+Wire Wire Line
+	2290 3010 1510 3010
+Connection ~ 1510 3010
+Wire Wire Line
+	1510 3010 1510 2930
+$Comp
+L power:GND #PWR0528
+U 1 1 5BEF8726
+P 2290 3390
+F 0 "#PWR0528" H 2290 3140 50  0001 C CNN
+F 1 "GND" H 2290 3240 50  0000 C CNN
+F 2 "" H 2290 3390 50  0001 C CNN
+F 3 "" H 2290 3390 50  0001 C CNN
+	1    2290 3390
+	1    0    0    -1  
+$EndComp
+Connection ~ 2290 3010
+$Comp
+L Diode:MM5Zxx D1501
+U 1 1 5BF00165
+P 2820 3240
+F 0 "D1501" V 2774 3319 50  0000 L CNN
+F 1 "MM5Z3V3ST1G" V 2865 3319 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-523" H 2820 3065 50  0001 C CNN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/mm5z2v4.pdf" H 2820 3240 50  0001 C CNN
+	1    2820 3240
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0529
+U 1 1 5BF03EE7
+P 2820 3390
+F 0 "#PWR0529" H 2820 3140 50  0001 C CNN
+F 1 "GND" H 2820 3240 50  0000 C CNN
+F 2 "" H 2820 3390 50  0001 C CNN
+F 3 "" H 2820 3390 50  0001 C CNN
+	1    2820 3390
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2820 3090 2820 3010
+Wire Wire Line
+	2290 3010 2820 3010
+Text GLabel 2900 3010 2    50   Output ~ 0
+POS3P3_ADC
+Wire Wire Line
+	2900 3010 2820 3010
+Connection ~ 2820 3010
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BF09C2E
+P 4510 2780
+AR Path="/5BE5222A/5BF09C2E" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BF09C2E" Ref="R1505"  Part="1" 
+F 0 "R1505" V 4410 2780 50  0000 C CNN
+F 1 "10k" V 4510 2780 50  0000 C CNN
+F 2 "" H 4510 2780 50  0001 C CNN
+F 3 "" H 4510 2780 50  0001 C CNN
+F 4 "0603" H 4580 2870 50  0000 L CNN "display_footprint"
+F 5 "1%" H 4580 2780 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 4580 2700 50  0000 L CNN "Wattage"
+F 7 "PN" H 4810 3180 60  0001 C CNN "Digi-Key PN"
+	1    4510 2780
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BF09C39
+P 4510 3240
+AR Path="/5BE5222A/5BF09C39" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BF09C39" Ref="R1506"  Part="1" 
+F 0 "R1506" V 4410 3240 50  0000 C CNN
+F 1 "10k" V 4510 3240 50  0000 C CNN
+F 2 "" H 4510 3240 50  0001 C CNN
+F 3 "" H 4510 3240 50  0001 C CNN
+F 4 "0603" H 4580 3330 50  0000 L CNN "display_footprint"
+F 5 "1%" H 4580 3240 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 4580 3160 50  0000 L CNN "Wattage"
+F 7 "PN" H 4810 3640 60  0001 C CNN "Digi-Key PN"
+	1    4510 3240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4510 3090 4510 3010
+$Comp
+L power:GND #PWR0530
+U 1 1 5BF09C41
+P 4510 3390
+F 0 "#PWR0530" H 4510 3140 50  0001 C CNN
+F 1 "GND" H 4510 3240 50  0000 C CNN
+F 2 "" H 4510 3390 50  0001 C CNN
+F 3 "" H 4510 3390 50  0001 C CNN
+	1    4510 3390
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BF09C51
+P 5290 3240
+AR Path="/5BAAE10E/5BF09C51" Ref="C?"  Part="1" 
+AR Path="/5BE7BB83/5BF09C51" Ref="C1503"  Part="1" 
+F 0 "C1503" H 5315 3340 50  0000 L CNN
+F 1 "330pF" H 5315 3140 50  0000 L CNN
+F 2 "" H 5328 3090 50  0001 C CNN
+F 3 "" H 5315 3340 50  0001 C CNN
+F 4 "PN" H 5715 3740 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 5140 3340 50  0000 R CNN "display_footprint"
+F 6 "50V" H 5140 3240 50  0000 R CNN "Voltage"
+F 7 "NP0" H 5140 3140 50  0000 R CNN "Dielectric"
+	1    5290 3240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5290 3090 5290 3010
+Wire Wire Line
+	5290 3010 4510 3010
+Connection ~ 4510 3010
+Wire Wire Line
+	4510 3010 4510 2930
+$Comp
+L power:GND #PWR0531
+U 1 1 5BF09C5C
+P 5290 3390
+F 0 "#PWR0531" H 5290 3140 50  0001 C CNN
+F 1 "GND" H 5290 3240 50  0000 C CNN
+F 2 "" H 5290 3390 50  0001 C CNN
+F 3 "" H 5290 3390 50  0001 C CNN
+	1    5290 3390
+	1    0    0    -1  
+$EndComp
+Connection ~ 5290 3010
+$Comp
+L Diode:MM5Zxx D1503
+U 1 1 5BF09C63
+P 5820 3240
+F 0 "D1503" V 5774 3319 50  0000 L CNN
+F 1 "MM5Z3V3ST1G" V 5865 3319 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-523" H 5820 3065 50  0001 C CNN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/mm5z2v4.pdf" H 5820 3240 50  0001 C CNN
+	1    5820 3240
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0532
+U 1 1 5BF09C6A
+P 5820 3390
+F 0 "#PWR0532" H 5820 3140 50  0001 C CNN
+F 1 "GND" H 5820 3240 50  0000 C CNN
+F 2 "" H 5820 3390 50  0001 C CNN
+F 3 "" H 5820 3390 50  0001 C CNN
+	1    5820 3390
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5820 3090 5820 3010
+Wire Wire Line
+	5290 3010 5820 3010
+Text GLabel 5900 3010 2    50   Output ~ 0
+POS5_ADC
+Wire Wire Line
+	5900 3010 5820 3010
+Connection ~ 5820 3010
+$Comp
+L power:+5V #PWR0533
+U 1 1 5BF09D52
+P 4510 2630
+F 0 "#PWR0533" H 4510 2480 50  0001 C CNN
+F 1 "+5V" H 4510 2770 50  0000 C CNN
+F 2 "" H 4510 2630 50  0001 C CNN
+F 3 "" H 4510 2630 50  0001 C CNN
+	1    4510 2630
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BF0BD4E
+P 7140 2780
+AR Path="/5BE5222A/5BF0BD4E" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BF0BD4E" Ref="R1509"  Part="1" 
+F 0 "R1509" V 7040 2780 50  0000 C CNN
+F 1 "10k" V 7140 2780 50  0000 C CNN
+F 2 "" H 7140 2780 50  0001 C CNN
+F 3 "" H 7140 2780 50  0001 C CNN
+F 4 "0603" H 7210 2870 50  0000 L CNN "display_footprint"
+F 5 "1%" H 7210 2780 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 7210 2700 50  0000 L CNN "Wattage"
+F 7 "PN" H 7440 3180 60  0001 C CNN "Digi-Key PN"
+	1    7140 2780
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BF0BD59
+P 7140 3240
+AR Path="/5BE5222A/5BF0BD59" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BF0BD59" Ref="R1510"  Part="1" 
+F 0 "R1510" V 7040 3240 50  0000 C CNN
+F 1 "1k" V 7140 3240 50  0000 C CNN
+F 2 "" H 7140 3240 50  0001 C CNN
+F 3 "" H 7140 3240 50  0001 C CNN
+F 4 "0603" H 7210 3330 50  0000 L CNN "display_footprint"
+F 5 "1%" H 7210 3240 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 7210 3160 50  0000 L CNN "Wattage"
+F 7 "PN" H 7440 3640 60  0001 C CNN "Digi-Key PN"
+	1    7140 3240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7140 3090 7140 3010
+$Comp
+L power:GND #PWR0534
+U 1 1 5BF0BD61
+P 7140 3390
+F 0 "#PWR0534" H 7140 3140 50  0001 C CNN
+F 1 "GND" H 7140 3240 50  0000 C CNN
+F 2 "" H 7140 3390 50  0001 C CNN
+F 3 "" H 7140 3390 50  0001 C CNN
+	1    7140 3390
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BF0BD6B
+P 7920 3240
+AR Path="/5BAAE10E/5BF0BD6B" Ref="C?"  Part="1" 
+AR Path="/5BE7BB83/5BF0BD6B" Ref="C1505"  Part="1" 
+F 0 "C1505" H 7945 3340 50  0000 L CNN
+F 1 "330pF" H 7945 3140 50  0000 L CNN
+F 2 "" H 7958 3090 50  0001 C CNN
+F 3 "" H 7945 3340 50  0001 C CNN
+F 4 "PN" H 8345 3740 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 7770 3340 50  0000 R CNN "display_footprint"
+F 6 "50V" H 7770 3240 50  0000 R CNN "Voltage"
+F 7 "NP0" H 7770 3140 50  0000 R CNN "Dielectric"
+	1    7920 3240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7920 3090 7920 3010
+Wire Wire Line
+	7920 3010 7140 3010
+Connection ~ 7140 3010
+Wire Wire Line
+	7140 3010 7140 2930
+$Comp
+L power:GND #PWR0535
+U 1 1 5BF0BD76
+P 7920 3390
+F 0 "#PWR0535" H 7920 3140 50  0001 C CNN
+F 1 "GND" H 7920 3240 50  0000 C CNN
+F 2 "" H 7920 3390 50  0001 C CNN
+F 3 "" H 7920 3390 50  0001 C CNN
+	1    7920 3390
+	1    0    0    -1  
+$EndComp
+Connection ~ 7920 3010
+$Comp
+L Diode:MM5Zxx D1505
+U 1 1 5BF0BD7D
+P 8450 3240
+F 0 "D1505" V 8404 3319 50  0000 L CNN
+F 1 "MM5Z3V3ST1G" V 8495 3319 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-523" H 8450 3065 50  0001 C CNN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/mm5z2v4.pdf" H 8450 3240 50  0001 C CNN
+	1    8450 3240
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0536
+U 1 1 5BF0BD84
+P 8450 3390
+F 0 "#PWR0536" H 8450 3140 50  0001 C CNN
+F 1 "GND" H 8450 3240 50  0000 C CNN
+F 2 "" H 8450 3390 50  0001 C CNN
+F 3 "" H 8450 3390 50  0001 C CNN
+	1    8450 3390
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 3090 8450 3010
+Wire Wire Line
+	7920 3010 8450 3010
+Text GLabel 8530 3010 2    50   Output ~ 0
+POS12_ADC
+Wire Wire Line
+	8530 3010 8450 3010
+Connection ~ 8450 3010
+$Comp
+L power:+12V #PWR0537
+U 1 1 5BF0DDEF
+P 7140 2630
+F 0 "#PWR0537" H 7140 2480 50  0001 C CNN
+F 1 "+12V" H 7140 2770 50  0000 C CNN
+F 2 "" H 7140 2630 50  0001 C CNN
+F 3 "" H 7140 2630 50  0001 C CNN
+	1    7140 2630
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BF18632
+P 1510 4600
+AR Path="/5BE5222A/5BF18632" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BF18632" Ref="R1503"  Part="1" 
+F 0 "R1503" V 1410 4600 50  0000 C CNN
+F 1 "10k" V 1510 4600 50  0000 C CNN
+F 2 "" H 1510 4600 50  0001 C CNN
+F 3 "" H 1510 4600 50  0001 C CNN
+F 4 "0603" H 1580 4690 50  0000 L CNN "display_footprint"
+F 5 "1%" H 1580 4600 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 1580 4520 50  0000 L CNN "Wattage"
+F 7 "PN" H 1810 5000 60  0001 C CNN "Digi-Key PN"
+	1    1510 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BF1863D
+P 1510 5060
+AR Path="/5BE5222A/5BF1863D" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BF1863D" Ref="R1504"  Part="1" 
+F 0 "R1504" V 1410 5060 50  0000 C CNN
+F 1 "10k" V 1510 5060 50  0000 C CNN
+F 2 "" H 1510 5060 50  0001 C CNN
+F 3 "" H 1510 5060 50  0001 C CNN
+F 4 "0603" H 1580 5150 50  0000 L CNN "display_footprint"
+F 5 "1%" H 1580 5060 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 1580 4980 50  0000 L CNN "Wattage"
+F 7 "PN" H 1810 5460 60  0001 C CNN "Digi-Key PN"
+	1    1510 5060
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1510 4910 1510 4830
+$Comp
+L power:GND #PWR0538
+U 1 1 5BF18645
+P 1510 5210
+F 0 "#PWR0538" H 1510 4960 50  0001 C CNN
+F 1 "GND" H 1510 5060 50  0000 C CNN
+F 2 "" H 1510 5210 50  0001 C CNN
+F 3 "" H 1510 5210 50  0001 C CNN
+	1    1510 5210
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BF18655
+P 2290 5060
+AR Path="/5BAAE10E/5BF18655" Ref="C?"  Part="1" 
+AR Path="/5BE7BB83/5BF18655" Ref="C1502"  Part="1" 
+F 0 "C1502" H 2315 5160 50  0000 L CNN
+F 1 "330pF" H 2315 4960 50  0000 L CNN
+F 2 "" H 2328 4910 50  0001 C CNN
+F 3 "" H 2315 5160 50  0001 C CNN
+F 4 "PN" H 2715 5560 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 2140 5160 50  0000 R CNN "display_footprint"
+F 6 "50V" H 2140 5060 50  0000 R CNN "Voltage"
+F 7 "NP0" H 2140 4960 50  0000 R CNN "Dielectric"
+	1    2290 5060
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2290 4910 2290 4830
+Wire Wire Line
+	2290 4830 1510 4830
+Connection ~ 1510 4830
+Wire Wire Line
+	1510 4830 1510 4750
+$Comp
+L power:GND #PWR0539
+U 1 1 5BF18660
+P 2290 5210
+F 0 "#PWR0539" H 2290 4960 50  0001 C CNN
+F 1 "GND" H 2290 5060 50  0000 C CNN
+F 2 "" H 2290 5210 50  0001 C CNN
+F 3 "" H 2290 5210 50  0001 C CNN
+	1    2290 5210
+	1    0    0    -1  
+$EndComp
+Connection ~ 2290 4830
+$Comp
+L Diode:MM5Zxx D1502
+U 1 1 5BF18667
+P 2820 5060
+F 0 "D1502" V 2774 5139 50  0000 L CNN
+F 1 "MM5Z3V3ST1G" V 2865 5139 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-523" H 2820 4885 50  0001 C CNN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/mm5z2v4.pdf" H 2820 5060 50  0001 C CNN
+	1    2820 5060
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0540
+U 1 1 5BF1866E
+P 2820 5210
+F 0 "#PWR0540" H 2820 4960 50  0001 C CNN
+F 1 "GND" H 2820 5060 50  0000 C CNN
+F 2 "" H 2820 5210 50  0001 C CNN
+F 3 "" H 2820 5210 50  0001 C CNN
+	1    2820 5210
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2820 4910 2820 4830
+Wire Wire Line
+	2290 4830 2820 4830
+Text GLabel 2900 4830 2    50   Output ~ 0
+POS5P_ADC
+Wire Wire Line
+	2900 4830 2820 4830
+Connection ~ 2820 4830
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BF1867D
+P 4510 4600
+AR Path="/5BE5222A/5BF1867D" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BF1867D" Ref="R1507"  Part="1" 
+F 0 "R1507" V 4410 4600 50  0000 C CNN
+F 1 "10k" V 4510 4600 50  0000 C CNN
+F 2 "" H 4510 4600 50  0001 C CNN
+F 3 "" H 4510 4600 50  0001 C CNN
+F 4 "0603" H 4580 4690 50  0000 L CNN "display_footprint"
+F 5 "1%" H 4580 4600 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 4580 4520 50  0000 L CNN "Wattage"
+F 7 "PN" H 4810 5000 60  0001 C CNN "Digi-Key PN"
+	1    4510 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:R_Custom R?
+U 1 1 5BF18688
+P 4510 5060
+AR Path="/5BE5222A/5BF18688" Ref="R?"  Part="1" 
+AR Path="/5BE7BB83/5BF18688" Ref="R1508"  Part="1" 
+F 0 "R1508" V 4410 5060 50  0000 C CNN
+F 1 "10k" V 4510 5060 50  0000 C CNN
+F 2 "" H 4510 5060 50  0001 C CNN
+F 3 "" H 4510 5060 50  0001 C CNN
+F 4 "0603" H 4580 5150 50  0000 L CNN "display_footprint"
+F 5 "1%" H 4580 5060 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 4580 4980 50  0000 L CNN "Wattage"
+F 7 "PN" H 4810 5460 60  0001 C CNN "Digi-Key PN"
+	1    4510 5060
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4510 4910 4510 4830
+$Comp
+L power:GND #PWR0541
+U 1 1 5BF18690
+P 4510 5210
+F 0 "#PWR0541" H 4510 4960 50  0001 C CNN
+F 1 "GND" H 4510 5060 50  0000 C CNN
+F 2 "" H 4510 5210 50  0001 C CNN
+F 3 "" H 4510 5210 50  0001 C CNN
+	1    4510 5210
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5BF1869A
+P 5290 5060
+AR Path="/5BAAE10E/5BF1869A" Ref="C?"  Part="1" 
+AR Path="/5BE7BB83/5BF1869A" Ref="C1504"  Part="1" 
+F 0 "C1504" H 5315 5160 50  0000 L CNN
+F 1 "330pF" H 5315 4960 50  0000 L CNN
+F 2 "" H 5328 4910 50  0001 C CNN
+F 3 "" H 5315 5160 50  0001 C CNN
+F 4 "PN" H 5715 5560 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 5140 5160 50  0000 R CNN "display_footprint"
+F 6 "50V" H 5140 5060 50  0000 R CNN "Voltage"
+F 7 "NP0" H 5140 4960 50  0000 R CNN "Dielectric"
+	1    5290 5060
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5290 4910 5290 4830
+Wire Wire Line
+	5290 4830 4510 4830
+Connection ~ 4510 4830
+Wire Wire Line
+	4510 4830 4510 4750
+$Comp
+L power:GND #PWR0542
+U 1 1 5BF186A5
+P 5290 5210
+F 0 "#PWR0542" H 5290 4960 50  0001 C CNN
+F 1 "GND" H 5290 5060 50  0000 C CNN
+F 2 "" H 5290 5210 50  0001 C CNN
+F 3 "" H 5290 5210 50  0001 C CNN
+	1    5290 5210
+	1    0    0    -1  
+$EndComp
+Connection ~ 5290 4830
+$Comp
+L Diode:MM5Zxx D1504
+U 1 1 5BF186AC
+P 5820 5060
+F 0 "D1504" V 5774 5139 50  0000 L CNN
+F 1 "MM5Z3V3ST1G" V 5865 5139 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-523" H 5820 4885 50  0001 C CNN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/mm5z2v4.pdf" H 5820 5060 50  0001 C CNN
+	1    5820 5060
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0543
+U 1 1 5BF186B3
+P 5820 5210
+F 0 "#PWR0543" H 5820 4960 50  0001 C CNN
+F 1 "GND" H 5820 5060 50  0000 C CNN
+F 2 "" H 5820 5210 50  0001 C CNN
+F 3 "" H 5820 5210 50  0001 C CNN
+	1    5820 5210
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5820 4910 5820 4830
+Wire Wire Line
+	5290 4830 5820 4830
+Text GLabel 5900 4830 2    50   Output ~ 0
+POS5P5_ADC
+Wire Wire Line
+	5900 4830 5820 4830
+Connection ~ 5820 4830
+$Comp
+L power:+5VP #PWR0544
+U 1 1 5BF18DF2
+P 1510 4450
+F 0 "#PWR0544" H 1510 4300 50  0001 C CNN
+F 1 "+5VP" H 1510 4590 50  0000 C CNN
+F 2 "" H 1510 4450 50  0001 C CNN
+F 3 "" H 1510 4450 50  0001 C CNN
+	1    1510 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:+5.5V #PWR0545
+U 1 1 5BF18F83
+P 4510 4450
+F 0 "#PWR0545" H 4510 4300 50  0001 C CNN
+F 1 "+5.5V" H 4510 4590 50  0000 C CNN
+F 2 "" H 4510 4450 50  0001 C CNN
+F 3 "" H 4510 4450 50  0001 C CNN
+	1    4510 4450
+	1    0    0    -1  
+$EndComp
+Text Notes 550  700  0    100  ~ 20
+15. Internal Rail Monitoring
+$Comp
+L LED_Display_Local_Library:MU_Logo #G1501
+U 1 1 5BFF7BA7
+P 9900 1100
+F 0 "#G1501" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

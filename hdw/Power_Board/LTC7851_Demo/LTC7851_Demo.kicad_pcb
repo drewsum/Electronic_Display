@@ -1972,7 +1972,7 @@
     (fp_text reference L701 (at 0 -6.08 270) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 0.47uH (at 0 6.58 270) (layer F.Fab)
+    (fp_text value 1uH (at 0 6.58 270) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 6.35 -5.35) (end -6.35 -5.35) (layer F.CrtYd) (width 0.05))
@@ -2012,7 +2012,7 @@
     (fp_text reference L601 (at 0 -6.08 270) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 0.47uH (at 0 6.58 270) (layer F.Fab)
+    (fp_text value 1uH (at 0 6.58 270) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 6.35 -5.35) (end -6.35 -5.35) (layer F.CrtYd) (width 0.05))
@@ -3177,7 +3177,7 @@
     (fp_text reference L501 (at 0 -6.08 270) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 0.47uH (at 0 6.58 270) (layer F.Fab)
+    (fp_text value 1uH (at 0 6.58 270) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text user %R (at 0 0 270) (layer F.Fab)
@@ -5808,7 +5808,7 @@
     (fp_text reference L401 (at 0 -6.08 270) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 0.47uH (at 0 6.58 270) (layer F.Fab)
+    (fp_text value 1uH (at 0 6.58 270) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 6.35 -5.35) (end -6.35 -5.35) (layer F.CrtYd) (width 0.05))
@@ -8089,7 +8089,7 @@
     (fp_text reference C401 (at 0 -1.27 90) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 100pF (at 0 1.27 90) (layer F.Fab)
+    (fp_text value 1nF (at 0 1.27 90) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text user %R (at 0 -1.27 90) (layer F.Fab)
@@ -8413,7 +8413,7 @@
     (fp_text reference R401 (at 0 -1.35) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 66.5k (at 0 1.45) (layer F.Fab)
+    (fp_text value 59k (at 0 1.45) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 0.8 0.45) (end -0.8 0.45) (layer F.CrtYd) (width 0.05))
@@ -8557,7 +8557,7 @@
     (fp_text reference R407 (at 0 1.35 90) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value 1.4k (at 0 -1.45 90) (layer B.Fab)
+    (fp_text value 1.96k (at 0 -1.45 90) (layer B.Fab)
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_text user %R (at 0 1.35 90) (layer B.Fab)
@@ -8809,7 +8809,7 @@
     (fp_text reference R503 (at 0 1.35) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value 1.4k (at 0 -1.45) (layer B.Fab)
+    (fp_text value 1.96k (at 0 -1.45) (layer B.Fab)
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_line (start 0.8 -0.45) (end -0.8 -0.45) (layer B.CrtYd) (width 0.05))
@@ -8917,7 +8917,7 @@
     (fp_text reference R603 (at 0 1.35 180) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value 1.4k (at 0 -1.45 180) (layer B.Fab)
+    (fp_text value 1.96k (at 0 -1.45 180) (layer B.Fab)
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_text user %R (at 0 1.35 180) (layer B.Fab)
@@ -9025,7 +9025,7 @@
     (fp_text reference R703 (at 0 1.35 90) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value 1.4k (at 0 -1.45 90) (layer B.Fab)
+    (fp_text value 1.96k (at 0 -1.45 90) (layer B.Fab)
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_text user %R (at 0 1.35 90) (layer B.Fab)
@@ -9904,7 +9904,7 @@
   (gr_text THWN (at 174.879 86.106 90) (layer F.SilkS) (tstamp 5BD21B3A)
     (effects (font (size 1 1) (thickness 0.15)))
   )
-  (gr_text "LED Display Power Supply\n1MHz 5V 80A Quad Phase Buck\nLTC7851 Voltage Mode Controller" (at 137.1346 88.4682) (layer B.SilkS) (tstamp 5BDB8352)
+  (gr_text "LED Display Power Supply\n1MHz 5V 45A Quad Phase Buck\nLTC7851 Voltage Mode Controller" (at 137.1346 88.4682) (layer B.SilkS) (tstamp 5BDB8352)
     (effects (font (size 1.5 1.5) (thickness 0.3)) (justify mirror))
   )
   (gr_text "LD ISNS" (at 101.0412 97.6376 90) (layer F.SilkS) (tstamp 5BC7FC07)

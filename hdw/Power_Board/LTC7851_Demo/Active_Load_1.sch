@@ -67,7 +67,7 @@ F 3 "" H 8630 2800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BC370E8
 P 8000 2940
 AR Path="/5BB86F29/5BC370E8" Ref="R?"  Part="1" 
@@ -95,7 +95,7 @@ F 3 "" H 8000 2220 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BC37C2E
 P 7240 2640
 AR Path="/5BB2595E/5BC37C2E" Ref="R?"  Part="1" 
@@ -106,10 +106,10 @@ F 0 "R1105" H 7140 2640 50  0000 R CNN
 F 1 "10k" V 7240 2640 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 7240 2640 50  0001 C CNN
 F 3 "" H 7240 2640 50  0001 C CNN
-F 4 "0603" H 7320 2720 50  0000 L CNN "display_footprint"
-F 5 "1%" H 7320 2640 50  0000 L CNN "Tolerance"
-F 6 "1/10W" H 7320 2560 50  0000 L CNN "Wattage"
-F 7 "RHM10KADCT-ND" H 7540 3040 60  0001 C CNN "Digi-Key PN"
+F 4 "RHM10KADCT-ND" H 7540 3040 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 7320 2720 50  0000 L CNN "display_footprint"
+F 6 "1%" H 7320 2640 50  0000 L CNN "Tolerance"
+F 7 "1/10W" H 7320 2560 50  0000 L CNN "Wattage"
 	1    7240 2640
 	1    0    0    -1  
 $EndComp
@@ -129,17 +129,17 @@ Wire Wire Line
 Wire Wire Line
 	7240 2420 7700 2420
 $Comp
-L Custom_Library:R_Custom R1103
+L LED_Display_Local_Library:R_Custom R1103
 U 1 1 5BC37FB0
 P 6560 2420
 F 0 "R1103" V 6460 2420 50  0000 C CNN
 F 1 "10" V 6560 2420 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 6560 2420 50  0001 C CNN
 F 3 "" H 6560 2420 50  0001 C CNN
-F 4 "0603" V 6660 2420 50  0000 C CNN "display_footprint"
-F 5 "1%" V 6760 2420 50  0000 C CNN "Tolerance"
-F 6 "1/10W" V 6860 2420 50  0000 C CNN "Wattage"
-F 7 "YAG3351CT-ND" H 6860 2820 60  0001 C CNN "Digi-Key PN"
+F 4 "YAG3351CT-ND" H 6860 2820 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" V 6660 2420 50  0000 C CNN "display_footprint"
+F 6 "1%" V 6760 2420 50  0000 C CNN "Tolerance"
+F 7 "1/10W" V 6860 2420 50  0000 C CNN "Wattage"
 	1    6560 2420
 	0    1    1    0   
 $EndComp
@@ -149,7 +149,7 @@ Connection ~ 7240 2420
 Text GLabel 6410 2420 0    50   Input ~ 0
 LOAD_GATE
 $Comp
-L Custom_Library:LT1010DD U1101
+L LED_Display_Local_Library:LT1010DD U1101
 U 1 1 5BC3FE8E
 P 3160 3510
 F 0 "U1101" H 3410 3610 50  0000 C CNN
@@ -172,7 +172,7 @@ F 3 "" H 3060 3810 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BC405D3
 P 3260 2980
 AR Path="/5BB2595E/5BC405D3" Ref="R?"  Part="1" 
@@ -183,10 +183,10 @@ F 0 "R1102" H 3340 3130 50  0000 L CNN
 F 1 "10" V 3260 2980 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 3260 2980 50  0001 C CNN
 F 3 "" H 3260 2980 50  0001 C CNN
-F 4 "0603" H 3340 3060 50  0000 L CNN "display_footprint"
-F 5 "1%" H 3340 2980 50  0000 L CNN "Tolerance"
-F 6 "1/10W" H 3340 2900 50  0000 L CNN "Wattage"
-F 7 "YAG3351CT-ND" H 3560 3380 60  0001 C CNN "Digi-Key PN"
+F 4 "YAG3351CT-ND" H 3560 3380 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 3340 3060 50  0000 L CNN "display_footprint"
+F 6 "1%" H 3340 2980 50  0000 L CNN "Tolerance"
+F 7 "1/10W" H 3340 2900 50  0000 L CNN "Wattage"
 	1    3260 2980
 	1    0    0    -1  
 $EndComp
@@ -243,7 +243,7 @@ Wire Wire Line
 Wire Wire Line
 	1950 3610 1870 3610
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BC41AD3
 P 2500 3730
 AR Path="/5BB2595E/5BC41AD3" Ref="R?"  Part="1" 
@@ -254,10 +254,10 @@ F 0 "R1101" H 2400 3730 50  0000 R CNN
 F 1 "10k" V 2500 3730 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 2500 3730 50  0001 C CNN
 F 3 "" H 2500 3730 50  0001 C CNN
-F 4 "0603" H 2580 3810 50  0000 L CNN "display_footprint"
-F 5 "1%" H 2580 3730 50  0000 L CNN "Tolerance"
-F 6 "1/10W" H 2580 3650 50  0000 L CNN "Wattage"
-F 7 "RHM10KADCT-ND" H 2800 4130 60  0001 C CNN "Digi-Key PN"
+F 4 "RHM10KADCT-ND" H 2800 4130 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 2580 3810 50  0000 L CNN "display_footprint"
+F 6 "1%" H 2580 3730 50  0000 L CNN "Tolerance"
+F 7 "1/10W" H 2580 3650 50  0000 L CNN "Wattage"
 	1    2500 3730
 	-1   0    0    -1  
 $EndComp
@@ -303,7 +303,7 @@ F 3 "" H 8000 5130 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BC42848
 P 8000 4980
 AR Path="/5BB86F29/5BC42848" Ref="R?"  Part="1" 
@@ -331,7 +331,7 @@ F 3 "" H 8000 4260 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BC42859
 P 7240 4680
 AR Path="/5BB2595E/5BC42859" Ref="R?"  Part="1" 
@@ -342,10 +342,10 @@ F 0 "R1106" H 7140 4680 50  0000 R CNN
 F 1 "10k" V 7240 4680 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 7240 4680 50  0001 C CNN
 F 3 "" H 7240 4680 50  0001 C CNN
-F 4 "0603" H 7320 4760 50  0000 L CNN "display_footprint"
-F 5 "1%" H 7320 4680 50  0000 L CNN "Tolerance"
-F 6 "1/10W" H 7320 4600 50  0000 L CNN "Wattage"
-F 7 "RHM10KADCT-ND" H 7540 5080 60  0001 C CNN "Digi-Key PN"
+F 4 "RHM10KADCT-ND" H 7540 5080 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 7320 4760 50  0000 L CNN "display_footprint"
+F 6 "1%" H 7320 4680 50  0000 L CNN "Tolerance"
+F 7 "1/10W" H 7320 4600 50  0000 L CNN "Wattage"
 	1    7240 4680
 	1    0    0    -1  
 $EndComp
@@ -365,17 +365,17 @@ Wire Wire Line
 Wire Wire Line
 	7240 4460 7700 4460
 $Comp
-L Custom_Library:R_Custom R1104
+L LED_Display_Local_Library:R_Custom R1104
 U 1 1 5BC4286C
 P 6560 4460
 F 0 "R1104" V 6460 4460 50  0000 C CNN
 F 1 "10" V 6560 4460 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 6560 4460 50  0001 C CNN
 F 3 "" H 6560 4460 50  0001 C CNN
-F 4 "0603" V 6660 4460 50  0000 C CNN "display_footprint"
-F 5 "1%" V 6760 4460 50  0000 C CNN "Tolerance"
-F 6 "1/10W" V 6860 4460 50  0000 C CNN "Wattage"
-F 7 "YAG3351CT-ND" H 6860 4860 60  0001 C CNN "Digi-Key PN"
+F 4 "YAG3351CT-ND" H 6860 4860 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" V 6660 4460 50  0000 C CNN "display_footprint"
+F 6 "1%" V 6760 4460 50  0000 C CNN "Tolerance"
+F 7 "1/10W" V 6860 4460 50  0000 C CNN "Wattage"
 	1    6560 4460
 	0    1    1    0   
 $EndComp
@@ -385,7 +385,7 @@ Connection ~ 7240 4460
 Text GLabel 6410 4460 0    50   Input ~ 0
 LOAD_GATE
 $Comp
-L Custom_Library:C_Custom C?
+L LED_Display_Local_Library:C_Custom C?
 U 1 1 5BC368AD
 P 2640 4780
 AR Path="/5BB86F29/5BC368AD" Ref="C?"  Part="1" 
@@ -394,10 +394,10 @@ F 0 "C1101" H 2665 4880 50  0000 L CNN
 F 1 "1uF" H 2665 4680 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 2678 4630 50  0001 C CNN
 F 3 "" H 2665 4880 50  0001 C CNN
-F 4 "0603" H 2490 4880 50  0000 R CNN "display_footprint"
-F 5 "16V" H 2490 4780 50  0000 R CNN "Voltage"
-F 6 "X7R" H 2490 4680 50  0000 R CNN "Dielectric"
-F 7 "1276-6524-1-ND" H 3065 5280 60  0001 C CNN "Digi-Key PN"
+F 4 "1276-6524-1-ND" H 3065 5280 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 2490 4880 50  0000 R CNN "display_footprint"
+F 6 "16V" H 2490 4780 50  0000 R CNN "Voltage"
+F 7 "X7R" H 2490 4680 50  0000 R CNN "Dielectric"
 	1    2640 4780
 	1    0    0    -1  
 $EndComp
@@ -428,7 +428,7 @@ F 3 "" H 2640 4930 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C?
+L LED_Display_Local_Library:C_Custom C?
 U 1 1 5BC368C8
 P 3310 4780
 AR Path="/5BB86F29/5BC368C8" Ref="C?"  Part="1" 
@@ -437,10 +437,10 @@ F 0 "C1102" H 3335 4880 50  0000 L CNN
 F 1 "0.1uF" H 3335 4680 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 3348 4630 50  0001 C CNN
 F 3 "" H 3335 4880 50  0001 C CNN
-F 4 "0603" H 3160 4880 50  0000 R CNN "display_footprint"
-F 5 "50V" H 3160 4780 50  0000 R CNN "Voltage"
-F 6 "X7R" H 3160 4680 50  0000 R CNN "Dielectric"
-F 7 "490-4779-1-ND" H 3735 5280 60  0001 C CNN "Digi-Key PN"
+F 4 "490-4779-1-ND" H 3735 5280 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 3160 4880 50  0000 R CNN "display_footprint"
+F 6 "50V" H 3160 4780 50  0000 R CNN "Voltage"
+F 7 "X7R" H 3160 4680 50  0000 R CNN "Dielectric"
 	1    3310 4780
 	1    0    0    -1  
 $EndComp
@@ -467,7 +467,7 @@ F 3 "" H 2640 4630 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:CP_Tant_Custom C?
+L LED_Display_Local_Library:CP_Tant_Custom C?
 U 1 1 5BC376D5
 P 3920 4780
 AR Path="/5BB86F29/5BC376D5" Ref="C?"  Part="1" 
@@ -511,7 +511,18 @@ F 3 "" H 3920 4930 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 540  690  0    100  ~ 20
-Active Load Driver and Active Load Bank 1
+11. Active Load Driver and Active Load Bank 1
 Wire Wire Line
 	8000 4660 8000 4830
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5C003EF4
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

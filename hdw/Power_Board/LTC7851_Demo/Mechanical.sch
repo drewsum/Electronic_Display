@@ -15,9 +15,9 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Text Notes 540  690  0    100  ~ 20
-Mounting Holes and Mechanical Components
+10. Mounting Holes and Mechanical Components
 $Comp
-L Custom_Library:Screw MK1001
+L LED_Display_Local_Library:Screw MK1001
 U 1 1 5BC10ED5
 P 6470 2210
 F 0 "MK1001" H 6470 2310 50  0000 C CNN
@@ -29,7 +29,7 @@ F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:Screw MK1009
+L LED_Display_Local_Library:Screw MK1009
 U 1 1 5BC11270
 P 7970 2210
 F 0 "MK1009" H 7970 2310 50  0000 C CNN
@@ -41,7 +41,7 @@ F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:Screw MK1002
+L LED_Display_Local_Library:Screw MK1002
 U 1 1 5BC113EE
 P 6470 2960
 F 0 "MK1002" H 6470 3060 50  0000 C CNN
@@ -53,7 +53,7 @@ F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:Screw MK1010
+L LED_Display_Local_Library:Screw MK1010
 U 1 1 5BC113FC
 P 7970 2960
 F 0 "MK1010" H 7970 3060 50  0000 C CNN
@@ -65,7 +65,7 @@ F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:Standoff MK1003
+L LED_Display_Local_Library:Standoff MK1003
 U 1 1 5BC1193F
 P 6470 3720
 F 0 "MK1003" H 6470 3870 50  0000 C CNN
@@ -77,7 +77,7 @@ F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:Standoff MK1011
+L LED_Display_Local_Library:Standoff MK1011
 U 1 1 5BC1235A
 P 7970 3720
 F 0 "MK1011" H 7970 3870 50  0000 C CNN
@@ -89,7 +89,7 @@ F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:Standoff MK1004
+L LED_Display_Local_Library:Standoff MK1004
 U 1 1 5BC12534
 P 6470 4470
 F 0 "MK1004" H 6470 4620 50  0000 C CNN
@@ -101,7 +101,7 @@ F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:Standoff MK1012
+L LED_Display_Local_Library:Standoff MK1012
 U 1 1 5BC12542
 P 7970 4470
 F 0 "MK1012" H 7970 4620 50  0000 C CNN
@@ -154,6 +154,17 @@ F 1 "MountingHole" H 3330 3135 50  0000 C CNN
 F 2 "Mounting_Holes:MountingHole_3mm" H 3330 3010 50  0001 C CNN
 F 3 "~" H 3330 3010 50  0001 C CNN
 	1    3330 3010
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5C003E9A
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

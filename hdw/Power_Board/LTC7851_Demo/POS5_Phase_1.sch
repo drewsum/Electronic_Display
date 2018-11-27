@@ -19,17 +19,17 @@ POS5_RUN
 Text GLabel 1960 3910 0    50   Output ~ 0
 POS5_PGOOD_OC
 $Comp
-L Custom_Library:C_Custom C409
+L LED_Display_Local_Library:C_Custom C409
 U 1 1 5BB875B8
 P 4560 1340
 F 0 "C409" H 4585 1440 50  0000 L CNN
 F 1 "1uF" H 4585 1240 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 4598 1190 50  0001 C CNN
 F 3 "" H 4585 1440 50  0001 C CNN
-F 4 "0603" H 4410 1440 50  0000 R CNN "display_footprint"
-F 5 "16V" H 4410 1340 50  0000 R CNN "Voltage"
-F 6 "X7R" H 4410 1240 50  0000 R CNN "Dielectric"
-F 7 "1276-6524-1-ND" H 4985 1840 60  0001 C CNN "Digi-Key PN"
+F 4 "1276-6524-1-ND" H 4985 1840 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 4410 1440 50  0000 R CNN "display_footprint"
+F 6 "16V" H 4410 1340 50  0000 R CNN "Voltage"
+F 7 "X7R" H 4410 1240 50  0000 R CNN "Dielectric"
 	1    4560 1340
 	1    0    0    -1  
 $EndComp
@@ -45,7 +45,7 @@ F 3 "" H 5180 2020 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:SiC779 U401
+L LED_Display_Local_Library:SiC779 U401
 U 1 1 5BB8C7AD
 P 6080 2810
 F 0 "U401" H 6080 960 50  0000 C CNN
@@ -225,7 +225,7 @@ Connection ~ 6810 3910
 Wire Wire Line
 	6810 3910 6810 4010
 $Comp
-L Custom_Library:L_Custom L401
+L LED_Display_Local_Library:L_Custom L401
 U 1 1 5BB98C10
 P 7440 3310
 F 0 "L401" V 7390 3310 50  0000 C CNN
@@ -276,7 +276,7 @@ Connection ~ 6810 1710
 Wire Wire Line
 	6810 1710 6810 1810
 $Comp
-L Custom_Library:R_Custom R406
+L LED_Display_Local_Library:R_Custom R406
 U 1 1 5BB9AE0E
 P 6980 2470
 F 0 "R406" H 6880 2470 50  0000 R CNN
@@ -291,17 +291,17 @@ F 7 "1/10W" H 7080 2390 50  0000 L CNN "Wattage"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C413
+L LED_Display_Local_Library:C_Custom C413
 U 1 1 5BB9AE19
 P 6980 2850
 F 0 "C413" H 7005 2950 50  0000 L CNN
 F 1 "0.1uF" H 7005 2750 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 7018 2700 50  0001 C CNN
 F 3 "" H 7005 2950 50  0001 C CNN
-F 4 "0603" H 6830 2950 50  0000 R CNN "display_footprint"
-F 5 "50V" H 6830 2850 50  0000 R CNN "Voltage"
-F 6 "X7R" H 6830 2750 50  0000 R CNN "Dielectric"
-F 7 "490-4779-1-ND" H 7405 3350 60  0001 C CNN "Digi-Key PN"
+F 4 "490-4779-1-ND" H 7405 3350 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 6830 2950 50  0000 R CNN "display_footprint"
+F 6 "50V" H 6830 2850 50  0000 R CNN "Voltage"
+F 7 "X7R" H 6830 2750 50  0000 R CNN "Dielectric"
 	1    6980 2850
 	1    0    0    -1  
 $EndComp
@@ -322,7 +322,7 @@ Connection ~ 7190 3310
 Wire Wire Line
 	7190 3310 6810 3310
 $Comp
-L Custom_Library:R_Custom R407
+L LED_Display_Local_Library:R_Custom R407
 U 1 1 5BBBB2FC
 P 4410 3110
 F 0 "R407" V 4790 3110 50  0000 C CNN
@@ -337,7 +337,7 @@ F 7 "1/16W" V 4526 3110 50  0000 C CNN "Wattage"
 	0    1    -1   0   
 $EndComp
 $Comp
-L Custom_Library:C_Custom C415
+L LED_Display_Local_Library:C_Custom C415
 U 1 1 5BBBEAA9
 P 3790 3360
 F 0 "C415" H 3675 3178 50  0000 R CNN
@@ -365,7 +365,7 @@ Connection ~ 3790 3110
 Wire Wire Line
 	3790 3610 3630 3610
 $Comp
-L Custom_Library:C_Custom C416
+L LED_Display_Local_Library:C_Custom C416
 U 1 1 5BBCE509
 P 7880 1340
 F 0 "C416" H 7905 1440 50  0000 L CNN
@@ -429,17 +429,17 @@ Connection ~ 8480 1110
 Wire Wire Line
 	8480 1110 7880 1110
 $Comp
-L Custom_Library:C_Custom C417
+L LED_Display_Local_Library:C_Custom C417
 U 1 1 5BBD7D44
 P 8420 3540
 F 0 "C417" H 8445 3640 50  0000 L CNN
 F 1 "100uF" H 8445 3440 50  0000 L CNN
 F 2 "Capacitors_SMD:C_1210" H 8458 3390 50  0001 C CNN
 F 3 "" H 8445 3640 50  0001 C CNN
-F 4 "1210" H 8270 3640 50  0000 R CNN "display_footprint"
-F 5 "10V" H 8270 3540 50  0000 R CNN "Voltage"
-F 6 "X5R" H 8270 3440 50  0000 R CNN "Dielectric"
-F 7 "587-3432-1-ND" H 8845 4040 60  0001 C CNN "Digi-Key PN"
+F 4 "587-3432-1-ND" H 8845 4040 60  0001 C CNN "Digi-Key PN"
+F 5 "1210" H 8270 3640 50  0000 R CNN "display_footprint"
+F 6 "10V" H 8270 3540 50  0000 R CNN "Voltage"
+F 7 "X5R" H 8270 3440 50  0000 R CNN "Dielectric"
 	1    8420 3540
 	1    0    0    -1  
 $EndComp
@@ -542,7 +542,7 @@ F 3 "" H 5730 7520 50  0001 C CNN
 $EndComp
 Connection ~ 7940 3310
 $Comp
-L Custom_Library:R_Custom R410
+L LED_Display_Local_Library:R_Custom R410
 U 1 1 5BC4AD64
 P 5210 5390
 F 0 "R410" H 5110 5390 50  0000 R CNN
@@ -557,7 +557,7 @@ F 7 "1/16W" H 5310 5310 50  0000 L CNN "Wattage"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C404
+L LED_Display_Local_Library:C_Custom C404
 U 1 1 5BC8C461
 P 3310 5380
 F 0 "C404" H 3335 5480 50  0000 L CNN
@@ -574,7 +574,7 @@ $EndComp
 Wire Wire Line
 	3310 5530 3310 5690
 $Comp
-L Custom_Library:C_Custom C406
+L LED_Display_Local_Library:C_Custom C406
 U 1 1 5BC913E8
 P 3850 5610
 F 0 "C406" H 3875 5710 50  0000 L CNN
@@ -589,7 +589,7 @@ F 7 "X7R" H 3700 5510 50  0000 R CNN "Dielectric"
 	1    0    0    1   
 $EndComp
 $Comp
-L Custom_Library:C_Custom C403
+L LED_Display_Local_Library:C_Custom C403
 U 1 1 5BC9167C
 P 3310 4320
 F 0 "C403" H 3335 4420 50  0000 L CNN
@@ -606,7 +606,7 @@ $EndComp
 Wire Wire Line
 	3310 4470 3310 4630
 $Comp
-L Custom_Library:LTC7851UHH U301
+L LED_Display_Local_Library:LTC7851UHH U301
 U 2 1 5BCC0888
 P 2510 4210
 F 0 "U301" H 2910 2160 50  0000 R CNN
@@ -646,7 +646,7 @@ Wire Wire Line
 	3930 6110 3850 6110
 Connection ~ 3850 6110
 $Comp
-L Custom_Library:R_Custom R401
+L LED_Display_Local_Library:R_Custom R401
 U 1 1 5BDE1E17
 P 1710 6340
 F 0 "R401" H 1610 6340 50  0000 R CNN
@@ -732,22 +732,22 @@ F 3 "" H 4560 1030 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C411
+L LED_Display_Local_Library:C_Custom C411
 U 1 1 5BBF5660
 P 5180 1870
 F 0 "C411" H 5205 1970 50  0000 L CNN
 F 1 "0.1uF" H 5205 1770 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 5218 1720 50  0001 C CNN
 F 3 "" H 5205 1970 50  0001 C CNN
-F 4 "0603" H 5030 1970 50  0000 R CNN "display_footprint"
-F 5 "50V" H 5030 1870 50  0000 R CNN "Voltage"
-F 6 "X7R" H 5030 1770 50  0000 R CNN "Dielectric"
-F 7 "490-4779-1-ND" H 5605 2370 60  0001 C CNN "Digi-Key PN"
+F 4 "490-4779-1-ND" H 5605 2370 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 5030 1970 50  0000 R CNN "display_footprint"
+F 6 "50V" H 5030 1870 50  0000 R CNN "Voltage"
+F 7 "X7R" H 5030 1770 50  0000 R CNN "Dielectric"
 	1    5180 1870
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R405
+L LED_Display_Local_Library:R_Custom R405
 U 1 1 5BBF579B
 P 5180 1340
 F 0 "R405" H 5080 1340 50  0000 R CNN
@@ -775,7 +775,7 @@ $EndComp
 Wire Wire Line
 	8480 1030 8480 1110
 $Comp
-L Custom_Library:R_Custom R409
+L LED_Display_Local_Library:R_Custom R409
 U 1 1 5BBFEF87
 P 7940 4730
 F 0 "R409" H 7840 4730 50  0000 R CNN
@@ -792,23 +792,23 @@ $EndComp
 Text GLabel 8320 5570 2    50   UnSpc ~ 0
 LOOP_TAP
 $Comp
-L Custom_Library:C_Custom C414
+L LED_Display_Local_Library:C_Custom C414
 U 1 1 5BC2428E
 P 7280 1340
 F 0 "C414" H 7305 1440 50  0000 L CNN
 F 1 "1uF" H 7305 1240 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 7318 1190 50  0001 C CNN
 F 3 "" H 7305 1440 50  0001 C CNN
-F 4 "0603" H 7130 1440 50  0000 R CNN "display_footprint"
-F 5 "16V" H 7130 1340 50  0000 R CNN "Voltage"
-F 6 "X7R" H 7130 1240 50  0000 R CNN "Dielectric"
-F 7 "1276-6524-1-ND" H 7705 1840 60  0001 C CNN "Digi-Key PN"
+F 4 "1276-6524-1-ND" H 7705 1840 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 7130 1440 50  0000 R CNN "display_footprint"
+F 6 "16V" H 7130 1340 50  0000 R CNN "Voltage"
+F 7 "X7R" H 7130 1240 50  0000 R CNN "Dielectric"
 	1    7280 1340
 	1    0    0    -1  
 $EndComp
 Connection ~ 9020 3310
 $Comp
-L Custom_Library:CP_Tant_Custom C420
+L LED_Display_Local_Library:CP_Tant_Custom C420
 U 1 1 5BC70CA8
 P 9620 3540
 F 0 "C420" H 9645 3640 50  0000 L CNN
@@ -896,7 +896,7 @@ F 3 "" H 5730 7220 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C419
+L LED_Display_Local_Library:C_Custom C419
 U 1 1 5BC8633B
 P 9020 3540
 F 0 "C419" H 9045 3640 50  0000 L CNN
@@ -911,7 +911,7 @@ F 7 "X5R" H 8870 3440 50  0000 R CNN "Dielectric"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:C_Custom C418
+L LED_Display_Local_Library:C_Custom C418
 U 1 1 5BC8FEA3
 P 8480 1340
 F 0 "C418" H 8505 1440 50  0000 L CNN
@@ -926,7 +926,7 @@ F 7 "X5R" H 8330 1240 50  0000 R CNN "Dielectric"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:CP_Tant_Custom C405
+L LED_Display_Local_Library:CP_Tant_Custom C405
 U 1 1 5BC96F62
 P 3330 7370
 F 0 "C405" H 3355 7470 50  0000 L CNN
@@ -941,7 +941,7 @@ F 7 "20%" H 3180 7270 50  0000 R CNN "Tolerance"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:CP_Tant_Custom C407
+L LED_Display_Local_Library:CP_Tant_Custom C407
 U 1 1 5BC9711C
 P 3930 7370
 F 0 "C407" H 3955 7470 50  0000 L CNN
@@ -956,7 +956,7 @@ F 7 "20%" H 3780 7270 50  0000 R CNN "Tolerance"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:CP_Tant_Custom C408
+L LED_Display_Local_Library:CP_Tant_Custom C408
 U 1 1 5BC9718A
 P 4530 7370
 F 0 "C408" H 4555 7470 50  0000 L CNN
@@ -971,7 +971,7 @@ F 7 "20%" H 4380 7270 50  0000 R CNN "Tolerance"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:CP_Tant_Custom C410
+L LED_Display_Local_Library:CP_Tant_Custom C410
 U 1 1 5BC9721B
 P 5130 7370
 F 0 "C410" H 5155 7470 50  0000 L CNN
@@ -986,7 +986,7 @@ F 7 "20%" H 4980 7270 50  0000 R CNN "Tolerance"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:CP_Tant_Custom C412
+L LED_Display_Local_Library:CP_Tant_Custom C412
 U 1 1 5BC97297
 P 5730 7370
 F 0 "C412" H 5755 7470 50  0000 L CNN
@@ -1001,7 +1001,7 @@ F 7 "20%" H 5580 7270 50  0000 R CNN "Tolerance"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R411
+L LED_Display_Local_Library:R_Custom R411
 U 1 1 5BC9933B
 P 5210 5860
 F 0 "R411" H 5110 5860 50  0000 R CNN
@@ -1016,7 +1016,7 @@ F 7 "1/16W" H 5310 5780 50  0000 L CNN "Wattage"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R404
+L LED_Display_Local_Library:R_Custom R404
 U 1 1 5BCA05EA
 P 3850 4620
 F 0 "R404" H 3750 4620 50  0000 R CNN
@@ -1031,7 +1031,7 @@ F 7 "1/16W" H 3950 4540 50  0000 L CNN "Wattage"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R402
+L LED_Display_Local_Library:R_Custom R402
 U 1 1 5BCA086C
 P 3310 4780
 F 0 "R402" H 3210 4780 50  0000 R CNN
@@ -1046,7 +1046,7 @@ F 7 "1/16W" H 3410 4700 50  0000 L CNN "Wattage"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R403
+L LED_Display_Local_Library:R_Custom R403
 U 1 1 5BCA08FE
 P 3310 5840
 F 0 "R403" H 3210 5840 50  0000 R CNN
@@ -1083,7 +1083,7 @@ Wire Wire Line
 	3850 5460 3850 5110
 Connection ~ 3850 5110
 $Comp
-L Custom_Library:R_Custom R408
+L LED_Display_Local_Library:R_Custom R408
 U 1 1 5BD013D0
 P 7940 6040
 F 0 "R408" H 7870 6160 50  0000 R CNN
@@ -1111,7 +1111,7 @@ Wire Wire Line
 	6810 4110 6810 4010
 Connection ~ 6810 4010
 Text Notes 540  690  0    100  ~ 20
-+5V Phase 1
+04. +5V Phase 1
 NoConn ~ 5430 2810
 NoConn ~ 5430 2910
 NoConn ~ 5430 3110
@@ -1127,7 +1127,7 @@ F 3 "" H 5430 2510 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Custom_Library:C_Custom C401
+L LED_Display_Local_Library:C_Custom C401
 U 1 1 5BD9BA31
 P 1710 5140
 F 0 "C401" H 1735 5240 50  0000 L CNN
@@ -1142,7 +1142,7 @@ F 7 "X7R" H 1560 5040 50  0000 R CNN "Dielectric"
 	-1   0    0    1   
 $EndComp
 $Comp
-L Custom_Library:C_Custom C402
+L LED_Display_Local_Library:C_Custom C402
 U 1 1 5BDA2680
 P 1710 5740
 F 0 "C402" H 1735 5840 50  0000 L CNN
@@ -1165,7 +1165,7 @@ Wire Wire Line
 Wire Wire Line
 	3630 3410 3060 3410
 $Comp
-L Custom_Library:R_Custom R412
+L LED_Display_Local_Library:R_Custom R412
 U 1 1 5BDBC574
 P 7190 3570
 F 0 "R412" V 7280 3570 50  0000 C CNN
@@ -1180,7 +1180,7 @@ F 7 "1/16W" V 7075 3570 50  0001 C CNN "Wattage"
 	1    0    0    1   
 $EndComp
 $Comp
-L Custom_Library:R_Custom R413
+L LED_Display_Local_Library:R_Custom R413
 U 1 1 5BDC36EE
 P 7690 3570
 F 0 "R413" V 7780 3570 50  0000 C CNN
@@ -1277,7 +1277,7 @@ Connection ~ 7940 5570
 Text Label 6470 5570 0    50   ~ 0
 POS5_VSNSO1_+
 $Comp
-L Custom_Library:R_Custom R414
+L LED_Display_Local_Library:R_Custom R414
 U 1 1 5BF4C2D8
 P 8170 5570
 F 0 "R414" V 8260 5570 50  0000 C CNN
@@ -1290,5 +1290,16 @@ F 6 "1%" V 7964 5570 50  0001 C CNN "Tolerance"
 F 7 "1/16W" V 8055 5570 50  0001 C CNN "Wattage"
 	1    8170 5570
 	0    1    -1   0   
+$EndComp
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5C003BFF
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
