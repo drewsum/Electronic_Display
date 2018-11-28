@@ -5,10 +5,10 @@ EELAYER END
 $Descr A 11000 8500
 encoding utf-8
 Sheet 10 14
-Title ""
-Date "2018-10-01"
+Title "Electronic Display Power Board"
+Date "2018-11-28"
 Rev "A"
-Comp ""
+Comp "Marquette Senior Design 2018, Group E44"
 Comment1 ""
 Comment2 ""
 Comment3 ""

@@ -5,10 +5,10 @@ EELAYER END
 $Descr A 11000 8500
 encoding utf-8
 Sheet 2 14
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "Electronic Display Power Board"
+Date "2018-11-28"
+Rev "A"
+Comp "Marquette Senior Design 2018, Group E44"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -915,4 +915,6 @@ F 3 "" H 9900 1100 50  0001 C CNN
 	1    9900 1100
 	1    0    0    -1  
 $EndComp
+Text Notes 6540 6460 0    50   ~ 0
+Note: Components with 'ECO' Reference Designators are modifications to the original design
 $EndSCHEMATC
