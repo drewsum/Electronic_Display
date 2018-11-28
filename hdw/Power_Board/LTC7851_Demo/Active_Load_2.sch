@@ -8,7 +8,7 @@ Sheet 12 14
 Title "Electronic Display Power Board"
 Date "2018-11-28"
 Rev "A"
-Comp "Marquette University Senior Design 2018 Group E44"
+Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
 Comment2 ""
 Comment3 ""
