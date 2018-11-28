@@ -5,10 +5,10 @@ EELAYER END
 $Descr A 11000 8500
 encoding utf-8
 Sheet 7 31
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "Electronic Display Logic Board"
+Date "2018-11-28"
+Rev "A"
+Comp "Marquette University Senior Design 2018 Group E44"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -30,10 +30,10 @@ $EndComp
 Text GLabel 7130 4480 2    50   Input ~ 0
 ~MCLR
 $Comp
-L power:GND #PWR0216
+L power:GND #PWR0701
 U 1 1 5BB53596
 P 7320 5380
-F 0 "#PWR0216" H 7320 5130 50  0001 C CNN
+F 0 "#PWR0701" H 7320 5130 50  0001 C CNN
 F 1 "GND" H 7320 5230 50  0000 C CNN
 F 2 "" H 7320 5380 50  0001 C CNN
 F 3 "" H 7320 5380 50  0001 C CNN

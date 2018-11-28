@@ -8,7 +8,7 @@ Sheet 8 14
 Title "Electronic Display Power Board"
 Date "2018-11-28"
 Rev "A"
-Comp "Marquette Senior Design 2018, Group E44"
+Comp "Marquette University Senior Design 2018 Group E44"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -179,7 +179,7 @@ U 1 1 5BBAFF04
 P 5770 3820
 AR Path="/5BB86F29/5BBAFF04" Ref="R?"  Part="1" 
 AR Path="/5BB9CE4B/5BBAFF04" Ref="R801"  Part="1" 
-F 0 "R801" H 5670 3820 50  0000 R CNN
+F 0 "R801" H 5710 3820 50  0000 R CNN
 F 1 "200" V 5770 3820 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 5770 3820 50  0001 C CNN
 F 3 "" H 5770 3820 50  0001 C CNN
@@ -227,7 +227,7 @@ U 1 1 5BD50813
 P 5770 4280
 AR Path="/5BB86F29/5BD50813" Ref="R?"  Part="1" 
 AR Path="/5BB9CE4B/5BD50813" Ref="R802"  Part="1" 
-F 0 "R802" H 5670 4280 50  0000 R CNN
+F 0 "R802" H 5710 4280 50  0000 R CNN
 F 1 "680" V 5770 4280 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" H 5770 4280 50  0001 C CNN
 F 3 "" H 5770 4280 50  0001 C CNN

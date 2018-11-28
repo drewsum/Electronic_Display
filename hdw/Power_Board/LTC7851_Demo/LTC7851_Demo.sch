@@ -8,7 +8,7 @@ Sheet 1 14
 Title "Electronic Display Power Board"
 Date "2018-11-28"
 Rev "A"
-Comp "Marquette Senior Design 2018, Group E44"
+Comp "Marquette University Senior Design 2018 Group E44"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -94,10 +94,8 @@ F1 "Loop_Response.sch" 50
 $EndSheet
 Text Notes 540  690  0    100  ~ 20
 01. Table of Contents:
-Text Notes 3190 730  0    100  ~ 20
-LED Display Power Supply, Quad-Phase 5V, 45A Buck Converter
-Text Notes 1210 6960 0    80   ~ 16
-02. Power Input\n\n\n03. +5V Control\n\n\n04. +5V Phase 1\n\n\n05. +5V Phase 2\n\n\n06. +5V Phase 3\n\n\n07. +5V Phase 4\n\n\n08. +5.5V MNG\n\n\n09. Power Output\n\n\n10. Mechanical\n\n\n11. Active Load 1\n\n\n12. Active Load 2\n\n\n13. Active Load 3\n\n\n14. Loop Response
+Text Notes 4390 740  0    100  ~ 20
+LED Display Power Board
 Text Notes 3350 1010 0    100  ~ 0
 Marquette University Senior Design 2018/2019, Group E44
 Text Notes 2870 1230 0    100  ~ 0
@@ -113,4 +111,32 @@ F 3 "" H 9900 1100 50  0001 C CNN
 	1    9900 1100
 	1    0    0    -1  
 $EndComp
+Text Notes 900  2090 0    100  ~ 20
+02. Power Input
+Text Notes 900  2500 0    100  ~ 20
+03. +5V Control
+Text Notes 900  2910 0    100  ~ 20
+04. +5V Phase 1
+Text Notes 900  3320 0    100  ~ 20
+05. +5V Phase 2
+Text Notes 900  3730 0    100  ~ 20
+06. +5V Phase 3
+Text Notes 900  4140 0    100  ~ 20
+07. +5V Phase 4
+Text Notes 900  4550 0    100  ~ 20
+08. +5.5V MNG
+Text Notes 900  4960 0    100  ~ 20
+09. Power Output
+Text Notes 900  5370 0    100  ~ 20
+10. Mechanical
+Text Notes 900  5780 0    100  ~ 20
+11. Active Load 1
+Text Notes 900  6190 0    100  ~ 20
+12. Active Load 2
+Text Notes 900  6600 0    100  ~ 20
+13. Actie Load 3
+Text Notes 900  7010 0    100  ~ 20
+14. Loop Response
+Text Notes 990  7850 0    50   ~ 0
+Note: If component footprints, tolerances, and power ratings are hidden, components are:\n0402 case size, 1% tolerance, 1/16W power rating
 $EndSCHEMATC

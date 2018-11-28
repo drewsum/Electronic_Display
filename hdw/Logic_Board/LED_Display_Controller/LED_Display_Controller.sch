@@ -5,10 +5,10 @@ EELAYER END
 $Descr A 11000 8500
 encoding utf-8
 Sheet 1 31
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "Electronic Display Logic Board"
+Date "2018-11-28"
+Rev "A"
+Comp "Marquette University Senior Design 2018 Group E44"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -182,7 +182,7 @@ U 5BAAE2CE
 F0 "Panel Data Connectors" 50
 F1 "Panel_Data_Connectors.sch" 50
 $EndSheet
-Text Notes 710  7930 0    50   ~ 0
+Text Notes 650  7530 0    50   ~ 0
 To Do List:\n* Verify pinouts\n* Draw custom footprints (SRAM, power supply ICs, etc)\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Generate netlist\n* Generate BOM\n* Layout PCB
 $Sheet
 S 8730 6030 500  150 
@@ -275,4 +275,6 @@ F 3 "" H 9900 1100 50  0001 C CNN
 	1    9900 1100
 	1    0    0    -1  
 $EndComp
+Text Notes 720  7920 0    50   ~ 0
+Note: If component footprints, tolerances, and power ratings are hidden, components are:\n0603 case size, 1% tolerance, 1/10W power rating
 $EndSCHEMATC
