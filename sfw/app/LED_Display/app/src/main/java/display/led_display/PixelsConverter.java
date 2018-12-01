@@ -6,6 +6,18 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class PixelsConverter {
+    public Bitmap[][] SplitBitmap(Bitmap bitmap, int dimX, int dimY) {
+        Bitmap[][] bitmapArray = new Bitmap[dimX][dimY];
+        int orig_width = bitmap.getWidth() / dimX;
+        int orig_height = bitmap.getHeight() / dimY;
+        for(int x = 0; x < dimX; ++x) {
+            for(int y = 0; y < dimY; ++y) {
+                bitmapArray[x][y] = Bitmap.createBitmap(bitmap, x * orig_width, y * orig_height, orig_width, orig_height);
+            }
+        }
+        return bitmapArray;
+    }
+
     public int[] BitmapToPixels(Bitmap bitmap) {
         bitmap.getRowBytes();
         int width = bitmap.getWidth();
@@ -106,11 +118,29 @@ public class PixelsConverter {
         return bites;
     }
 
-    public byte[] BitmapToByteArray(Bitmap bitmap) {
-        int[] pixels = BitmapToPixels(bitmap);
-        ArrayList<Integer> rgb = PixelsToRGB(pixels);
-        ArrayList<Integer> bits = RGBToBits(rgb);
-        ArrayList<Integer> panel0 = BitsToMicro(bits);
-        return compilePanelLists(panel0, panel0, panel0, panel0);
+    public byte[] BitmapToByteArray(Bitmap bitmap, int dimX, int dimY) {
+        ArrayList<Integer>[][] panelList = new ArrayList[dimX][dimY];
+        Bitmap[][] bitmapArray = SplitBitmap(bitmap, dimX, dimY);
+        for(int i = 0; i < dimX; i++) {
+            for(int j = 0; j < dimY; j++) {
+                int[] pixels = BitmapToPixels(bitmapArray[i][j]);
+                ArrayList<Integer> rgb = PixelsToRGB(pixels);
+                ArrayList<Integer> bits = RGBToBits(rgb);
+                panelList[i][j] = BitsToMicro(bits);
+            }
+        }
+//        for(int m = 0; m < dimX; m++) {
+//            compilePanelLists(panelList[m][0], panelList[m][1], panelList[m][0], panelList[m][1]);
+//        }
+        byte[] pillar1 = compilePanelLists(panelList[0][0], panelList[0][1], panelList[0][0], panelList[0][1]);
+        byte[] pillar2 = compilePanelLists(panelList[1][0], panelList[1][1], panelList[1][0], panelList[1][1]);
+        byte[] allPillars = new byte[pillar1.length + pillar2.length];
+        Log.d("pillar size: ", "" + pillar1.length);
+        for(int index = 0; index < (allPillars.length / (192*2)); index++) {
+            System.arraycopy(pillar1, index*192, allPillars, (index*2) * 192, 192);
+            System.arraycopy(pillar2, index*192, allPillars, (index*2 + 1)*192, 192);
+        }
+        Log.d("total size: ", "" + allPillars.length);
+        return allPillars;
     }
 }

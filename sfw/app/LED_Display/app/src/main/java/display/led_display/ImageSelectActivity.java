@@ -56,11 +56,11 @@ public class ImageSelectActivity extends AppCompatActivity {
             Bitmap scaledBitmap;
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                scaledBitmap = Bitmap.createScaledBitmap(bitmap,64,64,true);
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap,128,128,true);
                 targetImage.setImageBitmap(scaledBitmap);
                 PixelsConverter pixelsConverter = new PixelsConverter();
                 byte[] printMe;
-                printMe = pixelsConverter.BitmapToByteArray(scaledBitmap);
+                printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, 2, 2);
                 File file = new File("/storage/emulated/0/Download" + "/values.txt");
                 Log.d("Filepath", file.getAbsolutePath());
                 try (PrintWriter out = new PrintWriter(file)) {

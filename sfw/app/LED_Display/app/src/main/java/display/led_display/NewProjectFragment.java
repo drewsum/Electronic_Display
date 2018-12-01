@@ -1,6 +1,5 @@
 package display.led_display;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,12 +14,12 @@ import android.widget.Button;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DeviceSelectFragment.OnFragmentInteractionListener} interface
+ * {@link NewProjectFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DeviceSelectFragment#newInstance} factory method to
+ * Use the {@link NewProjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DeviceSelectFragment extends Fragment implements View.OnClickListener {
+public class NewProjectFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +31,7 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
 
     private OnFragmentInteractionListener mListener;
 
-    public DeviceSelectFragment() {
+    public NewProjectFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +41,11 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DeviceSelectFragment.
+     * @return A new instance of fragment NewProject.
      */
     // TODO: Rename and change types and number of parameters
-    public static DeviceSelectFragment newInstance(String param1, String param2) {
-        DeviceSelectFragment fragment = new DeviceSelectFragment();
+    public static NewProjectFragment newInstance(String param1, String param2) {
+        NewProjectFragment fragment = new NewProjectFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,12 +67,12 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_device_select, container, false);
-        Button buttonSelectDevice = (Button) rootView.findViewById(R.id.buttonDeviceSelect);
-        buttonSelectDevice.setOnClickListener(new Button.OnClickListener() {
+        Button buttonSelectImage = (Button) rootView.findViewById(R.id.buttonSelectImage);
+        buttonSelectImage.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
+                startActivity(new Intent(getActivity(), ImageSelectActivity.class));
             }
         });
         return rootView;
@@ -84,13 +83,6 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
-
-    private void moveToNewActivity() {
-        Intent i = new Intent(getActivity(), WiFiActivity.class);
-        startActivity(i);
-        ((Activity) getActivity()).overridePendingTransition(0,0);
-
     }
 
     @Override
@@ -114,7 +106,7 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonDeviceSelect:
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
+                startActivity(new Intent(getActivity(), ImageSelectActivity.class));
                 break;
         }
     }
