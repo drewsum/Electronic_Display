@@ -1,5 +1,5 @@
-build/default/production/_ext/1360937237/app.o:  \
-../src/app.c  \
+build/default/production/_ext/1360937237/test_image_2.o:  \
+ ../src/test_image_2.c  \
 ../src/app.h  \
  ../src/system_config/default/system_config.h  \
  ../src/system_config/default/system_definitions.h  \
@@ -244,6 +244,4 @@ build/default/production/_ext/1360937237/app.o:  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/plib_ports_compatibility.h  \
  ../src/app.h  \
 ../src/Panel_Pin_Init.h  \
-../src/USB_UART.h  \
-../src/MU_LOGO.h  \
- ../src/test_buffer_fills.h 
+../src/test_image_2.h 

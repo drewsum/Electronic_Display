@@ -68,18 +68,6 @@
 #define panelnOE    LATFbits.LATF5
 
 
-// panel RED signal bus custom macro
-// Could not get to compile as of 10/26/18, switched to setting bus states with functions
-//#define REDREG REDREG
-//extern volatile uint32_t   REDREG __attribute__((section("sfrs"), address(0xBF860030)));
-//typedef union {
-//  struct {
-//    uint32_t RED:8;
-//    uint32_t :16;
-//} __REDREGbits_t;
-//extern volatile __REDREGbits_t REDREGbits __asm__ ("LATA") __attribute__((section("sfrs"), address(0xBF860030)));
-
-
 // Set RGB bus state functions
 void setPanelRedBus(uint8_t);
 void setPanelGreenBus(uint8_t);

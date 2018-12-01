@@ -244,4 +244,7 @@ build/default/production/_ext/1360937237/USB_UART.o:  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Default.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/plib_ports_compatibility.h  \
  ../src/app.h  \
-../src/Panel_Pin_Init.h 
+../src/Panel_Pin_Init.h  \
+../src/test_buffer_fills.h  \
+ ../src/MU_LOGO.h  \
+../src/test_image_2.h 

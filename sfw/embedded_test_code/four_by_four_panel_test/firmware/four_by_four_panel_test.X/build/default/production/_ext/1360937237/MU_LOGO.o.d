@@ -1,7 +1,7 @@
-build/default/production/_ext/1360937237/app.o:  \
-../src/app.c  \
-../src/app.h  \
- ../src/system_config/default/system_config.h  \
+build/default/production/_ext/1360937237/MU_LOGO.o:  \
+../src/MU_LOGO.c  \
+ ../src/app.h  \
+../src/system_config/default/system_config.h  \
  ../src/system_config/default/system_definitions.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/system/common/sys_common.h  \
  ../../../../../../../microchip/harmony/v2_06/framework/system/common/sys_module.h  \
@@ -244,6 +244,4 @@ build/default/production/_ext/1360937237/app.o:  \
  ../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/plib_ports_compatibility.h  \
  ../src/app.h  \
 ../src/Panel_Pin_Init.h  \
-../src/USB_UART.h  \
-../src/MU_LOGO.h  \
- ../src/test_buffer_fills.h 
+../src/MU_LOGO.h 

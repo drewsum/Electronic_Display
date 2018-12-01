@@ -35,6 +35,9 @@
         <itemPath>../src/app.h</itemPath>
         <itemPath>../src/Panel_Pin_Init.h</itemPath>
         <itemPath>../src/USB_UART.h</itemPath>
+        <itemPath>../src/test_buffer_fills.h</itemPath>
+        <itemPath>../src/MU_LOGO.h</itemPath>
+        <itemPath>../src/test_image_2.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="driver" projectFiles="true">
@@ -153,6 +156,9 @@
         <itemPath>../src/main.c</itemPath>
         <itemPath>../src/Panel_Pin_Init.c</itemPath>
         <itemPath>../src/USB_UART.c</itemPath>
+        <itemPath>../src/test_buffer_fills.c</itemPath>
+        <itemPath>../src/MU_LOGO.c</itemPath>
+        <itemPath>../src/test_image_2.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="system" projectFiles="true">

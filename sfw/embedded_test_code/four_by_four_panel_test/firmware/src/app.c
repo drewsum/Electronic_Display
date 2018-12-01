@@ -59,6 +59,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdio.h>
 #include <stdlib.h>
 #include "USB_UART.h"
+#include "MU_LOGO.h"
+#include "test_buffer_fills.h"
+
 
 
 // *****************************************************************************
@@ -101,7 +104,7 @@ uint32_t current_row_index;
 uint32_t current_PWM_frame_index;
 
 // gnarly internal RAM buffer for display
-uint8_t ram_buffer[49152];
+uint8_t ram_buffer[98324];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -127,13 +130,13 @@ void updateRowCallback(void) {
     panelCLK = 0;
     
     // loop through 64 shift clock cycles
-    for (current_shift_clock = 0; current_shift_clock <= 63; current_shift_clock++) {
+    for (current_shift_clock = 0; current_shift_clock <= 127; current_shift_clock++) {
      
-//        // Poor man's delay
-//        uint8_t delay_index = 10;
-//        while (delay_index > 0) {
-//            delay_index--;
-//        };
+        // Poor man's delay
+        uint8_t delay_index = 10;
+        while (delay_index > 0) {
+            delay_index--;
+        };
         
         // Set red pins from RAM buffer
         current_shift_clock_index = 3 * current_shift_clock;
@@ -146,17 +149,17 @@ void updateRowCallback(void) {
         uint8_t blueData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 2];
         setPanelBlueBus(blueData);
 
-//        // Poor man's delay
-//        uint8_t delay_index = 10;
-//        while (delay_index > 0) {
-//            delay_index--;
-//        };
+        // Poor man's delay
+        delay_index = 10;
+        while (delay_index > 0) {
+            delay_index--;
+        };
         
         // Clock data into panel
         panelCLK = 1;
         
         // Poor man's delay
-        uint8_t delay_index = 10;
+        delay_index = 10;
         while (delay_index > 0) {
             delay_index--;
         };
@@ -174,6 +177,13 @@ void updateRowCallback(void) {
     
     // Enable pixel output
     panelnOE = 0;
+        
+    // Poor man's delay
+    uint8_t delay_index = 10;
+    while (delay_index > 0) {
+        delay_index--;
+    };
+        
     
     // Next function call, update the next row
     current_row++;
@@ -187,7 +197,7 @@ void updateRowCallback(void) {
     }
     
     // Update row index variable
-    current_row_index = 192 * current_row;
+    current_row_index = 384 * current_row;
     
     // Reset current_PWM_frame counter
     if (current_PWM_frame >= 8) {
@@ -197,7 +207,7 @@ void updateRowCallback(void) {
     }
     
     // Update PWM index variable
-    current_PWM_frame_index = 6144 * current_PWM_frame;
+    current_PWM_frame_index = 12288 * current_PWM_frame;
     
     // Restart on time timer
     DRV_TMR1_Start();
@@ -210,33 +220,6 @@ void updateRowCallback(void) {
 // *****************************************************************************
 // *****************************************************************************
 
-// fill ram buffer with all white pixels
-void fillRamBufferWhite(void) {
- 
-    unsigned int address_index;
-    
-    for (address_index = 0; address_index < 49152; address_index++) {
-     
-        ram_buffer[address_index] = 0xFF;
-        
-    }
-    
-}
-
-// fill ram buffer with random data
-void fillRamBufferRand(void) {
- 
-    unsigned int address_index;
-    
-    srand(10);
-    
-    for (address_index = 0; address_index < 49152; address_index++) {
-     
-        ram_buffer[address_index] = (uint8_t) rand() % 50;
-        
-    }
-    
-}
 
 
 
@@ -288,14 +271,13 @@ void APP_Tasks ( void )
             TRISECLR = (1 << 3);
             TRISECLR = (1 << 4);
             
-            
             // Setup USB UART
             USB_UART_Initialize();
             USB_UART_clearTerminal();
             USB_UART_setCursorHome();
             
             // Initialize ram buffer with data
-            fillRamBufferRand();
+            fillRamBufferWhite();
             
             // Setup timer 1 interrupt for counting
             PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_1);

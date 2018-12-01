@@ -1,6 +1,8 @@
 
 #include "USB_UART.h"
-
+#include "test_buffer_fills.h"
+#include "MU_LOGO.h"
+#include "test_image_2.h"
 #include <xc.h>
 #include <string.h>
 #include <stdarg.h>
@@ -482,6 +484,116 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
     }
     
+    // set ram buffer white
+    else if(strcmp(line_in, "Set White") == 0) {
+     
+        fillRamBufferWhite();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with white data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer red
+    else if(strcmp(line_in, "Set Red") == 0) {
+     
+        fillRamBufferRed();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with red data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer blue
+    else if(strcmp(line_in, "Set Blue") == 0) {
+     
+        fillRamBufferBlue();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with blue data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer white
+    else if(strcmp(line_in, "Set Green") == 0) {
+     
+        fillRamBufferGreen();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with green data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer Cyan
+    else if(strcmp(line_in, "Set Cyan") == 0) {
+     
+        fillRamBufferCyan();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with cyan data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer random
+    else if(strcmp(line_in, "Set Rand") == 0) {
+     
+        fillRamBufferRand();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with random data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer magenta
+    else if(strcmp(line_in, "Set Magenta") == 0) {
+     
+        fillRamBufferMagenta();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with magenta data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer yellow
+    else if(strcmp(line_in, "Set Yellow") == 0) {
+     
+        fillRamBufferYellow();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with yellow data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+            
+    // set ram buffer MU Logo
+    else if(strcmp(line_in, "Set MU Logo") == 0) {
+     
+        fillRamBufferMULogo();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with MU Logo data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }        
+    
+    // set ram buffer MU Logo
+    else if(strcmp(line_in, "Set Test Image 2") == 0) {
+     
+        fillRamBufferTestImage2();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with Test Image 2 data\n\r");
+        USB_UART_textAttributesReset();
+        
+    }               
+    
     // Help message
     else if(strcmp(line_in, "Help") == 0) {
      
@@ -698,6 +810,18 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
     USB_UART_print("    Credits: Displays creators\n\r");
     USB_UART_print("    Help: This Command\n\r");
+    USB_UART_print("    Set Red: Sets panels red\n\r");
+    USB_UART_print("    Set White: Sets panels white\n\r");    
+    USB_UART_print("    Set Blue: Sets panels blue\n\r");
+    USB_UART_print("    Set Yellow: Sets panels yellow\n\r");
+    USB_UART_print("    Set Cyan: Sets panels cyan\n\r");    
+    USB_UART_print("    Set Green: Sets panels green\n\r");    
+    USB_UART_print("    Set Magenta: Sets panels magenta\n\r");    
+    USB_UART_print("    Set MU Logo: Sets panel as MU Logo static image\n\r");
+    USB_UART_print("    Set Rand: Sets panel to random data\n\r");
+    USB_UART_print("    Set Test Image 2: Fills ram buffer with kevin's second test image\n\r");
+    
+    
     USB_UART_textAttributesReset();
 
 }
