@@ -5,13 +5,14 @@
         <group>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/test_image_2.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/Panel_Pin_Init.c</file>
+            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/test_buffer_fills.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/app.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/framework/system/common/sys_module.h</file>
+            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/test_buffer_fills.h</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/Panel_Pin_Init.h</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/main.c</file>
             <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/test_image_2.h</file>
-            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_static.c</file>
-            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/system_config/default/framework/driver/oc/drv_oc_static.h</file>
+            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/app.h</file>
+            <file>file:/C:/work/Electronic_Display/sfw/embedded_test_code/four_by_four_panel_test/firmware/src/USB_UART.c</file>
         </group>
     </open-files>
 </project-private>

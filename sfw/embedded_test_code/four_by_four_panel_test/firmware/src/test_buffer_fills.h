@@ -44,6 +44,24 @@ void fillRamBufferCyan(void);
 // fill ram buffer with all magenta
 void fillRamBufferMagenta(void);
 
+// fill ram buffer with all magenta
+void fillRamBufferEveryOtherRed(void);
+
+// fill ram buffer with every other red
+void fillRamBufferEveryOtherBlue(void);
+
+// fill ram buffer with every other green
+void fillRamBufferEveryOtherGreen(void);
+
+// fill ram buffer with christmas stripes
+void fillRamBufferChristmas(void);
+
+// fill ram buffer with RGB stripes
+void fillRamBufferRGBStripes(void);
+
+// fill ram buffer with red rows
+void fillRamBufferRedRow(void);
+
 
 
 #endif /* _TEST_BUFFER_FILLS_H */

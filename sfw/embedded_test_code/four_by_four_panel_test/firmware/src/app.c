@@ -298,6 +298,9 @@ void APP_Tasks ( void )
             // Enable panel display
             panelnOE = 0;
             
+            // 
+            USB_UART_print("Boot Complete\n\r");
+            
             bool appInitialized = true;
        
         

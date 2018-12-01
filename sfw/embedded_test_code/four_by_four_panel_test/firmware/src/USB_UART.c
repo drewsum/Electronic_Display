@@ -583,7 +583,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
     }        
     
-    // set ram buffer MU Logo
+    // set ram buffer Test Image 2
     else if(strcmp(line_in, "Set Test Image 2") == 0) {
      
         fillRamBufferTestImage2();
@@ -593,6 +593,75 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributesReset();
         
     }               
+    
+    // set ram buffer every other red
+    else if(strcmp(line_in, "Set Every Other Red") == 0) {
+     
+        fillRamBufferEveryOtherRed();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with stripes of red\n\r");
+        USB_UART_textAttributesReset();
+        
+    }     
+    
+    
+    // set ram buffer every other blue
+    else if(strcmp(line_in, "Set Every Other Blue") == 0) {
+     
+        fillRamBufferEveryOtherBlue();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with stripes of blue\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer every other green
+    else if(strcmp(line_in, "Set Every Other Green") == 0) {
+     
+        fillRamBufferEveryOtherGreen();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with stripes of green\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer to christmas stripes
+    else if(strcmp(line_in, "Set Christmas Stripes") == 0) {
+     
+        fillRamBufferChristmas();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with christmas stripes\n\r");
+        USB_UART_textAttributesReset();
+        
+    }    
+    
+    
+    // set ram buffer to RGB pattern
+    else if(strcmp(line_in, "Set RGB Stripes") == 0) {
+     
+        fillRamBufferRGBStripes();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with rgb stripes\n\r");
+        USB_UART_textAttributesReset();
+        
+    }  
+
+    // set ram buffer to red rows
+    else if(strcmp(line_in, "Set Red Rows") == 0) {
+     
+        fillRamBufferRedRow();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with red rows\n\r");
+        USB_UART_textAttributesReset();
+        
+    }  
+
     
     // Help message
     else if(strcmp(line_in, "Help") == 0) {
@@ -820,8 +889,13 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Set MU Logo: Sets panel as MU Logo static image\n\r");
     USB_UART_print("    Set Rand: Sets panel to random data\n\r");
     USB_UART_print("    Set Test Image 2: Fills ram buffer with kevin's second test image\n\r");
-    
-    
+    USB_UART_print("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
+    USB_UART_print("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
+    USB_UART_print("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
+    USB_UART_print("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
+    USB_UART_print("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
+    USB_UART_print("    Set Red Rows: Fills ram buffer with red rows\n\r");
+        
     USB_UART_textAttributesReset();
 
 }
