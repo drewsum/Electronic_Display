@@ -1,5 +1,6 @@
 package display.led_display;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -66,7 +67,7 @@ public class NewProjectFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_device_select, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_new_project, container, false);
         Button buttonSelectImage = (Button) rootView.findViewById(R.id.buttonSelectImage);
         buttonSelectImage.setOnClickListener(new Button.OnClickListener() {
 
@@ -85,6 +86,12 @@ public class NewProjectFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    private void moveToNewActivity() {
+        Intent i = new Intent(getActivity(), WiFiActivity.class);
+        startActivity(i);
+        ((Activity) getActivity()).overridePendingTransition(0,0);
+
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -105,7 +112,7 @@ public class NewProjectFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonDeviceSelect:
+            case R.id.buttonSelectImage:
                 startActivity(new Intent(getActivity(), ImageSelectActivity.class));
                 break;
         }

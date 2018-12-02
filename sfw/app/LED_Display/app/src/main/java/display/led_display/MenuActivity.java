@@ -18,6 +18,7 @@ import android.view.View;
 
 public class MenuActivity extends AppCompatActivity
         implements DeviceSelectFragment.OnFragmentInteractionListener,
+        NewProjectFragment.OnFragmentInteractionListener,
         ProjectPreviewFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
@@ -88,7 +89,7 @@ public class MenuActivity extends AppCompatActivity
         Class fragmentClass = null;
 
         if (id == R.id.nav_add) {
-            fragmentClass = DeviceSelectFragment.class;
+            fragmentClass = NewProjectFragment.class;
         } else if (id == R.id.nav_edit) {
             fragmentClass = DeviceSelectFragment.class;
         } else if (id == R.id.nav_preview) {
