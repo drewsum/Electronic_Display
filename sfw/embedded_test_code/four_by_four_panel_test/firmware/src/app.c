@@ -59,7 +59,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdio.h>
 #include <stdlib.h>
 #include "USB_UART.h"
-#include "MU_LOGO.h"
 #include "test_buffer_fills.h"
 
 
@@ -150,10 +149,10 @@ void updateRowCallback(void) {
         setPanelBlueBus(blueData);
 
         // Poor man's delay
-        delay_index = 10;
-        while (delay_index > 0) {
-            delay_index--;
-        };
+//        delay_index = 10;
+//        while (delay_index > 0) {
+//            delay_index--;
+//        };
         
         // Clock data into panel
         panelCLK = 1;
@@ -178,11 +177,11 @@ void updateRowCallback(void) {
     // Enable pixel output
     panelnOE = 0;
         
-    // Poor man's delay
-    uint8_t delay_index = 10;
-    while (delay_index > 0) {
-        delay_index--;
-    };
+//    // Poor man's delay
+//    uint8_t delay_index = 10;
+//    while (delay_index > 0) {
+//        delay_index--;
+//    };
         
     
     // Next function call, update the next row
