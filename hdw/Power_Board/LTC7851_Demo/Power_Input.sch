@@ -892,17 +892,17 @@ ECO1 Cap added to slow down +12V rise time
 $Comp
 L Motor:Fan ECO2
 U 1 1 5BFE4F70
-P 1610 5230
-F 0 "ECO2" H 1710 5430 50  0000 L CNN
-F 1 "Fan" H 1710 5130 50  0000 L TNN
-F 2 "" H 1610 5240 50  0001 C CNN
-F 3 "~" H 1610 5240 50  0001 C CNN
-	1    1610 5230
+P 1970 6930
+F 0 "ECO2" H 2070 7130 50  0000 L CNN
+F 1 "Fan" H 2070 6830 50  0000 L TNN
+F 2 "" H 1970 6940 50  0001 C CNN
+F 3 "~" H 1970 6940 50  0001 C CNN
+	1    1970 6930
 	1    0    0    -1  
 $EndComp
-NoConn ~ 1610 4930
-NoConn ~ 1610 5430
-Text Notes 880  5670 0    50   ~ 0
+NoConn ~ 1970 6630
+NoConn ~ 1970 7130
+Text Notes 1240 7370 0    50   ~ 0
 Fan added for forced air cooling
 $Comp
 L LED_Display_Local_Library:MU_Logo #G?
@@ -917,4 +917,6 @@ F 3 "" H 9900 1100 50  0001 C CNN
 $EndComp
 Text Notes 6540 6460 0    50   ~ 0
 Note: Components with 'ECO' Reference Designators are modifications to the original design
+Text Notes 1270 5160 0    50   ~ 0
+UVLO threshold set to 10V\nOVLO threshold set to 14V
 $EndSCHEMATC
