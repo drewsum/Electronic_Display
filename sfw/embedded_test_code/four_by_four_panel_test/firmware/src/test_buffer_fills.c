@@ -229,6 +229,7 @@ void fillRamBufferEveryOtherBlue(void) {
         }
         
     }
+    
 }
 
 // fill ram buffer with every other green
@@ -336,6 +337,12 @@ void fillRamBufferRedRow(void) {
             if (address_index % 3 == 0) {
                 
                 ram_buffer[address_index] = 0xFF;
+            
+            }
+            
+            else {
+         
+            ram_buffer[address_index] = 0x00;
             
             }
             

@@ -38,6 +38,16 @@
         <itemPath>../src/test_buffer_fills.h</itemPath>
         <itemPath>../src/MU_LOGO.h</itemPath>
         <itemPath>../src/test_image_2.h</itemPath>
+        <itemPath>../src/shocker.h</itemPath>
+        <itemPath>../src/drew2.h</itemPath>
+        <itemPath>../src/tv_test.h</itemPath>
+        <itemPath>../src/nfl.h</itemPath>
+        <itemPath>../src/colors.h</itemPath>
+        <itemPath>../src/addidas.h</itemPath>
+        <itemPath>../src/bmw.h</itemPath>
+        <itemPath>../src/fire.h</itemPath>
+        <itemPath>../src/swirl.h</itemPath>
+        <itemPath>../src/bosch.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="driver" projectFiles="true">
@@ -159,6 +169,16 @@
         <itemPath>../src/test_buffer_fills.c</itemPath>
         <itemPath>../src/MU_LOGO.c</itemPath>
         <itemPath>../src/test_image_2.c</itemPath>
+        <itemPath>../src/shocker.c</itemPath>
+        <itemPath>../src/drew2.c</itemPath>
+        <itemPath>../src/tv_test.c</itemPath>
+        <itemPath>../src/nfl.c</itemPath>
+        <itemPath>../src/colors.c</itemPath>
+        <itemPath>../src/addidas.c</itemPath>
+        <itemPath>../src/bmw.c</itemPath>
+        <itemPath>../src/fire.c</itemPath>
+        <itemPath>../src/swirl.c</itemPath>
+        <itemPath>../src/bosch.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="system" projectFiles="true">

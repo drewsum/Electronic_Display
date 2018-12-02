@@ -461,7 +461,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
     }
     
     // Identification command
-    else if(strcmp(line_in, "Enable Multiplexing") == 0) {
+    else if(strcmp(line_in, "Enable Muxing") == 0) {
      
         // Disable multiplexing timer
         PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_2);
@@ -473,7 +473,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
     }
     
     // disable multiplexing
-    else if(strcmp(line_in, "Disable Multiplexing") == 0) {
+    else if(strcmp(line_in, "Disable Muxing") == 0) {
      
         // Disable multiplexing timer
         PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_TIMER_2);
@@ -661,7 +661,141 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributesReset();
         
     }  
+    
+    // set ram buffer to red rows
+    else if(strcmp(line_in, "Set Shocker") == 0) {
+     
+        fillRamBufferShocker();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with Drew being silly\n\r");
+        USB_UART_textAttributesReset();
+        
+    }    
+    
+    // set ram buffer to drew 2 test image
+    else if(strcmp(line_in, "Set Drew 2") == 0) {
+     
+        fillRamBufferDrew2();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with Drew being silly (second image)\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer to tv test image
+    else if(strcmp(line_in, "Set TV Test") == 0) {
+     
+        fillRamBufferTVTest();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with TV Test Image\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer to NFL image
+    else if(strcmp(line_in, "Set NFL") == 0) {
+     
+        fillRamBufferNFL();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram buffer filled with NFL Image\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
 
+    // set ram buffer to colors image
+    else if(strcmp(line_in, "Set Colors") == 0) {
+    
+        fillRamBufferColors();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram Buffer filled with colors\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+
+    // set ram buffer to addidas image
+    else if(strcmp(line_in, "Set Addidas") == 0) {
+    
+        fillRamBufferAddidas();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram Buffer filled with addidas image\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer to BMW image
+    else if(strcmp(line_in, "Set BMW") == 0) {
+    
+        fillRamBufferBMW();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram Buffer filled with BMW image\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+  // set ram buffer to fire image
+    else if(strcmp(line_in, "Set Fire") == 0) {
+    
+        fillRamBufferFire();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram Buffer filled with Fire image\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer to fire image
+    else if(strcmp(line_in, "Set Swirl") == 0) {
+    
+        fillRamBufferSwirl();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram Buffer filled with swirl image\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // set ram buffer to bosch image
+    else if(strcmp(line_in, "Set Bosch") == 0) {
+    
+        fillRamBufferBosch();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram Buffer filled with bosch image\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // slow down multiplexing command
+    else if(strcmp(line_in, "Slow Muxing Speed") == 0) {
+     
+        PLIB_TMR_Period16BitSet(TMR_ID_2, 65535);
+        PLIB_TMR_PrescaleSelect(TMR_ID_2, TMR_PRESCALE_VALUE_2);
+        
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("Slowed down the multiplexing speed\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    // reset multiplexing command
+    else if(strcmp(line_in, "Reset Muxing Speed") == 0) {
+     
+        PLIB_TMR_Period16BitSet(TMR_ID_2, 250);
+        PLIB_TMR_PrescaleSelect(TMR_ID_2, TMR_PRESCALE_VALUE_1);
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Reset multiplexing speed\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    
     
     // Help message
     else if(strcmp(line_in, "Help") == 0) {
@@ -873,8 +1007,8 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Reset: Software Reset\n\r");
     USB_UART_print("    Clear: Clears the terminal\n\r");
     USB_UART_print("    *IDN?: Returns identification string\n\r");
-    USB_UART_print("    Enable Multiplexing: enables the multiplexing timer \n\r");
-    USB_UART_print("    Disable Multiplexing: disable the multiplexing timer \n\r");
+    USB_UART_print("    Enable Muxing: enables the multiplexing timer \n\r");
+    USB_UART_print("    Disable Muxing: disable the multiplexing timer \n\r");
     USB_UART_print("    Device On Time?: Returns the device on time in seconds since last reset\n\r");
     USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
     USB_UART_print("    Credits: Displays creators\n\r");
@@ -895,7 +1029,19 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
     USB_UART_print("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
     USB_UART_print("    Set Red Rows: Fills ram buffer with red rows\n\r");
-        
+    USB_UART_print("    Set Shocker: Displays an inappropriate test image\n\r");
+    USB_UART_print("    Set Drew 2: Displays drews second test image\n\r");
+    USB_UART_print("    Slow Muxing Speed: Slows down multiplexing\n\r");
+    USB_UART_print("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
+    USB_UART_print("    Set TV Test: Fills ram buffer with TV Test image\n\r");
+    USB_UART_print("    Set NFL: Fills ram buffer with kevin's NFL image\n\r");
+    USB_UART_print("    Set Colors: Fills ram buffer with colors\n\r");
+    USB_UART_print("    Set Addidas: Fills ram buffer with addidas image\n\r");
+    USB_UART_print("    Set BMW: Fills ram buffer with BMW logo\n\r");
+    USB_UART_print("    Set Fire: Fills ram buffer with fire\n\r");
+    USB_UART_print("    Set Swirl: Fills ram buffer with swirl image\n\r");
+    USB_UART_print("    Set Bosch: Fills ram buffer with bosch image\n\r");
+    
     USB_UART_textAttributesReset();
 
 }

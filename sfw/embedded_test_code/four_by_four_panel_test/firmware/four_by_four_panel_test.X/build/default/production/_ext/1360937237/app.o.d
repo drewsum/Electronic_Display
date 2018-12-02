@@ -245,5 +245,4 @@ build/default/production/_ext/1360937237/app.o:  \
  ../src/app.h  \
 ../src/Panel_Pin_Init.h  \
 ../src/USB_UART.h  \
-../src/MU_LOGO.h  \
  ../src/test_buffer_fills.h 

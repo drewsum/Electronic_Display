@@ -149,13 +149,11 @@
         <Name dnOrder="0">drv_tmr_static.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default/framework/driver/tmr</Path>
         <Checksum dnOrder="2">1C7228F02C03792BAB187C996AEBCD0E</Checksum>
-        <ProjectFileChecksum dnOrder="3">558DEB2C8E43504E511EEBE4E1BC4E8B</ProjectFileChecksum>
       </Template>
       <Template dnOrder="3">
         <Name dnOrder="0">drv_tmr_mapping.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/tmr/src</Path>
         <Checksum dnOrder="2">DBE26CBCA22A445A54836CB11F19BC62</Checksum>
-        <ProjectFileChecksum dnOrder="3">750B2C1A8F8F881F38287303204D9F9B</ProjectFileChecksum>
       </Template>
       <Template dnOrder="4">
         <Name dnOrder="0">drv_usart_mapping.c</Name>
@@ -249,7 +247,6 @@
         <Name dnOrder="0">drv_tmr_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/tmr/src</Path>
         <Checksum dnOrder="2">F42A56A7CD058A2DEC2B7BE67884BC59</Checksum>
-        <ProjectFileChecksum dnOrder="3">48FAAB39B298EF458DBDBF17BFF0DA7B</ProjectFileChecksum>
       </Template>
       <Template dnOrder="23">
         <Name dnOrder="0">sys_clk_pic32mz.c</Name>
