@@ -771,6 +771,17 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
     }
     
+    // set ram buffer to kevin image
+    else if(strcmp(line_in, "Set Kevin") == 0) {
+    
+        fillRamBufferKevin();
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Ram Buffer filled with kevin image\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
     // slow down multiplexing command
     else if(strcmp(line_in, "Slow Muxing Speed") == 0) {
      
@@ -1041,6 +1052,7 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Set Fire: Fills ram buffer with fire\n\r");
     USB_UART_print("    Set Swirl: Fills ram buffer with swirl image\n\r");
     USB_UART_print("    Set Bosch: Fills ram buffer with bosch image\n\r");
+    USB_UART_print("    Set Kevin: Fills ram buffer with kevin image\n\r");
     
     USB_UART_textAttributesReset();
 

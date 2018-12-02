@@ -48,6 +48,7 @@
         <itemPath>../src/fire.h</itemPath>
         <itemPath>../src/swirl.h</itemPath>
         <itemPath>../src/bosch.h</itemPath>
+        <itemPath>../src/kevin.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="driver" projectFiles="true">
@@ -179,6 +180,7 @@
         <itemPath>../src/fire.c</itemPath>
         <itemPath>../src/swirl.c</itemPath>
         <itemPath>../src/bosch.c</itemPath>
+        <itemPath>../src/kevin.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="system" projectFiles="true">
