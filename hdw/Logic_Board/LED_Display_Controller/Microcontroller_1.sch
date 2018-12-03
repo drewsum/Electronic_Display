@@ -190,4 +190,6 @@ F 3 "" H 9900 1100 50  0001 C CNN
 	1    9900 1100
 	1    0    0    -1  
 $EndComp
+Text Notes 8270 2720 0    50   ~ 0
+Row A is Least Significant Bit
 $EndSCHEMATC
