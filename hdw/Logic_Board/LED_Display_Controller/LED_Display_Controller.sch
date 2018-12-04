@@ -183,7 +183,7 @@ F0 "Panel Data Connectors" 50
 F1 "Panel_Data_Connectors.sch" 50
 $EndSheet
 Text Notes 650  7530 0    50   ~ 0
-To Do List:\n* Copy custom power footprints to local library\n* Draw custom footprints (SRAM, power supply ICs, etc)\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Generate netlist\n* Generate BOM\n* Layout PCB
+To Do List:\n* Draw custom footprints (SRAM, power supply ICs, etc)\n* Assign footprints\n* Assign Digi-Key Partnumbers\n* Run ERC, resolve errors\n* Generate netlist\n* Generate BOM\n* Layout PCB
 $Sheet
 S 8730 6030 500  150 
 U 5BBF5233
