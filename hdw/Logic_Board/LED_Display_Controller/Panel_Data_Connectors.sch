@@ -22,6 +22,7 @@ F 0 "J2901" H 2600 2317 50  0000 C CNN
 F 1 "STRING 1" H 2600 2226 50  0000 C CNN
 F 2 "" H 2550 1800 50  0001 C CNN
 F 3 "~" H 2550 1800 50  0001 C CNN
+F 4 "ED10523-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    2550 1800
 	1    0    0    -1  
 $EndComp
@@ -81,6 +82,7 @@ F 0 "J2902" H 2600 3817 50  0000 C CNN
 F 1 "STRING 2" H 2600 3726 50  0000 C CNN
 F 2 "" H 2550 3300 50  0001 C CNN
 F 3 "~" H 2550 3300 50  0001 C CNN
+F 4 "ED10523-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    2550 3300
 	1    0    0    -1  
 $EndComp
@@ -140,6 +142,7 @@ F 0 "J2903" H 2600 5317 50  0000 C CNN
 F 1 "STRING 3" H 2600 5226 50  0000 C CNN
 F 2 "" H 2550 4800 50  0001 C CNN
 F 3 "~" H 2550 4800 50  0001 C CNN
+F 4 "ED10523-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    2550 4800
 	1    0    0    -1  
 $EndComp
@@ -199,6 +202,7 @@ F 0 "J2904" H 2600 6817 50  0000 C CNN
 F 1 "STRING 4" H 2600 6726 50  0000 C CNN
 F 2 "" H 2550 6300 50  0001 C CNN
 F 3 "~" H 2550 6300 50  0001 C CNN
+F 4 "ED10523-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    2550 6300
 	1    0    0    -1  
 $EndComp
@@ -258,6 +262,7 @@ F 0 "D2901" H 4990 2660 50  0000 L CNN
 F 1 "SP0505BAJT" H 4990 2585 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 4990 2510 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 4815 2685 50  0001 C CNN
+F 4 "F3160CT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    4690 2560
 	1    0    0    -1  
 $EndComp
@@ -344,6 +349,7 @@ F 0 "D2903" H 6180 2660 50  0000 L CNN
 F 1 "SP0505BAJT" H 6180 2585 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 6180 2510 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 6005 2685 50  0001 C CNN
+F 4 "F3160CT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    5880 2560
 	1    0    0    -1  
 $EndComp
@@ -366,6 +372,7 @@ F 0 "D2905" H 7370 2660 50  0000 L CNN
 F 1 "SP0505BAJT" H 7370 2585 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 7370 2510 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 7195 2685 50  0001 C CNN
+F 4 "F3160CT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    7070 2560
 	1    0    0    -1  
 $EndComp
@@ -388,6 +395,7 @@ F 0 "D2906" H 8560 2660 50  0000 L CNN
 F 1 "SP0505BAJT" H 8560 2585 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 8560 2510 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 8385 2685 50  0001 C CNN
+F 4 "F3160CT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    8260 2560
 	1    0    0    -1  
 $EndComp
@@ -410,6 +418,7 @@ F 0 "D2902" H 4990 3950 50  0000 L CNN
 F 1 "SP0505BAJT" H 4990 3875 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 4990 3800 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 4815 3975 50  0001 C CNN
+F 4 "F3160CT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    4690 3850
 	1    0    0    -1  
 $EndComp
@@ -432,6 +441,7 @@ F 0 "D2904" H 6180 3950 50  0000 L CNN
 F 1 "SP0505BAJT" H 6180 3875 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 6180 3800 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 6005 3975 50  0001 C CNN
+F 4 "F3160CT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    5880 3850
 	1    0    0    -1  
 $EndComp
@@ -454,6 +464,7 @@ F 0 "D2907" H 9830 2660 50  0000 L CNN
 F 1 "SP0505BAJT" H 9830 2585 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 9830 2510 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 9655 2685 50  0001 C CNN
+F 4 "F3160CT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    9530 2560
 	1    0    0    -1  
 $EndComp
