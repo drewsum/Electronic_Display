@@ -644,7 +644,7 @@ F 0 "U1101" H 3090 6340 50  0000 C CNN
 F 1 "LT6700-1-S6" H 2790 6840 50  0000 C CNN
 F 2 "TO_SOT_Packages_SMD:TSOT-23-6" H 2790 6840 60  0001 C CNN
 F 3 "http://www.analog.com/media/en/technical-documentation/data-sheets/6700123fh.pdf" H 2790 6840 60  0001 C CNN
-F 4 "LT6700IS6-1#TRMPBFCT-ND" H 2790 6840 50  0001 C CNN "Digi-Key PN"
+F 4 "LT6700CS6-1#TRMPBFCT-ND" H 2790 6840 50  0001 C CNN "Digi-Key PN"
 	1    2790 6840
 	1    0    0    -1  
 $EndComp

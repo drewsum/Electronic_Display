@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>C:\Users\Drew Maatman\Documents\KiCad Projects\Projects\Electronic_Display\hdw\Logic_Board\LED_Display_Controller\LED_Display_Controller.sch</source>
-    <date>12/6/2018 2:11:44 PM</date>
+    <date>12/6/2018 3:10:19 PM</date>
     <tool>Eeschema (5.0.1)-3</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -908,7 +908,7 @@
       <value>100uF</value>
       <footprint>Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow</footprint>
       <fields>
-        <field name="Digi-Key PN">399-5306-1-ND</field>
+        <field name="Digi-Key PN">478-3130-1-ND</field>
         <field name="Tolerance">20%</field>
         <field name="Voltage">6.3V</field>
         <field name="display_footprint">3528</field>
@@ -1628,7 +1628,7 @@
       <value>100uF</value>
       <footprint>Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow</footprint>
       <fields>
-        <field name="Digi-Key PN">399-5306-1-ND</field>
+        <field name="Digi-Key PN">478-3130-1-ND</field>
         <field name="Tolerance">20%</field>
         <field name="Voltage">6.3V</field>
         <field name="display_footprint">3528</field>
@@ -1851,7 +1851,7 @@
       <value>100uF</value>
       <footprint>Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow</footprint>
       <fields>
-        <field name="Digi-Key PN">399-5306-1-ND</field>
+        <field name="Digi-Key PN">478-3130-1-ND</field>
         <field name="Tolerance">20%</field>
         <field name="Voltage">6.3V</field>
         <field name="display_footprint">3528</field>
@@ -2254,7 +2254,7 @@
       <footprint>TO_SOT_Packages_SMD:TSOT-23-6</footprint>
       <datasheet>http://www.analog.com/media/en/technical-documentation/data-sheets/6700123fh.pdf</datasheet>
       <fields>
-        <field name="Digi-Key PN">LT6700IS6-1#TRMPBFCT-ND</field>
+        <field name="Digi-Key PN">LT6700CS6-1#TRMPBFCT-ND</field>
       </fields>
       <libsource lib="LED_Display_Local_Library" part="LT6700-1-S6" description="Micropower, Low Voltage, Dual Comparator with 400mV Reference"/>
       <sheetpath names="/USB UART Bridge/" tstamps="/5BAAE1F3/"/>
@@ -3780,7 +3780,7 @@
       <value>100uF</value>
       <footprint>Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow</footprint>
       <fields>
-        <field name="Digi-Key PN">399-5306-1-ND</field>
+        <field name="Digi-Key PN">478-3130-1-ND</field>
         <field name="Tolerance">20%</field>
         <field name="Voltage">6.3V</field>
         <field name="display_footprint">3528</field>

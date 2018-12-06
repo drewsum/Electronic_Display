@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "C:\\Users\\Drew Maatman\\Documents\\KiCad Projects\\Projects\\Electronic_Display\\hdw\\Logic_Board\\LED_Display_Controller\\LED_Display_Controller.sch")
-    (date "12/6/2018 11:26:19 AM")
+    (date "12/6/2018 3:10:07 PM")
     (tool "Eeschema (5.0.1)-3")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -765,7 +765,7 @@
       (value 100uF)
       (footprint Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow)
       (fields
-        (field (name "Digi-Key PN") 399-5306-1-ND)
+        (field (name "Digi-Key PN") 478-3130-1-ND)
         (field (name Tolerance) 20%)
         (field (name Voltage) 6.3V)
         (field (name display_footprint) 3528))
@@ -1373,7 +1373,7 @@
       (value 100uF)
       (footprint Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow)
       (fields
-        (field (name "Digi-Key PN") 399-5306-1-ND)
+        (field (name "Digi-Key PN") 478-3130-1-ND)
         (field (name Tolerance) 20%)
         (field (name Voltage) 6.3V)
         (field (name display_footprint) 3528))
@@ -1561,7 +1561,7 @@
       (value 100uF)
       (footprint Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow)
       (fields
-        (field (name "Digi-Key PN") 399-5306-1-ND)
+        (field (name "Digi-Key PN") 478-3130-1-ND)
         (field (name Tolerance) 20%)
         (field (name Voltage) 6.3V)
         (field (name display_footprint) 3528))
@@ -1900,7 +1900,7 @@
       (footprint TO_SOT_Packages_SMD:TSOT-23-6)
       (datasheet http://www.analog.com/media/en/technical-documentation/data-sheets/6700123fh.pdf)
       (fields
-        (field (name "Digi-Key PN") LT6700IS6-1#TRMPBFCT-ND))
+        (field (name "Digi-Key PN") LT6700CS6-1#TRMPBFCT-ND))
       (libsource (lib LED_Display_Local_Library) (part LT6700-1-S6) (description "Micropower, Low Voltage, Dual Comparator with 400mV Reference"))
       (sheetpath (names "/USB UART Bridge/") (tstamps /5BAAE1F3/))
       (tstamp 5BF9D1D8))
@@ -3180,7 +3180,7 @@
       (value 100uF)
       (footprint Capacitors_Tantalum_SMD:CP_Tantalum_Case-B_EIA-3528-21_Reflow)
       (fields
-        (field (name "Digi-Key PN") 399-5306-1-ND)
+        (field (name "Digi-Key PN") 478-3130-1-ND)
         (field (name Tolerance) 20%)
         (field (name Voltage) 6.3V)
         (field (name display_footprint) 3528))
