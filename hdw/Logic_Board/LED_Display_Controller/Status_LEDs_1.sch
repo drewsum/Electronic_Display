@@ -29,7 +29,7 @@ F 3 "" H 1760 2240 50  0001 C CNN
 F 4 "0603" H 1830 2320 50  0000 L CNN "display_footprint"
 F 5 "1%" H 1830 2240 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 1830 2170 50  0000 L CNN "Wattage"
-F 7 "PN" H 2060 2640 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 2060 2640 60  0001 C CNN "Digi-Key PN"
 	1    1760 2240
 	1    0    0    -1  
 $EndComp
@@ -743,7 +743,7 @@ F 3 "" H 3180 1970 50  0001 C CNN
 F 4 "0603" H 3250 2050 50  0000 L CNN "display_footprint"
 F 5 "1%" H 3250 1970 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 3250 1900 50  0000 L CNN "Wattage"
-F 7 "PN" H 3480 2370 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 3480 2370 60  0001 C CNN "Digi-Key PN"
 	1    3180 1970
 	-1   0    0    -1  
 $EndComp
@@ -762,7 +762,7 @@ F 3 "" H 6290 1970 50  0001 C CNN
 F 4 "0603" H 6360 2050 50  0000 L CNN "display_footprint"
 F 5 "1%" H 6360 1970 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 6360 1900 50  0000 L CNN "Wattage"
-F 7 "PN" H 6590 2370 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 6590 2370 60  0001 C CNN "Digi-Key PN"
 	1    6290 1970
 	-1   0    0    -1  
 $EndComp
@@ -781,7 +781,7 @@ F 3 "" H 9290 1970 50  0001 C CNN
 F 4 "0603" H 9360 2050 50  0000 L CNN "display_footprint"
 F 5 "1%" H 9360 1970 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 9360 1900 50  0000 L CNN "Wattage"
-F 7 "PN" H 9590 2370 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 9590 2370 60  0001 C CNN "Digi-Key PN"
 	1    9290 1970
 	-1   0    0    -1  
 $EndComp
@@ -800,7 +800,7 @@ F 3 "" H 9290 3970 50  0001 C CNN
 F 4 "0603" H 9360 4050 50  0000 L CNN "display_footprint"
 F 5 "1%" H 9360 3970 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 9360 3900 50  0000 L CNN "Wattage"
-F 7 "PN" H 9590 4370 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 9590 4370 60  0001 C CNN "Digi-Key PN"
 	1    9290 3970
 	-1   0    0    -1  
 $EndComp
@@ -819,7 +819,7 @@ F 3 "" H 6290 3970 50  0001 C CNN
 F 4 "0603" H 6360 4050 50  0000 L CNN "display_footprint"
 F 5 "1%" H 6360 3970 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 6360 3900 50  0000 L CNN "Wattage"
-F 7 "PN" H 6590 4370 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 6590 4370 60  0001 C CNN "Digi-Key PN"
 	1    6290 3970
 	-1   0    0    -1  
 $EndComp
@@ -838,7 +838,7 @@ F 3 "" H 3180 3970 50  0001 C CNN
 F 4 "0603" H 3250 4050 50  0000 L CNN "display_footprint"
 F 5 "1%" H 3250 3970 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 3250 3900 50  0000 L CNN "Wattage"
-F 7 "PN" H 3480 4370 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 3480 4370 60  0001 C CNN "Digi-Key PN"
 	1    3180 3970
 	-1   0    0    -1  
 $EndComp
@@ -857,7 +857,7 @@ F 3 "" H 4900 2850 50  0001 C CNN
 F 4 "0603" H 4970 2930 50  0000 L CNN "display_footprint"
 F 5 "1%" H 4970 2850 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 4970 2780 50  0000 L CNN "Wattage"
-F 7 "PN" H 5200 3250 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 5200 3250 60  0001 C CNN "Digi-Key PN"
 	1    4900 2850
 	1    0    0    -1  
 $EndComp
@@ -876,7 +876,7 @@ F 3 "" H 7900 2850 50  0001 C CNN
 F 4 "0603" H 7970 2930 50  0000 L CNN "display_footprint"
 F 5 "1%" H 7970 2850 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 7970 2780 50  0000 L CNN "Wattage"
-F 7 "PN" H 8200 3250 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 8200 3250 60  0001 C CNN "Digi-Key PN"
 	1    7900 2850
 	1    0    0    -1  
 $EndComp
@@ -895,7 +895,7 @@ F 3 "" H 7900 4850 50  0001 C CNN
 F 4 "0603" H 7970 4930 50  0000 L CNN "display_footprint"
 F 5 "1%" H 7970 4850 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 7970 4780 50  0000 L CNN "Wattage"
-F 7 "PN" H 8200 5250 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 8200 5250 60  0001 C CNN "Digi-Key PN"
 	1    7900 4850
 	1    0    0    -1  
 $EndComp
@@ -914,7 +914,7 @@ F 3 "" H 4900 4850 50  0001 C CNN
 F 4 "0603" H 4970 4930 50  0000 L CNN "display_footprint"
 F 5 "1%" H 4970 4850 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 4970 4780 50  0000 L CNN "Wattage"
-F 7 "PN" H 5200 5250 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 5200 5250 60  0001 C CNN "Digi-Key PN"
 	1    4900 4850
 	1    0    0    -1  
 $EndComp
@@ -933,7 +933,7 @@ F 3 "" H 1790 4850 50  0001 C CNN
 F 4 "0603" H 1860 4930 50  0000 L CNN "display_footprint"
 F 5 "1%" H 1860 4850 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 1860 4780 50  0000 L CNN "Wattage"
-F 7 "PN" H 2090 5250 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 2090 5250 60  0001 C CNN "Digi-Key PN"
 	1    1790 4850
 	1    0    0    -1  
 $EndComp
@@ -1138,7 +1138,7 @@ F 3 "" H 3180 6050 50  0001 C CNN
 F 4 "0603" H 3250 6130 50  0000 L CNN "display_footprint"
 F 5 "1%" H 3250 6050 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 3250 5980 50  0000 L CNN "Wattage"
-F 7 "PN" H 3480 6450 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 3480 6450 60  0001 C CNN "Digi-Key PN"
 	1    3180 6050
 	-1   0    0    -1  
 $EndComp
@@ -1157,7 +1157,7 @@ F 3 "" H 1790 6930 50  0001 C CNN
 F 4 "0603" H 1860 7010 50  0000 L CNN "display_footprint"
 F 5 "1%" H 1860 6930 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 1860 6860 50  0000 L CNN "Wattage"
-F 7 "PN" H 2090 7330 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 2090 7330 60  0001 C CNN "Digi-Key PN"
 	1    1790 6930
 	1    0    0    -1  
 $EndComp

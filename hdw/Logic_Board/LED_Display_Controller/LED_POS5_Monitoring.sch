@@ -228,7 +228,7 @@ F 3 "" H 6390 1980 50  0001 C CNN
 F 4 "0603" V 6490 1980 50  0000 C CNN "display_footprint"
 F 5 "1%" V 6590 1980 50  0000 C CNN "Tolerance"
 F 6 "1/10W" V 6690 1980 50  0000 C CNN "Wattage"
-F 7 "PN" H 6690 2380 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 6690 2380 60  0001 C CNN "Digi-Key PN"
 	1    6390 1980
 	0    1    1    0   
 $EndComp
@@ -365,7 +365,7 @@ F 3 "" H 6390 3610 50  0001 C CNN
 F 4 "0603" V 6490 3610 50  0000 C CNN "display_footprint"
 F 5 "1%" V 6590 3610 50  0000 C CNN "Tolerance"
 F 6 "1/10W" V 6690 3610 50  0000 C CNN "Wattage"
-F 7 "PN" H 6690 4010 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT1K00CT-ND" H 6690 4010 60  0001 C CNN "Digi-Key PN"
 	1    6390 3610
 	0    1    1    0   
 $EndComp
@@ -431,7 +431,7 @@ F 3 "" H 9210 2180 50  0001 C CNN
 F 4 "0603" H 9300 2260 50  0000 L CNN "display_footprint"
 F 5 "1%" H 9310 2180 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 9310 2110 50  0000 L CNN "Wattage"
-F 7 "PN" H 9510 2580 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 9510 2580 60  0001 C CNN "Digi-Key PN"
 	1    9210 2180
 	1    0    0    -1  
 $EndComp
@@ -449,7 +449,7 @@ F 3 "" H 9210 3810 50  0001 C CNN
 F 4 "0603" H 9300 3890 50  0000 L CNN "display_footprint"
 F 5 "1%" H 9310 3810 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 9310 3740 50  0000 L CNN "Wattage"
-F 7 "PN" H 9510 4210 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 9510 4210 60  0001 C CNN "Digi-Key PN"
 	1    9210 3810
 	1    0    0    -1  
 $EndComp
@@ -567,7 +567,7 @@ F 3 "" H 6890 5170 50  0001 C CNN
 F 4 "0603" H 6980 5250 50  0000 L CNN "display_footprint"
 F 5 "1%" H 6990 5170 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 6990 5100 50  0000 L CNN "Wattage"
-F 7 "PN" H 7190 5570 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 7190 5570 60  0001 C CNN "Digi-Key PN"
 	1    6890 5170
 	1    0    0    -1  
 $EndComp
@@ -599,6 +599,7 @@ F 0 "U1601" H 2170 4645 50  0000 C CNN
 F 1 "LM1117-ADJ" H 2320 4645 50  0000 L CNN
 F 2 "" H 2320 4520 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm1117.pdf" H 2320 4520 50  0001 C CNN
+F 4 "LM1117IMPX-ADJ/NOPBCT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    2320 4520
 	1    0    0    -1  
 $EndComp
@@ -616,7 +617,7 @@ F 3 "" H 3010 4740 50  0001 C CNN
 F 4 "0603" H 3100 4820 50  0000 L CNN "display_footprint"
 F 5 "1%" H 3110 4740 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 3110 4670 50  0000 L CNN "Wattage"
-F 7 "PN" H 3310 5140 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT200RCT-ND" H 3310 5140 60  0001 C CNN "Digi-Key PN"
 	1    3010 4740
 	-1   0    0    -1  
 $EndComp
@@ -634,7 +635,7 @@ F 3 "" H 3010 5190 50  0001 C CNN
 F 4 "0603" H 3100 5270 50  0000 L CNN "display_footprint"
 F 5 "1%" H 3110 5190 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 3110 5120 50  0000 L CNN "Wattage"
-F 7 "PN" H 3310 5590 60  0001 C CNN "Digi-Key PN"
+F 7 "P680HCT-ND" H 3310 5590 60  0001 C CNN "Digi-Key PN"
 	1    3010 5190
 	-1   0    0    -1  
 $EndComp
@@ -928,7 +929,7 @@ F 3 "" H 7700 3830 50  0001 C CNN
 F 4 "0603" H 7790 3910 50  0000 L CNN "display_footprint"
 F 5 "1%" H 7800 3830 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 7800 3760 50  0000 L CNN "Wattage"
-F 7 "PN" H 8000 4230 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 8000 4230 60  0001 C CNN "Digi-Key PN"
 	1    7700 3830
 	1    0    0    -1  
 $EndComp
@@ -959,7 +960,7 @@ F 3 "" H 7700 2200 50  0001 C CNN
 F 4 "0603" H 7790 2280 50  0000 L CNN "display_footprint"
 F 5 "1%" H 7800 2200 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 7800 2130 50  0000 L CNN "Wattage"
-F 7 "PN" H 8000 2600 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 8000 2600 60  0001 C CNN "Digi-Key PN"
 	1    7700 2200
 	1    0    0    -1  
 $EndComp
@@ -995,7 +996,7 @@ F 3 "" H 8480 5090 50  0001 C CNN
 F 4 "0603" H 8570 5170 50  0000 L CNN "display_footprint"
 F 5 "1%" H 8580 5090 50  0000 L CNN "Tolerance"
 F 6 "1/10W" H 8580 5020 50  0000 L CNN "Wattage"
-F 7 "PN" H 8780 5490 60  0001 C CNN "Digi-Key PN"
+F 7 "RMCF0603FT10K0CT-ND" H 8780 5490 60  0001 C CNN "Digi-Key PN"
 	1    8480 5090
 	1    0    0    -1  
 $EndComp
