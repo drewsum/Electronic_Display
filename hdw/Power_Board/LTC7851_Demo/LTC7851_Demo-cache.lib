@@ -79,35 +79,6 @@ X Pin_1 1 -200 0 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Custom_Library_+5.5V_MNG
-#
-DEF Custom_Library_+5.5V_MNG #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "Custom_Library_+5.5V_MNG" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +5.5V_MNG 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# Custom_Library_TP
-#
-DEF ~Custom_Library_TP TP 0 0 N N 1 F N
-F0 "TP" 0 150 50 H V C CNN
-F1 "Custom_Library_TP" 0 150 50 H I C CNN
-F2 "" 0 0 60 H V C CNN
-F3 "" 0 0 60 H V C CNN
-DRAW
-C 0 75 25 0 1 0 N
-P 2 0 1 0 0 0 0 50 N
-X TP 1 0 0 0 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # Device_D_TVS_ALT
 #
 DEF Device_D_TVS_ALT D 0 40 N N 1 F N
@@ -198,6 +169,21 @@ DRAW
 C 0 75 25 0 1 0 N
 P 2 0 1 0 0 0 0 50 N
 X +12Vin 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# LED_Display_Local_Library_+5.5V_MNG
+#
+DEF LED_Display_Local_Library_+5.5V_MNG #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "LED_Display_Local_Library_+5.5V_MNG" 0 140 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -30 50 0 100 N
+P 2 0 1 0 0 0 0 100 N
+P 2 0 1 0 0 100 30 50 N
+X +5.5V_MNG 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
@@ -576,6 +562,20 @@ P 2 0 1 0 -30 50 30 40 N
 P 2 0 1 0 -30 60 30 50 N
 P 2 0 1 0 -30 70 30 60 N
 P 2 0 1 0 -30 80 30 70 N
+ENDDRAW
+ENDDEF
+#
+# LED_Display_Local_Library_TP
+#
+DEF ~LED_Display_Local_Library_TP TP 0 0 N N 1 F N
+F0 "TP" 0 150 50 H V C CNN
+F1 "LED_Display_Local_Library_TP" 0 150 50 H I C CNN
+F2 "" 0 0 60 H V C CNN
+F3 "" 0 0 60 H V C CNN
+DRAW
+C 0 75 25 0 1 0 N
+P 2 0 1 0 0 0 0 50 N
+X TP 1 0 0 0 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #

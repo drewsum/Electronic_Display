@@ -145,7 +145,7 @@ F 3 "" H 8350 2080 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR01629
+L LED_Display_Local_Library:+5.5V #PWR01629
 U 1 1 5BEA3712
 P 8350 1880
 F 0 "#PWR01629" H 8350 1730 50  0001 C CNN
@@ -218,7 +218,7 @@ F 3 "" H 7080 2600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1603
+L LED_Display_Local_Library:R_Custom R1603
 U 1 1 5BEAE5DF
 P 6390 1980
 F 0 "R1603" V 6290 1980 50  0000 C CNN
@@ -304,7 +304,7 @@ F 3 "" H 8350 3710 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR01631
+L LED_Display_Local_Library:+5.5V #PWR01631
 U 1 1 5BEB81A9
 P 8350 3510
 F 0 "#PWR01631" H 8350 3360 50  0001 C CNN
@@ -355,7 +355,7 @@ F 3 "" H 8200 4180 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1604
+L LED_Display_Local_Library:R_Custom R1604
 U 1 1 5BEB81DD
 P 6390 3610
 F 0 "R1604" V 6290 3610 50  0000 C CNN
@@ -477,7 +477,7 @@ F 3 "" H 7590 4970 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR01621
+L LED_Display_Local_Library:+5.5V #PWR01621
 U 1 1 5BF0EF00
 P 7590 4770
 F 0 "#PWR01621" H 7590 4620 50  0001 C CNN

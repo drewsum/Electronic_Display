@@ -9,6 +9,11 @@ D power-flag symbol
 K Power Flag Symbol
 $ENDCMP
 #
+$CMP +5.5V_MNG
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
 $CMP +5V_USB
 D power-flag symbol
 K Power Flag Symbol
@@ -80,6 +85,12 @@ $ENDCMP
 $CMP GND_USB
 D GROUND power-flag symbol
 K Power Flag Symbol
+$ENDCMP
+#
+$CMP IPC100N04S51R7ATMA1
+D 25A Id, 30V Vds, NexFET N-Channel Power MOSFET, 6.9mOhm Ron, Qg (typ) 7.9nC, SON8 5x6mm
+K NexFET Power MOSFET N-MOS
+F http://www.ti.com/lit/gpn/csd17578q5a
 $ENDCMP
 #
 $CMP LT1010DD

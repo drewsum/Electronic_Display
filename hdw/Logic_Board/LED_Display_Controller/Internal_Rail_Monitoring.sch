@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BEF531C
 P 1510 2780
 AR Path="/5BE5222A/5BEF531C" Ref="R?"  Part="1" 
@@ -32,7 +32,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 1810 3180 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BEF532E
 P 1510 3240
 AR Path="/5BE5222A/5BEF532E" Ref="R?"  Part="1" 
@@ -141,7 +141,7 @@ Wire Wire Line
 	2900 3010 2820 3010
 Connection ~ 2820 3010
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BF09C2E
 P 4510 2780
 AR Path="/5BE5222A/5BF09C2E" Ref="R?"  Part="1" 
@@ -158,7 +158,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 4810 3180 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BF09C39
 P 4510 3240
 AR Path="/5BE5222A/5BF09C39" Ref="R?"  Part="1" 
@@ -267,7 +267,7 @@ F 3 "" H 4510 2630 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BF0BD4E
 P 7140 2780
 AR Path="/5BE5222A/5BF0BD4E" Ref="R?"  Part="1" 
@@ -284,7 +284,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 7440 3180 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BF0BD59
 P 7140 3240
 AR Path="/5BE5222A/5BF0BD59" Ref="R?"  Part="1" 
@@ -393,7 +393,7 @@ F 3 "" H 7140 2630 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BF18632
 P 1510 4600
 AR Path="/5BE5222A/5BF18632" Ref="R?"  Part="1" 
@@ -410,7 +410,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 1810 5000 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BF1863D
 P 1510 5060
 AR Path="/5BE5222A/5BF1863D" Ref="R?"  Part="1" 
@@ -508,7 +508,7 @@ Wire Wire Line
 	2900 4830 2820 4830
 Connection ~ 2820 4830
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BF1867D
 P 4510 4600
 AR Path="/5BE5222A/5BF1867D" Ref="R?"  Part="1" 
@@ -525,7 +525,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 4810 5000 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R?
+L LED_Display_Local_Library:R_Custom R?
 U 1 1 5BF18688
 P 4510 5060
 AR Path="/5BE5222A/5BF18688" Ref="R?"  Part="1" 
@@ -634,7 +634,7 @@ F 3 "" H 1510 4450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR01511
+L LED_Display_Local_Library:+5.5V #PWR01511
 U 1 1 5BF18F83
 P 4510 4450
 F 0 "#PWR01511" H 4510 4300 50  0001 C CNN

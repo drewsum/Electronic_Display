@@ -38,7 +38,7 @@ F 3 "" H 6080 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2510
+L LED_Display_Local_Library:R_Custom R2510
 U 1 1 5BBEB695
 P 5330 4320
 F 0 "R2510" H 5270 4320 50  0000 R CNN
@@ -53,7 +53,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 5630 4720 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2508
+L LED_Display_Local_Library:R_Custom R2508
 U 1 1 5BBEB6A0
 P 4520 4320
 F 0 "R2508" H 4460 4320 50  0000 R CNN
@@ -68,7 +68,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 4820 4720 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2509
+L LED_Display_Local_Library:R_Custom R2509
 U 1 1 5BBEB6AB
 P 5110 3130
 F 0 "R2509" H 5050 3130 50  0000 R CNN
@@ -83,7 +83,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 5410 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2507
+L LED_Display_Local_Library:R_Custom R2507
 U 1 1 5BBEB6B6
 P 4520 3130
 F 0 "R2507" H 4460 3130 50  0000 R CNN
@@ -98,7 +98,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 4820 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2506
+L LED_Display_Local_Library:R_Custom R2506
 U 1 1 5BBEB6C1
 P 3930 3130
 F 0 "R2506" H 3870 3130 50  0000 R CNN
@@ -113,7 +113,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 4230 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2511
+L LED_Display_Local_Library:R_Custom R2511
 U 1 1 5BBEB6CC
 P 6750 3850
 F 0 "R2511" H 6690 3850 50  0000 R CNN
@@ -161,7 +161,7 @@ F 3 "" H 6750 4000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2501
+L LED_Display_Local_Library:R_Custom R2501
 U 1 1 5BBEB6FB
 P 3420 3450
 F 0 "R2501" V 3380 3580 50  0000 L CNN
@@ -209,7 +209,7 @@ Text GLabel 3270 3750 0    40   Input ~ 0
 Text GLabel 3270 3850 0    50   Input ~ 0
 FLASH_SCK
 $Comp
-L Custom_Library:R_Custom R2512
+L LED_Display_Local_Library:R_Custom R2512
 U 1 1 5BBEB728
 P 7130 3450
 F 0 "R2512" V 7030 3450 50  0000 C CNN
@@ -346,7 +346,7 @@ Wire Wire Line
 Wire Wire Line
 	6090 5240 6390 5240
 $Comp
-L Custom_Library:R_Custom R2502
+L LED_Display_Local_Library:R_Custom R2502
 U 1 1 5BBEB773
 P 3420 3550
 F 0 "R2502" V 3380 3680 50  0000 L CNN
@@ -361,7 +361,7 @@ F 7 "A106047CT-ND" H 3720 3950 60  0001 C CNN "Digi-Key PN"
 	0    1    1    0   
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2504
+L LED_Display_Local_Library:R_Custom R2504
 U 1 1 5BBEB77E
 P 3420 3750
 F 0 "R2504" V 3380 3880 50  0000 L CNN
@@ -376,7 +376,7 @@ F 7 "A106047CT-ND" H 3720 4150 60  0001 C CNN "Digi-Key PN"
 	0    1    1    0   
 $EndComp
 $Comp
-L Custom_Library:R_Custom R2505
+L LED_Display_Local_Library:R_Custom R2505
 U 1 1 5BBEB789
 P 3420 3850
 F 0 "R2505" V 3380 3980 50  0000 L CNN
@@ -396,7 +396,7 @@ Connection ~ 5110 3550
 Text GLabel 3270 3550 0    40   Input ~ 0
 ~FLASH_Hold
 $Comp
-L Custom_Library:R_Custom R2503
+L LED_Display_Local_Library:R_Custom R2503
 U 1 1 5BC205FF
 P 3420 3650
 F 0 "R2503" V 3380 3780 50  0000 L CNN

@@ -38,7 +38,7 @@ F 3 "" H 6080 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1810
+L LED_Display_Local_Library:R_Custom R1810
 U 1 1 5BB4E3FC
 P 5330 4320
 F 0 "R1810" H 5270 4320 50  0000 R CNN
@@ -53,7 +53,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 5630 4720 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1808
+L LED_Display_Local_Library:R_Custom R1808
 U 1 1 5BB4EACF
 P 4520 4320
 F 0 "R1808" H 4460 4320 50  0000 R CNN
@@ -68,7 +68,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 4820 4720 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1809
+L LED_Display_Local_Library:R_Custom R1809
 U 1 1 5BB4EB13
 P 5110 3130
 F 0 "R1809" H 5050 3130 50  0000 R CNN
@@ -83,7 +83,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 5410 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1807
+L LED_Display_Local_Library:R_Custom R1807
 U 1 1 5BB4EB5D
 P 4520 3130
 F 0 "R1807" H 4460 3130 50  0000 R CNN
@@ -98,7 +98,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 4820 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1806
+L LED_Display_Local_Library:R_Custom R1806
 U 1 1 5BB4EBA3
 P 3930 3130
 F 0 "R1806" H 3870 3130 50  0000 R CNN
@@ -113,7 +113,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 4230 3530 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1811
+L LED_Display_Local_Library:R_Custom R1811
 U 1 1 5BB4EDD1
 P 6750 3850
 F 0 "R1811" H 6690 3850 50  0000 R CNN
@@ -161,7 +161,7 @@ F 3 "" H 6750 4000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1801
+L LED_Display_Local_Library:R_Custom R1801
 U 1 1 5BB4F53B
 P 3420 3450
 F 0 "R1801" V 3380 3580 50  0000 L CNN
@@ -203,7 +203,7 @@ Wire Wire Line
 	3930 3650 5680 3650
 Connection ~ 3930 3650
 $Comp
-L Custom_Library:R_Custom R1812
+L LED_Display_Local_Library:R_Custom R1812
 U 1 1 5BB511F8
 P 7130 3450
 F 0 "R1812" V 7030 3450 50  0000 C CNN
@@ -335,7 +335,7 @@ Wire Wire Line
 Wire Wire Line
 	6090 5240 6390 5240
 $Comp
-L Custom_Library:R_Custom R1802
+L LED_Display_Local_Library:R_Custom R1802
 U 1 1 5BBE5753
 P 3420 3550
 F 0 "R1802" V 3380 3680 50  0000 L CNN
@@ -350,7 +350,7 @@ F 7 "A106047CT-ND" H 3720 3950 60  0001 C CNN "Digi-Key PN"
 	0    1    1    0   
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1804
+L LED_Display_Local_Library:R_Custom R1804
 U 1 1 5BBE5DA1
 P 3420 3750
 F 0 "R1804" V 3380 3880 50  0000 L CNN
@@ -365,7 +365,7 @@ F 7 "A106047CT-ND" H 3720 4150 60  0001 C CNN "Digi-Key PN"
 	0    1    1    0   
 $EndComp
 $Comp
-L Custom_Library:R_Custom R1805
+L LED_Display_Local_Library:R_Custom R1805
 U 1 1 5BBE5DFB
 P 3420 3850
 F 0 "R1805" V 3380 3980 50  0000 L CNN
@@ -391,7 +391,7 @@ Text GLabel 3270 3750 0    40   Input ~ 0
 Text GLabel 3270 3450 0    50   Input ~ 0
 FLASH_MOSI
 $Comp
-L Custom_Library:R_Custom R1803
+L LED_Display_Local_Library:R_Custom R1803
 U 1 1 5BC1B439
 P 3420 3650
 F 0 "R1803" V 3380 3780 50  0000 L CNN

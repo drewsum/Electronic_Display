@@ -530,7 +530,7 @@ $EndComp
 Wire Wire Line
 	7750 2650 7750 2720
 $Comp
-L Custom_Library:TP TP202
+L LED_Display_Local_Library:TP TP202
 U 1 1 5BB7B6E2
 P 7000 2650
 F 0 "TP202" H 7000 2800 50  0000 C CNN
@@ -565,7 +565,7 @@ F 3 "~" H 2100 3330 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP201
+L LED_Display_Local_Library:TP TP201
 U 1 1 5BB80406
 P 1880 3880
 F 0 "TP201" H 1880 4030 50  0000 C CNN
@@ -600,7 +600,7 @@ $EndComp
 Wire Wire Line
 	2840 2640 2840 2720
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0210
+L LED_Display_Local_Library:+5.5V_MNG #PWR0210
 U 1 1 5BBEC090
 P 6050 4260
 F 0 "#PWR0210" H 6050 4110 50  0001 C CNN
@@ -710,7 +710,7 @@ F 4 "296-8484-1-ND" H 8340 5140 50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0216
+L LED_Display_Local_Library:+5.5V_MNG #PWR0216
 U 1 1 5BC2A9CC
 P 8340 5040
 F 0 "#PWR0216" H 8340 4890 50  0001 C CNN
@@ -767,7 +767,7 @@ F 4 "160-1446-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0220
+L LED_Display_Local_Library:+5.5V_MNG #PWR0220
 U 1 1 5BC2A9EC
 P 9050 4390
 F 0 "#PWR0220" H 9050 4240 50  0001 C CNN
@@ -793,7 +793,7 @@ F 7 "X7R" H 7790 5440 50  0000 R CNN "Dielectric"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0214
+L LED_Display_Local_Library:+5.5V_MNG #PWR0214
 U 1 1 5BC2A9FE
 P 7940 5390
 F 0 "#PWR0214" H 7940 5240 50  0001 C CNN

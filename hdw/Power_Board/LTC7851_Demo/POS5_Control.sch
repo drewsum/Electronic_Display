@@ -93,7 +93,7 @@ F 3 "" H 1640 2590 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0301
+L LED_Display_Local_Library:+5.5V_MNG #PWR0301
 U 1 1 5BBB2BF1
 P 1640 1260
 F 0 "#PWR0301" H 1640 1110 50  0001 C CNN
@@ -306,7 +306,7 @@ F 3 "" H 8540 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0326
+L LED_Display_Local_Library:+5.5V_MNG #PWR0326
 U 1 1 5BD57916
 P 8540 3690
 F 0 "#PWR0326" H 8540 3540 50  0001 C CNN
@@ -339,7 +339,7 @@ F 4 "296-8484-1-ND" H 6330 3560 50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0319
+L LED_Display_Local_Library:+5.5V_MNG #PWR0319
 U 1 1 5BD58F11
 P 6330 3460
 F 0 "#PWR0319" H 6330 3310 50  0001 C CNN
@@ -398,7 +398,7 @@ F 4 "160-1446-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0324
+L LED_Display_Local_Library:+5.5V_MNG #PWR0324
 U 1 1 5BD5A25A
 P 7040 2810
 F 0 "#PWR0324" H 7040 2660 50  0001 C CNN
@@ -421,7 +421,7 @@ F 4 "296-8484-1-ND" H 6330 5620 50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0321
+L LED_Display_Local_Library:+5.5V_MNG #PWR0321
 U 1 1 5BD5A792
 P 6330 5520
 F 0 "#PWR0321" H 6330 5370 50  0001 C CNN
@@ -478,7 +478,7 @@ F 4 "160-1446-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0325
+L LED_Display_Local_Library:+5.5V_MNG #PWR0325
 U 1 1 5BD5A7B3
 P 7040 4870
 F 0 "#PWR0325" H 7040 4720 50  0001 C CNN
@@ -515,7 +515,7 @@ Wire Wire Line
 	5770 5620 6030 5620
 Connection ~ 5770 5620
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0310
+L LED_Display_Local_Library:+5.5V_MNG #PWR0310
 U 1 1 5BD5B8CD
 P 5770 5120
 F 0 "#PWR0310" H 5770 4970 50  0001 C CNN
@@ -541,7 +541,7 @@ F 7 "X7R" H 5780 5920 50  0000 R CNN "Dielectric"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0315
+L LED_Display_Local_Library:+5.5V_MNG #PWR0315
 U 1 1 5BD5CEDF
 P 5930 5870
 F 0 "#PWR0315" H 5930 5720 50  0001 C CNN
@@ -578,7 +578,7 @@ F 7 "X7R" H 5770 3950 50  0000 R CNN "Dielectric"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0311
+L LED_Display_Local_Library:+5.5V_MNG #PWR0311
 U 1 1 5BD5D007
 P 5920 3900
 F 0 "#PWR0311" H 5920 3750 50  0001 C CNN
@@ -600,7 +600,7 @@ F 3 "" H 5920 4200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0317
+L LED_Display_Local_Library:+5.5V_MNG #PWR0317
 U 1 1 5BD5F128
 P 6330 1820
 F 0 "#PWR0317" H 6330 1670 50  0001 C CNN
@@ -657,7 +657,7 @@ F 4 "160-1447-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0323
+L LED_Display_Local_Library:+5.5V_MNG #PWR0323
 U 1 1 5BD5F148
 P 7040 1170
 F 0 "#PWR0323" H 7040 1020 50  0001 C CNN
@@ -694,7 +694,7 @@ Wire Wire Line
 	5770 1920 6030 1920
 Connection ~ 5770 1920
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0309
+L LED_Display_Local_Library:+5.5V_MNG #PWR0309
 U 1 1 5BD5F15D
 P 5770 1420
 F 0 "#PWR0309" H 5770 1270 50  0001 C CNN
@@ -720,7 +720,7 @@ F 7 "X7R" H 5780 2220 50  0000 R CNN "Dielectric"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0313
+L LED_Display_Local_Library:+5.5V_MNG #PWR0313
 U 1 1 5BD5F16E
 P 5930 2170
 F 0 "#PWR0313" H 5930 2020 50  0001 C CNN
