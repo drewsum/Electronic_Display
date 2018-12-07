@@ -427,15 +427,15 @@ Connection ~ 5500 3540
 Wire Wire Line
 	5500 3540 8600 3540
 $Comp
-L Power_Protection:PESD3V3L4UG D902
-U 3 1 5BFC9B68
+L Power_Protection:PESD3V3L4UG D901
+U 4 1 5BFC9B68
 P 6580 4070
-F 0 "D902" H 6580 4170 50  0000 C CNN
+F 0 "D901" H 6580 4170 50  0000 C CNN
 F 1 "PESD3V3L4UG" H 6580 3970 50  0000 C CNN
 F 2 "TO_SOT_Packages_SMD:SOT-353_SC-70-5" H 6580 4070 50  0001 C CNN
 F 3 "http://www.nxp.com/documents/data_sheet/PESDXL4UF_G_W.pdf" H 6580 4070 50  0001 C CNN
 F 4 "1727-3827-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	3    6580 4070
+	4    6580 4070
 	0    1    1    0   
 $EndComp
 Wire Wire Line
