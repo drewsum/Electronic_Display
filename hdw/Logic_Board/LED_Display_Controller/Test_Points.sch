@@ -45,7 +45,7 @@ F 3 "" H 1780 2100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Local_Library:TP TP?
 U 1 1 5BBF8ECA
 P 1640 5980
 AR Path="/5BAAE0FA/5BBF8ECA" Ref="TP?"  Part="1" 
@@ -84,7 +84,7 @@ F 3 "" H 2040 5980 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Local_Library:TP TP?
 U 1 1 5BBF9883
 P 2040 5980
 AR Path="/5BAAE0FA/5BBF9883" Ref="TP?"  Part="1" 
@@ -97,7 +97,7 @@ F 3 "" H 2040 5980 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Local_Library:TP TP?
 U 1 1 5BBF98E5
 P 2480 5980
 AR Path="/5BAAE0FA/5BBF98E5" Ref="TP?"  Part="1" 
@@ -147,7 +147,7 @@ F 3 "~" H 4880 6050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP3008
+L LED_Display_Local_Library:TP TP3008
 U 1 1 5BBFB09C
 P 5330 6010
 F 0 "TP3008" H 5330 6160 50  0000 C CNN
@@ -158,7 +158,7 @@ F 3 "" H 5330 6010 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5V_USB #PWR03011
+L LED_Display_Local_Library:+5V_USB #PWR03011
 U 1 1 5BBFB102
 P 5330 6010
 F 0 "#PWR03011" H 5330 5860 50  0001 C CNN
@@ -275,7 +275,7 @@ Wire Wire Line
 Wire Wire Line
 	9050 4150 8970 4150
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Local_Library:TP TP?
 U 1 1 5BD1E3B2
 P 2940 5980
 AR Path="/5BAAE0FA/5BD1E3B2" Ref="TP?"  Part="1" 
@@ -359,7 +359,7 @@ FLASH_MOSI
 Text GLabel 4980 2000 0    50   UnSpc ~ 0
 FLASH_MISO
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Local_Library:TP TP?
 U 1 1 5BF9B560
 P 3340 5980
 AR Path="/5BAAE0FA/5BF9B560" Ref="TP?"  Part="1" 
@@ -383,7 +383,7 @@ F 3 "" H 3340 5980 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Local_Library:TP TP?
 U 1 1 5BF9B60D
 P 3680 5980
 AR Path="/5BAAE0FA/5BF9B60D" Ref="TP?"  Part="1" 
@@ -396,7 +396,7 @@ F 3 "" H 3680 5980 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Custom_Library:+5.5V #PWR03008
+L LED_Display_Local_Library:+5.5V #PWR03008
 U 1 1 5BF9B68F
 P 3680 5980
 F 0 "#PWR03008" H 3680 5830 50  0001 C CNN
@@ -420,7 +420,7 @@ F 3 "" H 9900 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Local_Library:TP TP?
 U 1 1 5C0ACA52
 P 1260 5980
 AR Path="/5BAAE0FA/5C0ACA52" Ref="TP?"  Part="1" 
@@ -446,7 +446,7 @@ F 3 "" H 1260 5980 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP?
+L LED_Display_Local_Library:TP TP?
 U 1 1 5C0ACABF
 P 900 5980
 AR Path="/5BAAE0FA/5C0ACABF" Ref="TP?"  Part="1" 

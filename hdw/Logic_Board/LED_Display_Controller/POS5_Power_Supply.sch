@@ -47,7 +47,7 @@ F 7 "399-1055-1-ND" H 6825 4180 60  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R405
+L LED_Display_Local_Library:R_Custom R405
 U 1 1 5BE635FD
 P 7010 3680
 F 0 "R405" H 6950 3680 50  0000 R CNN
@@ -110,7 +110,7 @@ Wire Wire Line
 	4990 5020 4990 4980
 Connection ~ 4940 5020
 $Comp
-L Custom_Library:R_Custom R401
+L LED_Display_Local_Library:R_Custom R401
 U 1 1 5BE6F15A
 P 3210 3990
 F 0 "R401" H 3150 3990 50  0000 R CNN
@@ -151,7 +151,7 @@ Wire Wire Line
 Wire Wire Line
 	4060 4730 4060 4900
 $Comp
-L Custom_Library:R_Custom R402
+L LED_Display_Local_Library:R_Custom R402
 U 1 1 5BE753C0
 P 3210 5050
 F 0 "R402" H 3150 5050 50  0000 R CNN
@@ -166,7 +166,7 @@ F 7 "RMCF0603FT10K0CT-ND" H 3510 5450 60  0001 C CNN "Digi-Key PN"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R404
+L LED_Display_Local_Library:R_Custom R404
 U 1 1 5BE75409
 P 4060 5050
 F 0 "R404" H 4000 5050 50  0000 R CNN
@@ -239,7 +239,7 @@ Connection ~ 3210 3730
 Wire Wire Line
 	3210 3730 2500 3730
 $Comp
-L Custom_Library:R_Custom R403
+L LED_Display_Local_Library:R_Custom R403
 U 1 1 5BE81C5D
 P 4010 3150
 F 0 "R403" H 3950 3150 50  0000 R CNN
@@ -425,7 +425,7 @@ F 7 "X7R" H 2690 2840 50  0000 R CNN "Dielectric"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:R_Custom R406
+L LED_Display_Local_Library:R_Custom R406
 U 1 1 5BEEC3B4
 P 7010 4570
 F 0 "R406" H 6950 4570 50  0000 R CNN

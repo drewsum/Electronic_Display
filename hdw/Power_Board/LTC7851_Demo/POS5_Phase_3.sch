@@ -582,7 +582,7 @@ POS5_IAVG
 Text GLabel 1960 6110 0    50   UnSpc ~ 0
 POS5_ILIM
 $Comp
-L Custom_Library:+5.5V_MNG #PWR?
+L LED_Display_Local_Library:+5.5V_MNG #PWR?
 U 1 1 5BD48B00
 P 4560 1030
 AR Path="/5BB86F29/5BD48B00" Ref="#PWR?"  Part="1" 
@@ -918,7 +918,7 @@ NoConn ~ 5430 2810
 NoConn ~ 5430 2910
 NoConn ~ 5430 3110
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0103
+L LED_Display_Local_Library:+5.5V_MNG #PWR0103
 U 1 1 5BCBB078
 P 5430 2510
 F 0 "#PWR0103" H 5430 2360 50  0001 C CNN

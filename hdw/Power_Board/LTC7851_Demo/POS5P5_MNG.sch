@@ -77,7 +77,7 @@ $EndComp
 Wire Wire Line
 	7040 3510 7040 3590
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0807
+L LED_Display_Local_Library:+5.5V_MNG #PWR0807
 U 1 1 5BBB0807
 P 7040 3510
 F 0 "#PWR0807" H 7040 3360 50  0001 C CNN
@@ -273,7 +273,7 @@ F 7 "10%" H 3650 3720 50  0000 R CNN "Tolerance"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:TP TP801
+L LED_Display_Local_Library:TP TP801
 U 1 1 5BC40C98
 P 6430 3510
 F 0 "TP801" H 6430 3660 50  0000 C CNN

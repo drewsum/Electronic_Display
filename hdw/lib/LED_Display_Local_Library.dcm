@@ -9,6 +9,11 @@ D power-flag symbol
 K Power Flag Symbol
 $ENDCMP
 #
+$CMP +5.5V_MNG
+D power-flag symbol
+K Power Flag Symbol
+$ENDCMP
+#
 $CMP +5V_USB
 D power-flag symbol
 K Power Flag Symbol
@@ -82,6 +87,12 @@ D GROUND power-flag symbol
 K Power Flag Symbol
 $ENDCMP
 #
+$CMP IPC100N04S51R7ATMA1
+D 25A Id, 30V Vds, NexFET N-Channel Power MOSFET, 6.9mOhm Ron, Qg (typ) 7.9nC, SON8 5x6mm
+K NexFET Power MOSFET N-MOS
+F http://www.ti.com/lit/gpn/csd17578q5a
+$ENDCMP
+#
 $CMP LT1010DD
 D High speed analog Buffer, DFN8
 K Buffer
@@ -95,6 +106,11 @@ $ENDCMP
 $CMP LTC3603_UF
 D 2.5A, 15V Monolithic Synchronous Step-Down Regulator, QFN-20
 F https://www.analog.com/media/en/technical-documentation/data-sheets/3603fc.pdf
+$ENDCMP
+#
+$CMP LTC3605A_UF
+D 20V, 5A Synchronous Step-Down Regulator, QFN-24
+F https://www.analog.com/media/en/technical-documentation/data-sheets/3605afg.pdf
 $ENDCMP
 #
 $CMP LTC4365DDB

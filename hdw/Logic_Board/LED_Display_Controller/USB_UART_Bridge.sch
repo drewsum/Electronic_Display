@@ -644,7 +644,7 @@ F 0 "U1101" H 3090 6340 50  0000 C CNN
 F 1 "LT6700-1-S6" H 2790 6840 50  0000 C CNN
 F 2 "TO_SOT_Packages_SMD:TSOT-23-6" H 2790 6840 60  0001 C CNN
 F 3 "http://www.analog.com/media/en/technical-documentation/data-sheets/6700123fh.pdf" H 2790 6840 60  0001 C CNN
-F 4 "LT6700IS6-1#TRMPBFCT-ND" H 2790 6840 50  0001 C CNN "Digi-Key PN"
+F 4 "LT6700CS6-1#TRMPBFCT-ND" H 2790 6840 50  0001 C CNN "Digi-Key PN"
 	1    2790 6840
 	1    0    0    -1  
 $EndComp
@@ -708,7 +708,7 @@ Wire Wire Line
 	1840 7090 1840 7170
 Connection ~ 1840 7090
 $Comp
-L Custom_Library:+5V_USB #PWR01105
+L LED_Display_Local_Library:+5V_USB #PWR01105
 U 1 1 5BFA0DB6
 P 2790 6240
 F 0 "#PWR01105" H 2790 6090 50  0001 C CNN
@@ -719,7 +719,7 @@ F 3 "" H 2790 6240 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:+5V_USB #PWR01103
+L LED_Display_Local_Library:+5V_USB #PWR01103
 U 1 1 5BFA0E0D
 P 1840 6140
 F 0 "#PWR01103" H 1840 5990 50  0001 C CNN
@@ -783,7 +783,7 @@ F 7 "X7R" H 4290 7210 50  0000 R CNN "Dielectric"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:GND_USB #PWR01104
+L LED_Display_Local_Library:GND_USB #PWR01104
 U 1 1 5BFAE111
 P 1840 7470
 F 0 "#PWR01104" H 1840 7220 50  0001 C CNN
@@ -794,7 +794,7 @@ F 3 "" H 1840 7470 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:GND_USB #PWR01106
+L LED_Display_Local_Library:GND_USB #PWR01106
 U 1 1 5BFAE1A5
 P 2790 7440
 F 0 "#PWR01106" H 2790 7190 50  0001 C CNN
@@ -805,7 +805,7 @@ F 3 "" H 2790 7440 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:GND_USB #PWR01119
+L LED_Display_Local_Library:GND_USB #PWR01119
 U 1 1 5BFAE29A
 P 4440 7460
 F 0 "#PWR01119" H 4440 7210 50  0001 C CNN
@@ -816,7 +816,7 @@ F 3 "" H 4440 7460 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:GND_USB #PWR01121
+L LED_Display_Local_Library:GND_USB #PWR01121
 U 1 1 5BFAE3A9
 P 4590 6690
 F 0 "#PWR01121" H 4590 6440 50  0001 C CNN
@@ -900,7 +900,7 @@ Wire Wire Line
 Wire Wire Line
 	5160 6590 5160 6470
 $Comp
-L Custom_Library:+5V_USB #PWR01125
+L LED_Display_Local_Library:+5V_USB #PWR01125
 U 1 1 5BFB3CC8
 P 5160 5870
 F 0 "#PWR01125" H 5160 5720 50  0001 C CNN
@@ -959,7 +959,7 @@ F 7 "X7R" H 3390 7450 50  0000 R CNN "Dielectric"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Custom_Library:GND_USB #PWR01113
+L LED_Display_Local_Library:GND_USB #PWR01113
 U 1 1 5C037C49
 P 3540 7700
 F 0 "#PWR01113" H 3540 7450 50  0001 C CNN

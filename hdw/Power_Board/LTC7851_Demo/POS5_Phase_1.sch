@@ -721,7 +721,7 @@ Wire Wire Line
 Wire Wire Line
 	1550 6110 1710 6110
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0410
+L LED_Display_Local_Library:+5.5V_MNG #PWR0410
 U 1 1 5BBB1D38
 P 4560 1030
 F 0 "#PWR0410" H 4560 880 50  0001 C CNN
@@ -1116,7 +1116,7 @@ NoConn ~ 5430 2810
 NoConn ~ 5430 2910
 NoConn ~ 5430 3110
 $Comp
-L Custom_Library:+5.5V_MNG #PWR0101
+L LED_Display_Local_Library:+5.5V_MNG #PWR0101
 U 1 1 5BCCA9E9
 P 5430 2510
 F 0 "#PWR0101" H 5430 2360 50  0001 C CNN
