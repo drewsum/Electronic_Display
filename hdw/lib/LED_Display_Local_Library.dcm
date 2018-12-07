@@ -108,6 +108,11 @@ D 2.5A, 15V Monolithic Synchronous Step-Down Regulator, QFN-20
 F https://www.analog.com/media/en/technical-documentation/data-sheets/3603fc.pdf
 $ENDCMP
 #
+$CMP LTC3605A_UF
+D 20V, 5A Synchronous Step-Down Regulator, QFN-24
+F https://www.analog.com/media/en/technical-documentation/data-sheets/3605afg.pdf
+$ENDCMP
+#
 $CMP LTC4365DDB
 D Overvoltage, Undervoltage and Reverse Supply Protection Controller, 3x2mm DFN-8 package, 50Hz/60Hz noise rejection
 K overvoltage undervoltage reverse-polarity protection
