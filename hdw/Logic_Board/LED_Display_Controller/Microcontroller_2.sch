@@ -110,7 +110,7 @@ EBI_Error_LED
 Text GLabel 4030 3480 0    50   Output ~ 0
 USB_Error_LED
 Text GLabel 4030 3280 0    50   Output ~ 0
-Panel_Enable_LED
+Heartbeat_LED
 Text GLabel 4030 2180 0    50   Input ~ 0
 POS5P_PGOOD
 Text GLabel 4030 2280 0    40   Input ~ 0

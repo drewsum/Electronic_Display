@@ -714,7 +714,7 @@ Connection ~ 7900 4580
 Wire Wire Line
 	7900 4580 8250 4580
 Text GLabel 7500 4580 0    50   Input ~ 0
-Panel_Enable_LED
+Heartbeat_LED
 Text Notes 550  700  0    100  ~ 20
 12. Status LEDs Bank 1
 $Comp
