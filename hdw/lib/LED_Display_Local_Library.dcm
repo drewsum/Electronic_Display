@@ -135,6 +135,12 @@ K Switch, Debounder, MAXIM, MAX
 F https://datasheets.maximintegrated.com/en/ds/MAX6816-MAX6818.pdf
 $ENDCMP
 #
+$CMP PESD3V3L4UG
+D Low capacitance unidirectional quadruple ESD protection diode array, 3.3V, Common Anode, SOT-353
+K diode
+F http://www.nxp.com/documents/data_sheet/PESDXL4UF_G_W.pdf
+$ENDCMP
+#
 $CMP PIC32MZ2048EFH100_IPF
 D 32-bit MCUs, 2 MB Flash, 512 KB SRAM, with FPU, Audio and Graphics Interfaces, HS USB, Ethernet, and Advanced Analog
 K PIC32 PIC32MZ PIC 32 bit
