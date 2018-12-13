@@ -265,8 +265,6 @@ Wire Wire Line
 	7680 3220 7680 4040
 Wire Wire Line
 	4000 3440 4560 3440
-Text Notes 2840 4880 0    50   ~ 0
-ESP8266 Pinout does not match default KiCad pin socket footprint. \nUse a custom footprint (maybe?)
 Wire Wire Line
 	4560 3960 4560 3540
 Wire Wire Line
