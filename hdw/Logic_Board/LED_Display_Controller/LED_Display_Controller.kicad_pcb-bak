@@ -7205,7 +7205,7 @@
   )
 
   (module TO_SOT_Packages_SMD:SOT-363_SC-70-6 (layer F.Cu) (tedit 58CE4E7F) (tstamp 5C098720)
-    (at 896.770601 223.833201)
+    (at 215.288601 239.581201)
     (descr "SOT-363, SC-70-6")
     (tags "SOT-363 SC-70-6")
     (path /5BAAE2CE/5BFD0D17)
@@ -7250,7 +7250,7 @@
   )
 
   (module TO_SOT_Packages_SMD:SOT-363_SC-70-6 (layer F.Cu) (tedit 58CE4E7F) (tstamp 5C098736)
-    (at 865.880601 253.113201)
+    (at 206.496601 239.524201)
     (descr "SOT-363, SC-70-6")
     (tags "SOT-363 SC-70-6")
     (path /5BAAE2CE/5BFEC8F8)
@@ -7295,7 +7295,7 @@
   )
 
   (module TO_SOT_Packages_SMD:SOT-363_SC-70-6 (layer F.Cu) (tedit 58CE4E7F) (tstamp 5C09874C)
-    (at 862.630601 253.113201)
+    (at 203.246601 239.524201)
     (descr "SOT-363, SC-70-6")
     (tags "SOT-363 SC-70-6")
     (path /5BAAE2CE/5BFE2189)
@@ -7340,7 +7340,7 @@
   )
 
   (module TO_SOT_Packages_SMD:SOT-363_SC-70-6 (layer F.Cu) (tedit 58CE4E7F) (tstamp 5C098762)
-    (at 893.520601 223.833201)
+    (at 212.038601 239.581201)
     (descr "SOT-363, SC-70-6")
     (tags "SOT-363 SC-70-6")
     (path /5BAAE2CE/5BFEEC83)
@@ -7383,7 +7383,7 @@
   )
 
   (module TO_SOT_Packages_SMD:SOT-363_SC-70-6 (layer F.Cu) (tedit 58CE4E7F) (tstamp 5C098778)
-    (at 859.380601 253.113201)
+    (at 199.996601 239.524201)
     (descr "SOT-363, SC-70-6")
     (tags "SOT-363 SC-70-6")
     (path /5BAAE2CE/5BFE454E)
@@ -7428,7 +7428,7 @@
   )
 
   (module TO_SOT_Packages_SMD:SOT-363_SC-70-6 (layer F.Cu) (tedit 58CE4E7F) (tstamp 5C09878E)
-    (at 856.130601 253.113201)
+    (at 196.746601 239.524201)
     (descr "SOT-363, SC-70-6")
     (tags "SOT-363 SC-70-6")
     (path /5BAAE2CE/5BFE8728)
@@ -7473,7 +7473,7 @@
   )
 
   (module TO_SOT_Packages_SMD:SOT-363_SC-70-6 (layer F.Cu) (tedit 58CE4E7F) (tstamp 5C0987A4)
-    (at 852.880601 253.113201)
+    (at 193.496601 239.524201)
     (descr "SOT-363, SC-70-6")
     (tags "SOT-363 SC-70-6")
     (path /5BAAE2CE/5BFF32EE)
