@@ -37,11 +37,11 @@ Row_E_POS5
 Text GLabel 2350 1770 0    50   Input ~ 0
 Row_C_POS5
 Text GLabel 2350 1870 0    50   Input ~ 0
-CLK_POS5
+Panel_CLK_POS5
 Text GLabel 2350 1970 0    40   Input ~ 0
-~OE_POS5
+~Panel_OE_POS5
 Text GLabel 2850 1870 2    50   Input ~ 0
-LAT_POS5
+Panel_LAT_POS5
 Text GLabel 2350 1270 0    50   Input ~ 0
 R0_POS5
 Text GLabel 2350 1370 0    50   Input ~ 0
@@ -57,23 +57,19 @@ G1_POS5
 $Comp
 L power:GND #PWR02901
 U 1 1 5BB40845
-P 3400 2120
-F 0 "#PWR02901" H 3400 1870 50  0001 C CNN
-F 1 "GND" H 3405 1947 50  0000 C CNN
-F 2 "" H 3400 2120 50  0001 C CNN
-F 3 "" H 3400 2120 50  0001 C CNN
-	1    3400 2120
+P 3650 2120
+F 0 "#PWR02901" H 3650 1870 50  0001 C CNN
+F 1 "GND" H 3655 1947 50  0000 C CNN
+F 2 "" H 3650 2120 50  0001 C CNN
+F 3 "" H 3650 2120 50  0001 C CNN
+	1    3650 2120
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3400 2120 3400 1970
+	3650 2120 3650 1970
 Wire Wire Line
-	3400 1970 2850 1970
-Wire Wire Line
-	2850 1370 3400 1370
-Wire Wire Line
-	3400 1370 3400 1970
-Connection ~ 3400 1970
+	3650 1370 3650 1970
+Connection ~ 3650 1970
 $Comp
 L Connector_Generic:Conn_02x08_Odd_Even J2902
 U 1 1 5BB40C27
@@ -97,11 +93,11 @@ Row_E_POS5
 Text GLabel 2350 3270 0    50   Input ~ 0
 Row_C_POS5
 Text GLabel 2350 3370 0    50   Input ~ 0
-CLK_POS5
+Panel_CLK_POS5
 Text GLabel 2350 3470 0    40   Input ~ 0
-~OE_POS5
+~Panel_OE_POS5
 Text GLabel 2850 3370 2    50   Input ~ 0
-LAT_POS5
+Panel_LAT_POS5
 Text GLabel 2350 2770 0    50   Input ~ 0
 R2_POS5
 Text GLabel 2350 2870 0    50   Input ~ 0
@@ -114,26 +110,6 @@ Text GLabel 2850 2770 2    50   Input ~ 0
 G2_POS5
 Text GLabel 2850 2970 2    50   Input ~ 0
 G3_POS5
-$Comp
-L power:GND #PWR02902
-U 1 1 5BB40C3C
-P 3400 3620
-F 0 "#PWR02902" H 3400 3370 50  0001 C CNN
-F 1 "GND" H 3405 3447 50  0000 C CNN
-F 2 "" H 3400 3620 50  0001 C CNN
-F 3 "" H 3400 3620 50  0001 C CNN
-	1    3400 3620
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3400 3620 3400 3470
-Wire Wire Line
-	3400 3470 2850 3470
-Wire Wire Line
-	2850 2870 3400 2870
-Wire Wire Line
-	3400 2870 3400 3470
-Connection ~ 3400 3470
 $Comp
 L Connector_Generic:Conn_02x08_Odd_Even J2903
 U 1 1 5BB40D11
@@ -157,11 +133,11 @@ Row_E_POS5
 Text GLabel 2350 4770 0    50   Input ~ 0
 Row_C_POS5
 Text GLabel 2350 4870 0    50   Input ~ 0
-CLK_POS5
+Panel_CLK_POS5
 Text GLabel 2350 4970 0    40   Input ~ 0
-~OE_POS5
+~Panel_OE_POS5
 Text GLabel 2850 4870 2    50   Input ~ 0
-LAT_POS5
+Panel_LAT_POS5
 Text GLabel 2350 4270 0    50   Input ~ 0
 R4_POS5
 Text GLabel 2350 4370 0    50   Input ~ 0
@@ -174,26 +150,6 @@ Text GLabel 2850 4270 2    50   Input ~ 0
 G4_POS5
 Text GLabel 2850 4470 2    50   Input ~ 0
 G5_POS5
-$Comp
-L power:GND #PWR02903
-U 1 1 5BB40D26
-P 3400 5120
-F 0 "#PWR02903" H 3400 4870 50  0001 C CNN
-F 1 "GND" H 3405 4947 50  0000 C CNN
-F 2 "" H 3400 5120 50  0001 C CNN
-F 3 "" H 3400 5120 50  0001 C CNN
-	1    3400 5120
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3400 5120 3400 4970
-Wire Wire Line
-	3400 4970 2850 4970
-Wire Wire Line
-	2850 4370 3400 4370
-Wire Wire Line
-	3400 4370 3400 4970
-Connection ~ 3400 4970
 $Comp
 L Connector_Generic:Conn_02x08_Odd_Even J2904
 U 1 1 5BB40D31
@@ -217,11 +173,11 @@ Row_E_POS5
 Text GLabel 2350 6270 0    50   Input ~ 0
 Row_C_POS5
 Text GLabel 2350 6370 0    50   Input ~ 0
-CLK_POS5
+Panel_CLK_POS5
 Text GLabel 2350 6470 0    40   Input ~ 0
-~OE_POS5
+~Panel_OE_POS5
 Text GLabel 2850 6370 2    50   Input ~ 0
-LAT_POS5
+Panel_LAT_POS5
 Text GLabel 2350 5770 0    50   Input ~ 0
 R6_POS5
 Text GLabel 2350 5870 0    50   Input ~ 0
@@ -234,26 +190,6 @@ Text GLabel 2850 5770 2    50   Input ~ 0
 G6_POS5
 Text GLabel 2850 5970 2    50   Input ~ 0
 G7_POS5
-$Comp
-L power:GND #PWR02904
-U 1 1 5BB40D46
-P 3400 6620
-F 0 "#PWR02904" H 3400 6370 50  0001 C CNN
-F 1 "GND" H 3405 6447 50  0000 C CNN
-F 2 "" H 3400 6620 50  0001 C CNN
-F 3 "" H 3400 6620 50  0001 C CNN
-	1    3400 6620
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3400 6620 3400 6470
-Wire Wire Line
-	3400 6470 2850 6470
-Wire Wire Line
-	2850 5870 3400 5870
-Wire Wire Line
-	3400 5870 3400 6470
-Connection ~ 3400 6470
 Text GLabel 6580 1450 1    50   Input ~ 0
 Row_A_POS5
 Text GLabel 6480 1450 1    50   Input ~ 0
@@ -267,9 +203,9 @@ R1_POS5
 Text GLabel 6680 1450 1    50   Input ~ 0
 B1_POS5
 Text GLabel 8430 1450 1    50   Input ~ 0
-CLK_POS5
+Panel_CLK_POS5
 Text GLabel 8030 1450 1    40   Input ~ 0
-~OE_POS5
+~Panel_OE_POS5
 Text GLabel 6380 1450 1    50   Input ~ 0
 Row_B_POS5
 Text GLabel 8330 1450 1    50   Input ~ 0
@@ -277,7 +213,7 @@ Row_D_POS5
 Text GLabel 6780 1450 1    50   Input ~ 0
 Row_E_POS5
 Text GLabel 8230 1450 1    50   Input ~ 0
-LAT_POS5
+Panel_LAT_POS5
 Text GLabel 5130 1450 1    50   Input ~ 0
 G0_POS5
 Text GLabel 4830 1450 1    50   Input ~ 0
@@ -638,21 +574,21 @@ Row_B_POS5
 Text GLabel 6780 5950 1    50   Input ~ 0
 Row_E_POS5
 Text GLabel 8430 2950 1    50   Input ~ 0
-CLK_POS5
+Panel_CLK_POS5
 Text GLabel 8030 2950 1    40   Input ~ 0
-~OE_POS5
+~Panel_OE_POS5
 Text GLabel 8330 2950 1    50   Input ~ 0
 Row_D_POS5
 Text GLabel 8230 2950 1    50   Input ~ 0
-LAT_POS5
+Panel_LAT_POS5
 Text GLabel 8430 4450 1    50   Input ~ 0
-CLK_POS5
+Panel_CLK_POS5
 Text GLabel 8030 4450 1    40   Input ~ 0
-~OE_POS5
+~Panel_OE_POS5
 Text GLabel 8330 4450 1    50   Input ~ 0
 Row_D_POS5
 Text GLabel 8230 4450 1    50   Input ~ 0
-LAT_POS5
+Panel_LAT_POS5
 Text GLabel 8430 5950 1    50   Input ~ 0
 CLK_POS5
 Text GLabel 8030 5950 1    40   Input ~ 0
@@ -661,4 +597,68 @@ Text GLabel 8330 5950 1    50   Input ~ 0
 Row_D_POS5
 Text GLabel 8230 5950 1    50   Input ~ 0
 LAT_POS5
+Wire Wire Line
+	2850 1970 3650 1970
+Wire Wire Line
+	2850 1370 3650 1370
+$Comp
+L power:GND #PWR0110
+U 1 1 5C1900F3
+P 3650 3620
+F 0 "#PWR0110" H 3650 3370 50  0001 C CNN
+F 1 "GND" H 3655 3447 50  0000 C CNN
+F 2 "" H 3650 3620 50  0001 C CNN
+F 3 "" H 3650 3620 50  0001 C CNN
+	1    3650 3620
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 3620 3650 3470
+Wire Wire Line
+	3650 2870 3650 3470
+Connection ~ 3650 3470
+Wire Wire Line
+	2850 3470 3650 3470
+Wire Wire Line
+	2850 2870 3650 2870
+$Comp
+L power:GND #PWR0111
+U 1 1 5C190162
+P 3650 5120
+F 0 "#PWR0111" H 3650 4870 50  0001 C CNN
+F 1 "GND" H 3655 4947 50  0000 C CNN
+F 2 "" H 3650 5120 50  0001 C CNN
+F 3 "" H 3650 5120 50  0001 C CNN
+	1    3650 5120
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 5120 3650 4970
+Wire Wire Line
+	3650 4370 3650 4970
+Connection ~ 3650 4970
+Wire Wire Line
+	2850 4970 3650 4970
+Wire Wire Line
+	2850 4370 3650 4370
+$Comp
+L power:GND #PWR0112
+U 1 1 5C1901F7
+P 3650 6620
+F 0 "#PWR0112" H 3650 6370 50  0001 C CNN
+F 1 "GND" H 3655 6447 50  0000 C CNN
+F 2 "" H 3650 6620 50  0001 C CNN
+F 3 "" H 3650 6620 50  0001 C CNN
+	1    3650 6620
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 6620 3650 6470
+Wire Wire Line
+	3650 5870 3650 6470
+Connection ~ 3650 6470
+Wire Wire Line
+	2850 6470 3650 6470
+Wire Wire Line
+	2850 5870 3650 5870
 $EndSCHEMATC

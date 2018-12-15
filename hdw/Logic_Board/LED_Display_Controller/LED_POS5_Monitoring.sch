@@ -359,7 +359,7 @@ F 2 "TO_SOT_Packages_SMD:SOT-363_SC-70-6" H 7160 2875 50  0001 C CNN
 F 3 "http://www.onsemi.ru.com/pub_link/Collateral/NUP2202W1-D.PDF" H 7160 2875 50  0001 C CNN
 F 4 "NUP2202W1T2GOSCT-ND" H 7080 2800 50  0001 C CNN "Digi-Key PN"
 	1    7080 2800
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
 	6540 1980 6800 1980

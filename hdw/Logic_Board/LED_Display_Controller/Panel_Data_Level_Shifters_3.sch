@@ -515,15 +515,15 @@ F 7 "RMCF0603FT10K0CT-ND" H 6770 3040 60  0001 C CNN "Digi-Key PN"
 	1    6470 2640
 	-1   0    0    -1  
 $EndComp
-Text GLabel 9680 2900 2    50   Output ~ 0
-Row_A_POS5
 Text GLabel 9680 3000 2    50   Output ~ 0
-Row_B_POS5
+Row_A_POS5
 Text GLabel 9680 3100 2    50   Output ~ 0
-Row_C_POS5
+Row_B_POS5
 Text GLabel 9680 3200 2    50   Output ~ 0
-Row_D_POS5
+Row_C_POS5
 Text GLabel 9680 3300 2    50   Output ~ 0
+Row_D_POS5
+Text GLabel 9680 2900 2    50   Output ~ 0
 Row_E_POS5
 Text GLabel 9680 3400 2    50   Output ~ 0
 Panel_CLK_POS5
@@ -674,15 +674,15 @@ Wire Wire Line
 	4570 3100 5470 3100
 Wire Wire Line
 	4570 3200 5670 3200
-Text GLabel 4270 2900 0    50   Input ~ 0
-Row_A_POS3P3
 Text GLabel 4270 3000 0    50   Input ~ 0
-Row_B_POS3P3
+Row_A_POS3P3
 Text GLabel 4270 3100 0    50   Input ~ 0
-Row_C_POS3P3
+Row_B_POS3P3
 Text GLabel 4270 3200 0    50   Input ~ 0
-Row_D_POS3P3
+Row_C_POS3P3
 Text GLabel 4270 3300 0    50   Input ~ 0
+Row_D_POS3P3
+Text GLabel 4270 2900 0    50   Input ~ 0
 Row_E_POS3P3
 Text GLabel 4270 3400 0    50   Input ~ 0
 Panel_CLK_POS3P3
