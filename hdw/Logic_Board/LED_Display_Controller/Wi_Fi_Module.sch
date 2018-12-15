@@ -15,10 +15,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Connector_Generic:Conn_02x04_Odd_Even J901
+L Connector_Generic:Conn_02x04_Odd_Even U901
 U 1 1 5BDCD8E7
 P 3700 3540
-F 0 "J901" H 3750 3740 50  0000 C CNN
+F 0 "U901" H 3750 3740 50  0000 C CNN
 F 1 "ESP8266 Socket" H 3750 3240 50  0000 C CNN
 F 2 "Electronic_Display_Footprint_Lib:ESP8266_Socket" H 3700 3540 50  0001 C CNN
 F 3 "~" H 3700 3540 50  0001 C CNN

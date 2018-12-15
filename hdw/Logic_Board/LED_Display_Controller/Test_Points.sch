@@ -408,67 +408,67 @@ F 4 "S2011EC-17-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 Text GLabel 8970 3250 2    50   Input ~ 0
-G7_POS5
+G7_POS3P3
 Text GLabel 8970 3350 2    50   Input ~ 0
-B7_POS5
+B7_POS3P3
 Text GLabel 8970 3150 2    50   Input ~ 0
-R7_POS5
+R7_POS3P3
 Text GLabel 8970 2950 2    50   Input ~ 0
-G6_POS5
+G6_POS3P3
 Text GLabel 8970 3050 2    50   Input ~ 0
-B6_POS5
+B6_POS3P3
 Text GLabel 8970 2850 2    50   Input ~ 0
-R6_POS5
+R6_POS3P3
 Text GLabel 8970 2650 2    50   Input ~ 0
-G5_POS5
+G5_POS3P3
 Text GLabel 8970 2750 2    50   Input ~ 0
-B5_POS5
+B5_POS3P3
 Text GLabel 8970 2550 2    50   Input ~ 0
-R5_POS5
+R5_POS3P3
 Text GLabel 8470 3850 0    50   Input ~ 0
-G4_POS5
+G4_POS3P3
 Text GLabel 8470 3950 0    50   Input ~ 0
-B4_POS5
+B4_POS3P3
 Text GLabel 8470 3750 0    50   Input ~ 0
-R4_POS5
+R4_POS3P3
 Text GLabel 8470 3550 0    50   Input ~ 0
-G3_POS5
+G3_POS3P3
 Text GLabel 8470 3650 0    50   Input ~ 0
-B3_POS5
+B3_POS3P3
 Text GLabel 8470 3450 0    50   Input ~ 0
-R3_POS5
+R3_POS3P3
 Text GLabel 8470 3250 0    50   Input ~ 0
-G2_POS5
+G2_POS3P3
 Text GLabel 8470 3350 0    50   Input ~ 0
-B2_POS5
+B2_POS3P3
 Text GLabel 8470 3150 0    50   Input ~ 0
-R2_POS5
+R2_POS3P3
 Text GLabel 8470 2950 0    50   Input ~ 0
-G1_POS5
+G1_POS3P3
 Text GLabel 8470 2650 0    50   Input ~ 0
-G0_POS5
+G0_POS3P3
 Text GLabel 8470 3050 0    50   Input ~ 0
-B1_POS5
+B1_POS3P3
 Text GLabel 8470 2850 0    50   Input ~ 0
-R1_POS5
+R1_POS3P3
 Text GLabel 8470 2750 0    50   Input ~ 0
-B0_POS5
+B0_POS3P3
 Text GLabel 8470 2550 0    50   Input ~ 0
-R0_POS5
+R0_POS3P3
 Text GLabel 8970 4050 2    50   Input ~ 0
-Panel_LAT_POS5
-Text GLabel 8970 3950 2    40   Input ~ 0
-~Panel_OE_POS5
+Panel_LAT_POS3P3
 Text GLabel 8470 4050 0    50   Input ~ 0
-Panel_CLK_POS5
+Panel_CLK_POS3P3
 Text GLabel 8970 3650 2    50   Input ~ 0
-Row_C_POS5
+Row_C_POS3P3
 Text GLabel 8970 3850 2    50   Input ~ 0
-Row_E_POS5
+Row_E_POS3P3
 Text GLabel 8970 3750 2    50   Input ~ 0
-Row_D_POS5
+Row_D_POS3P3
 Text GLabel 8970 3550 2    50   Input ~ 0
-Row_B_POS5
+Row_B_POS3P3
 Text GLabel 8970 3450 2    50   Input ~ 0
-Row_A_POS5
+Row_A_POS3P3
+Text GLabel 8970 3950 2    40   Input ~ 0
+~Panel_OE_Dim_POS3P3
 $EndSCHEMATC
