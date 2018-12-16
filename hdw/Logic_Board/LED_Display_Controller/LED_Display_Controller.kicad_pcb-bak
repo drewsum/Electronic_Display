@@ -24935,7 +24935,7 @@
     (fp_arc (start 0 0.075) (end 0.75 0.75) (angle 270) (layer F.SilkS) (width 0.15))
   )
 
-  (gr_text "Input\nRequirements:\n+12V Nominal\n+10V Minimum\n+14V Maximum" (at 18.034 114.935 90) (layer F.SilkS) (tstamp 5C157890)
+  (gr_text "Input\nRequirements:\n+12V Nominal\n+10V Minimum\n+14V Maximum" (at 18.034 114.3 90) (layer F.SilkS) (tstamp 5C157890)
     (effects (font (size 1 1) (thickness 0.15)) (justify left))
   )
   (gr_text Heartbeat (at 147.32 113.538 90) (layer F.SilkS) (tstamp 5C155BFF)

@@ -25,6 +25,12 @@ K Single Gate NOT LVC CMOS Open Drain
 F http://www.ti.com/lit/ds/symlink/sn74lvc1g06.pdf
 $ENDCMP
 #
+$CMP 74LVC1G07_Power
+D Single Buffer Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate Buff LVC CMOS Open Drain
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP 74LVC1G17_Power
 D Single Schmitt Buffer Gate, Low-Voltage CMOS
 K Single Gate Buff Schmitt LVC CMOS

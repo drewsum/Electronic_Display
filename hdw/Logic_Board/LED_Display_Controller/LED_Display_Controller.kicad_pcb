@@ -25279,7 +25279,7 @@
   (gr_line (start 413.335 80.086) (end 13.335 80.086) (layer Edge.Cuts) (width 0.1))
   (gr_line (start 413.335 180.086) (end 413.335 80.086) (layer Edge.Cuts) (width 0.1))
   (gr_line (start 13.335 180.086) (end 413.335 180.086) (layer Edge.Cuts) (width 0.1) (tstamp 5C1475C6))
-  (gr_text "To Do:\nLayer count\nCopper MU Logo\nTeam member names\nProject name\nManufacturer logos\nKiCAD logo\nLED labels\nConnector Labels\nHide a cool image under the micro/SRAM\nTest point labels\nInput voltage polarity\nOutput data signal labels\nFunctional block labels?\nESD warning\nHeat warning\nBlack and white picture of group in silkscreen? ehh\nDesign rule / stackup notes\nStitching Caps\nTVS Diodes on all inputs\nAdd TX/RX LEDs for WIFI UART\nAdd FLASH access LEDs (one for each chip)" (at 35.052 38.354) (layer Cmts.User)
+  (gr_text "To Do:\nLayer count\nCopper MU Logo\nTeam member names\nProject name\nManufacturer logos\nKiCAD logo\nLED labels\nConnector Labels\nHide a cool image under the micro/SRAM\nTest point labels\nInput voltage polarity\nOutput data signal labels\nFunctional block labels?\nESD warning\nHeat warning\nBlack and white picture of group in silkscreen? ehh\nDesign rule / stackup notes\nStitching Caps\nTVS Diodes on all inputs\nAdd TX/RX LEDs for WIFI UART\nAdd FLASH access LEDs (one for each chip)\nAdd bulk caps for parts far away from power supply" (at 35.052 38.354) (layer Cmts.User)
     (effects (font (size 1.5 1.5) (thickness 0.3)) (justify left))
   )
   (gr_text "ONLY USE A 5MIL GRID FOR PLACING COMPONENTS\nWill design around JLCPCB design rules, conservatively" (at 330.962 50.927) (layer Cmts.User)
