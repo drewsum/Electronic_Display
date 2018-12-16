@@ -2108,7 +2108,7 @@ Wire Wire Line
 	7180 5080 7020 5080
 Wire Wire Line
 	7020 5080 7020 5150
-Text GLabel 7180 4780 0    50   Input ~ 0
+Text GLabel 6940 4780 0    50   Input ~ 0
 Panel_LAT_POS3P3
 $Comp
 L Device:LED D1213
@@ -2360,4 +2360,41 @@ Wire Wire Line
 	8790 5380 8790 5180
 Wire Wire Line
 	8790 5180 8620 5180
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5C172269
+P 7020 4460
+AR Path="/5BAAE1F3/5C172269" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5C172269" Ref="R?"  Part="1" 
+AR Path="/5BAAE16C/5C172269" Ref="R?"  Part="1" 
+AR Path="/5BB844FD/5C172269" Ref="R1231"  Part="1" 
+F 0 "R1231" H 6960 4460 50  0000 R CNN
+F 1 "10k" V 7020 4460 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" H 7020 4460 50  0001 C CNN
+F 3 "" H 7020 4460 50  0001 C CNN
+F 4 "0603" H 7090 4540 50  0000 L CNN "display_footprint"
+F 5 "1%" H 7090 4460 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 7090 4390 50  0000 L CNN "Wattage"
+F 7 "RMCF0603FT10K0CT-ND" H 7320 4860 60  0001 C CNN "Digi-Key PN"
+	1    7020 4460
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR01284
+U 1 1 5C172485
+P 7020 4310
+F 0 "#PWR01284" H 7020 4160 50  0001 C CNN
+F 1 "+3.3V" H 7020 4450 50  0000 C CNN
+F 2 "" H 7020 4310 50  0001 C CNN
+F 3 "" H 7020 4310 50  0001 C CNN
+	1    7020 4310
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7180 4780 7020 4780
+Wire Wire Line
+	7020 4780 7020 4610
+Wire Wire Line
+	6940 4780 7020 4780
+Connection ~ 7020 4780
 $EndSCHEMATC
