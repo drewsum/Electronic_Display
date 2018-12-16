@@ -19,6 +19,12 @@ D power-flag symbol
 K Power Flag Symbol
 $ENDCMP
 #
+$CMP 74LVC1G00_Power
+D Single NAND Gate, Low-Voltage CMOS
+K Single Gate NAND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP 74LVC1G06_Power
 D Single NOT Gate w/ Open Drain, Low-Voltage CMOS
 K Single Gate NOT LVC CMOS Open Drain
