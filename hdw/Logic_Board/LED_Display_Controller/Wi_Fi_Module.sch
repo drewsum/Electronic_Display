@@ -751,9 +751,9 @@ F 3 "" H 8700 5340 50  0001 C CNN
 	1    8700 5340
 	1    0    0    -1  
 $EndComp
-Text GLabel 6290 5340 0    50   Input ~ 0
-WIFI_UART_TX
 Text GLabel 6290 5440 0    50   Input ~ 0
+WIFI_UART_TX
+Text GLabel 6290 5340 0    50   Input ~ 0
 WIFI_UART_RX
 $Comp
 L LED_Display_Local_Library:R_Custom R?
