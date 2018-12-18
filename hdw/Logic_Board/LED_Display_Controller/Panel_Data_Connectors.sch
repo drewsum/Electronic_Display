@@ -190,33 +190,33 @@ Text GLabel 2850 5770 2    50   Input ~ 0
 G6_POS5
 Text GLabel 2850 5970 2    50   Input ~ 0
 G7_POS5
-Text GLabel 6580 1450 1    50   Input ~ 0
-Row_A_POS5
-Text GLabel 6480 1450 1    50   Input ~ 0
-Row_C_POS5
-Text GLabel 5030 1450 1    50   Input ~ 0
-R0_POS5
-Text GLabel 4930 1450 1    50   Input ~ 0
-B0_POS5
-Text GLabel 4730 1450 1    50   Input ~ 0
-R1_POS5
-Text GLabel 6680 1450 1    50   Input ~ 0
-B1_POS5
-Text GLabel 8430 1450 1    50   Input ~ 0
-Panel_CLK_POS5
-Text GLabel 8030 1450 1    40   Input ~ 0
-~Panel_OE_POS5
-Text GLabel 6380 1450 1    50   Input ~ 0
-Row_B_POS5
-Text GLabel 8330 1450 1    50   Input ~ 0
-Row_D_POS5
 Text GLabel 6780 1450 1    50   Input ~ 0
-Row_E_POS5
-Text GLabel 8230 1450 1    50   Input ~ 0
-Panel_LAT_POS5
-Text GLabel 5130 1450 1    50   Input ~ 0
-G0_POS5
+Row_A_POS5
+Text GLabel 8130 1450 1    50   Input ~ 0
+Row_C_POS5
 Text GLabel 4830 1450 1    50   Input ~ 0
+R0_POS5
+Text GLabel 5130 1450 1    50   Input ~ 0
+B0_POS5
+Text GLabel 4930 1450 1    50   Input ~ 0
+R1_POS5
+Text GLabel 6380 1450 1    50   Input ~ 0
+B1_POS5
+Text GLabel 8230 1450 1    50   Input ~ 0
+Panel_CLK_POS5
+Text GLabel 8430 1450 1    40   Input ~ 0
+~Panel_OE_POS5
+Text GLabel 6680 1450 1    50   Input ~ 0
+Row_B_POS5
+Text GLabel 6580 1450 1    50   Input ~ 0
+Row_D_POS5
+Text GLabel 6480 1450 1    50   Input ~ 0
+Row_E_POS5
+Text GLabel 8030 1450 1    50   Input ~ 0
+Panel_LAT_POS5
+Text GLabel 4730 1450 1    50   Input ~ 0
+G0_POS5
+Text GLabel 5030 1450 1    50   Input ~ 0
 G1_POS5
 Text Notes 2130 7740 0    50   ~ 0
 String 1 is the top string,\nString 4 is the bottom string.\nEach string is 5 panels long\nEach panel is 64x64 pixels\nThis yields a 320x256 pixel overall display resolution
@@ -509,94 +509,6 @@ F 3 "" H 8230 6350 50  0001 C CNN
 	1    8230 6350
 	1    0    0    -1  
 $EndComp
-NoConn ~ 8130 1450
-NoConn ~ 8130 2950
-NoConn ~ 8130 4450
-NoConn ~ 8130 5950
-Text GLabel 5030 2950 1    50   Input ~ 0
-R2_POS5
-Text GLabel 4930 2950 1    50   Input ~ 0
-B2_POS5
-Text GLabel 4730 2950 1    50   Input ~ 0
-R3_POS5
-Text GLabel 5130 2950 1    50   Input ~ 0
-G2_POS5
-Text GLabel 4830 2950 1    50   Input ~ 0
-G3_POS5
-Text GLabel 5030 4450 1    50   Input ~ 0
-R4_POS5
-Text GLabel 4930 4450 1    50   Input ~ 0
-B4_POS5
-Text GLabel 4730 4450 1    50   Input ~ 0
-R5_POS5
-Text GLabel 5130 4450 1    50   Input ~ 0
-G4_POS5
-Text GLabel 4830 4450 1    50   Input ~ 0
-G5_POS5
-Text GLabel 5030 5950 1    50   Input ~ 0
-R6_POS5
-Text GLabel 4930 5950 1    50   Input ~ 0
-B6_POS5
-Text GLabel 4730 5950 1    50   Input ~ 0
-R7_POS5
-Text GLabel 5130 5950 1    50   Input ~ 0
-G6_POS5
-Text GLabel 4830 5950 1    50   Input ~ 0
-G7_POS5
-Text GLabel 6580 2950 1    50   Input ~ 0
-Row_A_POS5
-Text GLabel 6480 2950 1    50   Input ~ 0
-Row_C_POS5
-Text GLabel 6680 2950 1    50   Input ~ 0
-B1_POS5
-Text GLabel 6380 2950 1    50   Input ~ 0
-Row_B_POS5
-Text GLabel 6780 2950 1    50   Input ~ 0
-Row_E_POS5
-Text GLabel 6580 4450 1    50   Input ~ 0
-Row_A_POS5
-Text GLabel 6480 4450 1    50   Input ~ 0
-Row_C_POS5
-Text GLabel 6680 4450 1    50   Input ~ 0
-B1_POS5
-Text GLabel 6380 4450 1    50   Input ~ 0
-Row_B_POS5
-Text GLabel 6780 4450 1    50   Input ~ 0
-Row_E_POS5
-Text GLabel 6580 5950 1    50   Input ~ 0
-Row_A_POS5
-Text GLabel 6480 5950 1    50   Input ~ 0
-Row_C_POS5
-Text GLabel 6680 5950 1    50   Input ~ 0
-B1_POS5
-Text GLabel 6380 5950 1    50   Input ~ 0
-Row_B_POS5
-Text GLabel 6780 5950 1    50   Input ~ 0
-Row_E_POS5
-Text GLabel 8430 2950 1    50   Input ~ 0
-Panel_CLK_POS5
-Text GLabel 8030 2950 1    40   Input ~ 0
-~Panel_OE_POS5
-Text GLabel 8330 2950 1    50   Input ~ 0
-Row_D_POS5
-Text GLabel 8230 2950 1    50   Input ~ 0
-Panel_LAT_POS5
-Text GLabel 8430 4450 1    50   Input ~ 0
-Panel_CLK_POS5
-Text GLabel 8030 4450 1    40   Input ~ 0
-~Panel_OE_POS5
-Text GLabel 8330 4450 1    50   Input ~ 0
-Row_D_POS5
-Text GLabel 8230 4450 1    50   Input ~ 0
-Panel_LAT_POS5
-Text GLabel 8430 5950 1    50   Input ~ 0
-CLK_POS5
-Text GLabel 8030 5950 1    40   Input ~ 0
-~OE_POS5
-Text GLabel 8330 5950 1    50   Input ~ 0
-Row_D_POS5
-Text GLabel 8230 5950 1    50   Input ~ 0
-LAT_POS5
 Wire Wire Line
 	2850 1970 3650 1970
 Wire Wire Line
@@ -661,4 +573,92 @@ Wire Wire Line
 	2850 6470 3650 6470
 Wire Wire Line
 	2850 5870 3650 5870
+NoConn ~ 8330 1450
+Text GLabel 6780 2950 1    50   Input ~ 0
+Row_A_POS5
+Text GLabel 8130 2950 1    50   Input ~ 0
+Row_C_POS5
+Text GLabel 4830 2950 1    50   Input ~ 0
+R2_POS5
+Text GLabel 5130 2950 1    50   Input ~ 0
+B2_POS5
+Text GLabel 4930 2950 1    50   Input ~ 0
+R3_POS5
+Text GLabel 6380 2950 1    50   Input ~ 0
+B3_POS5
+Text GLabel 8230 2950 1    50   Input ~ 0
+Panel_CLK_POS5
+Text GLabel 8430 2950 1    40   Input ~ 0
+~Panel_OE_POS5
+Text GLabel 6680 2950 1    50   Input ~ 0
+Row_B_POS5
+Text GLabel 6580 2950 1    50   Input ~ 0
+Row_D_POS5
+Text GLabel 6480 2950 1    50   Input ~ 0
+Row_E_POS5
+Text GLabel 8030 2950 1    50   Input ~ 0
+Panel_LAT_POS5
+Text GLabel 4730 2950 1    50   Input ~ 0
+G2_POS5
+Text GLabel 5030 2950 1    50   Input ~ 0
+G3_POS5
+NoConn ~ 8330 2950
+Text GLabel 6780 4450 1    50   Input ~ 0
+Row_A_POS5
+Text GLabel 8130 4450 1    50   Input ~ 0
+Row_C_POS5
+Text GLabel 4830 4450 1    50   Input ~ 0
+R4_POS5
+Text GLabel 5130 4450 1    50   Input ~ 0
+B4_POS5
+Text GLabel 4930 4450 1    50   Input ~ 0
+R5_POS5
+Text GLabel 6380 4450 1    50   Input ~ 0
+B5_POS5
+Text GLabel 8230 4450 1    50   Input ~ 0
+Panel_CLK_POS5
+Text GLabel 8430 4450 1    40   Input ~ 0
+~Panel_OE_POS5
+Text GLabel 6680 4450 1    50   Input ~ 0
+Row_B_POS5
+Text GLabel 6580 4450 1    50   Input ~ 0
+Row_D_POS5
+Text GLabel 6480 4450 1    50   Input ~ 0
+Row_E_POS5
+Text GLabel 8030 4450 1    50   Input ~ 0
+Panel_LAT_POS5
+Text GLabel 4730 4450 1    50   Input ~ 0
+G4_POS5
+Text GLabel 5030 4450 1    50   Input ~ 0
+G5_POS5
+NoConn ~ 8330 4450
+Text GLabel 6780 5950 1    50   Input ~ 0
+Row_A_POS5
+Text GLabel 8130 5950 1    50   Input ~ 0
+Row_C_POS5
+Text GLabel 4830 5950 1    50   Input ~ 0
+R6_POS5
+Text GLabel 5130 5950 1    50   Input ~ 0
+B6_POS5
+Text GLabel 4930 5950 1    50   Input ~ 0
+R7_POS5
+Text GLabel 6380 5950 1    50   Input ~ 0
+B7_POS5
+Text GLabel 8230 5950 1    50   Input ~ 0
+Panel_CLK_POS5
+Text GLabel 8430 5950 1    40   Input ~ 0
+~Panel_OE_POS5
+Text GLabel 6680 5950 1    50   Input ~ 0
+Row_B_POS5
+Text GLabel 6580 5950 1    50   Input ~ 0
+Row_D_POS5
+Text GLabel 6480 5950 1    50   Input ~ 0
+Row_E_POS5
+Text GLabel 8030 5950 1    50   Input ~ 0
+Panel_LAT_POS5
+Text GLabel 4730 5950 1    50   Input ~ 0
+G6_POS5
+Text GLabel 5030 5950 1    50   Input ~ 0
+G7_POS5
+NoConn ~ 8330 5950
 $EndSCHEMATC
