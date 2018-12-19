@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/crop"
+        android:icon="@mipmap/crop"
+        android:title="Crop Bitmap"
+        android:visible="true"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/back"
+        android:icon="@mipmap/back"
+        android:title="Back"
+        android:visible="false"
+        app:showAsAction="always" />
+
+</menu>

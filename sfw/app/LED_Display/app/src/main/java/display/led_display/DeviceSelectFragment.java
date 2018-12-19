@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -31,6 +34,8 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ImageView mImageView;
+    private Button mButton;
 
     public DeviceSelectFragment() {
         // Required empty public constructor
@@ -64,6 +69,22 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                Uri uri = data.getData();
+                // 获取到路径
+                showFile(ConvertUriToFilePath.getPathFromURI(getActivity(), uri));
+            }
+        }
+    }
+
+    private void showFile(String filePaht) {
+        startActivity(new Intent(getActivity(), DisplayActivity.class)
+                .putExtra("path", filePaht));
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -74,6 +95,18 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
             @Override
             public void onClick(View arg0) {
                 startActivity(new Intent(getActivity(), WiFiActivity.class));
+            }
+        });
+        mButton = rootView.findViewById(R.id.select_ppt);
+        mImageView = rootView.findViewById(R.id.result);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(Intent.createChooser(intent, "Select a File to Display"), 1);
+
             }
         });
         return rootView;
@@ -131,5 +164,13 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(DisplayActivity.CROP_RESULT_BITMAP != null) {
+            mImageView.setImageBitmap(DisplayActivity.CROP_RESULT_BITMAP);
+        }
     }
 }

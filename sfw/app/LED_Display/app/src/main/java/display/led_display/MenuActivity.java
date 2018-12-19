@@ -1,5 +1,6 @@
 package display.led_display;
 
+import android.Manifest;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class MenuActivity extends AppCompatActivity
         implements DeviceSelectFragment.OnFragmentInteractionListener,
@@ -46,6 +49,13 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // 申请读取文件权限
+        String[] perms = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (!EasyPermissions.hasPermissions(MenuActivity.this, perms)) {
+            EasyPermissions.requestPermissions(MenuActivity.this, "You need access to phone storage.", 10086, perms);
+        }
     }
 
     @Override
