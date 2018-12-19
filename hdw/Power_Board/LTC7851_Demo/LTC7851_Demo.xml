@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="D">
   <design>
-    <source>C:\Users\Drew Maatman\Documents\KiCad Projects\Projects\Demo Boards\LTC7851_Demo\hdw\LTC7851_Demo\LTC7851_Demo.sch</source>
-    <date>10/30/2018 8:14:01 PM</date>
-    <tool>Eeschema (5.0.0)</tool>
+    <source>C:\Users\Drew Maatman\Documents\KiCad Projects\Projects\Electronic_Display\hdw\Power_Board\LTC7851_Demo\LTC7851_Demo.sch</source>
+    <date>11/21/2018 2:39:08 PM</date>
+    <tool>Eeschema (5.0.1)-3</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title/>
@@ -424,7 +424,7 @@
       <fields>
         <field name="Digi-Key PN">SMAJ24CALFCT-ND</field>
       </fields>
-      <libsource lib="Device" part="D_TVS_ALT" description="Bidirectional transient-voltage-suppression (TVS) diode, alternative symbol"/>
+      <libsource lib="Device" part="D_TVS_ALT" description="Bidirectional transient-voltage-suppression diode, filled shape"/>
       <sheetpath names="/Power Input/" tstamps="/5BB86F23/"/>
       <tstamp>5BC52DC5</tstamp>
     </comp>
@@ -472,7 +472,7 @@
       <fields>
         <field name="Digi-Key PN">160-1446-1-ND</field>
       </fields>
-      <libsource lib="Device" part="LED" description="LED generic"/>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <sheetpath names="/Power Input/" tstamps="/5BB86F23/"/>
       <tstamp>5BC2A9E5</tstamp>
     </comp>
@@ -647,7 +647,7 @@
       <fields>
         <field name="Digi-Key PN">160-1446-1-ND</field>
       </fields>
-      <libsource lib="Device" part="LED" description="LED generic"/>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <sheetpath names="/POS5 Control/" tstamps="/5BB86F26/"/>
       <tstamp>5BD59E8B</tstamp>
     </comp>
@@ -682,7 +682,7 @@
       <fields>
         <field name="Digi-Key PN">160-1446-1-ND</field>
       </fields>
-      <libsource lib="Device" part="LED" description="LED generic"/>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <sheetpath names="/POS5 Control/" tstamps="/5BB86F26/"/>
       <tstamp>5BD5A7AC</tstamp>
     </comp>
@@ -745,7 +745,7 @@
       <fields>
         <field name="Digi-Key PN">160-1447-1-ND</field>
       </fields>
-      <libsource lib="Device" part="LED" description="LED generic"/>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <sheetpath names="/POS5 Control/" tstamps="/5BB86F26/"/>
       <tstamp>5BD5F141</tstamp>
     </comp>
@@ -835,11 +835,11 @@
       <tstamp>5BB8C7AD</tstamp>
     </comp>
     <comp ref="L401">
-      <value>0.47uH</value>
+      <value>1uH</value>
       <footprint>Inductors_SMD:L_Vishay_IHLP-4040</footprint>
       <fields>
-        <field name="Ampacity">30A</field>
-        <field name="Digi-Key PN">541-2595-1-ND</field>
+        <field name="Ampacity">25A</field>
+        <field name="Digi-Key PN">541-1306-1-ND</field>
         <field name="Tolerance">20%</field>
         <field name="display_footprint">IHLP4040</field>
       </fields>
@@ -874,10 +874,10 @@
       <tstamp>5BB9AE19</tstamp>
     </comp>
     <comp ref="R407">
-      <value>1.4k</value>
+      <value>1.96k</value>
       <footprint>Resistors_SMD:R_0402</footprint>
       <fields>
-        <field name="Digi-Key PN">RMCF0402FT1K40CT-ND</field>
+        <field name="Digi-Key PN">311-1.96KLRCT-ND</field>
         <field name="Tolerance">1%</field>
         <field name="Wattage">1/16W</field>
         <field name="display_footprint">0402</field>
@@ -978,10 +978,10 @@
       <tstamp>5BC9167C</tstamp>
     </comp>
     <comp ref="R401">
-      <value>66.5k</value>
+      <value>59k</value>
       <footprint>Resistors_SMD:R_0402</footprint>
       <fields>
-        <field name="Digi-Key PN">RMCF0402FT66K5CT-ND</field>
+        <field name="Digi-Key PN">P59KDCCT-ND</field>
         <field name="Tolerance">1%</field>
         <field name="Wattage">1/16W</field>
         <field name="display_footprint">0402</field>
@@ -1212,11 +1212,11 @@
       <tstamp>5BD013D0</tstamp>
     </comp>
     <comp ref="C401">
-      <value>100pF</value>
+      <value>1nF</value>
       <footprint>Capacitors_SMD:C_0402</footprint>
       <fields>
         <field name="Dielectric">X7R</field>
-        <field name="Digi-Key PN">478-1089-1-ND</field>
+        <field name="Digi-Key PN">311-1080-1-ND</field>
         <field name="Voltage">50V</field>
         <field name="display_footprint">0402</field>
       </fields>
@@ -1301,11 +1301,11 @@
       <tstamp>5BD16C1E</tstamp>
     </comp>
     <comp ref="L501">
-      <value>0.47uH</value>
+      <value>1uH</value>
       <footprint>Inductors_SMD:L_Vishay_IHLP-4040</footprint>
       <fields>
-        <field name="Ampacity">30A</field>
-        <field name="Digi-Key PN">541-2595-1-ND</field>
+        <field name="Ampacity">25A</field>
+        <field name="Digi-Key PN">541-1306-1-ND</field>
         <field name="Tolerance">20%</field>
         <field name="display_footprint">IHLP4040</field>
       </fields>
@@ -1509,10 +1509,10 @@
       <tstamp>5BD16E92</tstamp>
     </comp>
     <comp ref="R503">
-      <value>1.4k</value>
+      <value>1.96k</value>
       <footprint>Resistors_SMD:R_0402</footprint>
       <fields>
-        <field name="Digi-Key PN">RMCF0402FT1K40CT-ND</field>
+        <field name="Digi-Key PN">311-1.96KLRCT-ND</field>
         <field name="Tolerance">1%</field>
         <field name="Wattage">1/16W</field>
         <field name="display_footprint">0402</field>
@@ -1585,11 +1585,11 @@
       <tstamp>5BD489B4</tstamp>
     </comp>
     <comp ref="L601">
-      <value>0.47uH</value>
+      <value>1uH</value>
       <footprint>Inductors_SMD:L_Vishay_IHLP-4040</footprint>
       <fields>
-        <field name="Ampacity">30A</field>
-        <field name="Digi-Key PN">541-2595-1-ND</field>
+        <field name="Ampacity">25A</field>
+        <field name="Digi-Key PN">541-1306-1-ND</field>
         <field name="Tolerance">20%</field>
         <field name="display_footprint">IHLP4040</field>
       </fields>
@@ -1793,10 +1793,10 @@
       <tstamp>5BD48BA9</tstamp>
     </comp>
     <comp ref="R603">
-      <value>1.4k</value>
+      <value>1.96k</value>
       <footprint>Resistors_SMD:R_0402</footprint>
       <fields>
-        <field name="Digi-Key PN">RMCF0402FT1K40CT-ND</field>
+        <field name="Digi-Key PN">311-1.96KLRCT-ND</field>
         <field name="Tolerance">1%</field>
         <field name="Wattage">1/16W</field>
         <field name="display_footprint">0402</field>
@@ -1869,11 +1869,11 @@
       <tstamp>5BD4BE1A</tstamp>
     </comp>
     <comp ref="L701">
-      <value>0.47uH</value>
+      <value>1uH</value>
       <footprint>Inductors_SMD:L_Vishay_IHLP-4040</footprint>
       <fields>
-        <field name="Ampacity">30A</field>
-        <field name="Digi-Key PN">541-2595-1-ND</field>
+        <field name="Ampacity">25A</field>
+        <field name="Digi-Key PN">541-1306-1-ND</field>
         <field name="Tolerance">20%</field>
         <field name="display_footprint">IHLP4040</field>
       </fields>
@@ -2077,10 +2077,10 @@
       <tstamp>5BD4C00F</tstamp>
     </comp>
     <comp ref="R703">
-      <value>1.4k</value>
+      <value>1.96k</value>
       <footprint>Resistors_SMD:R_0402</footprint>
       <fields>
-        <field name="Digi-Key PN">RMCF0402FT1K40CT-ND</field>
+        <field name="Digi-Key PN">311-1.96KLRCT-ND</field>
         <field name="Tolerance">1%</field>
         <field name="Wattage">1/16W</field>
         <field name="display_footprint">0402</field>
@@ -3150,7 +3150,7 @@
       </pins>
     </libpart>
     <libpart lib="Device" part="D_TVS_ALT">
-      <description>Bidirectional transient-voltage-suppression (TVS) diode, alternative symbol</description>
+      <description>Bidirectional transient-voltage-suppression diode, filled shape</description>
       <docs>~</docs>
       <footprints>
         <fp>TO-???*</fp>
@@ -3168,7 +3168,7 @@
       </pins>
     </libpart>
     <libpart lib="Device" part="LED">
-      <description>LED generic</description>
+      <description>Light emitting diode</description>
       <docs>~</docs>
       <footprints>
         <fp>LED*</fp>
@@ -3264,7 +3264,7 @@
         <fp>MountingHole*</fp>
       </footprints>
       <fields>
-        <field name="Reference">MH</field>
+        <field name="Reference">H</field>
         <field name="Value">MountingHole</field>
       </fields>
     </libpart>

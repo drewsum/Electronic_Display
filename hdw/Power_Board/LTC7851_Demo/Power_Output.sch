@@ -5,10 +5,10 @@ EELAYER END
 $Descr A 11000 8500
 encoding utf-8
 Sheet 9 14
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "Electronic Display Power Board"
+Date "2018-11-28"
+Rev "A"
+Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -105,5 +105,16 @@ Connection ~ 5240 3570
 Text Notes 3340 3220 0    50   ~ 0
 Place bulk output caps close to terminals
 Text Notes 540  690  0    100  ~ 20
-Power Output
+09. Power Output
+$Comp
+L LED_Display_Local_Library:MU_Logo #G?
+U 1 1 5C003E58
+P 9900 1100
+F 0 "#G?" H 9900 614 60  0001 C CNN
+F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
+F 2 "" H 9900 1100 50  0001 C CNN
+F 3 "" H 9900 1100 50  0001 C CNN
+	1    9900 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
