@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 8 31
+Sheet 8 32
 Title "Electronic Display Logic Board"
-Date "2018-11-28"
+Date "2018-12-15"
 Rev "A"
 Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
@@ -110,7 +110,7 @@ EBI_Error_LED
 Text GLabel 4030 3480 0    50   Output ~ 0
 USB_Error_LED
 Text GLabel 4030 3280 0    50   Output ~ 0
-Panel_Enable_LED
+Heartbeat_LED
 Text GLabel 4030 2180 0    50   Input ~ 0
 POS5P_PGOOD
 Text GLabel 4030 2280 0    40   Input ~ 0

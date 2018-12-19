@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 27 31
+Sheet 27 32
 Title "Electronic Display Logic Board"
-Date "2018-11-28"
+Date "2018-12-15"
 Rev "A"
 Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
@@ -584,17 +584,17 @@ Wire Wire Line
 	4850 2420 5000 2420
 Wire Wire Line
 	4650 2320 4650 2800
-Text GLabel 7880 1720 2    50   Output ~ 0
+Text GLabel 7880 2220 2    50   Output ~ 0
 R4_POS5
-Text GLabel 7880 1820 2    50   Output ~ 0
-R5_POS5
 Text GLabel 7880 1920 2    50   Output ~ 0
-B4_POS5
+R5_POS5
 Text GLabel 7880 2020 2    50   Output ~ 0
+B4_POS5
+Text GLabel 7880 1720 2    50   Output ~ 0
 B5_POS5
 Text GLabel 7880 2120 2    50   Output ~ 0
 G4_POS5
-Text GLabel 7880 2220 2    50   Output ~ 0
+Text GLabel 7880 1820 2    50   Output ~ 0
 G5_POS5
 $Comp
 L power:GND #PWR?
@@ -736,17 +736,17 @@ Wire Wire Line
 	2950 1920 3850 1920
 Wire Wire Line
 	2950 2020 4050 2020
-Text GLabel 2650 1720 0    50   Input ~ 0
+Text GLabel 2650 2220 0    50   Input ~ 0
 R4_POS3P3
-Text GLabel 2650 1820 0    50   Input ~ 0
-R5_POS3P3
 Text GLabel 2650 1920 0    50   Input ~ 0
-B4_POS3P3
+R5_POS3P3
 Text GLabel 2650 2020 0    50   Input ~ 0
+B4_POS3P3
+Text GLabel 2650 1720 0    50   Input ~ 0
 B5_POS3P3
 Text GLabel 2650 2120 0    50   Input ~ 0
 G4_POS3P3
-Text GLabel 2650 2220 0    50   Input ~ 0
+Text GLabel 2650 1820 0    50   Input ~ 0
 G5_POS3P3
 Wire Wire Line
 	2950 2120 4250 2120
@@ -1443,17 +1443,17 @@ Wire Wire Line
 	4850 4950 5000 4950
 Wire Wire Line
 	4650 4850 4650 5330
-Text GLabel 7880 4250 2    50   Output ~ 0
+Text GLabel 7880 4750 2    50   Output ~ 0
 R6_POS5
-Text GLabel 7880 4350 2    50   Output ~ 0
-R7_POS5
 Text GLabel 7880 4450 2    50   Output ~ 0
-B6_POS5
+R7_POS5
 Text GLabel 7880 4550 2    50   Output ~ 0
+B6_POS5
+Text GLabel 7880 4250 2    50   Output ~ 0
 B7_POS5
 Text GLabel 7880 4650 2    50   Output ~ 0
 G6_POS5
-Text GLabel 7880 4750 2    50   Output ~ 0
+Text GLabel 7880 4350 2    50   Output ~ 0
 G7_POS5
 $Comp
 L power:GND #PWR?
@@ -1595,17 +1595,17 @@ Wire Wire Line
 	2950 4450 3850 4450
 Wire Wire Line
 	2950 4550 4050 4550
-Text GLabel 2650 4250 0    50   Input ~ 0
+Text GLabel 2650 4750 0    50   Input ~ 0
 R6_POS3P3
-Text GLabel 2650 4350 0    50   Input ~ 0
-R7_POS3P3
 Text GLabel 2650 4450 0    50   Input ~ 0
-B6_POS3P3
+R7_POS3P3
 Text GLabel 2650 4550 0    50   Input ~ 0
+B6_POS3P3
+Text GLabel 2650 4250 0    50   Input ~ 0
 B7_POS3P3
 Text GLabel 2650 4650 0    50   Input ~ 0
 G6_POS3P3
-Text GLabel 2650 4750 0    50   Input ~ 0
+Text GLabel 2650 4350 0    50   Input ~ 0
 G7_POS3P3
 Wire Wire Line
 	2950 4650 4250 4650

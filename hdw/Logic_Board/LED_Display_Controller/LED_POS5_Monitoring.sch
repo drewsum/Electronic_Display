@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 16 31
+Sheet 16 32
 Title "Electronic Display Logic Board"
-Date "2018-11-28"
+Date "2018-12-15"
 Rev "A"
 Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
@@ -145,17 +145,6 @@ F 3 "" H 8350 2080 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED_Display_Local_Library:+5.5V #PWR01629
-U 1 1 5BEA3712
-P 8350 1880
-F 0 "#PWR01629" H 8350 1730 50  0001 C CNN
-F 1 "+5.5V" H 8350 2020 50  0000 C CNN
-F 2 "" H 8350 1880 50  0001 C CNN
-F 3 "" H 8350 1880 50  0001 C CNN
-	1    8350 1880
-	1    0    0    -1  
-$EndComp
-$Comp
 L LED_Display_Local_Library:C_Custom C?
 U 1 1 5BEA375D
 P 8200 2700
@@ -182,17 +171,6 @@ F 1 "GND" H 8200 2700 50  0000 C CNN
 F 2 "" H 8200 2850 50  0001 C CNN
 F 3 "" H 8200 2850 50  0001 C CNN
 	1    8200 2850
-	1    0    0    -1  
-$EndComp
-$Comp
-L LED_Display_Local_Library:+5.5V #PWR01625
-U 1 1 5BEA37E6
-P 8200 2550
-F 0 "#PWR01625" H 8200 2400 50  0001 C CNN
-F 1 "+5.5V" H 8200 2690 50  0000 C CNN
-F 2 "" H 8200 2550 50  0001 C CNN
-F 3 "" H 8200 2550 50  0001 C CNN
-	1    8200 2550
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -304,17 +282,6 @@ F 3 "" H 8350 3710 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED_Display_Local_Library:+5.5V #PWR01631
-U 1 1 5BEB81A9
-P 8350 3510
-F 0 "#PWR01631" H 8350 3360 50  0001 C CNN
-F 1 "+5.5V" H 8350 3650 50  0000 C CNN
-F 2 "" H 8350 3510 50  0001 C CNN
-F 3 "" H 8350 3510 50  0001 C CNN
-	1    8350 3510
-	1    0    0    -1  
-$EndComp
-$Comp
 L LED_Display_Local_Library:C_Custom C?
 U 1 1 5BEB81B3
 P 8200 4330
@@ -341,17 +308,6 @@ F 1 "GND" H 8200 4330 50  0000 C CNN
 F 2 "" H 8200 4480 50  0001 C CNN
 F 3 "" H 8200 4480 50  0001 C CNN
 	1    8200 4480
-	1    0    0    -1  
-$EndComp
-$Comp
-L LED_Display_Local_Library:+5.5V #PWR01627
-U 1 1 5BEB81C0
-P 8200 4180
-F 0 "#PWR01627" H 8200 4030 50  0001 C CNN
-F 1 "+5.5V" H 8200 4320 50  0000 C CNN
-F 2 "" H 8200 4180 50  0001 C CNN
-F 3 "" H 8200 4180 50  0001 C CNN
-	1    8200 4180
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -403,7 +359,7 @@ F 2 "TO_SOT_Packages_SMD:SOT-363_SC-70-6" H 7160 2875 50  0001 C CNN
 F 3 "http://www.onsemi.ru.com/pub_link/Collateral/NUP2202W1-D.PDF" H 7160 2875 50  0001 C CNN
 F 4 "NUP2202W1T2GOSCT-ND" H 7080 2800 50  0001 C CNN "Digi-Key PN"
 	1    7080 2800
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
 	6540 1980 6800 1980
@@ -1056,4 +1012,48 @@ Wire Wire Line
 	8600 1980 9210 1980
 Wire Wire Line
 	8600 3610 9210 3610
+$Comp
+L power:+3.3V #PWR0106
+U 1 1 5C0DE1C0
+P 8350 1880
+F 0 "#PWR0106" H 8350 1730 50  0001 C CNN
+F 1 "+3.3V" H 8350 2020 50  0000 C CNN
+F 2 "" H 8350 1880 50  0001 C CNN
+F 3 "" H 8350 1880 50  0001 C CNN
+	1    8350 1880
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0107
+U 1 1 5C0DE394
+P 8200 2550
+F 0 "#PWR0107" H 8200 2400 50  0001 C CNN
+F 1 "+3.3V" H 8200 2690 50  0000 C CNN
+F 2 "" H 8200 2550 50  0001 C CNN
+F 3 "" H 8200 2550 50  0001 C CNN
+	1    8200 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0108
+U 1 1 5C0DE44D
+P 8350 3510
+F 0 "#PWR0108" H 8350 3360 50  0001 C CNN
+F 1 "+3.3V" H 8350 3650 50  0000 C CNN
+F 2 "" H 8350 3510 50  0001 C CNN
+F 3 "" H 8350 3510 50  0001 C CNN
+	1    8350 3510
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0109
+U 1 1 5C0DE57A
+P 8200 4180
+F 0 "#PWR0109" H 8200 4030 50  0001 C CNN
+F 1 "+3.3V" H 8200 4320 50  0000 C CNN
+F 2 "" H 8200 4180 50  0001 C CNN
+F 3 "" H 8200 4180 50  0001 C CNN
+	1    8200 4180
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

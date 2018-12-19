@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 14 31
+Sheet 14 32
 Title "Electronic Display Logic Board"
-Date "2018-11-28"
+Date "2018-12-15"
 Rev "A"
 Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
@@ -235,8 +235,6 @@ F 7 "1/10W" V 4520 4590 50  0001 C CNN "Wattage"
 $EndComp
 Wire Wire Line
 	4070 4390 3090 4390
-Wire Wire Line
-	2270 4590 2460 4590
 Wire Wire Line
 	3090 4100 3090 4390
 Connection ~ 3090 4390
@@ -665,38 +663,38 @@ Wire Wire Line
 	9820 4100 8180 4100
 Connection ~ 8180 4100
 $Comp
-L Power_Protection:PESD3V3L4UG D902
+L LED_Display_Local_Library:PESD3V3L4UG D1401
 U 1 1 5BF48679
-P 3090 4970
-F 0 "D902" V 3044 5038 50  0000 L CNN
-F 1 "PESD3V3L4UG" V 3135 5038 50  0000 L CNN
-F 2 "TO_SOT_Packages_SMD:SOT-353_SC-70-5" H 3090 4970 50  0001 C CNN
-F 3 "http://www.nxp.com/documents/data_sheet/PESDXL4UF_G_W.pdf" H 3090 4970 50  0001 C CNN
-F 4 "1727-3827-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	1    3090 4970
+P 3760 4970
+F 0 "D1401" V 3714 5038 50  0000 L CNN
+F 1 "PESD3V3L4UG" V 3805 5038 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-353_SC-70-5" H 3760 4970 50  0001 C CNN
+F 3 "http://www.nxp.com/documents/data_sheet/PESDXL4UF_G_W.pdf" H 3760 4970 50  0001 C CNN
+F 4 "1727-3827-1-ND" H 670 0   50  0001 C CNN "Digi-Key PN"
+	1    3760 4970
 	0    1    1    0   
 $EndComp
 $Comp
 L power:GND #PWR01406
 U 1 1 5BF48715
-P 3090 5070
-F 0 "#PWR01406" H 3090 4820 50  0001 C CNN
-F 1 "GND" H 3090 4920 50  0000 C CNN
-F 2 "" H 3090 5070 50  0001 C CNN
-F 3 "" H 3090 5070 50  0001 C CNN
-	1    3090 5070
+P 3760 5070
+F 0 "#PWR01406" H 3760 4820 50  0001 C CNN
+F 1 "GND" H 3760 4920 50  0000 C CNN
+F 2 "" H 3760 5070 50  0001 C CNN
+F 3 "" H 3760 5070 50  0001 C CNN
+	1    3760 5070
 	1    0    0    -1  
 $EndComp
 $Comp
-L Power_Protection:PESD3V3L4UG D902
+L LED_Display_Local_Library:PESD3V3L4UG D1401
 U 2 1 5BF4A271
-P 3760 4970
-F 0 "D902" V 3714 5038 50  0000 L CNN
-F 1 "PESD3V3L4UG" V 3805 5038 50  0000 L CNN
-F 2 "TO_SOT_Packages_SMD:SOT-353_SC-70-5" H 3760 4970 50  0001 C CNN
-F 3 "http://www.nxp.com/documents/data_sheet/PESDXL4UF_G_W.pdf" H 3760 4970 50  0001 C CNN
-F 4 "1727-3827-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	2    3760 4970
+P 3090 4970
+F 0 "D1401" V 3044 5038 50  0000 L CNN
+F 1 "PESD3V3L4UG" V 3135 5038 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-353_SC-70-5" H 3090 4970 50  0001 C CNN
+F 3 "http://www.nxp.com/documents/data_sheet/PESDXL4UF_G_W.pdf" H 3090 4970 50  0001 C CNN
+F 4 "1727-3827-1-ND" H -670 0   50  0001 C CNN "Digi-Key PN"
+	2    3090 4970
 	0    1    1    0   
 $EndComp
 Wire Wire Line
@@ -704,7 +702,7 @@ Wire Wire Line
 Wire Wire Line
 	3090 4870 3090 4390
 $Comp
-L Power_Protection:PESD3V3L4UG D1401
+L LED_Display_Local_Library:PESD3V3L4UG D1401
 U 3 1 5BF61551
 P 2010 2420
 F 0 "D1401" V 1964 2488 50  0000 L CNN
@@ -762,18 +760,12 @@ Wire Wire Line
 Wire Wire Line
 	1240 3530 2460 3530
 Wire Wire Line
-	2460 3530 2460 4590
-Wire Wire Line
 	1360 3730 1360 3430
 Wire Wire Line
 	1360 3430 1240 3430
 Connection ~ 1360 3730
 Wire Wire Line
 	1240 3330 2540 3330
-Wire Wire Line
-	2540 3330 2540 4390
-Wire Wire Line
-	2540 4390 2270 4390
 Text Notes 550  700  0    100  ~ 20
 14. Pushbuttons
 $Comp
@@ -793,9 +785,17 @@ Wire Wire Line
 	2980 2170 2010 2170
 Connection ~ 2010 2170
 Wire Wire Line
-	3090 4390 2540 4390
-Connection ~ 2540 4390
+	2270 4590 2540 4590
 Wire Wire Line
-	3760 4590 2460 4590
-Connection ~ 2460 4590
+	2460 3530 2460 4390
+Connection ~ 2460 4390
+Wire Wire Line
+	2460 4390 2270 4390
+Wire Wire Line
+	2460 4390 3090 4390
+Wire Wire Line
+	2540 3330 2540 4590
+Connection ~ 2540 4590
+Wire Wire Line
+	2540 4590 3760 4590
 $EndSCHEMATC

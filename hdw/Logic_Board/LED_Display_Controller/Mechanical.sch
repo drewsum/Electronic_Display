@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 31 31
+Sheet 31 32
 Title "Electronic Display Logic Board"
-Date "2018-11-28"
+Date "2018-12-15"
 Rev "A"
 Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
@@ -219,18 +219,6 @@ F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED_Display_Local_Library:Standoff MK3121
-U 1 1 5BF05611
-P 7520 1970
-F 0 "MK3121" H 7520 2120 50  0000 C CNN
-F 1 "4-40 Standoff" H 7520 2220 50  0000 C CNN
-F 2 "" H 7520 2320 50  0001 C CNN
-F 3 "" H 7520 2320 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	1    7520 1970
-	1    0    0    -1  
-$EndComp
-$Comp
 L LED_Display_Local_Library:Standoff MK3118
 U 1 1 5BF05618
 P 6520 2670
@@ -240,18 +228,6 @@ F 2 "" H 6520 3020 50  0001 C CNN
 F 3 "" H 6520 3020 50  0001 C CNN
 F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    6520 2670
-	1    0    0    -1  
-$EndComp
-$Comp
-L LED_Display_Local_Library:Standoff MK3122
-U 1 1 5BF0561F
-P 7520 2670
-F 0 "MK3122" H 7520 2820 50  0000 C CNN
-F 1 "4-40 Standoff" H 7520 2920 50  0000 C CNN
-F 2 "" H 7520 3020 50  0001 C CNN
-F 3 "" H 7520 3020 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	1    7520 2670
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -267,18 +243,6 @@ F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED_Display_Local_Library:Screw MK3123
-U 1 1 5BF0562D
-P 7520 3440
-F 0 "MK3123" H 7520 3540 50  0000 C CNN
-F 1 "4-40 Screw" H 7520 3640 50  0000 C CNN
-F 2 "" H 7520 3690 50  0001 C CNN
-F 3 "" H 7520 3690 50  0001 C CNN
-F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	1    7520 3440
-	1    0    0    -1  
-$EndComp
-$Comp
 L LED_Display_Local_Library:Screw MK3120
 U 1 1 5BF05634
 P 6520 4140
@@ -288,18 +252,6 @@ F 2 "" H 6520 4390 50  0001 C CNN
 F 3 "" H 6520 4390 50  0001 C CNN
 F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    6520 4140
-	1    0    0    -1  
-$EndComp
-$Comp
-L LED_Display_Local_Library:Screw MK3124
-U 1 1 5BF0563B
-P 7520 4140
-F 0 "MK3124" H 7520 4240 50  0000 C CNN
-F 1 "4-40 Screw" H 7520 4340 50  0000 C CNN
-F 2 "" H 7520 4390 50  0001 C CNN
-F 3 "" H 7520 4390 50  0001 C CNN
-F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
-	1    7520 4140
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -358,17 +310,6 @@ F 3 "~" H 6520 4790 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole H3111
-U 1 1 5BF076E8
-P 7520 4790
-F 0 "H3111" H 7520 4990 50  0000 C CNN
-F 1 "3mm Mounting Hole" H 7520 4915 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3mm_Pad_Via" H 7520 4790 50  0001 C CNN
-F 3 "~" H 7520 4790 50  0001 C CNN
-	1    7520 4790
-	1    0    0    -1  
-$EndComp
-$Comp
 L Mechanical:MountingHole H3102
 U 1 1 5BF07803
 P 2520 5490
@@ -423,17 +364,6 @@ F 3 "~" H 6520 5490 50  0001 C CNN
 	1    6520 5490
 	1    0    0    -1  
 $EndComp
-$Comp
-L Mechanical:MountingHole H3112
-U 1 1 5BF07826
-P 7520 5490
-F 0 "H3112" H 7520 5690 50  0000 C CNN
-F 1 "3mm Mounting Hole" H 7520 5615 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3mm_Pad_Via" H 7520 5490 50  0001 C CNN
-F 3 "~" H 7520 5490 50  0001 C CNN
-	1    7520 5490
-	1    0    0    -1  
-$EndComp
 Text Notes 550  700  0    100  ~ 20
 31. Mechanical
 $Comp
@@ -445,6 +375,76 @@ F 1 "MU_Logo" H 9900 1586 60  0001 C CNN
 F 2 "" H 9900 1100 50  0001 C CNN
 F 3 "" H 9900 1100 50  0001 C CNN
 	1    9900 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3112
+U 1 1 5BF07826
+P 7520 5490
+F 0 "H3112" H 7520 5690 50  0000 C CNN
+F 1 "3mm Mounting Hole" H 7520 5615 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3mm_Pad_Via" H 7520 5490 50  0001 C CNN
+F 3 "~" H 7520 5490 50  0001 C CNN
+	1    7520 5490
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3111
+U 1 1 5BF076E8
+P 7520 4790
+F 0 "H3111" H 7520 4990 50  0000 C CNN
+F 1 "3mm Mounting Hole" H 7520 4915 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3mm_Pad_Via" H 7520 4790 50  0001 C CNN
+F 3 "~" H 7520 4790 50  0001 C CNN
+	1    7520 4790
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:Screw MK3124
+U 1 1 5BF0563B
+P 7520 4140
+F 0 "MK3124" H 7520 4240 50  0000 C CNN
+F 1 "4-40 Screw" H 7520 4340 50  0000 C CNN
+F 2 "" H 7520 4390 50  0001 C CNN
+F 3 "" H 7520 4390 50  0001 C CNN
+F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+	1    7520 4140
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:Screw MK3123
+U 1 1 5BF0562D
+P 7520 3440
+F 0 "MK3123" H 7520 3540 50  0000 C CNN
+F 1 "4-40 Screw" H 7520 3640 50  0000 C CNN
+F 2 "" H 7520 3690 50  0001 C CNN
+F 3 "" H 7520 3690 50  0001 C CNN
+F 4 "36-9900-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+	1    7520 3440
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:Standoff MK3122
+U 1 1 5BF0561F
+P 7520 2670
+F 0 "MK3122" H 7520 2820 50  0000 C CNN
+F 1 "4-40 Standoff" H 7520 2920 50  0000 C CNN
+F 2 "" H 7520 3020 50  0001 C CNN
+F 3 "" H 7520 3020 50  0001 C CNN
+F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+	1    7520 2670
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:Standoff MK3121
+U 1 1 5BF05611
+P 7520 1970
+F 0 "MK3121" H 7520 2120 50  0000 C CNN
+F 1 "4-40 Standoff" H 7520 2220 50  0000 C CNN
+F 2 "" H 7520 2320 50  0001 C CNN
+F 3 "" H 7520 2320 50  0001 C CNN
+F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+	1    7520 1970
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

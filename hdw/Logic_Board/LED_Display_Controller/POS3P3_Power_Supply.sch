@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 3 31
+Sheet 3 32
 Title "Electronic Display Logic Board"
-Date "2018-11-28"
+Date "2018-12-15"
 Rev "A"
 Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
@@ -74,7 +74,7 @@ U 1 1 5C0A84DD
 P 5690 2690
 F 0 "D301" V 5736 2611 50  0000 R CNN
 F 1 "MBR0530" V 5645 2611 50  0000 R CNN
-F 2 "Diode_SMD:D_SOD-123" H 5690 2515 50  0001 C CNN
+F 2 "Diodes_SMD:D_SOD-123" H 5690 2515 50  0001 C CNN
 F 3 "http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf" H 5690 2690 50  0001 C CNN
 F 4 "MBR0530T1GOSCT-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    5690 2690

@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 18 31
+Sheet 18 32
 Title "Electronic Display Logic Board"
-Date "2018-11-28"
+Date "2018-12-15"
 Rev "A"
 Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
@@ -483,4 +483,134 @@ $EndComp
 Connection ~ 4520 3850
 Wire Wire Line
 	4520 3850 5680 3850
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5C15F697
+P 2010 6900
+AR Path="/5BAAE16C/5C15F697" Ref="C?"  Part="1" 
+AR Path="/5BB181D8/5C15F697" Ref="C?"  Part="1" 
+AR Path="/5BB2595E/5C15F697" Ref="C1804"  Part="1" 
+F 0 "C1804" H 2035 7000 50  0000 L CNN
+F 1 "0.1uF" H 2035 6800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 2048 6750 50  0001 C CNN
+F 3 "" H 2035 7000 50  0001 C CNN
+F 4 "0603" H 1860 7000 50  0000 R CNN "display_footprint"
+F 5 "50V" H 1860 6900 50  0000 R CNN "Voltage"
+F 6 "X7R" H 1860 6800 50  0000 R CNN "Dielectric"
+F 7 "311-1344-1-ND" H 2435 7400 60  0001 C CNN "Digi-Key PN"
+	1    2010 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:74LVC1G07_Power U1802
+U 1 1 5C161AE1
+P 1670 6320
+F 0 "U1802" H 1770 6420 50  0000 L CNN
+F 1 "74LVC1G07" H 1770 6220 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-353_SC-70-5" H 1670 6320 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1670 6320 50  0001 C CNN
+F 4 "296-8486-1-ND" H 1670 6320 50  0001 C CNN "Digi-Key PN"
+	1    1670 6320
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR01811
+U 1 1 5C161B83
+P 1670 6220
+F 0 "#PWR01811" H 1670 6070 50  0001 C CNN
+F 1 "+3.3V" H 1670 6360 50  0000 C CNN
+F 2 "" H 1670 6220 50  0001 C CNN
+F 3 "" H 1670 6220 50  0001 C CNN
+	1    1670 6220
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR01813
+U 1 1 5C161BE9
+P 2010 6750
+F 0 "#PWR01813" H 2010 6600 50  0001 C CNN
+F 1 "+3.3V" H 2010 6890 50  0000 C CNN
+F 2 "" H 2010 6750 50  0001 C CNN
+F 3 "" H 2010 6750 50  0001 C CNN
+	1    2010 6750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01814
+U 1 1 5C161C44
+P 2010 7050
+F 0 "#PWR01814" H 2010 6800 50  0001 C CNN
+F 1 "GND" H 2010 6900 50  0000 C CNN
+F 2 "" H 2010 7050 50  0001 C CNN
+F 3 "" H 2010 7050 50  0001 C CNN
+	1    2010 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01812
+U 1 1 5C161C9F
+P 1670 6420
+F 0 "#PWR01812" H 1670 6170 50  0001 C CNN
+F 1 "GND" H 1670 6270 50  0000 C CNN
+F 2 "" H 1670 6420 50  0001 C CNN
+F 3 "" H 1670 6420 50  0001 C CNN
+	1    1670 6420
+	1    0    0    -1  
+$EndComp
+Text GLabel 1370 6320 0    40   Input ~ 0
+~FLASH_CE1
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5C166A81
+P 2410 5560
+AR Path="/5BB844FD/5C166A81" Ref="#PWR?"  Part="1" 
+AR Path="/5BF346B3/5C166A81" Ref="#PWR?"  Part="1" 
+AR Path="/5BB2595E/5C166A81" Ref="#PWR01815"  Part="1" 
+F 0 "#PWR01815" H 2410 5410 50  0001 C CNN
+F 1 "+3.3V" H 2410 5700 50  0000 C CNN
+F 2 "" H 2410 5560 50  0001 C CNN
+F 3 "" H 2410 5560 50  0001 C CNN
+	1    2410 5560
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1920 6320 2410 6320
+Wire Wire Line
+	2410 6320 2410 6160
+$Comp
+L LED_Display_Local_Library:R_Custom R?
+U 1 1 5C166A8D
+P 2410 5710
+AR Path="/5BAAE1F3/5C166A8D" Ref="R?"  Part="1" 
+AR Path="/5BAAE1DC/5C166A8D" Ref="R?"  Part="1" 
+AR Path="/5BAAE16C/5C166A8D" Ref="R?"  Part="1" 
+AR Path="/5BB844FD/5C166A8D" Ref="R?"  Part="1" 
+AR Path="/5BF346B3/5C166A8D" Ref="R?"  Part="1" 
+AR Path="/5BB2595E/5C166A8D" Ref="R1813"  Part="1" 
+F 0 "R1813" H 2350 5710 50  0000 R CNN
+F 1 "1k" V 2410 5710 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" H 2410 5710 50  0001 C CNN
+F 3 "" H 2410 5710 50  0001 C CNN
+F 4 "0603" H 2480 5790 50  0000 L CNN "display_footprint"
+F 5 "1%" H 2480 5710 50  0000 L CNN "Tolerance"
+F 6 "1/10W" H 2480 5640 50  0000 L CNN "Wattage"
+F 7 "RMCF0603FT1K00CT-ND" H 2710 6110 60  0001 C CNN "Digi-Key PN"
+	1    2410 5710
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:LED D?
+U 1 1 5C166A95
+P 2410 6010
+AR Path="/5BB844FD/5C166A95" Ref="D?"  Part="1" 
+AR Path="/5BF346B3/5C166A95" Ref="D?"  Part="1" 
+AR Path="/5BB2595E/5C166A95" Ref="D1801"  Part="1" 
+F 0 "D1801" V 2440 5890 50  0000 R CNN
+F 1 "Green" V 2357 5893 50  0000 R CNN
+F 2 "LEDs:LED_0603" H 2410 6010 50  0001 C CNN
+F 3 "~" H 2410 6010 50  0001 C CNN
+F 4 "160-1446-1-ND" H -2600 3010 50  0001 C CNN "Digi-Key PN"
+	1    2410 6010
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC

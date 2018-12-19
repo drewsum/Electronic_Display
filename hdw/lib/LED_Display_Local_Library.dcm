@@ -19,10 +19,22 @@ D power-flag symbol
 K Power Flag Symbol
 $ENDCMP
 #
+$CMP 74LVC1G00_Power
+D Single NAND Gate, Low-Voltage CMOS
+K Single Gate NAND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP 74LVC1G06_Power
 D Single NOT Gate w/ Open Drain, Low-Voltage CMOS
 K Single Gate NOT LVC CMOS Open Drain
 F http://www.ti.com/lit/ds/symlink/sn74lvc1g06.pdf
+$ENDCMP
+#
+$CMP 74LVC1G07_Power
+D Single Buffer Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate Buff LVC CMOS Open Drain
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP 74LVC1G17_Power
@@ -133,6 +145,12 @@ $CMP MAX6816
 D ±15kV ESD-Protected, Single CMOS Switch Debouncer
 K Switch, Debounder, MAXIM, MAX
 F https://datasheets.maximintegrated.com/en/ds/MAX6816-MAX6818.pdf
+$ENDCMP
+#
+$CMP PESD3V3L4UG
+D Low capacitance unidirectional quadruple ESD protection diode array, 3.3V, Common Anode, SOT-353
+K diode
+F http://www.nxp.com/documents/data_sheet/PESDXL4UF_G_W.pdf
 $ENDCMP
 #
 $CMP PIC32MZ2048EFH100_IPF

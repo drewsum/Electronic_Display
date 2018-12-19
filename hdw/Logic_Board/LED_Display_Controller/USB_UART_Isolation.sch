@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
-Sheet 10 31
+Sheet 10 32
 Title "Electronic Display Logic Board"
-Date "2018-11-28"
+Date "2018-12-15"
 Rev "A"
 Comp "Marquette University Senior Design 2018/2019 Group E44"
 Comment1 ""
@@ -257,7 +257,7 @@ U 1 1 5BB4118F
 P 5520 3370
 F 0 "U1001" H 5520 3795 50  0000 C CNN
 F 1 "ISO7321C" H 5520 3720 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 5520 3020 50  0001 C CIN
+F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 5520 3020 50  0001 C CIN
 F 3 "http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7321c&fileType=pdf" H 5520 3370 50  0001 C CNN
 F 4 "296-42102-1-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    5520 3370
