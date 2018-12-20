@@ -11,11 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
+
     <Button
         android:id="@+id/buttonSelectImage"
-        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add an Image" />
+        android:layout_height="112dp"
+        android:layout_gravity="center_vertical"
+        android:text="Add a Frame" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="126dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+    </HorizontalScrollView>
 
 </FrameLayout>
