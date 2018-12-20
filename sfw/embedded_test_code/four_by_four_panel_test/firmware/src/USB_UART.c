@@ -794,6 +794,18 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
     }
     
+    // slow down multiplexing command
+    else if(strcmp(line_in, "Slowest Muxing Speed") == 0) {
+     
+        PLIB_TMR_Period16BitSet(TMR_ID_2, 65535);
+        PLIB_TMR_PrescaleSelect(TMR_ID_2, TMR_PRESCALE_VALUE_16);
+        
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("Slowed down the multiplexing speed extreme\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
     // reset multiplexing command
     else if(strcmp(line_in, "Reset Muxing Speed") == 0) {
      
@@ -1043,6 +1055,7 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    Set Shocker: Displays an inappropriate test image\n\r");
     USB_UART_print("    Set Drew 2: Displays drews second test image\n\r");
     USB_UART_print("    Slow Muxing Speed: Slows down multiplexing\n\r");
+    USB_UART_print("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
     USB_UART_print("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     USB_UART_print("    Set TV Test: Fills ram buffer with TV Test image\n\r");
     USB_UART_print("    Set NFL: Fills ram buffer with kevin's NFL image\n\r");
