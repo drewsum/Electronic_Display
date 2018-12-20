@@ -19,7 +19,7 @@
 
 // Include device control APIs
 // The functions allow low level control of the device
-// #include "device_control.h"
+#include "device_control.h"
 
 
 // Main program entry point
