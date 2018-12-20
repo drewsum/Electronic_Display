@@ -26,16 +26,16 @@
 
     <Button
         android:id="@+id/buttonDeviceSelect"
-        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:text="Connect to new Device" />
 
     <Button
         android:id="@+id/buttonUpload"
-        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:text="Upload Project" />
 
     <TextView
