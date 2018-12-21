@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>configure.h</itemPath>
       <itemPath>device_control.h</itemPath>
+      <itemPath>pin_macros.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
