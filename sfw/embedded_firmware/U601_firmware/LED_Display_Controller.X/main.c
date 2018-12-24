@@ -22,7 +22,7 @@
 // #include "device_control.h"
 
 // Include initalization of GPIO ports
-#include "gpio_setup.h"
+// #include "gpio_setup.h"
 
 
 // Main program entry point
@@ -44,7 +44,7 @@ void main(void) {
     // clockInitialize();
     
     // Sets up GPIO ports
-    gpioInitialize();
+    // gpioInitialize();
     
     // Set RE3 high to show signs of life
     TRISECLR = (1 << 3);
