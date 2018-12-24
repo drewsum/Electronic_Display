@@ -977,7 +977,7 @@ $EndComp
 Wire Wire Line
 	3680 3540 3680 3420
 Text GLabel 3600 3420 0    50   Input ~ 0
-Heartbeat
+Heartbeat_LED
 $Comp
 L LED_Display_Local_Library:R_Custom R?
 U 1 1 5C18B941
