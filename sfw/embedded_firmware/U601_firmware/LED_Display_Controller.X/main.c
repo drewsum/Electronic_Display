@@ -21,6 +21,9 @@
 // The functions allow low level control of the device
 // #include "device_control.h"
 
+// Include initalization of GPIO ports
+// #include "gpio_setup.h"
+
 
 // Main program entry point
 void main(void) {
@@ -39,6 +42,9 @@ void main(void) {
     // PBCLK7: 252 MHz
     // PBCLK8: 84 MHz
     // clockInitialize();
+    
+    // Sets up GPIO ports
+    // gpioInitialize();
     
     // Set RE3 high to show signs of life
     TRISECLR = (1 << 3);
