@@ -1,6 +1,42 @@
 
 #include "32mz_interrupt_control.h"
 
+// This function enables global interrupts
+void EnableGloablInterrupts(void) {
+ 
+    // This is built into the XC32 compiler
+    __builtin_enable_interrupts();
+    
+}
+
+// This function disables global interrupts
+void DisableGloablInterrupts(void) {
+ 
+    // This is built into the XC32 compiler
+    __builtin_disable_interrupts();
+    
+}
+
+// This function returns the state of global interrupt enable
+// Returns 0 if global interrupts are disabled
+// returns 1 if global interrupts are enabled
+uint8_t GetGlobalInterruptsState(void) {
+ 
+    return __builtin_get_isr_state();
+    
+}
+
+// This function explicitly sets the state of global interrupts
+void SetGlobalInterruptsState(uint8_t input_state) {
+ 
+    // Mask off anything larger than 1 to 1
+    input_state = input_state >= 1;
+    
+    __builtin_set_isr_state(input_state);
+    
+}
+
+
 // This function allows for the setting/clearing of a given interrupt
 // It manipulates that interrupt's 'Interrupt Enable' bit
 uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state) {
@@ -834,6 +870,841 @@ uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
     
 }
 
+// This function allows for the setting/clearing of a given interrupt flag
+// It manipulates the interrupt's 'Interrupt Flag' bit
+// Returns 0 if no errors
+// Returns 1 if errors
+uint8_t SetInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state) {
+ 
+    // Mask off anything larger than 1 to 1
+    input_state = input_state >= 1;
+    
+    // Decide which interrupt control bits to manipulate based on which interrupt
+    // is being enabled or disabled
+    switch (input_interrupt) {
+        
+        case Core_Timer_Interrupt:
+            IFS0bits.CTIF = input_state;
+            break;
+            
+        case Core_Software_Interrupt_0:
+            IFS0bits.CS0IF = input_state;
+            break;
+            
+        case Core_Software_Interrupt_1:
+            IFS0bits.CS1IF = input_state;
+            break;
+            
+        case External_Interrupt_0:
+            IFS0bits.INT0IF = input_state;
+            break;
+            
+        case Timer1:
+            IFS0bits.T1IF = input_state;
+            break;
+            
+        case Input_Capture_1_Error:
+            IFS0bits.IC1EIF = input_state;
+            break;
+            
+        case Input_Capture_1:
+            IFS0bits.IC1IF = input_state;
+            break;
+            
+        case Output_Compare_1:
+            IFS0bits.OC1IF = input_state;
+            break;
+            
+        case External_Interrupt_1:
+            IFS0bits.INT1IF = input_state;
+            break;
+            
+        case Timer2:
+            IFS0bits.T2IF = input_state;
+            break;
+            
+        case Input_Capture_2_Error:
+            IFS0bits.IC2EIF = input_state;
+            break;
+            
+        case Input_Capture_2:
+            IFS0bits.IC2IF = input_state;
+            break;
+            
+        case Output_Compare_2:
+            IFS0bits.OC2IF = input_state;
+            break;
+            
+        case External_Interrupt_2:
+            IFS0bits.INT2IF = input_state;
+            break;
+            
+        case Timer3:
+            IFS0bits.T3IF = input_state;
+            break;
+            
+        case Input_Capture_3_Error:
+            IFS0bits.IC3EIF = input_state;
+            break;
+            
+        case Input_Capture_3:
+            IFS0bits.IC3IF = input_state;
+            break;
+            
+        case Output_Compare_3:
+            IFS0bits.OC3IF = input_state;
+            break;
+            
+        case External_Interrupt_3:
+            IFS0bits.INT3IF = input_state;
+            break;
+            
+        case Timer4:
+            IFS0bits.T4IF = input_state;
+            break;
+            
+        case Input_Capture_4_Error:
+            IFS0bits.IC4EIF = input_state;
+            break;
+            
+        case Input_Capture_4:
+            IFS0bits.IC4IF = input_state;
+            break;
+            
+        case Output_Compare_4:
+            IFS0bits.OC4IF = input_state;
+            break;
+            
+        case External_Interrupt_4:
+            IFS0bits.INT4IF = input_state;
+            break;
+            
+        case Timer5:
+            IFS0bits.T5IF = input_state;
+            break;
+            
+        case Input_Capture_5_Error:
+            IFS0bits.IC5EIF = input_state;
+            break;
+            
+        case Input_Capture_5:
+            IFS0bits.IC5IF = input_state;
+            break;
+            
+        case Output_Compare_5:
+            IFS0bits.OC5IF = input_state;
+            break;
+            
+        case Timer6:
+            IFS0bits.T6IF = input_state;
+            break;
+            
+        case Input_Capture_6_Error:
+            IFS0bits.IC6EIF = input_state;
+            break;
+            
+        case Input_Capture_6:
+            IFS0bits.IC6IF = input_state;
+            break;
+            
+        case Output_Compare_6:
+            IFS0bits.OC6IF = input_state;
+            break;
+            
+        case Timer7:
+            IFS1bits.T7IF = input_state;
+            break;
+            
+        case Input_Capture_7_Error:
+            IFS1bits.IC7EIF = input_state;
+            break;
+            
+        case Input_Capture_7:
+            IFS1bits.IC7IF = input_state;
+            break;
+            
+        case Output_Compare_7:
+            IFS1bits.OC7IF = input_state;
+            break;
+            
+        case Timer8:
+            IFS1bits.T8IF = input_state;
+            break;
+            
+        case Input_Capture_8_Error:
+            IFS1bits.IC8EIF = input_state;
+            break;
+            
+        case Input_Capture_8:
+            IFS1bits.IC8IF = input_state;
+            break;
+            
+        case Output_Compare_8:
+            IFS1bits.OC8IF = input_state;
+            break;
+            
+        case Timer9:
+            IFS1bits.T9IF = input_state;
+            break;
+            
+        case Input_Capture_9_Error:
+            IFS1bits.IC9EIF = input_state;
+            break;
+            
+        case Input_Capture_9:
+            IFS1bits.IC9IF = input_state;
+            break;
+            
+        case Output_Compare_9:
+            IFS1bits.OC9IF = input_state;
+            break;
+            
+        case ADC_Global_Interrupt:
+            IFS1bits.ADCIF = input_state;
+            break;
+            
+        case ADC_FIFO_Data_Ready_Interrupt:
+            IFS1bits.ADCFIFOIF = input_state;
+            break;
+            
+        case ADC_Digital_Comparator_1:
+            IFS1bits.ADCDC1IF = input_state;
+            break;
+        
+        case ADC_Digital_Comparator_2:
+            IFS1bits.ADCDC2IF = input_state;
+            break;
+            
+        case ADC_Digital_Comparator_3:
+            IFS1bits.ADCDC3IF = input_state;
+            break;
+            
+        case ADC_Digital_Comparator_4:
+            IFS1bits.ADCDC4IF = input_state;
+            break;
+            
+        case ADC_Digital_Filter_1:
+            IFS1bits.ADCDF1IF = input_state;
+            break;
+            
+        case ADC_Digital_Filter_2:
+            IFS1bits.ADCDF2IF = input_state;
+            break;
+            
+        case ADC_Digital_Filter_3:
+            IFS1bits.ADCDF3IF = input_state;
+            break;
+            
+        case ADC_Digital_Filter_4:
+            IFS1bits.ADCDF4IF = input_state;
+            break;
+            
+        case ADC_Digital_Filter_5:
+            IFS1bits.ADCDF5IF = input_state;
+            break;
+            
+        case ADC_Digital_Filter_6:
+            IFS1bits.ADCDF6IF = input_state;
+            break;
+            
+        case ADC_Fault:
+            IFS1bits.ADCFLTIF = input_state;
+            break;
+            
+        case ADC_Data_0:
+            IFS1bits.ADCD0IF = input_state;
+            break;
+            
+        case ADC_Data_1:
+            IFS1bits.ADCD1IF = input_state;
+            break;
+            
+        case ADC_Data_2:
+            IFS1bits.ADCD2IF = input_state;
+            break;
+            
+        case ADC_Data_3:
+            IFS1bits.ADCD3IF = input_state;
+            break;
+            
+        case ADC_Data_4:
+            IFS1bits.ADCD4IF = input_state;
+            break;
+            
+        case ADC_Data_5:
+            IFS2bits.ADCD5IF = input_state;
+            break;
+            
+        case ADC_Data_6:
+            IFS2bits.ADCD6IF = input_state;
+            break;
+            
+        case ADC_Data_7:
+            IFS2bits.ADCD7IF = input_state;
+            break;
+            
+        case ADC_Data_8:
+            IFS2bits.ADCD8IF = input_state;
+            break;
+            
+        case ADC_Data_9:
+            IFS2bits.ADCD9IF = input_state;
+            break;
+            
+        case ADC_Data_10:
+            IFS2bits.ADCD10IF = input_state;
+            break;
+            
+        case ADC_Data_11:
+            IFS2bits.ADCD11IF = input_state;
+            break;
+            
+        case ADC_Data_12:
+            IFS2bits.ADCD12IF = input_state;
+            break;
+            
+        case ADC_Data_13:
+            IFS2bits.ADCD13IF = input_state;
+            break;
+            
+        case ADC_Data_14:
+            IFS2bits.ADCD14IF = input_state;
+            break;
+            
+        case ADC_Data_15:
+            IFS2bits.ADCD15IF = input_state;
+            break;
+            
+        case ADC_Data_16:
+            IFS2bits.ADCD16IF = input_state;
+            break;
+            
+        case ADC_Data_17:
+            IFS2bits.ADCD17IF = input_state;
+            break;
+            
+        case ADC_Data_18:
+            IFS2bits.ADCD18IF = input_state;
+            break;
+            
+        case ADC_Data_19:
+            IFS2bits.ADCD19IF = input_state;
+            break;
+            
+        case ADC_Data_20:
+            IFS2bits.ADCD20IF = input_state;
+            break;
+            
+        case ADC_Data_21:
+            IFS2bits.ADCD21IF = input_state;
+            break;
+            
+        case ADC_Data_22:
+            IFS2bits.ADCD22IF = input_state;
+            break;
+            
+        case ADC_Data_23:
+            IFS2bits.ADCD23IF = input_state;
+            break;
+            
+        case ADC_Data_24:
+            IFS2bits.ADCD24IF = input_state;
+            break;
+            
+        case ADC_Data_25:
+            IFS2bits.ADCD25IF = input_state;
+            break;
+            
+        case ADC_Data_26:
+            IFS2bits.ADCD26IF = input_state;
+            break;
+            
+        case ADC_Data_27:
+            IFS2bits.ADCD27IF = input_state;
+            break;
+            
+        case ADC_Data_28:
+            IFS2bits.ADCD28IF = input_state;
+            break;
+            
+        case ADC_Data_29:
+            IFS2bits.ADCD29IF = input_state;
+            break;
+            
+        case ADC_Data_30:
+            IFS2bits.ADCD30IF = input_state;
+            break;
+            
+        case ADC_Data_31:
+            IFS2bits.ADCD31IF = input_state;
+            break;
+            
+        case ADC_Data_32:
+            IFS2bits.ADCD32IF = input_state;
+            break;
+            
+        case ADC_Data_33:
+            IFS2bits.ADCD33IF = input_state;
+            break;
+            
+        case ADC_Data_34:
+            IFS2bits.ADCD34IF = input_state;
+            break;
+            
+        case ADC_Data_35:
+            IFS2bits.ADCD35IF = input_state;
+            break;
+            
+        case ADC_Data_36:
+            IFS2bits.ADCD36IF = input_state;
+            break;
+            
+        case ADC_Data_37:
+            IFS3bits.ADCD37IF = input_state;
+            break;
+            
+        case ADC_Data_38:
+            IFS3bits.ADCD38IF = input_state;
+            break;
+            
+        case ADC_Data_39:
+            IFS3bits.ADCD39IF = input_state;
+            break;
+            
+        case ADC_Data_40:
+            IFS3bits.ADCD40IF = input_state;
+            break;
+            
+        case ADC_Data_41:
+            IFS3bits.ADCD41IF = input_state;
+            break;
+            
+        case ADC_Data_42:
+            IFS3bits.ADCD42IF = input_state;
+            break;
+            
+        case ADC_Data_43:
+            IFS3bits.ADCD43IF = input_state;
+            break;
+            
+        case ADC_Data_44:
+            IFS3bits.ADCD44IF = input_state;
+            break;
+            
+        case Core_Performance_Counter_Interrupt:
+            IFS3bits.CPCIF = input_state;
+            break;
+            
+        case Core_Fast_Debug_Channel_Interrupt:
+            IFS3bits.CFDCIF = input_state;
+            break;
+            
+        case System_Bus_Protection_Violation:
+            IFS3bits.SBIF = input_state;
+            break;
+            
+        case SPI1_Fault:
+            IFS3bits.SPI1EIF = input_state;
+            break;
+            
+        case SPI1_Receive_Done:
+            IFS3bits.SPI1RXIF = input_state;
+            break;
+            
+        case SPI1_Transfer_Done:
+            IFS3bits.SPI1TXIF = input_state;
+            break;
+            
+        case UART1_Fault:
+            IFS3bits.U1EIF = input_state;
+            break;
+            
+        case UART1_Receive_Done:
+            IFS3bits.U1RXIF = input_state;
+            break;
+            
+        case UART1_Transfer_Done:
+            IFS3bits.U1TXIF = input_state;
+            break;
+            
+        case I2C1_Bus_Collision_Event:
+            IFS3bits.I2C1BIF = input_state;
+            break;
+            
+        case I2C1_Slave_Event:
+            IFS3bits.I2C1SIF = input_state;
+            break;
+            
+        case I2C1_Master_Event:
+            IFS3bits.I2C1MIF = input_state;
+            break;
+            
+        case PORTA_Input_Change_Interrupt:
+            IFS3bits.CNAIF = input_state;
+            break;
+            
+        case PORTB_Input_Change_Interrupt:
+            IFS3bits.CNBIF = input_state;
+            break;
+            
+        case PORTC_Input_Change_Interrupt:
+            IFS3bits.CNCIF = input_state;
+            break;
+            
+        case PORTD_Input_Change_Interrupt:
+            IFS3bits.CNDIF = input_state;
+            break;
+            
+        case PORTE_Input_Change_Interrupt:
+            IFS3bits.CNEIF = input_state;
+            break;
+            
+        case PORTF_Input_Change_Interrupt:
+            IFS3bits.CNFIF = input_state;
+            break;
+            
+        case PORTG_Input_Change_Interrupt:
+            IFS3bits.CNGIF = input_state;
+            break;
+            
+        case PORTH_Input_Change_Interrupt:
+            IFS3bits.CNHIF = input_state;
+            break;
+            
+        case PORTJ_Input_Change_Interrupt:
+            IFS3bits.CNJIF = input_state;
+            break;
+            
+        case PORTK_Input_Change_Interrupt:
+            IFS3bits.CNKIF = input_state;
+            break;
+            
+        case Parallel_Master_Port:
+            IFS4bits.PMPIF = input_state;
+            break;
+            
+        case Parallel_Master_Port_Error:
+            IFS4bits.PMPEIF = input_state;
+            break;
+            
+        case Comparator_1_Interrupt:
+            IFS4bits.CMP1IF = input_state;
+            break;
+            
+        case Comparator_2_Interrupt:
+            IFS4bits.CMP2IF = input_state;
+            break;
+            
+        case USB_General_Event:
+            IFS4bits.USBIF = input_state;
+            break;
+            
+        case USB_DMA_Event:
+            IFS4bits.USBDMAIF = input_state;
+            break;
+            
+        case DMA_Channel_0:
+            IFS4bits.DMA0IF = input_state;
+            break;
+            
+        case DMA_Channel_1:
+            IFS4bits.DMA1IF = input_state;
+            break;
+            
+        case DMA_Channel_2:
+            IFS4bits.DMA2IF = input_state;
+            break;
+            
+        case DMA_Channel_3:
+            IFS4bits.DMA3IF = input_state;
+            break;
+            
+        case DMA_Channel_4:
+            IFS4bits.DMA4IF = input_state;
+            break;
+            
+        case DMA_Channel_5:
+            IFS4bits.DMA5IF = input_state;
+            break;
+            
+        case DMA_Channel_6:
+            IFS4bits.DMA6IF = input_state;
+            break;
+            
+        case DMA_Channel_7:
+            IFS4bits.DMA7IF = input_state;
+            break;
+            
+        case SPI2_Fault:
+            IFS4bits.SPI2EIF = input_state;
+            break;
+            
+        case SPI2_Receive_Done:
+            IFS4bits.SPI2RXIF = input_state;
+            break;
+            
+        case SPI2_Transfer_Done:
+            IFS4bits.SPI2TXIF = input_state;
+            break;
+            
+        case UART2_Fault:
+            IFS4bits.U2EIF = input_state;
+            break;
+            
+        case UART2_Receive_Done:
+            IFS4bits.U2RXIF = input_state;
+            break;
+            
+        case UART2_Transfer_Done:
+            IFS4bits.U2TXIF = input_state;
+            break;
+            
+        case I2C2_Bus_Collision_Event:
+            IFS4bits.I2C2BIF = input_state;
+            break;
+            
+        case I2C2_Slave_Event:
+            IFS4bits.I2C2SIF = input_state;
+            break;
+            
+        case I2C2_Master_Event:
+            IFS4bits.I2C2MIF = input_state;
+            break;
+            
+        case Control_Area_Network_1:
+            IFS4bits.CAN1IF = input_state;
+            break;
+                    
+        case Control_Area_Network_2:
+            IFS4bits.CAN2IF = input_state;
+            break;
+            
+        case Ethernet_Interrupt:
+            IFS4bits.ETHIF = input_state;
+            break;
+            
+        case SPI3_Fault:
+            IFS4bits.SPI3EIF = input_state;
+            break;
+            
+        case SPI3_Receive_Done:
+            IFS4bits.SPI3RXIF = input_state;
+            break;
+            
+        case SPI3_Transfer_Done:
+            IFS4bits.SPI3TXIF = input_state;
+            break;
+            
+        case UART3_Fault:
+            IFS4bits.U3EIF = input_state;
+            break;
+            
+        case UART3_Receive_Done:
+            IFS4bits.U3RXIF = input_state;
+            break;
+            
+        case UART3_Transfer_Done:
+            IFS4bits.U3TXIF = input_state;
+            break;
+            
+        case I2C3_Bus_Collision_Event:
+            IFS5bits.I2C3BIF = input_state;
+            break;
+            
+        case I2C3_Slave_Event:
+            IFS5bits.I2C3SIF = input_state;
+            break;
+            
+        case I2C3_Master_Event:
+            IFS5bits.I2C3MIF = input_state;
+            break;
+            
+        case SPI4_Fault:
+            IFS5bits.SPI5EIF = input_state;
+            break;
+            
+        case SPI4_Receive_Done:
+            IFS5bits.SPI4RXIF = input_state;
+            break;
+            
+        case SPI4_Transfer_Done:
+            IFS5bits.SPI4TXIF = input_state;
+            break;
+            
+        case Real_Time_Clock:
+            IFS5bits.RTCCIF = input_state;
+            break;
+            
+        case Flash_Control_Event:
+            IFS5bits.FCEIF = input_state;
+            break;
+            
+        case Prefetch_Module_SEC_Event:
+            IFS5bits.PREIF = input_state;
+            break;
+            
+        case SQI1_Event:
+            IFS5bits.SQI1IF = input_state;
+            break;
+            
+        case UART4_Fault:
+            IFS5bits.U4EIF = input_state;
+            break;
+            
+        case UART4_Receive_Done:
+            IFS5bits.U4RXIF = input_state;
+            break;
+            
+        case UART4_Transfer_Done:
+            IFS5bits.U4TXIF = input_state;
+            break;
+            
+        case I2C4_Bus_Collision_Event:
+            IFS5bits.I2C4BIF = input_state;
+            break;
+            
+        case I2C4_Slave_Event:
+            IFS5bits.I2C4SIF = input_state;
+            break;
+            
+        case I2C4_Master_Event:
+            IFS5bits.I2C4MIF = input_state;
+            break;
+            
+        case SPI5_Fault:
+            IFS5bits.SPI5EIF = input_state;
+            break;
+            
+        case SPI5_Receive_Done:
+            IFS5bits.SPI5RXIF = input_state;
+            break;
+            
+        case SPI5_Transfer_Done:
+            IFS5bits.SPI5TXIF = input_state;
+            break;
+            
+        case UART5_Fault:
+            IFS5bits.U5EIF = input_state;
+            break;
+            
+        case UART5_Receive_Done:
+            IFS5bits.U5RXIF = input_state;
+            break;
+            
+        case UART5_Transfer_Done:
+            IFS5bits.U5TXIF = input_state;
+            break;
+            
+        case I2C5_Bus_Collision_Event:
+            IFS5bits.I2C5BIF = input_state;
+            break;
+            
+        case I2C5_Slave_Event:
+            IFS5bits.I2C5SIF = input_state;
+            break;
+            
+        case I2C5_Master_Event:
+            IFS5bits.I2C5MIF = input_state;
+            break;
+        
+        case SPI6_Fault:
+            IFS5bits.SPI6IF = input_state;  // Error in microchip bitfield macro!!!
+            break;
+            
+        case SPI6_Receive_Done:
+            IFS5bits.SPI6RXIF = input_state;
+            break;
+            
+        case SPI6_Transfer_Done:
+            IFS5bits.SPI6TX = input_state;  // Error in microchip bitfield macro!!!
+            break;
+            
+        case UART6_Fault:
+            IFS5bits.U6EIF = input_state;
+            break;
+            
+        case UART6_Receive_Done:
+            IFS5bits.U6RXIF = input_state;
+            break;
+            
+        case UART6_Transfer_Done:
+            IFS5bits.U6TXIF = input_state;
+            break;
+        
+        case ADC_End_Of_Scan_Ready:
+            IFS6bits.ADCEOSIF = input_state;
+            break;
+            
+        case ADC_Analog_Circuits_Ready:
+            IFS6bits.ADCARDYIF = input_state;
+            break;
+            
+        case ADC_Update_Ready:
+            IFS6bits.ADCURDYIF = input_state;
+            break;
+            
+        case ADC_Group_Early_Interrupt_Request:
+            IFS6bits.ADCGRPIF = input_state;
+            break;
+            
+        case ADC0_Early_Interrupt:
+            IFS6bits.ADC0EIF = input_state;
+            break;
+            
+        case ADC1_Early_Interrupt:
+            IFS6bits.ADC1EIF = input_state;
+            break;
+            
+        case ADC2_Early_Interrupt:
+            IFS6bits.ADC2EIF = input_state;
+            break;
+            
+        case ADC3_Early_Interrupt:
+            IFS6bits.ADC3EIF = input_state;
+            break;
+            
+        case ADC4_Early_Interrupt:
+            IFS6bits.ADC4EIF = input_state;
+            break;
+            
+        case ADC7_Early_Interrupt:
+            IFS6bits.ADC7EIF = input_state;
+            break;
+            
+        case ADC0_Warm_Interrupt:
+            IFS6bits.ADC0WIF = input_state;
+            break;
+            
+        case ADC1_Warm_Interrupt:
+            IFS6bits.ADC1WIF = input_state;
+            break;
+            
+        case ADC2_Warm_Interrupt:
+            IFS6bits.ADC2WIF = input_state;
+            break;
+            
+        case ADC3_Warm_Interrupt:
+            IFS6bits.ADC3WIF = input_state;
+            break;
+            
+        case ADC4_Warm_Interrupt:
+            IFS6bits.ADC4WIF = input_state;
+            break;
+            
+        case ADC7_Warm_Interrupt:
+            IFS6bits.ADC7WIF = input_state;
+            break;
+            
+        default:
+            return 1;
+            break;
+            
+    }
+    
+    return 0;
+    
+}
+
 // This function enables a particular interrupt
 // Returns 0 if no errors
 // Returns 1 if errors
@@ -849,5 +1720,14 @@ uint8_t EnableInterrupt(interrupt_source_t input_interrupt) {
 uint8_t DisableInterrupt(interrupt_source_t input_interrupt) {
  
     return SetInterruptEnable(input_interrupt, 0);
+    
+}
+
+// This function clears selected interrupt flag
+// Returns 0 if no errors
+// Returns 1 if errors
+uint8_t ClearInterruptFlag(interrupt_source_t input_interrupt) {
+ 
+    return SetInterruptFlag(input_interrupt, 0);
     
 }

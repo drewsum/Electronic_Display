@@ -233,12 +233,31 @@ typedef enum {
 
 } interrupt_source_t;
 
-// This function allows for the setting/clearing of a given interrupt
-// It manipulates the interrupt's 'Interrupt Enable' bit
+// This function enables global interrupts
+void EnableGloablInterrupts(void);
+
+// This function disables global interrupts
+void DisableGloablInterrupts(void);
+
+// This function returns the state of global interrupt enable
+// Returns 0 if global interrupts are disabled
+// returns 1 if global interrupts are enabled
+uint8_t GetGlobalInterruptsState(void);
+
+// This function explicitly sets the state of global interrupts
+void SetGlobalInterruptsState(uint8_t);
+
+// This function allows for the setting/clearing of a given interrupt enable
+// It manipulates the interrupt's 'Interrupt Enable' bit with IEC registers
 // Returns 0 if no errors
 // Returns 1 if errors
 uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state);
 
+// This function allows for the setting/clearing of a given interrupt flag
+// It manipulates the interrupt's 'Interrupt Flag' bit
+// Returns 0 if no errors
+// Returns 1 if errors
+uint8_t SetInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state);
 
 // This function enables selected interrupt
 // Returns 0 if no errors
@@ -249,6 +268,12 @@ uint8_t EnableInterrupt(interrupt_source_t input_interrupt);
 // Returns 0 if no errors
 // Returns 1 if errors
 uint8_t DisableInterrupt(interrupt_source_t input_interrupt);
+
+// This function clears selected interrupt flag
+// Returns 0 if no errors
+// Returns 1 if errors
+uint8_t ClearInterruptFlag(interrupt_source_t input_interrupt);
+
 
 
 #endif /* _32MZ_INTERRUPT_CONTROL_H */
