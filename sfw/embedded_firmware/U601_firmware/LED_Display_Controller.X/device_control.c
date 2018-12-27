@@ -100,6 +100,17 @@ void deviceReset(void) {
 
 // This function initializes the oscillator and PLL
 // This sets up a SYSCLK of 252 MHz
+// REFCLK1: Disabled
+// REFCLK2: Disabled
+// REFCLK3: Disabled
+// REFCLK4: Disabled
+// PBCLK1: 84 MHz
+// PBCLK2: 84 MHz
+// PBCLK3: 15.75 MHz
+// PBCLK4: 84 MHz
+// PBCLK5: 84 MHz
+// PBCLK7: 252 MHz
+// PBCLK8: 84 MHz
 void clockInitialize(void) {
  
     // unlock the device
