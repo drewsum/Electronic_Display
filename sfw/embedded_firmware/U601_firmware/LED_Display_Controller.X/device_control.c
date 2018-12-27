@@ -85,7 +85,7 @@ void deviceLock(void) {
 void deviceReset(void) {
     
     // disable interrupts
-    __builtin_disable_interrupts();
+    disableGlobalInterrupts();
     
     // unlock the device
     deviceUnlock();

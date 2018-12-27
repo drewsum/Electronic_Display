@@ -20,6 +20,7 @@
 
 #include <xc.h>
 
+#include "32mz_interrupt_control.h"
 
 // Unlock system function
 // This function unlocks the device so that device parameters can be changed

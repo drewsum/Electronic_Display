@@ -2,7 +2,7 @@
 #include "32mz_interrupt_control.h"
 
 // This function enables global interrupts
-void EnableGlobalInterrupts(void) {
+void enableGlobalInterrupts(void) {
  
     // This is built into the XC32 compiler
     __builtin_enable_interrupts();
@@ -10,7 +10,7 @@ void EnableGlobalInterrupts(void) {
 }
 
 // This function disables global interrupts
-void DisableGlobalInterrupts(void) {
+void disableGlobalInterrupts(void) {
  
     // This is built into the XC32 compiler
     __builtin_disable_interrupts();
@@ -20,14 +20,14 @@ void DisableGlobalInterrupts(void) {
 // This function returns the state of global interrupt enable
 // Returns 0 if global interrupts are disabled
 // returns 1 if global interrupts are enabled
-uint8_t GetGlobalInterruptsState(void) {
+uint8_t getGlobalInterruptsState(void) {
  
     return __builtin_get_isr_state();
     
 }
 
 // This function explicitly sets the state of global interrupts
-void SetGlobalInterruptsState(uint8_t input_state) {
+void setGlobalInterruptsState(uint8_t input_state) {
 
     __builtin_set_isr_state(input_state);
     
@@ -36,7 +36,7 @@ void SetGlobalInterruptsState(uint8_t input_state) {
 
 // This function allows for the setting/clearing of a given interrupt
 // It manipulates that interrupt's 'Interrupt Enable' bit
-uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state) {
+uint8_t setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state) {
  
     // Mask off anything larger than 1 to 1
     input_state = input_state >= 1;
@@ -870,7 +870,7 @@ uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
 // This function allows for the reading of a given interrupt enable
 // It reads the interrupt's 'Interrupt Enable' bit with IEC registers
 // Returns the state of the given interrupt
-uint8_t GetInterruptEnable(interrupt_source_t input_interrupt) {
+uint8_t getInterruptEnable(interrupt_source_t input_interrupt) {
 
     // Decide which interrupt control bits to manipulate based on which interrupt
     // is being enabled or disabled
@@ -1701,7 +1701,7 @@ uint8_t GetInterruptEnable(interrupt_source_t input_interrupt) {
 // It manipulates the interrupt's 'Interrupt Flag' bit
 // Returns 0 if no errors
 // Returns 1 if errors
-uint8_t SetInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state) {
+uint8_t setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state) {
  
     // Mask off anything larger than 1 to 1
     input_state = input_state >= 1;
@@ -2535,7 +2535,7 @@ uint8_t SetInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state
 // This function allows for the reading of a given interrupt flag
 // It reads the interrupt's 'Interrupt Flag' bit
 // Returns the state of the given interrupt flag
-uint8_t GetInterruptFlag(interrupt_source_t input_interrupt) {
+uint8_t getInterruptFlag(interrupt_source_t input_interrupt) {
     
     // Decide which interrupt control bits to manipulate based on which interrupt
     // is being enabled or disabled
@@ -3365,26 +3365,26 @@ uint8_t GetInterruptFlag(interrupt_source_t input_interrupt) {
 // This function enables a particular interrupt
 // Returns 0 if no errors
 // Returns 1 if errors
-uint8_t EnableInterrupt(interrupt_source_t input_interrupt) {
+uint8_t enableInterrupt(interrupt_source_t input_interrupt) {
  
-    return SetInterruptEnable(input_interrupt, 1);
+    return setInterruptEnable(input_interrupt, 1);
     
 }
 
 // This function disables selected interrupt
 // Returns 0 if no errors
 // Returns 1 if errors
-uint8_t DisableInterrupt(interrupt_source_t input_interrupt) {
+uint8_t disableInterrupt(interrupt_source_t input_interrupt) {
  
-    return SetInterruptEnable(input_interrupt, 0);
+    return setInterruptEnable(input_interrupt, 0);
     
 }
 
 // This function clears selected interrupt flag
 // Returns 0 if no errors
 // Returns 1 if errors
-uint8_t ClearInterruptFlag(interrupt_source_t input_interrupt) {
+uint8_t clearInterruptFlag(interrupt_source_t input_interrupt) {
  
-    return SetInterruptFlag(input_interrupt, 0);
+    return setInterruptFlag(input_interrupt, 0);
     
 }
