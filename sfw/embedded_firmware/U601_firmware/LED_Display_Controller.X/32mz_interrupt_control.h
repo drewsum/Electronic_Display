@@ -21,7 +21,7 @@
 
 #include <xc.h>
 
-// This typdef describes all of the interrupt sources available on the 32MZ
+// This typdef describes all of the interrupt sources available on the 32MZ EF family
 typedef enum {
     
     Core_Timer_Interrupt                    = 0,
@@ -238,6 +238,17 @@ typedef enum {
 // Returns 0 if no errors
 // Returns 1 if errors
 uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state);
+
+
+// This function enables selected interrupt
+// Returns 0 if no errors
+// Returns 1 if errors
+uint8_t EnableInterrupt(interrupt_source_t input_interrupt);
+
+// This function disables selected interrupt
+// Returns 0 if no errors
+// Returns 1 if errors
+uint8_t DisableInterrupt(interrupt_source_t input_interrupt);
 
 
 #endif /* _32MZ_INTERRUPT_CONTROL_H */

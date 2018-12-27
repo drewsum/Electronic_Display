@@ -588,12 +588,241 @@ uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
             IEC4bits.U2TXIE = input_state;
             break;
             
+        case I2C2_Bus_Collision_Event:
+            IEC4bits.I2C2BIE = input_state;
+            break;
             
+        case I2C2_Slave_Event:
+            IEC4bits.I2C2SIE = input_state;
+            break;
+            
+        case I2C2_Master_Event:
+            IEC4bits.I2C2MIE = input_state;
+            break;
+            
+        case Control_Area_Network_1:
+            IEC4bits.CAN1IE = input_state;
+            break;
+                    
+        case Control_Area_Network_2:
+            IEC4bits.CAN2IE = input_state;
+            break;
+            
+        case Ethernet_Interrupt:
+            IEC4bits.ETHIE = input_state;
+            break;
+            
+        case SPI3_Fault:
+            IEC4bits.SPI3EIE = input_state;
+            break;
+            
+        case SPI3_Receive_Done:
+            IEC4bits.SPI3RXIE = input_state;
+            break;
+            
+        case SPI3_Transfer_Done:
+            IEC4bits.SPI3TXIE = input_state;
+            break;
+            
+        case UART3_Fault:
+            IEC4bits.U3EIE = input_state;
+            break;
+            
+        case UART3_Receive_Done:
+            IEC4bits.U3RXIE = input_state;
+            break;
+            
+        case UART3_Transfer_Done:
+            IEC4bits.U3TXIE = input_state;
+            break;
+            
+        case I2C3_Bus_Collision_Event:
+            IEC5bits.I2C3BIE = input_state;
+            break;
+            
+        case I2C3_Slave_Event:
+            IEC5bits.I2C3SIE = input_state;
+            break;
+            
+        case I2C3_Master_Event:
+            IEC5bits.I2C3MIE = input_state;
+            break;
+            
+        case SPI4_Fault:
+            IEC5bits.SPI5EIE = input_state;
+            break;
+            
+        case SPI4_Receive_Done:
+            IEC5bits.SPI4RXIE = input_state;
+            break;
+            
+        case SPI4_Transfer_Done:
+            IEC5bits.SPI4TXIE = input_state;
+            break;
+            
+        case Real_Time_Clock:
+            IEC5bits.RTCCIE = input_state;
+            break;
+            
+        case Flash_Control_Event:
+            IEC5bits.FCEIE = input_state;
+            break;
+            
+        case Prefetch_Module_SEC_Event:
+            IEC5bits.PREIE = input_state;
+            break;
+            
+        case SQI1_Event:
+            IEC5bits.SQI1IE = input_state;
+            break;
+            
+        case UART4_Fault:
+            IEC5bits.U4EIE = input_state;
+            break;
+            
+        case UART4_Receive_Done:
+            IEC5bits.U4RXIE = input_state;
+            break;
+            
+        case UART4_Transfer_Done:
+            IEC5bits.U4TXIE = input_state;
+            break;
+            
+        case I2C4_Bus_Collision_Event:
+            IEC5bits.I2C4BIE = input_state;
+            break;
+            
+        case I2C4_Slave_Event:
+            IEC5bits.I2C4SIE = input_state;
+            break;
+            
+        case I2C4_Master_Event:
+            IEC5bits.I2C4MIE = input_state;
+            break;
+            
+        case SPI5_Fault:
+            IEC5bits.SPI5EIE = input_state;
+            break;
+            
+        case SPI5_Receive_Done:
+            IEC5bits.SPI5RXIE = input_state;
+            break;
+            
+        case SPI5_Transfer_Done:
+            IEC5bits.SPI5TXIE = input_state;
+            break;
+            
+        case UART5_Fault:
+            IEC5bits.U5EIE = input_state;
+            break;
+            
+        case UART5_Receive_Done:
+            IEC5bits.U5RXIE = input_state;
+            break;
+            
+        case UART5_Transfer_Done:
+            IEC5bits.U5TXIE = input_state;
+            break;
+            
+        case I2C5_Bus_Collision_Event:
+            IEC5bits.I2C5BIE = input_state;
+            break;
+            
+        case I2C5_Slave_Event:
+            IEC5bits.I2C5SIE = input_state;
+            break;
+            
+        case I2C5_Master_Event:
+            IEC5bits.I2C5MIE = input_state;
+            break;
         
+        case SPI6_Fault:
+            IEC5bits.SPI6IE = input_state;  // Error in microchip bitfield macro!!!
+            break;
             
+        case SPI6_Receive_Done:
+            IEC5bits.SPI6RXIE = input_state;
+            break;
             
+        case SPI6_Transfer_Done:
+            IEC5bits.SPI6TXIE = input_state;
+            break;
             
+        case UART6_Fault:
+            IEC5bits.U6EIE = input_state;
+            break;
             
+        case UART6_Receive_Done:
+            IEC5bits.U6RXIE = input_state;
+            break;
+            
+        case UART6_Transfer_Done:
+            IEC5bits.U6TXIE = input_state;
+            break;
+        
+        case ADC_End_Of_Scan_Ready:
+            IEC6bits.ADCEOSIE = input_state;
+            break;
+            
+        case ADC_Analog_Circuits_Ready:
+            IEC6bits.ADCARDYIE = input_state;
+            break;
+            
+        case ADC_Update_Ready:
+            IEC6bits.ADCURDYIE = input_state;
+            break;
+            
+        case ADC_Group_Early_Interrupt_Request:
+            IEC6bits.ADCGRPIE = input_state;
+            break;
+            
+        case ADC0_Early_Interrupt:
+            IEC6bits.ADC0EIE = input_state;
+            break;
+            
+        case ADC1_Early_Interrupt:
+            IEC6bits.ADC1EIE = input_state;
+            break;
+            
+        case ADC2_Early_Interrupt:
+            IEC6bits.ADC2EIE = input_state;
+            break;
+            
+        case ADC3_Early_Interrupt:
+            IEC6bits.ADC3EIE = input_state;
+            break;
+            
+        case ADC4_Early_Interrupt:
+            IEC6bits.ADC4EIE = input_state;
+            break;
+            
+        case ADC7_Early_Interrupt:
+            IEC6bits.ADC7EIE = input_state;
+            break;
+            
+        case ADC0_Warm_Interrupt:
+            IEC6bits.ADC0WIE = input_state;
+            break;
+            
+        case ADC1_Warm_Interrupt:
+            IEC6bits.ADC1WIE = input_state;
+            break;
+            
+        case ADC2_Warm_Interrupt:
+            IEC6bits.ADC2WIE = input_state;
+            break;
+            
+        case ADC3_Warm_Interrupt:
+            IEC6bits.ADC3WIE = input_state;
+            break;
+            
+        case ADC4_Warm_Interrupt:
+            IEC6bits.ADC4WIE = input_state;
+            break;
+            
+        case ADC7_Warm_Interrupt:
+            IEC6bits.ADC7WIE = input_state;
+            break;
             
         default:
             return 1;
@@ -602,5 +831,23 @@ uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
     }
     
     return 0;
+    
+}
+
+// This function enables a particular interrupt
+// Returns 0 if no errors
+// Returns 1 if errors
+uint8_t EnableInterrupt(interrupt_source_t input_interrupt) {
+ 
+    return SetInterruptEnable(input_interrupt, 1);
+    
+}
+
+// This function disables selected interrupt
+// Returns 0 if no errors
+// Returns 1 if errors
+uint8_t DisableInterrupt(interrupt_source_t input_interrupt) {
+ 
+    return SetInterruptEnable(input_interrupt, 0);
     
 }
