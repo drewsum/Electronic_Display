@@ -18,40 +18,27 @@
 #include "configure.h"
 
 // Include device control APIs
-// The functions allow low level control of the device
+// The functions allows low level control of the device
 #include "device_control.h"
 
 // Include pin macros for easy GPIO manipulation
 #include "pin_macros.h"
 
-// Include initalization of GPIO ports
+// Include initialization of GPIO ports
 #include "gpio_setup.h"
+
+// Include PIC32MZ interrupt control APIs
+#include "32mz_interrupt_control.h"
 
 
 // Main program entry point
 void main(void) {
     
-    // Initialize system clocks to following settings:
-    // SYSCLK: 252 MHz
-    // REFCLK1: Disabled
-    // REFCLK2: Disabled
-    // REFCLK3: Disabled
-    // REFCLK4: Disabled
-    // PBCLK1: 84 MHz
-    // PBCLK2: 84 MHz
-    // PBCLK3: 15.75 MHz
-    // PBCLK4: 84 MHz
-    // PBCLK5: 84 MHz
-    // PBCLK7: 252 MHz
-    // PBCLK8: 84 MHz
+    // Initialize system clocks
     clockInitialize();
     
     // Sets up GPIO ports
     gpioInitialize();
-    
-    // Set RE3 high to show signs of life
-    TRISECLR = (1 << 3);
-    LATESET = (1 << 3);
     
     while (true) {
         
