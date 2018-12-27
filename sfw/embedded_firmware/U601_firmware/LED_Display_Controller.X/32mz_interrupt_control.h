@@ -234,10 +234,10 @@ typedef enum {
 } interrupt_source_t;
 
 // This function enables global interrupts
-void EnableGloablInterrupts(void);
+void EnableGlobalInterrupts(void);
 
 // This function disables global interrupts
-void DisableGloablInterrupts(void);
+void DisableGlobalInterrupts(void);
 
 // This function returns the state of global interrupt enable
 // Returns 0 if global interrupts are disabled
@@ -253,11 +253,21 @@ void SetGlobalInterruptsState(uint8_t);
 // Returns 1 if errors
 uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state);
 
+// This function allows for the reading of a given interrupt enable
+// It reads the interrupt's 'Interrupt Enable' bit with IEC registers
+// Returns the state of the given interrupt
+uint8_t GetInterruptEnable(interrupt_source_t input_interrupt);
+
 // This function allows for the setting/clearing of a given interrupt flag
 // It manipulates the interrupt's 'Interrupt Flag' bit
 // Returns 0 if no errors
 // Returns 1 if errors
 uint8_t SetInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state);
+
+// This function allows for the reading of a given interrupt flag
+// It reads the interrupt's 'Interrupt Flag' bit
+// Returns the state of the given interrupt flag
+uint8_t GetInterruptFlag(interrupt_source_t input_interrupt);
 
 // This function enables selected interrupt
 // Returns 0 if no errors

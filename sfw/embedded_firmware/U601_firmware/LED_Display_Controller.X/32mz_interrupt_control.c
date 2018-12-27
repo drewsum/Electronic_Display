@@ -2,7 +2,7 @@
 #include "32mz_interrupt_control.h"
 
 // This function enables global interrupts
-void EnableGloablInterrupts(void) {
+void EnableGlobalInterrupts(void) {
  
     // This is built into the XC32 compiler
     __builtin_enable_interrupts();
@@ -10,7 +10,7 @@ void EnableGloablInterrupts(void) {
 }
 
 // This function disables global interrupts
-void DisableGloablInterrupts(void) {
+void DisableGlobalInterrupts(void) {
  
     // This is built into the XC32 compiler
     __builtin_disable_interrupts();
@@ -28,10 +28,7 @@ uint8_t GetGlobalInterruptsState(void) {
 
 // This function explicitly sets the state of global interrupts
 void SetGlobalInterruptsState(uint8_t input_state) {
- 
-    // Mask off anything larger than 1 to 1
-    input_state = input_state >= 1;
-    
+
     __builtin_set_isr_state(input_state);
     
 }
@@ -870,6 +867,836 @@ uint8_t SetInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
     
 }
 
+// This function allows for the reading of a given interrupt enable
+// It reads the interrupt's 'Interrupt Enable' bit with IEC registers
+// Returns the state of the given interrupt
+uint8_t GetInterruptEnable(interrupt_source_t input_interrupt) {
+
+    // Decide which interrupt control bits to manipulate based on which interrupt
+    // is being enabled or disabled
+    switch (input_interrupt) {
+        
+        case Core_Timer_Interrupt:
+            return IEC0bits.CTIE;
+            break;
+            
+        case Core_Software_Interrupt_0:
+            return IEC0bits.CS0IE;
+            break;
+            
+        case Core_Software_Interrupt_1:
+            return IEC0bits.CS1IE;
+            break;
+            
+        case External_Interrupt_0:
+            return IEC0bits.INT0IE;
+            break;
+            
+        case Timer1:
+            return IEC0bits.T1IE;
+            break;
+            
+        case Input_Capture_1_Error:
+            return IEC0bits.IC1EIE;
+            break;
+            
+        case Input_Capture_1:
+            return IEC0bits.IC1IE;
+            break;
+            
+        case Output_Compare_1:
+            return IEC0bits.OC1IE;
+            break;
+            
+        case External_Interrupt_1:
+            return IEC0bits.INT1IE;
+            break;
+            
+        case Timer2:
+            return IEC0bits.T2IE;
+            break;
+            
+        case Input_Capture_2_Error:
+            return IEC0bits.IC2EIE;
+            break;
+            
+        case Input_Capture_2:
+            return IEC0bits.IC2IE;
+            break;
+            
+        case Output_Compare_2:
+            return IEC0bits.OC2IE;
+            break;
+            
+        case External_Interrupt_2:
+            return IEC0bits.INT2IE;
+            break;
+            
+        case Timer3:
+            return IEC0bits.T3IE;
+            break;
+            
+        case Input_Capture_3_Error:
+            return IEC0bits.IC3EIE;
+            break;
+            
+        case Input_Capture_3:
+            return IEC0bits.IC3IE;
+            break;
+            
+        case Output_Compare_3:
+            return IEC0bits.OC3IE;
+            break;
+            
+        case External_Interrupt_3:
+            return IEC0bits.INT3IE;
+            break;
+            
+        case Timer4:
+            return IEC0bits.T4IE;
+            break;
+            
+        case Input_Capture_4_Error:
+            return IEC0bits.IC4EIE;
+            break;
+            
+        case Input_Capture_4:
+            return IEC0bits.IC4IE;
+            break;
+            
+        case Output_Compare_4:
+            return IEC0bits.OC4IE;
+            break;
+            
+        case External_Interrupt_4:
+            return IEC0bits.INT4IE;
+            break;
+            
+        case Timer5:
+            return IEC0bits.T5IE;
+            break;
+            
+        case Input_Capture_5_Error:
+            return IEC0bits.IC5EIE;
+            break;
+            
+        case Input_Capture_5:
+            return IEC0bits.IC5IE;
+            break;
+            
+        case Output_Compare_5:
+            return IEC0bits.OC5IE;
+            break;
+            
+        case Timer6:
+            return IEC0bits.T6IE;
+            break;
+            
+        case Input_Capture_6_Error:
+            return IEC0bits.IC6EIE;
+            break;
+            
+        case Input_Capture_6:
+            return IEC0bits.IC6IE;
+            break;
+            
+        case Output_Compare_6:
+            return IEC0bits.OC6IE;
+            break;
+            
+        case Timer7:
+            return IEC1bits.T7IE;
+            break;
+            
+        case Input_Capture_7_Error:
+            return IEC1bits.IC7EIE;
+            break;
+            
+        case Input_Capture_7:
+            return IEC1bits.IC7IE;
+            break;
+            
+        case Output_Compare_7:
+            return IEC1bits.OC7IE;
+            break;
+            
+        case Timer8:
+            return IEC1bits.T8IE;
+            break;
+            
+        case Input_Capture_8_Error:
+            return IEC1bits.IC8EIE;
+            break;
+            
+        case Input_Capture_8:
+            return IEC1bits.IC8IE;
+            break;
+            
+        case Output_Compare_8:
+            return IEC1bits.OC8IE;
+            break;
+            
+        case Timer9:
+            return IEC1bits.T9IE;
+            break;
+            
+        case Input_Capture_9_Error:
+            return IEC1bits.IC9EIE;
+            break;
+            
+        case Input_Capture_9:
+            return IEC1bits.IC9IE;
+            break;
+            
+        case Output_Compare_9:
+            return IEC1bits.OC9IE;
+            break;
+            
+        case ADC_Global_Interrupt:
+            return IEC1bits.ADCIE;
+            break;
+            
+        case ADC_FIFO_Data_Ready_Interrupt:
+            return IEC1bits.ADCFIFOIE;
+            break;
+            
+        case ADC_Digital_Comparator_1:
+            return IEC1bits.ADCDC1IE;
+            break;
+        
+        case ADC_Digital_Comparator_2:
+            return IEC1bits.ADCDC2IE;
+            break;
+            
+        case ADC_Digital_Comparator_3:
+            return IEC1bits.ADCDC3IE;
+            break;
+            
+        case ADC_Digital_Comparator_4:
+            return IEC1bits.ADCDC4IE;
+            break;
+            
+        case ADC_Digital_Filter_1:
+            return IEC1bits.ADCDF1IE;
+            break;
+            
+        case ADC_Digital_Filter_2:
+            return IEC1bits.ADCDF2IE;
+            break;
+            
+        case ADC_Digital_Filter_3:
+            return IEC1bits.ADCDF3IE;
+            break;
+            
+        case ADC_Digital_Filter_4:
+            return IEC1bits.ADCDF4IE;
+            break;
+            
+        case ADC_Digital_Filter_5:
+            return IEC1bits.ADCDF5IE;
+            break;
+            
+        case ADC_Digital_Filter_6:
+            return IEC1bits.ADCDF6IE;
+            break;
+            
+        case ADC_Fault:
+            return IEC1bits.ADCFLTIE;
+            break;
+            
+        case ADC_Data_0:
+            return IEC1bits.ADCD0IE;
+            break;
+            
+        case ADC_Data_1:
+            return IEC1bits.ADCD1IE;
+            break;
+            
+        case ADC_Data_2:
+            return IEC1bits.ADCD2IE;
+            break;
+            
+        case ADC_Data_3:
+            return IEC1bits.ADCD3IE;
+            break;
+            
+        case ADC_Data_4:
+            return IEC1bits.ADCD4IE;
+            break;
+            
+        case ADC_Data_5:
+            return IEC2bits.ADCD5IE;
+            break;
+            
+        case ADC_Data_6:
+            return IEC2bits.ADCD6IE;
+            break;
+            
+        case ADC_Data_7:
+            return IEC2bits.ADCD7IE;
+            break;
+            
+        case ADC_Data_8:
+            return IEC2bits.ADCD8IE;
+            break;
+            
+        case ADC_Data_9:
+            return IEC2bits.ADCD9IE;
+            break;
+            
+        case ADC_Data_10:
+            return IEC2bits.ADCD10IE;
+            break;
+            
+        case ADC_Data_11:
+            return IEC2bits.ADCD11IE;
+            break;
+            
+        case ADC_Data_12:
+            return IEC2bits.ADCD12IE;
+            break;
+            
+        case ADC_Data_13:
+            return IEC2bits.ADCD13IE;
+            break;
+            
+        case ADC_Data_14:
+            return IEC2bits.ADCD14IE;
+            break;
+            
+        case ADC_Data_15:
+            return IEC2bits.ADCD15IE;
+            break;
+            
+        case ADC_Data_16:
+            return IEC2bits.ADCD16IE;
+            break;
+            
+        case ADC_Data_17:
+            return IEC2bits.ADCD17IE;
+            break;
+            
+        case ADC_Data_18:
+            return IEC2bits.ADCD18IE;
+            break;
+            
+        case ADC_Data_19:
+            return IEC2bits.ADCD19IE;
+            break;
+            
+        case ADC_Data_20:
+            return IEC2bits.ADCD20IE;
+            break;
+            
+        case ADC_Data_21:
+            return IEC2bits.ADCD21IE;
+            break;
+            
+        case ADC_Data_22:
+            return IEC2bits.ADCD22IE;
+            break;
+            
+        case ADC_Data_23:
+            return IEC2bits.ADCD23IE;
+            break;
+            
+        case ADC_Data_24:
+            return IEC2bits.ADCD24IE;
+            break;
+            
+        case ADC_Data_25:
+            return IEC2bits.ADCD25IE;
+            break;
+            
+        case ADC_Data_26:
+            return IEC2bits.ADCD26IE;
+            break;
+            
+        case ADC_Data_27:
+            return IEC2bits.ADCD27IE;
+            break;
+            
+        case ADC_Data_28:
+            return IEC2bits.ADCD28IE;
+            break;
+            
+        case ADC_Data_29:
+            return IEC2bits.ADCD29IE;
+            break;
+            
+        case ADC_Data_30:
+            return IEC2bits.ADCD30IE;
+            break;
+            
+        case ADC_Data_31:
+            return IEC2bits.ADCD31IE;
+            break;
+            
+        case ADC_Data_32:
+            return IEC2bits.ADCD32IE;
+            break;
+            
+        case ADC_Data_33:
+            return IEC2bits.ADCD33IE;
+            break;
+            
+        case ADC_Data_34:
+            return IEC2bits.ADCD34IE;
+            break;
+            
+        case ADC_Data_35:
+            return IEC2bits.ADCD35IE;
+            break;
+            
+        case ADC_Data_36:
+            return IEC2bits.ADCD36IE;
+            break;
+            
+        case ADC_Data_37:
+            return IEC3bits.ADCD37IE;
+            break;
+            
+        case ADC_Data_38:
+            return IEC3bits.ADCD38IE;
+            break;
+            
+        case ADC_Data_39:
+            return IEC3bits.ADCD39IE;
+            break;
+            
+        case ADC_Data_40:
+            return IEC3bits.ADCD40IE;
+            break;
+            
+        case ADC_Data_41:
+            return IEC3bits.ADCD41IE;
+            break;
+            
+        case ADC_Data_42:
+            return IEC3bits.ADCD42IE;
+            break;
+            
+        case ADC_Data_43:
+            return IEC3bits.ADCD43IE;
+            break;
+            
+        case ADC_Data_44:
+            return IEC3bits.ADCD44IE;
+            break;
+            
+        case Core_Performance_Counter_Interrupt:
+            return IEC3bits.CPCIE;
+            break;
+            
+        case Core_Fast_Debug_Channel_Interrupt:
+            return IEC3bits.CFDCIE;
+            break;
+            
+        case System_Bus_Protection_Violation:
+            return IEC3bits.SBIE;
+            break;
+            
+        case SPI1_Fault:
+            return IEC3bits.SPI1EIE;
+            break;
+            
+        case SPI1_Receive_Done:
+            return IEC3bits.SPI1RXIE;
+            break;
+            
+        case SPI1_Transfer_Done:
+            return IEC3bits.SPI1TXIE;
+            break;
+            
+        case UART1_Fault:
+            return IEC3bits.U1EIE;
+            break;
+            
+        case UART1_Receive_Done:
+            return IEC3bits.U1RXIE;
+            break;
+            
+        case UART1_Transfer_Done:
+            return IEC3bits.U1TXIE;
+            break;
+            
+        case I2C1_Bus_Collision_Event:
+            return IEC3bits.I2C1BIE;
+            break;
+            
+        case I2C1_Slave_Event:
+            return IEC3bits.I2C1SIE;
+            break;
+            
+        case I2C1_Master_Event:
+            return IEC3bits.I2C1MIE;
+            break;
+            
+        case PORTA_Input_Change_Interrupt:
+            return IEC3bits.CNAIE;
+            break;
+            
+        case PORTB_Input_Change_Interrupt:
+            return IEC3bits.CNBIE;
+            break;
+            
+        case PORTC_Input_Change_Interrupt:
+            return IEC3bits.CNCIE;
+            break;
+            
+        case PORTD_Input_Change_Interrupt:
+            return IEC3bits.CNDIE;
+            break;
+            
+        case PORTE_Input_Change_Interrupt:
+            return IEC3bits.CNEIE;
+            break;
+            
+        case PORTF_Input_Change_Interrupt:
+            return IEC3bits.CNFIE;
+            break;
+            
+        case PORTG_Input_Change_Interrupt:
+            return IEC3bits.CNGIE;
+            break;
+            
+        case PORTH_Input_Change_Interrupt:
+            return IEC3bits.CNHIE;
+            break;
+            
+        case PORTJ_Input_Change_Interrupt:
+            return IEC3bits.CNJIE;
+            break;
+            
+        case PORTK_Input_Change_Interrupt:
+            return IEC3bits.CNKIE;
+            break;
+            
+        case Parallel_Master_Port:
+            return IEC4bits.PMPIE;
+            break;
+            
+        case Parallel_Master_Port_Error:
+            return IEC4bits.PMPEIE;
+            break;
+            
+        case Comparator_1_Interrupt:
+            return IEC4bits.CMP1IE;
+            break;
+            
+        case Comparator_2_Interrupt:
+            return IEC4bits.CMP2IE;
+            break;
+            
+        case USB_General_Event:
+            return IEC4bits.USBIE;
+            break;
+            
+        case USB_DMA_Event:
+            return IEC4bits.USBDMAIE;
+            break;
+            
+        case DMA_Channel_0:
+            return IEC4bits.DMA0IE;
+            break;
+            
+        case DMA_Channel_1:
+            return IEC4bits.DMA1IE;
+            break;
+            
+        case DMA_Channel_2:
+            return IEC4bits.DMA2IE;
+            break;
+            
+        case DMA_Channel_3:
+            return IEC4bits.DMA3IE;
+            break;
+            
+        case DMA_Channel_4:
+            return IEC4bits.DMA4IE;
+            break;
+            
+        case DMA_Channel_5:
+            return IEC4bits.DMA5IE;
+            break;
+            
+        case DMA_Channel_6:
+            return IEC4bits.DMA6IE;
+            break;
+            
+        case DMA_Channel_7:
+            return IEC4bits.DMA7IE;
+            break;
+            
+        case SPI2_Fault:
+            return IEC4bits.SPI2EIE;
+            break;
+            
+        case SPI2_Receive_Done:
+            return IEC4bits.SPI2RXIE;
+            break;
+            
+        case SPI2_Transfer_Done:
+            return IEC4bits.SPI2TXIE;
+            break;
+            
+        case UART2_Fault:
+            return IEC4bits.U2EIE;
+            break;
+            
+        case UART2_Receive_Done:
+            return IEC4bits.U2RXIE;
+            break;
+            
+        case UART2_Transfer_Done:
+            return IEC4bits.U2TXIE;
+            break;
+            
+        case I2C2_Bus_Collision_Event:
+            return IEC4bits.I2C2BIE;
+            break;
+            
+        case I2C2_Slave_Event:
+            return IEC4bits.I2C2SIE;
+            break;
+            
+        case I2C2_Master_Event:
+            return IEC4bits.I2C2MIE;
+            break;
+            
+        case Control_Area_Network_1:
+            return IEC4bits.CAN1IE;
+            break;
+                    
+        case Control_Area_Network_2:
+            return IEC4bits.CAN2IE;
+            break;
+            
+        case Ethernet_Interrupt:
+            return IEC4bits.ETHIE;
+            break;
+            
+        case SPI3_Fault:
+            return IEC4bits.SPI3EIE;
+            break;
+            
+        case SPI3_Receive_Done:
+            return IEC4bits.SPI3RXIE;
+            break;
+            
+        case SPI3_Transfer_Done:
+            return IEC4bits.SPI3TXIE;
+            break;
+            
+        case UART3_Fault:
+            return IEC4bits.U3EIE;
+            break;
+            
+        case UART3_Receive_Done:
+            return IEC4bits.U3RXIE;
+            break;
+            
+        case UART3_Transfer_Done:
+            return IEC4bits.U3TXIE;
+            break;
+            
+        case I2C3_Bus_Collision_Event:
+            return IEC5bits.I2C3BIE;
+            break;
+            
+        case I2C3_Slave_Event:
+            return IEC5bits.I2C3SIE;
+            break;
+            
+        case I2C3_Master_Event:
+            return IEC5bits.I2C3MIE;
+            break;
+            
+        case SPI4_Fault:
+            return IEC5bits.SPI5EIE;
+            break;
+            
+        case SPI4_Receive_Done:
+            return IEC5bits.SPI4RXIE;
+            break;
+            
+        case SPI4_Transfer_Done:
+            return IEC5bits.SPI4TXIE;
+            break;
+            
+        case Real_Time_Clock:
+            return IEC5bits.RTCCIE;
+            break;
+            
+        case Flash_Control_Event:
+            return IEC5bits.FCEIE;
+            break;
+            
+        case Prefetch_Module_SEC_Event:
+            return IEC5bits.PREIE;
+            break;
+            
+        case SQI1_Event:
+            return IEC5bits.SQI1IE;
+            break;
+            
+        case UART4_Fault:
+            return IEC5bits.U4EIE;
+            break;
+            
+        case UART4_Receive_Done:
+            return IEC5bits.U4RXIE;
+            break;
+            
+        case UART4_Transfer_Done:
+            return IEC5bits.U4TXIE;
+            break;
+            
+        case I2C4_Bus_Collision_Event:
+            return IEC5bits.I2C4BIE;
+            break;
+            
+        case I2C4_Slave_Event:
+            return IEC5bits.I2C4SIE;
+            break;
+            
+        case I2C4_Master_Event:
+            return IEC5bits.I2C4MIE;
+            break;
+            
+        case SPI5_Fault:
+            return IEC5bits.SPI5EIE;
+            break;
+            
+        case SPI5_Receive_Done:
+            return IEC5bits.SPI5RXIE;
+            break;
+            
+        case SPI5_Transfer_Done:
+            return IEC5bits.SPI5TXIE;
+            break;
+            
+        case UART5_Fault:
+            return IEC5bits.U5EIE;
+            break;
+            
+        case UART5_Receive_Done:
+            return IEC5bits.U5RXIE;
+            break;
+            
+        case UART5_Transfer_Done:
+            return IEC5bits.U5TXIE;
+            break;
+            
+        case I2C5_Bus_Collision_Event:
+            return IEC5bits.I2C5BIE;
+            break;
+            
+        case I2C5_Slave_Event:
+            return IEC5bits.I2C5SIE;
+            break;
+            
+        case I2C5_Master_Event:
+            return IEC5bits.I2C5MIE;
+            break;
+        
+        case SPI6_Fault:
+            return IEC5bits.SPI6IE;  // Error in microchip bitfield macro!!!
+            break;
+            
+        case SPI6_Receive_Done:
+            return IEC5bits.SPI6RXIE;
+            break;
+            
+        case SPI6_Transfer_Done:
+            return IEC5bits.SPI6TXIE;
+            break;
+            
+        case UART6_Fault:
+            return IEC5bits.U6EIE;
+            break;
+            
+        case UART6_Receive_Done:
+            return IEC5bits.U6RXIE;
+            break;
+            
+        case UART6_Transfer_Done:
+            return IEC5bits.U6TXIE;
+            break;
+        
+        case ADC_End_Of_Scan_Ready:
+            return IEC6bits.ADCEOSIE;
+            break;
+            
+        case ADC_Analog_Circuits_Ready:
+            return IEC6bits.ADCARDYIE;
+            break;
+            
+        case ADC_Update_Ready:
+            return IEC6bits.ADCURDYIE;
+            break;
+            
+        case ADC_Group_Early_Interrupt_Request:
+            return IEC6bits.ADCGRPIE;
+            break;
+            
+        case ADC0_Early_Interrupt:
+            return IEC6bits.ADC0EIE;
+            break;
+            
+        case ADC1_Early_Interrupt:
+            return IEC6bits.ADC1EIE;
+            break;
+            
+        case ADC2_Early_Interrupt:
+            return IEC6bits.ADC2EIE;
+            break;
+            
+        case ADC3_Early_Interrupt:
+            return IEC6bits.ADC3EIE;
+            break;
+            
+        case ADC4_Early_Interrupt:
+            return IEC6bits.ADC4EIE;
+            break;
+            
+        case ADC7_Early_Interrupt:
+            return IEC6bits.ADC7EIE;
+            break;
+            
+        case ADC0_Warm_Interrupt:
+            return IEC6bits.ADC0WIE;
+            break;
+            
+        case ADC1_Warm_Interrupt:
+            return IEC6bits.ADC1WIE;
+            break;
+            
+        case ADC2_Warm_Interrupt:
+            return IEC6bits.ADC2WIE;
+            break;
+            
+        case ADC3_Warm_Interrupt:
+            return IEC6bits.ADC3WIE;
+            break;
+            
+        case ADC4_Warm_Interrupt:
+            return IEC6bits.ADC4WIE;
+            break;
+            
+        case ADC7_Warm_Interrupt:
+            return IEC6bits.ADC7WIE;
+            break;
+            
+        default:
+            return 0;
+            break;
+                   
+    }
+    
+}
+
+
 // This function allows for the setting/clearing of a given interrupt flag
 // It manipulates the interrupt's 'Interrupt Flag' bit
 // Returns 0 if no errors
@@ -1704,6 +2531,836 @@ uint8_t SetInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state
     return 0;
     
 }
+
+// This function allows for the reading of a given interrupt flag
+// It reads the interrupt's 'Interrupt Flag' bit
+// Returns the state of the given interrupt flag
+uint8_t GetInterruptFlag(interrupt_source_t input_interrupt) {
+    
+    // Decide which interrupt control bits to manipulate based on which interrupt
+    // is being enabled or disabled
+    switch (input_interrupt) {
+        
+        case Core_Timer_Interrupt:
+            return IFS0bits.CTIF;
+            break;
+            
+        case Core_Software_Interrupt_0:
+            return IFS0bits.CS0IF;
+            break;
+            
+        case Core_Software_Interrupt_1:
+            return IFS0bits.CS1IF;
+            break;
+            
+        case External_Interrupt_0:
+            return IFS0bits.INT0IF;
+            break;
+            
+        case Timer1:
+            return IFS0bits.T1IF;
+            break;
+            
+        case Input_Capture_1_Error:
+            return IFS0bits.IC1EIF;
+            break;
+            
+        case Input_Capture_1:
+            return IFS0bits.IC1IF;
+            break;
+            
+        case Output_Compare_1:
+            return IFS0bits.OC1IF;
+            break;
+            
+        case External_Interrupt_1:
+            return IFS0bits.INT1IF;
+            break;
+            
+        case Timer2:
+            return IFS0bits.T2IF;
+            break;
+            
+        case Input_Capture_2_Error:
+            return IFS0bits.IC2EIF;
+            break;
+            
+        case Input_Capture_2:
+            return IFS0bits.IC2IF;
+            break;
+            
+        case Output_Compare_2:
+            return IFS0bits.OC2IF;
+            break;
+            
+        case External_Interrupt_2:
+            return IFS0bits.INT2IF;
+            break;
+            
+        case Timer3:
+            return IFS0bits.T3IF;
+            break;
+            
+        case Input_Capture_3_Error:
+            return IFS0bits.IC3EIF;
+            break;
+            
+        case Input_Capture_3:
+            return IFS0bits.IC3IF;
+            break;
+            
+        case Output_Compare_3:
+            return IFS0bits.OC3IF;
+            break;
+            
+        case External_Interrupt_3:
+            return IFS0bits.INT3IF;
+            break;
+            
+        case Timer4:
+            return IFS0bits.T4IF;
+            break;
+            
+        case Input_Capture_4_Error:
+            return IFS0bits.IC4EIF;
+            break;
+            
+        case Input_Capture_4:
+            return IFS0bits.IC4IF;
+            break;
+            
+        case Output_Compare_4:
+            return IFS0bits.OC4IF;
+            break;
+            
+        case External_Interrupt_4:
+            return IFS0bits.INT4IF;
+            break;
+            
+        case Timer5:
+            return IFS0bits.T5IF;
+            break;
+            
+        case Input_Capture_5_Error:
+            return IFS0bits.IC5EIF;
+            break;
+            
+        case Input_Capture_5:
+            return IFS0bits.IC5IF;
+            break;
+            
+        case Output_Compare_5:
+            return IFS0bits.OC5IF;
+            break;
+            
+        case Timer6:
+            return IFS0bits.T6IF;
+            break;
+            
+        case Input_Capture_6_Error:
+            return IFS0bits.IC6EIF;
+            break;
+            
+        case Input_Capture_6:
+            return IFS0bits.IC6IF;
+            break;
+            
+        case Output_Compare_6:
+            return IFS0bits.OC6IF;
+            break;
+            
+        case Timer7:
+            return IFS1bits.T7IF;
+            break;
+            
+        case Input_Capture_7_Error:
+            return IFS1bits.IC7EIF;
+            break;
+            
+        case Input_Capture_7:
+            return IFS1bits.IC7IF;
+            break;
+            
+        case Output_Compare_7:
+            return IFS1bits.OC7IF;
+            break;
+            
+        case Timer8:
+            return IFS1bits.T8IF;
+            break;
+            
+        case Input_Capture_8_Error:
+            return IFS1bits.IC8EIF;
+            break;
+            
+        case Input_Capture_8:
+            return IFS1bits.IC8IF;
+            break;
+            
+        case Output_Compare_8:
+            return IFS1bits.OC8IF;
+            break;
+            
+        case Timer9:
+            return IFS1bits.T9IF;
+            break;
+            
+        case Input_Capture_9_Error:
+            return IFS1bits.IC9EIF;
+            break;
+            
+        case Input_Capture_9:
+            return IFS1bits.IC9IF;
+            break;
+            
+        case Output_Compare_9:
+            return IFS1bits.OC9IF;
+            break;
+            
+        case ADC_Global_Interrupt:
+            return IFS1bits.ADCIF;
+            break;
+            
+        case ADC_FIFO_Data_Ready_Interrupt:
+            return IFS1bits.ADCFIFOIF;
+            break;
+            
+        case ADC_Digital_Comparator_1:
+            return IFS1bits.ADCDC1IF;
+            break;
+        
+        case ADC_Digital_Comparator_2:
+            return IFS1bits.ADCDC2IF;
+            break;
+            
+        case ADC_Digital_Comparator_3:
+            return IFS1bits.ADCDC3IF;
+            break;
+            
+        case ADC_Digital_Comparator_4:
+            return IFS1bits.ADCDC4IF;
+            break;
+            
+        case ADC_Digital_Filter_1:
+            return IFS1bits.ADCDF1IF;
+            break;
+            
+        case ADC_Digital_Filter_2:
+            return IFS1bits.ADCDF2IF;
+            break;
+            
+        case ADC_Digital_Filter_3:
+            return IFS1bits.ADCDF3IF;
+            break;
+            
+        case ADC_Digital_Filter_4:
+            return IFS1bits.ADCDF4IF;
+            break;
+            
+        case ADC_Digital_Filter_5:
+            return IFS1bits.ADCDF5IF;
+            break;
+            
+        case ADC_Digital_Filter_6:
+            return IFS1bits.ADCDF6IF;
+            break;
+            
+        case ADC_Fault:
+            return IFS1bits.ADCFLTIF;
+            break;
+            
+        case ADC_Data_0:
+            return IFS1bits.ADCD0IF;
+            break;
+            
+        case ADC_Data_1:
+            return IFS1bits.ADCD1IF;
+            break;
+            
+        case ADC_Data_2:
+            return IFS1bits.ADCD2IF;
+            break;
+            
+        case ADC_Data_3:
+            return IFS1bits.ADCD3IF;
+            break;
+            
+        case ADC_Data_4:
+            return IFS1bits.ADCD4IF;
+            break;
+            
+        case ADC_Data_5:
+            return IFS2bits.ADCD5IF;
+            break;
+            
+        case ADC_Data_6:
+            return IFS2bits.ADCD6IF;
+            break;
+            
+        case ADC_Data_7:
+            return IFS2bits.ADCD7IF;
+            break;
+            
+        case ADC_Data_8:
+            return IFS2bits.ADCD8IF;
+            break;
+            
+        case ADC_Data_9:
+            return IFS2bits.ADCD9IF;
+            break;
+            
+        case ADC_Data_10:
+            return IFS2bits.ADCD10IF;
+            break;
+            
+        case ADC_Data_11:
+            return IFS2bits.ADCD11IF;
+            break;
+            
+        case ADC_Data_12:
+            return IFS2bits.ADCD12IF;
+            break;
+            
+        case ADC_Data_13:
+            return IFS2bits.ADCD13IF;
+            break;
+            
+        case ADC_Data_14:
+            return IFS2bits.ADCD14IF;
+            break;
+            
+        case ADC_Data_15:
+            return IFS2bits.ADCD15IF;
+            break;
+            
+        case ADC_Data_16:
+            return IFS2bits.ADCD16IF;
+            break;
+            
+        case ADC_Data_17:
+            return IFS2bits.ADCD17IF;
+            break;
+            
+        case ADC_Data_18:
+            return IFS2bits.ADCD18IF;
+            break;
+            
+        case ADC_Data_19:
+            return IFS2bits.ADCD19IF;
+            break;
+            
+        case ADC_Data_20:
+            return IFS2bits.ADCD20IF;
+            break;
+            
+        case ADC_Data_21:
+            return IFS2bits.ADCD21IF;
+            break;
+            
+        case ADC_Data_22:
+            return IFS2bits.ADCD22IF;
+            break;
+            
+        case ADC_Data_23:
+            return IFS2bits.ADCD23IF;
+            break;
+            
+        case ADC_Data_24:
+            return IFS2bits.ADCD24IF;
+            break;
+            
+        case ADC_Data_25:
+            return IFS2bits.ADCD25IF;
+            break;
+            
+        case ADC_Data_26:
+            return IFS2bits.ADCD26IF;
+            break;
+            
+        case ADC_Data_27:
+            return IFS2bits.ADCD27IF;
+            break;
+            
+        case ADC_Data_28:
+            return IFS2bits.ADCD28IF;
+            break;
+            
+        case ADC_Data_29:
+            return IFS2bits.ADCD29IF;
+            break;
+            
+        case ADC_Data_30:
+            return IFS2bits.ADCD30IF;
+            break;
+            
+        case ADC_Data_31:
+            return IFS2bits.ADCD31IF;
+            break;
+            
+        case ADC_Data_32:
+            return IFS2bits.ADCD32IF;
+            break;
+            
+        case ADC_Data_33:
+            return IFS2bits.ADCD33IF;
+            break;
+            
+        case ADC_Data_34:
+            return IFS2bits.ADCD34IF;
+            break;
+            
+        case ADC_Data_35:
+            return IFS2bits.ADCD35IF;
+            break;
+            
+        case ADC_Data_36:
+            return IFS2bits.ADCD36IF;
+            break;
+            
+        case ADC_Data_37:
+            return IFS3bits.ADCD37IF;
+            break;
+            
+        case ADC_Data_38:
+            return IFS3bits.ADCD38IF;
+            break;
+            
+        case ADC_Data_39:
+            return IFS3bits.ADCD39IF;
+            break;
+            
+        case ADC_Data_40:
+            return IFS3bits.ADCD40IF;
+            break;
+            
+        case ADC_Data_41:
+            return IFS3bits.ADCD41IF;
+            break;
+            
+        case ADC_Data_42:
+            return IFS3bits.ADCD42IF;
+            break;
+            
+        case ADC_Data_43:
+            return IFS3bits.ADCD43IF;
+            break;
+            
+        case ADC_Data_44:
+            return IFS3bits.ADCD44IF;
+            break;
+            
+        case Core_Performance_Counter_Interrupt:
+            return IFS3bits.CPCIF;
+            break;
+            
+        case Core_Fast_Debug_Channel_Interrupt:
+            return IFS3bits.CFDCIF;
+            break;
+            
+        case System_Bus_Protection_Violation:
+            return IFS3bits.SBIF;
+            break;
+            
+        case SPI1_Fault:
+            return IFS3bits.SPI1EIF;
+            break;
+            
+        case SPI1_Receive_Done:
+            return IFS3bits.SPI1RXIF;
+            break;
+            
+        case SPI1_Transfer_Done:
+            return IFS3bits.SPI1TXIF;
+            break;
+            
+        case UART1_Fault:
+            return IFS3bits.U1EIF;
+            break;
+            
+        case UART1_Receive_Done:
+            return IFS3bits.U1RXIF;
+            break;
+            
+        case UART1_Transfer_Done:
+            return IFS3bits.U1TXIF;
+            break;
+            
+        case I2C1_Bus_Collision_Event:
+            return IFS3bits.I2C1BIF;
+            break;
+            
+        case I2C1_Slave_Event:
+            return IFS3bits.I2C1SIF;
+            break;
+            
+        case I2C1_Master_Event:
+            return IFS3bits.I2C1MIF;
+            break;
+            
+        case PORTA_Input_Change_Interrupt:
+            return IFS3bits.CNAIF;
+            break;
+            
+        case PORTB_Input_Change_Interrupt:
+            return IFS3bits.CNBIF;
+            break;
+            
+        case PORTC_Input_Change_Interrupt:
+            return IFS3bits.CNCIF;
+            break;
+            
+        case PORTD_Input_Change_Interrupt:
+            return IFS3bits.CNDIF;
+            break;
+            
+        case PORTE_Input_Change_Interrupt:
+            return IFS3bits.CNEIF;
+            break;
+            
+        case PORTF_Input_Change_Interrupt:
+            return IFS3bits.CNFIF;
+            break;
+            
+        case PORTG_Input_Change_Interrupt:
+            return IFS3bits.CNGIF;
+            break;
+            
+        case PORTH_Input_Change_Interrupt:
+            return IFS3bits.CNHIF;
+            break;
+            
+        case PORTJ_Input_Change_Interrupt:
+            return IFS3bits.CNJIF;
+            break;
+            
+        case PORTK_Input_Change_Interrupt:
+            return IFS3bits.CNKIF;
+            break;
+            
+        case Parallel_Master_Port:
+            return IFS4bits.PMPIF;
+            break;
+            
+        case Parallel_Master_Port_Error:
+            return IFS4bits.PMPEIF;
+            break;
+            
+        case Comparator_1_Interrupt:
+            return IFS4bits.CMP1IF;
+            break;
+            
+        case Comparator_2_Interrupt:
+            return IFS4bits.CMP2IF;
+            break;
+            
+        case USB_General_Event:
+            return IFS4bits.USBIF;
+            break;
+            
+        case USB_DMA_Event:
+            return IFS4bits.USBDMAIF;
+            break;
+            
+        case DMA_Channel_0:
+            return IFS4bits.DMA0IF;
+            break;
+            
+        case DMA_Channel_1:
+            return IFS4bits.DMA1IF;
+            break;
+            
+        case DMA_Channel_2:
+            return IFS4bits.DMA2IF;
+            break;
+            
+        case DMA_Channel_3:
+            return IFS4bits.DMA3IF;
+            break;
+            
+        case DMA_Channel_4:
+            return IFS4bits.DMA4IF;
+            break;
+            
+        case DMA_Channel_5:
+            return IFS4bits.DMA5IF;
+            break;
+            
+        case DMA_Channel_6:
+            return IFS4bits.DMA6IF;
+            break;
+            
+        case DMA_Channel_7:
+            return IFS4bits.DMA7IF;
+            break;
+            
+        case SPI2_Fault:
+            return IFS4bits.SPI2EIF;
+            break;
+            
+        case SPI2_Receive_Done:
+            return IFS4bits.SPI2RXIF;
+            break;
+            
+        case SPI2_Transfer_Done:
+            return IFS4bits.SPI2TXIF;
+            break;
+            
+        case UART2_Fault:
+            return IFS4bits.U2EIF;
+            break;
+            
+        case UART2_Receive_Done:
+            return IFS4bits.U2RXIF;
+            break;
+            
+        case UART2_Transfer_Done:
+            return IFS4bits.U2TXIF;
+            break;
+            
+        case I2C2_Bus_Collision_Event:
+            return IFS4bits.I2C2BIF;
+            break;
+            
+        case I2C2_Slave_Event:
+            return IFS4bits.I2C2SIF;
+            break;
+            
+        case I2C2_Master_Event:
+            return IFS4bits.I2C2MIF;
+            break;
+            
+        case Control_Area_Network_1:
+            return IFS4bits.CAN1IF;
+            break;
+                    
+        case Control_Area_Network_2:
+            return IFS4bits.CAN2IF;
+            break;
+            
+        case Ethernet_Interrupt:
+            return IFS4bits.ETHIF;
+            break;
+            
+        case SPI3_Fault:
+            return IFS4bits.SPI3EIF;
+            break;
+            
+        case SPI3_Receive_Done:
+            return IFS4bits.SPI3RXIF;
+            break;
+            
+        case SPI3_Transfer_Done:
+            return IFS4bits.SPI3TXIF;
+            break;
+            
+        case UART3_Fault:
+            return IFS4bits.U3EIF;
+            break;
+            
+        case UART3_Receive_Done:
+            return IFS4bits.U3RXIF;
+            break;
+            
+        case UART3_Transfer_Done:
+            return IFS4bits.U3TXIF;
+            break;
+            
+        case I2C3_Bus_Collision_Event:
+            return IFS5bits.I2C3BIF;
+            break;
+            
+        case I2C3_Slave_Event:
+            return IFS5bits.I2C3SIF;
+            break;
+            
+        case I2C3_Master_Event:
+            return IFS5bits.I2C3MIF;
+            break;
+            
+        case SPI4_Fault:
+            return IFS5bits.SPI5EIF;
+            break;
+            
+        case SPI4_Receive_Done:
+            return IFS5bits.SPI4RXIF;
+            break;
+            
+        case SPI4_Transfer_Done:
+            return IFS5bits.SPI4TXIF;
+            break;
+            
+        case Real_Time_Clock:
+            return IFS5bits.RTCCIF;
+            break;
+            
+        case Flash_Control_Event:
+            return IFS5bits.FCEIF;
+            break;
+            
+        case Prefetch_Module_SEC_Event:
+            return IFS5bits.PREIF;
+            break;
+            
+        case SQI1_Event:
+            return IFS5bits.SQI1IF;
+            break;
+            
+        case UART4_Fault:
+            return IFS5bits.U4EIF;
+            break;
+            
+        case UART4_Receive_Done:
+            return IFS5bits.U4RXIF;
+            break;
+            
+        case UART4_Transfer_Done:
+            return IFS5bits.U4TXIF;
+            break;
+            
+        case I2C4_Bus_Collision_Event:
+            return IFS5bits.I2C4BIF;
+            break;
+            
+        case I2C4_Slave_Event:
+            return IFS5bits.I2C4SIF;
+            break;
+            
+        case I2C4_Master_Event:
+            return IFS5bits.I2C4MIF;
+            break;
+            
+        case SPI5_Fault:
+            return IFS5bits.SPI5EIF;
+            break;
+            
+        case SPI5_Receive_Done:
+            return IFS5bits.SPI5RXIF;
+            break;
+            
+        case SPI5_Transfer_Done:
+            return IFS5bits.SPI5TXIF;
+            break;
+            
+        case UART5_Fault:
+            return IFS5bits.U5EIF;
+            break;
+            
+        case UART5_Receive_Done:
+            return IFS5bits.U5RXIF;
+            break;
+            
+        case UART5_Transfer_Done:
+            return IFS5bits.U5TXIF;
+            break;
+            
+        case I2C5_Bus_Collision_Event:
+            return IFS5bits.I2C5BIF;
+            break;
+            
+        case I2C5_Slave_Event:
+            return IFS5bits.I2C5SIF;
+            break;
+            
+        case I2C5_Master_Event:
+            return IFS5bits.I2C5MIF;
+            break;
+        
+        case SPI6_Fault:
+            return IFS5bits.SPI6IF;  // Error in microchip bitfield macro!!!
+            break;
+            
+        case SPI6_Receive_Done:
+            return IFS5bits.SPI6RXIF;
+            break;
+            
+        case SPI6_Transfer_Done:
+            return IFS5bits.SPI6TX;  // Error in microchip bitfield macro!!!
+            break;
+            
+        case UART6_Fault:
+            return IFS5bits.U6EIF;
+            break;
+            
+        case UART6_Receive_Done:
+            return IFS5bits.U6RXIF;
+            break;
+            
+        case UART6_Transfer_Done:
+            return IFS5bits.U6TXIF;
+            break;
+        
+        case ADC_End_Of_Scan_Ready:
+            return IFS6bits.ADCEOSIF;
+            break;
+            
+        case ADC_Analog_Circuits_Ready:
+            return IFS6bits.ADCARDYIF;
+            break;
+            
+        case ADC_Update_Ready:
+            return IFS6bits.ADCURDYIF;
+            break;
+            
+        case ADC_Group_Early_Interrupt_Request:
+            return IFS6bits.ADCGRPIF;
+            break;
+            
+        case ADC0_Early_Interrupt:
+            return IFS6bits.ADC0EIF;
+            break;
+            
+        case ADC1_Early_Interrupt:
+            return IFS6bits.ADC1EIF;
+            break;
+            
+        case ADC2_Early_Interrupt:
+            return IFS6bits.ADC2EIF;
+            break;
+            
+        case ADC3_Early_Interrupt:
+            return IFS6bits.ADC3EIF;
+            break;
+            
+        case ADC4_Early_Interrupt:
+            return IFS6bits.ADC4EIF;
+            break;
+            
+        case ADC7_Early_Interrupt:
+            return IFS6bits.ADC7EIF;
+            break;
+            
+        case ADC0_Warm_Interrupt:
+            return IFS6bits.ADC0WIF;
+            break;
+            
+        case ADC1_Warm_Interrupt:
+            return IFS6bits.ADC1WIF;
+            break;
+            
+        case ADC2_Warm_Interrupt:
+            return IFS6bits.ADC2WIF;
+            break;
+            
+        case ADC3_Warm_Interrupt:
+            return IFS6bits.ADC3WIF;
+            break;
+            
+        case ADC4_Warm_Interrupt:
+            return IFS6bits.ADC4WIF;
+            break;
+            
+        case ADC7_Warm_Interrupt:
+            return IFS6bits.ADC7WIF;
+            break;
+            
+        default:
+            return 0;
+            break;
+            
+    }
+    
+}
+
 
 // This function enables a particular interrupt
 // Returns 0 if no errors
