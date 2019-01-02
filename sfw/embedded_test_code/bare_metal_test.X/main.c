@@ -21,6 +21,7 @@
 // The functions allow low level control of the device
 #include "device_control.h"
 
+#include "heartbeat_timer.h"
 
 // Main program entry point
 void main(void) {
@@ -41,8 +42,17 @@ void main(void) {
     clockInitialize();
     
     // Set RE3 high to show signs of life
-    TRISECLR = (1 << 3);
-    LATESET = (1 << 3);
+    TRISEbits. TRISE3 = 0;
+    LATEbits.LATE3 = 1;
+    
+    // Set RE4 as output
+    TRISEbits.TRISE4 = 0;
+    
+    // Initialize and start heartbeat timer
+    heartbeatTimerInitialize();
+    
+    // enable global interrupts
+    enableGlobalInterrupts();
     
     while (true) {
         

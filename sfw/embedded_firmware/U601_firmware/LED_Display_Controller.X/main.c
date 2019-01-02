@@ -28,7 +28,7 @@
 #include "gpio_setup.h"
 
 // Include PIC32MZ interrupt control APIs
-#include "32mz_interrupt_control.h"
+// #include "32mz_interrupt_control.h"
 
 
 // Main program entry point

@@ -6,6 +6,8 @@
                    projectFiles="true">
       <itemPath>configuration.h</itemPath>
       <itemPath>device_control.h</itemPath>
+      <itemPath>heartbeat_timer.h</itemPath>
+      <itemPath>32mz_interrupt_control.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -16,6 +18,8 @@
                    projectFiles="true">
       <itemPath>main.c</itemPath>
       <itemPath>device_control.c</itemPath>
+      <itemPath>heartbeat_timer.c</itemPath>
+      <itemPath>32mz_interrupt_control.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

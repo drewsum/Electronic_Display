@@ -249,9 +249,7 @@ void setGlobalInterruptsState(uint8_t);
 
 // This function allows for the setting/clearing of a given interrupt enable
 // It manipulates the interrupt's 'Interrupt Enable' bit with IEC registers
-// Returns 0 if no errors
-// Returns 1 if errors
-uint8_t setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state);
+void setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state);
 
 // This function allows for the reading of a given interrupt enable
 // It reads the interrupt's 'Interrupt Enable' bit with IEC registers
@@ -260,29 +258,27 @@ uint8_t getInterruptEnable(interrupt_source_t input_interrupt);
 
 // This function allows for the setting/clearing of a given interrupt flag
 // It manipulates the interrupt's 'Interrupt Flag' bit
-// Returns 0 if no errors
-// Returns 1 if errors
-uint8_t setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state);
+void setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state);
 
 // This function allows for the reading of a given interrupt flag
 // It reads the interrupt's 'Interrupt Flag' bit
 // Returns the state of the given interrupt flag
 uint8_t getInterruptFlag(interrupt_source_t input_interrupt);
 
+// This function sets the priority for a given interrupt
+void setInterruptPriority(interrupt_source_t input_interrupt, uint8_t input_priority);
+
+// This function sets the subpriority for a given interrupt
+void setInterruptSubpriority(interrupt_source_t input_interrupt, uint8_t input_subpriority);
+
 // This function enables selected interrupt
-// Returns 0 if no errors
-// Returns 1 if errors
-uint8_t enableInterrupt(interrupt_source_t input_interrupt);
+void enableInterrupt(interrupt_source_t input_interrupt);
 
 // This function disables selected interrupt
-// Returns 0 if no errors
-// Returns 1 if errors
-uint8_t disableInterrupt(interrupt_source_t input_interrupt);
+void disableInterrupt(interrupt_source_t input_interrupt);
 
 // This function clears selected interrupt flag
-// Returns 0 if no errors
-// Returns 1 if errors
-uint8_t clearInterruptFlag(interrupt_source_t input_interrupt);
+void clearInterruptFlag(interrupt_source_t input_interrupt);
 
 
 

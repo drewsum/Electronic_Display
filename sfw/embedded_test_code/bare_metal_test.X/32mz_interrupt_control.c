@@ -36,7 +36,7 @@ void setGlobalInterruptsState(uint8_t input_state) {
 
 // This function allows for the setting/clearing of a given interrupt
 // It manipulates that interrupt's 'Interrupt Enable' bit
-uint8_t setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state) {
+void setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state) {
  
     // Mask off anything larger than 1 to 1
     input_state = input_state >= 1;
@@ -245,6 +245,14 @@ uint8_t setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
             IEC1bits.ADCDC4IE = input_state;
             break;
             
+        case ADC_Digital_Comparator_5:
+            IEC1bits.ADCDC5IE = input_state;
+            break;
+            
+        case ADC_Digital_Comparator_6:
+            IEC1bits.ADCDC6IE = input_state;
+            break;
+            
         case ADC_Digital_Filter_1:
             IEC1bits.ADCDF1IE = input_state;
             break;
@@ -413,37 +421,37 @@ uint8_t setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
             IEC2bits.ADCD34IE = input_state;
             break;
             
-        case ADC_Data_35:
-            IEC2bits.ADCD35IE = input_state;
-            break;
-            
-        case ADC_Data_36:
-            IEC2bits.ADCD36IE = input_state;
-            break;
-            
-        case ADC_Data_37:
-            IEC3bits.ADCD37IE = input_state;
-            break;
-            
-        case ADC_Data_38:
-            IEC3bits.ADCD38IE = input_state;
-            break;
-            
-        case ADC_Data_39:
-            IEC3bits.ADCD39IE = input_state;
-            break;
-            
-        case ADC_Data_40:
-            IEC3bits.ADCD40IE = input_state;
-            break;
-            
-        case ADC_Data_41:
-            IEC3bits.ADCD41IE = input_state;
-            break;
-            
-        case ADC_Data_42:
-            IEC3bits.ADCD42IE = input_state;
-            break;
+//        case ADC_Data_35:
+//            IEC2bits.ADCD35IE = input_state;
+//            break;
+//            
+//        case ADC_Data_36:
+//            IEC2bits.ADCD36IE = input_state;
+//            break;
+//            
+//        case ADC_Data_37:
+//            IEC3bits.ADCD37IE = input_state;
+//            break;
+//            
+//        case ADC_Data_38:
+//            IEC3bits.ADCD38IE = input_state;
+//            break;
+//            
+//        case ADC_Data_39:
+//            IEC3bits.ADCD39IE = input_state;
+//            break;
+//            
+//        case ADC_Data_40:
+//            IEC3bits.ADCD40IE = input_state;
+//            break;
+//            
+//        case ADC_Data_41:
+//            IEC3bits.ADCD41IE = input_state;
+//            break;
+//            
+//        case ADC_Data_42:
+//            IEC3bits.ADCD42IE = input_state;
+//            break;
             
         case ADC_Data_43:
             IEC3bits.ADCD43IE = input_state;
@@ -529,17 +537,17 @@ uint8_t setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
             IEC3bits.CNGIE = input_state;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            IEC3bits.CNHIE = input_state;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            IEC3bits.CNJIE = input_state;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            IEC3bits.CNKIE = input_state;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//            IEC3bits.CNHIE = input_state;
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//            IEC3bits.CNJIE = input_state;
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//            IEC3bits.CNKIE = input_state;
+//            break;
             
         case Parallel_Master_Port:
             IEC4bits.PMPIE = input_state;
@@ -858,13 +866,10 @@ uint8_t setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_sta
             break;
             
         default:
-            return 1;
             break;
             
     }
-    
-    return 0;
-    
+
 }
 
 // This function allows for the reading of a given interrupt enable
@@ -1076,6 +1081,14 @@ uint8_t getInterruptEnable(interrupt_source_t input_interrupt) {
             return IEC1bits.ADCDC4IE;
             break;
             
+        case ADC_Digital_Comparator_5:
+            return IEC1bits.ADCDC5IE;
+            break;
+            
+        case ADC_Digital_Comparator_6:
+            return IEC1bits.ADCDC6IE;
+            break;
+            
         case ADC_Digital_Filter_1:
             return IEC1bits.ADCDF1IE;
             break;
@@ -1244,37 +1257,37 @@ uint8_t getInterruptEnable(interrupt_source_t input_interrupt) {
             return IEC2bits.ADCD34IE;
             break;
             
-        case ADC_Data_35:
-            return IEC2bits.ADCD35IE;
-            break;
-            
-        case ADC_Data_36:
-            return IEC2bits.ADCD36IE;
-            break;
-            
-        case ADC_Data_37:
-            return IEC3bits.ADCD37IE;
-            break;
-            
-        case ADC_Data_38:
-            return IEC3bits.ADCD38IE;
-            break;
-            
-        case ADC_Data_39:
-            return IEC3bits.ADCD39IE;
-            break;
-            
-        case ADC_Data_40:
-            return IEC3bits.ADCD40IE;
-            break;
-            
-        case ADC_Data_41:
-            return IEC3bits.ADCD41IE;
-            break;
-            
-        case ADC_Data_42:
-            return IEC3bits.ADCD42IE;
-            break;
+//        case ADC_Data_35:
+//            return IEC2bits.ADCD35IE;
+//            break;
+//            
+//        case ADC_Data_36:
+//            return IEC2bits.ADCD36IE;
+//            break;
+//            
+//        case ADC_Data_37:
+//            return IEC3bits.ADCD37IE;
+//            break;
+//            
+//        case ADC_Data_38:
+//            return IEC3bits.ADCD38IE;
+//            break;
+//            
+//        case ADC_Data_39:
+//            return IEC3bits.ADCD39IE;
+//            break;
+//            
+//        case ADC_Data_40:
+//            return IEC3bits.ADCD40IE;
+//            break;
+//            
+//        case ADC_Data_41:
+//            return IEC3bits.ADCD41IE;
+//            break;
+//            
+//        case ADC_Data_42:
+//            return IEC3bits.ADCD42IE;
+//            break;
             
         case ADC_Data_43:
             return IEC3bits.ADCD43IE;
@@ -1360,17 +1373,17 @@ uint8_t getInterruptEnable(interrupt_source_t input_interrupt) {
             return IEC3bits.CNGIE;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            return IEC3bits.CNHIE;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            return IEC3bits.CNJIE;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            return IEC3bits.CNKIE;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//            return IEC3bits.CNHIE;
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//            return IEC3bits.CNJIE;
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//            return IEC3bits.CNKIE;
+//            break;
             
         case Parallel_Master_Port:
             return IEC4bits.PMPIE;
@@ -1701,7 +1714,7 @@ uint8_t getInterruptEnable(interrupt_source_t input_interrupt) {
 // It manipulates the interrupt's 'Interrupt Flag' bit
 // Returns 0 if no errors
 // Returns 1 if errors
-uint8_t setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state) {
+void setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state) {
  
     // Mask off anything larger than 1 to 1
     input_state = input_state >= 1;
@@ -1910,6 +1923,14 @@ uint8_t setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state
             IFS1bits.ADCDC4IF = input_state;
             break;
             
+        case ADC_Digital_Comparator_5:
+            IFS1bits.ADCDC5IF = input_state;
+            break;
+            
+        case ADC_Digital_Comparator_6:
+            IFS1bits.ADCDC6IF = input_state;
+            break;
+            
         case ADC_Digital_Filter_1:
             IFS1bits.ADCDF1IF = input_state;
             break;
@@ -2078,37 +2099,37 @@ uint8_t setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state
             IFS2bits.ADCD34IF = input_state;
             break;
             
-        case ADC_Data_35:
-            IFS2bits.ADCD35IF = input_state;
-            break;
-            
-        case ADC_Data_36:
-            IFS2bits.ADCD36IF = input_state;
-            break;
-            
-        case ADC_Data_37:
-            IFS3bits.ADCD37IF = input_state;
-            break;
-            
-        case ADC_Data_38:
-            IFS3bits.ADCD38IF = input_state;
-            break;
-            
-        case ADC_Data_39:
-            IFS3bits.ADCD39IF = input_state;
-            break;
-            
-        case ADC_Data_40:
-            IFS3bits.ADCD40IF = input_state;
-            break;
-            
-        case ADC_Data_41:
-            IFS3bits.ADCD41IF = input_state;
-            break;
-            
-        case ADC_Data_42:
-            IFS3bits.ADCD42IF = input_state;
-            break;
+//        case ADC_Data_35:
+//            IFS2bits.ADCD35IF = input_state;
+//            break;
+//            
+//        case ADC_Data_36:
+//            IFS2bits.ADCD36IF = input_state;
+//            break;
+//            
+//        case ADC_Data_37:
+//            IFS3bits.ADCD37IF = input_state;
+//            break;
+//            
+//        case ADC_Data_38:
+//            IFS3bits.ADCD38IF = input_state;
+//            break;
+//            
+//        case ADC_Data_39:
+//            IFS3bits.ADCD39IF = input_state;
+//            break;
+//            
+//        case ADC_Data_40:
+//            IFS3bits.ADCD40IF = input_state;
+//            break;
+//            
+//        case ADC_Data_41:
+//            IFS3bits.ADCD41IF = input_state;
+//            break;
+//            
+//        case ADC_Data_42:
+//            IFS3bits.ADCD42IF = input_state;
+//            break;
             
         case ADC_Data_43:
             IFS3bits.ADCD43IF = input_state;
@@ -2194,17 +2215,17 @@ uint8_t setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state
             IFS3bits.CNGIF = input_state;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            IFS3bits.CNHIF = input_state;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            IFS3bits.CNJIF = input_state;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            IFS3bits.CNKIF = input_state;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//            IFS3bits.CNHIF = input_state;
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//            IFS3bits.CNJIF = input_state;
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//            IFS3bits.CNKIF = input_state;
+//            break;
             
         case Parallel_Master_Port:
             IFS4bits.PMPIF = input_state;
@@ -2523,13 +2544,10 @@ uint8_t setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state
             break;
             
         default:
-            return 1;
             break;
             
     }
-    
-    return 0;
-    
+
 }
 
 // This function allows for the reading of a given interrupt flag
@@ -2741,6 +2759,14 @@ uint8_t getInterruptFlag(interrupt_source_t input_interrupt) {
             return IFS1bits.ADCDC4IF;
             break;
             
+        case ADC_Digital_Comparator_5:
+            return IFS1bits.ADCDC5IF;
+            break;
+            
+        case ADC_Digital_Comparator_6:
+            return IFS1bits.ADCDC6IF;
+            break;
+            
         case ADC_Digital_Filter_1:
             return IFS1bits.ADCDF1IF;
             break;
@@ -2909,37 +2935,37 @@ uint8_t getInterruptFlag(interrupt_source_t input_interrupt) {
             return IFS2bits.ADCD34IF;
             break;
             
-        case ADC_Data_35:
-            return IFS2bits.ADCD35IF;
-            break;
-            
-        case ADC_Data_36:
-            return IFS2bits.ADCD36IF;
-            break;
-            
-        case ADC_Data_37:
-            return IFS3bits.ADCD37IF;
-            break;
-            
-        case ADC_Data_38:
-            return IFS3bits.ADCD38IF;
-            break;
-            
-        case ADC_Data_39:
-            return IFS3bits.ADCD39IF;
-            break;
-            
-        case ADC_Data_40:
-            return IFS3bits.ADCD40IF;
-            break;
-            
-        case ADC_Data_41:
-            return IFS3bits.ADCD41IF;
-            break;
-            
-        case ADC_Data_42:
-            return IFS3bits.ADCD42IF;
-            break;
+//        case ADC_Data_35:
+//            return IFS2bits.ADCD35IF;
+//            break;
+//            
+//        case ADC_Data_36:
+//            return IFS2bits.ADCD36IF;
+//            break;
+//            
+//        case ADC_Data_37:
+//            return IFS3bits.ADCD37IF;
+//            break;
+//            
+//        case ADC_Data_38:
+//            return IFS3bits.ADCD38IF;
+//            break;
+//            
+//        case ADC_Data_39:
+//            return IFS3bits.ADCD39IF;
+//            break;
+//            
+//        case ADC_Data_40:
+//            return IFS3bits.ADCD40IF;
+//            break;
+//            
+//        case ADC_Data_41:
+//            return IFS3bits.ADCD41IF;
+//            break;
+//            
+//        case ADC_Data_42:
+//            return IFS3bits.ADCD42IF;
+//            break;
             
         case ADC_Data_43:
             return IFS3bits.ADCD43IF;
@@ -3025,17 +3051,17 @@ uint8_t getInterruptFlag(interrupt_source_t input_interrupt) {
             return IFS3bits.CNGIF;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            return IFS3bits.CNHIF;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            return IFS3bits.CNJIF;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            return IFS3bits.CNKIF;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//            return IFS3bits.CNHIF;
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//            return IFS3bits.CNJIF;
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//            return IFS3bits.CNKIF;
+//            break;
             
         case Parallel_Master_Port:
             return IFS4bits.PMPIF;
@@ -3361,30 +3387,1715 @@ uint8_t getInterruptFlag(interrupt_source_t input_interrupt) {
     
 }
 
+// This function sets the priority for a given interrupt
+void setInterruptPriority(interrupt_source_t input_interrupt, uint8_t input_priority) {
+    
+    // verify input priority is between 0 and 7
+    if (input_priority > 7) {
+        
+        input_priority = 7;
+    
+    }
+    
+    // Decide which interrupt control bits to manipulate based on which interrupt
+    // is having its priority set
+    switch (input_interrupt) {
+        
+        case Core_Timer_Interrupt:
+            IPC0bits.CTIP = input_priority;
+            break;
+            
+        case Core_Software_Interrupt_0:
+            IPC0bits.CS0IP = input_priority;
+            break;
+            
+        case Core_Software_Interrupt_1:
+            IPC0bits.CS1IP = input_priority;
+            break;
+            
+        case External_Interrupt_0:
+            IPC0bits.INT0IP = input_priority;
+            break;
+            
+        case Timer1:
+            IPC1bits.T1IP = input_priority;
+            break;
+            
+        case Input_Capture_1_Error:
+            IPC1bits.IC1EIP = input_priority;
+            break;
+            
+        case Input_Capture_1:
+            IPC1bits.IC1IP = input_priority;
+            break;
+            
+        case Output_Compare_1:
+            IPC1bits.OC1IP = input_priority;
+            break;
+            
+        case External_Interrupt_1:
+            IPC2bits.INT1IP = input_priority;
+            break;
+            
+        case Timer2:
+            IPC2bits.T2IP = input_priority;
+            break;
+            
+        case Input_Capture_2_Error:
+            IPC2bits.IC2EIP = input_priority;
+            break;
+            
+        case Input_Capture_2:
+            IPC2bits.IC2IP = input_priority;
+            break;
+            
+        case Output_Compare_2:
+            IPC3bits.OC2IP = input_priority;
+            break;
+            
+        case External_Interrupt_2:
+            IPC3bits.INT2IP = input_priority;
+            break;
+            
+        case Timer3:
+            IPC3bits.T3IP = input_priority;
+            break;
+            
+        case Input_Capture_3_Error:
+            IPC3bits.IC3EIP = input_priority;
+            break;
+            
+        case Input_Capture_3:
+            IPC4bits.IC3IP = input_priority;
+            break;
+            
+        case Output_Compare_3:
+            IPC4bits.OC3IP = input_priority;
+            break;
+            
+        case External_Interrupt_3:
+            IPC4bits.INT3IP = input_priority;
+            break;
+            
+        case Timer4:
+            IPC4bits.T4IP = input_priority;
+            break;
+            
+        case Input_Capture_4_Error:
+            IPC5bits.IC4EIP = input_priority;
+            break;
+            
+        case Input_Capture_4:
+            IPC5bits.IC4IP = input_priority;
+            break;
+            
+        case Output_Compare_4:
+            IPC5bits.OC4IP = input_priority;
+            break;
+            
+        case External_Interrupt_4:
+            IPC5bits.INT4IP = input_priority;
+            break;
+            
+        case Timer5:
+            IPC6bits.T5IP = input_priority;
+            break;
+            
+        case Input_Capture_5_Error:
+            IPC6bits.IC5EIP = input_priority;
+            break;
+            
+        case Input_Capture_5:
+            IPC6bits.IC5IP = input_priority;
+            break;
+            
+        case Output_Compare_5:
+            IPC6bits.OC5IP = input_priority;
+            break;
+            
+        case Timer6:
+            IPC7bits.T6IP = input_priority;
+            break;
+            
+        case Input_Capture_6_Error:
+            IPC7bits.IC6EIP = input_priority;
+            break;
+            
+        case Input_Capture_6:
+            IPC7bits.IC6IP = input_priority;
+            break;
+            
+        case Output_Compare_6:
+            IPC7bits.OC6IP = input_priority;
+            break;
+            
+        case Timer7:
+            IPC8bits.T7IP = input_priority;
+            break;
+            
+        case Input_Capture_7_Error:
+            IPC8bits.IC7EIP = input_priority;
+            break;
+            
+        case Input_Capture_7:
+            IPC8bits.IC7IP = input_priority;
+            break;
+            
+        case Output_Compare_7:
+            IPC8bits.OC7IP = input_priority;
+            break;
+            
+        case Timer8:
+            IPC9bits.T8IP = input_priority;
+            break;
+            
+        case Input_Capture_8_Error:
+            IPC9bits.IC8EIP = input_priority;
+            break;
+            
+        case Input_Capture_8:
+            IPC9bits.IC8IP = input_priority;
+            break;
+            
+        case Output_Compare_8:
+            IPC9bits.OC8IP = input_priority;
+            break;
+            
+        case Timer9:
+            IPC10bits.T9IP = input_priority;
+            break;
+            
+        case Input_Capture_9_Error:
+            IPC10bits.IC9EIP = input_priority;
+            break;
+            
+        case Input_Capture_9:
+            IPC10bits.OC9IP = input_priority;
+            break;
+            
+        case Output_Compare_9:
+            IPC10bits.OC9IP = input_priority;
+            break;
+            
+        case ADC_Global_Interrupt:
+            IPC11bits.ADCIP = input_priority;
+            break;
+            
+        case ADC_FIFO_Data_Ready_Interrupt:
+            IPC11bits.ADCFIFOIP = input_priority;
+            break;
+            
+        case ADC_Digital_Comparator_1:
+            IPC11bits.ADCDC1IP = input_priority;
+            break;
+        
+        case ADC_Digital_Comparator_2:
+            IPC11bits.ADCDC2IP = input_priority;
+            break;
+            
+        case ADC_Digital_Comparator_3:
+            IPC12bits.ADCDC3IP = input_priority;
+            break;
+            
+        case ADC_Digital_Comparator_4:
+            IPC12bits.ADCDC4IP = input_priority;
+            break;
+            
+        case ADC_Digital_Comparator_5:
+            IPC12bits.ADCDC5IP = input_priority;
+            break;
+            
+        case ADC_Digital_Comparator_6:
+            IPC12bits.ADCDC6IP = input_priority;
+            break;
+            
+        case ADC_Digital_Filter_1:
+            IPC13bits.ADCDF1IP = input_priority;
+            break;
+            
+        case ADC_Digital_Filter_2:
+            IPC13bits.ADCDF2IP = input_priority;
+            break;
+            
+        case ADC_Digital_Filter_3:
+            IPC13bits.ADCDF3IP = input_priority;
+            break;
+            
+        case ADC_Digital_Filter_4:
+            IPC13bits.ADCDF4IP = input_priority;
+            break;
+            
+        case ADC_Digital_Filter_5:
+            IPC14bits.ADCDF5IP = input_priority;
+            break;
+            
+        case ADC_Digital_Filter_6:
+            IPC14bits.ADCDF6IP = input_priority;
+            break;
+            
+        case ADC_Fault:
+            IPC14bits.ADCFLTIP = input_priority;
+            break;
+            
+        case ADC_Data_0:
+            IPC14bits.ADCD0IP = input_priority;
+            break;
+            
+        case ADC_Data_1:
+            IPC15bits.ADCD1IP = input_priority;
+            break;
+            
+        case ADC_Data_2:
+            IPC15bits.ADCD2IP = input_priority;
+            break;
+            
+        case ADC_Data_3:
+            IPC15bits.ADCD3IP = input_priority;
+            break;
+            
+        case ADC_Data_4:
+            IPC15bits.ADCD4IP = input_priority;
+            break;
+            
+        case ADC_Data_5:
+            IPC16bits.ADCD5IP = input_priority;
+            break;
+            
+        case ADC_Data_6:
+            IPC16bits.ADCD6IP = input_priority;
+            break;
+            
+        case ADC_Data_7:
+            IPC16bits.ADCD7IP = input_priority;
+            break;
+            
+        case ADC_Data_8:
+            IPC16bits.ADCD8IP = input_priority;
+            break;
+            
+        case ADC_Data_9:
+            IPC17bits.ADCD9IP = input_priority;
+            break;
+            
+        case ADC_Data_10:
+            IPC17bits.ADCD10IP = input_priority;
+            break;
+            
+        case ADC_Data_11:
+            IPC17bits.ADCD11IP = input_priority;
+            break;
+            
+        case ADC_Data_12:
+            IPC17bits.ADCD12IP = input_priority;
+            break;
+            
+        case ADC_Data_13:
+            IPC18bits.ADCD13IP = input_priority;
+            break;
+            
+        case ADC_Data_14:
+            IPC18bits.ADCD14IP = input_priority;
+            break;
+            
+        case ADC_Data_15:
+            IPC18bits.ADCD15IP = input_priority;
+            break;
+            
+        case ADC_Data_16:
+            IPC18bits.ADCD16IP = input_priority;
+            break;
+            
+        case ADC_Data_17:
+            IPC19bits.ADCD17IP = input_priority;
+            break;
+            
+        case ADC_Data_18:
+            IPC19bits.ADCD18IP = input_priority;
+            break;
+            
+        case ADC_Data_19:
+            IPC19bits.ADCD19IP = input_priority;
+            break;
+            
+        case ADC_Data_20:
+            IPC19bits.ADCD20IP = input_priority;
+            break;
+            
+        case ADC_Data_21:
+            IPC20bits.ADCD21IP = input_priority;
+            break;
+            
+        case ADC_Data_22:
+            IPC20bits.ADCD22IP = input_priority;
+            break;
+            
+        case ADC_Data_23:
+            IPC20bits.ADCD23IP = input_priority;
+            break;
+            
+        case ADC_Data_24:
+            IPC20bits.ADCD24IP = input_priority;
+            break;
+            
+        case ADC_Data_25:
+            IPC21bits.ADCD25IP = input_priority;
+            break;
+            
+        case ADC_Data_26:
+            IPC21bits.ADCD26IP = input_priority;
+            break;
+            
+        case ADC_Data_27:
+            IPC21bits.ADCD27IP = input_priority;
+            break;
+            
+        case ADC_Data_28:
+            IPC21bits.ADCD28IP = input_priority;
+            break;
+            
+        case ADC_Data_29:
+            IPC22bits.ADCD29IP = input_priority;
+            break;
+            
+        case ADC_Data_30:
+            IPC22bits.ADCD30IP = input_priority;
+            break;
+            
+        case ADC_Data_31:
+            IPC22bits.ADCD31IP = input_priority;
+            break;
+            
+        case ADC_Data_32:
+            IPC22bits.ADCD32IP = input_priority;
+            break;
+            
+        case ADC_Data_33:
+            IPC23bits.ADCD33IP = input_priority;
+            break;
+            
+        case ADC_Data_34:
+            IPC23bits.ADCD34IP = input_priority;
+            break;
+            
+//        case ADC_Data_35:
+//          
+//            break;
+//            
+//        case ADC_Data_36:
+//          
+//            break;
+//            
+//        case ADC_Data_37:
+//          
+//            break;
+//            
+//        case ADC_Data_38:
+//          
+//            break;
+//            
+//        case ADC_Data_39:
+//          
+//            break;
+//            
+//        case ADC_Data_40:
+//          
+//            break;
+//            
+//        case ADC_Data_41:
+//          
+//            break;
+//            
+//        case ADC_Data_42:
+//          
+//            break;
+            
+        case ADC_Data_43:
+            IPC25bits.ADCD43IP = input_priority;
+            break;
+            
+        case ADC_Data_44:
+            IPC25bits.ADCD44IP = input_priority;
+            break;
+            
+        case Core_Performance_Counter_Interrupt:
+            IPC26bits.CPCIP = input_priority;
+            break;
+            
+        case Core_Fast_Debug_Channel_Interrupt:
+            IPC26bits.CFDCIP = input_priority;
+            break;
+            
+        case System_Bus_Protection_Violation:
+            IPC26bits.SBIP = input_priority;
+            break;
+            
+        case SPI1_Fault:
+            IPC27bits.SPI1EIP = input_priority;
+            break;
+            
+        case SPI1_Receive_Done:
+            IPC27bits.SPI1RXIP = input_priority;
+            break;
+            
+        case SPI1_Transfer_Done:
+            IPC27bits.SPI1TXIP = input_priority;
+            break;
+            
+        case UART1_Fault:
+            IPC28bits.U1EIP = input_priority;
+            break;
+            
+        case UART1_Receive_Done:
+            IPC28bits.U1RXIP = input_priority;
+            break;
+            
+        case UART1_Transfer_Done:
+            IPC28bits.U1TXIP = input_priority;
+            break;
+            
+        case I2C1_Bus_Collision_Event:
+            IPC28bits.I2C1BIP = input_priority;
+            break;
+            
+        case I2C1_Slave_Event:
+            IPC29bits.I2C1SIP = input_priority;
+            break;
+            
+        case I2C1_Master_Event:
+            IPC29bits.I2C1MIP = input_priority;
+            break;
+            
+        case PORTA_Input_Change_Interrupt:
+            IPC29bits.CNAIP = input_priority;
+            break;
+            
+        case PORTB_Input_Change_Interrupt:
+            IPC29bits.CNBIP = input_priority;
+            break;
+            
+        case PORTC_Input_Change_Interrupt:
+            IPC30bits.CNCIP = input_priority;
+            break;
+            
+        case PORTD_Input_Change_Interrupt:
+            IPC30bits.CNDIP = input_priority;
+            break;
+            
+        case PORTE_Input_Change_Interrupt:
+            IPC30bits.CNEIP = input_priority;
+            break;
+            
+        case PORTF_Input_Change_Interrupt:
+            IPC30bits.CNFIP = input_priority;
+            break;
+            
+        case PORTG_Input_Change_Interrupt:
+            IPC31bits.CNGIP = input_priority;
+            break;
+            
+//        case PORTH_Input_Change_Interrupt:
+//          
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//          
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//          
+//            break;
+            
+        case Parallel_Master_Port:
+            IPC32bits.PMPIP = input_priority;
+            break;
+            
+        case Parallel_Master_Port_Error:
+            IPC32bits.PMPEIP = input_priority;
+            break;
+            
+        case Comparator_1_Interrupt:
+            IPC32bits.CMP1IP = input_priority;
+            break;
+            
+        case Comparator_2_Interrupt:
+            IPC32bits.CMP2IP = input_priority;
+            break;
+            
+        case USB_General_Event:
+            IPC33bits.USBIP = input_priority;
+            break;
+            
+        case USB_DMA_Event:
+            IPC33bits.USBDMAIP = input_priority;
+            break;
+            
+        case DMA_Channel_0:
+            IPC33bits.DMA0IP = input_priority;
+            break;
+            
+        case DMA_Channel_1:
+            IPC33bits.DMA1IP = input_priority;
+            break;
+            
+        case DMA_Channel_2:
+            IPC34bits.DMA2IP = input_priority;
+            break;
+            
+        case DMA_Channel_3:
+            IPC34bits.DMA3IP = input_priority;
+            break;
+            
+        case DMA_Channel_4:
+            IPC34bits.DMA4IP = input_priority;
+            break;
+            
+        case DMA_Channel_5:
+            IPC34bits.DMA5IP = input_priority;
+            break;
+            
+        case DMA_Channel_6:
+            IPC35bits.DMA6IP = input_priority;
+            break;
+            
+        case DMA_Channel_7:
+            IPC35bits.DMA7IP = input_priority;
+            break;
+            
+        case SPI2_Fault:
+            IPC35bits.SPI2EIP = input_priority;
+            break;
+            
+        case SPI2_Receive_Done:
+            IPC35bits.SPI2RXIP = input_priority;
+            break;
+            
+        case SPI2_Transfer_Done:
+            IPC36bits.SPI2TXIP = input_priority;
+            break;
+            
+        case UART2_Fault:
+            IPC36bits.U2EIP = input_priority;
+            break;
+            
+        case UART2_Receive_Done:
+            IPC36bits.U2RXIP = input_priority;
+            break;
+            
+        case UART2_Transfer_Done:
+            IPC36bits.U2TXIP = input_priority;
+            break;
+            
+        case I2C2_Bus_Collision_Event:
+            IPC37bits.I2C2BIP = input_priority;
+            break;
+            
+        case I2C2_Slave_Event:
+            IPC37bits.I2C2SIP = input_priority;
+            break;
+            
+        case I2C2_Master_Event:
+            IPC37bits.I2C2MIP = input_priority;
+            break;
+            
+        case Control_Area_Network_1:
+            IPC37bits.CAN1IP = input_priority;
+            break;
+                    
+        case Control_Area_Network_2:
+            IPC38bits.CAN2IP = input_priority;
+            break;
+            
+        case Ethernet_Interrupt:
+            IPC38bits.ETHIP = input_priority;
+            break;
+            
+        case SPI3_Fault:
+            IPC38bits.SPI3EIP = input_priority;
+            break;
+            
+        case SPI3_Receive_Done:
+            IPC38bits.SPI3RXIP = input_priority;
+            break;
+            
+        case SPI3_Transfer_Done:
+            IPC39bits.SPI3TXIP = input_priority;
+            break;
+            
+        case UART3_Fault:
+            IPC39bits.U3EIP = input_priority;
+            break;
+            
+        case UART3_Receive_Done:
+            IPC39bits.U3RXIP = input_priority;
+            break;
+            
+        case UART3_Transfer_Done:
+            IPC39bits.U3TXIP = input_priority;
+            break;
+            
+        case I2C3_Bus_Collision_Event:
+            IPC40bits.I2C3BIP = input_priority;
+            break;
+            
+        case I2C3_Slave_Event:
+            IPC40bits.I2C3SIP = input_priority;
+            break;
+            
+        case I2C3_Master_Event:
+            IPC40bits.I2C3MIP = input_priority;
+            break;
+            
+        case SPI4_Fault:
+            IPC40bits.SPI4EIP = input_priority;
+            break;
+            
+        case SPI4_Receive_Done:
+            IPC41bits.SPI4RXIP = input_priority;
+            break;
+            
+        case SPI4_Transfer_Done:
+            IPC41bits.SPI4TXIP = input_priority;
+            break;
+            
+        case Real_Time_Clock:
+            IPC41bits.RTCCIP = input_priority;
+            break;
+            
+        case Flash_Control_Event:
+            IPC41bits.FCEIP = input_priority;
+            break;
+            
+        case Prefetch_Module_SEC_Event:
+            IPC42bits.PREIP = input_priority;
+            break;
+            
+        case SQI1_Event:
+            IPC42bits.SQI1IP = input_priority;
+            break;
+            
+        case UART4_Fault:
+            IPC42bits.U4EIP = input_priority;
+            break;
+            
+        case UART4_Receive_Done:
+            IPC42bits.U4RXIP = input_priority;
+            break;
+            
+        case UART4_Transfer_Done:
+            IPC43bits.U4TXIP = input_priority;
+            break;
+            
+        case I2C4_Bus_Collision_Event:
+            IPC43bits.I2C4BIP = input_priority;
+            break;
+            
+        case I2C4_Slave_Event:
+            IPC43bits.I2C4SIP = input_priority;
+            break;
+            
+        case I2C4_Master_Event:
+            IPC43bits.I2C4MIP = input_priority;
+            break;
+            
+        case SPI5_Fault:
+            IPC44bits.SPI5EIP = input_priority;
+            break;
+            
+        case SPI5_Receive_Done:
+            IPC44bits.SPI5RXIP = input_priority;
+            break;
+            
+        case SPI5_Transfer_Done:
+            IPC44bits.SPI5TXIP = input_priority;
+            break;
+            
+        case UART5_Fault:
+            IPC44bits.U5EIP = input_priority;
+            break;
+            
+        case UART5_Receive_Done:
+            IPC45bits.U5RXIP = input_priority;
+            break;
+            
+        case UART5_Transfer_Done:
+            IPC45bits.U5TXIP = input_priority;
+            break;
+            
+        case I2C5_Bus_Collision_Event:
+            IPC45bits.I2C5BIP = input_priority;
+            break;
+            
+        case I2C5_Slave_Event:
+            IPC45bits.I2C5SIP = input_priority;
+            break;
+            
+        case I2C5_Master_Event:
+            IPC46bits.I2C5MIP = input_priority;
+            break;
+        
+        case SPI6_Fault:
+            IPC46bits.SPI6EIP = input_priority;
+            break;
+            
+        case SPI6_Receive_Done:
+            IPC46bits.SPI6RXIP = input_priority;
+            break;
+            
+        case SPI6_Transfer_Done:
+            IPC46bits.SPI6TXIP = input_priority;
+            break;
+            
+        case UART6_Fault:
+            IPC47bits.U6EIP = input_priority;
+            break;
+            
+        case UART6_Receive_Done:
+            IPC47bits.U6RXIP = input_priority;
+            break;
+            
+        case UART6_Transfer_Done:
+            IPC47bits.U6TXIP = input_priority;
+            break;
+        
+        case ADC_End_Of_Scan_Ready:
+            IPC48bits.ADCEOSIP = input_priority;
+            break;
+            
+        case ADC_Analog_Circuits_Ready:
+            IPC48bits.ADCARDYIP = input_priority;
+            break;
+            
+        case ADC_Update_Ready:
+            IPC48bits.ADCURDYIP = input_priority;
+            break;
+            
+        case ADC_Group_Early_Interrupt_Request:
+            IPC49bits.ADCGRPIP = input_priority;
+            break;
+            
+        case ADC0_Early_Interrupt:
+            IPC49bits.ADC0EIP = input_priority;
+            break;
+            
+        case ADC1_Early_Interrupt:
+            IPC49bits.ADC1EIP = input_priority;
+            break;
+            
+        case ADC2_Early_Interrupt:
+            IPC50bits.ADC2EIP = input_priority;
+            break;
+            
+        case ADC3_Early_Interrupt:
+            IPC50bits.ADC3EIP = input_priority;
+            break;
+            
+        case ADC4_Early_Interrupt:
+            IPC50bits.ADC4EIP = input_priority;
+            break;
+            
+        case ADC7_Early_Interrupt:
+            IPC51bits.ADC7EIP = input_priority;
+            break;
+            
+        case ADC0_Warm_Interrupt:
+            IPC51bits.ADC0WIP = input_priority;
+            break;
+            
+        case ADC1_Warm_Interrupt:
+            IPC51bits.ADC1WIP = input_priority;
+            break;
+            
+        case ADC2_Warm_Interrupt:
+            IPC52bits.ADC2WIP = input_priority;
+            break;
+            
+        case ADC3_Warm_Interrupt:
+            IPC52bits.ADC3WIP = input_priority;
+            break;
+            
+        case ADC4_Warm_Interrupt:
+            IPC52bits.ADC4WIP = input_priority;
+            break;
+            
+        case ADC7_Warm_Interrupt:
+            IPC53bits.ADC7WIP = input_priority;
+            break;
+            
+        default:
+            break;
+            
+    }
+    
+}
+
+// This function sets the subpriority for a given interrupt
+void setInterruptSubpriority(interrupt_source_t input_interrupt, uint8_t input_subpriority) {
+
+    // check if input subpriority is valid
+    if (input_subpriority > 3) {
+     
+        input_subpriority = 3;
+        
+    }
+    
+    // Decide which interrupt control bits to manipulate based on which interrupt
+    // is having its priority set
+    switch (input_interrupt) {
+        
+        case Core_Timer_Interrupt:
+            IPC0bits.CTIS = input_subpriority;
+            break;
+            
+        case Core_Software_Interrupt_0:
+            IPC0bits.CS0IS = input_subpriority;
+            break;
+            
+        case Core_Software_Interrupt_1:
+            IPC0bits.CS1IS = input_subpriority;
+            break;
+            
+        case External_Interrupt_0:
+            IPC0bits.INT0IS = input_subpriority;
+            break;
+            
+        case Timer1:
+            IPC1bits.T1IS = input_subpriority;
+            break;
+            
+        case Input_Capture_1_Error:
+            IPC1bits.IC1EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_1:
+            IPC1bits.IC1IS = input_subpriority;
+            break;
+            
+        case Output_Compare_1:
+            IPC1bits.OC1IS = input_subpriority;
+            break;
+            
+        case External_Interrupt_1:
+            IPC2bits.INT1IS = input_subpriority;
+            break;
+            
+        case Timer2:
+            IPC2bits.T2IS = input_subpriority;
+            break;
+            
+        case Input_Capture_2_Error:
+            IPC2bits.IC2EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_2:
+            IPC2bits.IC2IS = input_subpriority;
+            break;
+            
+        case Output_Compare_2:
+            IPC3bits.OC2IS = input_subpriority;
+            break;
+            
+        case External_Interrupt_2:
+            IPC3bits.INT2IS = input_subpriority;
+            break;
+            
+        case Timer3:
+            IPC3bits.T3IS = input_subpriority;
+            break;
+            
+        case Input_Capture_3_Error:
+            IPC3bits.IC3EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_3:
+            IPC4bits.IC3IS = input_subpriority;
+            break;
+            
+        case Output_Compare_3:
+            IPC4bits.OC3IS = input_subpriority;
+            break;
+            
+        case External_Interrupt_3:
+            IPC4bits.INT3IS = input_subpriority;
+            break;
+            
+        case Timer4:
+            IPC4bits.T4IS = input_subpriority;
+            break;
+            
+        case Input_Capture_4_Error:
+            IPC5bits.IC4EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_4:
+            IPC5bits.IC4IS = input_subpriority;
+            break;
+            
+        case Output_Compare_4:
+            IPC5bits.OC4IS = input_subpriority;
+            break;
+            
+        case External_Interrupt_4:
+            IPC5bits.INT4IS = input_subpriority;
+            break;
+            
+        case Timer5:
+            IPC6bits.T5IS = input_subpriority;
+            break;
+            
+        case Input_Capture_5_Error:
+            IPC6bits.IC5EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_5:
+            IPC6bits.IC5IS = input_subpriority;
+            break;
+            
+        case Output_Compare_5:
+            IPC6bits.OC5IS = input_subpriority;
+            break;
+            
+        case Timer6:
+            IPC7bits.T6IS = input_subpriority;
+            break;
+            
+        case Input_Capture_6_Error:
+            IPC7bits.IC6EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_6:
+            IPC7bits.IC6IS = input_subpriority;
+            break;
+            
+        case Output_Compare_6:
+            IPC7bits.OC6IS = input_subpriority;
+            break;
+            
+        case Timer7:
+            IPC8bits.T7IS = input_subpriority;
+            break;
+            
+        case Input_Capture_7_Error:
+            IPC8bits.IC7EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_7:
+            IPC8bits.IC7IS = input_subpriority;
+            break;
+            
+        case Output_Compare_7:
+            IPC8bits.OC7IS = input_subpriority;
+            break;
+            
+        case Timer8:
+            IPC9bits.T8IS = input_subpriority;
+            break;
+            
+        case Input_Capture_8_Error:
+            IPC9bits.IC8EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_8:
+            IPC9bits.IC8IS = input_subpriority;
+            break;
+            
+        case Output_Compare_8:
+            IPC9bits.OC8IS = input_subpriority;
+            break;
+            
+        case Timer9:
+            IPC10bits.T9IS = input_subpriority;
+            break;
+            
+        case Input_Capture_9_Error:
+            IPC10bits.IC9EIS = input_subpriority;
+            break;
+            
+        case Input_Capture_9:
+            IPC10bits.OC9IS = input_subpriority;
+            break;
+            
+        case Output_Compare_9:
+            IPC10bits.OC9IS = input_subpriority;
+            break;
+            
+        case ADC_Global_Interrupt:
+            IPC11bits.ADCIS = input_subpriority;
+            break;
+            
+        case ADC_FIFO_Data_Ready_Interrupt:
+            IPC11bits.ADCFIFOIS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Comparator_1:
+            IPC11bits.ADCDC1IS = input_subpriority;
+            break;
+        
+        case ADC_Digital_Comparator_2:
+            IPC11bits.ADCDC2IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Comparator_3:
+            IPC12bits.ADCDC3IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Comparator_4:
+            IPC12bits.ADCDC4IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Comparator_5:
+            IPC12bits.ADCDC5IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Comparator_6:
+            IPC12bits.ADCDC6IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Filter_1:
+            IPC13bits.ADCDF1IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Filter_2:
+            IPC13bits.ADCDF2IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Filter_3:
+            IPC13bits.ADCDF3IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Filter_4:
+            IPC13bits.ADCDF4IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Filter_5:
+            IPC14bits.ADCDF5IS = input_subpriority;
+            break;
+            
+        case ADC_Digital_Filter_6:
+            IPC14bits.ADCDF6IS = input_subpriority;
+            break;
+            
+        case ADC_Fault:
+            IPC14bits.ADCFLTIS = input_subpriority;
+            break;
+            
+        case ADC_Data_0:
+            IPC14bits.ADCD0IS = input_subpriority;
+            break;
+            
+        case ADC_Data_1:
+            IPC15bits.ADCD1IS = input_subpriority;
+            break;
+            
+        case ADC_Data_2:
+            IPC15bits.ADCD2IS = input_subpriority;
+            break;
+            
+        case ADC_Data_3:
+            IPC15bits.ADCD3IS = input_subpriority;
+            break;
+            
+        case ADC_Data_4:
+            IPC15bits.ADCD4IS = input_subpriority;
+            break;
+            
+        case ADC_Data_5:
+            IPC16bits.ADCD5IS = input_subpriority;
+            break;
+            
+        case ADC_Data_6:
+            IPC16bits.ADCD6IS = input_subpriority;
+            break;
+            
+        case ADC_Data_7:
+            IPC16bits.ADCD7IS = input_subpriority;
+            break;
+            
+        case ADC_Data_8:
+            IPC16bits.ADCD8IS = input_subpriority;
+            break;
+            
+        case ADC_Data_9:
+            IPC17bits.ADCD9IS = input_subpriority;
+            break;
+            
+        case ADC_Data_10:
+            IPC17bits.ADCD10IS = input_subpriority;
+            break;
+            
+        case ADC_Data_11:
+            IPC17bits.ADCD11IS = input_subpriority;
+            break;
+            
+        case ADC_Data_12:
+            IPC17bits.ADCD12IS = input_subpriority;
+            break;
+            
+        case ADC_Data_13:
+            IPC18bits.ADCD13IS = input_subpriority;
+            break;
+            
+        case ADC_Data_14:
+            IPC18bits.ADCD14IS = input_subpriority;
+            break;
+            
+        case ADC_Data_15:
+            IPC18bits.ADCD15IS = input_subpriority;
+            break;
+            
+        case ADC_Data_16:
+            IPC18bits.ADCD16IS = input_subpriority;
+            break;
+            
+        case ADC_Data_17:
+            IPC19bits.ADCD17IS = input_subpriority;
+            break;
+            
+        case ADC_Data_18:
+            IPC19bits.ADCD18IS = input_subpriority;
+            break;
+            
+        case ADC_Data_19:
+            IPC19bits.ADCD19IS = input_subpriority;
+            break;
+            
+        case ADC_Data_20:
+            IPC19bits.ADCD20IS = input_subpriority;
+            break;
+            
+        case ADC_Data_21:
+            IPC20bits.ADCD21IS = input_subpriority;
+            break;
+            
+        case ADC_Data_22:
+            IPC20bits.ADCD22IS = input_subpriority;
+            break;
+            
+        case ADC_Data_23:
+            IPC20bits.ADCD23IS = input_subpriority;
+            break;
+            
+        case ADC_Data_24:
+            IPC20bits.ADCD24IS = input_subpriority;
+            break;
+            
+        case ADC_Data_25:
+            IPC21bits.ADCD25IS = input_subpriority;
+            break;
+            
+        case ADC_Data_26:
+            IPC21bits.ADCD26IS = input_subpriority;
+            break;
+            
+        case ADC_Data_27:
+            IPC21bits.ADCD27IS = input_subpriority;
+            break;
+            
+        case ADC_Data_28:
+            IPC21bits.ADCD28IS = input_subpriority;
+            break;
+            
+        case ADC_Data_29:
+            IPC22bits.ADCD29IS = input_subpriority;
+            break;
+            
+        case ADC_Data_30:
+            IPC22bits.ADCD30IS = input_subpriority;
+            break;
+            
+        case ADC_Data_31:
+            IPC22bits.ADCD31IS = input_subpriority;
+            break;
+            
+        case ADC_Data_32:
+            IPC22bits.ADCD32IS = input_subpriority;
+            break;
+            
+        case ADC_Data_33:
+            IPC23bits.ADCD33IS = input_subpriority;
+            break;
+            
+        case ADC_Data_34:
+            IPC23bits.ADCD34IS = input_subpriority;
+            break;
+            
+//        case ADC_Data_35:
+//          
+//            break;
+//            
+//        case ADC_Data_36:
+//          
+//            break;
+//            
+//        case ADC_Data_37:
+//          
+//            break;
+//            
+//        case ADC_Data_38:
+//          
+//            break;
+//            
+//        case ADC_Data_39:
+//          
+//            break;
+//            
+//        case ADC_Data_40:
+//          
+//            break;
+//            
+//        case ADC_Data_41:
+//          
+//            break;
+//            
+//        case ADC_Data_42:
+//          
+//            break;
+            
+        case ADC_Data_43:
+            IPC25bits.ADCD43IS = input_subpriority;
+            break;
+            
+        case ADC_Data_44:
+            IPC25bits.ADCD44IS = input_subpriority;
+            break;
+            
+        case Core_Performance_Counter_Interrupt:
+            IPC26bits.CPCIS = input_subpriority;
+            break;
+            
+        case Core_Fast_Debug_Channel_Interrupt:
+            IPC26bits.CFDCIS = input_subpriority;
+            break;
+            
+        case System_Bus_Protection_Violation:
+            IPC26bits.SBIS = input_subpriority;
+            break;
+            
+        case SPI1_Fault:
+            IPC27bits.SPI1EIS = input_subpriority;
+            break;
+            
+        case SPI1_Receive_Done:
+            IPC27bits.SPI1RXIS = input_subpriority;
+            break;
+            
+        case SPI1_Transfer_Done:
+            IPC27bits.SPI1TXIS = input_subpriority;
+            break;
+            
+        case UART1_Fault:
+            IPC28bits.U1EIS = input_subpriority;
+            break;
+            
+        case UART1_Receive_Done:
+            IPC28bits.U1RXIS = input_subpriority;
+            break;
+            
+        case UART1_Transfer_Done:
+            IPC28bits.U1TXIS = input_subpriority;
+            break;
+            
+        case I2C1_Bus_Collision_Event:
+            IPC28bits.I2C1BIS = input_subpriority;
+            break;
+            
+        case I2C1_Slave_Event:
+            IPC29bits.I2C1SIS = input_subpriority;
+            break;
+            
+        case I2C1_Master_Event:
+            IPC29bits.I2C1MIS = input_subpriority;
+            break;
+            
+        case PORTA_Input_Change_Interrupt:
+            IPC29bits.CNAIS = input_subpriority;
+            break;
+            
+        case PORTB_Input_Change_Interrupt:
+            IPC29bits.CNBIS = input_subpriority;
+            break;
+            
+        case PORTC_Input_Change_Interrupt:
+            IPC30bits.CNCIS = input_subpriority;
+            break;
+            
+        case PORTD_Input_Change_Interrupt:
+            IPC30bits.CNDIS = input_subpriority;
+            break;
+            
+        case PORTE_Input_Change_Interrupt:
+            IPC30bits.CNEIS = input_subpriority;
+            break;
+            
+        case PORTF_Input_Change_Interrupt:
+            IPC30bits.CNFIS = input_subpriority;
+            break;
+            
+        case PORTG_Input_Change_Interrupt:
+            IPC31bits.CNGIS = input_subpriority;
+            break;
+            
+//        case PORTH_Input_Change_Interrupt:
+//          
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//          
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//          
+//            break;
+            
+        case Parallel_Master_Port:
+            IPC32bits.PMPIS = input_subpriority;
+            break;
+            
+        case Parallel_Master_Port_Error:
+            IPC32bits.PMPEIS = input_subpriority;
+            break;
+            
+        case Comparator_1_Interrupt:
+            IPC32bits.CMP1IS = input_subpriority;
+            break;
+            
+        case Comparator_2_Interrupt:
+            IPC32bits.CMP2IS = input_subpriority;
+            break;
+            
+        case USB_General_Event:
+            IPC33bits.USBIS = input_subpriority;
+            break;
+            
+        case USB_DMA_Event:
+            IPC33bits.USBDMAIS = input_subpriority;
+            break;
+            
+        case DMA_Channel_0:
+            IPC33bits.DMA0IS = input_subpriority;
+            break;
+            
+        case DMA_Channel_1:
+            IPC33bits.DMA1IS = input_subpriority;
+            break;
+            
+        case DMA_Channel_2:
+            IPC34bits.DMA2IS = input_subpriority;
+            break;
+            
+        case DMA_Channel_3:
+            IPC34bits.DMA3IS = input_subpriority;
+            break;
+            
+        case DMA_Channel_4:
+            IPC34bits.DMA4IS = input_subpriority;
+            break;
+            
+        case DMA_Channel_5:
+            IPC34bits.DMA5IS = input_subpriority;
+            break;
+            
+        case DMA_Channel_6:
+            IPC35bits.DMA6IS = input_subpriority;
+            break;
+            
+        case DMA_Channel_7:
+            IPC35bits.DMA7IS = input_subpriority;
+            break;
+            
+        case SPI2_Fault:
+            IPC35bits.SPI2EIS = input_subpriority;
+            break;
+            
+        case SPI2_Receive_Done:
+            IPC35bits.SPI2RXIS = input_subpriority;
+            break;
+            
+        case SPI2_Transfer_Done:
+            IPC36bits.SPI2TXIS = input_subpriority;
+            break;
+            
+        case UART2_Fault:
+            IPC36bits.U2EIS = input_subpriority;
+            break;
+            
+        case UART2_Receive_Done:
+            IPC36bits.U2RXIS = input_subpriority;
+            break;
+            
+        case UART2_Transfer_Done:
+            IPC36bits.U2TXIS = input_subpriority;
+            break;
+            
+        case I2C2_Bus_Collision_Event:
+            IPC37bits.I2C2BIS = input_subpriority;
+            break;
+            
+        case I2C2_Slave_Event:
+            IPC37bits.I2C2SIS = input_subpriority;
+            break;
+            
+        case I2C2_Master_Event:
+            IPC37bits.I2C2MIS = input_subpriority;
+            break;
+            
+        case Control_Area_Network_1:
+            IPC37bits.CAN1IS = input_subpriority;
+            break;
+                    
+        case Control_Area_Network_2:
+            IPC38bits.CAN2IS = input_subpriority;
+            break;
+            
+        case Ethernet_Interrupt:
+            IPC38bits.ETHIS = input_subpriority;
+            break;
+            
+        case SPI3_Fault:
+            IPC38bits.SPI3EIS = input_subpriority;
+            break;
+            
+        case SPI3_Receive_Done:
+            IPC38bits.SPI3RXIS = input_subpriority;
+            break;
+            
+        case SPI3_Transfer_Done:
+            IPC39bits.SPI3TXIS = input_subpriority;
+            break;
+            
+        case UART3_Fault:
+            IPC39bits.U3EIS = input_subpriority;
+            break;
+            
+        case UART3_Receive_Done:
+            IPC39bits.U3RXIS = input_subpriority;
+            break;
+            
+        case UART3_Transfer_Done:
+            IPC39bits.U3TXIS = input_subpriority;
+            break;
+            
+        case I2C3_Bus_Collision_Event:
+            IPC40bits.I2C3BIS = input_subpriority;
+            break;
+            
+        case I2C3_Slave_Event:
+            IPC40bits.I2C3SIS = input_subpriority;
+            break;
+            
+        case I2C3_Master_Event:
+            IPC40bits.I2C3MIS = input_subpriority;
+            break;
+            
+        case SPI4_Fault:
+            IPC40bits.SPI4EIS = input_subpriority;
+            break;
+            
+        case SPI4_Receive_Done:
+            IPC41bits.SPI4RXIS = input_subpriority;
+            break;
+            
+        case SPI4_Transfer_Done:
+            IPC41bits.SPI4TXIS = input_subpriority;
+            break;
+            
+        case Real_Time_Clock:
+            IPC41bits.RTCCIS = input_subpriority;
+            break;
+            
+        case Flash_Control_Event:
+            IPC41bits.FCEIS = input_subpriority;
+            break;
+            
+        case Prefetch_Module_SEC_Event:
+            IPC42bits.PREIS = input_subpriority;
+            break;
+            
+        case SQI1_Event:
+            IPC42bits.SQI1IS = input_subpriority;
+            break;
+            
+        case UART4_Fault:
+            IPC42bits.U4EIS = input_subpriority;
+            break;
+            
+        case UART4_Receive_Done:
+            IPC42bits.U4RXIS = input_subpriority;
+            break;
+            
+        case UART4_Transfer_Done:
+            IPC43bits.U4TXIS = input_subpriority;
+            break;
+            
+        case I2C4_Bus_Collision_Event:
+            IPC43bits.I2C4BIS = input_subpriority;
+            break;
+            
+        case I2C4_Slave_Event:
+            IPC43bits.I2C4SIS = input_subpriority;
+            break;
+            
+        case I2C4_Master_Event:
+            IPC43bits.I2C4MIS = input_subpriority;
+            break;
+            
+        case SPI5_Fault:
+            IPC44bits.SPI5EIS = input_subpriority;
+            break;
+            
+        case SPI5_Receive_Done:
+            IPC44bits.SPI5RXIS = input_subpriority;
+            break;
+            
+        case SPI5_Transfer_Done:
+            IPC44bits.SPI5TXIS = input_subpriority;
+            break;
+            
+        case UART5_Fault:
+            IPC44bits.U5EIS = input_subpriority;
+            break;
+            
+        case UART5_Receive_Done:
+            IPC45bits.U5RXIS = input_subpriority;
+            break;
+            
+        case UART5_Transfer_Done:
+            IPC45bits.U5TXIS = input_subpriority;
+            break;
+            
+        case I2C5_Bus_Collision_Event:
+            IPC45bits.I2C5BIS = input_subpriority;
+            break;
+            
+        case I2C5_Slave_Event:
+            IPC45bits.I2C5SIS = input_subpriority;
+            break;
+            
+        case I2C5_Master_Event:
+            IPC46bits.I2C5MIS = input_subpriority;
+            break;
+        
+        case SPI6_Fault:
+            IPC46bits.SPI6EIS = input_subpriority;
+            break;
+            
+        case SPI6_Receive_Done:
+            IPC46bits.SPI6RXIS = input_subpriority;
+            break;
+            
+        case SPI6_Transfer_Done:
+            IPC46bits.SPI6TXIS = input_subpriority;
+            break;
+            
+        case UART6_Fault:
+            IPC47bits.U6EIS = input_subpriority;
+            break;
+            
+        case UART6_Receive_Done:
+            IPC47bits.U6RXIS = input_subpriority;
+            break;
+            
+        case UART6_Transfer_Done:
+            IPC47bits.U6TXIS = input_subpriority;
+            break;
+        
+        case ADC_End_Of_Scan_Ready:
+            IPC48bits.ADCEOSIS = input_subpriority;
+            break;
+            
+        case ADC_Analog_Circuits_Ready:
+            IPC48bits.ADCARDYIS = input_subpriority;
+            break;
+            
+        case ADC_Update_Ready:
+            IPC48bits.ADCURDYIS = input_subpriority;
+            break;
+            
+        case ADC_Group_Early_Interrupt_Request:
+            IPC49bits.ADCGRPIS = input_subpriority;
+            break;
+            
+        case ADC0_Early_Interrupt:
+            IPC49bits.ADC0EIS = input_subpriority;
+            break;
+            
+        case ADC1_Early_Interrupt:
+            IPC49bits.ADC1EIS = input_subpriority;
+            break;
+            
+        case ADC2_Early_Interrupt:
+            IPC50bits.ADC2EIS = input_subpriority;
+            break;
+            
+        case ADC3_Early_Interrupt:
+            IPC50bits.ADC3EIS = input_subpriority;
+            break;
+            
+        case ADC4_Early_Interrupt:
+            IPC50bits.ADC4EIS = input_subpriority;
+            break;
+            
+        case ADC7_Early_Interrupt:
+            IPC51bits.ADC7EIS = input_subpriority;
+            break;
+            
+        case ADC0_Warm_Interrupt:
+            IPC51bits.ADC0WIS = input_subpriority;
+            break;
+            
+        case ADC1_Warm_Interrupt:
+            IPC51bits.ADC1WIS = input_subpriority;
+            break;
+            
+        case ADC2_Warm_Interrupt:
+            IPC52bits.ADC2WIS = input_subpriority;
+            break;
+            
+        case ADC3_Warm_Interrupt:
+            IPC52bits.ADC3WIS = input_subpriority;
+            break;
+            
+        case ADC4_Warm_Interrupt:
+            IPC52bits.ADC4WIS = input_subpriority;
+            break;
+            
+        case ADC7_Warm_Interrupt:
+            IPC53bits.ADC7WIS = input_subpriority;
+            break;
+            
+        default:
+            break;
+            
+    }
+    
+    
+    
+
+}
+
 
 // This function enables a particular interrupt
 // Returns 0 if no errors
 // Returns 1 if errors
-uint8_t enableInterrupt(interrupt_source_t input_interrupt) {
+void enableInterrupt(interrupt_source_t input_interrupt) {
  
-    return setInterruptEnable(input_interrupt, 1);
+    setInterruptEnable(input_interrupt, 1);
     
 }
 
 // This function disables selected interrupt
 // Returns 0 if no errors
 // Returns 1 if errors
-uint8_t disableInterrupt(interrupt_source_t input_interrupt) {
+void disableInterrupt(interrupt_source_t input_interrupt) {
  
-    return setInterruptEnable(input_interrupt, 0);
+    setInterruptEnable(input_interrupt, 0);
     
 }
 
 // This function clears selected interrupt flag
 // Returns 0 if no errors
 // Returns 1 if errors
-uint8_t clearInterruptFlag(interrupt_source_t input_interrupt) {
+void clearInterruptFlag(interrupt_source_t input_interrupt) {
  
-    return setInterruptFlag(input_interrupt, 0);
+    setInterruptFlag(input_interrupt, 0);
     
 }
