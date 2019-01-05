@@ -151,7 +151,6 @@ F 3 "~" H 7885 4960 50  0001 C CNN
 	1    7890 4990
 	1    0    0    -1  
 $EndComp
-NoConn ~ 4030 1680
 NoConn ~ 4030 4080
 NoConn ~ 7130 1880
 Text Notes 550  700  0    100  ~ 20
@@ -169,4 +168,6 @@ F 3 "" H 9900 1100 50  0001 C CNN
 $EndComp
 Text GLabel 4030 4180 0    50   Output ~ 0
 Other_Error_LED
+Text GLabel 4030 1680 0    50   Input ~ 0
+POS12_PGOOD
 $EndSCHEMATC
