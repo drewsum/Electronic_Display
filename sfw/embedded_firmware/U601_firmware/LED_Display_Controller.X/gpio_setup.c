@@ -1,3 +1,6 @@
+
+#include <xc.h>
+
 #include "gpio_setup.h"
 
 // initializes GPIO ports on microcontroller

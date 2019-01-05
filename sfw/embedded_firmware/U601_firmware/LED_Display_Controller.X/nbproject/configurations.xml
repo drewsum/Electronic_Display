@@ -10,6 +10,7 @@
       <itemPath>pin_macros.h</itemPath>
       <itemPath>32mz_interrupt_control.h</itemPath>
       <itemPath>heartbeat_timer.h</itemPath>
+      <itemPath>error_handler.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

@@ -32,6 +32,12 @@
 // heartbeat timer
 #include "heartbeat_timer.h"
 
+
+// Include application management APIs
+// Include error handling
+#include "error_handler.h"
+
+
 // Main program entry point
 void main(void) {
     
