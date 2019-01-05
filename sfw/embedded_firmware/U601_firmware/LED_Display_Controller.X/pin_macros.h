@@ -20,6 +20,9 @@
 
 #include <xc.h>
 
+// These pin macros allow for easier manipulation of GPIO with matching
+// signal names from the hardware schematic
+
 // PORTA Pin Macros
 #define nLEVEL_SHIFT_EN_PIN         LATAbits.LATA0
 #define nFLASH_WP7_PIN              LATAbits.LATA2
@@ -52,8 +55,34 @@
 #define nWIFI_RESET_PIN             LATEbits.LATE9
 
 // PORTF Pin Macros
+#define POS12_PGOOD_PIN             LATFbits.LATF1
+#define POS5_RUN_PIN                LATFbits.LATF2
+#define POS5_PGOOD_PIN              PORTFbits.RF3
+#define POS5P_PGOOD_PIN             PORTFbits.RF8
+#define nPOS5P_THWN_PIN             PORTFbits.RF12
+#define POS5P_RUN_PIN               LATFbits.LATF13
 
+// PortG Pin Macros
+#define PANEL_DIM_PWM_PIN           LATGbits.LATG0
+#define EBI_ERROR_LED_PIN           LATGbits.LATG1
+#define SPI_ERROR_LED_PIN           LATGbits.LATG6
+#define HEARTBEAT_LED_PIN           LATGbits.LATG12
+#define WIFI_ERROR_LED_PIN          LATGbits.LATG13
+#define USB_ERROR_LED_PIN           LATGbits.LATG14
+#define nACTIVE_LED_PIN             LATGbits.LATG15
 
+// Port H Pin Macros
+#define OTHER_ERROR_LED_PIN         LATHbits.LATH3
+
+// Port J Pin Macros
+#define PANEL_CLK_PIN               LATJbits.LATJ0
+#define PANEL_LAT_PIN               LATJbits.LATJ1
+
+// Port K Pin Macros
+#define nDISPLAY_ENABLE_PIN         PORTKbits.RK4
+#define ENCODER_STEP_PIN            PORTKbits.RK5
+#define ENCODER_DIR_PIN             PORTKbits.RK6
+#define POS3P3_PGOOD_PIN            PORTKbits.RK7
 
 #endif /* _PIN_MACROS_H */
 

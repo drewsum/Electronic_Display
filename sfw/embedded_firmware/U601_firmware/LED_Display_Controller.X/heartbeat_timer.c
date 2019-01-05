@@ -37,6 +37,9 @@ void heartbeatTimerInitialize(void) {
     // Set Timer 1 interrupt priority
     setInterruptPriority(Timer1, 1);
     
+    // Clear on time counter
+    device_on_time_counter = 0;
+    
     // Start timer 1
     T1CONbits.ON = 1;
 
@@ -73,11 +76,16 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
     // Leave AUTO keyword in there, that handles context saving in ISRs
     // Seeing how the device macros header file does not include any references to RIPL
     // and IPL or CPU registers Cause and Status, most likely we're not responsible for this
-    // Definitely look deeper into this though
+    // Definitely look deeper into this though, because if this is our problem
+    // and we miss this, interrupts will not be prioritized
     
+    // Toggle heartbeat LED
+    HEARTBEAT_LED_PIN = !(HEARTBEAT_LED_PIN);
     
-    // TO-DO: Toggle heartbeat LED, increment on time counter, etc
-    
+    // Increment on time counter
+    device_on_time_counter++;
+
+    // TO-DO: If we're going to keep track of display on time with a counter, increment it here too
     
     // Clear interrupt flag
     clearInterruptFlag(Timer1);

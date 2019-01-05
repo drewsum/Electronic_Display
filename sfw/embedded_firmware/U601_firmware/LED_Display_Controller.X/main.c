@@ -38,7 +38,7 @@ void main(void) {
     // Initialize system clocks
     clockInitialize();
     
-    // Sets up GPIO ports
+    // Initialize GPIO pins to startup settings
     gpioInitialize();
     
     // Setup heartbeat timer
