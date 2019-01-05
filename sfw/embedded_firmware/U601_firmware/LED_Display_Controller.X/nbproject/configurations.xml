@@ -8,6 +8,8 @@
       <itemPath>device_control.h</itemPath>
       <itemPath>gpio_setup.h</itemPath>
       <itemPath>pin_macros.h</itemPath>
+      <itemPath>32mz_interrupt_control.h</itemPath>
+      <itemPath>heartbeat_timer.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +21,8 @@
       <itemPath>main.c</itemPath>
       <itemPath>device_control.c</itemPath>
       <itemPath>gpio_setup.c</itemPath>
+      <itemPath>32mz_interrupt_control.c</itemPath>
+      <itemPath>heartbeat_timer.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -20,16 +20,17 @@
 // Include device control APIs
 // The functions allows low level control of the device
 #include "device_control.h"
-
 // Include pin macros for easy GPIO manipulation
 #include "pin_macros.h"
-
 // Include initialization of GPIO ports
 #include "gpio_setup.h"
-
 // Include PIC32MZ interrupt control APIs
-// #include "32mz_interrupt_control.h"
+#include "32mz_interrupt_control.h"
 
+
+// Include peripheral APIs
+// heartbeat timer
+#include "heartbeat_timer.h"
 
 // Main program entry point
 void main(void) {
@@ -39,6 +40,9 @@ void main(void) {
     
     // Sets up GPIO ports
     gpioInitialize();
+    
+    // Setup heartbeat timer
+    heartbeatTimerInitialize();
     
     while (true) {
         
