@@ -1,3 +1,6 @@
+
+#include <xc.h>
+
 #include "gpio_setup.h"
 
 // initializes GPIO ports on microcontroller
@@ -488,7 +491,7 @@ void portGGPIOInitialize (void){
     // Setup RG15
     TRISGbits.TRISG15   = TRIS_OUTPUT;
     LATGbits.LATG15     = LAT_HIGH;
-    ODCGbits.ODCG15     = ODC_DISABLE;
+    ODCGbits.ODCG15     = ODC_ENABLE;
     
 }
 

@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c device_control.c gpio_setup.c 32mz_interrupt_control.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c device_control.c gpio_setup.c 32mz_interrupt_control.c heartbeat_timer.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/device_control.o ${OBJECTDIR}/gpio_setup.o ${OBJECTDIR}/32mz_interrupt_control.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/device_control.o.d ${OBJECTDIR}/gpio_setup.o.d ${OBJECTDIR}/32mz_interrupt_control.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/device_control.o ${OBJECTDIR}/gpio_setup.o ${OBJECTDIR}/32mz_interrupt_control.o ${OBJECTDIR}/heartbeat_timer.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/device_control.o.d ${OBJECTDIR}/gpio_setup.o.d ${OBJECTDIR}/32mz_interrupt_control.o.d ${OBJECTDIR}/heartbeat_timer.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/device_control.o ${OBJECTDIR}/gpio_setup.o ${OBJECTDIR}/32mz_interrupt_control.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/device_control.o ${OBJECTDIR}/gpio_setup.o ${OBJECTDIR}/32mz_interrupt_control.o ${OBJECTDIR}/heartbeat_timer.o
 
 # Source Files
-SOURCEFILES=main.c device_control.c gpio_setup.c 32mz_interrupt_control.c
+SOURCEFILES=main.c device_control.c gpio_setup.c 32mz_interrupt_control.c heartbeat_timer.c
 
 
 CFLAGS=
@@ -130,6 +130,12 @@ ${OBJECTDIR}/32mz_interrupt_control.o: 32mz_interrupt_control.c  nbproject/Makef
 	@${RM} ${OBJECTDIR}/32mz_interrupt_control.o 
 	@${FIXDEPS} "${OBJECTDIR}/32mz_interrupt_control.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/32mz_interrupt_control.o.d" -o ${OBJECTDIR}/32mz_interrupt_control.o 32mz_interrupt_control.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD) 
 	
+${OBJECTDIR}/heartbeat_timer.o: heartbeat_timer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/heartbeat_timer.o.d 
+	@${RM} ${OBJECTDIR}/heartbeat_timer.o 
+	@${FIXDEPS} "${OBJECTDIR}/heartbeat_timer.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/heartbeat_timer.o.d" -o ${OBJECTDIR}/heartbeat_timer.o heartbeat_timer.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD) 
+	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -154,6 +160,12 @@ ${OBJECTDIR}/32mz_interrupt_control.o: 32mz_interrupt_control.c  nbproject/Makef
 	@${RM} ${OBJECTDIR}/32mz_interrupt_control.o.d 
 	@${RM} ${OBJECTDIR}/32mz_interrupt_control.o 
 	@${FIXDEPS} "${OBJECTDIR}/32mz_interrupt_control.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/32mz_interrupt_control.o.d" -o ${OBJECTDIR}/32mz_interrupt_control.o 32mz_interrupt_control.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD) 
+	
+${OBJECTDIR}/heartbeat_timer.o: heartbeat_timer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/heartbeat_timer.o.d 
+	@${RM} ${OBJECTDIR}/heartbeat_timer.o 
+	@${FIXDEPS} "${OBJECTDIR}/heartbeat_timer.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/heartbeat_timer.o.d" -o ${OBJECTDIR}/heartbeat_timer.o heartbeat_timer.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD) 
 	
 endif
 

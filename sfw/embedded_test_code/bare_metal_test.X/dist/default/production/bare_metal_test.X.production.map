@@ -36,25 +36,27 @@ section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
 .simple_tlb_refill_excp 0x9d000000           0x10          16   
 .text.general_exception 0x9d000010           0xdc         220   
-.text._on_reset         0x9d0000ec            0x8           8   
-.text._on_bootstrap     0x9d0000f4            0x8           8   
+.text._on_bootstrap     0x9d0000ec            0x8           8   
 .cache_err_excpt        0x9d000100           0x10          16   
-.text.main_entry        0x9d000110           0x54          84   
-.text                   0x9d000164           0x18          24  App's exec code 
+.text                   0x9d000110           0x64         100  App's exec code 
+.text._on_reset         0x9d000174            0x8           8   
 .app_excpt              0x9d000180           0x10          16  General-Exception 
-.text._bootstrap_except 0x9d000190           0x48          72   
-.vectors                0x9d000200           0x48          72   
-.text                   0x9d000248          0x668        1640  App's exec code 
-.dinit                  0x9d0008b0          0x3b0         944   
-.text._cache_err_except 0x9d000c60           0xd8         216   
-.text.simple_tlb_refill 0x9d000d38           0xd8         216   
-.tlb.__pic32_tlb_init_e 0x9d000e10           0xbc         188   
-.text                   0x9d000ecc           0x84         132  App's exec code 
-.text._general_exceptio 0x9d000f50           0x48          72   
-.text._cache_err_except 0x9d000f98           0x48          72   
-.text._simple_tlb_refil 0x9d000fe0           0x48          72   
-.text                   0x9d001028           0x80         128  App's exec code 
-      Total kseg0_program_mem used  :      0x1078        4216  0.2% of 0x200000
+.text.main_entry        0x9d000190           0x54          84   
+.text                   0x9d0001e4           0x18          24  App's exec code 
+.vectors                0x9d000200           0x58          88   
+.text                   0x9d000258         0xb01c       45084  App's exec code 
+.text                   0x9d00b274          0x3d8         984  App's exec code 
+.dinit                  0x9d00b64c          0x3b0         944   
+.text._cache_err_except 0x9d00b9fc           0xd8         216   
+.text.simple_tlb_refill 0x9d00bad4           0xd8         216   
+.tlb.__pic32_tlb_init_e 0x9d00bbac           0xbc         188   
+.text                   0x9d00bc68           0x84         132  App's exec code 
+.text._bootstrap_except 0x9d00bcec           0x48          72   
+.text._general_exceptio 0x9d00bd34           0x48          72   
+.text._cache_err_except 0x9d00bd7c           0x48          72   
+.text._simple_tlb_refil 0x9d00bdc4           0x48          72   
+.text                   0x9d00be0c           0x44          68  App's exec code 
+      Total kseg0_program_mem used  :      0xbe3c       48700  2.3% of 0x200000
 
 kseg0 Boot-Memory Usage
 section                    address  length [bytes]      (dec)  Description
@@ -68,7 +70,7 @@ section                    address  length [bytes]      (dec)  Description
 .bev_excpt              0xbfc00380           0x10          16  BEV-Exception 
          Total kseg1_boot_mem used  :       0x1d0         464  40.3% of 0x480
         --------------------------------------------------------------------------
-         Total Program Memory used  :      0x1248        4680  0.2% of 0x200480
+         Total Program Memory used  :      0xc00c       49164  2.3% of 0x200480
         --------------------------------------------------------------------------
 
 
@@ -95,6 +97,8 @@ Discarded input sections
  .reginfo       0x00000000       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
  .reginfo       0x00000000       0x18 build/default/production/main.o
  .reginfo       0x00000000       0x18 build/default/production/device_control.o
+ .reginfo       0x00000000       0x18 build/default/production/heartbeat_timer.o
+ .reginfo       0x00000000       0x18 build/default/production/32mz_interrupt_control.o
  .reginfo       0x00000000       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\default_isr_vectors.o
  .discard       0x00000000        0x4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\default_isr_vectors.o
  .reginfo       0x00000000       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
@@ -288,7 +292,8 @@ LOAD c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4
 LOAD c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
 LOAD build/default/production/main.o
 LOAD build/default/production/device_control.o
-LOAD ..\..\..\..\..\microchip\harmony\v2_06\bin\framework\peripheral\PIC32MZ2048EFH100_peripherals.a
+LOAD build/default/production/heartbeat_timer.o
+LOAD build/default/production/32mz_interrupt_control.o
                 0x00000001                __MPLAB_BUILD = 0x1
 LOAD c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\default_isr_vectors.o
 LOAD c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
@@ -773,845 +778,848 @@ END GROUP
  *(.gen_handler)
  .gen_handler   0x9d000180       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
 
-.vectors        0x9d000200       0x48
+.vectors        0x9d000200       0x58
                 0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_0 = DEFINED (__vector_dispatch_0)?(. - _ebase_address):__vector_offset_default
+                0x00000210                __vector_offset_0 = DEFINED (__vector_dispatch_0)?(. - _ebase_address):__vector_offset_default
  *(.vector_0)
                 0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_1 = DEFINED (__vector_dispatch_1)?(. - _ebase_address):__vector_offset_default
+                0x00000210                __vector_offset_1 = DEFINED (__vector_dispatch_1)?(. - _ebase_address):__vector_offset_default
  *(.vector_1)
                 0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_2 = DEFINED (__vector_dispatch_2)?(. - _ebase_address):__vector_offset_default
+                0x00000210                __vector_offset_2 = DEFINED (__vector_dispatch_2)?(. - _ebase_address):__vector_offset_default
  *(.vector_2)
                 0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_3 = DEFINED (__vector_dispatch_3)?(. - _ebase_address):__vector_offset_default
+                0x00000210                __vector_offset_3 = DEFINED (__vector_dispatch_3)?(. - _ebase_address):__vector_offset_default
  *(.vector_3)
                 0x9d000200                . = ALIGN (0x4)
                 0x00000200                __vector_offset_4 = DEFINED (__vector_dispatch_4)?(. - _ebase_address):__vector_offset_default
  *(.vector_4)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_5 = DEFINED (__vector_dispatch_5)?(. - _ebase_address):__vector_offset_default
+ .vector_4      0x9d000200        0x8 build/default/production/main.o
+                0x9d000200                __vector_dispatch_4
+ .vector_4      0x9d000208        0x8 build/default/production/heartbeat_timer.o
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_5 = DEFINED (__vector_dispatch_5)?(. - _ebase_address):__vector_offset_default
  *(.vector_5)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_6 = DEFINED (__vector_dispatch_6)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_6 = DEFINED (__vector_dispatch_6)?(. - _ebase_address):__vector_offset_default
  *(.vector_6)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_7 = DEFINED (__vector_dispatch_7)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_7 = DEFINED (__vector_dispatch_7)?(. - _ebase_address):__vector_offset_default
  *(.vector_7)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_8 = DEFINED (__vector_dispatch_8)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_8 = DEFINED (__vector_dispatch_8)?(. - _ebase_address):__vector_offset_default
  *(.vector_8)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_9 = DEFINED (__vector_dispatch_9)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_9 = DEFINED (__vector_dispatch_9)?(. - _ebase_address):__vector_offset_default
  *(.vector_9)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_10 = DEFINED (__vector_dispatch_10)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_10 = DEFINED (__vector_dispatch_10)?(. - _ebase_address):__vector_offset_default
  *(.vector_10)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_11 = DEFINED (__vector_dispatch_11)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_11 = DEFINED (__vector_dispatch_11)?(. - _ebase_address):__vector_offset_default
  *(.vector_11)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_12 = DEFINED (__vector_dispatch_12)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_12 = DEFINED (__vector_dispatch_12)?(. - _ebase_address):__vector_offset_default
  *(.vector_12)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_13 = DEFINED (__vector_dispatch_13)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_13 = DEFINED (__vector_dispatch_13)?(. - _ebase_address):__vector_offset_default
  *(.vector_13)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_14 = DEFINED (__vector_dispatch_14)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_14 = DEFINED (__vector_dispatch_14)?(. - _ebase_address):__vector_offset_default
  *(.vector_14)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_15 = DEFINED (__vector_dispatch_15)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_15 = DEFINED (__vector_dispatch_15)?(. - _ebase_address):__vector_offset_default
  *(.vector_15)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_16 = DEFINED (__vector_dispatch_16)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_16 = DEFINED (__vector_dispatch_16)?(. - _ebase_address):__vector_offset_default
  *(.vector_16)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_17 = DEFINED (__vector_dispatch_17)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_17 = DEFINED (__vector_dispatch_17)?(. - _ebase_address):__vector_offset_default
  *(.vector_17)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_18 = DEFINED (__vector_dispatch_18)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_18 = DEFINED (__vector_dispatch_18)?(. - _ebase_address):__vector_offset_default
  *(.vector_18)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_19 = DEFINED (__vector_dispatch_19)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_19 = DEFINED (__vector_dispatch_19)?(. - _ebase_address):__vector_offset_default
  *(.vector_19)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_20 = DEFINED (__vector_dispatch_20)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_20 = DEFINED (__vector_dispatch_20)?(. - _ebase_address):__vector_offset_default
  *(.vector_20)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_21 = DEFINED (__vector_dispatch_21)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_21 = DEFINED (__vector_dispatch_21)?(. - _ebase_address):__vector_offset_default
  *(.vector_21)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_22 = DEFINED (__vector_dispatch_22)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_22 = DEFINED (__vector_dispatch_22)?(. - _ebase_address):__vector_offset_default
  *(.vector_22)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_23 = DEFINED (__vector_dispatch_23)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_23 = DEFINED (__vector_dispatch_23)?(. - _ebase_address):__vector_offset_default
  *(.vector_23)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_24 = DEFINED (__vector_dispatch_24)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_24 = DEFINED (__vector_dispatch_24)?(. - _ebase_address):__vector_offset_default
  *(.vector_24)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_25 = DEFINED (__vector_dispatch_25)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_25 = DEFINED (__vector_dispatch_25)?(. - _ebase_address):__vector_offset_default
  *(.vector_25)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_26 = DEFINED (__vector_dispatch_26)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_26 = DEFINED (__vector_dispatch_26)?(. - _ebase_address):__vector_offset_default
  *(.vector_26)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_27 = DEFINED (__vector_dispatch_27)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_27 = DEFINED (__vector_dispatch_27)?(. - _ebase_address):__vector_offset_default
  *(.vector_27)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_28 = DEFINED (__vector_dispatch_28)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_28 = DEFINED (__vector_dispatch_28)?(. - _ebase_address):__vector_offset_default
  *(.vector_28)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_29 = DEFINED (__vector_dispatch_29)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_29 = DEFINED (__vector_dispatch_29)?(. - _ebase_address):__vector_offset_default
  *(.vector_29)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_30 = DEFINED (__vector_dispatch_30)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_30 = DEFINED (__vector_dispatch_30)?(. - _ebase_address):__vector_offset_default
  *(.vector_30)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_31 = DEFINED (__vector_dispatch_31)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_31 = DEFINED (__vector_dispatch_31)?(. - _ebase_address):__vector_offset_default
  *(.vector_31)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_32 = DEFINED (__vector_dispatch_32)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_32 = DEFINED (__vector_dispatch_32)?(. - _ebase_address):__vector_offset_default
  *(.vector_32)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_33 = DEFINED (__vector_dispatch_33)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_33 = DEFINED (__vector_dispatch_33)?(. - _ebase_address):__vector_offset_default
  *(.vector_33)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_34 = DEFINED (__vector_dispatch_34)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_34 = DEFINED (__vector_dispatch_34)?(. - _ebase_address):__vector_offset_default
  *(.vector_34)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_35 = DEFINED (__vector_dispatch_35)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_35 = DEFINED (__vector_dispatch_35)?(. - _ebase_address):__vector_offset_default
  *(.vector_35)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_36 = DEFINED (__vector_dispatch_36)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_36 = DEFINED (__vector_dispatch_36)?(. - _ebase_address):__vector_offset_default
  *(.vector_36)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_37 = DEFINED (__vector_dispatch_37)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_37 = DEFINED (__vector_dispatch_37)?(. - _ebase_address):__vector_offset_default
  *(.vector_37)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_38 = DEFINED (__vector_dispatch_38)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_38 = DEFINED (__vector_dispatch_38)?(. - _ebase_address):__vector_offset_default
  *(.vector_38)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_39 = DEFINED (__vector_dispatch_39)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_39 = DEFINED (__vector_dispatch_39)?(. - _ebase_address):__vector_offset_default
  *(.vector_39)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_40 = DEFINED (__vector_dispatch_40)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_40 = DEFINED (__vector_dispatch_40)?(. - _ebase_address):__vector_offset_default
  *(.vector_40)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_41 = DEFINED (__vector_dispatch_41)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_41 = DEFINED (__vector_dispatch_41)?(. - _ebase_address):__vector_offset_default
  *(.vector_41)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_42 = DEFINED (__vector_dispatch_42)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_42 = DEFINED (__vector_dispatch_42)?(. - _ebase_address):__vector_offset_default
  *(.vector_42)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_43 = DEFINED (__vector_dispatch_43)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_43 = DEFINED (__vector_dispatch_43)?(. - _ebase_address):__vector_offset_default
  *(.vector_43)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_44 = DEFINED (__vector_dispatch_44)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_44 = DEFINED (__vector_dispatch_44)?(. - _ebase_address):__vector_offset_default
  *(.vector_44)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_45 = DEFINED (__vector_dispatch_45)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_45 = DEFINED (__vector_dispatch_45)?(. - _ebase_address):__vector_offset_default
  *(.vector_45)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_46 = DEFINED (__vector_dispatch_46)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_46 = DEFINED (__vector_dispatch_46)?(. - _ebase_address):__vector_offset_default
  *(.vector_46)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_47 = DEFINED (__vector_dispatch_47)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_47 = DEFINED (__vector_dispatch_47)?(. - _ebase_address):__vector_offset_default
  *(.vector_47)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_48 = DEFINED (__vector_dispatch_48)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_48 = DEFINED (__vector_dispatch_48)?(. - _ebase_address):__vector_offset_default
  *(.vector_48)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_49 = DEFINED (__vector_dispatch_49)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_49 = DEFINED (__vector_dispatch_49)?(. - _ebase_address):__vector_offset_default
  *(.vector_49)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_50 = DEFINED (__vector_dispatch_50)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_50 = DEFINED (__vector_dispatch_50)?(. - _ebase_address):__vector_offset_default
  *(.vector_50)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_51 = DEFINED (__vector_dispatch_51)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_51 = DEFINED (__vector_dispatch_51)?(. - _ebase_address):__vector_offset_default
  *(.vector_51)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_52 = DEFINED (__vector_dispatch_52)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_52 = DEFINED (__vector_dispatch_52)?(. - _ebase_address):__vector_offset_default
  *(.vector_52)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_53 = DEFINED (__vector_dispatch_53)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_53 = DEFINED (__vector_dispatch_53)?(. - _ebase_address):__vector_offset_default
  *(.vector_53)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_54 = DEFINED (__vector_dispatch_54)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_54 = DEFINED (__vector_dispatch_54)?(. - _ebase_address):__vector_offset_default
  *(.vector_54)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_55 = DEFINED (__vector_dispatch_55)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_55 = DEFINED (__vector_dispatch_55)?(. - _ebase_address):__vector_offset_default
  *(.vector_55)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_56 = DEFINED (__vector_dispatch_56)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_56 = DEFINED (__vector_dispatch_56)?(. - _ebase_address):__vector_offset_default
  *(.vector_56)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_57 = DEFINED (__vector_dispatch_57)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_57 = DEFINED (__vector_dispatch_57)?(. - _ebase_address):__vector_offset_default
  *(.vector_57)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_58 = DEFINED (__vector_dispatch_58)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_58 = DEFINED (__vector_dispatch_58)?(. - _ebase_address):__vector_offset_default
  *(.vector_58)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_59 = DEFINED (__vector_dispatch_59)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_59 = DEFINED (__vector_dispatch_59)?(. - _ebase_address):__vector_offset_default
  *(.vector_59)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_60 = DEFINED (__vector_dispatch_60)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_60 = DEFINED (__vector_dispatch_60)?(. - _ebase_address):__vector_offset_default
  *(.vector_60)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_61 = DEFINED (__vector_dispatch_61)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_61 = DEFINED (__vector_dispatch_61)?(. - _ebase_address):__vector_offset_default
  *(.vector_61)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_62 = DEFINED (__vector_dispatch_62)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_62 = DEFINED (__vector_dispatch_62)?(. - _ebase_address):__vector_offset_default
  *(.vector_62)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_63 = DEFINED (__vector_dispatch_63)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_63 = DEFINED (__vector_dispatch_63)?(. - _ebase_address):__vector_offset_default
  *(.vector_63)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_64 = DEFINED (__vector_dispatch_64)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_64 = DEFINED (__vector_dispatch_64)?(. - _ebase_address):__vector_offset_default
  *(.vector_64)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_65 = DEFINED (__vector_dispatch_65)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_65 = DEFINED (__vector_dispatch_65)?(. - _ebase_address):__vector_offset_default
  *(.vector_65)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_66 = DEFINED (__vector_dispatch_66)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_66 = DEFINED (__vector_dispatch_66)?(. - _ebase_address):__vector_offset_default
  *(.vector_66)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_67 = DEFINED (__vector_dispatch_67)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_67 = DEFINED (__vector_dispatch_67)?(. - _ebase_address):__vector_offset_default
  *(.vector_67)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_68 = DEFINED (__vector_dispatch_68)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_68 = DEFINED (__vector_dispatch_68)?(. - _ebase_address):__vector_offset_default
  *(.vector_68)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_69 = DEFINED (__vector_dispatch_69)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_69 = DEFINED (__vector_dispatch_69)?(. - _ebase_address):__vector_offset_default
  *(.vector_69)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_70 = DEFINED (__vector_dispatch_70)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_70 = DEFINED (__vector_dispatch_70)?(. - _ebase_address):__vector_offset_default
  *(.vector_70)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_71 = DEFINED (__vector_dispatch_71)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_71 = DEFINED (__vector_dispatch_71)?(. - _ebase_address):__vector_offset_default
  *(.vector_71)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_72 = DEFINED (__vector_dispatch_72)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_72 = DEFINED (__vector_dispatch_72)?(. - _ebase_address):__vector_offset_default
  *(.vector_72)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_73 = DEFINED (__vector_dispatch_73)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_73 = DEFINED (__vector_dispatch_73)?(. - _ebase_address):__vector_offset_default
  *(.vector_73)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_74 = DEFINED (__vector_dispatch_74)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_74 = DEFINED (__vector_dispatch_74)?(. - _ebase_address):__vector_offset_default
  *(.vector_74)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_75 = DEFINED (__vector_dispatch_75)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_75 = DEFINED (__vector_dispatch_75)?(. - _ebase_address):__vector_offset_default
  *(.vector_75)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_76 = DEFINED (__vector_dispatch_76)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_76 = DEFINED (__vector_dispatch_76)?(. - _ebase_address):__vector_offset_default
  *(.vector_76)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_77 = DEFINED (__vector_dispatch_77)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_77 = DEFINED (__vector_dispatch_77)?(. - _ebase_address):__vector_offset_default
  *(.vector_77)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_78 = DEFINED (__vector_dispatch_78)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_78 = DEFINED (__vector_dispatch_78)?(. - _ebase_address):__vector_offset_default
  *(.vector_78)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_79 = DEFINED (__vector_dispatch_79)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_79 = DEFINED (__vector_dispatch_79)?(. - _ebase_address):__vector_offset_default
  *(.vector_79)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_80 = DEFINED (__vector_dispatch_80)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_80 = DEFINED (__vector_dispatch_80)?(. - _ebase_address):__vector_offset_default
  *(.vector_80)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_81 = DEFINED (__vector_dispatch_81)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_81 = DEFINED (__vector_dispatch_81)?(. - _ebase_address):__vector_offset_default
  *(.vector_81)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_82 = DEFINED (__vector_dispatch_82)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_82 = DEFINED (__vector_dispatch_82)?(. - _ebase_address):__vector_offset_default
  *(.vector_82)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_83 = DEFINED (__vector_dispatch_83)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_83 = DEFINED (__vector_dispatch_83)?(. - _ebase_address):__vector_offset_default
  *(.vector_83)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_84 = DEFINED (__vector_dispatch_84)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_84 = DEFINED (__vector_dispatch_84)?(. - _ebase_address):__vector_offset_default
  *(.vector_84)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_85 = DEFINED (__vector_dispatch_85)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_85 = DEFINED (__vector_dispatch_85)?(. - _ebase_address):__vector_offset_default
  *(.vector_85)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_86 = DEFINED (__vector_dispatch_86)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_86 = DEFINED (__vector_dispatch_86)?(. - _ebase_address):__vector_offset_default
  *(.vector_86)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_87 = DEFINED (__vector_dispatch_87)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_87 = DEFINED (__vector_dispatch_87)?(. - _ebase_address):__vector_offset_default
  *(.vector_87)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_88 = DEFINED (__vector_dispatch_88)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_88 = DEFINED (__vector_dispatch_88)?(. - _ebase_address):__vector_offset_default
  *(.vector_88)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_89 = DEFINED (__vector_dispatch_89)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_89 = DEFINED (__vector_dispatch_89)?(. - _ebase_address):__vector_offset_default
  *(.vector_89)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_90 = DEFINED (__vector_dispatch_90)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_90 = DEFINED (__vector_dispatch_90)?(. - _ebase_address):__vector_offset_default
  *(.vector_90)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_91 = DEFINED (__vector_dispatch_91)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_91 = DEFINED (__vector_dispatch_91)?(. - _ebase_address):__vector_offset_default
  *(.vector_91)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_92 = DEFINED (__vector_dispatch_92)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_92 = DEFINED (__vector_dispatch_92)?(. - _ebase_address):__vector_offset_default
  *(.vector_92)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_93 = DEFINED (__vector_dispatch_93)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_93 = DEFINED (__vector_dispatch_93)?(. - _ebase_address):__vector_offset_default
  *(.vector_93)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_94 = DEFINED (__vector_dispatch_94)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_94 = DEFINED (__vector_dispatch_94)?(. - _ebase_address):__vector_offset_default
  *(.vector_94)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_95 = DEFINED (__vector_dispatch_95)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_95 = DEFINED (__vector_dispatch_95)?(. - _ebase_address):__vector_offset_default
  *(.vector_95)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_96 = DEFINED (__vector_dispatch_96)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_96 = DEFINED (__vector_dispatch_96)?(. - _ebase_address):__vector_offset_default
  *(.vector_96)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_97 = DEFINED (__vector_dispatch_97)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_97 = DEFINED (__vector_dispatch_97)?(. - _ebase_address):__vector_offset_default
  *(.vector_97)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_98 = DEFINED (__vector_dispatch_98)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_98 = DEFINED (__vector_dispatch_98)?(. - _ebase_address):__vector_offset_default
  *(.vector_98)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_99 = DEFINED (__vector_dispatch_99)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_99 = DEFINED (__vector_dispatch_99)?(. - _ebase_address):__vector_offset_default
  *(.vector_99)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_100 = DEFINED (__vector_dispatch_100)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_100 = DEFINED (__vector_dispatch_100)?(. - _ebase_address):__vector_offset_default
  *(.vector_100)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_101 = DEFINED (__vector_dispatch_101)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_101 = DEFINED (__vector_dispatch_101)?(. - _ebase_address):__vector_offset_default
  *(.vector_101)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_102 = DEFINED (__vector_dispatch_102)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_102 = DEFINED (__vector_dispatch_102)?(. - _ebase_address):__vector_offset_default
  *(.vector_102)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_103 = DEFINED (__vector_dispatch_103)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_103 = DEFINED (__vector_dispatch_103)?(. - _ebase_address):__vector_offset_default
  *(.vector_103)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_104 = DEFINED (__vector_dispatch_104)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_104 = DEFINED (__vector_dispatch_104)?(. - _ebase_address):__vector_offset_default
  *(.vector_104)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_105 = DEFINED (__vector_dispatch_105)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_105 = DEFINED (__vector_dispatch_105)?(. - _ebase_address):__vector_offset_default
  *(.vector_105)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_106 = DEFINED (__vector_dispatch_106)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_106 = DEFINED (__vector_dispatch_106)?(. - _ebase_address):__vector_offset_default
  *(.vector_106)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_107 = DEFINED (__vector_dispatch_107)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_107 = DEFINED (__vector_dispatch_107)?(. - _ebase_address):__vector_offset_default
  *(.vector_107)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_108 = DEFINED (__vector_dispatch_108)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_108 = DEFINED (__vector_dispatch_108)?(. - _ebase_address):__vector_offset_default
  *(.vector_108)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_109 = DEFINED (__vector_dispatch_109)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_109 = DEFINED (__vector_dispatch_109)?(. - _ebase_address):__vector_offset_default
  *(.vector_109)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_110 = DEFINED (__vector_dispatch_110)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_110 = DEFINED (__vector_dispatch_110)?(. - _ebase_address):__vector_offset_default
  *(.vector_110)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_111 = DEFINED (__vector_dispatch_111)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_111 = DEFINED (__vector_dispatch_111)?(. - _ebase_address):__vector_offset_default
  *(.vector_111)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_112 = DEFINED (__vector_dispatch_112)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_112 = DEFINED (__vector_dispatch_112)?(. - _ebase_address):__vector_offset_default
  *(.vector_112)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_113 = DEFINED (__vector_dispatch_113)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_113 = DEFINED (__vector_dispatch_113)?(. - _ebase_address):__vector_offset_default
  *(.vector_113)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_114 = DEFINED (__vector_dispatch_114)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_114 = DEFINED (__vector_dispatch_114)?(. - _ebase_address):__vector_offset_default
  *(.vector_114)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_115 = DEFINED (__vector_dispatch_115)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_115 = DEFINED (__vector_dispatch_115)?(. - _ebase_address):__vector_offset_default
  *(.vector_115)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_116 = DEFINED (__vector_dispatch_116)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_116 = DEFINED (__vector_dispatch_116)?(. - _ebase_address):__vector_offset_default
  *(.vector_116)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_117 = DEFINED (__vector_dispatch_117)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_117 = DEFINED (__vector_dispatch_117)?(. - _ebase_address):__vector_offset_default
  *(.vector_117)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_118 = DEFINED (__vector_dispatch_118)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_118 = DEFINED (__vector_dispatch_118)?(. - _ebase_address):__vector_offset_default
  *(.vector_118)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_119 = DEFINED (__vector_dispatch_119)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_119 = DEFINED (__vector_dispatch_119)?(. - _ebase_address):__vector_offset_default
  *(.vector_119)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_120 = DEFINED (__vector_dispatch_120)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_120 = DEFINED (__vector_dispatch_120)?(. - _ebase_address):__vector_offset_default
  *(.vector_120)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_121 = DEFINED (__vector_dispatch_121)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_121 = DEFINED (__vector_dispatch_121)?(. - _ebase_address):__vector_offset_default
  *(.vector_121)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_122 = DEFINED (__vector_dispatch_122)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_122 = DEFINED (__vector_dispatch_122)?(. - _ebase_address):__vector_offset_default
  *(.vector_122)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_123 = DEFINED (__vector_dispatch_123)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_123 = DEFINED (__vector_dispatch_123)?(. - _ebase_address):__vector_offset_default
  *(.vector_123)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_124 = DEFINED (__vector_dispatch_124)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_124 = DEFINED (__vector_dispatch_124)?(. - _ebase_address):__vector_offset_default
  *(.vector_124)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_125 = DEFINED (__vector_dispatch_125)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_125 = DEFINED (__vector_dispatch_125)?(. - _ebase_address):__vector_offset_default
  *(.vector_125)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_126 = DEFINED (__vector_dispatch_126)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_126 = DEFINED (__vector_dispatch_126)?(. - _ebase_address):__vector_offset_default
  *(.vector_126)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_127 = DEFINED (__vector_dispatch_127)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_127 = DEFINED (__vector_dispatch_127)?(. - _ebase_address):__vector_offset_default
  *(.vector_127)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_128 = DEFINED (__vector_dispatch_128)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_128 = DEFINED (__vector_dispatch_128)?(. - _ebase_address):__vector_offset_default
  *(.vector_128)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_129 = DEFINED (__vector_dispatch_129)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_129 = DEFINED (__vector_dispatch_129)?(. - _ebase_address):__vector_offset_default
  *(.vector_129)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_130 = DEFINED (__vector_dispatch_130)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_130 = DEFINED (__vector_dispatch_130)?(. - _ebase_address):__vector_offset_default
  *(.vector_130)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_131 = DEFINED (__vector_dispatch_131)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_131 = DEFINED (__vector_dispatch_131)?(. - _ebase_address):__vector_offset_default
  *(.vector_131)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_132 = DEFINED (__vector_dispatch_132)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_132 = DEFINED (__vector_dispatch_132)?(. - _ebase_address):__vector_offset_default
  *(.vector_132)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_133 = DEFINED (__vector_dispatch_133)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_133 = DEFINED (__vector_dispatch_133)?(. - _ebase_address):__vector_offset_default
  *(.vector_133)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_134 = DEFINED (__vector_dispatch_134)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_134 = DEFINED (__vector_dispatch_134)?(. - _ebase_address):__vector_offset_default
  *(.vector_134)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_135 = DEFINED (__vector_dispatch_135)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_135 = DEFINED (__vector_dispatch_135)?(. - _ebase_address):__vector_offset_default
  *(.vector_135)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_136 = DEFINED (__vector_dispatch_136)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_136 = DEFINED (__vector_dispatch_136)?(. - _ebase_address):__vector_offset_default
  *(.vector_136)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_137 = DEFINED (__vector_dispatch_137)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_137 = DEFINED (__vector_dispatch_137)?(. - _ebase_address):__vector_offset_default
  *(.vector_137)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_138 = DEFINED (__vector_dispatch_138)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_138 = DEFINED (__vector_dispatch_138)?(. - _ebase_address):__vector_offset_default
  *(.vector_138)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_139 = DEFINED (__vector_dispatch_139)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_139 = DEFINED (__vector_dispatch_139)?(. - _ebase_address):__vector_offset_default
  *(.vector_139)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_140 = DEFINED (__vector_dispatch_140)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_140 = DEFINED (__vector_dispatch_140)?(. - _ebase_address):__vector_offset_default
  *(.vector_140)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_141 = DEFINED (__vector_dispatch_141)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_141 = DEFINED (__vector_dispatch_141)?(. - _ebase_address):__vector_offset_default
  *(.vector_141)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_142 = DEFINED (__vector_dispatch_142)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_142 = DEFINED (__vector_dispatch_142)?(. - _ebase_address):__vector_offset_default
  *(.vector_142)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_143 = DEFINED (__vector_dispatch_143)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_143 = DEFINED (__vector_dispatch_143)?(. - _ebase_address):__vector_offset_default
  *(.vector_143)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_144 = DEFINED (__vector_dispatch_144)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_144 = DEFINED (__vector_dispatch_144)?(. - _ebase_address):__vector_offset_default
  *(.vector_144)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_145 = DEFINED (__vector_dispatch_145)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_145 = DEFINED (__vector_dispatch_145)?(. - _ebase_address):__vector_offset_default
  *(.vector_145)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_146 = DEFINED (__vector_dispatch_146)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_146 = DEFINED (__vector_dispatch_146)?(. - _ebase_address):__vector_offset_default
  *(.vector_146)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_147 = DEFINED (__vector_dispatch_147)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_147 = DEFINED (__vector_dispatch_147)?(. - _ebase_address):__vector_offset_default
  *(.vector_147)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_148 = DEFINED (__vector_dispatch_148)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_148 = DEFINED (__vector_dispatch_148)?(. - _ebase_address):__vector_offset_default
  *(.vector_148)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_149 = DEFINED (__vector_dispatch_149)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_149 = DEFINED (__vector_dispatch_149)?(. - _ebase_address):__vector_offset_default
  *(.vector_149)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_150 = DEFINED (__vector_dispatch_150)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_150 = DEFINED (__vector_dispatch_150)?(. - _ebase_address):__vector_offset_default
  *(.vector_150)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_151 = DEFINED (__vector_dispatch_151)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_151 = DEFINED (__vector_dispatch_151)?(. - _ebase_address):__vector_offset_default
  *(.vector_151)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_152 = DEFINED (__vector_dispatch_152)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_152 = DEFINED (__vector_dispatch_152)?(. - _ebase_address):__vector_offset_default
  *(.vector_152)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_153 = DEFINED (__vector_dispatch_153)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_153 = DEFINED (__vector_dispatch_153)?(. - _ebase_address):__vector_offset_default
  *(.vector_153)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_154 = DEFINED (__vector_dispatch_154)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_154 = DEFINED (__vector_dispatch_154)?(. - _ebase_address):__vector_offset_default
  *(.vector_154)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_155 = DEFINED (__vector_dispatch_155)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_155 = DEFINED (__vector_dispatch_155)?(. - _ebase_address):__vector_offset_default
  *(.vector_155)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_156 = DEFINED (__vector_dispatch_156)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_156 = DEFINED (__vector_dispatch_156)?(. - _ebase_address):__vector_offset_default
  *(.vector_156)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_157 = DEFINED (__vector_dispatch_157)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_157 = DEFINED (__vector_dispatch_157)?(. - _ebase_address):__vector_offset_default
  *(.vector_157)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_158 = DEFINED (__vector_dispatch_158)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_158 = DEFINED (__vector_dispatch_158)?(. - _ebase_address):__vector_offset_default
  *(.vector_158)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_159 = DEFINED (__vector_dispatch_159)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_159 = DEFINED (__vector_dispatch_159)?(. - _ebase_address):__vector_offset_default
  *(.vector_159)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_160 = DEFINED (__vector_dispatch_160)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_160 = DEFINED (__vector_dispatch_160)?(. - _ebase_address):__vector_offset_default
  *(.vector_160)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_161 = DEFINED (__vector_dispatch_161)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_161 = DEFINED (__vector_dispatch_161)?(. - _ebase_address):__vector_offset_default
  *(.vector_161)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_162 = DEFINED (__vector_dispatch_162)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_162 = DEFINED (__vector_dispatch_162)?(. - _ebase_address):__vector_offset_default
  *(.vector_162)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_163 = DEFINED (__vector_dispatch_163)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_163 = DEFINED (__vector_dispatch_163)?(. - _ebase_address):__vector_offset_default
  *(.vector_163)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_164 = DEFINED (__vector_dispatch_164)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_164 = DEFINED (__vector_dispatch_164)?(. - _ebase_address):__vector_offset_default
  *(.vector_164)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_165 = DEFINED (__vector_dispatch_165)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_165 = DEFINED (__vector_dispatch_165)?(. - _ebase_address):__vector_offset_default
  *(.vector_165)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_166 = DEFINED (__vector_dispatch_166)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_166 = DEFINED (__vector_dispatch_166)?(. - _ebase_address):__vector_offset_default
  *(.vector_166)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_167 = DEFINED (__vector_dispatch_167)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_167 = DEFINED (__vector_dispatch_167)?(. - _ebase_address):__vector_offset_default
  *(.vector_167)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_168 = DEFINED (__vector_dispatch_168)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_168 = DEFINED (__vector_dispatch_168)?(. - _ebase_address):__vector_offset_default
  *(.vector_168)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_169 = DEFINED (__vector_dispatch_169)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_169 = DEFINED (__vector_dispatch_169)?(. - _ebase_address):__vector_offset_default
  *(.vector_169)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_170 = DEFINED (__vector_dispatch_170)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_170 = DEFINED (__vector_dispatch_170)?(. - _ebase_address):__vector_offset_default
  *(.vector_170)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_171 = DEFINED (__vector_dispatch_171)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_171 = DEFINED (__vector_dispatch_171)?(. - _ebase_address):__vector_offset_default
  *(.vector_171)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_172 = DEFINED (__vector_dispatch_172)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_172 = DEFINED (__vector_dispatch_172)?(. - _ebase_address):__vector_offset_default
  *(.vector_172)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_173 = DEFINED (__vector_dispatch_173)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_173 = DEFINED (__vector_dispatch_173)?(. - _ebase_address):__vector_offset_default
  *(.vector_173)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_174 = DEFINED (__vector_dispatch_174)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_174 = DEFINED (__vector_dispatch_174)?(. - _ebase_address):__vector_offset_default
  *(.vector_174)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_175 = DEFINED (__vector_dispatch_175)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_175 = DEFINED (__vector_dispatch_175)?(. - _ebase_address):__vector_offset_default
  *(.vector_175)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_176 = DEFINED (__vector_dispatch_176)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_176 = DEFINED (__vector_dispatch_176)?(. - _ebase_address):__vector_offset_default
  *(.vector_176)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_177 = DEFINED (__vector_dispatch_177)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_177 = DEFINED (__vector_dispatch_177)?(. - _ebase_address):__vector_offset_default
  *(.vector_177)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_178 = DEFINED (__vector_dispatch_178)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_178 = DEFINED (__vector_dispatch_178)?(. - _ebase_address):__vector_offset_default
  *(.vector_178)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_179 = DEFINED (__vector_dispatch_179)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_179 = DEFINED (__vector_dispatch_179)?(. - _ebase_address):__vector_offset_default
  *(.vector_179)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_180 = DEFINED (__vector_dispatch_180)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_180 = DEFINED (__vector_dispatch_180)?(. - _ebase_address):__vector_offset_default
  *(.vector_180)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_181 = DEFINED (__vector_dispatch_181)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_181 = DEFINED (__vector_dispatch_181)?(. - _ebase_address):__vector_offset_default
  *(.vector_181)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_182 = DEFINED (__vector_dispatch_182)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_182 = DEFINED (__vector_dispatch_182)?(. - _ebase_address):__vector_offset_default
  *(.vector_182)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_183 = DEFINED (__vector_dispatch_183)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_183 = DEFINED (__vector_dispatch_183)?(. - _ebase_address):__vector_offset_default
  *(.vector_183)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_184 = DEFINED (__vector_dispatch_184)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_184 = DEFINED (__vector_dispatch_184)?(. - _ebase_address):__vector_offset_default
  *(.vector_184)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_185 = DEFINED (__vector_dispatch_185)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_185 = DEFINED (__vector_dispatch_185)?(. - _ebase_address):__vector_offset_default
  *(.vector_185)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_186 = DEFINED (__vector_dispatch_186)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_186 = DEFINED (__vector_dispatch_186)?(. - _ebase_address):__vector_offset_default
  *(.vector_186)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_187 = DEFINED (__vector_dispatch_187)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_187 = DEFINED (__vector_dispatch_187)?(. - _ebase_address):__vector_offset_default
  *(.vector_187)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_188 = DEFINED (__vector_dispatch_188)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_188 = DEFINED (__vector_dispatch_188)?(. - _ebase_address):__vector_offset_default
  *(.vector_188)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_189 = DEFINED (__vector_dispatch_189)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_189 = DEFINED (__vector_dispatch_189)?(. - _ebase_address):__vector_offset_default
  *(.vector_189)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_190 = DEFINED (__vector_dispatch_190)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_190 = DEFINED (__vector_dispatch_190)?(. - _ebase_address):__vector_offset_default
  *(.vector_190)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_191 = DEFINED (__vector_dispatch_191)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_191 = DEFINED (__vector_dispatch_191)?(. - _ebase_address):__vector_offset_default
  *(.vector_191)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_192 = DEFINED (__vector_dispatch_192)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_192 = DEFINED (__vector_dispatch_192)?(. - _ebase_address):__vector_offset_default
  *(.vector_192)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_193 = DEFINED (__vector_dispatch_193)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_193 = DEFINED (__vector_dispatch_193)?(. - _ebase_address):__vector_offset_default
  *(.vector_193)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_194 = DEFINED (__vector_dispatch_194)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_194 = DEFINED (__vector_dispatch_194)?(. - _ebase_address):__vector_offset_default
  *(.vector_194)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_195 = DEFINED (__vector_dispatch_195)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_195 = DEFINED (__vector_dispatch_195)?(. - _ebase_address):__vector_offset_default
  *(.vector_195)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_196 = DEFINED (__vector_dispatch_196)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_196 = DEFINED (__vector_dispatch_196)?(. - _ebase_address):__vector_offset_default
  *(.vector_196)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_197 = DEFINED (__vector_dispatch_197)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_197 = DEFINED (__vector_dispatch_197)?(. - _ebase_address):__vector_offset_default
  *(.vector_197)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_198 = DEFINED (__vector_dispatch_198)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_198 = DEFINED (__vector_dispatch_198)?(. - _ebase_address):__vector_offset_default
  *(.vector_198)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_199 = DEFINED (__vector_dispatch_199)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_199 = DEFINED (__vector_dispatch_199)?(. - _ebase_address):__vector_offset_default
  *(.vector_199)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_200 = DEFINED (__vector_dispatch_200)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_200 = DEFINED (__vector_dispatch_200)?(. - _ebase_address):__vector_offset_default
  *(.vector_200)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_201 = DEFINED (__vector_dispatch_201)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_201 = DEFINED (__vector_dispatch_201)?(. - _ebase_address):__vector_offset_default
  *(.vector_201)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_202 = DEFINED (__vector_dispatch_202)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_202 = DEFINED (__vector_dispatch_202)?(. - _ebase_address):__vector_offset_default
  *(.vector_202)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_203 = DEFINED (__vector_dispatch_203)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_203 = DEFINED (__vector_dispatch_203)?(. - _ebase_address):__vector_offset_default
  *(.vector_203)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_204 = DEFINED (__vector_dispatch_204)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_204 = DEFINED (__vector_dispatch_204)?(. - _ebase_address):__vector_offset_default
  *(.vector_204)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_205 = DEFINED (__vector_dispatch_205)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_205 = DEFINED (__vector_dispatch_205)?(. - _ebase_address):__vector_offset_default
  *(.vector_205)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_206 = DEFINED (__vector_dispatch_206)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_206 = DEFINED (__vector_dispatch_206)?(. - _ebase_address):__vector_offset_default
  *(.vector_206)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_207 = DEFINED (__vector_dispatch_207)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_207 = DEFINED (__vector_dispatch_207)?(. - _ebase_address):__vector_offset_default
  *(.vector_207)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_208 = DEFINED (__vector_dispatch_208)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_208 = DEFINED (__vector_dispatch_208)?(. - _ebase_address):__vector_offset_default
  *(.vector_208)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_209 = DEFINED (__vector_dispatch_209)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_209 = DEFINED (__vector_dispatch_209)?(. - _ebase_address):__vector_offset_default
  *(.vector_209)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_210 = DEFINED (__vector_dispatch_210)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_210 = DEFINED (__vector_dispatch_210)?(. - _ebase_address):__vector_offset_default
  *(.vector_210)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_211 = DEFINED (__vector_dispatch_211)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_211 = DEFINED (__vector_dispatch_211)?(. - _ebase_address):__vector_offset_default
  *(.vector_211)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_212 = DEFINED (__vector_dispatch_212)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_212 = DEFINED (__vector_dispatch_212)?(. - _ebase_address):__vector_offset_default
  *(.vector_212)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_213 = DEFINED (__vector_dispatch_213)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_213 = DEFINED (__vector_dispatch_213)?(. - _ebase_address):__vector_offset_default
  *(.vector_213)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_214 = DEFINED (__vector_dispatch_214)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_214 = DEFINED (__vector_dispatch_214)?(. - _ebase_address):__vector_offset_default
  *(.vector_214)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_215 = DEFINED (__vector_dispatch_215)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_215 = DEFINED (__vector_dispatch_215)?(. - _ebase_address):__vector_offset_default
  *(.vector_215)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_216 = DEFINED (__vector_dispatch_216)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_216 = DEFINED (__vector_dispatch_216)?(. - _ebase_address):__vector_offset_default
  *(.vector_216)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_217 = DEFINED (__vector_dispatch_217)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_217 = DEFINED (__vector_dispatch_217)?(. - _ebase_address):__vector_offset_default
  *(.vector_217)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_218 = DEFINED (__vector_dispatch_218)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_218 = DEFINED (__vector_dispatch_218)?(. - _ebase_address):__vector_offset_default
  *(.vector_218)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_219 = DEFINED (__vector_dispatch_219)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_219 = DEFINED (__vector_dispatch_219)?(. - _ebase_address):__vector_offset_default
  *(.vector_219)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_220 = DEFINED (__vector_dispatch_220)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_220 = DEFINED (__vector_dispatch_220)?(. - _ebase_address):__vector_offset_default
  *(.vector_220)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_221 = DEFINED (__vector_dispatch_221)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_221 = DEFINED (__vector_dispatch_221)?(. - _ebase_address):__vector_offset_default
  *(.vector_221)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_222 = DEFINED (__vector_dispatch_222)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_222 = DEFINED (__vector_dispatch_222)?(. - _ebase_address):__vector_offset_default
  *(.vector_222)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_223 = DEFINED (__vector_dispatch_223)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_223 = DEFINED (__vector_dispatch_223)?(. - _ebase_address):__vector_offset_default
  *(.vector_223)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_224 = DEFINED (__vector_dispatch_224)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_224 = DEFINED (__vector_dispatch_224)?(. - _ebase_address):__vector_offset_default
  *(.vector_224)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_225 = DEFINED (__vector_dispatch_225)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_225 = DEFINED (__vector_dispatch_225)?(. - _ebase_address):__vector_offset_default
  *(.vector_225)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_226 = DEFINED (__vector_dispatch_226)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_226 = DEFINED (__vector_dispatch_226)?(. - _ebase_address):__vector_offset_default
  *(.vector_226)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_227 = DEFINED (__vector_dispatch_227)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_227 = DEFINED (__vector_dispatch_227)?(. - _ebase_address):__vector_offset_default
  *(.vector_227)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_228 = DEFINED (__vector_dispatch_228)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_228 = DEFINED (__vector_dispatch_228)?(. - _ebase_address):__vector_offset_default
  *(.vector_228)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_229 = DEFINED (__vector_dispatch_229)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_229 = DEFINED (__vector_dispatch_229)?(. - _ebase_address):__vector_offset_default
  *(.vector_229)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_230 = DEFINED (__vector_dispatch_230)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_230 = DEFINED (__vector_dispatch_230)?(. - _ebase_address):__vector_offset_default
  *(.vector_230)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_231 = DEFINED (__vector_dispatch_231)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_231 = DEFINED (__vector_dispatch_231)?(. - _ebase_address):__vector_offset_default
  *(.vector_231)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_232 = DEFINED (__vector_dispatch_232)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_232 = DEFINED (__vector_dispatch_232)?(. - _ebase_address):__vector_offset_default
  *(.vector_232)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_233 = DEFINED (__vector_dispatch_233)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_233 = DEFINED (__vector_dispatch_233)?(. - _ebase_address):__vector_offset_default
  *(.vector_233)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_234 = DEFINED (__vector_dispatch_234)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_234 = DEFINED (__vector_dispatch_234)?(. - _ebase_address):__vector_offset_default
  *(.vector_234)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_235 = DEFINED (__vector_dispatch_235)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_235 = DEFINED (__vector_dispatch_235)?(. - _ebase_address):__vector_offset_default
  *(.vector_235)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_236 = DEFINED (__vector_dispatch_236)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_236 = DEFINED (__vector_dispatch_236)?(. - _ebase_address):__vector_offset_default
  *(.vector_236)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_237 = DEFINED (__vector_dispatch_237)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_237 = DEFINED (__vector_dispatch_237)?(. - _ebase_address):__vector_offset_default
  *(.vector_237)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_238 = DEFINED (__vector_dispatch_238)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_238 = DEFINED (__vector_dispatch_238)?(. - _ebase_address):__vector_offset_default
  *(.vector_238)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_239 = DEFINED (__vector_dispatch_239)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_239 = DEFINED (__vector_dispatch_239)?(. - _ebase_address):__vector_offset_default
  *(.vector_239)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_240 = DEFINED (__vector_dispatch_240)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_240 = DEFINED (__vector_dispatch_240)?(. - _ebase_address):__vector_offset_default
  *(.vector_240)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_241 = DEFINED (__vector_dispatch_241)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_241 = DEFINED (__vector_dispatch_241)?(. - _ebase_address):__vector_offset_default
  *(.vector_241)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_242 = DEFINED (__vector_dispatch_242)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_242 = DEFINED (__vector_dispatch_242)?(. - _ebase_address):__vector_offset_default
  *(.vector_242)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_243 = DEFINED (__vector_dispatch_243)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_243 = DEFINED (__vector_dispatch_243)?(. - _ebase_address):__vector_offset_default
  *(.vector_243)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_244 = DEFINED (__vector_dispatch_244)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_244 = DEFINED (__vector_dispatch_244)?(. - _ebase_address):__vector_offset_default
  *(.vector_244)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_245 = DEFINED (__vector_dispatch_245)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_245 = DEFINED (__vector_dispatch_245)?(. - _ebase_address):__vector_offset_default
  *(.vector_245)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_246 = DEFINED (__vector_dispatch_246)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_246 = DEFINED (__vector_dispatch_246)?(. - _ebase_address):__vector_offset_default
  *(.vector_246)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_247 = DEFINED (__vector_dispatch_247)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_247 = DEFINED (__vector_dispatch_247)?(. - _ebase_address):__vector_offset_default
  *(.vector_247)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_248 = DEFINED (__vector_dispatch_248)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_248 = DEFINED (__vector_dispatch_248)?(. - _ebase_address):__vector_offset_default
  *(.vector_248)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_249 = DEFINED (__vector_dispatch_249)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_249 = DEFINED (__vector_dispatch_249)?(. - _ebase_address):__vector_offset_default
  *(.vector_249)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_250 = DEFINED (__vector_dispatch_250)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_250 = DEFINED (__vector_dispatch_250)?(. - _ebase_address):__vector_offset_default
  *(.vector_250)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_251 = DEFINED (__vector_dispatch_251)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_251 = DEFINED (__vector_dispatch_251)?(. - _ebase_address):__vector_offset_default
  *(.vector_251)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_252 = DEFINED (__vector_dispatch_252)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_252 = DEFINED (__vector_dispatch_252)?(. - _ebase_address):__vector_offset_default
  *(.vector_252)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_253 = DEFINED (__vector_dispatch_253)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_253 = DEFINED (__vector_dispatch_253)?(. - _ebase_address):__vector_offset_default
  *(.vector_253)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_254 = DEFINED (__vector_dispatch_254)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_254 = DEFINED (__vector_dispatch_254)?(. - _ebase_address):__vector_offset_default
  *(.vector_254)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_255 = DEFINED (__vector_dispatch_255)?(. - _ebase_address):__vector_offset_default
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_255 = DEFINED (__vector_dispatch_255)?(. - _ebase_address):__vector_offset_default
  *(.vector_255)
-                0x9d000200                . = ALIGN (0x4)
-                0x00000200                __vector_offset_default = (. - _ebase_address)
+                0x9d000210                . = ALIGN (0x4)
+                0x00000210                __vector_offset_default = (. - _ebase_address)
  *(.vector_default)
  .vector_default
-                0x9d000200       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
-                0x9d000200                _DefaultInterrupt
+                0x9d000210       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+                0x9d000210                _DefaultInterrupt
 
 .startup
  *(.startup)
 
-.text           0x9d000248        0x0
+.text           0x9d000258        0x0
  *(.stub .gnu.linkonce.t.*)
  *(.text.*personality*)
  *(.mips16.fn.*)
  *(.mips16.call.*)
  *(.gnu.warning)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                . = ALIGN (0x4)
 
-.init           0x9d000248        0x0
+.init           0x9d000258        0x0
  *crti.o(.init)
  *crtbegin.o(.init)
  *(EXCLUDE_FILE(*crtn.o *crtend?.o *crtend.o) .init)
  *crtend.o(.init)
  *crtn.o(.init)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                . = ALIGN (0x4)
 
-.fini           0x9d000248        0x0
+.fini           0x9d000258        0x0
  *(.fini)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                . = ALIGN (0x4)
 
-.preinit_array  0x9d000248        0x0
-                0x9d000248                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x9d000258        0x0
+                0x9d000258                PROVIDE (__preinit_array_start, .)
  *(.preinit_array)
-                0x9d000248                PROVIDE (__preinit_array_end, .)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                PROVIDE (__preinit_array_end, .)
+                0x9d000258                . = ALIGN (0x4)
 
-.init_array     0x9d000248        0x0
-                0x9d000248                PROVIDE (__init_array_start, .)
+.init_array     0x9d000258        0x0
+                0x9d000258                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array)
-                0x9d000248                PROVIDE (__init_array_end, .)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                PROVIDE (__init_array_end, .)
+                0x9d000258                . = ALIGN (0x4)
 
-.fini_array     0x9d000248        0x0
-                0x9d000248                PROVIDE (__fini_array_start, .)
+.fini_array     0x9d000258        0x0
+                0x9d000258                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array)
-                0x9d000248                PROVIDE (__fini_array_end, .)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                PROVIDE (__fini_array_end, .)
+                0x9d000258                . = ALIGN (0x4)
 
-.ctors          0x9d000248        0x0
+.ctors          0x9d000258        0x0
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
  *(SORT(.ctors.*))
  *(.ctors)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                . = ALIGN (0x4)
 
-.dtors          0x9d000248        0x0
+.dtors          0x9d000258        0x0
  *crtbegin.o(.dtors)
  *crtbegin?.o(.dtors)
  *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                . = ALIGN (0x4)
 
-.rodata         0x9d000248        0x0
+.rodata         0x9d000258        0x0
  *(.gnu.linkonce.r.*)
  *(.rodata1)
-                0x9d000248                . = ALIGN (0x4)
+                0x9d000258                . = ALIGN (0x4)
 
 .sdata2         0x9fc004b0        0x0
  *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
@@ -1733,6 +1741,8 @@ END GROUP
  *(.mdebug.abi32)
  .mdebug.abi32  0x00000000        0x0 build/default/production/main.o
  .mdebug.abi32  0x00000000        0x0 build/default/production/device_control.o
+ .mdebug.abi32  0x00000000        0x0 build/default/production/heartbeat_timer.o
+ .mdebug.abi32  0x00000000        0x0 build/default/production/32mz_interrupt_control.o
  .mdebug.abi32  0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
  .mdebug.abi32  0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .mdebug.abi32  0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
@@ -1785,6 +1795,8 @@ END GROUP
  .comment       0x00000000       0x3c build/default/production/main.o
                                  0x3d (size before relaxing)
  .comment       0x00000000       0x3d build/default/production/device_control.o
+ .comment       0x00000000       0x3d build/default/production/heartbeat_timer.o
+ .comment       0x00000000       0x3d build/default/production/32mz_interrupt_control.o
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
@@ -1809,7 +1821,7 @@ END GROUP
  *.elf(.debug_sfnames)
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x120
+.debug_aranges  0x00000000      0x160
  *.elf(.debug_aranges)
  *(.debug_aranges)
  .debug_aranges
@@ -1817,88 +1829,102 @@ END GROUP
  .debug_aranges
                 0x00000020       0x20 build/default/production/device_control.o
  .debug_aranges
-                0x00000040       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+                0x00000040       0x20 build/default/production/heartbeat_timer.o
  .debug_aranges
-                0x00000060       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+                0x00000060       0x20 build/default/production/32mz_interrupt_control.o
  .debug_aranges
-                0x00000080       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+                0x00000080       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_aranges
-                0x000000a0       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+                0x000000a0       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .debug_aranges
-                0x000000c0       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+                0x000000c0       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
  .debug_aranges
-                0x000000e0       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+                0x000000e0       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
  .debug_aranges
-                0x00000100       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+                0x00000100       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+ .debug_aranges
+                0x00000120       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_aranges
+                0x00000140       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
 .debug_pubnames
  *.elf(.debug_pubnames)
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x13df
+.debug_info     0x00000000     0x9e48
  *.elf(.debug_info .gnu.linkonce.wi.*)
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x196 build/default/production/main.o
- .debug_info    0x00000196      0xbf2 build/default/production/device_control.o
- .debug_info    0x00000d88       0xf2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_info    0x00000e7a       0xcb c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_info    0x00000f45       0xd3 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_info    0x00001018       0xe5 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_info    0x000010fd       0xee c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
- .debug_info    0x000011eb       0xf2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_info    0x000012dd      0x102 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_info    0x00000000      0x40d build/default/production/main.o
+ .debug_info    0x0000040d      0xc22 build/default/production/device_control.o
+ .debug_info    0x0000102f     0x1537 build/default/production/heartbeat_timer.o
+ .debug_info    0x00002566     0x728b build/default/production/32mz_interrupt_control.o
+ .debug_info    0x000097f1       0xf2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_info    0x000098e3       0xcb c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_info    0x000099ae       0xd3 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_info    0x00009a81       0xe5 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_info    0x00009b66       0xee c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+ .debug_info    0x00009c54       0xf2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_info    0x00009d46      0x102 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
-.debug_abbrev   0x00000000      0x292
+.debug_abbrev   0x00000000      0x522
  *.elf(.debug_abbrev)
  *(.debug_abbrev)
- .debug_abbrev  0x00000000       0x5c build/default/production/main.o
- .debug_abbrev  0x0000005c      0x11e build/default/production/device_control.o
- .debug_abbrev  0x0000017a       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_abbrev  0x000001a2       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_abbrev  0x000001ca       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_abbrev  0x000001f2       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_abbrev  0x0000021a       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
- .debug_abbrev  0x00000242       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_abbrev  0x0000026a       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_abbrev  0x00000000       0xa2 build/default/production/main.o
+ .debug_abbrev  0x000000a2      0x11e build/default/production/device_control.o
+ .debug_abbrev  0x000001c0       0xe1 build/default/production/heartbeat_timer.o
+ .debug_abbrev  0x000002a1      0x169 build/default/production/32mz_interrupt_control.o
+ .debug_abbrev  0x0000040a       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_abbrev  0x00000432       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_abbrev  0x0000045a       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_abbrev  0x00000482       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_abbrev  0x000004aa       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+ .debug_abbrev  0x000004d2       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_abbrev  0x000004fa       0x28 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
-.debug_line     0x00000000      0x754
+.debug_line     0x00000000     0x1778
  *.elf(.debug_line)
  *(.debug_line)
- .debug_line    0x00000000      0x131 build/default/production/main.o
- .debug_line    0x00000131      0x1c4 build/default/production/device_control.o
- .debug_line    0x000002f5       0xa4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_line    0x00000399       0x91 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_line    0x0000042a       0x95 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_line    0x000004bf       0xa3 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_line    0x00000562       0xa2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
- .debug_line    0x00000604       0xa4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_line    0x000006a8       0xac c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_line    0x00000000      0x165 build/default/production/main.o
+ .debug_line    0x00000165      0x1f4 build/default/production/device_control.o
+ .debug_line    0x00000359      0x1a7 build/default/production/heartbeat_timer.o
+ .debug_line    0x00000500      0xe19 build/default/production/32mz_interrupt_control.o
+ .debug_line    0x00001319       0xa4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_line    0x000013bd       0x91 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_line    0x0000144e       0x95 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_line    0x000014e3       0xa3 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_line    0x00001586       0xa2 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+ .debug_line    0x00001628       0xa4 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_line    0x000016cc       0xac c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
-.debug_frame    0x00000000      0x340
+.debug_frame    0x00000000      0x5fc
  *.elf(.debug_frame)
  *(.debug_frame)
  .debug_frame   0x00000000       0x2c build/default/production/main.o
  .debug_frame   0x0000002c      0x204 build/default/production/device_control.o
- .debug_frame   0x00000230       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_frame   0x0000025c       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_frame   0x0000027c       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_frame   0x0000029c       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_frame   0x000002bc       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
- .debug_frame   0x000002e8       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_frame   0x00000314       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_frame   0x00000230      0x10c build/default/production/heartbeat_timer.o
+ .debug_frame   0x0000033c      0x1b0 build/default/production/32mz_interrupt_control.o
+ .debug_frame   0x000004ec       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_frame   0x00000518       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_frame   0x00000538       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_frame   0x00000558       0x20 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_frame   0x00000578       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+ .debug_frame   0x000005a4       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_frame   0x000005d0       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
-.debug_str      0x00000000       0x2a
+.debug_str      0x00000000       0x46
  *.elf(.debug_str)
  *(.debug_str)
  .debug_str     0x00000000        0x0 build/default/production/main.o
  .debug_str     0x00000000       0x2a build/default/production/device_control.o
- .debug_str     0x0000002a        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_str     0x0000002a        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_str     0x0000002a        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_str     0x0000002a        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_str     0x0000002a        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
- .debug_str     0x0000002a        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_str     0x0000002a        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_str     0x0000002a        0x0 build/default/production/heartbeat_timer.o
+ .debug_str     0x0000002a       0x1c build/default/production/32mz_interrupt_control.o
+ .debug_str     0x00000046        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_str     0x00000046        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_str     0x00000046        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_str     0x00000046        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_str     0x00000046        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+ .debug_str     0x00000046        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_str     0x00000046        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
 .debug_loc      0x00000000       0xb0
  *.elf(.debug_loc)
@@ -1951,19 +1977,23 @@ END GROUP
  .gnu.attributes
                 0x00000010       0x10 build/default/production/device_control.o
  .gnu.attributes
-                0x00000020       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+                0x00000020       0x10 build/default/production/heartbeat_timer.o
  .gnu.attributes
-                0x00000030       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+                0x00000030       0x10 build/default/production/32mz_interrupt_control.o
  .gnu.attributes
-                0x00000040       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+                0x00000040       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
  .gnu.attributes
-                0x00000050       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+                0x00000050       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .gnu.attributes
-                0x00000060       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+                0x00000060       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
  .gnu.attributes
-                0x00000070       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+                0x00000070       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
  .gnu.attributes
-                0x00000080       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+                0x00000080       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+ .gnu.attributes
+                0x00000090       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .gnu.attributes
+                0x000000a0       0x10 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
                 0x9d000000                PROVIDE (__pic32_init_cache_program_base_addr, 0x9d000000)
                 0x80000000                PROVIDE (__pic32_init_cache_data_base_addr, 0x80000000)
                 0xd0000000                PROVIDE (__pic32_init_sqi_kseg2_virtual_base_addr, 0xd0000000)
@@ -2212,27 +2242,39 @@ LOAD data_init
  .data          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\default_isr_vectors.o
 
 .bss%z37        0x00000000        0x0
- .bss           0x00000000        0x0 build/default/production/device_control.o
+ .bss           0x00000000        0x0 build/default/production/32mz_interrupt_control.o
 
 .data%z38       0x00000000        0x0
- .data          0x00000000        0x0 build/default/production/device_control.o
+ .data          0x00000000        0x0 build/default/production/32mz_interrupt_control.o
 
 .bss%z39        0x00000000        0x0
- .bss           0x00000000        0x0 build/default/production/main.o
+ .bss           0x00000000        0x0 build/default/production/heartbeat_timer.o
 
 .data%z40       0x00000000        0x0
- .data          0x00000000        0x0 build/default/production/main.o
+ .data          0x00000000        0x0 build/default/production/heartbeat_timer.o
 
 .bss%z41        0x00000000        0x0
- .bss           0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
+ .bss           0x00000000        0x0 build/default/production/device_control.o
 
 .data%z42       0x00000000        0x0
- .data          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
+ .data          0x00000000        0x0 build/default/production/device_control.o
 
 .bss%z43        0x00000000        0x0
- .bss           0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
+ .bss           0x00000000        0x0 build/default/production/main.o
 
 .data%z44       0x00000000        0x0
+ .data          0x00000000        0x0 build/default/production/main.o
+
+.bss%z45        0x00000000        0x0
+ .bss           0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
+
+.data%z46       0x00000000        0x0
+ .data          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
+
+.bss%z47        0x00000000        0x0
+ .bss           0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
+
+.data%z48       0x00000000        0x0
  .data          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
 
 ._debug_exception
@@ -2241,27 +2283,48 @@ LOAD data_init
                 0xbfc00480       0x2c c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
                 0xbfc00480                __DbgExecReturn
 
-.text           0x9d000248      0x668
- .text          0x9d000248      0x668 build/default/production/device_control.o
-                0x9d000248                deviceUnlock
-                0x9d000290                deviceLock
-                0x9d0002b8                deviceReset
-                0x9d00030c                clockInitialize
-                0x9d0003d8                PLLInitialize
-                0x9d000458                REFCLK1Initialize
-                0x9d0004cc                REFCLK2Initialize
-                0x9d000540                REFCLK3Initialize
-                0x9d0005b4                REFCLK4Initialize
-                0x9d000628                PBCLK1Initialize
-                0x9d000674                PBCLK2Initialize
-                0x9d0006d4                PBCLK3Initialize
-                0x9d000734                PBCLK4Initialize
-                0x9d000794                PBCLK5Initialize
-                0x9d0007f4                PBCLK7Initialize
-                0x9d000850                PBCLK8Initialize
+.text           0x9d000258     0xb01c
+ .text          0x9d000258     0xa9b4 build/default/production/32mz_interrupt_control.o
+                0x9d000258                enableGlobalInterrupts
+                0x9d000284                disableGlobalInterrupts
+                0x9d0002b8                getGlobalInterruptsState
+                0x9d0002f4                setGlobalInterruptsState
+                0x9d000348                setInterruptEnable
+                0x9d002258                getInterruptEnable
+                0x9d003838                setInterruptFlag
+                0x9d005748                getInterruptFlag
+                0x9d006d28                setInterruptPriority
+                0x9d008c40                setInterruptSubpriority
+                0x9d00ab58                enableInterrupt
+                0x9d00ab94                disableInterrupt
+                0x9d00abd0                clearInterruptFlag
+ .text          0x9d00ac0c      0x668 build/default/production/device_control.o
+                0x9d00ac0c                deviceUnlock
+                0x9d00ac54                deviceLock
+                0x9d00ac7c                deviceReset
+                0x9d00acd0                clockInitialize
+                0x9d00ad9c                PLLInitialize
+                0x9d00ae1c                REFCLK1Initialize
+                0x9d00ae90                REFCLK2Initialize
+                0x9d00af04                REFCLK3Initialize
+                0x9d00af78                REFCLK4Initialize
+                0x9d00afec                PBCLK1Initialize
+                0x9d00b038                PBCLK2Initialize
+                0x9d00b098                PBCLK3Initialize
+                0x9d00b0f8                PBCLK4Initialize
+                0x9d00b158                PBCLK5Initialize
+                0x9d00b1b8                PBCLK7Initialize
+                0x9d00b214                PBCLK8Initialize
 
-.dinit          0x9d0008b0      0x3b0
- .dinit         0x9d0008b0      0x3b0 data_init
+.text           0x9d00b274      0x3d8
+ .text          0x9d00b274      0x3d8 build/default/production/heartbeat_timer.o
+                0x9d00b274                heartbeatTimerInitialize
+                0x9d00b348                heartbeatTimerStart
+                0x9d00b37c                heartbeatTimerStop
+                0x9d00b3ac                hearbeatTimerISR
+
+.dinit          0x9d00b64c      0x3b0
+ .dinit         0x9d00b64c      0x3b0 data_init
 
 .text.general_exception
                 0x9d000010       0xdc
@@ -2270,126 +2333,128 @@ LOAD data_init
                 0x9d000010                _general_exception_context
 
 .text._cache_err_exception_context
-                0x9d000c60       0xd8
+                0x9d00b9fc       0xd8
  .text._cache_err_exception_context
-                0x9d000c60       0xd8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(cache-err-exception.o)
-                0x9d000c60                _cache_err_exception_context
+                0x9d00b9fc       0xd8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(cache-err-exception.o)
+                0x9d00b9fc                _cache_err_exception_context
 
 .text.simple_tlb_refill_context
-                0x9d000d38       0xd8
+                0x9d00bad4       0xd8
  .text.simple_tlb_refill_context
-                0x9d000d38       0xd8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(simple-tlb-refill-exception.o)
-                0x9d000d38                _simple_tlb_refill_exception_context
+                0x9d00bad4       0xd8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(simple-tlb-refill-exception.o)
+                0x9d00bad4                _simple_tlb_refill_exception_context
 
 .tlb.__pic32_tlb_init_ebi_sqi
-                0x9d000e10       0xbc
+                0x9d00bbac       0xbc
  .tlb.__pic32_tlb_init_ebi_sqi
-                0x9d000e10       0xbc c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_tlb_ebi_sqi.o)
-                0x9d000e10                __pic32_tlb_init_ebi_sqi
+                0x9d00bbac       0xbc c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_tlb_ebi_sqi.o)
+                0x9d00bbac                __pic32_tlb_init_ebi_sqi
 
-.text           0x9d000ecc       0x84
- .text          0x9d000ecc       0x84 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init.o)
-                0x9d000ecc                __pic32_data_init
+.text           0x9d00bc68       0x84
+ .text          0x9d00bc68       0x84 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init.o)
+                0x9d00bc68                __pic32_data_init
+
+.text           0x9d000110       0x64
+ .text          0x9d000110       0x64 build/default/production/main.o
+                0x9d000110                main
 
 .text.main_entry
-                0x9d000110       0x54
+                0x9d000190       0x54
  .text.main_entry
-                0x9d000110       0x54 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
-                0x9d000144                __crt0_exit
+                0x9d000190       0x54 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o
+                0x9d0001c4                __crt0_exit
 
 .text._bootstrap_exception_handler
-                0x9d000190       0x48
+                0x9d00bcec       0x48
  .text._bootstrap_exception_handler
-                0x9d000190       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
-                0x9d000190                _bootstrap_exception_handler
+                0x9d00bcec       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+                0x9d00bcec                _bootstrap_exception_handler
 
 .text._general_exception_handler
-                0x9d000f50       0x48
+                0x9d00bd34       0x48
  .text._general_exception_handler
-                0x9d000f50       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
-                0x9d000f50                _general_exception_handler
+                0x9d00bd34       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
+                0x9d00bd34                _general_exception_handler
 
 .text._cache_err_exception_handler
-                0x9d000f98       0x48
+                0x9d00bd7c       0x48
  .text._cache_err_exception_handler
-                0x9d000f98       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
-                0x9d000f98                _cache_err_exception_handler
+                0x9d00bd7c       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+                0x9d00bd7c                _cache_err_exception_handler
 
 .text._simple_tlb_refill_exception_handler
-                0x9d000fe0       0x48
+                0x9d00bdc4       0x48
  .text._simple_tlb_refill_exception_handler
-                0x9d000fe0       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
-                0x9d000fe0                _simple_tlb_refill_exception_handler
+                0x9d00bdc4       0x48 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+                0x9d00bdc4                _simple_tlb_refill_exception_handler
 
-.text           0x9d001028       0x80
- .text          0x9d001028       0x44 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
-                0x9d001028                __pic32_software_reset
- .text          0x9d00106c       0x3c build/default/production/main.o
-                0x9d00106c                main
+.text           0x9d00be0c       0x44
+ .text          0x9d00be0c       0x44 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
+                0x9d00be0c                __pic32_software_reset
 
-.text           0x9d000164       0x18
- .text          0x9d000164       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-nmi-handler.o)
-                0x9d000164                _nmi_handler
+.text           0x9d0001e4       0x18
+ .text          0x9d0001e4       0x18 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-nmi-handler.o)
+                0x9d0001e4                _nmi_handler
 
 .text._on_reset
-                0x9d0000ec        0x8
+                0x9d000174        0x8
  .text._on_reset
-                0x9d0000ec        0x8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
-                0x9d0000ec                _on_reset
+                0x9d000174        0x8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+                0x9d000174                _on_reset
 
 .text._on_bootstrap
-                0x9d0000f4        0x8
+                0x9d0000ec        0x8
  .text._on_bootstrap
-                0x9d0000f4        0x8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
-                0x9d0000f4                _on_bootstrap
-
-.text%z45       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
-
-.text%z46       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
-
-.text%z47       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
-
-.text%z48       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+                0x9d0000ec        0x8 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+                0x9d0000ec                _on_bootstrap
 
 .text%z49       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(simple-tlb-refill-exception.o)
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
 .text%z50       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(cache-err-exception.o)
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
 
 .text%z51       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(general-exception.o)
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-general-exception-handler.o)
 
 .text%z52       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_tlb_ebi_sqi.o)
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
 
 .text%z53       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_cache.o)
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(simple-tlb-refill-exception.o)
 
 .text%z54       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(cache-err-exception.o)
 
 .text%z55       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(general-exception.o)
 
 .text%z56       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_tlb_ebi_sqi.o)
 
 .text%z57       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\vector_offset_init.o
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_cache.o)
 
 .text%z58       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\processor.o
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
 
 .text%z59       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\default_isr_vectors.o
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
 
 .text%z60       0x00000000        0x0
- .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
 
 .text%z61       0x00000000        0x0
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\vector_offset_init.o
+
+.text%z62       0x00000000        0x0
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\processor.o
+
+.text%z63       0x00000000        0x0
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100\default_isr_vectors.o
+
+.text%z64       0x00000000        0x0
+ .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\debug-exception-return.o
+
+.text%z65       0x00000000        0x0
  .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v2.10/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MZ2048EFH100/crt0_mips32r2.o

@@ -1,6 +1,4 @@
 
-#include <xc.h>
-
 #include "32mz_interrupt_control.h"
 
 // This function enables global interrupts
@@ -423,37 +421,37 @@ void setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state)
             IEC2bits.ADCD34IE = input_state;
             break;
             
-        case ADC_Data_35:
-            IEC2bits.ADCD35IE = input_state;
-            break;
-            
-        case ADC_Data_36:
-            IEC2bits.ADCD36IE = input_state;
-            break;
-            
-        case ADC_Data_37:
-            IEC3bits.ADCD37IE = input_state;
-            break;
-            
-        case ADC_Data_38:
-            IEC3bits.ADCD38IE = input_state;
-            break;
-            
-        case ADC_Data_39:
-            IEC3bits.ADCD39IE = input_state;
-            break;
-            
-        case ADC_Data_40:
-            IEC3bits.ADCD40IE = input_state;
-            break;
-            
-        case ADC_Data_41:
-            IEC3bits.ADCD41IE = input_state;
-            break;
-            
-        case ADC_Data_42:
-            IEC3bits.ADCD42IE = input_state;
-            break;
+//        case ADC_Data_35:
+//            IEC2bits.ADCD35IE = input_state;
+//            break;
+//            
+//        case ADC_Data_36:
+//            IEC2bits.ADCD36IE = input_state;
+//            break;
+//            
+//        case ADC_Data_37:
+//            IEC3bits.ADCD37IE = input_state;
+//            break;
+//            
+//        case ADC_Data_38:
+//            IEC3bits.ADCD38IE = input_state;
+//            break;
+//            
+//        case ADC_Data_39:
+//            IEC3bits.ADCD39IE = input_state;
+//            break;
+//            
+//        case ADC_Data_40:
+//            IEC3bits.ADCD40IE = input_state;
+//            break;
+//            
+//        case ADC_Data_41:
+//            IEC3bits.ADCD41IE = input_state;
+//            break;
+//            
+//        case ADC_Data_42:
+//            IEC3bits.ADCD42IE = input_state;
+//            break;
             
         case ADC_Data_43:
             IEC3bits.ADCD43IE = input_state;
@@ -539,17 +537,17 @@ void setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state)
             IEC3bits.CNGIE = input_state;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            IEC3bits.CNHIE = input_state;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            IEC3bits.CNJIE = input_state;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            IEC3bits.CNKIE = input_state;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//            IEC3bits.CNHIE = input_state;
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//            IEC3bits.CNJIE = input_state;
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//            IEC3bits.CNKIE = input_state;
+//            break;
             
         case Parallel_Master_Port:
             IEC4bits.PMPIE = input_state;
@@ -1259,37 +1257,37 @@ uint8_t getInterruptEnable(interrupt_source_t input_interrupt) {
             return IEC2bits.ADCD34IE;
             break;
             
-        case ADC_Data_35:
-            return IEC2bits.ADCD35IE;
-            break;
-            
-        case ADC_Data_36:
-            return IEC2bits.ADCD36IE;
-            break;
-            
-        case ADC_Data_37:
-            return IEC3bits.ADCD37IE;
-            break;
-            
-        case ADC_Data_38:
-            return IEC3bits.ADCD38IE;
-            break;
-            
-        case ADC_Data_39:
-            return IEC3bits.ADCD39IE;
-            break;
-            
-        case ADC_Data_40:
-            return IEC3bits.ADCD40IE;
-            break;
-            
-        case ADC_Data_41:
-            return IEC3bits.ADCD41IE;
-            break;
-            
-        case ADC_Data_42:
-            return IEC3bits.ADCD42IE;
-            break;
+//        case ADC_Data_35:
+//            return IEC2bits.ADCD35IE;
+//            break;
+//            
+//        case ADC_Data_36:
+//            return IEC2bits.ADCD36IE;
+//            break;
+//            
+//        case ADC_Data_37:
+//            return IEC3bits.ADCD37IE;
+//            break;
+//            
+//        case ADC_Data_38:
+//            return IEC3bits.ADCD38IE;
+//            break;
+//            
+//        case ADC_Data_39:
+//            return IEC3bits.ADCD39IE;
+//            break;
+//            
+//        case ADC_Data_40:
+//            return IEC3bits.ADCD40IE;
+//            break;
+//            
+//        case ADC_Data_41:
+//            return IEC3bits.ADCD41IE;
+//            break;
+//            
+//        case ADC_Data_42:
+//            return IEC3bits.ADCD42IE;
+//            break;
             
         case ADC_Data_43:
             return IEC3bits.ADCD43IE;
@@ -1375,17 +1373,17 @@ uint8_t getInterruptEnable(interrupt_source_t input_interrupt) {
             return IEC3bits.CNGIE;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            return IEC3bits.CNHIE;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            return IEC3bits.CNJIE;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            return IEC3bits.CNKIE;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//            return IEC3bits.CNHIE;
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//            return IEC3bits.CNJIE;
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//            return IEC3bits.CNKIE;
+//            break;
             
         case Parallel_Master_Port:
             return IEC4bits.PMPIE;
@@ -2101,37 +2099,37 @@ void setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state) {
             IFS2bits.ADCD34IF = input_state;
             break;
             
-        case ADC_Data_35:
-            IFS2bits.ADCD35IF = input_state;
-            break;
-            
-        case ADC_Data_36:
-            IFS2bits.ADCD36IF = input_state;
-            break;
-            
-        case ADC_Data_37:
-            IFS3bits.ADCD37IF = input_state;
-            break;
-            
-        case ADC_Data_38:
-            IFS3bits.ADCD38IF = input_state;
-            break;
-            
-        case ADC_Data_39:
-            IFS3bits.ADCD39IF = input_state;
-            break;
-            
-        case ADC_Data_40:
-            IFS3bits.ADCD40IF = input_state;
-            break;
-            
-        case ADC_Data_41:
-            IFS3bits.ADCD41IF = input_state;
-            break;
-            
-        case ADC_Data_42:
-            IFS3bits.ADCD42IF = input_state;
-            break;
+//        case ADC_Data_35:
+//            IFS2bits.ADCD35IF = input_state;
+//            break;
+//            
+//        case ADC_Data_36:
+//            IFS2bits.ADCD36IF = input_state;
+//            break;
+//            
+//        case ADC_Data_37:
+//            IFS3bits.ADCD37IF = input_state;
+//            break;
+//            
+//        case ADC_Data_38:
+//            IFS3bits.ADCD38IF = input_state;
+//            break;
+//            
+//        case ADC_Data_39:
+//            IFS3bits.ADCD39IF = input_state;
+//            break;
+//            
+//        case ADC_Data_40:
+//            IFS3bits.ADCD40IF = input_state;
+//            break;
+//            
+//        case ADC_Data_41:
+//            IFS3bits.ADCD41IF = input_state;
+//            break;
+//            
+//        case ADC_Data_42:
+//            IFS3bits.ADCD42IF = input_state;
+//            break;
             
         case ADC_Data_43:
             IFS3bits.ADCD43IF = input_state;
@@ -2217,17 +2215,17 @@ void setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state) {
             IFS3bits.CNGIF = input_state;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            IFS3bits.CNHIF = input_state;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            IFS3bits.CNJIF = input_state;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            IFS3bits.CNKIF = input_state;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//            IFS3bits.CNHIF = input_state;
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//            IFS3bits.CNJIF = input_state;
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//            IFS3bits.CNKIF = input_state;
+//            break;
             
         case Parallel_Master_Port:
             IFS4bits.PMPIF = input_state;
@@ -2937,37 +2935,37 @@ uint8_t getInterruptFlag(interrupt_source_t input_interrupt) {
             return IFS2bits.ADCD34IF;
             break;
             
-        case ADC_Data_35:
-            return IFS2bits.ADCD35IF;
-            break;
-            
-        case ADC_Data_36:
-            return IFS2bits.ADCD36IF;
-            break;
-            
-        case ADC_Data_37:
-            return IFS3bits.ADCD37IF;
-            break;
-            
-        case ADC_Data_38:
-            return IFS3bits.ADCD38IF;
-            break;
-            
-        case ADC_Data_39:
-            return IFS3bits.ADCD39IF;
-            break;
-            
-        case ADC_Data_40:
-            return IFS3bits.ADCD40IF;
-            break;
-            
-        case ADC_Data_41:
-            return IFS3bits.ADCD41IF;
-            break;
-            
-        case ADC_Data_42:
-            return IFS3bits.ADCD42IF;
-            break;
+//        case ADC_Data_35:
+//            return IFS2bits.ADCD35IF;
+//            break;
+//            
+//        case ADC_Data_36:
+//            return IFS2bits.ADCD36IF;
+//            break;
+//            
+//        case ADC_Data_37:
+//            return IFS3bits.ADCD37IF;
+//            break;
+//            
+//        case ADC_Data_38:
+//            return IFS3bits.ADCD38IF;
+//            break;
+//            
+//        case ADC_Data_39:
+//            return IFS3bits.ADCD39IF;
+//            break;
+//            
+//        case ADC_Data_40:
+//            return IFS3bits.ADCD40IF;
+//            break;
+//            
+//        case ADC_Data_41:
+//            return IFS3bits.ADCD41IF;
+//            break;
+//            
+//        case ADC_Data_42:
+//            return IFS3bits.ADCD42IF;
+//            break;
             
         case ADC_Data_43:
             return IFS3bits.ADCD43IF;
@@ -3053,17 +3051,17 @@ uint8_t getInterruptFlag(interrupt_source_t input_interrupt) {
             return IFS3bits.CNGIF;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            return IFS3bits.CNHIF;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            return IFS3bits.CNJIF;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            return IFS3bits.CNKIF;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//            return IFS3bits.CNHIF;
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//            return IFS3bits.CNJIF;
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//            return IFS3bits.CNKIF;
+//            break;
             
         case Parallel_Master_Port:
             return IFS4bits.PMPIF;
@@ -3779,37 +3777,37 @@ void setInterruptPriority(interrupt_source_t input_interrupt, uint8_t input_prio
             IPC23bits.ADCD34IP = input_priority;
             break;
             
-        case ADC_Data_35:
-            IPC23bits.ADCD35IP = input_priority;
-            break;
-            
-        case ADC_Data_36:
-            IPC23bits.ADCD36IP = input_priority;
-            break;
-            
-        case ADC_Data_37:
-            IPC24bits.ADCD37IP = input_priority;
-            break;
-            
-        case ADC_Data_38:
-            IPC24bits.ADCD38IP = input_priority;
-            break;
-            
-        case ADC_Data_39:
-            IPC24bits.ADCD39IP = input_priority;
-            break;
-            
-        case ADC_Data_40:
-            IPC24bits.ADCD40IP = input_priority;
-            break;
-            
-        case ADC_Data_41:
-            IPC25bits.ADCD41IP = input_priority;
-            break;
-            
-        case ADC_Data_42:
-            IPC25bits.ADCD42IP = input_priority;
-            break;
+//        case ADC_Data_35:
+//          
+//            break;
+//            
+//        case ADC_Data_36:
+//          
+//            break;
+//            
+//        case ADC_Data_37:
+//          
+//            break;
+//            
+//        case ADC_Data_38:
+//          
+//            break;
+//            
+//        case ADC_Data_39:
+//          
+//            break;
+//            
+//        case ADC_Data_40:
+//          
+//            break;
+//            
+//        case ADC_Data_41:
+//          
+//            break;
+//            
+//        case ADC_Data_42:
+//          
+//            break;
             
         case ADC_Data_43:
             IPC25bits.ADCD43IP = input_priority;
@@ -3895,17 +3893,17 @@ void setInterruptPriority(interrupt_source_t input_interrupt, uint8_t input_prio
             IPC31bits.CNGIP = input_priority;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            IPC31bits.CNHIP = input_priority;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            IPC31bits.CNJIP = input_priority;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            IPC31bits.CNKIP = input_priority;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//          
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//          
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//          
+//            break;
             
         case Parallel_Master_Port:
             IPC32bits.PMPIP = input_priority;
@@ -4620,37 +4618,37 @@ void setInterruptSubpriority(interrupt_source_t input_interrupt, uint8_t input_s
             IPC23bits.ADCD34IS = input_subpriority;
             break;
             
-        case ADC_Data_35:
-            IPC23bits.ADCD35IS = input_subpriority;
-            break;
-            
-        case ADC_Data_36:
-            IPC23bits.ADCD36IS = input_subpriority;
-            break;
-            
-        case ADC_Data_37:
-            IPC24bits.ADCD37IS = input_subpriority;
-            break;
-            
-        case ADC_Data_38:
-            IPC24bits.ADCD38IS = input_subpriority;
-            break;
-            
-        case ADC_Data_39:
-            IPC24bits.ADCD39IS = input_subpriority;
-            break;
-            
-        case ADC_Data_40:
-            IPC24bits.ADCD40IS = input_subpriority;
-            break;
-            
-        case ADC_Data_41:
-            IPC25bits.ADCD41IS = input_subpriority;
-            break;
-            
-        case ADC_Data_42:
-            IPC25bits.ADCD42IS = input_subpriority;
-            break;
+//        case ADC_Data_35:
+//          
+//            break;
+//            
+//        case ADC_Data_36:
+//          
+//            break;
+//            
+//        case ADC_Data_37:
+//          
+//            break;
+//            
+//        case ADC_Data_38:
+//          
+//            break;
+//            
+//        case ADC_Data_39:
+//          
+//            break;
+//            
+//        case ADC_Data_40:
+//          
+//            break;
+//            
+//        case ADC_Data_41:
+//          
+//            break;
+//            
+//        case ADC_Data_42:
+//          
+//            break;
             
         case ADC_Data_43:
             IPC25bits.ADCD43IS = input_subpriority;
@@ -4736,17 +4734,17 @@ void setInterruptSubpriority(interrupt_source_t input_interrupt, uint8_t input_s
             IPC31bits.CNGIS = input_subpriority;
             break;
             
-        case PORTH_Input_Change_Interrupt:
-            IPC31bits.CNHIS = input_subpriority;
-            break;
-            
-        case PORTJ_Input_Change_Interrupt:
-            IPC31bits.CNJIS = input_subpriority;
-            break;
-            
-        case PORTK_Input_Change_Interrupt:
-            IPC31bits.CNKIS = input_subpriority;
-            break;
+//        case PORTH_Input_Change_Interrupt:
+//          
+//            break;
+//            
+//        case PORTJ_Input_Change_Interrupt:
+//          
+//            break;
+//            
+//        case PORTK_Input_Change_Interrupt:
+//          
+//            break;
             
         case Parallel_Master_Port:
             IPC32bits.PMPIS = input_subpriority;
