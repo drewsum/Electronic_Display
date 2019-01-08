@@ -26,7 +26,7 @@
 // These configure the device startup settings
 #include "configure.h"
 // Include watchdog timer
-// This will reset the micro if it has not been cleared within 2.048 seconds
+// WDT will reset the micro if it has not been cleared within 2.048 seconds
 #include "watchdog_timer.h"
 
 
@@ -76,7 +76,8 @@ void main(void) {
     // Loop endlessly
     while (true) {
         
-        Nop();
+        // Verify DMT was cleared properly
+        verifyThumbTightEnough();
     
     }
     

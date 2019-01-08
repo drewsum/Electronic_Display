@@ -1,5 +1,6 @@
 
 #include <xc.h>
+#include <proc/p32mz2048efh144.h>
 
 #include "watchdog_timer.h"
 
@@ -47,5 +48,55 @@ void stopWatchdogTimer(void) {
 void kickTheDog(void) {
  
     WDTCONbits.WDTCLRKEY = 0x5743;
+    
+}
+
+// This function initializes the deadman timer
+void deadmanTimerInitialize(void) {
+ 
+    // Start DMT at first
+    DMTCONbits.ON = 1;
+    
+}
+
+// This function starts the deadman timer
+void startDeadmanTimer(void) {
+ 
+    // Start DMT
+    DMTCONbits.ON = 1;
+    
+}
+
+// This function stops the deadman timer
+void stopDeadmanTimer(void) {
+ 
+    // Stop deadman timer
+    DMTCONbits.ON = 0;
+    
+}
+
+// This function clears the deadman timer
+void holdThumbTighter(void) {
+ 
+    // First write 0x40 into STEP1 bits within DMTPRECLR register
+    DMTPRECLRbits.STEP1 = 0x40;
+    
+    // Second, write 0x08 into STEP2 of DMTCLR register
+    DMTCLRbits.STEP2 = 0x08;
+    
+    // Verify DMT was cleared properly
+    verifyThumbTightEnough();
+    
+}
+
+// This function verifies the DMT has been cleared properly
+void verifyThumbTightEnough(void) {
+ 
+    // If we've had a DMT error, set the DMT error flag
+    if (DMTSTATbits.BAD1 || DMTSTATbits.BAD2 || DMTSTATbits.DMTEVENT) {
+     
+        error_handler.DMT_error_flag = 1;
+        
+    }
     
 }

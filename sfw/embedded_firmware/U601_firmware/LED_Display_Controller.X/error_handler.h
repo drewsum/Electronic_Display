@@ -38,6 +38,7 @@ struct {
     unsigned POS12_regulation_error_flag                : 1;    // +12V input regulation error
     unsigned POS5P_regulation_error_flag                : 1;    // External power board regulation error
     unsigned POS5P5_regulation_error_flag               : 1;    // +5.5V power supply regulation error
+    unsigned DMT_error_flag                             : 1;    // Deadman timer error
     
 } error_handler;
 
