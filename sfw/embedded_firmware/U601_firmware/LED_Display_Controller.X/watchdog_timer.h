@@ -33,6 +33,21 @@ void stopWatchdogTimer(void);
 // This function clears the watchdog timer
 void kickTheDog(void);
 
+// This function initializes the deadman timer
+void deadmanTimerInitialize(void);
+
+// This function starts the deadman timer
+void startDeadmanTimer(void);
+
+// This function stops the deadman timer
+void stopDeadmanTimer(void);
+
+// This function clears the deadman timer
+void holdThumbTighter(void);
+
+// This function verifies the DMT has been cleared properly
+void verifyThumbTightEnough(void);
+
 #endif /* _WATCHDOG_TIMER_H */
 
 /* *****************************************************************************
