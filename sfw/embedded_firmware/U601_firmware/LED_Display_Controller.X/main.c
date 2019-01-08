@@ -5,7 +5,7 @@
  * Created on December 18, 2018, 7:27 PM
  */
 
-
+// Include built in C standard functions, device macros
 #include <xc.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,32 +13,27 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-// Include configuration bits
-// These configure the device startup settings
-#include "configure.h"
-
 // Include device control APIs
 // The functions allows low level control of the device
 #include "device_control.h"
-// Include pin macros for easy GPIO manipulation
-#include "pin_macros.h"
-// Include initialization of GPIO ports
-#include "gpio_setup.h"
 // Include PIC32MZ interrupt control APIs
 #include "32mz_interrupt_control.h"
 // Include cause of reset determination
 #include "cause_of_reset.h"
+// Include configuration bits
+// These configure the device startup settings
+#include "configure.h"
 
 
-// Include peripheral APIs
-// heartbeat timer
-#include "heartbeat_timer.h"
-
-
-// Include application management APIs
+// Include application specific APIs
 // Include error handling
 #include "error_handler.h"
-
+// Include initialization of GPIO ports
+#include "gpio_setup.h"
+// Include pin macros for easy GPIO manipulation
+#include "pin_macros.h"
+// heartbeat timer
+#include "heartbeat_timer.h"
 
 // Main program entry point
 void main(void) {
