@@ -34,6 +34,8 @@
 #include "pin_macros.h"
 // heartbeat timer
 #include "heartbeat_timer.h"
+// Power saving APIs (PMD, SLEEP, etc)
+#include "power_saving.h"
 
 // Main program entry point
 void main(void) {
