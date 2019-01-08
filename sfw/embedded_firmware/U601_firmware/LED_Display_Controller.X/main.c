@@ -73,6 +73,9 @@ void main(void) {
     // Setup the watchdog timer
     watchdogTimerInitialize();
     
+    // Startup the deadman timer
+    deadmanTimerInitialize();
+    
     // Loop endlessly
     while (true) {
         
