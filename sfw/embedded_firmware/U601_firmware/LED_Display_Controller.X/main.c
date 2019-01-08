@@ -25,6 +25,9 @@
 // Include configuration bits
 // These configure the device startup settings
 #include "configure.h"
+// Include watchdog timer
+// This will reset the micro if it has not been cleared within 2.048 seconds
+#include "watchdog_timer.h"
 
 
 // Include application specific APIs
@@ -66,6 +69,9 @@ void main(void) {
     
     // Setup heartbeat timer
     heartbeatTimerInitialize();
+    
+    // Setup the watchdog timer
+    watchdogTimerInitialize();
     
     // Loop endlessly
     while (true) {

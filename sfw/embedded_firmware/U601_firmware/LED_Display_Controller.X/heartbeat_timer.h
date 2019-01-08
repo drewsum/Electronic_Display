@@ -26,6 +26,7 @@
 
 #include "pin_macros.h"
 
+#include "watchdog_timer.h"
 
 // API Variables
 uint32_t device_on_time_counter;
