@@ -10,6 +10,14 @@
         <itemPath>heartbeat_timer.h</itemPath>
         <itemPath>pin_macros.h</itemPath>
         <itemPath>power_saving.h</itemPath>
+        <itemPath>usb_uart.h</itemPath>
+        <itemPath>external_bus_interface.h</itemPath>
+        <itemPath>panel_control.h</itemPath>
+        <itemPath>spi_flash.h</itemPath>
+        <itemPath>esp8266.h</itemPath>
+        <itemPath>adc.h</itemPath>
+        <itemPath>misc_board_control.h</itemPath>
+        <itemPath>rotary_encoder.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.h</itemPath>
@@ -28,14 +36,22 @@
       <logicalFolder name="f2" displayName="Application Specific" projectFiles="true">
         <itemPath>gpio_setup.c</itemPath>
         <itemPath>heartbeat_timer.c</itemPath>
-        <itemPath>main.c</itemPath>
         <itemPath>power_saving.c</itemPath>
+        <itemPath>error_handler.c</itemPath>
+        <itemPath>usb_uart.c</itemPath>
+        <itemPath>panel_control.c</itemPath>
+        <itemPath>spi_flash.c</itemPath>
+        <itemPath>esp8266.c</itemPath>
+        <itemPath>adc.c</itemPath>
+        <itemPath>misc_board_control.c</itemPath>
+        <itemPath>rotary_encoder.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.c</itemPath>
         <itemPath>cause_of_reset.c</itemPath>
         <itemPath>32mz_interrupt_control.c</itemPath>
       </logicalFolder>
+      <itemPath>main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

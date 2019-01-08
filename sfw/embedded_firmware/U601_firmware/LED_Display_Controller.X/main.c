@@ -14,7 +14,9 @@
 #include <stddef.h>
 
 // Include device control APIs
-// The functions allows low level control of the device
+// These are APIs written for portability between projects and set up the device
+// for basic use
+// The functions allow low level control of the device
 #include "device_control.h"
 // Include PIC32MZ interrupt control APIs
 #include "32mz_interrupt_control.h"
@@ -36,6 +38,22 @@
 #include "heartbeat_timer.h"
 // Power saving APIs (PMD, SLEEP, etc)
 #include "power_saving.h"
+// USB debugging
+#include "usb_uart.h"
+// External Bus Interface (EBI)
+#include "external_bus_interface.h"
+// LED Panel Control
+#include "panel_control.h"
+// SPI Flash Memory
+#include "spi_flash.h"
+// ESP8266 WiFi module, and android app interface
+#include "esp8266.h"
+// Analog to Digital Converter
+#include "adc.h"
+// Miscellaneous Board Control
+#include "misc_board_control.h"
+// Rotary encoder for controlling brightness
+#include "rotary_encoder.h"
 
 // Main program entry point
 void main(void) {
