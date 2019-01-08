@@ -26,6 +26,8 @@
 #include "gpio_setup.h"
 // Include PIC32MZ interrupt control APIs
 #include "32mz_interrupt_control.h"
+// Include cause of reset determination
+#include "cause_of_reset.h"
 
 
 // Include peripheral APIs

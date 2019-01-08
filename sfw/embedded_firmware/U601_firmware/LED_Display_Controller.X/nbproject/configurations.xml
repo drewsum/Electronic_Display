@@ -11,6 +11,7 @@
       <itemPath>32mz_interrupt_control.h</itemPath>
       <itemPath>heartbeat_timer.h</itemPath>
       <itemPath>error_handler.h</itemPath>
+      <itemPath>cause_of_reset.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -24,6 +25,7 @@
       <itemPath>gpio_setup.c</itemPath>
       <itemPath>32mz_interrupt_control.c</itemPath>
       <itemPath>heartbeat_timer.c</itemPath>
+      <itemPath>cause_of_reset.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
