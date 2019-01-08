@@ -84,7 +84,10 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
     
     // Increment on time counter
     device_on_time_counter++;
-
+    
+    // Clear the watchdog timer
+    kickTheDog();
+    
     // TO-DO: If we're going to keep track of display on time with a counter, increment it here too
     
     // Clear interrupt flag
