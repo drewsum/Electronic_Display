@@ -50,10 +50,10 @@
 #include "esp8266.h"
 // Analog to Digital Converter
 #include "adc.h"
-// Miscellaneous Board Control
-#include "misc_board_control.h"
 // Rotary encoder for controlling brightness
 #include "rotary_encoder.h"
+// Miscellaneous Board Control
+#include "misc_board_control.h"
 
 // Main program entry point
 void main(void) {
