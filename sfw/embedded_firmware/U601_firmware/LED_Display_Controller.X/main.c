@@ -67,6 +67,7 @@ void main(void) {
     // Setup heartbeat timer
     heartbeatTimerInitialize();
     
+    // Loop endlessly
     while (true) {
         
         Nop();

@@ -24,6 +24,7 @@
         <itemPath>configure.h</itemPath>
         <itemPath>cause_of_reset.h</itemPath>
         <itemPath>32mz_interrupt_control.h</itemPath>
+        <itemPath>watchdog_timer.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -50,6 +51,7 @@
         <itemPath>device_control.c</itemPath>
         <itemPath>cause_of_reset.c</itemPath>
         <itemPath>32mz_interrupt_control.c</itemPath>
+        <itemPath>watchdog_timer.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
