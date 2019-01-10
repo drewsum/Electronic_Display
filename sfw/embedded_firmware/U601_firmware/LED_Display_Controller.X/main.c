@@ -79,8 +79,8 @@ void main(void) {
     // Loop endlessly
     while (true) {
         
-        // Verify DMT was cleared properly
-        verifyThumbTightEnough();
+        // Twiddle thumbs
+        Nop();
     
     }
     

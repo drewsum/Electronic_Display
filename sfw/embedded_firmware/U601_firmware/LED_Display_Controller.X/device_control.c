@@ -15,6 +15,8 @@
  */
 /* ************************************************************************** */
 
+#include <xc.h>
+
 #include "device_control.h"
 
 // private function prototype
@@ -346,3 +348,61 @@ void PBCLK8Initialize(void) {
     PB8DIVbits.ON = 1;
     
 }
+
+// This function unlocks peripheral pin select
+// THIS CAN ONLY BE CALLED ONCE PER DEVICE RESET!!!
+void PPSUnlock(void) {
+
+    // Unlock device
+    deviceUnlock();
+    
+    // Unlock PPS
+    CFGCONbits.IOLOCK = 0;
+    
+    // Lock device
+    deviceLock();
+    
+}
+
+// This function locks peripheral pin select
+void PPSLock(void) {
+    
+    // Unlock device
+    deviceUnlock();
+    
+    // Lock PPS
+    CFGCONbits.IOLOCK = 1;
+    
+    // Lock device
+    deviceLock();
+    
+}
+
+// This function unlocks peripheral module disable
+void PMDUnlock(void) {
+    
+    // Unlock device
+    deviceUnlock();
+    
+    // Unlock PMD
+    CFGCONbits.PMDLOCK = 0;
+    
+    // Lock device
+    deviceLock();
+    
+}
+
+// This function locks peripheral module disable
+void PMDLock(void) {
+    
+    // Unlock device
+    deviceUnlock();
+    
+    // Lock PMD
+    CFGCONbits.PMDLOCK = 1;
+    
+    // Lock device
+    deviceLock();
+    
+}
+

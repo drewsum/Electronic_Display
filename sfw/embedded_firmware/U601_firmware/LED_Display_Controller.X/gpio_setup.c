@@ -6,25 +6,22 @@
 // initializes GPIO ports on microcontroller
 void gpioInitialize (void){
     
-    portAGPIOInitialize;
+    // Unlock peripheral pin select
+    PPSUnlock();
     
-    portBGPIOInitialize;
+    portAGPIOInitialize();
+    portBGPIOInitialize();
+    portCGPIOInitialize();
+    portDGPIOInitialize();
+    portEGPIOInitialize();
+    portFGPIOInitialize();
+    portGGPIOInitialize();
+    portHGPIOInitialize();
+    portJGPIOInitialize();
+    portKGPIOInitialize();
     
-    portCGPIOInitialize;
-    
-    portDGPIOInitialize;
-    
-    portEGPIOInitialize;
-    
-    portFGPIOInitialize;
-    
-    portGGPIOInitialize;
-    
-    portHGPIOInitialize;
-    
-    portJGPIOInitialize;
-    
-    portKGPIOInitialize;
+    // Lock PPS
+    PPSLock();
     
 }
 
@@ -393,7 +390,7 @@ void portFGPIOInitialize (void){
     ODCFbits.ODCF0      = ODC_DISABLE;
     
     // Setup RF1
-    TRISFbits.TRISF1    = TRIS_OUTPUT;
+    TRISFbits.TRISF1    = TRIS_INPUT;
     LATFbits.LATF1      = LAT_LOW;
     ODCFbits.ODCF1      = ODC_DISABLE;
     
