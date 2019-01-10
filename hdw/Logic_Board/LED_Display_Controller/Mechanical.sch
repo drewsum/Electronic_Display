@@ -22,7 +22,7 @@ F 0 "MK3101" H 2520 2120 50  0000 C CNN
 F 1 "4-40 Standoff" H 2520 2220 50  0000 C CNN
 F 2 "" H 2520 2320 50  0001 C CNN
 F 3 "" H 2520 2320 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    2520 1970
 	1    0    0    -1  
 $EndComp
@@ -34,7 +34,7 @@ F 0 "MK3105" H 3520 2120 50  0000 C CNN
 F 1 "4-40 Standoff" H 3520 2220 50  0000 C CNN
 F 2 "" H 3520 2320 50  0001 C CNN
 F 3 "" H 3520 2320 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    3520 1970
 	1    0    0    -1  
 $EndComp
@@ -46,7 +46,7 @@ F 0 "MK3109" H 4520 2120 50  0000 C CNN
 F 1 "4-40 Standoff" H 4520 2220 50  0000 C CNN
 F 2 "" H 4520 2320 50  0001 C CNN
 F 3 "" H 4520 2320 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    4520 1970
 	1    0    0    -1  
 $EndComp
@@ -58,7 +58,7 @@ F 0 "MK3113" H 5520 2120 50  0000 C CNN
 F 1 "4-40 Standoff" H 5520 2220 50  0000 C CNN
 F 2 "" H 5520 2320 50  0001 C CNN
 F 3 "" H 5520 2320 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    5520 1970
 	1    0    0    -1  
 $EndComp
@@ -70,7 +70,7 @@ F 0 "MK3102" H 2520 2820 50  0000 C CNN
 F 1 "4-40 Standoff" H 2520 2920 50  0000 C CNN
 F 2 "" H 2520 3020 50  0001 C CNN
 F 3 "" H 2520 3020 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    2520 2670
 	1    0    0    -1  
 $EndComp
@@ -82,7 +82,7 @@ F 0 "MK3106" H 3520 2820 50  0000 C CNN
 F 1 "4-40 Standoff" H 3520 2920 50  0000 C CNN
 F 2 "" H 3520 3020 50  0001 C CNN
 F 3 "" H 3520 3020 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    3520 2670
 	1    0    0    -1  
 $EndComp
@@ -94,7 +94,7 @@ F 0 "MK3110" H 4520 2820 50  0000 C CNN
 F 1 "4-40 Standoff" H 4520 2920 50  0000 C CNN
 F 2 "" H 4520 3020 50  0001 C CNN
 F 3 "" H 4520 3020 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    4520 2670
 	1    0    0    -1  
 $EndComp
@@ -106,7 +106,7 @@ F 0 "MK3114" H 5520 2820 50  0000 C CNN
 F 1 "4-40 Standoff" H 5520 2920 50  0000 C CNN
 F 2 "" H 5520 3020 50  0001 C CNN
 F 3 "" H 5520 3020 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    5520 2670
 	1    0    0    -1  
 $EndComp
@@ -214,7 +214,7 @@ F 0 "MK3117" H 6520 2120 50  0000 C CNN
 F 1 "4-40 Standoff" H 6520 2220 50  0000 C CNN
 F 2 "" H 6520 2320 50  0001 C CNN
 F 3 "" H 6520 2320 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    6520 1970
 	1    0    0    -1  
 $EndComp
@@ -226,7 +226,7 @@ F 0 "MK3118" H 6520 2820 50  0000 C CNN
 F 1 "4-40 Standoff" H 6520 2920 50  0000 C CNN
 F 2 "" H 6520 3020 50  0001 C CNN
 F 3 "" H 6520 3020 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    6520 2670
 	1    0    0    -1  
 $EndComp
@@ -431,7 +431,7 @@ F 0 "MK3122" H 7520 2820 50  0000 C CNN
 F 1 "4-40 Standoff" H 7520 2920 50  0000 C CNN
 F 2 "" H 7520 3020 50  0001 C CNN
 F 3 "" H 7520 3020 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    7520 2670
 	1    0    0    -1  
 $EndComp
@@ -443,7 +443,7 @@ F 0 "MK3121" H 7520 2120 50  0000 C CNN
 F 1 "4-40 Standoff" H 7520 2220 50  0000 C CNN
 F 2 "" H 7520 2320 50  0001 C CNN
 F 3 "" H 7520 2320 50  0001 C CNN
-F 4 "36-8400-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
+F 4 "36-2204-ND" H 0   0   50  0001 C CNN "Digi-Key PN"
 	1    7520 1970
 	1    0    0    -1  
 $EndComp
