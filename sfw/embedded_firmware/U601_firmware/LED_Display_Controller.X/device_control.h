@@ -40,6 +40,20 @@ void deviceReset(void);
 // This function initializes the system clocks
 void clockInitialize(void);
 
+// This function unlocks peripheral pin select
+// THIS CAN ONLY BE CALLED ONCE PER DEVICE RESET!!!
+void PPSUnlock(void);
+
+// This function locks peripheral pin select
+void PPSLock(void);
+
+// This function unlocks peripheral module disable
+void PMDUnlock(void);
+
+// This function locks peripheral module disable
+void PMDLock(void);
+
+
 
 #endif /* _DEVICE_CONTROL_H */
 

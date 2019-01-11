@@ -21,7 +21,7 @@ void watchdogTimerInitialize(void) {
     // Verify WDTPS change actually occurred
     if (DEVCFG1bits.WDTPS != 0b01011) {
      
-        error_handler.configuration_error_flsg = 1;
+        error_handler.configuration_error_flag = 1;
         
     }
     

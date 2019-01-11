@@ -26,7 +26,7 @@
 // Access a flag like any C structure
 struct {
     
-    unsigned configuration_error_flsg                   : 1;    // error in device setup
+    unsigned configuration_error_flag                   : 1;    // error in device setup
     unsigned EBI_error_flag                             : 1;    // error with extended bus interface (external SRAM)
     unsigned SPI_error_flag                             : 1;    // Error with external flash SPI
     unsigned WIFI_error_flag                            : 1;    // Error with WIFI module

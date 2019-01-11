@@ -67,17 +67,23 @@ void main(void) {
     // Initialize GPIO pins to startup settings
     gpioInitialize();
     
+    // Disable unused peripherals for power savings
+    PMDInitialize();
+    
     // Setup heartbeat timer
     heartbeatTimerInitialize();
     
     // Setup the watchdog timer
     watchdogTimerInitialize();
     
+    // Startup the deadman timer
+    deadmanTimerInitialize();
+    
     // Loop endlessly
     while (true) {
         
-        // Verify DMT was cleared properly
-        verifyThumbTightEnough();
+        // Twiddle thumbs
+        Nop();
     
     }
     
