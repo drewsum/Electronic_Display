@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewProjectFragment">
@@ -8,25 +10,34 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textNewProject"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonSelectImage"
         android:layout_width="wrap_content"
-        android:layout_height="112dp"
-        android:layout_gravity="center_vertical"
-        android:text="Add a Frame" />
+        android:layout_height="wrap_content"
+        android:text="Add a Frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textNewProject"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="126dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
-    </HorizontalScrollView>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="126dp"
+        android:layout_marginEnd="411dp"
+        android:layout_marginRight="411dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textNewProject"
+        app:layout_constraintTop_toTopOf="@+id/textNewProject" />
 
-</FrameLayout>
+
+</android.support.constraint.ConstraintLayout>
