@@ -67,6 +67,9 @@ void main(void) {
     // Initialize GPIO pins to startup settings
     gpioInitialize();
     
+    // Disable unused peripherals for power savings
+    PMDInitialize();
+    
     // Setup heartbeat timer
     heartbeatTimerInitialize();
     

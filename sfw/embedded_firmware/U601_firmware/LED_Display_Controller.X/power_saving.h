@@ -18,6 +18,12 @@
 
 #include <xc.h>
 
+#include "device_control.h"
+
+
+// This function disables unused peripherals on startup for power savings
+// THIS FUNCTION CAN ONLY BE CALLED ONCE DUE TO PMD LOCKOUT AFTER ONE WRITE SESSION
+void PMDInitialize(void);
 
 
 #endif /* _POWER_SAVING_H */
