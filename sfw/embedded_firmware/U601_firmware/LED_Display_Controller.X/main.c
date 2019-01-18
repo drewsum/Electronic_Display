@@ -67,6 +67,12 @@ void main(void) {
     // Initialize GPIO pins to startup settings
     gpioInitialize();
     
+    // Initialize UART USB debugging
+    USB_UART_Initialize();
+    
+    // Print debug message
+    USB_UART_print("Clocks, GPIO and USB UART initialized\n\r");
+    
     // Disable unused peripherals for power savings
     PMDInitialize();
     
