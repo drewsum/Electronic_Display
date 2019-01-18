@@ -57,13 +57,13 @@ void PMDInitialize(void) {
     PMD4bits.T8MD = 0;
     PMD4bits.T9MD = 0;
     
-    // Enable UART1, 6, disable others
+    // Enable UART1, 3, disable others
     PMD5bits.U1MD = 0;
     PMD5bits.U2MD = 1;
-    PMD5bits.U3MD = 1;
+    PMD5bits.U3MD = 0;
     PMD5bits.U4MD = 1;
     PMD5bits.U5MD = 1;
-    PMD5bits.U6MD = 0;
+    PMD5bits.U6MD = 1;
     
     // Enable SPI3, disable others
     PMD5bits.SPI1MD = 1;

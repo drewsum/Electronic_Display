@@ -295,6 +295,7 @@ void portDGPIOInitialize (void){
     TRISDbits.TRISD10   = TRIS_OUTPUT;
     LATDbits.LATD10     = LAT_LOW;
     ODCDbits.ODCD10     = ODC_DISABLE;
+    RPD10R              = 0b0001;       // Set RD10 as UART 3 TX
     
     // Setup RD11
     TRISDbits.TRISD11   = TRIS_OUTPUT;
@@ -388,6 +389,7 @@ void portFGPIOInitialize (void){
     TRISFbits.TRISF0    = TRIS_INPUT;
     LATFbits.LATF0      = LAT_LOW;
     ODCFbits.ODCF0      = ODC_DISABLE;
+    U3RXR               = 0b0100;           // Set RF0 as UART 3 RX
     
     // Setup RF1
     TRISFbits.TRISF1    = TRIS_INPUT;
