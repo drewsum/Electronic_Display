@@ -31,14 +31,17 @@ void heartbeatTimerInitialize(void) {
     // This will give an interrupt rate of 1 Hz
     PR1 = 61523;
     
-    // Enable timer 1 interrupt
-    enableInterrupt(Timer1);
+    // Clear Timer1 Interrupt Flag
+    clearInterruptFlag(Timer1);
     
     // Set Timer 1 interrupt priority
     setInterruptPriority(Timer1, 1);
     
     // Clear on time counter
     device_on_time_counter = 0;
+    
+    // Enable timer 1 interrupt
+    enableInterrupt(Timer1);
     
     // Start timer 1
     T1CONbits.ON = 1;
@@ -86,10 +89,10 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
     device_on_time_counter++;
     
     // Clear the watchdog timer
-    kickTheDog();
+    // kickTheDog();
     
     // Clear the deadman timer
-    holdThumbTighter();
+    // holdThumbTighter();
     
     // TO-DO: If we're going to keep track of display on time with a counter, increment it here too
     
