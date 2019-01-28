@@ -68,22 +68,30 @@ void main(void) {
     gpioInitialize();
     
     // Initialize UART USB debugging
-    USB_UART_Initialize();
+    // USB_UART_Initialize();
     
     // Print debug message
-    USB_UART_print("Clocks, GPIO and USB UART initialized\n\r");
+    // USB_UART_print("Clocks, GPIO and USB UART initialized\n\r");
     
     // Disable unused peripherals for power savings
-    PMDInitialize();
+    // PMDInitialize();
     
     // Setup heartbeat timer
     heartbeatTimerInitialize();
     
     // Setup the watchdog timer
-    watchdogTimerInitialize();
+    // watchdogTimerInitialize();
     
     // Startup the deadman timer
-    deadmanTimerInitialize();
+    // deadmanTimerInitialize();
+    
+    // Enable Global Interrupts
+    enableGlobalInterrupts();
+    
+    // Turn off RESET LED
+    nACTIVE_LED_PIN = 0;
+    
+    POS5_RUN_PIN = 1;
     
     // Loop endlessly
     while (true) {
