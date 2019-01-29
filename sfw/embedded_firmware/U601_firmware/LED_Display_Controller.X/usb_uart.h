@@ -20,8 +20,8 @@
 #include <sys/attribs.h>
 
 // Sizes of TX and RX ring buffers
-#define USB_UART_TX_BUFFER_SIZE 64
-#define USB_UART_RX_BUFFER_SIZE 64
+#define USB_UART_TX_BUFFER_SIZE 256
+#define USB_UART_RX_BUFFER_SIZE 256
 
 // Output character buffer
 char output_buff[USB_UART_TX_BUFFER_SIZE];
@@ -32,8 +32,8 @@ char output_buff[USB_UART_TX_BUFFER_SIZE];
 char USB_UART_line[USB_UART_RX_BUFFER_SIZE];
 
 // ring buffer counters
-extern volatile uint8_t usb_uart_TxBufferRemaining;
-extern volatile uint8_t usb_uart_RxCount;
+extern volatile uint32_t usb_uart_TxBufferRemaining;
+extern volatile uint32_t usb_uart_RxCount;
 
 
 // Enumeration holding attributes data for setting text fanciness

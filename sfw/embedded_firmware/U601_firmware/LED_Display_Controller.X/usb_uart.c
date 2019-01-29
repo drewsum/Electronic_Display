@@ -6,6 +6,7 @@
 #include <sys/attribs.h>
 
 #include "32mz_interrupt_control.h"
+#include "pin_macros.h"
 
 #include "usb_uart.h"
 
@@ -14,15 +15,15 @@ text_attribute_t attribute;
 text_color_t foreground_color;
 text_color_t background_color;
 
-volatile uint8_t usb_uart_TxHead = 0;
-volatile uint8_t usb_uart_TxTail = 0;
-volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
-volatile uint8_t usb_uart_TxBufferRemaining;
+volatile uint32_t usb_uart_TxHead = 0;
+volatile uint32_t usb_uart_TxTail = 0;
+volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
+volatile uint32_t usb_uart_TxBufferRemaining;
 
-volatile uint8_t usb_uart_RxHead = 0;
-volatile uint8_t usb_uart_RxTail = 0;
-volatile uint8_t usb_uart_RxBuffer[USB_UART_RX_BUFFER_SIZE];
-volatile uint8_t usb_uart_RxCount;
+volatile uint32_t usb_uart_RxHead = 0;
+volatile uint32_t usb_uart_RxTail = 0;
+volatile uint32_t usb_uart_RxBuffer[USB_UART_RX_BUFFER_SIZE];
+volatile uint32_t usb_uart_RxCount;
 
 volatile uint8_t usb_uart_RxStringReady = 0;
 
@@ -31,17 +32,9 @@ volatile uint8_t usb_uart_RxStringReady = 0;
 void USB_UART_Initialize(void) {
  
     // Disable UART 3 interrupts
-    disableInterrupt(UART3_Receive_Done);
-    disableInterrupt(UART3_Transfer_Done);
-    disableInterrupt(UART3_Fault);
-    
-    // initializing the driver state
-    usb_uart_TxHead = 0;
-    usb_uart_TxTail = 0;
-    usb_uart_TxBufferRemaining = sizeof(usb_uart_TxBuffer);
-    usb_uart_RxHead = 0;
-    usb_uart_RxTail = 0;
-    usb_uart_RxCount = 0;
+//    disableInterrupt(UART3_Receive_Done);
+//    disableInterrupt(UART3_Transfer_Done);
+//    disableInterrupt(UART3_Fault);
     
     // Turn off UART 3 for configuration
     U3MODEbits.ON = 0;
@@ -107,8 +100,14 @@ void USB_UART_Initialize(void) {
     // With PBCLK2 = 84 MHz, BRGH = 1, baud rate error is 0.16%
     U3BRG = 181;
     
-    // Enable UART 3
-    U3MODEbits.ON = 1;
+    // initializing the driver state
+    usb_uart_TxHead = 0;
+    usb_uart_TxTail = 0;
+    usb_uart_TxBufferRemaining = sizeof(usb_uart_TxBuffer);
+    usb_uart_RxHead = 0;
+    usb_uart_RxTail = 0;
+    usb_uart_RxCount = 0;
+    
     
     // Set interrupt priorities
     setInterruptPriority(UART3_Receive_Done, 2);
@@ -130,30 +129,28 @@ void USB_UART_Initialize(void) {
     enableInterrupt(UART3_Receive_Done);
     enableInterrupt(UART3_Fault);
     
+    // Enable UART 3
+    U3MODEbits.ON = 1;
+    
+    // Clear the terminal
+    USB_UART_clearTerminal();
+    USB_UART_setCursorHome();
+
 }
 
 // This is the USB UART receive interrupt service routine
 void __ISR(_UART3_RX_VECTOR, ipl2AUTO) USB_UART_Receive_ISR(void) {
     
-    // Disable UART3 RX interrupt
-    disableInterrupt(UART3_Receive_Done);
-    
     // Do receive tasks
-    USB_UART_Receive_Handler();
+    // USB_UART_Receive_Handler();
     
     // Clear receive interrupt flag
     clearInterruptFlag(UART3_Receive_Done);
-    
-    // Enable UART3 Receive Interrupt
-    enableInterrupt(UART3_Receive_Done);
     
 }
 
 // This is the USB UART transfer interrupt service routine
 void __ISR(_UART3_TX_VECTOR, ipl3AUTO) USB_UART_Transfer_ISR(void) {
-    
-    // Disable UART3 TX interrupt
-    disableInterrupt(UART3_Transfer_Done);
     
     // Do transfer tasks
     USB_UART_Transmit_Handler();
@@ -161,64 +158,29 @@ void __ISR(_UART3_TX_VECTOR, ipl3AUTO) USB_UART_Transfer_ISR(void) {
     // Clear interrupt flag
     clearInterruptFlag(UART3_Transfer_Done);
     
-    // Enable interrupt
-    enableInterrupt(UART3_Transfer_Done);
-    
-    
 }
 
 // This is the UAB UART fault interrupt service routine
 void __ISR(_UART3_FAULT_VECTOR, ipl1AUTO) USB_UART_Fault_ISR(void) {
-    
-    // Disable UART 3 fault interrupt
-    disableInterrupt(UART3_Fault);
     
     // TO-DO: Fault tasks
     
     // Clear fault interrupt flag
     clearInterruptFlag(UART3_Fault);
     
-    // Enable UART 3 Fault interrupt
-    enableInterrupt(UART3_Fault);
-    
 }
-
-// This function pulls a byte from the RX ring buffer
-uint8_t USB_UART_Read_Byte(void) {
- 
-    uint8_t readValue  = 0;
-    
-    // This state should never be entered
-    while(0 == usb_uart_RxCount)
-    {
-    }
-
-    readValue = usb_uart_RxBuffer[usb_uart_RxTail++];
-    if(sizeof(usb_uart_RxBuffer) <= usb_uart_RxTail)
-    {
-        usb_uart_RxTail = 0;
-    }
-    
-    disableInterrupt(UART3_Receive_Done);
-    usb_uart_RxCount--;
-    enableInterrupt(UART3_Receive_Done);
-
-    return readValue;
-    
-}
-
 
 // This function adds a byte to the TX ring buffer
 void USB_UART_putchar(uint8_t txData) {
  
-    // Loop if the buffer is full
-    while(0 == usb_uart_TxBufferRemaining)
+     while(0 == usb_uart_TxBufferRemaining)
     {
     }
 
-    if(!getInterruptEnable(UART3_Transfer_Done))
+    if(0 == getInterruptEnable(UART3_Transfer_Done))
     {
         U3TXREG = txData;
+   
     }
     else
     {
@@ -235,7 +197,8 @@ void USB_UART_putchar(uint8_t txData) {
 
     }
 
-    enableInterrupt(UART3_Transfer_Done);
+     enableInterrupt(UART3_Transfer_Done);
+   
     
 }
 
@@ -254,74 +217,9 @@ void USB_UART_Transmit_Handler(void) {
     else
     {
         disableInterrupt(UART3_Transfer_Done);
-    }
-    
-    
-}
-
-// This serves as the RX handler and is called by the RX ISR
-void USB_UART_Receive_Handler(void) {
- 
-    if(1 == U3STAbits.OERR)
-    {
-        U3MODEbits.ON = 0;
-        U3MODEbits.ON = 1;
-    }
-    
-    while(U3STAbits.URXDA) {
-    
-        usb_uart_RxBuffer[usb_uart_RxHead++] = U3RXREG;
-        
-        if(sizeof(usb_uart_RxBuffer) <= usb_uart_RxHead)
-        {
-            usb_uart_RxHead = 0;
-        }
-        usb_uart_RxCount++;
         
     }
     
-    // Empty hardware FIFO
-    int dummy;
-    while(U3STAbits.URXDA) {
-                 
-        dummy = U3RXREG;
-                    
-    }
-    
-    
-    // This chunk tells main() or whatever is pulling from the ring buffer that
-    // data is ready to be read, since the terminal sent a newline or 
-    // carriage return
-    if((usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\n') || 
-            (usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\r')) {
-
-        usb_uart_RxStringReady = 1;
-                
-    }
-    
-    else {
-        
-        usb_uart_RxStringReady = 0;
-        
-    }
-   
-    // If we've received a backspace
-    if((usb_uart_RxBuffer[usb_uart_RxHead -1] == (int) '\b')) {
-     
-        usb_uart_RxBuffer[usb_uart_RxHead - 1] = '\0';
-        usb_uart_RxHead--;
- 
-        // Erase the "backspaced" character on terminal
-        USB_UART_print("\033[K");
-        
-        if(usb_uart_RxHead != usb_uart_RxTail) {
-        
-            usb_uart_RxBuffer[usb_uart_RxHead - 1] = '\0';
-            usb_uart_RxHead--;
-
-        }
-        
-    }
     
 }
 
@@ -337,48 +235,6 @@ void USB_UART_print(char charArray[]) {
     
 }
 
-// This function pulls data out of the RX ring buffer
-void USB_UART_ringBufferPull(void) {
-
-    int charNumber = usb_uart_RxCount;
-            
-    // Clear line buffer
-    uint8_t index;
-    for (index = 0; index < USB_UART_RX_BUFFER_SIZE; index++) {
-
-        USB_UART_line[index] = '\0';
-
-    }
-
-    // Fill line from ring buffer
-    index = 0;
-    for(index = 0; index < charNumber; index++){
-
-        USB_UART_line[index] = USB_UART_Read_Byte();
-
-    }
-
-    // Reset ring buffer
-    usb_uart_RxTail = usb_uart_RxHead;
-
-    // Try to kill off ending returns/newlines
-    while((USB_UART_line[strlen(USB_UART_line) - 1] == (int) '\n') ||
-          (USB_UART_line[strlen(USB_UART_line) - 1] == (int) '\r')) {
-     
-        // NULL
-        USB_UART_line[strlen(USB_UART_line) - 1] = '\0';
-        
-    }
-    
-
-    // Clear ready flag
-    usb_uart_RxStringReady = 0;
-
-    // Check to see if line matches a command
-    USB_UART_ringBufferLUT(USB_UART_line);
-
-    
-}
 
 // This function parses the data pulled from the RX ring buffer
 // This is the function that actually makes stuff happen based on commands

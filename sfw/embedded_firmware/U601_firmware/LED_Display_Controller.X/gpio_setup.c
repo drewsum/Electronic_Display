@@ -293,7 +293,7 @@ void portDGPIOInitialize (void){
     
     // Setup RD10
     TRISDbits.TRISD10   = TRIS_OUTPUT;
-    LATDbits.LATD10     = LAT_LOW;
+    LATDbits.LATD10     = LAT_HIGH;
     ODCDbits.ODCD10     = ODC_DISABLE;
     RPD10R              = 0b0001;       // Set RD10 as UART 3 TX
     

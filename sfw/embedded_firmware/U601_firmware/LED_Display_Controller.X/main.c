@@ -61,35 +61,64 @@
 // Main program entry point
 void main(void) {
     
+        
+    // Enable Global Interrupts
+    enableGlobalInterrupts();
+    
+    // Enable multi-vector interrupt mode
+    INTCONbits.MVEC = 1;
+    
     // Initialize system clocks
     clockInitialize();
-    
+        
     // Initialize GPIO pins to startup settings
     gpioInitialize();
     
     // Initialize UART USB debugging
-    // USB_UART_Initialize();
+    USB_UART_Initialize();
     
     // Print debug message
-    // USB_UART_print("Clocks, GPIO and USB UART initialized\n\r");
-    
-    // Disable unused peripherals for power savings
-    // PMDInitialize();
+    USB_UART_print(" System Boot\n\r");
+    USB_UART_print("Clocks Initialized to the following settings:\n\r");
+    USB_UART_print("    SYSCLK: 252 MHz\n\r"
+                   "    REFCLK1: Disabled\n\r"
+                   "    REFCLK2: Disabled\n\r"
+                   "    REFCLK3: Disabled\n\r"
+                   "    REFCLK4: Disabled\n\r"
+                   "    PBCLK1: 84 MHz\n\r"
+                   "    PBCLK2: 84 MHz\n\r"
+                   "    PBCLK3: 15.75 MHz\n\r"
+                   "    PBCLK4: 84 MHz\n\r"
+                   "    PBCLK5: 84 MHz\n\r"
+                   "    PBCLK7: 252 MHz\n\r"
+                   "    PBCLK8: 84 MHz\n\r");   
+    USB_UART_print("GPIO Pins Initialized\n\r");
+    USB_UART_print("USB UART Initialized to the following settings:\n\r"
+                   "    Baud Rate: 115.2 kbs\n\r"
+                   "    Data Length: 8 bits\n\r"
+                   "    Parity: None\n\r"
+                   "    Stop Bits: 1\n\r"
+                   "    Flow Control: None\n\r");
     
     // Setup heartbeat timer
     heartbeatTimerInitialize();
+    USB_UART_print("Heartbeat Timer Initialized\n\r");
     
+    // Disable unused peripherals for power savings
+    PMDInitialize();
+    USB_UART_print("Peripheral Module Disable Initialized for reduced power consumption\n\r");
+            
     // Setup the watchdog timer
     watchdogTimerInitialize();
+    USB_UART_print("Watchdog Timer Initialized with a timeout of 2.048 seconds\n\r");
     
     // Startup the deadman timer
     deadmanTimerInitialize();
-    
-    // Enable Global Interrupts
-    enableGlobalInterrupts();
+    USB_UART_print("Deadman Timer Initialized with a timeout of 2147483648 instruction fetches\n\r");
     
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
+    USB_UART_print("Reset LED disabled\n\r");
     
     // Loop endlessly
     while (true) {

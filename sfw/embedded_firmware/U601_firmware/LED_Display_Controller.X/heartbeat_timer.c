@@ -68,19 +68,7 @@ void heartbeatTimerStop(void) {
 void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
 
     // Disable timer 1 interrupt
-    disableInterrupt(Timer1);
-    
-    // TO-DO: Do we need to copy RIPL bits into IPL bits?
-    // This is from section 8.7.1 of micro reference manual (interrupt group priority levels)
-    // Apparently this is how you block lower level interrupts during a higher order
-    // ISR. If this is needed it should be done at beginning on EVERY ISR
-    // The compiler may actually do this for us in the background
-    // That could be what the ipl<priority> keyword does in above __ISR() macro
-    // Leave AUTO keyword in there, that handles context saving in ISRs
-    // Seeing how the device macros header file does not include any references to RIPL
-    // and IPL or CPU registers Cause and Status, most likely we're not responsible for this
-    // Definitely look deeper into this though, because if this is our problem
-    // and we miss this, interrupts will not be prioritized
+    // disableInterrupt(Timer1);
     
     // Toggle heartbeat LED
     HEARTBEAT_LED_PIN = !(HEARTBEAT_LED_PIN);
@@ -103,7 +91,7 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
     clearInterruptFlag(Timer1);
     
     // Re-enable interrupt
-    enableInterrupt(Timer1);
+    // enableInterrupt(Timer1);
     
 
 }
