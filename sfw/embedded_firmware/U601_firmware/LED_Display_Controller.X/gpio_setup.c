@@ -145,10 +145,10 @@ void portBGPIOInitialize (void){
     ANSELBbits.ANSB7    = ANALOG_DISABLE;
     
     // Setup RB8
-    TRISBbits.TRISB3    = TRIS_OUTPUT;
-    LATBbits.LATB3      = LAT_LOW;
-    ODCBbits.ODCB3      = ODC_DISABLE;
-    ANSELBbits.ANSB3    = ANALOG_DISABLE;
+    TRISBbits.TRISB8    = TRIS_OUTPUT;
+    LATBbits.LATB8      = LAT_LOW;
+    ODCBbits.ODCB8      = ODC_DISABLE;
+    ANSELBbits.ANSB8    = ANALOG_DISABLE;
     
     // Setup RB9
     TRISBbits.TRISB9    = TRIS_OUTPUT;
