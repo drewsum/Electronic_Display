@@ -1,28 +1,34 @@
 
 #include <xc.h>
+
+#include <xc.h>
 #include <string.h>
+
 
 // These are macros needed for defining ISRs, included in XC32
 #include <sys/attribs.h>
 
 #include "32mz_interrupt_control.h"
-
+#include "pin_macros.h"
+#include "device_control.h"
 #include "usb_uart.h"
+#include "error_handler.h"
+
 
 // Text attribute enums
 text_attribute_t attribute;
 text_color_t foreground_color;
 text_color_t background_color;
 
-volatile uint8_t usb_uart_TxHead = 0;
-volatile uint8_t usb_uart_TxTail = 0;
-volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
-volatile uint8_t usb_uart_TxBufferRemaining;
+volatile uint32_t usb_uart_TxHead = 0;
+volatile uint32_t usb_uart_TxTail = 0;
+volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
+volatile uint32_t usb_uart_TxBufferRemaining;
 
-volatile uint8_t usb_uart_RxHead = 0;
-volatile uint8_t usb_uart_RxTail = 0;
-volatile uint8_t usb_uart_RxBuffer[USB_UART_RX_BUFFER_SIZE];
-volatile uint8_t usb_uart_RxCount;
+volatile uint32_t usb_uart_RxHead = 0;
+volatile uint32_t usb_uart_RxTail = 0;
+volatile uint32_t usb_uart_RxBuffer[USB_UART_RX_BUFFER_SIZE];
+volatile uint32_t usb_uart_RxCount;
 
 volatile uint8_t usb_uart_RxStringReady = 0;
 
@@ -31,17 +37,9 @@ volatile uint8_t usb_uart_RxStringReady = 0;
 void USB_UART_Initialize(void) {
  
     // Disable UART 3 interrupts
-    disableInterrupt(UART3_Receive_Done);
-    disableInterrupt(UART3_Transfer_Done);
-    disableInterrupt(UART3_Fault);
-    
-    // initializing the driver state
-    usb_uart_TxHead = 0;
-    usb_uart_TxTail = 0;
-    usb_uart_TxBufferRemaining = sizeof(usb_uart_TxBuffer);
-    usb_uart_RxHead = 0;
-    usb_uart_RxTail = 0;
-    usb_uart_RxCount = 0;
+//    disableInterrupt(UART3_Receive_Done);
+//    disableInterrupt(UART3_Transfer_Done);
+//    disableInterrupt(UART3_Fault);
     
     // Turn off UART 3 for configuration
     U3MODEbits.ON = 0;
@@ -107,8 +105,14 @@ void USB_UART_Initialize(void) {
     // With PBCLK2 = 84 MHz, BRGH = 1, baud rate error is 0.16%
     U3BRG = 181;
     
-    // Enable UART 3
-    U3MODEbits.ON = 1;
+    // initializing the driver state
+    usb_uart_TxHead = 0;
+    usb_uart_TxTail = 0;
+    usb_uart_TxBufferRemaining = sizeof(usb_uart_TxBuffer);
+    usb_uart_RxHead = 0;
+    usb_uart_RxTail = 0;
+    usb_uart_RxCount = 0;
+    
     
     // Set interrupt priorities
     setInterruptPriority(UART3_Receive_Done, 2);
@@ -130,13 +134,17 @@ void USB_UART_Initialize(void) {
     enableInterrupt(UART3_Receive_Done);
     enableInterrupt(UART3_Fault);
     
+    // Enable UART 3
+    U3MODEbits.ON = 1;
+    
+    // Clear the terminal
+    USB_UART_clearTerminal();
+    USB_UART_setCursorHome();
+
 }
 
 // This is the USB UART receive interrupt service routine
 void __ISR(_UART3_RX_VECTOR, ipl2AUTO) USB_UART_Receive_ISR(void) {
-    
-    // Disable UART3 RX interrupt
-    disableInterrupt(UART3_Receive_Done);
     
     // Do receive tasks
     USB_UART_Receive_Handler();
@@ -144,16 +152,10 @@ void __ISR(_UART3_RX_VECTOR, ipl2AUTO) USB_UART_Receive_ISR(void) {
     // Clear receive interrupt flag
     clearInterruptFlag(UART3_Receive_Done);
     
-    // Enable UART3 Receive Interrupt
-    enableInterrupt(UART3_Receive_Done);
-    
 }
 
 // This is the USB UART transfer interrupt service routine
 void __ISR(_UART3_TX_VECTOR, ipl3AUTO) USB_UART_Transfer_ISR(void) {
-    
-    // Disable UART3 TX interrupt
-    disableInterrupt(UART3_Transfer_Done);
     
     // Do transfer tasks
     USB_UART_Transmit_Handler();
@@ -161,25 +163,16 @@ void __ISR(_UART3_TX_VECTOR, ipl3AUTO) USB_UART_Transfer_ISR(void) {
     // Clear interrupt flag
     clearInterruptFlag(UART3_Transfer_Done);
     
-    // Enable interrupt
-    enableInterrupt(UART3_Transfer_Done);
-    
-    
 }
 
 // This is the UAB UART fault interrupt service routine
 void __ISR(_UART3_FAULT_VECTOR, ipl1AUTO) USB_UART_Fault_ISR(void) {
     
-    // Disable UART 3 fault interrupt
-    disableInterrupt(UART3_Fault);
-    
     // TO-DO: Fault tasks
+    error_handler.USB_error_flag = 1;
     
     // Clear fault interrupt flag
     clearInterruptFlag(UART3_Fault);
-    
-    // Enable UART 3 Fault interrupt
-    enableInterrupt(UART3_Fault);
     
 }
 
@@ -199,10 +192,10 @@ uint8_t USB_UART_Read_Byte(void) {
         usb_uart_RxTail = 0;
     }
     
+    
     disableInterrupt(UART3_Receive_Done);
     usb_uart_RxCount--;
     enableInterrupt(UART3_Receive_Done);
-
     return readValue;
     
 }
@@ -211,14 +204,14 @@ uint8_t USB_UART_Read_Byte(void) {
 // This function adds a byte to the TX ring buffer
 void USB_UART_putchar(uint8_t txData) {
  
-    // Loop if the buffer is full
-    while(0 == usb_uart_TxBufferRemaining)
+     while(0 == usb_uart_TxBufferRemaining)
     {
     }
 
-    if(!getInterruptEnable(UART3_Transfer_Done))
+    if(0 == getInterruptEnable(UART3_Transfer_Done))
     {
         U3TXREG = txData;
+   
     }
     else
     {
@@ -235,7 +228,8 @@ void USB_UART_putchar(uint8_t txData) {
 
     }
 
-    enableInterrupt(UART3_Transfer_Done);
+     enableInterrupt(UART3_Transfer_Done);
+   
     
 }
 
@@ -254,19 +248,21 @@ void USB_UART_Transmit_Handler(void) {
     else
     {
         disableInterrupt(UART3_Transfer_Done);
+        
     }
     
     
 }
 
+
 // This serves as the RX handler and is called by the RX ISR
 void USB_UART_Receive_Handler(void) {
- 
-    if(1 == U3STAbits.OERR)
-    {
-        U3MODEbits.ON = 0;
-        U3MODEbits.ON = 1;
-    }
+            
+//    if(1 == U3STAbits.OERR)
+//    {
+//        U3MODEbits.ON = 0;
+//        U3MODEbits.ON = 1;
+//    }
     
     while(U3STAbits.URXDA) {
     
@@ -293,7 +289,7 @@ void USB_UART_Receive_Handler(void) {
     // data is ready to be read, since the terminal sent a newline or 
     // carriage return
     if((usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\n') || 
-            (usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\r')) {
+       (usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\r')) {
 
         usb_uart_RxStringReady = 1;
                 
@@ -306,7 +302,7 @@ void USB_UART_Receive_Handler(void) {
     }
    
     // If we've received a backspace
-    if((usb_uart_RxBuffer[usb_uart_RxHead -1] == (int) '\b')) {
+    if((usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\b')) {
      
         usb_uart_RxBuffer[usb_uart_RxHead - 1] = '\0';
         usb_uart_RxHead--;
@@ -337,13 +333,14 @@ void USB_UART_print(char charArray[]) {
     
 }
 
+
 // This function pulls data out of the RX ring buffer
 void USB_UART_ringBufferPull(void) {
 
     int charNumber = usb_uart_RxCount;
             
     // Clear line buffer
-    uint8_t index;
+    uint16_t index;
     for (index = 0; index < USB_UART_RX_BUFFER_SIZE; index++) {
 
         USB_UART_line[index] = '\0';
@@ -380,6 +377,7 @@ void USB_UART_ringBufferPull(void) {
     
 }
 
+
 // This function parses the data pulled from the RX ring buffer
 // This is the function that actually makes stuff happen based on commands
 // Enter the command you'd like to set up within the if statements as
@@ -398,6 +396,102 @@ void USB_UART_ringBufferLUT(char * line_in) {
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
 
+    if (strcmp(line_in, "Reset") == 0) {
+
+        deviceReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Clear") == 0) {
+     
+        USB_UART_clearTerminal();
+        USB_UART_setCursorHome();
+        
+    }
+    
+    else if (strcmp(line_in, "*IDN?") == 0) {
+     
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("E44 Electronic Display Logic Board\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Print Test Message") == 0) {
+        
+        USB_UART_printTestMessage();
+        
+    }
+    
+    else if (strcmp(line_in, "Credits") == 0) {
+     
+        USB_UART_textAttributes(YELLOW, BLUE, BOLD);
+        USB_UART_print("Marquette Senior Design 2018-2019\n\r");
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        USB_UART_textAttributes(BLUE, YELLOW, BOLD);
+        USB_UART_print("Team E44: EECE Office LED Display\n\r");
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        USB_UART_textAttributes(CYAN, BLACK, NORMAL);
+        USB_UART_print("Logan Wedel\n\r");
+        USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
+        USB_UART_print("Caroline Gilger\n\r");
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("Drew Maatman\n\r");
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Kevin Etta\n\r");
+        USB_UART_textAttributes(MAGENTA, BLACK, NORMAL);
+        USB_UART_print("Tuoxuan Ren\n\r");
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        
+    }
+    
+    else if (strcmp(line_in, "Help") == 0) {
+    
+        USB_UART_printHelpMessage();
+        
+    }
+    
+    else if (strcmp(line_in, "POS5 Enable") == 0) {
+     
+        POS5_RUN_PIN = 1;
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("POS5 RUN Asserted\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "POS5 Disable") == 0) {
+     
+        POS5_RUN_PIN = 0;
+        
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("POS5 RUN Deasserted\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "POS5P Enable") == 0) {
+     
+        POS5P_RUN_PIN = 1;
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("POS5P RUN Asserted\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "POS5P Disable") == 0) {
+     
+        POS5P_RUN_PIN = 0;
+        
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("POS5P RUN Deasserted\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
     
     
 }
@@ -562,47 +656,37 @@ void USB_UART_printHelpMessage(void) {
  
     USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
     USB_UART_print("Supported Commands:\n\r");
-    USB_UART_print("    LED On: Sets RE3\n\r");
-    USB_UART_print("    LED Off: Clears RE3\n\r");
     USB_UART_print("    Reset: Software Reset\n\r");
     USB_UART_print("    Clear: Clears the terminal\n\r");
     USB_UART_print("    *IDN?: Returns identification string\n\r");
-    USB_UART_print("    Enable Muxing: enables the multiplexing timer \n\r");
-    USB_UART_print("    Disable Muxing: disable the multiplexing timer \n\r");
-    USB_UART_print("    Device On Time?: Returns the device on time in seconds since last reset\n\r");
-    USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
-    USB_UART_print("    Credits: Displays creators\n\r");
+    USB_UART_print("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
+    USB_UART_print("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
+    USB_UART_print("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
+    USB_UART_print("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
+//     USB_UART_print("    Enable Muxing: enables the multiplexing timer \n\r");
+//     USB_UART_print("    Disable Muxing: disable the multiplexing timer \n\r");
+//     USB_UART_print("    Device On Time?: Returns the device on time in seconds since last reset\n\r");
+     USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
+//     USB_UART_print("    Credits: Displays creators\n\r");
     USB_UART_print("    Help: This Command\n\r");
-    USB_UART_print("    Set Red: Sets panels red\n\r");
-    USB_UART_print("    Set White: Sets panels white\n\r");    
-    USB_UART_print("    Set Blue: Sets panels blue\n\r");
-    USB_UART_print("    Set Yellow: Sets panels yellow\n\r");
-    USB_UART_print("    Set Cyan: Sets panels cyan\n\r");    
-    USB_UART_print("    Set Green: Sets panels green\n\r");    
-    USB_UART_print("    Set Magenta: Sets panels magenta\n\r");    
-    USB_UART_print("    Set MU Logo: Sets panel as MU Logo static image\n\r");
-    USB_UART_print("    Set Rand: Sets panel to random data\n\r");
-    USB_UART_print("    Set Test Image 2: Fills ram buffer with kevin's second test image\n\r");
-    USB_UART_print("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
-    USB_UART_print("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
-    USB_UART_print("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
-    USB_UART_print("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
-    USB_UART_print("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
-    USB_UART_print("    Set Red Rows: Fills ram buffer with red rows\n\r");
-    USB_UART_print("    Set Shocker: Displays an inappropriate test image\n\r");
-    USB_UART_print("    Set Drew 2: Displays drews second test image\n\r");
-    USB_UART_print("    Slow Muxing Speed: Slows down multiplexing\n\r");
-    USB_UART_print("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
-    USB_UART_print("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
-    USB_UART_print("    Set TV Test: Fills ram buffer with TV Test image\n\r");
-    USB_UART_print("    Set NFL: Fills ram buffer with kevin's NFL image\n\r");
-    USB_UART_print("    Set Colors: Fills ram buffer with colors\n\r");
-    USB_UART_print("    Set Addidas: Fills ram buffer with addidas image\n\r");
-    USB_UART_print("    Set BMW: Fills ram buffer with BMW logo\n\r");
-    USB_UART_print("    Set Fire: Fills ram buffer with fire\n\r");
-    USB_UART_print("    Set Swirl: Fills ram buffer with swirl image\n\r");
-    USB_UART_print("    Set Bosch: Fills ram buffer with bosch image\n\r");
-    USB_UART_print("    Set Kevin: Fills ram buffer with kevin image\n\r");
+//    USB_UART_print("    Set Red: Sets panels red\n\r");
+//    USB_UART_print("    Set White: Sets panels white\n\r");    
+//    USB_UART_print("    Set Blue: Sets panels blue\n\r");
+//    USB_UART_print("    Set Yellow: Sets panels yellow\n\r");
+//    USB_UART_print("    Set Cyan: Sets panels cyan\n\r");    
+//    USB_UART_print("    Set Green: Sets panels green\n\r");    
+//    USB_UART_print("    Set Magenta: Sets panels magenta\n\r");    
+//    USB_UART_print("    Set MU Logo: Sets panel as MU Logo static image\n\r");
+//    USB_UART_print("    Set Rand: Sets panel to random data\n\r");
+//    USB_UART_print("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
+//    USB_UART_print("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
+//    USB_UART_print("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
+//    USB_UART_print("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
+//    USB_UART_print("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
+//    USB_UART_print("    Set Red Rows: Fills ram buffer with red rows\n\r");
+//    USB_UART_print("    Slow Muxing Speed: Slows down multiplexing\n\r");
+//    USB_UART_print("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
+//    USB_UART_print("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     
     USB_UART_textAttributesReset();
 
@@ -614,11 +698,13 @@ void USB_UART_printTestMessage(void) {
     // Set starting text color white, background black, no fancy stuff
     // Print COM port settings
     USB_UART_textAttributesReset();
+    USB_UART_clearTerminal();
+    USB_UART_setCursorHome();
     USB_UART_print("Hello, World!\n\r");
     USB_UART_print("PIC32MZ USB UART Test\n\r");
     USB_UART_printNewline();
     USB_UART_print("COM Port Settings:\n\r");
-    USB_UART_print("    Baud Rate: 921600 bps\n\r");
+    USB_UART_print("    Baud Rate: 115200 bps\n\r");
     USB_UART_print("    Data: 8 bits\n\r");
     USB_UART_print("    Parity: None\n\r");
     USB_UART_print("    Stop: 1 bit\n\r");

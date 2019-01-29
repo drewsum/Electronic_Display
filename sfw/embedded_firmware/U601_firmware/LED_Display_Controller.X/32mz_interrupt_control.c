@@ -41,7 +41,7 @@ void setGlobalInterruptsState(uint8_t input_state) {
 void setInterruptEnable(interrupt_source_t input_interrupt, uint8_t input_state) {
  
     // Mask off anything larger than 1 to 1
-    input_state = input_state >= 1;
+    // input_state = input_state >= 1;
     
     // Decide which interrupt control bits to manipulate based on which interrupt
     // is being enabled or disabled
@@ -1719,7 +1719,7 @@ uint8_t getInterruptEnable(interrupt_source_t input_interrupt) {
 void setInterruptFlag(interrupt_source_t input_interrupt, uint8_t input_state) {
  
     // Mask off anything larger than 1 to 1
-    input_state = input_state >= 1;
+    // input_state = input_state >= 1;
     
     // Decide which interrupt control bits to manipulate based on which interrupt
     // is being enabled or disabled

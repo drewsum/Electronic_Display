@@ -1,6 +1,5 @@
 
 #include <xc.h>
-#include <proc/p32mz2048efh144.h>
 
 #include "watchdog_timer.h"
 
@@ -13,17 +12,6 @@ void watchdogTimerInitialize(void) {
     
     // Disable WDT window (window always open)
     WDTCONbits.WDTWINEN = 0;
-    
-    // Modify configuration words to set WDT postscaler to 1:2048
-    // This yields a timeout period of 2.048 seconds
-    DEVCFG1bits.WDTPS = 0b01011;
-    
-    // Verify WDTPS change actually occurred
-    if (DEVCFG1bits.WDTPS != 0b01011) {
-     
-        error_handler.configuration_error_flag = 1;
-        
-    }
     
     // Start the watchdog timer
     WDTCONbits.ON = 1;

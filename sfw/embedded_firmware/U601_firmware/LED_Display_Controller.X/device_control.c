@@ -100,6 +100,18 @@ void deviceReset(void) {
     
 }
 
+// This function is a software delay that simply counts loops while decrementing
+// the argument
+void softwareDelay(uint32_t inputDelay) {
+ 
+    while (inputDelay > 0) {
+     
+        inputDelay--;
+        
+    }
+    
+}
+
 // This function initializes the oscillator and PLL
 // This sets up a SYSCLK of 252 MHz
 // REFCLK1: Disabled
