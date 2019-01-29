@@ -77,7 +77,7 @@ void main(void) {
     gpioInitialize();
     
     // Initialize UART USB debugging
-    USB_UART_Initialize();
+    // USB_UART_Initialize();
     
     // Print debug message
     USB_UART_print(" System Boot\n\r");
