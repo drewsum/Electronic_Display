@@ -83,7 +83,7 @@ void main(void) {
     watchdogTimerInitialize();
     
     // Startup the deadman timer
-    // deadmanTimerInitialize();
+    deadmanTimerInitialize();
     
     // Enable Global Interrupts
     enableGlobalInterrupts();
@@ -96,7 +96,8 @@ void main(void) {
         
         // Twiddle thumbs
         Nop();
-    
+        
+        
     }
     
     

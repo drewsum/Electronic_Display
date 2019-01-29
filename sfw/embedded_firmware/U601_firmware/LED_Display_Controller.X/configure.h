@@ -18,6 +18,7 @@
 #ifndef _CONFIGURE_H    /* Guard against multiple inclusion */
 #define _CONFIGURE_H
 
+
 // PIC32MZ2048EFH144 Configuration Bit Settings
 
 // 'C' source line config statements
@@ -41,7 +42,7 @@
 
 // DEVCFG1
 #pragma config FNOSC = SPLL             // Oscillator Selection Bits (System PLL)
-#pragma config DMTINTV = WIN_0          // DMT Count Window Interval (Window/Interval value is zero)
+#pragma config DMTINTV = WIN_127_128    // DMT Count Window Interval (Window/Interval value is 127/128 counter value)
 #pragma config FSOSCEN = OFF            // Secondary Oscillator Enable (Disable SOSC)
 #pragma config IESO = OFF               // Internal/External Switch Over (Disabled)
 #pragma config POSCMOD = OFF            // Primary Oscillator Configuration (Primary osc disabled)
@@ -53,7 +54,7 @@
 #pragma config FWDTEN = ON              // Watchdog Timer Enable (WDT Enabled)
 #pragma config FWDTWINSZ = WINSZ_75     // Watchdog Timer Window Size (Window size is 75%)
 #pragma config DMTCNT = DMT31           // Deadman Timer Count Selection (2^31 (2147483648))
-#pragma config FDMTEN = OFF             // Deadman Timer Enable (Deadman Timer is disabled)
+#pragma config FDMTEN = ON              // Deadman Timer Enable (Deadman Timer is enabled)
 
 // DEVCFG0
 #pragma config DEBUG = OFF              // Background Debugger Enable (Debugger is disabled)
@@ -87,7 +88,6 @@
 // DEVADC4
 
 // DEVADC7
-
 
 #endif /* _CONFIGURE_H */
 

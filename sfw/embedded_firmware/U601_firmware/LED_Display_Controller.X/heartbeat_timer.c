@@ -92,7 +92,10 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
     kickTheDog();
     
     // Clear the deadman timer
-    // holdThumbTighter();
+    holdThumbTighter();
+    
+    // Check to see if DMT actually cleared
+    verifyThumbTightEnough();
     
     // TO-DO: If we're going to keep track of display on time with a counter, increment it here too
     
