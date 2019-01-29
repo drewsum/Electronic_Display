@@ -12,6 +12,7 @@
 #include "pin_macros.h"
 #include "device_control.h"
 #include "usb_uart.h"
+#include "error_handler.h"
 
 
 // Text attribute enums
@@ -168,6 +169,7 @@ void __ISR(_UART3_TX_VECTOR, ipl3AUTO) USB_UART_Transfer_ISR(void) {
 void __ISR(_UART3_FAULT_VECTOR, ipl1AUTO) USB_UART_Fault_ISR(void) {
     
     // TO-DO: Fault tasks
+    error_handler.USB_error_flag = 1;
     
     // Clear fault interrupt flag
     clearInterruptFlag(UART3_Fault);
