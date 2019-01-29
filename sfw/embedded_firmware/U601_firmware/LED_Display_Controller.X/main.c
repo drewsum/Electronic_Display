@@ -81,6 +81,7 @@ void main(void) {
     
     // Print debug message
     USB_UART_print(" System Boot\n\r");
+    USB_UART_textAttributes(GREEN, BLACK, NORMAL);
     USB_UART_print("Clocks Initialized to the following settings:\n\r");
     USB_UART_print("    SYSCLK: 252 MHz\n\r"
                    "    REFCLK1: Disabled\n\r"
@@ -121,6 +122,8 @@ void main(void) {
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
     USB_UART_print("Reset LED disabled\n\r");
+    
+    USB_UART_textAttributesReset();
     
     // Loop endlessly
     while (true) {

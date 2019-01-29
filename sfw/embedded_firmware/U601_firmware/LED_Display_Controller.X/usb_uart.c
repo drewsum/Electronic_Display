@@ -402,9 +402,94 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "Hello") == 0) {
+    else if (strcmp(line_in, "Clear") == 0) {
      
-        USB_UART_print("Hello back\n\r");
+        USB_UART_clearTerminal();
+        USB_UART_setCursorHome();
+        
+    }
+    
+    else if (strcmp(line_in, "*IDN?") == 0) {
+     
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("E44 Electronic Display Logic Board\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Print Test Message") == 0) {
+        
+        USB_UART_printTestMessage();
+        
+    }
+    
+    else if (strcmp(line_in, "Credits") == 0) {
+     
+        USB_UART_textAttributes(YELLOW, BLUE, BOLD);
+        USB_UART_print("Marquette Senior Design 2018-2019\n\r");
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        USB_UART_textAttributes(BLUE, YELLOW, BOLD);
+        USB_UART_print("Team E44: EECE Office LED Display\n\r");
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        USB_UART_textAttributes(CYAN, BLACK, NORMAL);
+        USB_UART_print("Logan Wedel\n\r");
+        USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
+        USB_UART_print("Caroline Gilger\n\r");
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("Drew Maatman\n\r");
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Kevin Etta\n\r");
+        USB_UART_textAttributes(MAGENTA, BLACK, NORMAL);
+        USB_UART_print("Tuoxuan Ren\n\r");
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        
+    }
+    
+    else if (strcmp(line_in, "Help") == 0) {
+    
+        USB_UART_printHelpMessage();
+        
+    }
+    
+    else if (strcmp(line_in, "POS5 Enable") == 0) {
+     
+        POS5_RUN_PIN = 1;
+        
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("POS5 RUN Asserted\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "POS5 Disable") == 0) {
+     
+        POS5_RUN_PIN = 0;
+        
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("POS5 RUN Deasserted\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "POS5P Enable") == 0) {
+     
+        POS5P_RUN_PIN = 1;
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("POS5P RUN Asserted\n\r");
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "POS5P Disable") == 0) {
+     
+        POS5P_RUN_PIN = 0;
+        
+        USB_UART_textAttributes(RED, BLACK, NORMAL);
+        USB_UART_print("POS5P RUN Deasserted\n\r");
+        USB_UART_textAttributesReset();
         
     }
     
@@ -571,47 +656,37 @@ void USB_UART_printHelpMessage(void) {
  
     USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
     USB_UART_print("Supported Commands:\n\r");
-    USB_UART_print("    LED On: Sets RE3\n\r");
-    USB_UART_print("    LED Off: Clears RE3\n\r");
     USB_UART_print("    Reset: Software Reset\n\r");
     USB_UART_print("    Clear: Clears the terminal\n\r");
     USB_UART_print("    *IDN?: Returns identification string\n\r");
-    USB_UART_print("    Enable Muxing: enables the multiplexing timer \n\r");
-    USB_UART_print("    Disable Muxing: disable the multiplexing timer \n\r");
-    USB_UART_print("    Device On Time?: Returns the device on time in seconds since last reset\n\r");
-    USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
-    USB_UART_print("    Credits: Displays creators\n\r");
+    USB_UART_print("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
+    USB_UART_print("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
+    USB_UART_print("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
+    USB_UART_print("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
+//     USB_UART_print("    Enable Muxing: enables the multiplexing timer \n\r");
+//     USB_UART_print("    Disable Muxing: disable the multiplexing timer \n\r");
+//     USB_UART_print("    Device On Time?: Returns the device on time in seconds since last reset\n\r");
+     USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
+//     USB_UART_print("    Credits: Displays creators\n\r");
     USB_UART_print("    Help: This Command\n\r");
-    USB_UART_print("    Set Red: Sets panels red\n\r");
-    USB_UART_print("    Set White: Sets panels white\n\r");    
-    USB_UART_print("    Set Blue: Sets panels blue\n\r");
-    USB_UART_print("    Set Yellow: Sets panels yellow\n\r");
-    USB_UART_print("    Set Cyan: Sets panels cyan\n\r");    
-    USB_UART_print("    Set Green: Sets panels green\n\r");    
-    USB_UART_print("    Set Magenta: Sets panels magenta\n\r");    
-    USB_UART_print("    Set MU Logo: Sets panel as MU Logo static image\n\r");
-    USB_UART_print("    Set Rand: Sets panel to random data\n\r");
-    USB_UART_print("    Set Test Image 2: Fills ram buffer with kevin's second test image\n\r");
-    USB_UART_print("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
-    USB_UART_print("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
-    USB_UART_print("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
-    USB_UART_print("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
-    USB_UART_print("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
-    USB_UART_print("    Set Red Rows: Fills ram buffer with red rows\n\r");
-    USB_UART_print("    Set Shocker: Displays an inappropriate test image\n\r");
-    USB_UART_print("    Set Drew 2: Displays drews second test image\n\r");
-    USB_UART_print("    Slow Muxing Speed: Slows down multiplexing\n\r");
-    USB_UART_print("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
-    USB_UART_print("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
-    USB_UART_print("    Set TV Test: Fills ram buffer with TV Test image\n\r");
-    USB_UART_print("    Set NFL: Fills ram buffer with kevin's NFL image\n\r");
-    USB_UART_print("    Set Colors: Fills ram buffer with colors\n\r");
-    USB_UART_print("    Set Addidas: Fills ram buffer with addidas image\n\r");
-    USB_UART_print("    Set BMW: Fills ram buffer with BMW logo\n\r");
-    USB_UART_print("    Set Fire: Fills ram buffer with fire\n\r");
-    USB_UART_print("    Set Swirl: Fills ram buffer with swirl image\n\r");
-    USB_UART_print("    Set Bosch: Fills ram buffer with bosch image\n\r");
-    USB_UART_print("    Set Kevin: Fills ram buffer with kevin image\n\r");
+//    USB_UART_print("    Set Red: Sets panels red\n\r");
+//    USB_UART_print("    Set White: Sets panels white\n\r");    
+//    USB_UART_print("    Set Blue: Sets panels blue\n\r");
+//    USB_UART_print("    Set Yellow: Sets panels yellow\n\r");
+//    USB_UART_print("    Set Cyan: Sets panels cyan\n\r");    
+//    USB_UART_print("    Set Green: Sets panels green\n\r");    
+//    USB_UART_print("    Set Magenta: Sets panels magenta\n\r");    
+//    USB_UART_print("    Set MU Logo: Sets panel as MU Logo static image\n\r");
+//    USB_UART_print("    Set Rand: Sets panel to random data\n\r");
+//    USB_UART_print("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
+//    USB_UART_print("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
+//    USB_UART_print("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
+//    USB_UART_print("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
+//    USB_UART_print("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
+//    USB_UART_print("    Set Red Rows: Fills ram buffer with red rows\n\r");
+//    USB_UART_print("    Slow Muxing Speed: Slows down multiplexing\n\r");
+//    USB_UART_print("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
+//    USB_UART_print("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     
     USB_UART_textAttributesReset();
 
@@ -623,11 +698,13 @@ void USB_UART_printTestMessage(void) {
     // Set starting text color white, background black, no fancy stuff
     // Print COM port settings
     USB_UART_textAttributesReset();
+    USB_UART_clearTerminal();
+    USB_UART_setCursorHome();
     USB_UART_print("Hello, World!\n\r");
     USB_UART_print("PIC32MZ USB UART Test\n\r");
     USB_UART_printNewline();
     USB_UART_print("COM Port Settings:\n\r");
-    USB_UART_print("    Baud Rate: 921600 bps\n\r");
+    USB_UART_print("    Baud Rate: 115200 bps\n\r");
     USB_UART_print("    Data: 8 bits\n\r");
     USB_UART_print("    Parity: None\n\r");
     USB_UART_print("    Stop: 1 bit\n\r");
