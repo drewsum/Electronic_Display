@@ -80,7 +80,7 @@ void main(void) {
     heartbeatTimerInitialize();
     
     // Setup the watchdog timer
-    // watchdogTimerInitialize();
+    watchdogTimerInitialize();
     
     // Startup the deadman timer
     // deadmanTimerInitialize();
@@ -90,8 +90,6 @@ void main(void) {
     
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
-    
-    POS5_RUN_PIN = 1;
     
     // Loop endlessly
     while (true) {

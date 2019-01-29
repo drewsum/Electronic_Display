@@ -89,7 +89,7 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
     device_on_time_counter++;
     
     // Clear the watchdog timer
-    // kickTheDog();
+    kickTheDog();
     
     // Clear the deadman timer
     // holdThumbTighter();
