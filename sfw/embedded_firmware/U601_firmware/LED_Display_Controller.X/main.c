@@ -58,15 +58,17 @@
 // Miscellaneous Board Control
 #include "misc_board_control.h"
 
+// USB UART Command Ready Flag
+extern volatile uint8_t usb_uart_RxStringReady;
+
 // Main program entry point
 void main(void) {
     
-        
-    // Enable Global Interrupts
-    enableGlobalInterrupts();
-    
     // Enable multi-vector interrupt mode
     INTCONbits.MVEC = 1;
+    
+    // Enable Global Interrupts
+    enableGlobalInterrupts();
     
     // Initialize system clocks
     clockInitialize();
@@ -125,6 +127,13 @@ void main(void) {
         
         // Twiddle thumbs
         Nop();
+                
+        // Check if we've got a received USB UART command waiting
+        if(usb_uart_RxStringReady) {
+
+            USB_UART_ringBufferPull();
+        
+        }
         
         
     }

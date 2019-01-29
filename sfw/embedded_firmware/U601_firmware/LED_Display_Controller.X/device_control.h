@@ -37,6 +37,10 @@ void deviceLock(void);
 // This function resets the microcontroller
 void deviceReset(void);
 
+// This function is a software delay that simply counts loops while decrementing
+// the argument
+void softwareDelay(uint32_t inputDelay);
+
 // This function initializes the system clocks
 void clockInitialize(void);
 

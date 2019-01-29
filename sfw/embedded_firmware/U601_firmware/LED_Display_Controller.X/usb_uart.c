@@ -1,14 +1,18 @@
 
 #include <xc.h>
+
+#include <xc.h>
 #include <string.h>
+
 
 // These are macros needed for defining ISRs, included in XC32
 #include <sys/attribs.h>
 
 #include "32mz_interrupt_control.h"
 #include "pin_macros.h"
-
+#include "device_control.h"
 #include "usb_uart.h"
+
 
 // Text attribute enums
 text_attribute_t attribute;
@@ -142,7 +146,7 @@ void USB_UART_Initialize(void) {
 void __ISR(_UART3_RX_VECTOR, ipl2AUTO) USB_UART_Receive_ISR(void) {
     
     // Do receive tasks
-    // USB_UART_Receive_Handler();
+    USB_UART_Receive_Handler();
     
     // Clear receive interrupt flag
     clearInterruptFlag(UART3_Receive_Done);
@@ -169,6 +173,31 @@ void __ISR(_UART3_FAULT_VECTOR, ipl1AUTO) USB_UART_Fault_ISR(void) {
     clearInterruptFlag(UART3_Fault);
     
 }
+
+// This function pulls a byte from the RX ring buffer
+uint8_t USB_UART_Read_Byte(void) {
+ 
+    uint8_t readValue  = 0;
+    
+    // This state should never be entered
+    while(0 == usb_uart_RxCount)
+    {
+    }
+
+    readValue = usb_uart_RxBuffer[usb_uart_RxTail++];
+    if(sizeof(usb_uart_RxBuffer) <= usb_uart_RxTail)
+    {
+        usb_uart_RxTail = 0;
+    }
+    
+    
+    disableInterrupt(UART3_Receive_Done);
+    usb_uart_RxCount--;
+    enableInterrupt(UART3_Receive_Done);
+    return readValue;
+    
+}
+
 
 // This function adds a byte to the TX ring buffer
 void USB_UART_putchar(uint8_t txData) {
@@ -223,6 +252,73 @@ void USB_UART_Transmit_Handler(void) {
     
 }
 
+
+// This serves as the RX handler and is called by the RX ISR
+void USB_UART_Receive_Handler(void) {
+            
+//    if(1 == U3STAbits.OERR)
+//    {
+//        U3MODEbits.ON = 0;
+//        U3MODEbits.ON = 1;
+//    }
+    
+    while(U3STAbits.URXDA) {
+    
+        usb_uart_RxBuffer[usb_uart_RxHead++] = U3RXREG;
+        
+        if(sizeof(usb_uart_RxBuffer) <= usb_uart_RxHead)
+        {
+            usb_uart_RxHead = 0;
+        }
+        usb_uart_RxCount++;
+        
+    }
+    
+    // Empty hardware FIFO
+    int dummy;
+    while(U3STAbits.URXDA) {
+                 
+        dummy = U3RXREG;
+                    
+    }
+    
+    
+    // This chunk tells main() or whatever is pulling from the ring buffer that
+    // data is ready to be read, since the terminal sent a newline or 
+    // carriage return
+    if((usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\n') || 
+       (usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\r')) {
+
+        usb_uart_RxStringReady = 1;
+                
+    }
+    
+    else {
+        
+        usb_uart_RxStringReady = 0;
+        
+    }
+   
+    // If we've received a backspace
+    if((usb_uart_RxBuffer[usb_uart_RxHead - 1] == (int) '\b')) {
+     
+        usb_uart_RxBuffer[usb_uart_RxHead - 1] = '\0';
+        usb_uart_RxHead--;
+ 
+        // Erase the "backspaced" character on terminal
+        USB_UART_print("\033[K");
+        
+        if(usb_uart_RxHead != usb_uart_RxTail) {
+        
+            usb_uart_RxBuffer[usb_uart_RxHead - 1] = '\0';
+            usb_uart_RxHead--;
+
+        }
+        
+    }
+    
+}
+
 // This function prints strings on the terminal 
 void USB_UART_print(char charArray[]) {
     
@@ -232,6 +328,50 @@ void USB_UART_print(char charArray[]) {
         USB_UART_putchar(charArray[i]);
         
     }
+    
+}
+
+
+// This function pulls data out of the RX ring buffer
+void USB_UART_ringBufferPull(void) {
+
+    int charNumber = usb_uart_RxCount;
+            
+    // Clear line buffer
+    uint16_t index;
+    for (index = 0; index < USB_UART_RX_BUFFER_SIZE; index++) {
+
+        USB_UART_line[index] = '\0';
+
+    }
+
+    // Fill line from ring buffer
+    index = 0;
+    for(index = 0; index < charNumber; index++){
+
+        USB_UART_line[index] = USB_UART_Read_Byte();
+
+    }
+
+    // Reset ring buffer
+    usb_uart_RxTail = usb_uart_RxHead;
+
+    // Try to kill off ending returns/newlines
+    while((USB_UART_line[strlen(USB_UART_line) - 1] == (int) '\n') ||
+          (USB_UART_line[strlen(USB_UART_line) - 1] == (int) '\r')) {
+     
+        // NULL
+        USB_UART_line[strlen(USB_UART_line) - 1] = '\0';
+        
+    }
+    
+
+    // Clear ready flag
+    usb_uart_RxStringReady = 0;
+
+    // Check to see if line matches a command
+    USB_UART_ringBufferLUT(USB_UART_line);
+
     
 }
 
@@ -254,6 +394,17 @@ void USB_UART_ringBufferLUT(char * line_in) {
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
 
+    if (strcmp(line_in, "Reset") == 0) {
+
+        deviceReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Hello") == 0) {
+     
+        USB_UART_print("Hello back\n\r");
+        
+    }
     
     
 }
