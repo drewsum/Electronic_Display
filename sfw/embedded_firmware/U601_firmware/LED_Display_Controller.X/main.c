@@ -77,53 +77,55 @@ void main(void) {
     gpioInitialize();
     
     // Initialize UART USB debugging
-    // USB_UART_Initialize();
+    USB_UART_Initialize();
     
     // Print debug message
-    USB_UART_print(" System Boot\n\r");
+    printf(" Logic Board Initializing...\n\r");
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-    USB_UART_print("Clocks Initialized to the following settings:\n\r");
-    USB_UART_print("    SYSCLK: 252 MHz\n\r"
-                   "    REFCLK1: Disabled\n\r"
-                   "    REFCLK2: Disabled\n\r"
-                   "    REFCLK3: Disabled\n\r"
-                   "    REFCLK4: Disabled\n\r"
-                   "    PBCLK1: 84 MHz\n\r"
-                   "    PBCLK2: 84 MHz\n\r"
-                   "    PBCLK3: 15.75 MHz\n\r"
-                   "    PBCLK4: 84 MHz\n\r"
-                   "    PBCLK5: 84 MHz\n\r"
-                   "    PBCLK7: 252 MHz\n\r"
-                   "    PBCLK8: 84 MHz\n\r");   
-    USB_UART_print("GPIO Pins Initialized\n\r");
-    USB_UART_print("USB UART Initialized to the following settings:\n\r"
-                   "    Baud Rate: 115.2 kbs\n\r"
-                   "    Data Length: 8 bits\n\r"
-                   "    Parity: None\n\r"
-                   "    Stop Bits: 1\n\r"
-                   "    Flow Control: None\n\r");
+    printf("Clocks Initialized to the following settings:\n\r");
+    printf("    SYSCLK: %s\n\r", stringFromClockSetting(SYSCLK_INT));
+    printf("    REFCLK1: %s\n\r", stringFromClockSetting(REFCLK1_INT));
+    printf("    REFCLK2: %s\n\r", stringFromClockSetting(REFCLK2_INT));
+    printf("    REFCLK3: %s\n\r", stringFromClockSetting(REFCLK3_INT));
+    printf("    REFCLK4: %s\n\r", stringFromClockSetting(REFCLK4_INT));
+    printf("    PBCLK1: %s\n\r", stringFromClockSetting(PBCLK1_INT));
+    printf("    PBCLK2: %s\n\r", stringFromClockSetting(PBCLK2_INT));
+    printf("    PBCLK3: %s\n\r", stringFromClockSetting(PBCLK3_INT));
+    printf("    PBCLK4: %s\n\r", stringFromClockSetting(PBCLK4_INT));
+    printf("    PBCLK5: %s\n\r", stringFromClockSetting(PBCLK5_INT));
+    printf("    PBCLK7: %s\n\r", stringFromClockSetting(PBCLK7_INT));
+    printf("    PBCLK8: %s\n\r", stringFromClockSetting(PBCLK8_INT));
+    
+    printf("GPIO Pins Initialized\n\r");
+    printf("USB UART Initialized to the following settings:\n\r");
+    printf("    Baud Rate: %s\n\r", USB_UART_BAUD_RATE_STR);
+    printf("    Data Length: %s\n\r", USB_UART_DATA_LENGTH_STR);
+    printf("    Parity: %s\n\r", USB_UART_PARITY_STR);
+    printf("    Stop Bits: %s\n\r", USB_UART_STOP_BITS_STR);
+    printf("    Flow Control: %s\n\r", USB_UART_FLOW_CONTROL_STR);
     
     // Setup heartbeat timer
     heartbeatTimerInitialize();
-    USB_UART_print("Heartbeat Timer Initialized\n\r");
+    printf("Heartbeat Timer Initialized\n\r");
     
     // Disable unused peripherals for power savings
     PMDInitialize();
-    USB_UART_print("Peripheral Module Disable Initialized for reduced power consumption\n\r");
+    printf("Unused Peripheral Modules Disabled\n\r");
             
     // Setup the watchdog timer
     watchdogTimerInitialize();
-    USB_UART_print("Watchdog Timer Initialized with a timeout of 2.048 seconds\n\r");
+    printf("Watchdog Timer Initialized with a timeout of %s\n\r", WATCHDOG_TIMER_TIMEOUT_STR);
     
     // Startup the deadman timer
     deadmanTimerInitialize();
-    USB_UART_print("Deadman Timer Initialized with a timeout of 2147483648 instruction fetches\n\r");
+    printf("Deadman Timer Initialized with a timeout of %s\n\r", DEADMAN_TIMER_TIMEOUT_STR);
     
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
-    USB_UART_print("Reset LED disabled\n\r");
+    printf("Reset LED disabled\n\r");
     
     USB_UART_textAttributesReset();
+    
     
     // Loop endlessly
     while (true) {

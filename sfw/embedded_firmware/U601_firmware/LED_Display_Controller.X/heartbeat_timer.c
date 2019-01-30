@@ -67,9 +67,6 @@ void heartbeatTimerStop(void) {
 // Heartbeat timer interrupt service routine
 void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
 
-    // Disable timer 1 interrupt
-    // disableInterrupt(Timer1);
-    
     // Toggle heartbeat LED
     HEARTBEAT_LED_PIN = !(HEARTBEAT_LED_PIN);
     
@@ -77,10 +74,10 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
     device_on_time_counter++;
     
     // Clear the watchdog timer
-    // kickTheDog();
+    kickTheDog();
     
     // Clear the deadman timer
-    // holdThumbTighter();
+    holdThumbTighter();
     
     // Check to see if DMT actually cleared
     verifyThumbTightEnough();
@@ -89,9 +86,6 @@ void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
     
     // Clear interrupt flag
     clearInterruptFlag(Timer1);
-    
-    // Re-enable interrupt
-    // enableInterrupt(Timer1);
     
 
 }

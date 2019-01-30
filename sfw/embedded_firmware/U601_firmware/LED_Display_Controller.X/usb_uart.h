@@ -20,8 +20,16 @@
 #include <sys/attribs.h>
 
 // Sizes of TX and RX ring buffers
-#define USB_UART_TX_BUFFER_SIZE 256
-#define USB_UART_RX_BUFFER_SIZE 256
+#define USB_UART_TX_BUFFER_SIZE 4096
+#define USB_UART_RX_BUFFER_SIZE 1024
+
+// Hardcoded COM Port Descriptor Strings
+#define USB_UART_BAUD_RATE_STR          "115.2 kbs"
+#define USB_UART_DATA_LENGTH_STR        "8 bits"
+#define USB_UART_PARITY_STR             "None"
+#define USB_UART_STOP_BITS_STR          "1"
+#define USB_UART_FLOW_CONTROL_STR       "None"
+
 
 // Output character buffer
 char output_buff[USB_UART_TX_BUFFER_SIZE];
