@@ -16,6 +16,7 @@
 /* ************************************************************************** */
 
 #include <xc.h>
+#include <stdio.h>
 
 #include "device_control.h"
 
@@ -360,6 +361,40 @@ void PBCLK8Initialize(void) {
     PB8DIVbits.ON = 1;
     
 }
+
+// This function returns a formatted string of the clock setting
+char * stringFromClockSetting(uint32_t clock_integer) {
+    
+    static char return_string[20];
+    
+    if (clock_integer >= 1000000) {
+     
+        sprintf(return_string, "%.2f MHz", clock_integer / 1000000.0);
+        
+    }
+    
+    else if (clock_integer >= 1000) {
+     
+        sprintf(return_string, "%.2f kHz", clock_integer / 1000.0);
+        
+    }
+    
+    else if (clock_integer > 0) {
+     
+        sprintf(return_string, "%.2f Hz", (float) clock_integer);
+        
+    }
+    
+    else if (clock_integer == 0) {
+     
+        sprintf(return_string, "Disabled");
+        
+    }
+    
+    return return_string;
+    
+}
+
 
 // This function unlocks peripheral pin select
 // THIS CAN ONLY BE CALLED ONCE PER DEVICE RESET!!!

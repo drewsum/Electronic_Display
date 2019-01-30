@@ -22,6 +22,20 @@
 
 #include "32mz_interrupt_control.h"
 
+// Hardcoded Clock Setting Integers, in Hertz
+#define SYSCLK_INT          252000000
+#define REFCLK1_INT         0
+#define REFCLK2_INT         0
+#define REFCLK3_INT         0
+#define REFCLK4_INT         0
+#define PBCLK1_INT          84000000
+#define PBCLK2_INT          84000000
+#define PBCLK3_INT          15750000
+#define PBCLK4_INT          84000000
+#define PBCLK5_INT          84000000
+#define PBCLK7_INT          252000000
+#define PBCLK8_INT          84000000
+
 // Unlock system function
 // This function unlocks the device so that device parameters can be changed
 // and the microcontroller can be reset
@@ -43,6 +57,9 @@ void softwareDelay(uint32_t inputDelay);
 
 // This function initializes the system clocks
 void clockInitialize(void);
+
+// This function returns a formatted string of a given clock setting from an integer
+char * stringFromClockSetting(uint32_t clock_integer);
 
 // This function unlocks peripheral pin select
 // THIS CAN ONLY BE CALLED ONCE PER DEVICE RESET!!!
