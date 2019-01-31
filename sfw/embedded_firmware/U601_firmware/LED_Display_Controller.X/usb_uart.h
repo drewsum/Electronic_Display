@@ -108,12 +108,6 @@ void USB_UART_textAttributes(text_color_t foreground_color,
         text_color_t background_color,
         text_attribute_t input_attribute);
 
-// This function returns a string for setting text attributes
-char * sprint_textAttributes(text_color_t foreground_color,
-        text_color_t background_color,
-        text_attribute_t input_attribute);
-
-
 // Reset to white foreground, black background, no fancy stuff
 void USB_UART_textAttributesReset(void);
 
