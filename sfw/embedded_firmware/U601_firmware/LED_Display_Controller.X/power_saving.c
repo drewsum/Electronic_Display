@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "power_saving.h"
+#include "usb_uart.h"
 
 // This function disables unused peripherals on startup for power savings
 // THIS FUNCTION CAN ONLY BE CALLED ONCE DUE TO PMD LOCKOUT AFTER ONE WRITE SESSION
@@ -129,7 +130,7 @@ void PMDInitialize(void) {
 // This function returns a strong with the status of PMD settings
 char * getStringPMDStatus(void) {
  
-    static char return_string[1024];
+    static char return_string[USB_UART_TX_BUFFER_SIZE];
     
     // clear return string
     int i;
@@ -142,169 +143,232 @@ char * getStringPMDStatus(void) {
     char buff[64];
     
     // ADC
-    sprintf(buff, "   ADC Enabled: %s\n\r", PMD1bits.ADCMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   ADC Enabled:                              %s\n\r", PMD1bits.ADCMD ? "False" : " True");
     strcat(return_string, buff);
     
     // CVREF
-    sprintf(buff, "   Comparator Voltage Reference Enabled: %s\n\r", PMD1bits.CVRMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Comparator Voltage Reference Enabled:     %s\n\r", PMD1bits.CVRMD ? "False" : " True");
     strcat(return_string, buff);
     
     // Comparators
-    sprintf(buff, "   Comparator 1 Enabled: %s\n\r", PMD2bits.CMP1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Comparator 1 Enabled:                     %s\n\r", PMD2bits.CMP1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Comparator 2 Enabled: %s\n\r", PMD2bits.CMP2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Comparator 2 Enabled:                     %s\n\r", PMD2bits.CMP2MD ? "False" : " True");
     strcat(return_string, buff);
     
     // Input Capture Modules:
-    sprintf(buff, "   Input Capture 1 Enabled: %s\n\r", PMD3bits.IC1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Input Capture 1 Enabled:                  %s\n\r", PMD3bits.IC1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Input Capture 2 Enabled: %s\n\r", PMD3bits.IC2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Input Capture 2 Enabled:                  %s\n\r", PMD3bits.IC2MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Input Capture 3 Enabled: %s\n\r", PMD3bits.IC3MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Input Capture 3 Enabled:                  %s\n\r", PMD3bits.IC3MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Input Capture 4 Enabled: %s\n\r", PMD3bits.IC4MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Input Capture 4 Enabled:                  %s\n\r", PMD3bits.IC4MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Input Capture 5 Enabled: %s\n\r", PMD3bits.IC5MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Input Capture 5 Enabled:                  %s\n\r", PMD3bits.IC5MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Input Capture 6 Enabled: %s\n\r", PMD3bits.IC6MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Input Capture 6 Enabled:                  %s\n\r", PMD3bits.IC6MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Input Capture 7 Enabled: %s\n\r", PMD3bits.IC7MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Input Capture 7 Enabled:                  %s\n\r", PMD3bits.IC7MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Input Capture 8 Enabled: %s\n\r", PMD3bits.IC8MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Input Capture 8 Enabled:                  %s\n\r", PMD3bits.IC8MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Input Capture 9 Enabled: %s\n\r", PMD3bits.IC9MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Input Capture 9 Enabled:                  %s\n\r", PMD3bits.IC9MD ? "False" : " True");
     strcat(return_string, buff);
     
     // Output Compare Modules
-    sprintf(buff, "   Output Compare 1 Enabled: %s\n\r", PMD3bits.OC1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Output Compare 1 Enabled:                 %s\n\r", PMD3bits.OC1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Output Compare 2 Enabled: %s\n\r", PMD3bits.OC2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Output Compare 2 Enabled:                 %s\n\r", PMD3bits.OC2MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Output Compare 3 Enabled: %s\n\r", PMD3bits.OC3MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Output Compare 3 Enabled:                 %s\n\r", PMD3bits.OC3MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Output Compare 4 Enabled: %s\n\r", PMD3bits.OC4MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Output Compare 4 Enabled:                 %s\n\r", PMD3bits.OC4MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Output Compare 5 Enabled: %s\n\r", PMD3bits.OC5MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Output Compare 5 Enabled:                 %s\n\r", PMD3bits.OC5MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Output Compare 6 Enabled: %s\n\r", PMD3bits.OC6MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Output Compare 6 Enabled:                 %s\n\r", PMD3bits.OC6MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Output Compare 7 Enabled: %s\n\r", PMD3bits.OC7MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Output Compare 7 Enabled:                 %s\n\r", PMD3bits.OC7MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Output Compare 8 Enabled: %s\n\r", PMD3bits.OC8MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Output Compare 8 Enabled:                 %s\n\r", PMD3bits.OC8MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Output Compare 9 Enabled: %s\n\r", PMD3bits.OC9MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Output Compare 9 Enabled:                 %s\n\r", PMD3bits.OC9MD ? "False" : " True");
     strcat(return_string, buff);
     
     // Timers
-    sprintf(buff, "   Timer 1 Enabled: %s\n\r", PMD4bits.T1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Timer 1 Enabled:                          %s\n\r", PMD4bits.T1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Timer 2 Enabled: %s\n\r", PMD4bits.T2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Timer 2 Enabled:                          %s\n\r", PMD4bits.T2MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Timer 3 Enabled: %s\n\r", PMD4bits.T3MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Timer 3 Enabled:                          %s\n\r", PMD4bits.T3MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Timer 4 Enabled: %s\n\r", PMD4bits.T4MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Timer 4 Enabled:                          %s\n\r", PMD4bits.T4MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Timer 5 Enabled: %s\n\r", PMD4bits.T5MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Timer 5 Enabled:                          %s\n\r", PMD4bits.T5MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Timer 6 Enabled: %s\n\r", PMD4bits.T6MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Timer 6 Enabled:                          %s\n\r", PMD4bits.T6MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Timer 7 Enabled: %s\n\r", PMD4bits.T7MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Timer 7 Enabled:                          %s\n\r", PMD4bits.T7MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Timer 8 Enabled: %s\n\r", PMD4bits.T8MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Timer 8 Enabled:                          %s\n\r", PMD4bits.T8MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Timer 9 Enabled: %s\n\r", PMD4bits.T9MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Timer 9 Enabled:                          %s\n\r", PMD4bits.T9MD ? "False" : " True");
     strcat(return_string, buff);
     
     // UART Modules
-    sprintf(buff, "   UART 1 Enabled: %s\n\r", PMD5bits.U1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   UART 1 Enabled:                           %s\n\r", PMD5bits.U1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   UART 2 Enabled: %s\n\r", PMD5bits.U2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   UART 2 Enabled:                           %s\n\r", PMD5bits.U2MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   UART 3 Enabled: %s\n\r", PMD5bits.U3MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   UART 3 Enabled:                           %s\n\r", PMD5bits.U3MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   UART 4 Enabled: %s\n\r", PMD5bits.U4MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   UART 4 Enabled:                           %s\n\r", PMD5bits.U4MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   UART 5 Enabled: %s\n\r", PMD5bits.U5MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   UART 5 Enabled:                           %s\n\r", PMD5bits.U5MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   UART 6 Enabled: %s\n\r", PMD5bits.U6MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   UART 6 Enabled:                           %s\n\r", PMD5bits.U6MD ? "False" : " True");
     strcat(return_string, buff);
     
     // SPI Modules
-    sprintf(buff, "   SPI 1 Enabled: %s\n\r", PMD5bits.SPI1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   SPI 1 Enabled:                            %s\n\r", PMD5bits.SPI1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   SPI 2 Enabled: %s\n\r", PMD5bits.SPI2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   SPI 2 Enabled:                            %s\n\r", PMD5bits.SPI2MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   SPI 3 Enabled: %s\n\r", PMD5bits.SPI3MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   SPI 3 Enabled:                            %s\n\r", PMD5bits.SPI3MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   SPI 4 Enabled: %s\n\r", PMD5bits.SPI4MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   SPI 4 Enabled:                            %s\n\r", PMD5bits.SPI4MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   SPI 5 Enabled: %s\n\r", PMD5bits.SPI5MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   SPI 5 Enabled:                            %s\n\r", PMD5bits.SPI5MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   SPI 6 Enabled: %s\n\r", PMD5bits.SPI6MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   SPI 6 Enabled:                            %s\n\r", PMD5bits.SPI6MD ? "False" : " True");
     strcat(return_string, buff);
     
     // I2C Modules
-    sprintf(buff, "   I2C 1 Enabled: %s\n\r", PMD5bits.I2C1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   I2C 1 Enabled:                            %s\n\r", PMD5bits.I2C1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   I2C 2 Enabled: %s\n\r", PMD5bits.I2C2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   I2C 2 Enabled:                            %s\n\r", PMD5bits.I2C2MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   I2C 3 Enabled: %s\n\r", PMD5bits.I2C3MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   I2C 3 Enabled:                            %s\n\r", PMD5bits.I2C3MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   I2C 4 Enabled: %s\n\r", PMD5bits.I2C4MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   I2C 4 Enabled:                            %s\n\r", PMD5bits.I2C4MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   I2C 5 Enabled: %s\n\r", PMD5bits.I2C5MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   I2C 5 Enabled:                            %s\n\r", PMD5bits.I2C5MD ? "False" : " True");
     strcat(return_string, buff);
     
     // USB Module
-    sprintf(buff, "   USB Enabled: %s\n\r", PMD5bits.USBMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   USB Enabled:                              %s\n\r", PMD5bits.USBMD ? "False" : " True");
     strcat(return_string, buff);
     
     // CAN Modules
-    sprintf(buff, "   CAN 1 Enabled: %s\n\r", PMD5bits.CAN1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   CAN 1 Enabled:                            %s\n\r", PMD5bits.CAN1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   CAN 2 Enabled: %s\n\r", PMD5bits.CAN2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   CAN 2 Enabled:                            %s\n\r", PMD5bits.CAN2MD ? "False" : " True");
     strcat(return_string, buff);
     
     // RTCC
-    sprintf(buff, "   Real Time Clock Enabled: %s\n\r", PMD6bits.RTCCMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Real Time Clock Enabled:                  %s\n\r", PMD6bits.RTCCMD ? "False" : " True");
     strcat(return_string, buff);
     
     // REFCLKS
-    sprintf(buff, "   Reference Clock 1 Enabled: %s\n\r", PMD6bits.REFO1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Reference Clock 1 Enabled:                %s\n\r", PMD6bits.REFO1MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Reference Clock 2 Enabled: %s\n\r", PMD6bits.REFO2MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Reference Clock 2 Enabled:                %s\n\r", PMD6bits.REFO2MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Reference Clock 3 Enabled: %s\n\r", PMD6bits.REFO3MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Reference Clock 3 Enabled:                %s\n\r", PMD6bits.REFO3MD ? "False" : " True");
     strcat(return_string, buff);
-    sprintf(buff, "   Reference Clock 4 Enabled: %s\n\r", PMD6bits.REFO4MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Reference Clock 4 Enabled:                %s\n\r", PMD6bits.REFO4MD ? "False" : " True");
     strcat(return_string, buff);
     
     // PMP
-    sprintf(buff, "   Parallel Master Port Enabled: %s\n\r", PMD6bits.PMPMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Parallel Master Port Enabled:             %s\n\r", PMD6bits.PMPMD ? "False" : " True");
     strcat(return_string, buff);
     
     // EBI
-    sprintf(buff, "   External Bus Interface Enabled: %s\n\r", PMD6bits.EBIMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   External Bus Interface Enabled:           %s\n\r", PMD6bits.EBIMD ? "False" : " True");
     strcat(return_string, buff);
     
     // SQI
-    sprintf(buff, "   Serial Quad Interface Enabled: %s\n\r", PMD6bits.SQI1MD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Serial Quad Interface Enabled:            %s\n\r", PMD6bits.SQI1MD ? "False" : " True");
     strcat(return_string, buff);
     
     // Ethernet
-    sprintf(buff, "   Ethernet Enabled: %s\n\r", PMD6bits.ETHMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Ethernet Enabled:                         %s\n\r", PMD6bits.ETHMD ? "False" : " True");
     strcat(return_string, buff);
     
     // DMA
-    sprintf(buff, "   Direct Memory Access Enabled: %s\n\r", PMD7bits.DMAMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   Direct Memory Access Enabled:             %s\n\r", PMD7bits.DMAMD ? "False" : " True");
     strcat(return_string, buff);
     
     // Random Number Generator
-    sprintf(buff, "   Random Number Generator Enabled: %s\n\r", PMD7bits.RNGMD ? "False" : "True");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, BLINK));
+    sprintf(buff, "   Random Number Generator Enabled:          %s\n\r", PMD7bits.RNGMD ? "False" : " True");
     strcat(return_string, buff);
     
     // PMD Locked?
-    sprintf(buff, "   PMD Locked: %s\n\r", CFGCONbits.PMDLOCK ? "True" : "False");
+    strcat(return_string, sprint_textAttributes(GREEN, BLACK, NORMAL));
+    sprintf(buff, "   PMD Locked:                               %s\n\r", CFGCONbits.PMDLOCK ? " True" : "False");
     strcat(return_string, buff);
     
     return return_string;

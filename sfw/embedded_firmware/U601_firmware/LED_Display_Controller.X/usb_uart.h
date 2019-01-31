@@ -20,7 +20,7 @@
 #include <sys/attribs.h>
 
 // Sizes of TX and RX ring buffers
-#define USB_UART_TX_BUFFER_SIZE 4096
+#define USB_UART_TX_BUFFER_SIZE 8192
 #define USB_UART_RX_BUFFER_SIZE 1024
 
 // Hardcoded COM Port Descriptor Strings
@@ -107,6 +107,12 @@ void USB_UART_returnCursor(void);   // Returns the cursor to saved position
 void USB_UART_textAttributes(text_color_t foreground_color,
         text_color_t background_color,
         text_attribute_t input_attribute);
+
+// This function returns a string for setting text attributes
+char * sprint_textAttributes(text_color_t foreground_color,
+        text_color_t background_color,
+        text_attribute_t input_attribute);
+
 
 // Reset to white foreground, black background, no fancy stuff
 void USB_UART_textAttributesReset(void);

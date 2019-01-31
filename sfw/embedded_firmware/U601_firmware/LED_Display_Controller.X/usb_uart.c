@@ -448,7 +448,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
     else if (strcmp(line_in, "PMD Status?") == 0) {
      
         USB_UART_textAttributesReset();
-        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_textAttributes(GREEN, BLACK, UNDERSCORE);
         USB_UART_print("Peripheral Module Disable Status:\n\r");
         USB_UART_print(getStringPMDStatus());
         USB_UART_textAttributesReset();
@@ -729,6 +729,117 @@ void USB_UART_textAttributes(text_color_t foreground_color,
     
     USB_UART_print(output_buff);
 }
+
+// This function returns a string for setting text attributes
+char * sprint_textAttributes(text_color_t foreground_color,
+        text_color_t background_color,
+        text_attribute_t input_attribute) {
+    
+    static char return_string[10];
+    
+    strncpy(return_string, "\033[", sizeof(return_string));
+    
+    switch (input_attribute) {
+     
+        case NORMAL:
+            strcat(return_string,"0"); 
+            break;
+        case BOLD:
+            strcat(return_string,"1");
+            break;
+        case UNDERSCORE:
+            strcat(return_string,"4");
+            break;
+        case BLINK:
+            strcat(return_string,"5");
+            break;
+        case REVERSE:
+            strcat(return_string,"7");
+            break;
+        case CONCEALED:
+            strcat(return_string,"8");
+            break;
+
+        default:
+            strcat(return_string,"0");
+            break;
+    }
+    
+    strcat(return_string,";");
+    
+    switch (foreground_color) {
+     
+        case BLACK:
+            strcat(return_string,"30");
+            break;
+        case RED:
+            strcat(return_string,"31");
+            break;
+        case GREEN:
+            strcat(return_string,"32");
+            break;
+        case YELLOW:
+            strcat(return_string,"33");
+            break;
+        case BLUE:
+            strcat(return_string,"34");
+            break;
+        case MAGENTA:
+            strcat(return_string,"35");
+            break;
+        case CYAN:
+            strcat(return_string,"36");
+            break;
+        case WHITE:
+            strcat(return_string,"37");
+            break;
+            
+        default:
+            strcat(return_string,"37");
+            break;
+    }
+    
+    strcat(return_string,";");
+    
+    switch (background_color) {
+     
+        case BLACK:
+            strcat(return_string,"40");
+            break;
+        case RED:
+            strcat(return_string,"41");
+            break;
+        case GREEN:
+            strcat(return_string,"42");
+            break;
+        case YELLOW:
+            strcat(return_string,"43");
+            break;
+        case BLUE:
+            strcat(return_string,"44");
+            break;
+        case MAGENTA:
+            strcat(return_string,"45");
+            break;
+        case CYAN:
+            strcat(return_string,"46");
+            break;
+        case WHITE:
+            strcat(return_string,"47");
+            break;
+            
+        default:
+            strcat(return_string,"47");
+            break;
+    }
+    
+    strcat(return_string,"m");
+    
+    return return_string;
+    
+}
+
+
 
 // Reset text attributes to white text, black background, no effects
 void USB_UART_textAttributesReset(void) {

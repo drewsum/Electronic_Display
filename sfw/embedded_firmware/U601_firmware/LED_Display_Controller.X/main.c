@@ -148,7 +148,7 @@ void main(void) {
     
     // Startup the deadman timer
     deadmanTimerInitialize();
-    printf("Deadman Timer Initialized");
+    printf("Deadman Timer Initialized\n\r");
     
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
