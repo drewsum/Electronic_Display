@@ -84,18 +84,7 @@ reset_cause_t getResetCause(void) {
         error_handler.other_error_flag = 1;
         
     }
-    
-    RCONbits.BCFGERR = 0;
-    RCONbits.BCFGFAIL = 0;
-    RCONbits.BOR = 0;
-    RCONbits.CMR = 0;
-    RCONbits.DMTO = 0;
-    RCONbits.EXTR = 0;
-    RCONbits.IDLE = 0;
-    RCONbits.POR = 0;
-    RCONbits.SLEEP = 0;
-    RCONbits.SWR = 0;
-    RCONbits.WDTO = 0;
+
     
     return reset_cause;
     
