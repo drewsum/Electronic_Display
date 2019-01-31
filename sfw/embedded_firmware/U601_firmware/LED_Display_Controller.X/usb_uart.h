@@ -117,6 +117,9 @@ void USB_UART_printHelpMessage(void);
 void USB_UART_printTestMessage(void);
 
 
+// This function returns a string of a large number of seconds in a human readable format
+char * getStringSecondsAsTime(uint32_t input_seconds);
+
 #endif /* _USB_UART_H */
 
 /* *****************************************************************************

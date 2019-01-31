@@ -1,7 +1,5 @@
 
 #include <xc.h>
-
-#include <xc.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -12,8 +10,11 @@
 #include "32mz_interrupt_control.h"
 #include "pin_macros.h"
 #include "device_control.h"
+#include "power_saving.h"
+#include "watchdog_timer.h"
 #include "usb_uart.h"
 #include "error_handler.h"
+#include "cause_of_reset.h"
 
 
 // Text attribute enums
@@ -35,6 +36,8 @@ volatile uint8_t usb_uart_RxStringReady = 0;
 
 // Printable Variables from other header files
 extern uint32_t device_on_time_counter;
+extern reset_cause_t reset_cause;
+
 
 
 // This function initializes UART 6 for USB debugging
@@ -262,11 +265,12 @@ void USB_UART_Transmit_Handler(void) {
 // This serves as the RX handler and is called by the RX ISR
 void USB_UART_Receive_Handler(void) {
             
-//    if(1 == U3STAbits.OERR)
-//    {
-//        U3MODEbits.ON = 0;
-//        U3MODEbits.ON = 1;
-//    }
+    if(1 == U3STAbits.OERR)
+    {
+        U3MODEbits.ON = 0;
+        error_handler.USB_error_flag = 1;
+        U3MODEbits.ON = 1;
+    }
     
     while(U3STAbits.URXDA) {
     
@@ -432,14 +436,57 @@ void USB_UART_ringBufferLUT(char * line_in) {
     
     else if (strcmp(line_in, "Device On Time?") == 0) {
      
-        char print_buff[20];
-        itoa(print_buff, device_on_time_counter, 10);
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("Device on time since last system reset: ");
-        USB_UART_print(print_buff);
-        USB_UART_print(" seconds\n\r");
+        USB_UART_print("On time since last device reset: ");
+        USB_UART_print(getStringSecondsAsTime(device_on_time_counter));
+        USB_UART_printNewline();
         USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "PMD Status?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Peripheral Module Disable Status:\n\r");
+        USB_UART_print(getStringPMDStatus());
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        
+    }
+    
+    else if (strcmp(line_in, "WDT Status?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Watchdog Timer Status:\n\r");
+        USB_UART_print(getStringWatchdogStatus());
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        
+    }
+    
+    else if (strcmp(line_in, "DMT Status?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Deadman Timer Status:\n\r");
+        USB_UART_print(getStringDeadmanStatus());
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+
+    }
+    
+    else if (strcmp(line_in, "Cause of Reset?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Cause of the most recent device reset: ");
+        USB_UART_print(getResetCauseString(reset_cause));
+        USB_UART_printNewline();
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
         
     }
     
@@ -705,16 +752,21 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("Supported Commands:\n\r");
     USB_UART_print("    Reset: Software Reset\n\r");
     USB_UART_print("    Clear: Clears the terminal\n\r");
-    USB_UART_print("    *IDN?: Returns identification string\n\r");
+    USB_UART_print("    Cause of Reset?: Prints the cause of the most recent device reset\n\r");
+    USB_UART_print("    *IDN?: Prints identification string\n\r");
+    USB_UART_print("    Device On Time?: Returns the device on time since last reset\n\r");
+    USB_UART_print("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
+    USB_UART_print("    WDT Status?: Prints the state of the watchdog timer\n\r");
+    USB_UART_print("    DMT Status?: Prints the state of the deadman timer\n\r");
     USB_UART_print("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
     USB_UART_print("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
 //     USB_UART_print("    Enable Muxing: enables the multiplexing timer \n\r");
 //     USB_UART_print("    Disable Muxing: disable the multiplexing timer \n\r");
-     USB_UART_print("    Device On Time?: Returns the device on time in seconds since last reset\n\r");
-     USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
-     USB_UART_print("    Credits: Displays creators\n\r");
+
+    USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
+    USB_UART_print("    Credits: Displays creators\n\r");
     USB_UART_print("    Help: This Command\n\r");
 //    USB_UART_print("    Set Red: Sets panels red\n\r");
 //    USB_UART_print("    Set White: Sets panels white\n\r");    
@@ -735,6 +787,7 @@ void USB_UART_printHelpMessage(void) {
 //    USB_UART_print("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
 //    USB_UART_print("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     
+     
     USB_UART_print("Help messages and neutral responses appear in yellow\n\r");
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
     USB_UART_print("System parameters and affirmative responses appear in green\n\r");
@@ -747,7 +800,7 @@ void USB_UART_printHelpMessage(void) {
         
     // Get some space on terminal
     USB_UART_printNewline();
-
+     
 }
 
 // tests all the function written for this example
@@ -868,4 +921,123 @@ void USB_UART_printTestMessage(void) {
     USB_UART_textAttributesReset();
     
     USB_UART_printNewline();
+}
+
+// This function returns a string of a large number of seconds in a human readable format
+char * getStringSecondsAsTime(uint32_t input_seconds) {
+ 
+    uint32_t years, days, hours, minutes, seconds, remainder;
+    static char return_string[80];
+    
+    // clear return string
+    int i;
+    for (i = 0; i < strlen(return_string); i++) {
+     
+        return_string[i] = '\0';
+        
+    }
+    
+    char buff[20];
+    
+    years = input_seconds / (60 * 60 * 24 * 365);
+    input_seconds -= years * (60 * 60 * 24 * 365);
+    days = input_seconds / (60 * 60 * 24);
+    input_seconds -= days * (60 * 60 * 24);
+    hours = input_seconds / (60 * 60);
+    input_seconds -= hours * (60 * 60);
+    minutes = input_seconds / 60;
+    input_seconds -= minutes * 60;
+    seconds = input_seconds;
+    
+    if (years > 0) {
+        
+        if (years == 1) {
+         
+            sprintf(buff, "%d year, ", years);
+            
+        }
+        
+        else {
+         
+            sprintf(buff, "%d years, ", years);
+            
+        }
+        
+        strcat(return_string, buff);
+        
+    }
+    
+    if (days > 0) {
+     
+        if (days == 1) {
+         
+            sprintf(buff, "%d day, ", days);
+            
+        }
+        
+        else {
+         
+            sprintf(buff, "%d days, ", days);
+            
+        }
+        
+        strcat(return_string, buff);
+    }
+    
+    if (hours > 0) {
+     
+        if (hours == 1) {
+         
+            sprintf(buff, "%d hour, ", hours);
+            
+        }
+        
+        else {
+         
+            sprintf(buff, "%d hours, ", hours);
+            
+        }
+        
+        strcat(return_string, buff);
+        
+    }
+    
+    if (minutes > 0) {
+     
+        if (minutes == 1) {
+         
+            sprintf(buff, "%d minute, ", minutes);
+            
+        }
+        
+        else {
+         
+            sprintf(buff, "%d minutes, ", minutes);
+            
+        }
+        
+        strcat(return_string, buff);
+        
+    }
+    
+    if (seconds > 0) {
+     
+        if (seconds == 1) {
+         
+            sprintf(buff, "%d second", seconds);
+            
+        }
+        
+        else {
+         
+            sprintf(buff, "%d seconds", seconds);
+            
+        }
+        
+        strcat(return_string, buff);
+        
+    }
+    
+    return return_string;
+    
 }

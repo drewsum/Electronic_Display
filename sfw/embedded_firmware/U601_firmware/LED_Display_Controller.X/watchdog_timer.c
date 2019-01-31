@@ -1,5 +1,7 @@
 
 #include <xc.h>
+#include <string.h>
+#include <stdio.h>
 
 #include "watchdog_timer.h"
 
@@ -86,5 +88,248 @@ void verifyThumbTightEnough(void) {
         error_handler.DMT_error_flag = 1;
         
     }
+    
+}
+
+// This function returns a string with information on the watchdog timer
+char * getStringWatchdogStatus(void) {
+
+    static char return_string[128];
+    
+    // clear return string
+    int i;
+    for (i = 0; i < strlen(return_string); i++) {
+     
+        return_string[i] = '\0';
+        
+    }
+    
+    char buff[64];
+
+    strcat(return_string, "    Postscalar: ");
+    
+    switch (DEVCFG1bits.WDTPS) {
+     
+        case 0b00000:
+            sprintf(buff, "1:1");
+            break;
+            
+        case 0b00001:
+            sprintf(buff, "1:2");
+            break;
+            
+        case 0b00010:
+            sprintf(buff, "1:4");
+            break;
+            
+        case 0b00011:
+            sprintf(buff, "1:8");
+            break;
+            
+        case 0b00100:
+            sprintf(buff, "1:16");
+            break;
+            
+        case 0b00101:
+            sprintf(buff, "1:32");
+            break;
+            
+        case 0b00110:
+            sprintf(buff, "1:64");
+            break;
+            
+        case 0b00111:
+            sprintf(buff, "1:128");
+            break;
+            
+        case 0b01000:
+            sprintf(buff, "1:256");
+            break;
+            
+        case 0b01001:
+            sprintf(buff, "1:512");
+            break;
+            
+        case 0b01010:
+            sprintf(buff, "1:1024");
+            break;
+            
+        case 0b01011:
+            sprintf(buff, "1:2048");
+            break;
+            
+        case 0b01100:
+            sprintf(buff, "1:4096");
+            break;
+            
+        case 0b01101:
+            sprintf(buff, "1:8192");
+            break;
+            
+        case 0b01110:
+            sprintf(buff, "1:16384");
+            break;
+            
+        case 0b01111:
+            sprintf(buff, "1:32768");
+            break;
+            
+        case 0b10000:
+            sprintf(buff, "1:65536");
+            break;
+            
+        case 0b10001:
+            sprintf(buff, "1:131072");
+            break;
+            
+        case 0b10010:
+            sprintf(buff, "1:262144");
+            break;
+            
+        case 0b10011:
+            sprintf(buff, "1:524288");
+            break;
+            
+        case 0b10100:
+            sprintf(buff, "1:1048576");
+            break;
+        
+    }
+    
+    strcat(return_string, buff);
+    strcat(return_string, "\n\r    Window Enable: ");
+    
+    if (WDTCONbits.WDTWINEN) {
+     
+        strcat(return_string, "True");
+        
+    }
+    
+    else {
+     
+        strcat(return_string, "False");
+        
+    }
+    
+    strcat(return_string, "\n\r    Window Size: ");
+    
+    switch (DEVCFG1bits.FWDTWINSZ) {
+     
+        case 0b00:
+            sprintf(buff, "75%%");
+            break;
+            
+        case 0b01:
+            sprintf(buff, "50%%");
+            break;
+            
+        case 0b10:
+            sprintf(buff, "37.5%%");
+            break;
+    
+        case 0b11:
+            sprintf(buff, "25%%");
+            break;
+            
+    }
+    
+    strcat(return_string, buff);
+    strcat(return_string, "\n\r    WDT Enabled: ");
+    
+    if (WDTCONbits.ON) {
+     
+        strcat(return_string, "True\n\r");
+        
+    }
+    
+    else {
+     
+        strcat(return_string, "False\n\r");
+        
+    }
+    
+    
+    return return_string;
+
+}
+
+// This function returns a string with information on the deadman timer
+char * getStringDeadmanStatus(void) {
+
+    static char return_string[128];
+    
+    // clear return string
+    int i;
+    for (i = 0; i < strlen(return_string); i++) {
+     
+        return_string[i] = '\0';
+        
+    }
+    
+    char buff[64];
+    
+    strcat(return_string, "   Instruction Fetch Count Limit: ");
+    
+    uint32_t deadmanCountLimit = (DEVCFG1bits.DMTCNT + 1) * 256;
+    
+    sprintf(buff, "%d instructions\n\r", deadmanCountLimit);
+    strcat(return_string, buff);
+    
+    strcat(return_string, "   Count Window Interval: ");
+    
+    switch (DEVCFG1bits.DMTINTV) {
+     
+        case 0b000:
+            strcat(return_string, "Window/Interval value is zero\n\r");
+            break;
+            
+        case 0b001:
+            strcat(return_string, "Window/Interval value is 1/2 counter value\n\r");
+            break;
+        
+        case 0b010:
+            strcat(return_string, "Window/Interval value is 3/4 counter value\n\r");
+            break;
+        
+        case 0b011:
+            strcat(return_string, "Window/Interval value is 7/8 counter value\n\r");
+            break;
+        
+        case 0b100:
+            strcat(return_string, "Window/Interval value is 15/16 counter value\n\r");
+            break;
+        
+        case 0b101:
+            strcat(return_string, "Window/Interval value is 31/32 counter value\n\r");
+            break;
+        
+        case 0b110:
+            strcat(return_string, "Window/Interval value is 63/64 counter value\n\r");
+            break;
+        
+        case 0b111:
+            strcat(return_string, "Window/Interval value is 127/128 counter value\n\r");
+            break;
+            
+    }
+    
+    strcat(return_string, "   DMT Enabled: ");
+    
+    if (DMTCONbits.ON) {
+     
+        strcat(return_string, "True\n\r");
+        
+    }
+    
+    else {
+     
+        strcat(return_string, "False\n\r");
+        
+    }
+    
+    
+    return return_string;
+    
+    
     
 }

@@ -61,6 +61,9 @@
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
 
+// Cause of Device Reset
+reset_cause_t reset_cause;
+
 // Main program entry point
 void main(void) {
     
@@ -72,6 +75,9 @@ void main(void) {
     
     // Initialize system clocks
     clockInitialize();
+    
+    // Save the cause of the most recent device reset
+    reset_cause = getResetCause();
         
     // Initialize GPIO pins to startup settings
     gpioInitialize();
@@ -79,8 +85,32 @@ void main(void) {
     // Initialize UART USB debugging
     USB_UART_Initialize();
     
-    // Print debug message
+    // Print debug message s
     printf(" Logic Board Initializing...\n\r");
+    
+    if (    reset_cause == Undefined ||
+            reset_cause == Primary_Config_Registers_Error ||
+            reset_cause == Primary_Secondary_Config_Registers_Error ||
+            reset_cause == Config_Mismatch ||
+            reset_cause == DMT_Reset ||
+            reset_cause == WDT_Reset ||
+            reset_cause == Software_Reset ||
+            reset_cause == External_Reset ||
+            reset_cause == BOR_Reset) {
+    
+        USB_UART_textAttributes(RED, BLACK, BOLD);
+        
+    }
+    
+    else {
+     
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        
+    }
+    
+    printf("Cause of most recent device reset: %s\n\r", getResetCauseString(reset_cause));
+    
+    USB_UART_textAttributesReset();
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
     printf("Clocks Initialized to the following settings:\n\r");
     printf("    SYSCLK: %s\n\r", stringFromClockSetting(SYSCLK_INT));
@@ -114,18 +144,20 @@ void main(void) {
             
     // Setup the watchdog timer
     watchdogTimerInitialize();
-    printf("Watchdog Timer Initialized with a timeout of %s\n\r", WATCHDOG_TIMER_TIMEOUT_STR);
+    printf("Watchdog Timer Initialized\n\r");
     
     // Startup the deadman timer
     deadmanTimerInitialize();
-    printf("Deadman Timer Initialized with a timeout of %s\n\r", DEADMAN_TIMER_TIMEOUT_STR);
+    printf("Deadman Timer Initialized");
     
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
     printf("Reset LED disabled\n\r");
     
     USB_UART_textAttributesReset();
-    
+    USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
+    printf("Type 'Help' for list of supported commands\n\r");
+    USB_UART_textAttributesReset();
     
     // Loop endlessly
     while (true) {
