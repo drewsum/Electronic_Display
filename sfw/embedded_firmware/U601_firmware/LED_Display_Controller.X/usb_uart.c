@@ -140,14 +140,14 @@ void USB_UART_Initialize(void) {
     // Transfer interrupt is set in write function
     enableInterrupt(UART3_Receive_Done);
     enableInterrupt(UART3_Fault);
-    
+        
     // Enable UART 3
     U3MODEbits.ON = 1;
     
     // Clear the terminal
     USB_UART_clearTerminal();
     USB_UART_setCursorHome();
-
+    
 }
 
 // This is the USB UART receive interrupt service routine
@@ -285,12 +285,12 @@ void USB_UART_Receive_Handler(void) {
     }
     
     // Empty hardware FIFO
-    int dummy;
-    while(U3STAbits.URXDA) {
-                 
-        dummy = U3RXREG;
-                    
-    }
+//    int dummy;
+//    while(U3STAbits.URXDA) {
+//                 
+//        dummy = U3RXREG;
+//                    
+//    }
     
     
     // This chunk tells main() or whatever is pulling from the ring buffer that
@@ -470,6 +470,15 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributesReset();
         USB_UART_printNewline();
 
+    }
+    
+    else if (strcmp(line_in, "Interrupt Status?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        printInterruptStatus();
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        
     }
     
     else if (strcmp(line_in, "Cause of Reset?") == 0) {
@@ -741,6 +750,10 @@ void USB_UART_printNewline(void) {
 // Print help message, used in a command above
 void USB_UART_printHelpMessage(void) {
  
+    usb_uart_TxHead = 0;
+    usb_uart_TxTail = 0;   
+
+    
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
     USB_UART_print("Supported Commands:\n\r");
@@ -752,6 +765,7 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
     USB_UART_print("    WDT Status?: Prints the state of the watchdog timer\n\r");
     USB_UART_print("    DMT Status?: Prints the state of the deadman timer\n\r");
+    USB_UART_print("    Interrupt Status?L Prints information on interrupt settings\n\r");
     USB_UART_print("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");

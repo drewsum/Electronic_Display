@@ -6,6 +6,11 @@
 #include "power_saving.h"
 #include "usb_uart.h"
 
+extern volatile uint32_t usb_uart_TxHead;
+extern volatile uint32_t usb_uart_TxTail;
+extern volatile uint32_t usb_uart_TxBufferRemaining;
+
+
 // This function disables unused peripherals on startup for power savings
 // THIS FUNCTION CAN ONLY BE CALLED ONCE DUE TO PMD LOCKOUT AFTER ONE WRITE SESSION
 void PMDInitialize(void) {
@@ -130,6 +135,9 @@ void PMDInitialize(void) {
 // This function prints the status of PMD settings
 void printPMDStatus(void) {
      
+    usb_uart_TxHead = 0;
+    usb_uart_TxTail = 0;   
+    
     USB_UART_textAttributes(GREEN, BLACK, UNDERSCORE);
     printf("Peripheral Module Disable Status:\n\r");
     
