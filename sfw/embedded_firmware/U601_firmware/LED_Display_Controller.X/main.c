@@ -125,7 +125,9 @@ void main(void) {
     printf("Reset LED disabled\n\r");
     
     USB_UART_textAttributesReset();
-    
+    USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
+    printf("Type 'Help' for list of supported commands\n\r");
+    USB_UART_textAttributesReset();
     
     // Loop endlessly
     while (true) {

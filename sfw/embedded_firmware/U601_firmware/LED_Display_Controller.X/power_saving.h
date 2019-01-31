@@ -25,6 +25,9 @@
 // THIS FUNCTION CAN ONLY BE CALLED ONCE DUE TO PMD LOCKOUT AFTER ONE WRITE SESSION
 void PMDInitialize(void);
 
+// This function returns a string with the status of PMD settings
+char * getStringPMDStatus(void);
+
 
 #endif /* _POWER_SAVING_H */
 
