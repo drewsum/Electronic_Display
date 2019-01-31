@@ -85,8 +85,32 @@ void main(void) {
     // Initialize UART USB debugging
     USB_UART_Initialize();
     
-    // Print debug message
+    // Print debug message s
     printf(" Logic Board Initializing...\n\r");
+    
+    if (    reset_cause == Undefined ||
+            reset_cause == Primary_Config_Registers_Error ||
+            reset_cause == Primary_Secondary_Config_Registers_Error ||
+            reset_cause == Config_Mismatch ||
+            reset_cause == DMT_Reset ||
+            reset_cause == WDT_Reset ||
+            reset_cause == Software_Reset ||
+            reset_cause == External_Reset ||
+            reset_cause == BOR_Reset) {
+    
+        USB_UART_textAttributes(RED, BLACK, BOLD);
+        
+    }
+    
+    else {
+     
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        
+    }
+    
+    printf("Cause of most recent device reset: %s\n\r", getResetCauseString(reset_cause));
+    
+    USB_UART_textAttributesReset();
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
     printf("Clocks Initialized to the following settings:\n\r");
     printf("    SYSCLK: %s\n\r", stringFromClockSetting(SYSCLK_INT));
