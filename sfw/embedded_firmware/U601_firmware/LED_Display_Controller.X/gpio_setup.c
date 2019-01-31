@@ -400,6 +400,7 @@ void portFGPIOInitialize (void){
     TRISFbits.TRISF2    = TRIS_OUTPUT;
     LATFbits.LATF2      = LAT_LOW;
     ODCFbits.ODCF2      = ODC_DISABLE;
+    RPF2Rbits.RPF2R     = 0b0000;           // Set RF2 as GPIO, not connected to any peripherALS
     
     // Setup RF3
     TRISFbits.TRISF3    = TRIS_INPUT;
