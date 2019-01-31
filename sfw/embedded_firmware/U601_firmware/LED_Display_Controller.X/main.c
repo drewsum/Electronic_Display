@@ -61,6 +61,9 @@
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
 
+// Cause of Device Reset
+reset_cause_t reset_cause;
+
 // Main program entry point
 void main(void) {
     
@@ -72,6 +75,9 @@ void main(void) {
     
     // Initialize system clocks
     clockInitialize();
+    
+    // Save the cause of the most recent device reset
+    reset_cause = getResetCause();
         
     // Initialize GPIO pins to startup settings
     gpioInitialize();
@@ -114,11 +120,11 @@ void main(void) {
             
     // Setup the watchdog timer
     watchdogTimerInitialize();
-    printf("Watchdog Timer Initialized with a timeout of %s\n\r", WATCHDOG_TIMER_TIMEOUT_STR);
+    printf("Watchdog Timer Initialized\n\r");
     
     // Startup the deadman timer
     deadmanTimerInitialize();
-    printf("Deadman Timer Initialized with a timeout of %s\n\r", DEADMAN_TIMER_TIMEOUT_STR);
+    printf("Deadman Timer Initialized");
     
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;

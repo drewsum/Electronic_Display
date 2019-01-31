@@ -55,6 +55,9 @@ void verifyThumbTightEnough(void);
 // This function returns a string with information on the watchdog timer
 char * getStringWatchdogStatus(void);
 
+// This function returns a string with information on the deadman timer
+char * getStringDeadmanStatus(void);
+
 #endif /* _WATCHDOG_TIMER_H */
 
 /* *****************************************************************************

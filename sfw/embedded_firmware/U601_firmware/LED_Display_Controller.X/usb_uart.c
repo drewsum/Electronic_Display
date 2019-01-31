@@ -14,6 +14,7 @@
 #include "watchdog_timer.h"
 #include "usb_uart.h"
 #include "error_handler.h"
+#include "cause_of_reset.h"
 
 
 // Text attribute enums
@@ -35,6 +36,8 @@ volatile uint8_t usb_uart_RxStringReady = 0;
 
 // Printable Variables from other header files
 extern uint32_t device_on_time_counter;
+extern reset_cause_t reset_cause;
+
 
 
 // This function initializes UART 6 for USB debugging
@@ -262,11 +265,12 @@ void USB_UART_Transmit_Handler(void) {
 // This serves as the RX handler and is called by the RX ISR
 void USB_UART_Receive_Handler(void) {
             
-//    if(1 == U3STAbits.OERR)
-//    {
-//        U3MODEbits.ON = 0;
-//        U3MODEbits.ON = 1;
-//    }
+    if(1 == U3STAbits.OERR)
+    {
+        U3MODEbits.ON = 0;
+        error_handler.USB_error_flag = 1;
+        U3MODEbits.ON = 1;
+    }
     
     while(U3STAbits.URXDA) {
     
@@ -458,6 +462,29 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
         USB_UART_print("Watchdog Timer Status:\n\r");
         USB_UART_print(getStringWatchdogStatus());
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+        
+    }
+    
+    else if (strcmp(line_in, "DMT Status?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Deadman Timer Status:\n\r");
+        USB_UART_print(getStringDeadmanStatus());
+        USB_UART_textAttributesReset();
+        USB_UART_printNewline();
+
+    }
+    
+    else if (strcmp(line_in, "Cause of Reset?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        USB_UART_print("Cause of the most recent device reset: ");
+        USB_UART_print(getResetCauseString(reset_cause));
+        USB_UART_printNewline();
         USB_UART_textAttributesReset();
         USB_UART_printNewline();
         
@@ -725,10 +752,12 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("Supported Commands:\n\r");
     USB_UART_print("    Reset: Software Reset\n\r");
     USB_UART_print("    Clear: Clears the terminal\n\r");
+    USB_UART_print("    Cause of Reset?: Prints the cause of the most recent device reset\n\r");
     USB_UART_print("    *IDN?: Prints identification string\n\r");
     USB_UART_print("    Device On Time?: Returns the device on time since last reset\n\r");
     USB_UART_print("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
     USB_UART_print("    WDT Status?: Prints the state of the watchdog timer\n\r");
+    USB_UART_print("    DMT Status?: Prints the state of the deadman timer\n\r");
     USB_UART_print("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");

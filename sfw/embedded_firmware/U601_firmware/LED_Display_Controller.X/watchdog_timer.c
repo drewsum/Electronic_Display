@@ -238,17 +238,98 @@ char * getStringWatchdogStatus(void) {
     
     if (WDTCONbits.ON) {
      
-        strcat(return_string, "True");
+        strcat(return_string, "True\n\r");
         
     }
     
     else {
      
-        strcat(return_string, "False");
+        strcat(return_string, "False\n\r");
         
     }
     
     
     return return_string;
 
+}
+
+// This function returns a string with information on the deadman timer
+char * getStringDeadmanStatus(void) {
+
+    static char return_string[128];
+    
+    // clear return string
+    int i;
+    for (i = 0; i < strlen(return_string); i++) {
+     
+        return_string[i] = '\0';
+        
+    }
+    
+    char buff[64];
+    
+    strcat(return_string, "   Instruction Fetch Count Limit: ");
+    
+    uint32_t deadmanCountLimit = (DEVCFG1bits.DMTCNT + 1) * 256;
+    
+    sprintf(buff, "%d instructions\n\r", deadmanCountLimit);
+    strcat(return_string, buff);
+    
+    strcat(return_string, "   Count Window Interval: ");
+    
+    switch (DEVCFG1bits.DMTINTV) {
+     
+        case 0b000:
+            strcat(return_string, "Window/Interval value is zero\n\r");
+            break;
+            
+        case 0b001:
+            strcat(return_string, "Window/Interval value is 1/2 counter value\n\r");
+            break;
+        
+        case 0b010:
+            strcat(return_string, "Window/Interval value is 3/4 counter value\n\r");
+            break;
+        
+        case 0b011:
+            strcat(return_string, "Window/Interval value is 7/8 counter value\n\r");
+            break;
+        
+        case 0b100:
+            strcat(return_string, "Window/Interval value is 15/16 counter value\n\r");
+            break;
+        
+        case 0b101:
+            strcat(return_string, "Window/Interval value is 31/32 counter value\n\r");
+            break;
+        
+        case 0b110:
+            strcat(return_string, "Window/Interval value is 63/64 counter value\n\r");
+            break;
+        
+        case 0b111:
+            strcat(return_string, "Window/Interval value is 127/128 counter value\n\r");
+            break;
+            
+    }
+    
+    strcat(return_string, "   DMT Enabled: ");
+    
+    if (DMTCONbits.ON) {
+     
+        strcat(return_string, "True\n\r");
+        
+    }
+    
+    else {
+     
+        strcat(return_string, "False\n\r");
+        
+    }
+    
+    
+    return return_string;
+    
+    
+    
 }
