@@ -554,6 +554,8 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_print("POS5 RUN Asserted\n\r");
         USB_UART_textAttributesReset();
         
+        printf("%d\n\r", PORTFbits.RF2);
+        
     }
     
     else if (strcmp(line_in, "POS5 Disable") == 0) {
@@ -564,6 +566,8 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributes(RED, BLACK, NORMAL);
         USB_UART_print("POS5 RUN Deasserted\n\r");
         USB_UART_textAttributesReset();
+        
+        printf("%d\n\r", PORTFbits.RF2);
         
     }
     

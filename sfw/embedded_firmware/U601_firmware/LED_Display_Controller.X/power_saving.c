@@ -110,7 +110,7 @@ void PMDInitialize(void) {
     PMD6bits.PMPMD = 1;
     
     // Enable external bus interface (EBI)
-    PMD6bits.EBIMD = 0;
+    PMD6bits.EBIMD = 1;     // CHANGE THIS
     
     // Disable serial quad interface
     PMD6bits.SQI1MD = 1;
