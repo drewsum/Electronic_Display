@@ -55,7 +55,7 @@
 #define nWIFI_RESET_PIN             LATEbits.LATE9
 
 // PORTF Pin Macros
-#define POS12_PGOOD_PIN             LATFbits.LATF1
+#define POS12_PGOOD_PIN             PORTfbits.RF1
 #define POS5_RUN_PIN                LATFbits.LATF2
 #define POS5_PGOOD_PIN              PORTFbits.RF3
 #define POS5P_PGOOD_PIN             PORTFbits.RF8
