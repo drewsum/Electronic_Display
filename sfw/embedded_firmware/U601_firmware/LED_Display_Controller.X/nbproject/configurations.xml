@@ -46,6 +46,7 @@
         <itemPath>adc.c</itemPath>
         <itemPath>misc_board_control.c</itemPath>
         <itemPath>rotary_encoder.c</itemPath>
+        <itemPath>external_bus_interface.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.c</itemPath>
@@ -75,10 +76,10 @@
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.10</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>4</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.17"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="0.1.15"/>
       </packs>
       <compileType>
         <linkerTool>

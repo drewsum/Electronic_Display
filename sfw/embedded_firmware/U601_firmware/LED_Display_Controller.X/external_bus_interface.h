@@ -16,6 +16,11 @@
 #ifndef _EXTERNAL_BUS_INTERFACE_H    /* Guard against multiple inclusion */
 #define _EXTERNAL_BUS_INTERFACE_H
 
+// EBI initialization function
+
+void ebiInitialize(void);
+
+
 #endif /* _EXTERNAL_BUS_INTERFACE_H */
 
 /* *****************************************************************************
