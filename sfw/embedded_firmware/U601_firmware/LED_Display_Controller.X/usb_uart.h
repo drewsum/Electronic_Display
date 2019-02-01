@@ -32,7 +32,7 @@
 
 
 // Output character buffer
-char output_buff[USB_UART_TX_BUFFER_SIZE];
+// char output_buff[USB_UART_TX_BUFFER_SIZE];
 
 
 // Received String from EUSART rx ring buffer, this is what we actually compare

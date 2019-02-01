@@ -16,12 +16,6 @@
 #include "error_handler.h"
 #include "cause_of_reset.h"
 
-
-// Text attribute enums
-text_attribute_t attribute;
-text_color_t foreground_color;
-text_color_t background_color;
-
 volatile uint32_t usb_uart_TxHead = 0;
 volatile uint32_t usb_uart_TxTail = 0;
 volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
@@ -335,7 +329,7 @@ void USB_UART_print(char charArray[]) {
 
 // This function redirects stdout to USB_UART output, allowing printf functionality
 void _mon_putc(char c) {
- 
+    
     USB_UART_putchar(c);
     
 }
@@ -431,6 +425,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
         USB_UART_print("On time since last device reset: ");
         USB_UART_print(getStringSecondsAsTime(device_on_time_counter));
+        USB_UART_printNewline();
         USB_UART_textAttributesReset();
         
     }
@@ -653,105 +648,108 @@ void USB_UART_textAttributes(text_color_t foreground_color,
         text_color_t background_color,
         text_attribute_t input_attribute) {
     
-    strncpy(output_buff, "\033[", sizeof(output_buff));
+    static char print_string[10];
+    
+    strncpy(print_string, "\033[", sizeof(print_string));
     
     switch (input_attribute) {
      
         case NORMAL:
-            strcat(output_buff,"0"); 
+            strcat(print_string,"0"); 
             break;
         case BOLD:
-            strcat(output_buff,"1");
+            strcat(print_string,"1");
             break;
         case UNDERSCORE:
-            strcat(output_buff,"4");
+            strcat(print_string,"4");
             break;
         case BLINK:
-            strcat(output_buff,"5");
+            strcat(print_string,"5");
             break;
         case REVERSE:
-            strcat(output_buff,"7");
+            strcat(print_string,"7");
             break;
         case CONCEALED:
-            strcat(output_buff,"8");
+            strcat(print_string,"8");
             break;
 
         default:
-            strcat(output_buff,"0");
+            strcat(print_string,"0");
             break;
     }
     
-    strcat(output_buff,";");
+    strcat(print_string,";");
     
     switch (foreground_color) {
      
         case BLACK:
-            strcat(output_buff,"30");
+            strcat(print_string,"30");
             break;
         case RED:
-            strcat(output_buff,"31");
+            strcat(print_string,"31");
             break;
         case GREEN:
-            strcat(output_buff,"32");
+            strcat(print_string,"32");
             break;
         case YELLOW:
-            strcat(output_buff,"33");
+            strcat(print_string,"33");
             break;
         case BLUE:
-            strcat(output_buff,"34");
+            strcat(print_string,"34");
             break;
         case MAGENTA:
-            strcat(output_buff,"35");
+            strcat(print_string,"35");
             break;
         case CYAN:
-            strcat(output_buff,"36");
+            strcat(print_string,"36");
             break;
         case WHITE:
-            strcat(output_buff,"37");
+            strcat(print_string,"37");
             break;
             
         default:
-            strcat(output_buff,"37");
+            strcat(print_string,"37");
             break;
     }
     
-    strcat(output_buff,";");
+    strcat(print_string,";");
     
     switch (background_color) {
      
         case BLACK:
-            strcat(output_buff,"40");
+            strcat(print_string,"40");
             break;
         case RED:
-            strcat(output_buff,"41");
+            strcat(print_string,"41");
             break;
         case GREEN:
-            strcat(output_buff,"42");
+            strcat(print_string,"42");
             break;
         case YELLOW:
-            strcat(output_buff,"43");
+            strcat(print_string,"43");
             break;
         case BLUE:
-            strcat(output_buff,"44");
+            strcat(print_string,"44");
             break;
         case MAGENTA:
-            strcat(output_buff,"45");
+            strcat(print_string,"45");
             break;
         case CYAN:
-            strcat(output_buff,"46");
+            strcat(print_string,"46");
             break;
         case WHITE:
-            strcat(output_buff,"47");
+            strcat(print_string,"47");
             break;
             
         default:
-            strcat(output_buff,"47");
+            strcat(print_string,"47");
             break;
     }
     
-    strcat(output_buff,"m");
+    strcat(print_string,"m");
     
-    USB_UART_print(output_buff);
+    USB_UART_print(print_string);
+    
 }
 
 // Reset text attributes to white text, black background, no effects
