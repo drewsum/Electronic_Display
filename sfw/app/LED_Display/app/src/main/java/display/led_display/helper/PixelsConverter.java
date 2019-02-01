@@ -1,4 +1,4 @@
-package display.led_display;
+package display.led_display.helper;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -18,8 +18,8 @@ public class PixelsConverter {
                 {
                         contrast, 0, 0, 0, brightness,
                         0, contrast, 0, 0, brightness,
-                        0, 0, contrast, 0, brightness,
-                        0, 0, 0, 1, 0
+                        0, 0, contrast, 0, 0,
+                        brightness, 0, 0, 1, 0
                 });
 
         Bitmap ret = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
@@ -178,13 +178,19 @@ public class PixelsConverter {
 //        for(int m = 0; m < dimX; m++) {
 //            compilePanelLists(panelList[m][0], panelList[m][1], panelList[m][0], panelList[m][1]);
 //        }
-        byte[] pillar1 = compilePanelLists(panelList[0][0], panelList[0][1], panelList[0][0], panelList[0][1]); // 49152
-        byte[] pillar2 = compilePanelLists(panelList[1][0], panelList[1][1], panelList[1][0], panelList[1][1]);
-        byte[] allPillars = new byte[pillar1.length + pillar2.length];
-        Log.d("pillar size: ", "" + pillar1.length);
-        for(int index = 0; index < (allPillars.length / (192*2)); index++) {
-            System.arraycopy(pillar1, index*192, allPillars, (index*2) * 192, 192);
-            System.arraycopy(pillar2, index*192, allPillars, (index*2 + 1)*192, 192);
+        byte[] pillar0 = compilePanelLists(panelList[0][0], panelList[0][1], panelList[0][2], panelList[0][3]); // 49152
+        byte[] pillar1 = compilePanelLists(panelList[1][0], panelList[1][1], panelList[1][2], panelList[1][3]);
+        byte[] pillar2 = compilePanelLists(panelList[2][0], panelList[2][1], panelList[2][2], panelList[2][3]);
+        byte[] pillar3 = compilePanelLists(panelList[3][0], panelList[3][1], panelList[3][2], panelList[3][3]);
+        byte[] pillar4 = compilePanelLists(panelList[4][0], panelList[4][1], panelList[4][2], panelList[4][3]);
+        byte[] allPillars = new byte[pillar0.length + pillar1.length + pillar2.length + pillar3.length + pillar4.length];
+        Log.d("pillar size: ", "" + pillar0.length);
+        for(int index = 0; index < (allPillars.length / (192*5)); index++) {
+            System.arraycopy(pillar0, index*192, allPillars, (index*5) * 192, 192);
+            System.arraycopy(pillar1, index*192, allPillars, (index*5 + 1) * 192, 192);
+            System.arraycopy(pillar2, index*192, allPillars, (index*5 + 2) * 192, 192);
+            System.arraycopy(pillar2, index*192, allPillars, (index*5 + 3) * 192, 192);
+            System.arraycopy(pillar2, index*192, allPillars, (index*5 + 4) * 192, 192);
         }
         Log.d("total size: ", "" + allPillars.length);
         return allPillars;

@@ -1,11 +1,6 @@
-package display.led_display;
+package display.led_display.objects;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-
-@Entity
 public class PhysicalBoard {
-    @PrimaryKey(autoGenerate = true)
     public int physicalboardId;
 
     public String boardName;

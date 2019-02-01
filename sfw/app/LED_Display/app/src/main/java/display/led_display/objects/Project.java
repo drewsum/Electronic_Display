@@ -1,13 +1,6 @@
-package display.led_display;
+package display.led_display.objects;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import java.security.Timestamp;
-import java.util.List;
-
-@Entity
 public class Project {
-    @PrimaryKey(autoGenerate = true)
     public int projectId;
 
     public String projectName;

@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import display.led_display.helper.PixelsConverter;
+
 public class ImageSelectActivity extends AppCompatActivity {
     TextView textTargetUri;
     //TextView texter;
@@ -104,9 +106,11 @@ public class ImageSelectActivity extends AppCompatActivity {
                 PixelsConverter pixelsConverter = new PixelsConverter();
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
                 // ready = true;
-                scaledBitmap = Bitmap.createScaledBitmap(bitmap,128,128,true);
+                int panels_width = 5;
+                int panels_height = 4;
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap,64*panels_width,64*panels_height,true);
                 targetImage.setImageBitmap(scaledBitmap);
-                byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, 2, 2);
+                byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
                 File file = new File("/storage/emulated/0/Download" + "/values.txt");
                 Log.d("Filepath", file.getAbsolutePath());
                 try (PrintWriter out = new PrintWriter(file)) {

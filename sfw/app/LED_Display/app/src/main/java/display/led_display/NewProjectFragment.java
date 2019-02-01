@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import java.util.ArrayList;
+
+import display.led_display.helper.TinyDB;
 
 
 /**
@@ -61,6 +66,15 @@ public class NewProjectFragment extends Fragment implements View.OnClickListener
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+//        MenuActivity parent = (MenuActivity)this.getActivity().getParent();
+//        Project project = new Project();
+//        project.setProjectName("Test Project");
+//        parent.database.projectDao().insert(project);
+        TinyDB tinyDB = new TinyDB(getContext());
+        ArrayList<String> projectList = tinyDB.getListString("projectList");
+        projectList.add("Project1");
+        tinyDB.putListString("projectList", projectList);
+        Log.d("projectList", projectList.toString());
     }
 
     @Override
