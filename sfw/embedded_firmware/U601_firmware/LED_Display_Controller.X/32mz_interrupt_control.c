@@ -7041,13 +7041,13 @@ void printInterruptStatus(void) {
             
         }
         
-        printf("%03d  %s%s  %d %d  %s\n\r", 
+        printf("%03d  %s%c  %d %d    %c\n\r", 
                 i, 
                 getInterruptNameStringPadded(i),
-                getInterruptEnable(i) ? "T" : "F",
+                getInterruptEnable(i) ? 'T' : 'F',
                 getInterruptPriority(i),
                 getInterruptSubriority(i),
-                getInterruptFlag(i) ? "IRQ" : "   ");
+                getInterruptFlag(i) ? 'T' : 'F');
         
     }
     

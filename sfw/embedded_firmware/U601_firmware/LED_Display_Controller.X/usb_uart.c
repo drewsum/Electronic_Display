@@ -44,9 +44,9 @@ extern reset_cause_t reset_cause;
 void USB_UART_Initialize(void) {
  
     // Disable UART 3 interrupts
-//    disableInterrupt(UART3_Receive_Done);
-//    disableInterrupt(UART3_Transfer_Done);
-//    disableInterrupt(UART3_Fault);
+    disableInterrupt(UART3_Receive_Done);
+    disableInterrupt(UART3_Transfer_Done);
+    disableInterrupt(UART3_Fault);
     
     // Turn off UART 3 for configuration
     U3MODEbits.ON = 0;
@@ -119,7 +119,7 @@ void USB_UART_Initialize(void) {
     usb_uart_RxHead = 0;
     usb_uart_RxTail = 0;
     usb_uart_RxCount = 0;
-    
+        
     
     // Set interrupt priorities
     setInterruptPriority(UART3_Receive_Done, 2);
@@ -135,11 +135,6 @@ void USB_UART_Initialize(void) {
     clearInterruptFlag(UART3_Receive_Done);
     clearInterruptFlag(UART3_Transfer_Done);
     clearInterruptFlag(UART3_Fault);
-    
-    // Enable receive and error interrupts
-    // Transfer interrupt is set in write function
-    enableInterrupt(UART3_Receive_Done);
-    enableInterrupt(UART3_Fault);
         
     // Enable UART 3
     U3MODEbits.ON = 1;
@@ -147,6 +142,12 @@ void USB_UART_Initialize(void) {
     // Clear the terminal
     USB_UART_clearTerminal();
     USB_UART_setCursorHome();
+    USB_UART_textAttributesReset();
+        
+    // Enable receive and error interrupts
+    // Transfer interrupt is set in write function
+    enableInterrupt(UART3_Receive_Done);
+    enableInterrupt(UART3_Fault);
     
 }
 
@@ -282,16 +283,7 @@ void USB_UART_Receive_Handler(void) {
         }
         usb_uart_RxCount++;
         
-    }
-    
-    // Empty hardware FIFO
-//    int dummy;
-//    while(U3STAbits.URXDA) {
-//                 
-//        dummy = U3RXREG;
-//                    
-//    }
-    
+    }    
     
     // This chunk tells main() or whatever is pulling from the ring buffer that
     // data is ready to be read, since the terminal sent a newline or 
@@ -355,15 +347,14 @@ void USB_UART_ringBufferPull(void) {
     int charNumber = usb_uart_RxCount;
             
     // Clear line buffer
-    uint16_t index;
-    for (index = 0; index < USB_UART_RX_BUFFER_SIZE; index++) {
+    uint32_t index;
+    for (index = 0; index < sizeof(USB_UART_line); index++) {
 
         USB_UART_line[index] = '\0';
 
     }
 
     // Fill line from ring buffer
-    index = 0;
     for(index = 0; index < charNumber; index++){
 
         USB_UART_line[index] = USB_UART_Read_Byte();
@@ -440,7 +431,6 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
         USB_UART_print("On time since last device reset: ");
         USB_UART_print(getStringSecondsAsTime(device_on_time_counter));
-        USB_UART_printNewline();
         USB_UART_textAttributesReset();
         
     }
@@ -450,7 +440,6 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributesReset();
         printPMDStatus();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
         
     }
     
@@ -459,7 +448,6 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributesReset();
         printWatchdogStatus();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
         
     }
     
@@ -468,7 +456,6 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributesReset();
         printDeadmanStatus();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
 
     }
     
@@ -477,7 +464,6 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributesReset();
         printInterruptStatus();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
         
     }
     
@@ -489,7 +475,39 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_print(getResetCauseString(reset_cause));
         USB_UART_printNewline();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
+        
+    }
+    
+    else if (strcmp(line_in, "Serial Number?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        printf("PIC32MZ Serial Number retrieved from Flash: 0x%X%X\n\r",
+                getStringSerialNumber());
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Device ID?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        printf("Device ID retrieved from Flash: %s (0x%X)\n\r", 
+                getDeviceIDString(getDeviceID()), 
+                getDeviceID());
+        USB_UART_textAttributesReset();        
+                
+    }
+    
+    else if (strcmp(line_in, "Revision ID?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        printf("Revision ID retrieved from Flash: %s (0x%X)\n\r", 
+                getRevisionIDString(getRevisionID()), 
+                getRevisionID());
+        USB_UART_textAttributesReset();        
+        
         
     }
     
@@ -535,7 +553,6 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_print("Mentor:\n\r");
         USB_UART_textAttributesReset();
         USB_UART_print("Cris Ababei\n\r");
-        USB_UART_printNewline();
         
     }
     
@@ -769,7 +786,10 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
     USB_UART_print("    WDT Status?: Prints the state of the watchdog timer\n\r");
     USB_UART_print("    DMT Status?: Prints the state of the deadman timer\n\r");
-    USB_UART_print("    Interrupt Status?L Prints information on interrupt settings\n\r");
+    USB_UART_print("    Interrupt Status? Prints information on interrupt settings\n\r");
+    USB_UART_print("    Serial Number?: Prints device serial number\n\r");
+    USB_UART_print("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
+    USB_UART_print("    Revision ID?: Prints silicon die revision ID\n\r");
     USB_UART_print("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
@@ -809,10 +829,7 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("Errors and negative responses appear in red\n\r");
     USB_UART_textAttributesReset();
     USB_UART_print("User input appears in white\n\r");
-        
-    // Get some space on terminal
-    USB_UART_printNewline();
-     
+         
 }
 
 // tests all the function written for this example

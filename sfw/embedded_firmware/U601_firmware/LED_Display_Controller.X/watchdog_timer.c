@@ -245,7 +245,7 @@ void printWatchdogStatus(void) {
 void printDeadmanStatus(void) {
 
     USB_UART_textAttributes(GREEN, BLACK, UNDERSCORE);
-    printf("Watchdog Timer Status:\n\r");
+    printf("Deadman Timer Status:\n\r");
 
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
     

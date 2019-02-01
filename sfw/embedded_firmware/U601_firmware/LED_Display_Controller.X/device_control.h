@@ -74,6 +74,22 @@ void PMDUnlock(void);
 // This function locks peripheral module disable
 void PMDLock(void);
 
+// This function returns a string containing the device's serial number
+char * getStringSerialNumber(void);
+
+// This function returns a 32 bit device ID
+uint32_t getDeviceID(void);
+
+// This function returns a string with the part number of the device from the device ID
+char * getDeviceIDString(uint32_t device_ID);
+
+// This function returns an 8 bit revision ID
+uint8_t getRevisionID(void);
+
+// This function returns a string with the revision ID
+char * getRevisionIDString(uint8_t revision_ID);
+
+
 
 
 #endif /* _DEVICE_CONTROL_H */
