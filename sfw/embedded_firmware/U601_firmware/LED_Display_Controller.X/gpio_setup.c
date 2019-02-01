@@ -86,11 +86,13 @@ void portAGPIOInitialize (void){
     TRISAbits.TRISA14   = TRIS_OUTPUT;
     LATAbits.LATA14     = LAT_HIGH;
     ODCAbits.ODCA14     = ODC_DISABLE;
+    RPA14Rbits.RPA14R   = 0b0000;           // Disconnected from peripherals
     
     // Setup RA15
     TRISAbits.TRISA15   = TRIS_OUTPUT;
     LATAbits.LATA15     = LAT_HIGH;
     ODCAbits.ODCA15     = ODC_DISABLE;
+    RPA15Rbits.RPA15R   = 0b0000;           // Disconnected from peripherals
 }
 
 // initializes port B GPIO pins
@@ -101,24 +103,28 @@ void portBGPIOInitialize (void){
     LATBbits.LATB0      = LAT_LOW;
     ODCBbits.ODCB0      = ODC_DISABLE;
     ANSELBbits.ANSB0    = ANALOG_DISABLE;
+    RPB0Rbits.RPB0R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB1
     TRISBbits.TRISB1    = TRIS_INPUT;
     LATBbits.LATB1      = LAT_LOW;
     ODCBbits.ODCB1      = ODC_DISABLE;
     ANSELBbits.ANSB1    = ANALOG_DISABLE;
+    RPB1Rbits.RPB1R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB2
     TRISBbits.TRISB2    = TRIS_OUTPUT;
     LATBbits.LATB2      = LAT_HIGH;
     ODCBbits.ODCB2      = ODC_DISABLE;
     ANSELBbits.ANSB2    = ANALOG_DISABLE;
+    RPB2Rbits.RPB2R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB3
     TRISBbits.TRISB3    = TRIS_OUTPUT;
     LATBbits.LATB3      = LAT_HIGH;
     ODCBbits.ODCB3      = ODC_DISABLE;
     ANSELBbits.ANSB3    = ANALOG_DISABLE;
+    RPB3Rbits.RPB3R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB4
     TRISBbits.TRISB4    = TRIS_OUTPUT;
@@ -131,36 +137,42 @@ void portBGPIOInitialize (void){
     LATBbits.LATB5      = LAT_HIGH;
     ODCBbits.ODCB5      = ODC_DISABLE;
     ANSELBbits.ANSB5    = ANALOG_DISABLE;
+    RPB5Rbits.RPB5R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB6
     TRISBbits.TRISB6    = TRIS_OUTPUT;
     LATBbits.LATB6      = LAT_HIGH;
     ODCBbits.ODCB6      = ODC_DISABLE;
     ANSELBbits.ANSB6    = ANALOG_DISABLE;
+    RPB6Rbits.RPB6R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB7
     TRISBbits.TRISB7    = TRIS_OUTPUT;
     LATBbits.LATB7      = LAT_HIGH;
     ODCBbits.ODCB7      = ODC_DISABLE;
     ANSELBbits.ANSB7    = ANALOG_DISABLE;
+    RPB7Rbits.RPB7R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB8
     TRISBbits.TRISB8    = TRIS_OUTPUT;
     LATBbits.LATB8      = LAT_LOW;
     ODCBbits.ODCB8      = ODC_DISABLE;
     ANSELBbits.ANSB8    = ANALOG_DISABLE;
+    RPB8Rbits.RPB8R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB9
     TRISBbits.TRISB9    = TRIS_OUTPUT;
     LATBbits.LATB9      = LAT_LOW;
     ODCBbits.ODCB9      = ODC_DISABLE;
     ANSELBbits.ANSB9    = ANALOG_DISABLE;
+    RPB9Rbits.RPB9R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RB10
     TRISBbits.TRISB10   = TRIS_OUTPUT;
     LATBbits.LATB10     = LAT_HIGH;
     ODCBbits.ODCB10     = ODC_DISABLE;
     ANSELBbits.ANSB10   = ANALOG_DISABLE;
+    RPB10Rbits.RPB10R   = 0b0000;           // Disconnected from peripherals
     
     // Setup RB11
     TRISBbits.TRISB11   = TRIS_OUTPUT;
@@ -185,12 +197,14 @@ void portBGPIOInitialize (void){
     LATBbits.LATB14     = LAT_LOW;
     ODCBbits.ODCB14     = ODC_DISABLE;
     ANSELBbits.ANSB14   = ANALOG_DISABLE;
+    RPB14Rbits.RPB14R   = 0b0000;           // Using this pin as SCK3
     
     // Setup RB15
     TRISBbits.TRISB15   = TRIS_OUTPUT;
     LATBbits.LATB15     = LAT_LOW;
     ODCBbits.ODCB15     = ODC_DISABLE;
     ANSELBbits.ANSB15   = ANALOG_DISABLE;
+    RPB15Rbits.RPB15R   = 0b0000;           // Disconnected from peripherals
         
 }
 
@@ -202,24 +216,28 @@ void portCGPIOInitialize (void){
     LATCbits.LATC1      = LAT_LOW;
     ODCCbits.ODCC1      = ODC_DISABLE;
     ANSELCbits.ANSC1    = ANALOG_DISABLE;
+    RPC1Rbits.RPC1R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RC2
     TRISCbits.TRISC2    = TRIS_OUTPUT;
     LATCbits.LATC2      = LAT_LOW;
     ODCCbits.ODCC2      = ODC_DISABLE;
     ANSELCbits.ANSC2    = ANALOG_DISABLE;
+    RPC2Rbits.RPC2R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RC3
     TRISCbits.TRISC3    = TRIS_OUTPUT;
     LATCbits.LATC3      = LAT_HIGH;
     ODCCbits.ODCC3      = ODC_DISABLE;
     ANSELCbits.ANSC3    = ANALOG_DISABLE;
+    RPC3Rbits.RPC3R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RC4
     TRISCbits.TRISC4    = TRIS_OUTPUT;
     LATCbits.LATC4      = LAT_HIGH;
     ODCCbits.ODCC4      = ODC_DISABLE;
     ANSELCbits.ANSC4    = ANALOG_DISABLE;
+    RPC4Rbits.RPC4R     = 0b0000;           // Disconnected from peripherals
     
     // Setup RC12
     TRISCbits.TRISC12   = TRIS_OUTPUT;
@@ -250,74 +268,87 @@ void portDGPIOInitialize (void){
     TRISDbits.TRISD0    = TRIS_OUTPUT;
     LATDbits.LATD0      = LAT_LOW;
     ODCDbits.ODCD0      = ODC_DISABLE;
+    RPD0Rbits.RPD0R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD1
     TRISDbits.TRISD1    = TRIS_OUTPUT;
     LATDbits.LATD1      = LAT_LOW;
     ODCDbits.ODCD1      = ODC_DISABLE;
+    RPD1Rbits.RPD1R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD2
     TRISDbits.TRISD2    = TRIS_OUTPUT;
     LATDbits.LATD2      = LAT_LOW;
     ODCDbits.ODCD2      = ODC_DISABLE;
+    RPD2Rbits.RPD2R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD3
     TRISDbits.TRISD3    = TRIS_OUTPUT;
     LATDbits.LATD3      = LAT_LOW;
     ODCDbits.ODCD3      = ODC_DISABLE;
+    RPD3Rbits.RPD3R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD4
     TRISDbits.TRISD4    = TRIS_OUTPUT;
     LATDbits.LATD4      = LAT_LOW;
     ODCDbits.ODCD4      = ODC_DISABLE;
+    RPD4Rbits.RPD4R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD5
     TRISDbits.TRISD5    = TRIS_OUTPUT;
     LATDbits.LATD5      = LAT_LOW;
     ODCDbits.ODCD5      = ODC_DISABLE;
+    RPD5Rbits.RPD5R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD6
     TRISDbits.TRISD6    = TRIS_OUTPUT;
     LATDbits.LATD6      = LAT_LOW;
     ODCDbits.ODCD6      = ODC_DISABLE;
+    RPD6Rbits.RPD6R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD7
     TRISDbits.TRISD7    = TRIS_OUTPUT;
     LATDbits.LATD7      = LAT_LOW;
     ODCDbits.ODCD7      = ODC_DISABLE;
+    RPD7Rbits.RPD7R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD9
     TRISDbits.TRISD9    = TRIS_OUTPUT;
     LATDbits.LATD9      = LAT_LOW;
     ODCDbits.ODCD9      = ODC_DISABLE;
+    RPD9Rbits.RPD9R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RD10
     TRISDbits.TRISD10   = TRIS_OUTPUT;
     LATDbits.LATD10     = LAT_HIGH;
     ODCDbits.ODCD10     = ODC_DISABLE;
-    RPD10R              = 0b0001;       // Set RD10 as UART 3 TX
+    RPD10R              = 0b0001;               // Set RD10 as UART 3 TX
     
     // Setup RD11
     TRISDbits.TRISD11   = TRIS_OUTPUT;
     LATDbits.LATD11     = LAT_LOW;
     ODCDbits.ODCD11     = ODC_DISABLE;
+    RPD11Rbits.RPD11R   = 0b0000;               // Disconnected from peripherals
     
     // Setup RD12
     TRISDbits.TRISD12   = TRIS_OUTPUT;
     LATDbits.LATD12     = LAT_LOW;
     ODCDbits.ODCD12     = ODC_DISABLE;
+    RPD12Rbits.RPD12R   = 0b0000;               // Disconnected from peripherals
     
     // Setup RD14
     TRISDbits.TRISD14   = TRIS_OUTPUT;
     LATDbits.LATD14     = LAT_LOW;
     ODCDbits.ODCD14     = ODC_DISABLE;
     ANSELDbits.ANSD14   = ANALOG_DISABLE;
+    RPD14Rbits.RPD14R   = 0b0000;               // Disconnected from peripherals
     
     // Setup RD15
     TRISDbits.TRISD15   = TRIS_OUTPUT;
     LATDbits.LATD15     = LAT_LOW;
     ODCDbits.ODCD15     = ODC_DISABLE;
     ANSELDbits.ANSD15   = ANALOG_DISABLE;
+    RPD15Rbits.RPD15R   = 0b0000;               // Disconnected from peripherals
         
 }
 
@@ -343,6 +374,7 @@ void portEGPIOInitialize (void){
     TRISEbits.TRISE3    = TRIS_INPUT;
     LATEbits.LATE3      = LAT_LOW;
     ODCEbits.ODCE3      = ODC_DISABLE;
+    RPE3Rbits.RPE3R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RE4
     TRISEbits.TRISE4    = TRIS_INPUT;
@@ -355,6 +387,7 @@ void portEGPIOInitialize (void){
     LATEbits.LATE5      = LAT_LOW;
     ODCEbits.ODCE5      = ODC_DISABLE;
     ANSELEbits.ANSE5    = ANALOG_DISABLE;
+    RPE5Rbits.RPE5R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RE6
     TRISEbits.TRISE6    = TRIS_INPUT;
@@ -373,12 +406,14 @@ void portEGPIOInitialize (void){
     LATEbits.LATE8      = LAT_LOW;
     ODCEbits.ODCE8      = ODC_DISABLE;
     ANSELEbits.ANSE8    = ANALOG_DISABLE;
+    RPE8Rbits.RPE8R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RE9
     TRISEbits.TRISE9    = TRIS_OUTPUT;
     LATEbits.LATE9      = LAT_HIGH;
     ODCEbits.ODCE9      = ODC_DISABLE;
     ANSELEbits.ANSE9    = ANALOG_DISABLE;
+    RPE9Rbits.RPE9R     = 0b0000;               // Disconnected from peripherals
     
 }
 
@@ -389,7 +424,7 @@ void portFGPIOInitialize (void){
     TRISFbits.TRISF0    = TRIS_INPUT;
     LATFbits.LATF0      = LAT_LOW;
     ODCFbits.ODCF0      = ODC_DISABLE;
-    U3RXR               = 0b0100;           // Set RF0 as UART 3 RX
+    U3RXR               = 0b0100;               // Set RF0 as UART 3 RX
     
     // Setup RF1
     TRISFbits.TRISF1    = TRIS_INPUT;
@@ -400,7 +435,7 @@ void portFGPIOInitialize (void){
     TRISFbits.TRISF2    = TRIS_OUTPUT;
     LATFbits.LATF2      = LAT_LOW;
     ODCFbits.ODCF2      = ODC_DISABLE;
-    RPF2Rbits.RPF2R     = 0b0000;           // Set RF2 as GPIO, not connected to any peripherALS
+    RPF2Rbits.RPF2R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RF3
     TRISFbits.TRISF3    = TRIS_INPUT;
@@ -411,11 +446,13 @@ void portFGPIOInitialize (void){
     TRISFbits.TRISF4    = TRIS_OUTPUT;
     LATFbits.LATF4      = LAT_LOW;
     ODCFbits.ODCF4      = ODC_DISABLE;
+    RPF4Rbits.RPF4R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RF5
     TRISFbits.TRISF5    = TRIS_OUTPUT;
     LATFbits.LATF5      = LAT_LOW;
     ODCFbits.ODCF5      = ODC_DISABLE;
+    RPF5Rbits.RPF5R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RF8
     TRISFbits.TRISF8    = TRIS_INPUT;
@@ -433,6 +470,7 @@ void portFGPIOInitialize (void){
     LATFbits.LATF13     = LAT_LOW;
     ODCFbits.ODCF13     = ODC_DISABLE;
     ANSELFbits.ANSF13   = ANALOG_DISABLE;
+    RPF13Rbits.RPF13R   = 0b0000;               // Disconnected from peripherals
     
 }
 
@@ -448,12 +486,14 @@ void portGGPIOInitialize (void){
     TRISGbits.TRISG1    = TRIS_OUTPUT;
     LATGbits.LATG1      = LAT_LOW;
     ODCGbits.ODCG1      = ODC_DISABLE;
+    RPG1Rbits.RPG1R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RG6
     TRISGbits.TRISG6    = TRIS_OUTPUT;
     LATGbits.LATG6      = LAT_LOW;
     ODCGbits.ODCG6      = ODC_DISABLE;
     ANSELGbits.ANSG6    = ANALOG_DISABLE;
+    RPG6Rbits.RPG6R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RG7
     TRISGbits.TRISG7    = TRIS_OUTPUT;
@@ -472,6 +512,7 @@ void portGGPIOInitialize (void){
     LATGbits.LATG9      = LAT_LOW;
     ODCGbits.ODCG9      = ODC_DISABLE;
     ANSELGbits.ANSG9    = ANALOG_DISABLE;
+    RPG9Rbits.RPG9R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RG12
     TRISGbits.TRISG12   = TRIS_OUTPUT;
