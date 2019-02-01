@@ -136,7 +136,7 @@ void USB_UART_Initialize(void) {
     // Clear the terminal
     USB_UART_clearTerminal();
     USB_UART_setCursorHome();
-    USB_UART_textAttributesReset();
+    // USB_UART_textAttributesReset();
         
     // Enable receive and error interrupts
     // Transfer interrupt is set in write function

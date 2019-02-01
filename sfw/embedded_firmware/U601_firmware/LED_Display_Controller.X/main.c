@@ -78,7 +78,7 @@ void main(void) {
     
     // Save the cause of the most recent device reset
     reset_cause = getResetCause();
-        
+    
     // Initialize GPIO pins to startup settings
     gpioInitialize();
     
@@ -86,7 +86,7 @@ void main(void) {
     USB_UART_Initialize();
     
     // Print debug message s
-    printf("Logic Board Initializing...\n\r");
+    printf(" Logic Board Initializing...\n\r");
     
     if (    reset_cause == Undefined ||
             reset_cause == Primary_Config_Registers_Error ||
