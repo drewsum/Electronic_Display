@@ -17,6 +17,7 @@
 
 #include <xc.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "device_control.h"
 
@@ -453,3 +454,259 @@ void PMDLock(void) {
     
 }
 
+// This function returns a string containing the device's serial number
+char * getStringSerialNumber(void) {
+ 
+    static char return_string[20];
+    
+    sprintf(return_string, "0x%X%X",
+        *((uint32_t *)(0xBFC54024)),
+        *((uint32_t *)(0xBFC54020)));
+    
+    return return_string;
+    
+}
+
+// This function returns a 32 bit device ID
+uint32_t getDeviceID(void) {
+ 
+    return *((uint32_t *)(0xBF800020)) & 0x0FFFFFFF;
+    
+}
+
+// This function returns a string with the part number of the device from the device ID
+char * getDeviceIDString(uint32_t device_ID) {
+ 
+    switch (device_ID) {
+     
+        case 0x7201053:
+            return "PIC32MZ0512EFE064";
+            break;
+            
+        case 0x7206053:
+            return "PIC32MZ0512EFF064";
+            break;
+            
+        case 0x722E053:
+            return "PIC32MZ0512EFK064";
+            break;
+            
+        case 0x7202053:
+            return "PIC32MZ1024EFE064";
+            break;
+            
+        case 0x7207053:
+            return "PIC32MZ1024EFF064";
+            break;
+            
+        case 0x722F053:
+            return "PIC32MZ1024EFK064";
+            break;
+            
+        case 0x7203053:
+            return "PIC32MZ1024EFG064";
+            break;
+            
+        case 0x7208053:
+            return "PIC32MZ1024EFH064";
+            break;
+            
+        case 0x7230053:
+            return "PIC32MZ1024EFM064";
+            break;
+            
+        case 0x7204053:
+            return "PIC32MZ2048EFG064";
+            break;
+            
+        case 0x7209053:
+            return "PIC32MZ2048EFH064";
+            break;
+            
+        case 0x7231053:
+            return "PIC32MZ2048EFM064";
+            break;
+            
+        case 0x720B053:
+            return "PIC32MZ0512EFE100";
+            break;
+            
+        case 0x7210053:
+            return "PIC32MZ0512EFF100";
+            break;
+            
+        case 0x7238053:
+            return "PIC32MZ0512EFK100";
+            break;
+            
+        case 0x720C053:
+            return "PIC32MZ1024EFE100";
+            break;
+            
+        case 0x7211053:
+            return "PIC32MZ1024EFF100";
+            break;
+            
+        case 0x7239053:
+            return "PIC32MZ1024EFK100";
+            break;
+            
+        case 0x720D053:
+            return "PIC32MZ1024EFG100";
+            break;
+            
+        case 0x7212053:
+            return "PIC32MZ1024EFH100";
+            break;
+            
+        case 0x723A053:
+            return "PIC32MZ1024EFM100";
+            break;
+            
+        case 0x720E053:
+            return "PIC32MZ2048EFG100";
+            break;
+            
+        case 0x7213053:
+            return "PIC32MZ2048EFH100";
+            break;
+            
+        case 0x723B053:
+            return "PIC32MZ2048EFM100";
+            break;
+            
+        case 0x7215053:
+            return "PIC32MZ0512EFE124";
+            break;
+            
+        case 0x721A053:
+            return "PIC32MZ0512EFF124";
+            break;
+            
+        case 0x7242053:
+            return "PIC32MZ0512EFK124";
+            break;
+            
+        case 0x7216053:
+            return "PIC32MZ1024EFE124";
+            break;
+            
+        case 0x721B053:
+            return "PIC32MZ1024EFF124";
+            break;
+            
+        case 0x7243053:
+            return "PIC32MZ1024EFK124";
+            break;
+            
+        case 0x7217053:
+            return "PIC32MZ1024EFG124";
+            break;
+            
+        case 0x721C053:
+            return "PIC32MZ1024EFH124";
+            break;
+            
+        case 0x7244053:
+            return "PIC32MZ1024EFM124";
+            break;
+            
+        case 0x7218053:
+            return "PIC32MZ2048EFG124";
+            break;
+            
+        case 0x721D053:
+            return "PIC32MZ2048EFH124";
+            break;
+            
+        case 0x7245053:
+            return "PIC32MZ2048EFM124";
+            break;
+            
+        case 0x721F053:
+            return "PIC32MZ0512EFE144";
+            break;
+            
+        case 0x7224053:
+            return "PIC32MZ0512EFF144";
+            break;
+            
+        case 0x724C053:
+            return "PIC32MZ0512EFK144";
+            break;
+            
+        case 0x7220053:
+            return "PIC32MZ1024EFE144";
+            break;
+            
+        case 0x7225053:
+            return "PIC32MZ1024EFF144";
+            break;
+            
+        case 0x724D053:
+            return "PIC32MZ1024EFK144";
+            break;
+            
+        case 0x7221053:
+            return "PIC32MZ1024EFG144";
+            break;
+            
+        case 0x7226053:
+            return "PIC32MZ1024EFH144";
+            break;
+            
+        case 0x724E053:
+            return "PIC32MZ1024EFM144";
+            break;
+            
+        case 0x7222053:
+            return "PIC32MZ2048EFG144";
+            break;
+            
+        case 0x7227053:
+            return "PIC32MZ2048EFH144";
+            break;
+            
+        case 0x724F053:
+            return "PIC32MZ2048EFM144";
+            break;
+            
+        default:
+            return "Undefined";
+            break;
+        
+    }
+    
+}
+
+// This function returns an 8 bit revision ID
+uint8_t getRevisionID(void) {
+ 
+    return *((uint32_t *)(0xBF800020)) & 0xF0000000 >> 28;
+    
+}
+
+// This function returns a string with the revision ID
+char * getRevisionIDString(uint8_t revision_ID) {
+ 
+    switch (revision_ID) {
+    
+        case 0x1:
+            return "A1";
+            break;
+            
+        case 0x3:
+            return "A3";
+            break;
+            
+        case 0x6:
+            return "B2";
+            break;
+            
+        default:
+            return "Undefined";
+            break;
+        
+    }
+    
+}

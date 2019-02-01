@@ -16,12 +16,6 @@
 #include "error_handler.h"
 #include "cause_of_reset.h"
 
-
-// Text attribute enums
-text_attribute_t attribute;
-text_color_t foreground_color;
-text_color_t background_color;
-
 volatile uint32_t usb_uart_TxHead = 0;
 volatile uint32_t usb_uart_TxTail = 0;
 volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
@@ -44,9 +38,9 @@ extern reset_cause_t reset_cause;
 void USB_UART_Initialize(void) {
  
     // Disable UART 3 interrupts
-//    disableInterrupt(UART3_Receive_Done);
-//    disableInterrupt(UART3_Transfer_Done);
-//    disableInterrupt(UART3_Fault);
+    disableInterrupt(UART3_Receive_Done);
+    disableInterrupt(UART3_Transfer_Done);
+    disableInterrupt(UART3_Fault);
     
     // Turn off UART 3 for configuration
     U3MODEbits.ON = 0;
@@ -119,7 +113,7 @@ void USB_UART_Initialize(void) {
     usb_uart_RxHead = 0;
     usb_uart_RxTail = 0;
     usb_uart_RxCount = 0;
-    
+        
     
     // Set interrupt priorities
     setInterruptPriority(UART3_Receive_Done, 2);
@@ -135,19 +129,20 @@ void USB_UART_Initialize(void) {
     clearInterruptFlag(UART3_Receive_Done);
     clearInterruptFlag(UART3_Transfer_Done);
     clearInterruptFlag(UART3_Fault);
-    
-    // Enable receive and error interrupts
-    // Transfer interrupt is set in write function
-    enableInterrupt(UART3_Receive_Done);
-    enableInterrupt(UART3_Fault);
-    
+        
     // Enable UART 3
     U3MODEbits.ON = 1;
     
     // Clear the terminal
     USB_UART_clearTerminal();
     USB_UART_setCursorHome();
-
+    USB_UART_textAttributesReset();
+        
+    // Enable receive and error interrupts
+    // Transfer interrupt is set in write function
+    enableInterrupt(UART3_Receive_Done);
+    enableInterrupt(UART3_Fault);
+    
 }
 
 // This is the USB UART receive interrupt service routine
@@ -282,16 +277,7 @@ void USB_UART_Receive_Handler(void) {
         }
         usb_uart_RxCount++;
         
-    }
-    
-    // Empty hardware FIFO
-    int dummy;
-    while(U3STAbits.URXDA) {
-                 
-        dummy = U3RXREG;
-                    
-    }
-    
+    }    
     
     // This chunk tells main() or whatever is pulling from the ring buffer that
     // data is ready to be read, since the terminal sent a newline or 
@@ -343,7 +329,7 @@ void USB_UART_print(char charArray[]) {
 
 // This function redirects stdout to USB_UART output, allowing printf functionality
 void _mon_putc(char c) {
- 
+    
     USB_UART_putchar(c);
     
 }
@@ -355,15 +341,14 @@ void USB_UART_ringBufferPull(void) {
     int charNumber = usb_uart_RxCount;
             
     // Clear line buffer
-    uint16_t index;
-    for (index = 0; index < USB_UART_RX_BUFFER_SIZE; index++) {
+    uint32_t index;
+    for (index = 0; index < sizeof(USB_UART_line); index++) {
 
         USB_UART_line[index] = '\0';
 
     }
 
     // Fill line from ring buffer
-    index = 0;
     for(index = 0; index < charNumber; index++){
 
         USB_UART_line[index] = USB_UART_Read_Byte();
@@ -448,34 +433,33 @@ void USB_UART_ringBufferLUT(char * line_in) {
     else if (strcmp(line_in, "PMD Status?") == 0) {
      
         USB_UART_textAttributesReset();
-        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("Peripheral Module Disable Status:\n\r");
-        USB_UART_print(getStringPMDStatus());
+        printPMDStatus();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
         
     }
     
     else if (strcmp(line_in, "WDT Status?") == 0) {
      
         USB_UART_textAttributesReset();
-        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("Watchdog Timer Status:\n\r");
-        USB_UART_print(getStringWatchdogStatus());
+        printWatchdogStatus();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
         
     }
     
     else if (strcmp(line_in, "DMT Status?") == 0) {
      
         USB_UART_textAttributesReset();
-        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("Deadman Timer Status:\n\r");
-        USB_UART_print(getStringDeadmanStatus());
+        printDeadmanStatus();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
 
+    }
+    
+    else if (strcmp(line_in, "Interrupt Status?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        printInterruptStatus();
+        USB_UART_textAttributesReset();
+        
     }
     
     else if (strcmp(line_in, "Cause of Reset?") == 0) {
@@ -486,7 +470,39 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_print(getResetCauseString(reset_cause));
         USB_UART_printNewline();
         USB_UART_textAttributesReset();
-        USB_UART_printNewline();
+        
+    }
+    
+    else if (strcmp(line_in, "Serial Number?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        printf("PIC32MZ Serial Number retrieved from Flash: 0x%X%X\n\r",
+                getStringSerialNumber());
+        USB_UART_textAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Device ID?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        printf("Device ID retrieved from Flash: %s (0x%X)\n\r", 
+                getDeviceIDString(getDeviceID()), 
+                getDeviceID());
+        USB_UART_textAttributesReset();        
+                
+    }
+    
+    else if (strcmp(line_in, "Revision ID?") == 0) {
+     
+        USB_UART_textAttributesReset();
+        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        printf("Revision ID retrieved from Flash: %s (0x%X)\n\r", 
+                getRevisionIDString(getRevisionID()), 
+                getRevisionID());
+        USB_UART_textAttributesReset();        
+        
         
     }
     
@@ -532,7 +548,6 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_print("Mentor:\n\r");
         USB_UART_textAttributesReset();
         USB_UART_print("Cris Ababei\n\r");
-        USB_UART_printNewline();
         
     }
     
@@ -551,6 +566,8 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_print("POS5 RUN Asserted\n\r");
         USB_UART_textAttributesReset();
         
+        printf("%d\n\r", PORTFbits.RF2);
+        
     }
     
     else if (strcmp(line_in, "POS5 Disable") == 0) {
@@ -561,6 +578,8 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_textAttributes(RED, BLACK, NORMAL);
         USB_UART_print("POS5 RUN Deasserted\n\r");
         USB_UART_textAttributesReset();
+        
+        printf("%d\n\r", PORTFbits.RF2);
         
     }
     
@@ -629,105 +648,108 @@ void USB_UART_textAttributes(text_color_t foreground_color,
         text_color_t background_color,
         text_attribute_t input_attribute) {
     
-    strncpy(output_buff, "\033[", sizeof(output_buff));
+    static char print_string[10];
+    
+    strncpy(print_string, "\033[", sizeof(print_string));
     
     switch (input_attribute) {
      
         case NORMAL:
-            strcat(output_buff,"0"); 
+            strcat(print_string,"0"); 
             break;
         case BOLD:
-            strcat(output_buff,"1");
+            strcat(print_string,"1");
             break;
         case UNDERSCORE:
-            strcat(output_buff,"4");
+            strcat(print_string,"4");
             break;
         case BLINK:
-            strcat(output_buff,"5");
+            strcat(print_string,"5");
             break;
         case REVERSE:
-            strcat(output_buff,"7");
+            strcat(print_string,"7");
             break;
         case CONCEALED:
-            strcat(output_buff,"8");
+            strcat(print_string,"8");
             break;
 
         default:
-            strcat(output_buff,"0");
+            strcat(print_string,"0");
             break;
     }
     
-    strcat(output_buff,";");
+    strcat(print_string,";");
     
     switch (foreground_color) {
      
         case BLACK:
-            strcat(output_buff,"30");
+            strcat(print_string,"30");
             break;
         case RED:
-            strcat(output_buff,"31");
+            strcat(print_string,"31");
             break;
         case GREEN:
-            strcat(output_buff,"32");
+            strcat(print_string,"32");
             break;
         case YELLOW:
-            strcat(output_buff,"33");
+            strcat(print_string,"33");
             break;
         case BLUE:
-            strcat(output_buff,"34");
+            strcat(print_string,"34");
             break;
         case MAGENTA:
-            strcat(output_buff,"35");
+            strcat(print_string,"35");
             break;
         case CYAN:
-            strcat(output_buff,"36");
+            strcat(print_string,"36");
             break;
         case WHITE:
-            strcat(output_buff,"37");
+            strcat(print_string,"37");
             break;
             
         default:
-            strcat(output_buff,"37");
+            strcat(print_string,"37");
             break;
     }
     
-    strcat(output_buff,";");
+    strcat(print_string,";");
     
     switch (background_color) {
      
         case BLACK:
-            strcat(output_buff,"40");
+            strcat(print_string,"40");
             break;
         case RED:
-            strcat(output_buff,"41");
+            strcat(print_string,"41");
             break;
         case GREEN:
-            strcat(output_buff,"42");
+            strcat(print_string,"42");
             break;
         case YELLOW:
-            strcat(output_buff,"43");
+            strcat(print_string,"43");
             break;
         case BLUE:
-            strcat(output_buff,"44");
+            strcat(print_string,"44");
             break;
         case MAGENTA:
-            strcat(output_buff,"45");
+            strcat(print_string,"45");
             break;
         case CYAN:
-            strcat(output_buff,"46");
+            strcat(print_string,"46");
             break;
         case WHITE:
-            strcat(output_buff,"47");
+            strcat(print_string,"47");
             break;
             
         default:
-            strcat(output_buff,"47");
+            strcat(print_string,"47");
             break;
     }
     
-    strcat(output_buff,"m");
+    strcat(print_string,"m");
     
-    USB_UART_print(output_buff);
+    USB_UART_print(print_string);
+    
 }
 
 // Reset text attributes to white text, black background, no effects
@@ -747,6 +769,10 @@ void USB_UART_printNewline(void) {
 // Print help message, used in a command above
 void USB_UART_printHelpMessage(void) {
  
+    usb_uart_TxHead = 0;
+    usb_uart_TxTail = 0;   
+
+    
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
     USB_UART_print("Supported Commands:\n\r");
@@ -758,6 +784,10 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
     USB_UART_print("    WDT Status?: Prints the state of the watchdog timer\n\r");
     USB_UART_print("    DMT Status?: Prints the state of the deadman timer\n\r");
+    USB_UART_print("    Interrupt Status? Prints information on interrupt settings\n\r");
+    USB_UART_print("    Serial Number?: Prints device serial number\n\r");
+    USB_UART_print("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
+    USB_UART_print("    Revision ID?: Prints silicon die revision ID\n\r");
     USB_UART_print("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     USB_UART_print("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
@@ -797,10 +827,7 @@ void USB_UART_printHelpMessage(void) {
     USB_UART_print("Errors and negative responses appear in red\n\r");
     USB_UART_textAttributesReset();
     USB_UART_print("User input appears in white\n\r");
-        
-    // Get some space on terminal
-    USB_UART_printNewline();
-     
+         
 }
 
 // tests all the function written for this example

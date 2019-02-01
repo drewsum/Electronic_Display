@@ -20,8 +20,8 @@
 #include <sys/attribs.h>
 
 // Sizes of TX and RX ring buffers
-#define USB_UART_TX_BUFFER_SIZE 4096
-#define USB_UART_RX_BUFFER_SIZE 1024
+#define USB_UART_TX_BUFFER_SIZE 16384
+#define USB_UART_RX_BUFFER_SIZE 128
 
 // Hardcoded COM Port Descriptor Strings
 #define USB_UART_BAUD_RATE_STR          "115.2 kbs"
@@ -32,7 +32,7 @@
 
 
 // Output character buffer
-char output_buff[USB_UART_TX_BUFFER_SIZE];
+// char output_buff[USB_UART_TX_BUFFER_SIZE];
 
 
 // Received String from EUSART rx ring buffer, this is what we actually compare
@@ -42,6 +42,11 @@ char USB_UART_line[USB_UART_RX_BUFFER_SIZE];
 // ring buffer counters
 extern volatile uint32_t usb_uart_TxBufferRemaining;
 extern volatile uint32_t usb_uart_RxCount;
+
+extern volatile uint32_t usb_uart_TxHead;
+extern volatile uint32_t usb_uart_TxTail;
+extern volatile uint32_t usb_uart_TxBufferRemaining;
+
 
 
 // Enumeration holding attributes data for setting text fanciness

@@ -15,66 +15,77 @@ reset_cause_t getResetCause(void) {
     if (RCONbits.EXTR) {
      
         reset_cause = External_Reset;
+        RCONbits.EXTR = 0;
         
     }
     
     else if (RCONbits.SWR) {
      
         reset_cause = Software_Reset;
+        RCONbits.SWR = 0;
         
     }
     
     else if (RCONbits.DMTO) {
      
         reset_cause = DMT_Reset;
+        RCONbits.DMTO = 0;
         
     }
     
     else if (RCONbits.WDTO) {
      
         reset_cause = WDT_Reset;
+        RCONbits.WDTO = 0;
         
     }
     
     else if (RCONbits.SLEEP) {
      
         reset_cause = Wake_From_Sleep;
+        RCONbits.SLEEP = 0;
         
     }
     
     else if (RCONbits.IDLE) {
      
         reset_cause = Wake_From_Idle;
+        RCONbits.IDLE = 0;
         
     }
     
     else if (RCONbits.BOR) {
      
         reset_cause = BOR_Reset;
+        RCONbits.BOR = 0;
         
     }
     
     else if (RCONbits.POR) {
      
         reset_cause = POR_Reset;
+        RCONbits.POR = 0;
         
     }
     
     else if (RCONbits.BCFGERR) {
      
         reset_cause = Primary_Config_Registers_Error;
+        RCONbits.BCFGERR = 0;
         
     }
     
     else if (RCONbits.BCFGFAIL) {
      
         reset_cause = Primary_Secondary_Config_Registers_Error;
+        RCONbits.BCFGFAIL = 0;
         
     }
     
     else if (RCONbits.CMR) {
      
         reset_cause = Config_Mismatch;
+        RCONbits.CMR = 0;
         
     }
     
@@ -84,18 +95,7 @@ reset_cause_t getResetCause(void) {
         error_handler.other_error_flag = 1;
         
     }
-    
-    RCONbits.BCFGERR = 0;
-    RCONbits.BCFGFAIL = 0;
-    RCONbits.BOR = 0;
-    RCONbits.CMR = 0;
-    RCONbits.DMTO = 0;
-    RCONbits.EXTR = 0;
-    RCONbits.IDLE = 0;
-    RCONbits.POR = 0;
-    RCONbits.SLEEP = 0;
-    RCONbits.SWR = 0;
-    RCONbits.WDTO = 0;
+
     
     return reset_cause;
     

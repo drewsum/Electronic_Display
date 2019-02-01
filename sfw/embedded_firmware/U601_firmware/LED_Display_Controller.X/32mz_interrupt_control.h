@@ -271,6 +271,12 @@ void setInterruptPriority(interrupt_source_t input_interrupt, uint8_t input_prio
 // This function sets the subpriority for a given interrupt
 void setInterruptSubpriority(interrupt_source_t input_interrupt, uint8_t input_subpriority);
 
+// This function returns the given interrupt priority
+uint8_t getInterruptPriority(interrupt_source_t input_interrupt);
+
+// This function returns the given interrupt subpriority
+uint8_t getInterruptSubriority(interrupt_source_t input_interrupt);
+
 // This function enables selected interrupt
 void enableInterrupt(interrupt_source_t input_interrupt);
 
@@ -280,7 +286,11 @@ void disableInterrupt(interrupt_source_t input_interrupt);
 // This function clears selected interrupt flag
 void clearInterruptFlag(interrupt_source_t input_interrupt);
 
+// This function returns a string of the given interrupt name
+char * getInterruptNameStringPadded(interrupt_source_t input_interrupt);
 
+// This function prints information on all interrupt settings
+void printInterruptStatus(void);
 
 #endif /* _32MZ_INTERRUPT_CONTROL_H */
 

@@ -20,10 +20,6 @@
 
 #include "error_handler.h"
 
-// Hardcoded description strings
-#define WATCHDOG_TIMER_TIMEOUT_STR          "2.048 seconds"
-#define DEADMAN_TIMER_TIMEOUT_STR           "2147483648 instruction fetches"
-
 // This function initializes the watchdog timer for a timeout period of 
 // 2 seconds, and no window (window always open)
 void watchdogTimerInitialize(void);
@@ -52,11 +48,11 @@ void holdThumbTighter(void);
 // This function verifies the DMT has been cleared properly
 void verifyThumbTightEnough(void);
 
-// This function returns a string with information on the watchdog timer
-char * getStringWatchdogStatus(void);
+// This function prints information on the watchdog timer
+void printWatchdogStatus(void);
 
-// This function returns a string with information on the deadman timer
-char * getStringDeadmanStatus(void);
+// This function prints information on the deadman timer
+void printDeadmanStatus(void);
 
 #endif /* _WATCHDOG_TIMER_H */
 

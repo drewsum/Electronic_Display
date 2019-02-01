@@ -1,6 +1,6 @@
 /*
  * File:   main.c
- * Author: Logan Wedel
+ * Author: Logan Wedel, Drew Maatman, Caroline Gilger
  *
  * Created on December 18, 2018, 7:27 PM
  */
@@ -86,7 +86,7 @@ void main(void) {
     USB_UART_Initialize();
     
     // Print debug message s
-    printf(" Logic Board Initializing...\n\r");
+    printf("Logic Board Initializing...\n\r");
     
     if (    reset_cause == Undefined ||
             reset_cause == Primary_Config_Registers_Error ||
@@ -148,7 +148,7 @@ void main(void) {
     
     // Startup the deadman timer
     deadmanTimerInitialize();
-    printf("Deadman Timer Initialized");
+    printf("Deadman Timer Initialized\n\r");
     
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
@@ -156,7 +156,7 @@ void main(void) {
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
-    printf("Type 'Help' for list of supported commands\n\r");
+    printf("\n\rType 'Help' for list of supported commands, press enter twice after reset\n\r\n\r");
     USB_UART_textAttributesReset();
     
     // Loop endlessly
@@ -166,7 +166,7 @@ void main(void) {
         Nop();
                 
         // Check if we've got a received USB UART command waiting
-        if(usb_uart_RxStringReady) {
+        if(usb_uart_RxStringReady != 0) {
 
             USB_UART_ringBufferPull();
         
