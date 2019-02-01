@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.3.0'
         
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -19,6 +19,14 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenLocal()
+        maven {
+            url "http://maven.affectiva.com"
+        }
+        maven { url "http://repo1.maven.org/maven2" }
+        maven { url "http://jcenter.bintray.com/" }
+        maven { url 'https://dl.bintray.com/spark/maven' }
+        maven { url 'https://jitpack.io' }
     }
 }
 
