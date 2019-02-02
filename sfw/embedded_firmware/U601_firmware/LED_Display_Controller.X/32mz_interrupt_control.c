@@ -5,12 +5,6 @@
 #include "32mz_interrupt_control.h"
 #include "usb_uart.h"
 
-extern volatile uint32_t usb_uart_TxHead;
-extern volatile uint32_t usb_uart_TxTail;
-extern volatile uint32_t usb_uart_TxBufferRemaining;
-extern volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
-
-
 
 // This function enables global interrupts
 void enableGlobalInterrupts(void) {
@@ -6764,8 +6758,6 @@ void enableInterrupt(interrupt_source_t input_interrupt) {
 }
 
 // This function disables selected interrupt
-// Returns 0 if no errors
-// Returns 1 if errors
 void disableInterrupt(interrupt_source_t input_interrupt) {
  
     setInterruptEnable(input_interrupt, 0);
@@ -6773,8 +6765,6 @@ void disableInterrupt(interrupt_source_t input_interrupt) {
 }
 
 // This function clears selected interrupt flag
-// Returns 0 if no errors
-// Returns 1 if errors
 void clearInterruptFlag(interrupt_source_t input_interrupt) {
  
     setInterruptFlag(input_interrupt, 0);
@@ -6784,7 +6774,7 @@ void clearInterruptFlag(interrupt_source_t input_interrupt) {
 // This function returns a string of the given interrupt name
 char * getInterruptNameStringPadded(interrupt_source_t input_interrupt) {
     
-    static char *interrupt_descriptor_array[] = {
+    char *interrupt_descriptor_array[] = {
         
         "Core Timer                ",
         "Core Software 0           ",
@@ -7010,7 +7000,7 @@ char * getInterruptNameStringPadded(interrupt_source_t input_interrupt) {
 // This function prints information on all interrupt settings
 void printInterruptStatus(void) {
     
-    USB_UART_textAttributesReset();
+    // USB_UART_textAttributesReset();
     USB_UART_textAttributes(GREEN, BLACK, UNDERSCORE);
     printf("Interrupt Status:\n\r");
 
@@ -7020,13 +7010,13 @@ void printInterruptStatus(void) {
     printf("Global Interrupt Enable: %s\n\r", getGlobalInterruptsState() ? "T" : "F");
 
     USB_UART_textAttributes(GREEN, BLACK, REVERSE);
-    printf("###  Name                      EN?  P S IRQ?\n\r");
+    printf("###  Name                      EN?  P S\n\r");
     
     USB_UART_textAttributesReset();
 
     // Loop through all possible interrupts
-    int i;
-    for (i = 0; i < 214; i++) {
+    uint8_t i;
+    for (i = 0; i <= 213; i++) {
      
         if (i % 2 == 0) {
          
@@ -7040,14 +7030,13 @@ void printInterruptStatus(void) {
             
         }
         
-        printf("%03d  %s%c  %d %d    %c\n\r", 
+        printf("%03d  %s%c  %d %d\n\r", 
                 i,
                 getInterruptNameStringPadded(i),
                 getInterruptEnable(i) ? 'T' : ' ',
                 getInterruptPriority(i),
-                getInterruptSubriority(i),
-                getInterruptFlag(i) ? 'T' : ' ');
-        
+                getInterruptSubriority(i));
+
     }
         
 }
