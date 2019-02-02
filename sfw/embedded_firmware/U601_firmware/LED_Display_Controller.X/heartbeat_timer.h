@@ -43,7 +43,7 @@ void heartbeatTimerStart(void);
 void heartbeatTimerStop(void);
 
 // Heartbeat timer interrupt service routine
-void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void);
+void __ISR(_TIMER_1_VECTOR, ipl7AUTO) hearbeatTimerISR(void);
 
 #endif /* _HEARTBEAT_TIMER_H */
 

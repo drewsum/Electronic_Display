@@ -30,11 +30,6 @@
 #define USB_UART_STOP_BITS_STR          "1"
 #define USB_UART_FLOW_CONTROL_STR       "None"
 
-
-// Output character buffer
-// char output_buff[USB_UART_TX_BUFFER_SIZE];
-
-
 // Received String from EUSART rx ring buffer, this is what we actually compare
 // against command strings
 char USB_UART_line[USB_UART_RX_BUFFER_SIZE];
@@ -46,6 +41,7 @@ extern volatile uint32_t usb_uart_RxCount;
 extern volatile uint32_t usb_uart_TxHead;
 extern volatile uint32_t usb_uart_TxTail;
 extern volatile uint32_t usb_uart_TxBufferRemaining;
+extern volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
 
 
 

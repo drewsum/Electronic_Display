@@ -12,7 +12,22 @@ reset_cause_t getResetCause(void) {
  
     reset_cause_t reset_cause;
     
-    if (RCONbits.EXTR) {
+    if (RCONbits.POR) {
+     
+        reset_cause = POR_Reset;
+        RCONbits.POR = 0;
+        
+    }
+    
+    else if (RCONbits.BOR) {
+     
+        reset_cause = BOR_Reset;
+        RCONbits.BOR = 0;
+        
+    }
+    
+    
+    else if (RCONbits.EXTR) {
      
         reset_cause = External_Reset;
         RCONbits.EXTR = 0;
@@ -23,6 +38,13 @@ reset_cause_t getResetCause(void) {
      
         reset_cause = Software_Reset;
         RCONbits.SWR = 0;
+        
+    }
+    
+    else if (RCONbits.CMR) {
+     
+        reset_cause = Config_Mismatch;
+        RCONbits.CMR = 0;
         
     }
     
@@ -54,20 +76,6 @@ reset_cause_t getResetCause(void) {
         
     }
     
-    else if (RCONbits.BOR) {
-     
-        reset_cause = BOR_Reset;
-        RCONbits.BOR = 0;
-        
-    }
-    
-    else if (RCONbits.POR) {
-     
-        reset_cause = POR_Reset;
-        RCONbits.POR = 0;
-        
-    }
-    
     else if (RCONbits.BCFGERR) {
      
         reset_cause = Primary_Config_Registers_Error;
@@ -79,13 +87,6 @@ reset_cause_t getResetCause(void) {
      
         reset_cause = Primary_Secondary_Config_Registers_Error;
         RCONbits.BCFGFAIL = 0;
-        
-    }
-    
-    else if (RCONbits.CMR) {
-     
-        reset_cause = Config_Mismatch;
-        RCONbits.CMR = 0;
         
     }
     

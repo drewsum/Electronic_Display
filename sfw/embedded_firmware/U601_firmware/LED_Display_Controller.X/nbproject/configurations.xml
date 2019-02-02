@@ -76,10 +76,10 @@
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.10</languageToolchainVersion>
-        <platform>4</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="0.1.15"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.17"/>
       </packs>
       <compileType>
         <linkerTool>

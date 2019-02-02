@@ -85,6 +85,12 @@ void main(void) {
     // Initialize UART USB debugging
     USB_UART_Initialize();
     
+    // Clear the terminal
+    USB_UART_clearTerminal();
+    USB_UART_setCursorHome();
+    // USB_UART_textAttributesReset();
+
+    
     // Print debug message s
     printf(" Logic Board Initializing...\n\r");
     
@@ -112,27 +118,14 @@ void main(void) {
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-    printf("Clocks Initialized to the following settings:\n\r");
-    printf("    SYSCLK: %s\n\r", stringFromClockSetting(SYSCLK_INT));
-    printf("    REFCLK1: %s\n\r", stringFromClockSetting(REFCLK1_INT));
-    printf("    REFCLK2: %s\n\r", stringFromClockSetting(REFCLK2_INT));
-    printf("    REFCLK3: %s\n\r", stringFromClockSetting(REFCLK3_INT));
-    printf("    REFCLK4: %s\n\r", stringFromClockSetting(REFCLK4_INT));
-    printf("    PBCLK1: %s\n\r", stringFromClockSetting(PBCLK1_INT));
-    printf("    PBCLK2: %s\n\r", stringFromClockSetting(PBCLK2_INT));
-    printf("    PBCLK3: %s\n\r", stringFromClockSetting(PBCLK3_INT));
-    printf("    PBCLK4: %s\n\r", stringFromClockSetting(PBCLK4_INT));
-    printf("    PBCLK5: %s\n\r", stringFromClockSetting(PBCLK5_INT));
-    printf("    PBCLK7: %s\n\r", stringFromClockSetting(PBCLK7_INT));
-    printf("    PBCLK8: %s\n\r", stringFromClockSetting(PBCLK8_INT));
+    printf("Clocks Initialized\n\r");
     
     printf("GPIO Pins Initialized\n\r");
-    printf("USB UART Initialized to the following settings:\n\r");
-    printf("    Baud Rate: %s\n\r", USB_UART_BAUD_RATE_STR);
-    printf("    Data Length: %s\n\r", USB_UART_DATA_LENGTH_STR);
-    printf("    Parity: %s\n\r", USB_UART_PARITY_STR);
-    printf("    Stop Bits: %s\n\r", USB_UART_STOP_BITS_STR);
-    printf("    Flow Control: %s\n\r", USB_UART_FLOW_CONTROL_STR);
+    printf("USB UART Initialized\n\r");
+    
+    // Setup error handling
+    errorHandlerInitialize();
+    printf("Error Handler Initialized\n\r");
     
     // Setup heartbeat timer
     heartbeatTimerInitialize();
@@ -158,6 +151,9 @@ void main(void) {
     USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
     printf("\n\rType 'Help' for list of supported commands, press enter twice after reset\n\r\n\r");
     USB_UART_textAttributesReset();
+    
+    // Lock configurations
+    deviceLock();
     
     // Loop endlessly
     while (true) {

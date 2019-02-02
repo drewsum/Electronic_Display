@@ -129,15 +129,10 @@ void USB_UART_Initialize(void) {
     clearInterruptFlag(UART3_Receive_Done);
     clearInterruptFlag(UART3_Transfer_Done);
     clearInterruptFlag(UART3_Fault);
-        
+    
     // Enable UART 3
     U3MODEbits.ON = 1;
-    
-    // Clear the terminal
-    USB_UART_clearTerminal();
-    USB_UART_setCursorHome();
-    // USB_UART_textAttributesReset();
-        
+            
     // Enable receive and error interrupts
     // Transfer interrupt is set in write function
     enableInterrupt(UART3_Receive_Done);
@@ -171,7 +166,7 @@ void __ISR(_UART3_TX_VECTOR, ipl3AUTO) USB_UART_Transfer_ISR(void) {
 void __ISR(_UART3_FAULT_VECTOR, ipl1AUTO) USB_UART_Fault_ISR(void) {
     
     // TO-DO: Fault tasks
-    error_handler.USB_error_flag = 1;
+    error_handler.USB_error_flag = 1;   
     
     // Clear fault interrupt flag
     clearInterruptFlag(UART3_Fault);
@@ -208,6 +203,11 @@ void USB_UART_putchar(uint8_t txData) {
  
      while(0 == usb_uart_TxBufferRemaining)
     {
+//         // Keep us out of reset
+//         kickTheDog();
+//         holdThumbTighter();
+//         Nop();
+         
     }
 
     if(0 == getInterruptEnable(UART3_Transfer_Done))

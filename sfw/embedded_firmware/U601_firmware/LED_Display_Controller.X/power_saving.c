@@ -109,7 +109,7 @@ void PMDInitialize(void) {
     // Disable peripheral master port
     PMD6bits.PMPMD = 1;
     
-    // Enable external bus interface (EBI)
+    // Disable external bus interface (EBI)
     PMD6bits.EBIMD = 1;     // CHANGE THIS
     
     // Disable serial quad interface

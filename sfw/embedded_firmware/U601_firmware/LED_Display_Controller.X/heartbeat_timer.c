@@ -35,7 +35,7 @@ void heartbeatTimerInitialize(void) {
     clearInterruptFlag(Timer1);
     
     // Set Timer 1 interrupt priority
-    setInterruptPriority(Timer1, 1);
+    setInterruptPriority(Timer1, 7);
     
     // Clear on time counter
     device_on_time_counter = 0;
@@ -65,7 +65,7 @@ void heartbeatTimerStop(void) {
 }
 
 // Heartbeat timer interrupt service routine
-void __ISR(_TIMER_1_VECTOR, ipl1AUTO) hearbeatTimerISR(void) {
+void __ISR(_TIMER_1_VECTOR, ipl7AUTO) hearbeatTimerISR(void) {
 
     // Toggle heartbeat LED
     HEARTBEAT_LED_PIN = !(HEARTBEAT_LED_PIN);
