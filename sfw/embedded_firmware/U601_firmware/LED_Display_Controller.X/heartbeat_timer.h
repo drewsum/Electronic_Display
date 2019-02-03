@@ -26,7 +26,6 @@
 
 #include "pin_macros.h"
 
-#include "watchdog_timer.h"
 
 // API Variables
 uint32_t device_on_time_counter;
@@ -43,7 +42,7 @@ void heartbeatTimerStart(void);
 void heartbeatTimerStop(void);
 
 // Heartbeat timer interrupt service routine
-void __ISR(_TIMER_1_VECTOR, ipl7AUTO) hearbeatTimerISR(void);
+void __ISR(_TIMER_1_VECTOR, ipl4AUTO) hearbeatTimerISR(void);
 
 #endif /* _HEARTBEAT_TIMER_H */
 

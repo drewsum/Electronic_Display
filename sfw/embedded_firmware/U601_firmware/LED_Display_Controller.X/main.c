@@ -82,6 +82,9 @@ void main(void) {
     // Initialize GPIO pins to startup settings
     gpioInitialize();
     
+    // Setup core timer
+    coreTimerInitialize();
+    
     // Initialize UART USB debugging
     USB_UART_Initialize();
     
@@ -122,6 +125,7 @@ void main(void) {
     
     printf("GPIO Pins Initialized\n\r");
     printf("USB UART Initialized\n\r");
+    printf("Core Timer Initialized\n\r");
     
     // Setup error handling
     errorHandlerInitialize();

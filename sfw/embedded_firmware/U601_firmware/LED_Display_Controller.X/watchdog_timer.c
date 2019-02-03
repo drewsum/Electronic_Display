@@ -5,6 +5,7 @@
 
 #include "watchdog_timer.h"
 #include "usb_uart.h"
+#include "pin_macros.h"
 
 // This function initializes the watchdog timer for a timeout period of 
 // 2 seconds, and no window (window always open)
@@ -306,8 +307,47 @@ void printDeadmanStatus(void) {
         printf("False\n\r");
         
     }
+       
+}
+
+// This function sets up the core timer, which resets the WDT and deadman timer
+void coreTimerInitialize(void) {
     
+    // Set up core timer interrupt
+    disableInterrupt(Core_Timer_Interrupt);
+    setInterruptPriority(Core_Timer_Interrupt, 7);
+    setInterruptSubpriority(Core_Timer_Interrupt, 0);
+    clearInterruptFlag(Core_Timer_Interrupt);
     
+    // Set the compare value for core timer
+    _CP0_SET_COMPARE(0x7000000);
     
+    // Enable core timer interrupt
+    enableInterrupt(Core_Timer_Interrupt);
+    
+}
+
+// This is the core timer interrupt service routine
+void __ISR(_CORE_TIMER_VECTOR, ipl7AUTO) coreTimerISR(void) {
+     
+    disableInterrupt(Core_Timer_Interrupt);
+        
+    // Clear the watchdog timer
+    kickTheDog();
+    
+    // Clear the deadman timer
+    holdThumbTighter();
+    
+    // Check to see if DMT actually cleared
+    verifyThumbTightEnough();
+    
+    // Clear core timer
+    _CP0_SET_COUNT(0x00000000);
+    _CP0_SET_COMPARE(0x7000000);
+    
+    // Clear core timer interrupt flag
+    clearInterruptFlag(Core_Timer_Interrupt);
+    
+    enableInterrupt(Core_Timer_Interrupt);
     
 }

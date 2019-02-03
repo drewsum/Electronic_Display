@@ -17,8 +17,12 @@
 #define _WATCHDOG_TIMER_H
 
 #include <xc.h>
+// These are macros needed for defining ISRs, included in XC32
+#include <sys/attribs.h>
+
 
 #include "error_handler.h"
+#include "32mz_interrupt_control.h"
 
 // This function initializes the watchdog timer for a timeout period of 
 // 2 seconds, and no window (window always open)
@@ -53,6 +57,12 @@ void printWatchdogStatus(void);
 
 // This function prints information on the deadman timer
 void printDeadmanStatus(void);
+
+// This function sets up the core timer, which resets the WDT and deadman timer
+void coreTimerInitialize(void);
+
+// This is the core timer interrupt service routine
+void __ISR(_CORE_TIMER_VECTOR, ipl7AUTO) coreTimerISR(void);
 
 #endif /* _WATCHDOG_TIMER_H */
 

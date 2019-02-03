@@ -7010,7 +7010,7 @@ void printInterruptStatus(void) {
     printf("Global Interrupt Enable: %s\n\r", getGlobalInterruptsState() ? "T" : "F");
 
     USB_UART_textAttributes(GREEN, BLACK, REVERSE);
-    printf("###  Name                      EN?  P S\n\r");
+    printf("###  Name                    EN?  P S\n\r");
     
     USB_UART_textAttributesReset();
 
