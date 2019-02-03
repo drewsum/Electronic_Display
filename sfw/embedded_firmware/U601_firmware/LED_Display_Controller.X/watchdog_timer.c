@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #include "watchdog_timer.h"
-#include "usb_uart.h"
+#include "terminal_control.h"
 #include "pin_macros.h"
 
 // This function initializes the watchdog timer for a timeout period of 
@@ -96,10 +96,11 @@ void verifyThumbTightEnough(void) {
 // This function prints information on the watchdog timer
 void printWatchdogStatus(void) {
 
-    USB_UART_textAttributes(GREEN, BLACK, UNDERSCORE);
+    terminalTextAttributesReset();
+    terminalTextAttributes(GREEN, BLACK, UNDERSCORE);
     printf("Watchdog Timer Status:\n\r");
 
-    USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("    Postscalar: ");
     
     switch (DEVCFG1bits.WDTPS) {
@@ -239,16 +240,19 @@ void printWatchdogStatus(void) {
         printf("False\n\r");
         
     }
+    
+    terminalTextAttributesReset();
 
 }
 
 // This function prints information on the deadman timer
 void printDeadmanStatus(void) {
 
-    USB_UART_textAttributes(GREEN, BLACK, UNDERSCORE);
+    terminalTextAttributesReset();
+    terminalTextAttributes(GREEN, BLACK, UNDERSCORE);
     printf("Deadman Timer Status:\n\r");
 
-    USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
     
     printf("   Instruction Fetch Count Limit: ");
     
@@ -307,6 +311,8 @@ void printDeadmanStatus(void) {
         printf("False\n\r");
         
     }
+    
+    terminalTextAttributesReset();
        
 }
 

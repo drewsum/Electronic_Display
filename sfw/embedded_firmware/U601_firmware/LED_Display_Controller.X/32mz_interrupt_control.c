@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include "32mz_interrupt_control.h"
-#include "usb_uart.h"
+#include "terminal_control.h"
 
 
 // This function enables global interrupts
@@ -7000,19 +7000,19 @@ char * getInterruptNameStringPadded(interrupt_source_t input_interrupt) {
 // This function prints information on all interrupt settings
 void printInterruptStatus(void) {
     
-    // USB_UART_textAttributesReset();
-    USB_UART_textAttributes(GREEN, BLACK, UNDERSCORE);
+    terminalTextAttributesReset();
+    terminalTextAttributes(GREEN, BLACK, UNDERSCORE);
     printf("Interrupt Status:\n\r");
 
-    USB_UART_textAttributesReset();
+    terminalTextAttributesReset();
     
-    USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("Global Interrupt Enable: %s\n\r", getGlobalInterruptsState() ? "T" : "F");
 
-    USB_UART_textAttributes(GREEN, BLACK, REVERSE);
-    printf("###  Name                    EN?  P S\n\r");
+    terminalTextAttributes(GREEN, BLACK, REVERSE);
+    printf("###  Name                    EN?  P S IRQ?\n\r");
     
-    USB_UART_textAttributesReset();
+    terminalTextAttributesReset();
 
     // Loop through all possible interrupts
     uint8_t i;
@@ -7020,23 +7020,26 @@ void printInterruptStatus(void) {
      
         if (i % 2 == 0) {
          
-            USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
             
         }
         
         else {
          
-            USB_UART_textAttributes(GREEN, BLACK, BLINK);
+            terminalTextAttributes(GREEN, BLACK, BLINK);
             
         }
         
-        printf("%03d  %s%c  %d %d\n\r", 
+        printf("%03d  %s%c  %d %d    %c\n\r", 
                 i,
                 getInterruptNameStringPadded(i),
                 getInterruptEnable(i) ? 'T' : ' ',
                 getInterruptPriority(i),
-                getInterruptSubriority(i));
+                getInterruptSubriority(i),
+                getInterruptFlag(i) ? 'T' : ' ');
 
     }
-        
+
+    terminalTextAttributesReset();    
+    
 }
