@@ -41,6 +41,8 @@
 #include "heartbeat_timer.h"
 // Power saving APIs (PMD, SLEEP, etc)
 #include "power_saving.h"
+// Terminal control for USB debugging
+#include "terminal_control.h"
 // USB debugging
 #include "usb_uart.h"
 // External Bus Interface (EBI)
@@ -86,12 +88,12 @@ void main(void) {
     coreTimerInitialize();
     
     // Initialize UART USB debugging
-    USB_UART_Initialize();
+    usbUartInitialize();
     
     // Clear the terminal
-    USB_UART_clearTerminal();
-    USB_UART_setCursorHome();
-    USB_UART_textAttributesReset();
+    terminalClearScreen();
+    terminalSetCursorHome();
+    terminalTextAttributesReset();
 
     
     // Print debug message s
@@ -107,20 +109,20 @@ void main(void) {
             reset_cause == External_Reset ||
             reset_cause == BOR_Reset) {
     
-        USB_UART_textAttributes(RED, BLACK, BOLD);
+        terminalTextAttributes(RED, BLACK, BOLD);
         
     }
     
     else {
      
-        USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
         
     }
     
     printf("Cause of most recent device reset: %s\n\r", getResetCauseString(reset_cause));
     
-    USB_UART_textAttributesReset();
-    USB_UART_textAttributes(GREEN, BLACK, NORMAL);
+    terminalTextAttributesReset();
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("Clocks Initialized\n\r");
     
     printf("GPIO Pins Initialized\n\r");
@@ -151,10 +153,10 @@ void main(void) {
     nACTIVE_LED_PIN = 0;
     printf("Reset LED disabled\n\r");
     
-    USB_UART_textAttributesReset();
-    USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
+    terminalTextAttributesReset();
+    terminalTextAttributes(YELLOW, BLACK, NORMAL);
     printf("\n\rType 'Help' for list of supported commands, press enter twice after reset\n\r\n\r");
-    USB_UART_textAttributesReset();
+    terminalTextAttributesReset();
     
     // Lock configurations
     deviceLock();
@@ -168,7 +170,7 @@ void main(void) {
         // Check if we've got a received USB UART command waiting
         if(usb_uart_RxStringReady != 0) {
 
-            USB_UART_ringBufferPull();
+            usbUartRingBufferPull();
         
         }
         
