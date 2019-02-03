@@ -1,5 +1,6 @@
 
 #include <xc.h>
+#include <proc/p32mz2048efh144.h>
 
 #include "gpio_setup.h"
 
@@ -441,6 +442,7 @@ void portFGPIOInitialize (void){
     TRISFbits.TRISF3    = TRIS_INPUT;
     LATFbits.LATF3      = LAT_LOW;
     ODCFbits.ODCF3      = ODC_DISABLE;
+    RPF3Rbits.RPF3R     = 0b0000;               // Disconnected from peripherals
     
     // Setup RF4
     TRISFbits.TRISF4    = TRIS_OUTPUT;

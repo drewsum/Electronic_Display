@@ -16,10 +16,10 @@
 #include "error_handler.h"
 #include "cause_of_reset.h"
 
-volatile uint32_t usb_uart_TxHead = 0;
-volatile uint32_t usb_uart_TxTail = 0;
-volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
-volatile uint32_t usb_uart_TxBufferRemaining;
+volatile uint64_t usb_uart_TxHead = 0;
+volatile uint64_t usb_uart_TxTail = 0;
+volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
+volatile uint64_t usb_uart_TxBufferRemaining;
 
 volatile uint32_t usb_uart_RxHead = 0;
 volatile uint32_t usb_uart_RxTail = 0;
@@ -129,15 +129,10 @@ void USB_UART_Initialize(void) {
     clearInterruptFlag(UART3_Receive_Done);
     clearInterruptFlag(UART3_Transfer_Done);
     clearInterruptFlag(UART3_Fault);
-        
+    
     // Enable UART 3
     U3MODEbits.ON = 1;
-    
-    // Clear the terminal
-    USB_UART_clearTerminal();
-    USB_UART_setCursorHome();
-    // USB_UART_textAttributesReset();
-        
+            
     // Enable receive and error interrupts
     // Transfer interrupt is set in write function
     enableInterrupt(UART3_Receive_Done);
@@ -171,7 +166,7 @@ void __ISR(_UART3_TX_VECTOR, ipl3AUTO) USB_UART_Transfer_ISR(void) {
 void __ISR(_UART3_FAULT_VECTOR, ipl1AUTO) USB_UART_Fault_ISR(void) {
     
     // TO-DO: Fault tasks
-    error_handler.USB_error_flag = 1;
+    error_handler.USB_error_flag = 1;   
     
     // Clear fault interrupt flag
     clearInterruptFlag(UART3_Fault);
@@ -206,9 +201,7 @@ uint8_t USB_UART_Read_Byte(void) {
 // This function adds a byte to the TX ring buffer
 void USB_UART_putchar(uint8_t txData) {
  
-     while(0 == usb_uart_TxBufferRemaining)
-    {
-    }
+    while(0 == usb_uart_TxBufferRemaining);
 
     if(0 == getInterruptEnable(UART3_Transfer_Done))
     {
@@ -247,6 +240,7 @@ void USB_UART_Transmit_Handler(void) {
         }
         usb_uart_TxBufferRemaining++;
     }
+    
     else
     {
         disableInterrupt(UART3_Transfer_Done);
@@ -302,7 +296,7 @@ void USB_UART_Receive_Handler(void) {
         usb_uart_RxHead--;
  
         // Erase the "backspaced" character on terminal
-        USB_UART_print("\033[K");
+        printf("\033[K");
         
         if(usb_uart_RxHead != usb_uart_RxTail) {
         
@@ -398,7 +392,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
 
     if (strcmp(line_in, "Reset") == 0) {
 
-        deviceReset();
+         deviceReset();
         
     }
     
@@ -411,10 +405,9 @@ void USB_UART_ringBufferLUT(char * line_in) {
     
     else if (strcmp(line_in, "*IDN?") == 0) {
      
-        // USB_UART_putchar(2);
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("E44 Electronic Display Logic Board\n\r");
+        printf("E44 Electronic Display Logic Board\n\r");
         USB_UART_textAttributesReset();
         
     }
@@ -423,8 +416,8 @@ void USB_UART_ringBufferLUT(char * line_in) {
      
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("On time since last device reset: ");
-        USB_UART_print(getStringSecondsAsTime(device_on_time_counter));
+        printf("On time since last device reset: ");
+        printf(getStringSecondsAsTime(device_on_time_counter));
         USB_UART_printNewline();
         USB_UART_textAttributesReset();
         
@@ -432,6 +425,9 @@ void USB_UART_ringBufferLUT(char * line_in) {
     
     else if (strcmp(line_in, "PMD Status?") == 0) {
      
+        usb_uart_TxHead = 0;
+        usb_uart_TxTail = 0;   
+        
         USB_UART_textAttributesReset();
         printPMDStatus();
         USB_UART_textAttributesReset();
@@ -456,6 +452,9 @@ void USB_UART_ringBufferLUT(char * line_in) {
     
     else if (strcmp(line_in, "Interrupt Status?") == 0) {
      
+        usb_uart_TxHead = 0;
+        usb_uart_TxTail = 0;
+        
         USB_UART_textAttributesReset();
         printInterruptStatus();
         USB_UART_textAttributesReset();
@@ -466,8 +465,8 @@ void USB_UART_ringBufferLUT(char * line_in) {
      
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("Cause of the most recent device reset: ");
-        USB_UART_print(getResetCauseString(reset_cause));
+        printf("Cause of the most recent device reset: ");
+        printf(getResetCauseString(reset_cause));
         USB_UART_printNewline();
         USB_UART_textAttributesReset();
         
@@ -517,37 +516,37 @@ void USB_UART_ringBufferLUT(char * line_in) {
         USB_UART_printNewline();
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(YELLOW, BLUE, BOLD);
-        USB_UART_print("Marquette Senior Design 2018-2019\n\r");
+        printf("Marquette Senior Design 2018-2019\n\r");
         USB_UART_textAttributesReset();
         USB_UART_printNewline();
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(YELLOW, BLUE, BOLD);
-        USB_UART_print("Team E44: Electronic Display Display\n\r");
+        printf("Team E44: Electronic Display Display\n\r");
         USB_UART_textAttributesReset();
         USB_UART_printNewline();
         USB_UART_textAttributes(BLACK, WHITE, NORMAL);
-        USB_UART_print("Hardware Design/Embedded Firmware:\n\r");
+        printf("Hardware Design/Embedded Firmware:\n\r");
         USB_UART_textAttributes(CYAN, BLACK, NORMAL);
-        USB_UART_print("Logan Wedel\n\r");
+        printf("Logan Wedel\n\r");
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
-        USB_UART_print("Caroline Gilger\n\r");
+        printf("Caroline Gilger\n\r");
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(RED, BLACK, NORMAL);
-        USB_UART_print("Drew Maatman\n\r");
+        printf("Drew Maatman\n\r");
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(BLACK, WHITE, NORMAL);
-        USB_UART_print("App Design/Integration:\n\r");
+        printf("App Design/Integration:\n\r");
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("Kevin Etta\n\r");
+        printf("Kevin Etta\n\r");
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(MAGENTA, BLACK, NORMAL);
-        USB_UART_print("Tuoxuan Ren\n\r");
+        printf("Tuoxuan Ren\n\r");
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(BLACK, WHITE, NORMAL);
-        USB_UART_print("Mentor:\n\r");
+        printf("Mentor:\n\r");
         USB_UART_textAttributesReset();
-        USB_UART_print("Cris Ababei\n\r");
+        printf("Cris Ababei\n\r");
         
     }
     
@@ -563,7 +562,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("POS5 RUN Asserted\n\r");
+        printf("POS5 RUN Asserted\n\r");
         USB_UART_textAttributesReset();
         
         printf("%d\n\r", PORTFbits.RF2);
@@ -576,7 +575,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(RED, BLACK, NORMAL);
-        USB_UART_print("POS5 RUN Deasserted\n\r");
+        printf("POS5 RUN Deasserted\n\r");
         USB_UART_textAttributesReset();
         
         printf("%d\n\r", PORTFbits.RF2);
@@ -589,7 +588,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-        USB_UART_print("POS5P RUN Asserted\n\r");
+        printf("POS5P RUN Asserted\n\r");
         USB_UART_textAttributesReset();
         
     }
@@ -600,7 +599,7 @@ void USB_UART_ringBufferLUT(char * line_in) {
         
         USB_UART_textAttributesReset();
         USB_UART_textAttributes(RED, BLACK, NORMAL);
-        USB_UART_print("POS5P RUN Deasserted\n\r");
+        printf("POS5P RUN Deasserted\n\r");
         USB_UART_textAttributesReset();
         
     }
@@ -610,27 +609,27 @@ void USB_UART_ringBufferLUT(char * line_in) {
 
 // This function clears the terminal
 void USB_UART_clearTerminal(void) {
-    USB_UART_print("\033[2J");
+    printf("\033[2J");
 }
 
 // This function moves the terminal cursor to top left corner
 void USB_UART_setCursorHome(void) {
-    USB_UART_print("\033[H");
+    printf("\033[H");
 }
 
 // This function clears the line the cursor is currently at on the terminal
 void USB_UART_clearLine(void) {
-    USB_UART_print("\033[K");
+    printf("\033[K");
 }
 
 // This function saves the current cursor position on the terminal
 void USB_UART_saveCursor(void) {
-    USB_UART_print("\033[s");
+    printf("\033[s");
 }
 
 // This function returns the cursor to saved position on terminal
 void USB_UART_returnCursor(void) {
-    USB_UART_print("\033[u");
+    printf("\033[u");
 }
 
 // Text attributes function
@@ -648,14 +647,22 @@ void USB_UART_textAttributes(text_color_t foreground_color,
         text_color_t background_color,
         text_attribute_t input_attribute) {
     
-    static char print_string[10];
+    char print_string[16];
+    
+    // Null print string
+    uint8_t i;
+    for (i = 0; i < sizeof(print_string); i++) {
+     
+        print_string[i] = '\0';
+        
+    }
     
     strncpy(print_string, "\033[", sizeof(print_string));
     
     switch (input_attribute) {
      
         case NORMAL:
-            strcat(print_string,"0"); 
+            strcat(print_string,"0");
             break;
         case BOLD:
             strcat(print_string,"1");
@@ -748,7 +755,7 @@ void USB_UART_textAttributes(text_color_t foreground_color,
     
     strcat(print_string,"m");
     
-    USB_UART_print(print_string);
+    printf(print_string);
     
 }
 
@@ -762,7 +769,7 @@ void USB_UART_textAttributesReset(void) {
 // Print newline on terminal
 void USB_UART_printNewline(void) {
 
-    USB_UART_print("\n\r");
+    printf("\n\r");
     
 }
 
@@ -775,58 +782,58 @@ void USB_UART_printHelpMessage(void) {
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
-    USB_UART_print("Supported Commands:\n\r");
-    USB_UART_print("    Reset: Software Reset\n\r");
-    USB_UART_print("    Clear: Clears the terminal\n\r");
-    USB_UART_print("    Cause of Reset?: Prints the cause of the most recent device reset\n\r");
-    USB_UART_print("    *IDN?: Prints identification string\n\r");
-    USB_UART_print("    Device On Time?: Returns the device on time since last reset\n\r");
-    USB_UART_print("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
-    USB_UART_print("    WDT Status?: Prints the state of the watchdog timer\n\r");
-    USB_UART_print("    DMT Status?: Prints the state of the deadman timer\n\r");
-    USB_UART_print("    Interrupt Status? Prints information on interrupt settings\n\r");
-    USB_UART_print("    Serial Number?: Prints device serial number\n\r");
-    USB_UART_print("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
-    USB_UART_print("    Revision ID?: Prints silicon die revision ID\n\r");
-    USB_UART_print("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
-    USB_UART_print("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
-    USB_UART_print("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
-    USB_UART_print("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
-//     USB_UART_print("    Enable Muxing: enables the multiplexing timer \n\r");
-//     USB_UART_print("    Disable Muxing: disable the multiplexing timer \n\r");
+    printf("Supported Commands:\n\r");
+    printf("    Reset: Software Reset\n\r");
+    printf("    Clear: Clears the terminal\n\r");
+    printf("    Cause of Reset?: Prints the cause of the most recent device reset\n\r");
+    printf("    *IDN?: Prints identification string\n\r");
+    printf("    Device On Time?: Returns the device on time since last reset\n\r");
+    printf("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
+    printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
+    printf("    DMT Status?: Prints the state of the deadman timer\n\r");
+    printf("    Interrupt Status? Prints information on interrupt settings\n\r");
+    printf("    Serial Number?: Prints device serial number\n\r");
+    printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
+    printf("    Revision ID?: Prints silicon die revision ID\n\r");
+    printf("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
+    printf("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
+    printf("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
+    printf("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
+//     printf("    Enable Muxing: enables the multiplexing timer \n\r");
+//     printf("    Disable Muxing: disable the multiplexing timer \n\r");
 
-    USB_UART_print("    Print Test Message: Print out terminal test data\n\r");
-    USB_UART_print("    Credits: Displays creators\n\r");
-    USB_UART_print("    Help: This Command\n\r");
-//    USB_UART_print("    Set Red: Sets panels red\n\r");
-//    USB_UART_print("    Set White: Sets panels white\n\r");    
-//    USB_UART_print("    Set Blue: Sets panels blue\n\r");
-//    USB_UART_print("    Set Yellow: Sets panels yellow\n\r");
-//    USB_UART_print("    Set Cyan: Sets panels cyan\n\r");    
-//    USB_UART_print("    Set Green: Sets panels green\n\r");    
-//    USB_UART_print("    Set Magenta: Sets panels magenta\n\r");    
-//    USB_UART_print("    Set MU Logo: Sets panel as MU Logo static image\n\r");
-//    USB_UART_print("    Set Rand: Sets panel to random data\n\r");
-//    USB_UART_print("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
-//    USB_UART_print("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
-//    USB_UART_print("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
-//    USB_UART_print("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
-//    USB_UART_print("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
-//    USB_UART_print("    Set Red Rows: Fills ram buffer with red rows\n\r");
-//    USB_UART_print("    Slow Muxing Speed: Slows down multiplexing\n\r");
-//    USB_UART_print("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
-//    USB_UART_print("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
+    printf("    Print Test Message: Print out terminal test data\n\r");
+    printf("    Credits: Displays creators\n\r");
+    printf("    Help: This Command\n\r");
+//    printf("    Set Red: Sets panels red\n\r");
+//    printf("    Set White: Sets panels white\n\r");    
+//    printf("    Set Blue: Sets panels blue\n\r");
+//    printf("    Set Yellow: Sets panels yellow\n\r");
+//    printf("    Set Cyan: Sets panels cyan\n\r");    
+//    printf("    Set Green: Sets panels green\n\r");    
+//    printf("    Set Magenta: Sets panels magenta\n\r");    
+//    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
+//    printf("    Set Rand: Sets panel to random data\n\r");
+//    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
+//    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
+//    printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
+//    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
+//    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
+//    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
+//    printf("    Slow Muxing Speed: Slows down multiplexing\n\r");
+//    printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
+//    printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     
      
-    USB_UART_print("Help messages and neutral responses appear in yellow\n\r");
+    printf("Help messages and neutral responses appear in yellow\n\r");
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-    USB_UART_print("System parameters and affirmative responses appear in green\n\r");
+    printf("System parameters and affirmative responses appear in green\n\r");
     USB_UART_textAttributes(CYAN, BLACK, NORMAL);
-    USB_UART_print("Measurement responses appear in cyan\n\r");
+    printf("Measurement responses appear in cyan\n\r");
     USB_UART_textAttributes(RED, BLACK, NORMAL);
-    USB_UART_print("Errors and negative responses appear in red\n\r");
+    printf("Errors and negative responses appear in red\n\r");
     USB_UART_textAttributesReset();
-    USB_UART_print("User input appears in white\n\r");
+    printf("User input appears in white\n\r");
          
 }
 
@@ -838,113 +845,101 @@ void USB_UART_printTestMessage(void) {
     USB_UART_textAttributesReset();
     USB_UART_clearTerminal();
     USB_UART_setCursorHome();
-    USB_UART_print("USB UART Test\n\r");
-    USB_UART_printNewline();
-    USB_UART_print("COM Port Settings:\n\r");
-    USB_UART_print("    Baud Rate: ");
-    USB_UART_print(USB_UART_BAUD_RATE_STR);
-    USB_UART_printNewline();
-    USB_UART_print("    Data Length: ");
-    USB_UART_print(USB_UART_DATA_LENGTH_STR);
-    USB_UART_printNewline();
-    USB_UART_print("    Parity: ");
-    USB_UART_print(USB_UART_PARITY_STR);
-    USB_UART_printNewline();
-    USB_UART_print("    Stop Bits: ");
-    USB_UART_print(USB_UART_STOP_BITS_STR);
-    USB_UART_printNewline();
-    USB_UART_print("    Flow Control: ");
-    USB_UART_print(USB_UART_FLOW_CONTROL_STR);
-    USB_UART_printNewline();
+    printf("USB UART Test\n\r\n\r");
+    printf("COM Port Settings:\n\r");
+    printf("    Baud Rate: %s\n\r", USB_UART_BAUD_RATE_STR);
+    printf("    Data Length: %s\n\r", USB_UART_DATA_LENGTH_STR);
+    printf("    Parity: %\n\r", USB_UART_PARITY_STR);
+    printf("    Stop Bits: %s\n\r", USB_UART_STOP_BITS_STR);
+    printf("    Flow Control: %s\n\r\n\r", USB_UART_FLOW_CONTROL_STR);
         
     // Test text attributes
-    USB_UART_printNewline();
-    USB_UART_print("Testing text attributes:\n\r");
+    printf("Testing text attributes:\n\r");
 
     // Print some black text
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(BLACK, WHITE, NORMAL);
-    USB_UART_print("This text is black\n\r");
+    printf("This text is black\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(RED, BLACK, NORMAL);
-    USB_UART_print("This text is red\n\r");
+    printf("This text is red\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-    USB_UART_print("This text is green\n\r");
+    printf("This text is green\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(YELLOW, BLACK, NORMAL);
-    USB_UART_print("This text is yellow\n\r");
+    printf("This text is yellow\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(BLUE, WHITE, NORMAL);
-    USB_UART_print("This text is blue\n\r");
+    printf("This text is blue\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(MAGENTA, BLACK, NORMAL);
-    USB_UART_print("This text is magenta\n\r");
+    printf("This text is magenta\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(CYAN, BLACK, NORMAL);
-    USB_UART_print("This text is cyan\n\r");
+    printf("This text is cyan\n\r");
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(WHITE, BLACK, NORMAL);
-    USB_UART_print("This text has a black background\n\r");
+    printf("This text has a black background\n\r");
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(BLACK, RED, NORMAL);
-    USB_UART_print("This text has a red background\n\r");
+    printf("This text has a red background\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(BLACK, GREEN, NORMAL);
-    USB_UART_print("This text has a green background\n\r");
+    printf("This text has a green background\n\r");
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(BLACK, YELLOW, NORMAL);
-    USB_UART_print("This text has a yellow background\n\r");
+    printf("This text has a yellow background\n\r");
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(WHITE, BLUE, NORMAL);
-    USB_UART_print("This text has a blue background\n\r");
+    printf("This text has a blue background\n\r");
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(BLACK, MAGENTA, NORMAL);
-    USB_UART_print("This text has a magenta background\n\r");
+    printf("This text has a magenta background\n\r");
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(BLACK, CYAN, NORMAL);
-    USB_UART_print("This text has a cyan background\n\r");
+    printf("This text has a cyan background\n\r");
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(BLACK, WHITE, NORMAL);
-    USB_UART_print("This text has a white background\n\r");
+    printf("This text has a white background\n\r");
     
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(WHITE, BLACK, BOLD);
-    USB_UART_print("This text is bold\n\r");
+    printf("This text is bold\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(WHITE, BLACK, UNDERSCORE);
-    USB_UART_print("This text is underscored\n\r");
+    printf("This text is underscored\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(WHITE, BLACK, BLINK);
-    USB_UART_print("This text is blinking\n\r");
+    printf("This text is blinking\n\r");
 
     USB_UART_textAttributesReset();
     USB_UART_textAttributes(WHITE, BLACK, REVERSE);
-    USB_UART_print("This text is reversed\n\r");
+    printf("This text is reversed\n\r");
 
     USB_UART_textAttributesReset();
-    USB_UART_print("This text is normal\n\r");
+    printf("This text is normal\n\r");
     
     USB_UART_printNewline();
     
     USB_UART_textAttributes(GREEN, BLACK, NORMAL);
-    USB_UART_print("Finished test message, type 'Help' for list of commands\n\r");
+    printf("Finished test message, type 'Help' for list of commands\n\r");
     USB_UART_textAttributesReset();
     
     USB_UART_printNewline();

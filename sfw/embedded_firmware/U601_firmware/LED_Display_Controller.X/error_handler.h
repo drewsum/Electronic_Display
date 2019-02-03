@@ -19,6 +19,9 @@
 
 #include <xc.h>
 
+// These are macros needed for defining ISRs, included in XC32
+#include <sys/attribs.h>
+
 // Error handler structure - can hold up to 32 flags (I think, we'll see if we run over)
 // Follow the convention in XC32 user's guide section 8.6.2
 // Each flag indicates if the described error has occurred
@@ -39,10 +42,27 @@ struct {
     unsigned POS5P_regulation_error_flag                : 1;    // External power board regulation error
     unsigned POS5P5_regulation_error_flag               : 1;    // +5.5V power supply regulation error
     unsigned DMT_error_flag                             : 1;    // Deadman timer error
+    unsigned system_bus_protection_violation_flag       : 1;    // System bus protection event occurred
     
 } error_handler;
 
+// This function initializes the error handler structure to detect fault conditions
+void errorHandlerInitialize(void);
 
+// System Bus Protection Violation interrupt service routine
+void __ISR(_SYSTEM_BUS_PROTECTION_VECTOR, ipl1AUTO) systemBusProtectionISR(void);
+
+// This function is called when a general exception occurs
+void __attribute__((nomips16)) _general_exception_handler(void);
+
+// This function is called when a TRB exception occurs
+void __attribute__((nomips16)) _simple_tlb_refill_exception_handler(void);
+
+// This function is called when a cache error occurs
+void __attribute__((nomips16)) _cache_err_exception_handler(void);
+
+// This function is called when a bootstrap exception occurs
+void __attribute__((nomips16)) _bootstrap_exception_handler(void);
 
 #endif /* _ERROR_HANDLER_H */
 
