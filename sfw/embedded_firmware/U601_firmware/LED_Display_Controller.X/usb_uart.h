@@ -21,7 +21,7 @@
 
 // Sizes of TX and RX ring buffers
 #define USB_UART_TX_BUFFER_SIZE 16384
-#define USB_UART_RX_BUFFER_SIZE 128
+#define USB_UART_RX_BUFFER_SIZE 2048
 
 // Hardcoded COM Port Descriptor Strings
 #define USB_UART_BAUD_RATE_STR          "115.2 kbs"
