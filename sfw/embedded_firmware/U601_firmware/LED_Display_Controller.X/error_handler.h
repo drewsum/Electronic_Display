@@ -52,6 +52,17 @@ void errorHandlerInitialize(void);
 // System Bus Protection Violation interrupt service routine
 void __ISR(_SYSTEM_BUS_PROTECTION_VECTOR, ipl1AUTO) systemBusProtectionISR(void);
 
+// This function is called when a general exception occurs
+void __attribute__((nomips16)) _general_exception_handler(void);
+
+// This function is called when a TRB exception occurs
+void __attribute__((nomips16)) _simple_tlb_refill_exception_handler(void);
+
+// This function is called when a cache error occurs
+void __attribute__((nomips16)) _cache_err_exception_handler(void);
+
+// This function is called when a bootstrap exception occurs
+void __attribute__((nomips16)) _bootstrap_exception_handler(void);
 
 #endif /* _ERROR_HANDLER_H */
 

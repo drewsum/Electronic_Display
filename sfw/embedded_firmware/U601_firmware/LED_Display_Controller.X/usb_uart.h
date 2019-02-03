@@ -35,13 +35,13 @@
 char USB_UART_line[USB_UART_RX_BUFFER_SIZE];
 
 // ring buffer counters
-extern volatile uint32_t usb_uart_TxBufferRemaining;
+extern volatile uint32_t usb_uart_RxBufferRemaining;
 extern volatile uint32_t usb_uart_RxCount;
 
-extern volatile uint32_t usb_uart_TxHead;
-extern volatile uint32_t usb_uart_TxTail;
-extern volatile uint32_t usb_uart_TxBufferRemaining;
-extern volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
+extern volatile uint64_t usb_uart_TxHead;
+extern volatile uint64_t usb_uart_TxTail;
+extern volatile uint64_t usb_uart_TxBufferRemaining;
+extern volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
 
 
 

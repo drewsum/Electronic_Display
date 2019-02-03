@@ -88,7 +88,7 @@ void main(void) {
     // Clear the terminal
     USB_UART_clearTerminal();
     USB_UART_setCursorHome();
-    // USB_UART_textAttributesReset();
+    USB_UART_textAttributesReset();
 
     
     // Print debug message s

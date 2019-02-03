@@ -18,7 +18,6 @@
 #ifndef _CONFIGURE_H    /* Guard against multiple inclusion */
 #define _CONFIGURE_H
 
-
 // PIC32MZ2048EFH144 Configuration Bit Settings
 
 // 'C' source line config statements
@@ -30,7 +29,7 @@
 #pragma config PGL1WAY = ON             // Permission Group Lock One Way Configuration (Allow only one reconfiguration)
 #pragma config PMDL1WAY = ON            // Peripheral Module Disable Configuration (Allow only one reconfiguration)
 #pragma config IOL1WAY = ON             // Peripheral Pin Select Configuration (Allow only one reconfiguration)
-#pragma config FUSBIDIO = ON            // USB USBID Selection (Controlled by the USB Module)
+#pragma config FUSBIDIO = OFF           // USB USBID Selection (Controlled by Port Function)
 
 // DEVCFG2
 #pragma config FPLLIDIV = DIV_1         // System PLL Input Divider (1x Divider)

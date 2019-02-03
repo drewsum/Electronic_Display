@@ -16,10 +16,10 @@
 #include "error_handler.h"
 #include "cause_of_reset.h"
 
-volatile uint32_t usb_uart_TxHead = 0;
-volatile uint32_t usb_uart_TxTail = 0;
-volatile uint32_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
-volatile uint32_t usb_uart_TxBufferRemaining;
+volatile uint64_t usb_uart_TxHead = 0;
+volatile uint64_t usb_uart_TxTail = 0;
+volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
+volatile uint64_t usb_uart_TxBufferRemaining;
 
 volatile uint32_t usb_uart_RxHead = 0;
 volatile uint32_t usb_uart_RxTail = 0;
