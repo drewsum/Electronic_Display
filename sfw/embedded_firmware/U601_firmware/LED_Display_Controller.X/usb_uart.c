@@ -445,10 +445,36 @@ void usbUartRingBufferLUT(char * line_in) {
     else if (strcmp(line_in, "Cause of Reset?") == 0) {
      
         terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        
+        if (    reset_cause == Undefined ||
+                reset_cause == Primary_Config_Registers_Error ||
+                reset_cause == Primary_Secondary_Config_Registers_Error ||
+                reset_cause == Config_Mismatch ||
+                reset_cause == DMT_Reset ||
+                reset_cause == WDT_Reset ||
+                reset_cause == Software_Reset ||
+                reset_cause == External_Reset ||
+                reset_cause == BOR_Reset) {
+
+            terminalTextAttributes(RED, BLACK, BOLD);
+
+        }
+
+        else {
+
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+
+        }
+        
         printf("Cause of the most recent device reset: %s\n\r",
                 getResetCauseString(reset_cause));
         terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Clock Status?") == 0) {
+     
+        printClockStatus(SYSCLK_INT);
         
     }
     
@@ -606,6 +632,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
+    printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Serial Number?: Prints device serial number\n\r");
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
     printf("    Revision ID?: Prints silicon die revision ID\n\r");

@@ -69,14 +69,18 @@ reset_cause_t reset_cause;
 // Main program entry point
 void main(void) {
     
+    // Disable global interrupts so clocks can be initialized properly
+    disableGlobalInterrupts();
+    
+    // Initialize system clocks
+    clockInitialize();
+    
     // Enable multi-vector interrupt mode
     INTCONbits.MVEC = 1;
     
     // Enable Global Interrupts
     enableGlobalInterrupts();
     
-    // Initialize system clocks
-    clockInitialize();
     
     // Save the cause of the most recent device reset
     reset_cause = getResetCause();

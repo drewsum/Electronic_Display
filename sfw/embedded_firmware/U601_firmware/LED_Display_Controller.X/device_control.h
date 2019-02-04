@@ -24,17 +24,6 @@
 
 // Hardcoded Clock Setting Integers, in Hertz
 #define SYSCLK_INT          252000000
-#define REFCLK1_INT         0
-#define REFCLK2_INT         0
-#define REFCLK3_INT         0
-#define REFCLK4_INT         0
-#define PBCLK1_INT          84000000
-#define PBCLK2_INT          84000000
-#define PBCLK3_INT          15750000
-#define PBCLK4_INT          84000000
-#define PBCLK5_INT          84000000
-#define PBCLK7_INT          252000000
-#define PBCLK8_INT          84000000
 
 // Unlock system function
 // This function unlocks the device so that device parameters can be changed
@@ -89,7 +78,8 @@ uint8_t getRevisionID(void);
 // This function returns a string with the revision ID
 char * getRevisionIDString(uint8_t revision_ID);
 
-
+// This function prints clock settings, requires a given input sysclk
+void printClockStatus(uint32_t input_sysclk);
 
 
 #endif /* _DEVICE_CONTROL_H */

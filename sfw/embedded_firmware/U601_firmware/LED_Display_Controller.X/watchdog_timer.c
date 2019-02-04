@@ -227,19 +227,11 @@ void printWatchdogStatus(void) {
             
     }
     
-    printf("\n\r    WDT Enabled: ");
-    
-    if (WDTCONbits.ON) {
-     
-        printf("True\n\r");
-        
-    }
-    
-    else {
-     
-        printf("False\n\r");
-        
-    }
+    // Print if WDT is enabled
+    if (WDTCONbits.ON) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("\n\r    WDT Enabled: %c\n\r",
+            WDTCONbits.ON ? 'T' : 'F');
     
     terminalTextAttributesReset();
 
@@ -298,19 +290,12 @@ void printDeadmanStatus(void) {
             
     }
     
-    printf("   DMT Enabled: ");
+    // Print if DMT is enabled
+    if (DMTCONbits.ON) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("   DMT Enabled: %c\n\r",
+            DMTCONbits.ON ? 'T' : 'F');
     
-    if (DMTCONbits.ON) {
-     
-        printf("True\n\r");
-        
-    }
-    
-    else {
-     
-        printf("False\n\r");
-        
-    }
     
     terminalTextAttributesReset();
        
