@@ -20,6 +20,7 @@
 #include <string.h>
 
 #include "device_control.h"
+#include "terminal_control.h"
 
 // private function prototype
 
@@ -135,13 +136,6 @@ void clockInitialize(void) {
     // unlock clock and PLL settings
     OSCCONbits.CLKLOCK = 0;
     
-    // set the FRC divider to 1
-    // This sets FRCDIV frequency to 8 MHz
-    OSCCONbits.FRCDIV = 0b000;
-    
-    // Initialize the PLL
-    PLLInitialize();
-    
     // Initialize peripheral bus clocks
     PBCLK1Initialize();
     PBCLK2Initialize();
@@ -156,7 +150,14 @@ void clockInitialize(void) {
     REFCLK2Initialize();
     REFCLK3Initialize();
     REFCLK4Initialize();
+
+    // set the FRC divider to 1
+    // This sets FRCDIV frequency to 8 MHz
+    OSCCONbits.FRCDIV = 0b000;
     
+    // Initialize the PLL
+    PLLInitialize();
+        
     // lock clock and PLL settings
     OSCCONbits.CLKLOCK = 1;
     
@@ -274,6 +275,9 @@ void PBCLK1Initialize(void) {
     // Set PBCLK1 divider to 3
     PB1DIVbits.PBDIV = 0b0000010;
     
+    // wait for divisor to be ready for change
+    while (PB1DIVbits.PBDIVRDY == 0);
+    
     // Enable PBCLK1
     // (PBCLK1 cannot be turned off so the ON bit is hardwired 1 in silicon)
     
@@ -288,6 +292,9 @@ void PBCLK2Initialize(void) {
     // Set PBCLK2 divider to 3
     PB2DIVbits.PBDIV = 0b0000010;
     
+    // wait for divisor to be ready for change
+    while (PB2DIVbits.PBDIVRDY == 0);
+    
     // Enable PBCLK2
     PB2DIVbits.ON = 1;
     
@@ -300,7 +307,10 @@ void PBCLK3Initialize(void) {
     while (PB3DIVbits.PBDIVRDY == 0);
     
     // Set PBCLK3 divider to 16
-    PB3DIVbits.PBDIV = 0b1111;;
+    PB3DIVbits.PBDIV = 0b0001111;
+    
+    // wait for divisor to be ready for change
+    while (PB3DIVbits.PBDIVRDY == 0);
     
     // Enable PBCLK3
     PB3DIVbits.ON = 1;
@@ -316,6 +326,9 @@ void PBCLK4Initialize(void) {
     // Set PBCLK4 divider to 3
     PB4DIVbits.PBDIV = 0b0000010;
     
+    // wait for divisor to be ready for change
+    while (PB4DIVbits.PBDIVRDY == 0);
+    
     // Enable PBCLK4
     PB4DIVbits.ON = 1;
     
@@ -330,6 +343,9 @@ void PBCLK5Initialize(void) {
     // Set PBCLK5 divider to 3
     PB5DIVbits.PBDIV = 0b0000010;
     
+    // wait for divisor to be ready for change
+    while (PB5DIVbits.PBDIVRDY == 0);
+    
     // Enable PBCLK5
     PB5DIVbits.ON = 1;
     
@@ -337,12 +353,15 @@ void PBCLK5Initialize(void) {
 
 // this function sets up peripheral bus clock 7
 void PBCLK7Initialize(void) {
- 
+
     // wait for divisor to be ready for change
     while (PB7DIVbits.PBDIVRDY == 0);
     
     // Set PBCLK7 divider to 1
     PB7DIVbits.PBDIV = 0b0000000;
+    
+    // wait for divisor to be ready for change
+    while (PB7DIVbits.PBDIVRDY == 0);
     
     // Enable PBCLK7
     PB7DIVbits.ON = 1;
@@ -357,6 +376,9 @@ void PBCLK8Initialize(void) {
     
     // Set PBCLK8 divider to 3
     PB8DIVbits.PBDIV = 0b0000010;
+    
+    // wait for divisor to be ready for change
+    while (PB8DIVbits.PBDIVRDY == 0);
     
     // Enable PBCLK8
     PB8DIVbits.ON = 1;
@@ -709,4 +731,205 @@ char * getRevisionIDString(uint8_t revision_ID) {
         
     }
     
+}
+
+// This function prints clock settings, requires a given input sysclk
+void printClockStatus(uint32_t input_sysclk) {
+
+    terminalTextAttributesReset();
+    terminalTextAttributes(GREEN, BLACK, UNDERSCORE);
+    
+    // Print table heading
+    printf("System Clock Settings:\n\r");
+
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    // Print SYSCLK setting
+    printf("    SYSCLK (System Clock) is set to: %s\n\r",
+            stringFromClockSetting(input_sysclk));
+    
+    // Print current oscillator configuration
+    printf("\n\r    Current Oscillator Selections is: ");
+    switch (OSCCONbits.COSC) {
+     
+        case 0b000:
+            printf("Internal Fast RC (FRC) Oscillator divided by FRCDIV<2:0> bits (FRCDIV)\n\r");
+            break;
+            
+        case 0b001:
+            printf("System PLL (SPLL)\n\r");
+            break;
+            
+        case 0b010:
+            printf("Primary Oscillator (POSC) (HS or EC)\n\r");
+            break;
+            
+        case 0b100:
+            printf("Secondary Oscillator (SOSC)\n\r");
+            break;
+            
+        case 0b101:
+            printf("Internal Low-Power RC (LPRC) Oscillator\n\r");
+            break;
+            
+        case 0b110:
+            terminalTextAttributes(RED, BLACK, BOLD);
+            printf("Back-up Fast RC (BFRC) Oscillator\n\r");
+            terminalTextAttributesReset();
+            
+            break;
+            
+        case 0b111:
+            printf("Internal Fast RC (FRC) Oscillator divided by FRCDIV<2:0> bits (FRCDIV)\n\r");
+            break;
+        
+    }
+    
+    // Print dream mode status
+    if (OSCCONbits.DRMEN) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("\n\r    Dream Mode %s\n\r", OSCCONbits.DRMEN ? "Enabled" : "Disabled");
+    
+    // Print PLL status
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("\n\r    PLL Input Divider is set to: %d\n\r", (DEVCFG2bits.FPLLIDIV + 1));
+    printf("    PLL Multiplier is set to: %d\n\r", (DEVCFG2bits.FPLLMULT + 1));
+    printf("    PLL Output Divider is set to: %d\n\r", (DEVCFG2bits.FPLLODIV + 1));
+    
+    printf("    Overall PLL Gain is: %.3f\n\r", 
+            (float) (DEVCFG2bits.FPLLMULT + 1) / ((DEVCFG2bits.FPLLIDIV) + (DEVCFG2bits.FPLLODIV) + 1));
+    
+    
+    
+    // Determine refclk1
+    if (REFO1CONbits.ON == 0) {
+     
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("\n\r    REFCLK1 (Reference Clock 1) Disabled\n\r");
+        
+    }
+    
+    else {
+     
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("    REFCLK1 (Reference Clock 1) is set to: %s\n\r",
+                stringFromClockSetting(input_sysclk / (REFO1CONbits.RODIV + 1)));
+        
+    }
+    
+    // Determine refclk2
+    if (REFO2CONbits.ON == 0) {
+     
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("    REFCLK2 (Reference Clock 2) Disabled\n\r");
+        
+    }
+    
+    else {
+     
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("    REFCLK2 (Reference Clock 2) is set to: %s\n\r",
+                stringFromClockSetting(input_sysclk / (REFO2CONbits.RODIV + 1)));
+        
+    }
+    
+    // Determine refclk3
+    if (REFO3CONbits.ON == 0) {
+     
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("    REFCLK3 (Reference Clock 3) Disabled\n\r");
+        
+    }
+    
+    else {
+     
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("    REFCLK3 (Reference Clock 3) is set to: %s\n\r",
+                stringFromClockSetting(input_sysclk / (REFO3CONbits.RODIV + 1)));
+        
+    }
+    
+    // Determine refclk4
+    if (REFO4CONbits.ON == 0) {
+     
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("    REFCLK4 (Reference Clock 4) Disabled\n\r");
+        
+    }
+    
+    else {
+     
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("    REFCLK4 (Reference Clock 4) is set to: %s\n\r",
+                stringFromClockSetting(input_sysclk / (REFO4CONbits.RODIV + 1)));
+        
+    }
+    
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    
+    // Determine PBCLK1 (Cannot be disabled)
+    printf("\n\r    PBCLK1 (Peripheral Bus Clock 1) is set to: %s\n\r",
+            stringFromClockSetting(input_sysclk / (PB1DIVbits.PBDIV + 1)));
+    
+    // Determine PBCLK2
+    printf("    PBCLK2 (Peripheral Bus Clock 2) is set to: %s\n\r",
+            stringFromClockSetting(input_sysclk / (PB2DIVbits.PBDIV + 1)));
+    
+    // Determine PBCLK3
+    printf("    PBCLK3 (Peripheral Bus Clock 3) is set to: %s\n\r",
+            stringFromClockSetting(input_sysclk / (PB3DIVbits.PBDIV + 1)));
+    
+    // Determine PBCLK4
+    printf("    PBCLK4 (Peripheral Bus Clock 4) is set to: %s\n\r",
+            stringFromClockSetting(input_sysclk / (PB4DIVbits.PBDIV + 1)));
+
+    // Determine PBCLK5
+    printf("    PBCLK5 (Peripheral Bus Clock 5) is set to: %s\n\r",
+            stringFromClockSetting(input_sysclk / (PB5DIVbits.PBDIV + 1)));
+    
+    // No PBCLK6
+    terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    No Peripheral Bus Clock 6 Present\n\r");
+    
+    // Determine PBCLK7
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    PBCLK7 (Peripheral Bus Clock 7) is set to: %s\n\r",
+            stringFromClockSetting(input_sysclk / (PB7DIVbits.PBDIV + 1)));
+    
+    // Determine PBCLK8
+    printf("    PBCLK8 (Peripheral Bus Clock 8) is set to: %s\n\r",
+            stringFromClockSetting(input_sysclk / (PB8DIVbits.PBDIV + 1)));
+    
+    // Print clock lock status
+    if (OSCCONbits.CLKLOCK) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("\n\r    Clock Lock: %s\n\r", OSCCONbits.CLKLOCK ? "Enabled" : "Disabled");
+    
+    // Print clock failure status
+    if (OSCCONbits.CF) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("\n\r    Clock Fail: %s\n\r", OSCCONbits.CF ? "Detected" : "Not Detected");
+    
+    // Print Sleep Mode status
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("\n\r    WAIT instruction enters: %s Mode\n\r", OSCCONbits.CF ? "Sleep" : "Idle");
+    
+    // Print status of oscillators that are ready
+    if (CLKSTATbits.LPRCRDY) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("\n\r    LPRC Oscillator Status: %s\n\r", CLKSTATbits.LPRCRDY ? "Ready" : "Not Ready");
+    if (CLKSTATbits.SOSCRDY) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    SOSC Oscillator Status: %s\n\r", CLKSTATbits.SOSCRDY ? "Ready" : "Not Ready");
+    if (CLKSTATbits.POSCRDY) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    POSC Oscillator Status: %s\n\r", CLKSTATbits.POSCRDY ? "Ready" : "Not Ready");
+    if (CLKSTATbits.DIVSPLLRDY) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    SPLL Oscillator Status: %s\n\r", CLKSTATbits.DIVSPLLRDY ? "Ready" : "Not Ready");
+    if (CLKSTATbits.FRCRDY) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    FRC Oscillator Status: %s\n\r", CLKSTATbits.FRCRDY ? "Ready" : "Not Ready");
+
+    terminalTextAttributesReset();
+
 }
