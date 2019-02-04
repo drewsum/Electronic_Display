@@ -7006,11 +7006,12 @@ void printInterruptStatus(void) {
 
     terminalTextAttributesReset();
     
-    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    if (getGlobalInterruptsState()) terminalTextAttributes(GREEN, BLACK, NORMAL);
+            else terminalTextAttributes(RED, BLACK, NORMAL);
     printf("Global Interrupt Enable: %s\n\r", getGlobalInterruptsState() ? "T" : "F");
 
     terminalTextAttributes(GREEN, BLACK, REVERSE);
-    printf("###  Name                    EN?  P S IRQ?\n\r");
+    printf("###  Name                     EN?  P S IRQ?\n\r");
     
     terminalTextAttributesReset();
 
@@ -7020,23 +7021,26 @@ void printInterruptStatus(void) {
      
         if (i % 2 == 0) {
          
-            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            
+            if (getInterruptEnable(i)) terminalTextAttributes(GREEN, BLACK, NORMAL);
+            else terminalTextAttributes(RED, BLACK, NORMAL);
             
         }
         
         else {
          
-            terminalTextAttributes(GREEN, BLACK, BLINK);
+            if (getInterruptEnable(i)) terminalTextAttributes(GREEN, BLACK, BLINK);
+            else terminalTextAttributes(RED, BLACK, BLINK);
             
         }
         
-        printf("%03d  %s%c  %d %d    %c\n\r", 
+        printf("%03d  %s %c  %d %d    %c\n\r", 
                 i,
                 getInterruptNameStringPadded(i),
-                getInterruptEnable(i) ? 'T' : ' ',
+                getInterruptEnable(i) ? 'T' : 'F',
                 getInterruptPriority(i),
                 getInterruptSubriority(i),
-                getInterruptFlag(i) ? 'T' : ' ');
+                getInterruptFlag(i) ? 'T' : 'F');
 
     }
 

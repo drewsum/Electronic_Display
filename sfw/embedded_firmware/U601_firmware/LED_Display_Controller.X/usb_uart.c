@@ -445,7 +445,27 @@ void usbUartRingBufferLUT(char * line_in) {
     else if (strcmp(line_in, "Cause of Reset?") == 0) {
      
         terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        
+        if (    reset_cause == Undefined ||
+                reset_cause == Primary_Config_Registers_Error ||
+                reset_cause == Primary_Secondary_Config_Registers_Error ||
+                reset_cause == Config_Mismatch ||
+                reset_cause == DMT_Reset ||
+                reset_cause == WDT_Reset ||
+                reset_cause == Software_Reset ||
+                reset_cause == External_Reset ||
+                reset_cause == BOR_Reset) {
+
+            terminalTextAttributes(RED, BLACK, BOLD);
+
+        }
+
+        else {
+
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+
+        }
+        
         printf("Cause of the most recent device reset: %s\n\r",
                 getResetCauseString(reset_cause));
         terminalTextAttributesReset();
