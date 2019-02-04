@@ -456,7 +456,7 @@ void usbUartRingBufferLUT(char * line_in) {
                 reset_cause == External_Reset ||
                 reset_cause == BOR_Reset) {
 
-            terminalTextAttributes(RED, BLACK, BOLD);
+            terminalTextAttributes(RED, BLACK, NORMAL);
 
         }
 
@@ -475,6 +475,34 @@ void usbUartRingBufferLUT(char * line_in) {
     else if (strcmp(line_in, "Clock Status?") == 0) {
      
         printClockStatus(SYSCLK_INT);
+        
+    }
+    
+    else if (strcmp(line_in, "Error Status?") == 0) {
+     
+        // Print error handler status
+        printErrorHandlerStatus();
+        
+        // Print help message
+        terminalTextAttributes(YELLOW, BLACK, NORMAL);
+        printf("\n\rCall 'Clear Errors' command to clear any errors that have been set\n\r\n\r");
+        terminalTextAttributesReset();
+        
+        
+    }
+    
+    else if (strcmp(line_in, "Clear Errors") == 0) {
+     
+        // Zero out all error handler flags
+        clearErrorHandler();
+        
+        // Update error LEDs based on error handler status
+        updateErrorLEDs();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Error Handler flags cleared\n\r");
+        terminalTextAttributesReset();
         
     }
     
@@ -633,6 +661,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
+    printf("    Error Status?: Prints the state of system error flags\n\r");
+    printf("    Clear Errors: Clears all error handler flags\n\r");
     printf("    Serial Number?: Prints device serial number\n\r");
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
     printf("    Revision ID?: Prints silicon die revision ID\n\r");

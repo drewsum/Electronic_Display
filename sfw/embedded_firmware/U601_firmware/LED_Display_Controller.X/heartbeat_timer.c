@@ -2,6 +2,7 @@
 #include <xc.h>
 
 #include "heartbeat_timer.h"
+#include "error_handler.h"
 
 // This function initializes the heartbeat timer
 void heartbeatTimerInitialize(void) {
@@ -69,6 +70,9 @@ void __ISR(_TIMER_1_VECTOR, ipl4AUTO) hearbeatTimerISR(void) {
 
     // Toggle heartbeat LED
     HEARTBEAT_LED_PIN = !(HEARTBEAT_LED_PIN);
+    
+    // Update error LEDs based on error handler status
+    updateErrorLEDs();
     
     // Increment on time counter
     device_on_time_counter++;

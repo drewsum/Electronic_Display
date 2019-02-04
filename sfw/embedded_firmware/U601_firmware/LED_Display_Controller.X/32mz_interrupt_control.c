@@ -7029,8 +7029,8 @@ void printInterruptStatus(void) {
         
         else {
          
-            if (getInterruptEnable(i)) terminalTextAttributes(GREEN, BLACK, BLINK);
-            else terminalTextAttributes(RED, BLACK, BLINK);
+            if (getInterruptEnable(i)) terminalTextAttributes(GREEN, BLACK, REVERSE);
+            else terminalTextAttributes(RED, BLACK, REVERSE);
             
         }
         
