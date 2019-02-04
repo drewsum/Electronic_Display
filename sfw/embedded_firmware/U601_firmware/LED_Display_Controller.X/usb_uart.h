@@ -48,9 +48,9 @@ extern volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
 void usbUartInitialize(void);
 
 // These are the USB UART Interrupt Service Routines
-void __ISR(_UART3_RX_VECTOR, ipl2AUTO) usbUartReceiveISR(void);
-void __ISR(_UART3_TX_VECTOR, ipl3AUTO) usbUartTransferISR(void);
-void __ISR(_UART3_FAULT_VECTOR, ipl1AUTO) usbUartFaultISR(void);
+void __ISR(_UART3_RX_VECTOR, ipl2SRS) usbUartReceiveISR(void);
+void __ISR(_UART3_TX_VECTOR, ipl3SRS) usbUartTransferISR(void);
+void __ISR(_UART3_FAULT_VECTOR, ipl1SRS) usbUartFaultISR(void);
 
 // This function allows reading of a byre from UART3
 uint8_t usbUartReadByte(void);

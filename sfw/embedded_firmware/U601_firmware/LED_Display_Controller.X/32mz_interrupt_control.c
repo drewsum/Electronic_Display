@@ -5,6 +5,18 @@
 #include "32mz_interrupt_control.h"
 #include "terminal_control.h"
 
+// This function configures the system for multi-interrupt operation and
+// assigns shadow registers sets to priority level ISRs
+void interruptControllerInitialize(void) {
+ 
+    // Enable multi-vector interrupt mode
+    INTCONbits.MVEC = 1;
+    
+    // Assign shadow register sets to interrupt priorities
+    // assign shadow set #7-#1 to priority level #7-#1 ISRs
+    PRISS = 0x76543210;
+
+}
 
 // This function enables global interrupts
 void enableGlobalInterrupts(void) {
@@ -7002,14 +7014,24 @@ void printInterruptStatus(void) {
     
     terminalTextAttributesReset();
     terminalTextAttributes(GREEN, BLACK, UNDERSCORE);
-    printf("Interrupt Status:\n\r");
+    printf("Interrupt Controller Status:\n\r");
 
     terminalTextAttributesReset();
     
     if (getGlobalInterruptsState()) terminalTextAttributes(GREEN, BLACK, NORMAL);
             else terminalTextAttributes(RED, BLACK, NORMAL);
     printf("Global Interrupt Enable: %s\n\r", getGlobalInterruptsState() ? "T" : "F");
+    
+    // Print interrupt vector mode
+    if (INTCONbits.MVEC) terminalTextAttributes(GREEN, BLACK, NORMAL);
+            else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("Interrupt Vector Mode: %s\n\r", INTCONbits.MVEC ? "Multi-Vector" : "Single-Vector");
 
+    // Print interrupt priority shadow register settings
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("Interrupt Priority Shadow Register Setting: 0x%08X\n\r", PRISS);
+    
+    printf("\n\rInterrupt sources:\n\r");
     terminalTextAttributes(GREEN, BLACK, REVERSE);
     printf("###  Name                     EN?  P S IRQ?\n\r");
     

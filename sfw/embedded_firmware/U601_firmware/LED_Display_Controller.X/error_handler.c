@@ -20,7 +20,7 @@ void errorHandlerInitialize(void) {
 }
 
 // System Bus Protection Violation interrupt service routine
-void __ISR(_SYSTEM_BUS_PROTECTION_VECTOR, ipl1AUTO) systemBusProtectionISR(void) {
+void __ISR(_SYSTEM_BUS_PROTECTION_VECTOR, ipl1SRS) systemBusProtectionISR(void) {
  
     // Record a system bus protection violation occurred
     error_handler.system_bus_protection_violation_flag = 1;
@@ -222,6 +222,26 @@ void printErrorHandlerStatus(void) {
     
 }
 
+// This function sets all error flags high
+void testErrorHandler(void) {
+    
+    error_handler.DMT_error_flag = 1;
+    error_handler.EBI_error_flag = 1;
+    error_handler.POS12_regulation_error_flag = 1;
+    error_handler.POS3P3_regulation_error_flag = 1;
+    error_handler.POS5P5_regulation_error_flag = 1;
+    error_handler.POS5P_regulation_error_flag = 1;
+    error_handler.POS5P_thermal_warning_error_flag = 1;
+    error_handler.POS5_regulation_error_flag = 1;
+    error_handler.SPI_error_flag = 1;
+    error_handler.USB_error_flag = 1;
+    error_handler.WIFI_error_flag = 1;
+    error_handler.configuration_error_flag = 1;
+    error_handler.other_error_flag = 1;
+    error_handler.system_bus_protection_violation_flag = 1;
+
+}
+
 // This function clears the error handler flags
 void clearErrorHandler(void) {
  
@@ -246,7 +266,21 @@ void clearErrorHandler(void) {
 void updateErrorLEDs(void) {
  
     // Configuration Error
-    if (error_handler.configuration_error_flag) OTHER_ERROR_LED_PIN = 1;
+    if (error_handler.configuration_error_flag ||
+            error_handler.DMT_error_flag ||
+            error_handler.POS12_regulation_error_flag ||
+            error_handler.POS3P3_regulation_error_flag ||
+            error_handler.POS5P5_regulation_error_flag ||
+            error_handler.POS5P_regulation_error_flag ||
+            error_handler.POS5P_thermal_warning_error_flag ||
+            error_handler.POS5_regulation_error_flag ||
+            error_handler.other_error_flag ||
+            error_handler.system_bus_protection_violation_flag) {
+        
+        OTHER_ERROR_LED_PIN = 1;
+        
+    }
+    
     else OTHER_ERROR_LED_PIN = 0;
 
     // EBI Error
@@ -263,44 +297,6 @@ void updateErrorLEDs(void) {
     
     // USB Error
     if (error_handler.USB_error_flag) USB_ERROR_LED_PIN = 1;
-    else USB_ERROR_LED_PIN = 0;
-    
-    // Other Error
-    if (error_handler.other_error_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    // POS5P Thermal Warning Error
-    if (error_handler.POS5P_thermal_warning_error_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    // POS3P3 Regulation Error
-    if (error_handler.POS3P3_regulation_error_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    // POS5 Regulation Error
-    if (error_handler.POS5_regulation_error_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    // POS12 Regulation Error
-    if (error_handler.POS12_regulation_error_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    // POS5P Regulation Error
-    if (error_handler.POS5P_regulation_error_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    // POS5P5 Regulation Error
-    if (error_handler.POS5P5_regulation_error_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    // DMT Error
-    if (error_handler.DMT_error_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    // System Bus Protection Error
-    if (error_handler.system_bus_protection_violation_flag) OTHER_ERROR_LED_PIN = 1;
-    else OTHER_ERROR_LED_PIN = 0;
-    
-    
+    else USB_ERROR_LED_PIN = 0;    
     
 }

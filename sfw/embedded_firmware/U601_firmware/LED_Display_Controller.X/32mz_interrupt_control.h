@@ -233,6 +233,10 @@ typedef enum {
 
 } interrupt_source_t;
 
+// This function configures the system for multi-interrupt operation and
+// assigns shadow registers sets to priority level ISRs
+void interruptControllerInitialize(void);
+
 // This function enables global interrupts
 void enableGlobalInterrupts(void);
 
