@@ -76,24 +76,26 @@ reset_cause_t getResetCause(void) {
         
     }
     
-    else if (RCONbits.BCFGERR) {
-     
-        reset_cause = Primary_Config_Registers_Error;
-        RCONbits.BCFGERR = 0;
-        
-    }
-    
-    else if (RCONbits.BCFGFAIL) {
-     
-        reset_cause = Primary_Secondary_Config_Registers_Error;
-        RCONbits.BCFGFAIL = 0;
-        
-    }
-    
     else {
      
         reset_cause = Undefined;
         error_handler.other_error_flag = 1;
+        
+    }
+    
+    if (RCONbits.BCFGERR) {
+     
+    //    reset_cause = Primary_Config_Registers_Error;
+        error_handler.configuration_error_flag = 1;
+        RCONbits.BCFGERR = 0;
+        
+    }
+    
+    if (RCONbits.BCFGFAIL) {
+     
+    //    reset_cause = Primary_Secondary_Config_Registers_Error;
+        error_handler.configuration_error_flag = 1;
+        RCONbits.BCFGFAIL = 0;
         
     }
 

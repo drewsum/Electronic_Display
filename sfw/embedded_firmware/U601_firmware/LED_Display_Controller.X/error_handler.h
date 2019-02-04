@@ -64,6 +64,15 @@ void __attribute__((nomips16)) _cache_err_exception_handler(void);
 // This function is called when a bootstrap exception occurs
 void __attribute__((nomips16)) _bootstrap_exception_handler(void);
 
+// This function prints the status of the error handler flags
+void printErrorHandlerStatus(void);
+
+// This function clears the error handler flags
+void clearErrorHandler(void);
+
+// This function updates the error LEDs based on the error handler state
+void updateErrorLEDs(void);
+
 #endif /* _ERROR_HANDLER_H */
 
 /* *****************************************************************************

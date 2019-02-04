@@ -101,7 +101,7 @@ void main(void) {
 
     
     // Print debug message s
-    printf(" Logic Board Initializing...\n\r");
+    printf("Logic Board Initializing...\n\r");
     
     if (    reset_cause == Undefined ||
             reset_cause == Primary_Config_Registers_Error ||
@@ -113,7 +113,7 @@ void main(void) {
             reset_cause == External_Reset ||
             reset_cause == BOR_Reset) {
     
-        terminalTextAttributes(RED, BLACK, BOLD);
+        terminalTextAttributes(RED, BLACK, NORMAL);
         
     }
     
@@ -165,6 +165,10 @@ void main(void) {
     // Lock configurations
     deviceLock();
     
+    // Update error LEDs based on error handler status
+    updateErrorLEDs();
+        
+    
     // Loop endlessly
     while (true) {
         
@@ -177,7 +181,6 @@ void main(void) {
             usbUartRingBufferPull();
         
         }
-        
         
     }
     
