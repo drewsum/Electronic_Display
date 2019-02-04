@@ -66,7 +66,7 @@ void heartbeatTimerStop(void) {
 }
 
 // Heartbeat timer interrupt service routine
-void __ISR(_TIMER_1_VECTOR, ipl4AUTO) hearbeatTimerISR(void) {
+void __ISR(_TIMER_1_VECTOR, ipl4SRS) hearbeatTimerISR(void) {
 
     // Toggle heartbeat LED
     HEARTBEAT_LED_PIN = !(HEARTBEAT_LED_PIN);

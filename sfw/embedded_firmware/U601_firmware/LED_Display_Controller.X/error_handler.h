@@ -50,7 +50,7 @@ struct {
 void errorHandlerInitialize(void);
 
 // System Bus Protection Violation interrupt service routine
-void __ISR(_SYSTEM_BUS_PROTECTION_VECTOR, ipl1AUTO) systemBusProtectionISR(void);
+void __ISR(_SYSTEM_BUS_PROTECTION_VECTOR, ipl1SRS) systemBusProtectionISR(void);
 
 // This function is called when a general exception occurs
 void __attribute__((nomips16)) _general_exception_handler(void);
@@ -66,6 +66,9 @@ void __attribute__((nomips16)) _bootstrap_exception_handler(void);
 
 // This function prints the status of the error handler flags
 void printErrorHandlerStatus(void);
+
+// This function sets all error flags high
+void testErrorHandler(void);
 
 // This function clears the error handler flags
 void clearErrorHandler(void);

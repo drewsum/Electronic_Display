@@ -75,14 +75,14 @@ void main(void) {
     // Initialize system clocks
     clockInitialize();
     
-    // Enable multi-vector interrupt mode
-    INTCONbits.MVEC = 1;
+    // Configure interrupt controller
+    interruptControllerInitialize();
     
     // Enable Global Interrupts
     enableGlobalInterrupts();
     
-    
     // Save the cause of the most recent device reset
+    // This also checks for configuration errors
     reset_cause = getResetCause();
     
     // Initialize GPIO pins to startup settings
@@ -128,7 +128,7 @@ void main(void) {
     terminalTextAttributesReset();
     terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("Clocks Initialized\n\r");
-    
+    printf("Interrupt Controller Initialized, Global Interrupts Enabled\n\r");
     printf("GPIO Pins Initialized\n\r");
     printf("USB UART Initialized\n\r");
     printf("Core Timer Initialized\n\r");

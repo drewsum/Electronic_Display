@@ -142,7 +142,7 @@ void usbUartInitialize(void) {
 }
 
 // This is the USB UART receive interrupt service routine
-void __ISR(_UART3_RX_VECTOR, ipl2AUTO) usbUartReceiveISR(void) {
+void __ISR(_UART3_RX_VECTOR, ipl2SRS) usbUartReceiveISR(void) {
     
     // Do receive tasks
     usbUartReceiveHandler();
@@ -153,7 +153,7 @@ void __ISR(_UART3_RX_VECTOR, ipl2AUTO) usbUartReceiveISR(void) {
 }
 
 // This is the USB UART transfer interrupt service routine
-void __ISR(_UART3_TX_VECTOR, ipl3AUTO) usbUartTransferISR(void) {
+void __ISR(_UART3_TX_VECTOR, ipl3SRS) usbUartTransferISR(void) {
     
     // Do transfer tasks
     usbUartTransmitHandler();
@@ -164,7 +164,7 @@ void __ISR(_UART3_TX_VECTOR, ipl3AUTO) usbUartTransferISR(void) {
 }
 
 // This is the UAB UART fault interrupt service routine
-void __ISR(_UART3_FAULT_VECTOR, ipl1AUTO) usbUartFaultISR(void) {
+void __ISR(_UART3_FAULT_VECTOR, ipl1SRS) usbUartFaultISR(void) {
     
     // TO-DO: Fault tasks
     error_handler.USB_error_flag = 1;   
@@ -182,6 +182,8 @@ uint8_t usbUartReadByte(void) {
     // This state should never be entered
     while(0 == usb_uart_RxCount)
     {
+        error_handler.USB_error_flag = 1;
+        return 0;
     }
 
     readValue = usb_uart_RxBuffer[usb_uart_RxTail++];
@@ -202,6 +204,7 @@ uint8_t usbUartReadByte(void) {
 // This function adds a byte to the TX ring buffer
 void usbUartPutchar(uint8_t txData) {
  
+    // wait for ring buffer to open up
     while(0 == usb_uart_TxBufferRemaining);
 
     if(0 == getInterruptEnable(UART3_Transfer_Done))
@@ -414,7 +417,7 @@ void usbUartRingBufferLUT(char * line_in) {
     else if (strcmp(line_in, "PMD Status?") == 0) {
      
         usb_uart_TxHead = 0;
-        usb_uart_TxTail = 0;   
+        usb_uart_TxTail = 0;
         
         printPMDStatus();
         
@@ -485,9 +488,25 @@ void usbUartRingBufferLUT(char * line_in) {
         
         // Print help message
         terminalTextAttributes(YELLOW, BLACK, NORMAL);
-        printf("\n\rCall 'Clear Errors' command to clear any errors that have been set\n\r\n\r");
+        printf("\n\rCall 'Clear Errors' command to clear any errors that have been set\n\r");
+        printf("Call 'Test Errors' command to set all error handler flags\n\r\n\r");
         terminalTextAttributesReset();
         
+        
+    }
+    
+    else if (strcmp(line_in, "Test Errors") == 0) {
+     
+        // Zero out all error handler flags
+        testErrorHandler();
+        
+        // Update error LEDs based on error handler status
+        updateErrorLEDs();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("Testing Error Handler flags\n\r");
+        terminalTextAttributesReset();
         
     }
     
@@ -662,6 +681,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
+    printf("    Test Errors: Sets all error handler flags\n\r");
     printf("    Clear Errors: Clears all error handler flags\n\r");
     printf("    Serial Number?: Prints device serial number\n\r");
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
