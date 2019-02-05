@@ -214,6 +214,11 @@ void printErrorHandlerStatus(void) {
     else terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("   System bus protection violation error %s\n\r", error_handler.system_bus_protection_violation_flag ? "has occurred" : "has not occurred");
     
+    // Prefetch Module SEC Error
+    if (error_handler.prefetch_module_SEC_flag) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("   Prefetch Module SEC Event %s\n\r", error_handler.prefetch_module_SEC_flag ? "has occurred" : "has not occurred");
+    
     
     
     
@@ -239,7 +244,8 @@ void testErrorHandler(void) {
     error_handler.configuration_error_flag = 1;
     error_handler.other_error_flag = 1;
     error_handler.system_bus_protection_violation_flag = 1;
-
+    error_handler.prefetch_module_SEC_flag = 1;
+    
 }
 
 // This function clears the error handler flags
@@ -259,6 +265,7 @@ void clearErrorHandler(void) {
     error_handler.configuration_error_flag = 0;
     error_handler.other_error_flag = 0;
     error_handler.system_bus_protection_violation_flag = 0;
+    error_handler.prefetch_module_SEC_flag = 0;
     
 }
 
@@ -275,7 +282,8 @@ void updateErrorLEDs(void) {
             error_handler.POS5P_thermal_warning_error_flag ||
             error_handler.POS5_regulation_error_flag ||
             error_handler.other_error_flag ||
-            error_handler.system_bus_protection_violation_flag) {
+            error_handler.system_bus_protection_violation_flag ||
+            error_handler.prefetch_module_SEC_flag) {
         
         OTHER_ERROR_LED_PIN = 1;
         

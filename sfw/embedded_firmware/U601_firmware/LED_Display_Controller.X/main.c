@@ -137,6 +137,10 @@ void main(void) {
     errorHandlerInitialize();
     printf("Error Handler Initialized\n\r");
     
+    // Setup prefetch module
+    prefetchInitialize();
+    printf("Prefetch Module Initialized\n\r");
+    
     // Setup heartbeat timer
     heartbeatTimerInitialize();
     printf("Heartbeat Timer Initialized\n\r");
