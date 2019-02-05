@@ -160,6 +160,10 @@ void main(void) {
     // EBI set up
     ebiInitialize();
     printf("EBI Initialized \n\r");
+
+    // Initialize SPI
+    spiFlashInit();
+    printf("SPI Flash Initialized\n\r");
     
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
