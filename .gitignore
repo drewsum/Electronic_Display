@@ -14,3 +14,12 @@
 /sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/private/
 /sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/build/default/
 /sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/dist/default/
+
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
