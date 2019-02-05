@@ -20,6 +20,14 @@
 
 void ebiInitialize(void);
 
+// Print EBI status
+
+void printEBIStatus(void);
+
+// Prints contents of EBI SRAM
+
+void ebiPrintSRAM(void);
+
 
 #endif /* _EXTERNAL_BUS_INTERFACE_H */
 
