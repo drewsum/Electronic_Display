@@ -485,6 +485,12 @@ void usbUartRingBufferLUT(char * line_in) {
     else if (strcmp(line_in, "Prefetch Status?") == 0) {
      
         printPrefetchStatus();
+
+    }
+    
+    else if (strcmp(line_in, "EBI Status?") == 0) {
+        
+        printEBIStatus();
         
     }
     
@@ -686,6 +692,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
     printf("    Prefetch Status?: Prints the status of the predictive prefetch module\n\r");
+    printf("    EBI Status?: Prints status of EBI\r\n");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");

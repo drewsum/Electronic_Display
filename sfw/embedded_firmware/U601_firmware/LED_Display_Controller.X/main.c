@@ -157,6 +157,10 @@ void main(void) {
     deadmanTimerInitialize();
     printf("Deadman Timer Initialized\n\r");
     
+    // EBI set up
+    ebiInitialize();
+    printf("EBI Initialized \n\r");
+    
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
     printf("Reset LED disabled\n\r");
