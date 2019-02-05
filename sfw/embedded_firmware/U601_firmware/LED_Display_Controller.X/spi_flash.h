@@ -16,6 +16,53 @@
 #ifndef _SPI_FLASH_H    /* Guard against multiple inclusion */
 #define _SPI_FLASH_H
 
+#include <sys/attribs.h>
+
+
+// enumerate SPI flash state type
+enum spi_flash_state_t {
+
+    idle,
+    flash1_write,
+    flash1_read,
+    flash2_write,
+    flash2_read,
+    flash3_write,
+    flash3_read,
+    flash4_write,
+    flash4_read,
+    flash5_write,
+    flash5_read,
+    flash6_write,
+    flash6_read,
+    flash7_write,
+    flash7_read,
+    flash8_write,
+    flash8_read    
+    
+} spi_flash_state;
+
+// Function to initialize SPI
+void spiFlashInit(void);
+
+// Function to set GPIO pins for ~CE and ~WP
+void spiFlashGPIOSet(void);
+
+// Function to reset GPIO pins for ~CE and ~WP
+void spiFlashGPIOReset(void);
+
+// Function to print status
+void printSPIFlashStatus(void);
+
+// SPI3 Fault interrupt service routine
+void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void);
+
+// SPI3 Receive Done interrupt service routine
+void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void);
+
+//SPI3 Transfer Done interrupt service routine
+void __ISR(_SPI3_TX_VECTOR, ipl4SRS) spi3TransferISR(void);
+
 
 #endif /* _SPI_FLASH_H */
 

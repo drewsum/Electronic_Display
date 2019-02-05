@@ -153,6 +153,10 @@ void main(void) {
     deadmanTimerInitialize();
     printf("Deadman Timer Initialized\n\r");
     
+    // Initialize SPI
+    spiFlashInit();
+    printf("SPI Flash Initialized\n\r");
+    
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
     printf("Reset LED disabled\n\r");

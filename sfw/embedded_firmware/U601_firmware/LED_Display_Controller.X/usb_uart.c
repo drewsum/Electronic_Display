@@ -434,6 +434,12 @@ void usbUartRingBufferLUT(char * line_in) {
         printDeadmanStatus();
 
     }
+
+    else if (strcmp(line_in, "SPI Status?") == 0) {
+     
+        printSPIFlashStatus(); 
+        
+    }
     
     else if (strcmp(line_in, "Interrupt Status?") == 0) {
      
@@ -563,7 +569,7 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalPrintTestMessage();
         
     }
-    
+        
     else if (strcmp(line_in, "Credits") == 0) {
      
         terminalClearScreen();
@@ -678,6 +684,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
     printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
+    printf("    SPI Status?: Prints the SPI configuration bits\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
