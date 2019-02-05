@@ -6,28 +6,22 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-
-import display.led_display.helper.TinyDB;
+import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DeviceSelectFragment.OnFragmentInteractionListener} interface
+ * {@link EditProjectFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DeviceSelectFragment#newInstance} factory method to
+ * Use the {@link EditProjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DeviceSelectFragment extends Fragment implements View.OnClickListener {
+public class EditProjectFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,9 +31,11 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     private String mParam1;
     private String mParam2;
 
+    private int frameCount = 0;
+
     private OnFragmentInteractionListener mListener;
 
-    public DeviceSelectFragment() {
+    public EditProjectFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +45,11 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DeviceSelectFragment.
+     * @return A new instance of fragment NewProject.
      */
     // TODO: Rename and change types and number of parameters
-    public static DeviceSelectFragment newInstance(String param1, String param2) {
-        DeviceSelectFragment fragment = new DeviceSelectFragment();
+    public static EditProjectFragment newInstance(String param1, String param2) {
+        EditProjectFragment fragment = new EditProjectFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,41 +65,29 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 //        MenuActivity parent = (MenuActivity)this.getActivity().getParent();
-//        Project[] projectList = parent.database.projectDao.loadAll();
-//        Log.d("projects: ", "" + projectList[0].getProjectName());
-
+//        Project project = new Project();
+//        project.setProjectName("Test Project");
+//        parent.database.projectDao().insert(project);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_device_select, container, false);
-        TinyDB tinyDB = new TinyDB(getContext());
-        ArrayList<String> projectList = tinyDB.getListString("projectList");
-        Log.d("projectList", projectList.toString());
-        ListView listview = rootView.findViewById(R.id.deviceList);
-        listview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList.toArray(new String[0])));
-        Button buttonSelectDevice = (Button) rootView.findViewById(R.id.buttonDeviceSelect);
-        buttonSelectDevice.setOnClickListener(new Button.OnClickListener() {
+        View rootView = inflater.inflate(R.layout.fragment_edit_project, container, false);
+        Button buttonSelectImage = (Button) rootView.findViewById(R.id.buttonAddFrame);
+        buttonSelectImage.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
+                frameCount++;
+                startActivity(new Intent(getActivity(), ImageSelectActivity.class));
             }
         });
 
-        Button buttonNewProject = (Button) rootView.findViewById(R.id.buttonNewProject);
-        buttonNewProject.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, new NewProjectFragment()).commit();
-            }
-        });
-
+        TextView textFrameCount = (TextView) rootView.findViewById(R.id.textFrameCount);
+        textFrameCount.setText(frameCount + "/8");
+        String newProjectName = textFrameCount.getText().toString();
         return rootView;
     }
 
@@ -120,7 +104,6 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
         ((Activity) getActivity()).overridePendingTransition(0,0);
 
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -141,8 +124,8 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonDeviceSelect:
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
+            case R.id.buttonAddFrame:
+                startActivity(new Intent(getActivity(), ImageSelectActivity.class));
                 break;
         }
     }

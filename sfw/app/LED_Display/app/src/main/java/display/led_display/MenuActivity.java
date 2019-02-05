@@ -17,6 +17,7 @@ public class MenuActivity extends AppCompatActivity
         implements DeviceSelectFragment.OnFragmentInteractionListener,
         NewProjectFragment.OnFragmentInteractionListener,
         ProjectPreviewFragment.OnFragmentInteractionListener,
+        EditProjectFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -84,7 +85,7 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.nav_add) {
             fragmentClass = NewProjectFragment.class;
         } else if (id == R.id.nav_edit) {
-            fragmentClass = DeviceSelectFragment.class;
+            fragmentClass = EditProjectFragment.class;
         } else if (id == R.id.nav_preview) {
             fragmentClass = ProjectPreviewFragment.class;
         } else if (id == R.id.nav_upload) {
