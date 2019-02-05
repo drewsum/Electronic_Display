@@ -481,6 +481,12 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "EBI Status?") == 0) {
+        
+        printEBIStatus();
+        
+    }
+    
     else if (strcmp(line_in, "Error Status?") == 0) {
      
         // Print error handler status
@@ -678,6 +684,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
     printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
+    printf("    EBI Status?: Prints status of EBI\r\n");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
