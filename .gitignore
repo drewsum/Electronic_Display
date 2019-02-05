@@ -23,3 +23,5 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/
