@@ -249,11 +249,13 @@ void portCGPIOInitialize (void){
     TRISCbits.TRISC13   = TRIS_OUTPUT;
     LATCbits.LATC13     = LAT_LOW;
     ODCCbits.ODCC13     = ODC_DISABLE;
+    RPC13Rbits.RPC13R   = 0b0111;           // Set to SDO3 peripheral pin
     
     // Setup RC14
     TRISCbits.TRISC14   = TRIS_INPUT;
     LATCbits.LATC14     = LAT_LOW;
     ODCCbits.ODCC14     = ODC_DISABLE;
+    SDI3Rbits.SDI3R     = 0b0111;          // Set to SDI3 peripheral pin
     
     // Setup RC15
     TRISCbits.TRISC15   = TRIS_OUTPUT;
