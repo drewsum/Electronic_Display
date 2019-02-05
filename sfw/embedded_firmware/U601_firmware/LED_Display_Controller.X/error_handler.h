@@ -43,6 +43,7 @@ struct {
     unsigned POS5P5_regulation_error_flag               : 1;    // +5.5V power supply regulation error
     unsigned DMT_error_flag                             : 1;    // Deadman timer error
     unsigned system_bus_protection_violation_flag       : 1;    // System bus protection event occurred
+    unsigned prefetch_module_SEC_flag                   : 1;    // Prefetch module recorded an SEC event
     
 } error_handler;
 

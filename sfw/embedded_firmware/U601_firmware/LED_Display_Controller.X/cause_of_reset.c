@@ -13,7 +13,7 @@ reset_cause_t getResetCause(void) {
     reset_cause_t reset_cause;
     
     if (RCONbits.POR) {
-     
+    
         reset_cause = POR_Reset;
         RCONbits.POR = 0;
         
@@ -84,7 +84,7 @@ reset_cause_t getResetCause(void) {
     }
     
     if (RCONbits.BCFGERR) {
-     
+    
     //    reset_cause = Primary_Config_Registers_Error;
         error_handler.configuration_error_flag = 1;
         RCONbits.BCFGERR = 0;

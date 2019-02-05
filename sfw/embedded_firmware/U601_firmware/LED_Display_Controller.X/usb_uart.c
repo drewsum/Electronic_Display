@@ -16,6 +16,7 @@
 #include "terminal_control.h"
 #include "error_handler.h"
 #include "cause_of_reset.h"
+#include "prefetch.h"
 
 volatile uint64_t usb_uart_TxHead = 0;
 volatile uint64_t usb_uart_TxTail = 0;
@@ -481,6 +482,12 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "Prefetch Status?") == 0) {
+     
+        printPrefetchStatus();
+        
+    }
+    
     else if (strcmp(line_in, "Error Status?") == 0) {
      
         // Print error handler status
@@ -678,6 +685,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
     printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
+    printf("    Prefetch Status?: Prints the status of the predictive prefetch module\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
