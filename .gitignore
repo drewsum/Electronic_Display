@@ -14,6 +14,8 @@
 /sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/private/
 /sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/build/default/
 /sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/dist/default/
+sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/Makefile-genesis.properties
+sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/configurations.xml
 
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
@@ -25,3 +27,4 @@ nbdist/
 .nb-gradle/
 
 sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/
+
