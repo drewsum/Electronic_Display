@@ -478,30 +478,26 @@ uint8_t ebiSRAMRead(uint32_t input_address) {
 uint8_t testEBISRAM(void) {
  
     // Below is copied directly from EBI ref manual, example 47-5
-    
-    uint32_t *addr;
-    
-    addr = (uint32_t *)SRAM_ADDR_CS0;
+    // Writing and reading was changed to function implementation from pointers
     
     // Write loop
-    uint32_t loop;
+    uint32_t loop_address;
     
-    for (loop=0; loop < RAM_SIZE; loop++) {
+    for (loop_address = 0; loop_address < RAM_SIZE; loop_address++) {
         
-        *addr++ = loop & 0xFF;
-    
+        ebiSRAMWrite(loop_address & 0xFF, loop_address);
+        
     }
     
-    // Read and verify loop
-    addr = (uint32_t *)SRAM_ADDR_CS0; // reset address to beginning
     
+    // The value we're reading from EBI
     uint8_t val;
     
-    for (loop=0 ; loop < RAM_SIZE; loop++) {
+    for (loop_address = 0 ; loop_address < RAM_SIZE; loop_address++) {
         
-        val = *addr++;
+        val = ebiSRAMRead(loop_address);
         
-        if (val != loop & 0xFF) {
+        if (val != loop_address & 0xFF) {
         
             return (0); //Exit Failure
         
