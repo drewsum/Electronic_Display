@@ -49,7 +49,7 @@ void usbUartInitialize(void);
 
 // These are the USB UART Interrupt Service Routines
 void __ISR(_UART3_RX_VECTOR, ipl2SRS) usbUartReceiveISR(void);
-void __ISR(_UART3_TX_VECTOR, ipl3SRS) usbUartTransferISR(void);
+void __ISR(_UART3_TX_VECTOR, ipl7SRS) usbUartTransferISR(void);
 void __ISR(_UART3_FAULT_VECTOR, ipl1SRS) usbUartFaultISR(void);
 
 // This function allows reading of a byre from UART3

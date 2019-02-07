@@ -179,6 +179,10 @@ void main(void) {
     
     // Update error LEDs based on error handler status
     updateErrorLEDs();
+    
+    // Initialize Analog to Digital Converter
+    ADCInitialize();
+    printf("ADC Initialized\n\r");
         
     
     // Loop endlessly

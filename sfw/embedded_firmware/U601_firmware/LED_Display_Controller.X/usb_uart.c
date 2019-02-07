@@ -17,6 +17,7 @@
 #include "error_handler.h"
 #include "cause_of_reset.h"
 #include "prefetch.h"
+#include "adc.h"
 
 volatile uint64_t usb_uart_TxHead = 0;
 volatile uint64_t usb_uart_TxTail = 0;
@@ -119,7 +120,7 @@ void usbUartInitialize(void) {
     
     // Set interrupt priorities
     setInterruptPriority(UART3_Receive_Done, 2);
-    setInterruptPriority(UART3_Transfer_Done, 3);
+    setInterruptPriority(UART3_Transfer_Done, 7);
     setInterruptPriority(UART3_Fault, 1);
     
     // Set interrupt subpriorities
@@ -154,7 +155,7 @@ void __ISR(_UART3_RX_VECTOR, ipl2SRS) usbUartReceiveISR(void) {
 }
 
 // This is the USB UART transfer interrupt service routine
-void __ISR(_UART3_TX_VECTOR, ipl3SRS) usbUartTransferISR(void) {
+void __ISR(_UART3_TX_VECTOR, ipl7SRS) usbUartTransferISR(void) {
     
     // Do transfer tasks
     usbUartTransmitHandler();
@@ -508,24 +509,8 @@ void usbUartRingBufferLUT(char * line_in) {
         // Print help message
         terminalTextAttributes(YELLOW, BLACK, NORMAL);
         printf("\n\rCall 'Clear Errors' command to clear any errors that have been set\n\r");
-        printf("Call 'Test Errors' command to set all error handler flags\n\r\n\r");
         terminalTextAttributesReset();
         
-        
-    }
-    
-    else if (strcmp(line_in, "Test Errors") == 0) {
-     
-        // Zero out all error handler flags
-        testErrorHandler();
-        
-        // Update error LEDs based on error handler status
-        updateErrorLEDs();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("Testing Error Handler flags\n\r");
-        terminalTextAttributesReset();
         
     }
     
@@ -703,7 +688,6 @@ void usbUartPrintHelpMessage(void) {
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
-    printf("    Test Errors: Sets all error handler flags\n\r");
     printf("    Clear Errors: Clears all error handler flags\n\r");
     printf("    Serial Number?: Prints device serial number\n\r");
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");

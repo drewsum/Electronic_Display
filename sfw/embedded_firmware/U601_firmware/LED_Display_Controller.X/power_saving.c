@@ -16,9 +16,8 @@ void PMDInitialize(void) {
     
     /* If a PMD bit is set (1), that peripheral is disabled */
     
-    // Disable ADC
-    // TO-DO: This will change
-    PMD1bits.ADCMD = 1;
+    // Enable ADC
+    PMD1bits.ADCMD = 0;
  
     // Disable comparator voltage reference
     PMD1bits.CVRMD = 1;
