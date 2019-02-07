@@ -21,3 +21,5 @@ sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/configura
 sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/private/configurations.xml
 sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/private/private.xml
 sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/project.xml
+sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/build/
+sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/dist/
