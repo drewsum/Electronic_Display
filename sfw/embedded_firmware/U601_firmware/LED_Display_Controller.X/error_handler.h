@@ -44,6 +44,7 @@ struct {
     unsigned DMT_error_flag                             : 1;    // Deadman timer error
     unsigned system_bus_protection_violation_flag       : 1;    // System bus protection event occurred
     unsigned prefetch_module_SEC_flag                   : 1;    // Prefetch module recorded an SEC event
+    unsigned ADC_configuration_error_flag               : 1;    // ADC could not be configured properly
     
 } error_handler;
 
@@ -67,9 +68,6 @@ void __attribute__((nomips16)) _bootstrap_exception_handler(void);
 
 // This function prints the status of the error handler flags
 void printErrorHandlerStatus(void);
-
-// This function sets all error flags high
-void testErrorHandler(void);
 
 // This function clears the error handler flags
 void clearErrorHandler(void);

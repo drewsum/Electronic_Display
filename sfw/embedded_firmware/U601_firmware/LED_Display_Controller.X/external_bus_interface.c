@@ -444,15 +444,70 @@ void printEBIStatus(void){
     terminalTextAttributesReset();
     
 }
-//       // Define memory type as 256kB SRAM
-//    
-//    EBIMSK0bits.MEMTYPE = 0b001;
-//    EBIMSK0bits.MEMSIZE = 0b00011;
-//    
-//    // Set EBI timing
-//    
-//    EBIMSK0bits.REGSEL = 0b000;
-//    
+
+// This function writes a byte to EBI SRAM at the input address
+void ebiSRAMWrite(uint8_t input_data, uint32_t input_address) {
+ 
+    uint32_t *addr;
+    
+    // Set address we're accessing to the start address + the input address
+    addr = (uint32_t *)(SRAM_ADDR_CS0 + input_address);
+    
+    // Write the input data to the memory location pointed to by addr
+    *addr = input_data;
+    
+}
+
+// This function reads a byte from the input address passed
+uint8_t ebiSRAMRead(uint32_t input_address) {
+ 
+    uint32_t *addr;
+    
+    // Set address we're accessing to the start address + the input address
+    addr = (uint32_t *)(SRAM_ADDR_CS0 + input_address);
+    
+    // Return the value in external memory pointed to by addr
+    return *addr;
+    
+}
+
+// This function loops through all possible external memory addresses and tests to
+// see if the writes and reads actually work
+// Returns 0 if test failure
+// returns 1 for test success
+uint8_t testEBISRAM(void) {
+ 
+    // Below is copied directly from EBI ref manual, example 47-5
+    // Writing and reading was changed to function implementation from pointers
+    
+    // Write loop
+    uint32_t loop_address;
+    
+    for (loop_address = 0; loop_address < RAM_SIZE; loop_address++) {
+        
+        ebiSRAMWrite(loop_address & 0xFF, loop_address);
+        
+    }
+    
+    
+    // The value we're reading from EBI
+    uint8_t val;
+    
+    for (loop_address = 0 ; loop_address < RAM_SIZE; loop_address++) {
+        
+        val = ebiSRAMRead(loop_address);
+        
+        if (val != loop_address & 0xFF) {
+        
+            return (0); //Exit Failure
+        
+        }
+    
+    }
+    
+    return (1); // exit success
+    
+}
 
 void ebiPrintSRAM(void){
     
