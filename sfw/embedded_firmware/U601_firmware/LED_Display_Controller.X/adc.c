@@ -27,12 +27,25 @@
 // This function initializes the ADC
 void ADCInitialize(void) {
     
+    // Setup ADC7 warm interrupt
+    disableInterrupt(ADC7_Warm_Interrupt);
+    setInterruptPriority(ADC7_Warm_Interrupt, 4);
+    setInterruptSubpriority(ADC7_Warm_Interrupt, 2);
+    clearInterruptFlag(ADC7_Warm_Interrupt);
+    
+    // Setup ADC Data 38 data ready interrupt
+    disableInterrupt(ADC_Data_38);
+    setInterruptPriority(ADC_Data_38, 1);
+    setInterruptSubpriority(ADC_Data_38, 1);
+    clearInterruptFlag(ADC_Data_38);
+    
+    
     // Block ADC triggers for startup
     ADCCON3bits.TRGSUSP = 1;
     
     /* initialize ADC calibration setting */
     ADC7CFG = DEVADC7;
-
+    
     /* Configure ADCCON1 */
     ADCCON1 = 0;
     ADCCON1bits.TRBEN = 0;     // Disable Turbo Mode
@@ -72,12 +85,23 @@ void ADCInitialize(void) {
     ADCIMCON3bits.DIFF42 = 0; // Single ended mode
     
     /* Configure ADCGIRQENx */
-    ADCGIRQEN1 = 0; // No interrupts are used
+    ADCGIRQEN1 = 0;
     ADCGIRQEN2 = 0;
+    ADCANCONbits.WKIEN7 = 1;    // Enable ADC7 warm up interrupt
+    ADCGIRQEN2bits.AGIEN38 = 1;     // Enable Data 38 ready interrupt
+    ADCGIRQEN2bits.AGIEN39 = 1;     // Enable Data 39 ready interrupt
+    ADCGIRQEN2bits.AGIEN40 = 1;     // Enable Data 40 ready interrupt
+    ADCGIRQEN2bits.AGIEN41 = 1;     // Enable Data 41 ready interrupt
+    ADCGIRQEN2bits.AGIEN42 = 1;     // Enable Data 42 ready interrupt
     
     /* Configure ADCCSSx */
-    ADCCSS1 = 0; // No scanning is used
+    ADCCSS1 = 0;
     ADCCSS2 = 0;
+    ADCCSS2bits.CSS38 = 1;          // Enable Channel 38 for common scan
+    ADCCSS2bits.CSS39 = 1;          // Enable Channel 39 for common scan
+    ADCCSS2bits.CSS40 = 1;          // Enable Channel 40 for common scan
+    ADCCSS2bits.CSS41 = 1;          // Enable Channel 41 for common scan
+    ADCCSS2bits.CSS42 = 1;          // Enable Channel 42 for common scan
     
     /* Configure ADCCMPCONx */
     ADCCMPCON1 = 0; // No digital comparators are used. Setting the ADCCMPCONx
@@ -96,7 +120,7 @@ void ADCInitialize(void) {
     
     /* Set up the trigger sources */
     ADCCON1bits.STRGLVL = 0;            // Edge trigger mode
-    ADCCON1bits.STRGSRC = 0b00001;      // Trigger source is GSWTRG         // FIX MEEEEEEEEEEEEEEEEEEE
+    ADCCON1bits.STRGSRC = 0b00110;      // Trigger source is Timer3
     
     /* Early interrupt */
     ADCEIEN1 = 0; // No early interrupts used
@@ -112,13 +136,72 @@ void ADCInitialize(void) {
     /* Enable clock to analog circuit */
     ADCANCONbits.ANEN7 = 1; // Enable the clock to analog bias
     
-    /* Wait for ADC to be ready */
-    while(!ADCANCONbits.WKRDY7); // Wait until ADC7 is ready
+    // Wait for ADC7 warm interrupt to IRQ
+    enableInterrupt(ADC7_Warm_Interrupt);
+    
+}
+
+// This function initializes Timer3 as the ADC trigger timer
+void ADCTriggerTimerInitialize(void) {
+ 
+    // Stop timer 3
+    T3CONbits.ON = 0;
+    
+    // Stop timer 3 in idle
+    T3CONbits.SIDL = 1;
+    
+    // Disable gated time accumulation
+    T3CONbits.TGATE = 0;
+    
+    // Set timer 3 prescalar to 2
+    T3CONbits.TCKPS = 0b001;
+    
+    // Set timer clock input as PBCLK3
+    T3CONbits.TCS = 0;
+    
+    // Clear timer 3
+    TMR3 = 0x0000;
+    
+    // Set timer 3 period match to 61523
+    PR3 = 61523;
+        
+    // Start timer 3
+    T3CONbits.ON = 1;
+    
+}
+
+// This is the interrupt service routine for ADC7 warm up
+void __ISR(_ADC7_WARM_VECTOR, IPL4SRS) ADC7WarmISR(void) {
     
     /* Enable the ADC module */
-    ADCCON3bits.DIGEN7 = 1; // Enable ADC7
+    ADCCON3bits.DIGEN7 = 1; // Enable ADC7 digital circuits
     
     // Unblock triggers
     ADCCON3bits.TRGSUSP = 0;
-       
+    
+    ADCANCONbits.WKIEN7 = 0;    // Disable ADC7 warm up interrupt
+    
+    // Setup ADC Trigger Timer
+    ADCTriggerTimerInitialize();
+
+    // Disable interrupt source until next time we're initializing ADC7
+    disableInterrupt(ADC7_Warm_Interrupt);
+    
+    // Enable ADC Data 38 interrupt
+    enableInterrupt(ADC_Data_38);
+    
+    // Clear IRQ
+    clearInterruptFlag(ADC7_Warm_Interrupt);
+    
+}
+
+// This is the POS3P3_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA38_VECTOR, IPL1SRS) POS3P3ADCISR(void) {
+
+    // Copy raw value into adc_results structure
+    adc_results.POS3P3_adc_raw = ADCDATA38;
+    
+    // Clear IRQ
+    clearInterruptFlag(ADC_Data_38);
+    
 }
