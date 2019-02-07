@@ -165,6 +165,10 @@ void main(void) {
     spiFlashInit();
     printf("SPI Flash Initialized\n\r");
     
+    // Initialize Analog to Digital Converter
+    ADCInitialize();
+    printf("ADC Initialized\n\r");
+
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
     printf("Reset LED disabled\n\r");
@@ -178,12 +182,7 @@ void main(void) {
     deviceLock();
     
     // Update error LEDs based on error handler status
-    updateErrorLEDs();
-    
-    // Initialize Analog to Digital Converter
-    ADCInitialize();
-    printf("ADC Initialized\n\r");
-        
+    updateErrorLEDs();     
     
     // Loop endlessly
     while (true) {
