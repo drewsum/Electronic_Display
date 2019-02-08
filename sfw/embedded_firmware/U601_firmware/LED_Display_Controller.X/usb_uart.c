@@ -607,11 +607,16 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "POS3P3 ADC RAW?") == 0) {
-     
+    else if (strcmp(line_in, "ADC Raw Data?") == 0) {
+    
         terminalTextAttributesReset();
         terminalTextAttributes(CYAN, BLACK, NORMAL);
-        printf("+3.3V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS3P3_adc_raw);
+        printf("Most recent raw 12 bit ADC conversions:\n\r");
+        printf("    +3.3V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS3P3_adc_raw);
+        printf("    +12V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS12_adc_raw);
+        printf("    +5.5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P5_adc_raw);
+        printf("    +5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5_adc_raw);
+        printf("    +5VP Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P_adc_raw);
         terminalTextAttributesReset();
         
     }
@@ -701,7 +706,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Serial Number?: Prints device serial number\n\r");
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
     printf("    Revision ID?: Prints silicon die revision ID\n\r");
-    printf("    POS3P3 ADC RAW?: Prints the raw results of the ADC conversion for the +3.3V rail\n\r");
+    printf("    ADC Raw Data?: Prints the raw 12 bit results of the ADC conversions\n\r");
     printf("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
     printf("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     printf("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");

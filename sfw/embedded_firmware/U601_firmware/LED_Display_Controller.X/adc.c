@@ -39,6 +39,29 @@ void ADCInitialize(void) {
     setInterruptSubpriority(ADC_Data_38, 1);
     clearInterruptFlag(ADC_Data_38);
     
+    // Setup ADC Data 39 data ready interrupt
+    disableInterrupt(ADC_Data_39);
+    setInterruptPriority(ADC_Data_39, 1);
+    setInterruptSubpriority(ADC_Data_39, 1);
+    clearInterruptFlag(ADC_Data_39);
+    
+    // Setup ADC Data 40 data ready interrupt
+    disableInterrupt(ADC_Data_40);
+    setInterruptPriority(ADC_Data_40, 1);
+    setInterruptSubpriority(ADC_Data_40, 1);
+    clearInterruptFlag(ADC_Data_40);
+    
+    // Setup ADC Data 41 data ready interrupt
+    disableInterrupt(ADC_Data_41);
+    setInterruptPriority(ADC_Data_41, 1);
+    setInterruptSubpriority(ADC_Data_41, 1);
+    clearInterruptFlag(ADC_Data_41);
+    
+    // Setup ADC Data 42 data ready interrupt
+    disableInterrupt(ADC_Data_42);
+    setInterruptPriority(ADC_Data_42, 1);
+    setInterruptSubpriority(ADC_Data_42, 1);
+    clearInterruptFlag(ADC_Data_42);
     
     // Block ADC triggers for startup
     ADCCON3bits.TRGSUSP = 1;
@@ -153,8 +176,8 @@ void ADCTriggerTimerInitialize(void) {
     // Disable gated time accumulation
     T3CONbits.TGATE = 0;
     
-    // Set timer 3 prescalar to 2
-    T3CONbits.TCKPS = 0b001;
+    // Set timer 3 prescalar to 4
+    T3CONbits.TCKPS = 0b010;
     
     // Set timer clock input as PBCLK3
     T3CONbits.TCS = 0;
@@ -162,9 +185,10 @@ void ADCTriggerTimerInitialize(void) {
     // Clear timer 3
     TMR3 = 0x0000;
     
-    // Set timer 3 period match to 61523
-    PR3 = 61523;
-        
+    // Set timer 3 period match to 16000
+    // This should get us a Timer3 period of 1600uS, or a Timer3 frequency of 625Hz
+    PR3 = 16000;
+    
     // Start timer 3
     T3CONbits.ON = 1;
     
@@ -187,8 +211,12 @@ void __ISR(_ADC7_WARM_VECTOR, IPL4SRS) ADC7WarmISR(void) {
     // Disable interrupt source until next time we're initializing ADC7
     disableInterrupt(ADC7_Warm_Interrupt);
     
-    // Enable ADC Data 38 interrupt
+    // Enable ADC Data interrupts
     enableInterrupt(ADC_Data_38);
+    enableInterrupt(ADC_Data_39);
+    enableInterrupt(ADC_Data_40);
+    enableInterrupt(ADC_Data_41);
+    enableInterrupt(ADC_Data_42);
     
     // Clear IRQ
     clearInterruptFlag(ADC7_Warm_Interrupt);
@@ -198,10 +226,79 @@ void __ISR(_ADC7_WARM_VECTOR, IPL4SRS) ADC7WarmISR(void) {
 // This is the POS3P3_ADC Interrupt Service Routine
 void __ISR(_ADC_DATA38_VECTOR, IPL1SRS) POS3P3ADCISR(void) {
 
-    // Copy raw value into adc_results structure
-    adc_results.POS3P3_adc_raw = ADCDATA38;
+    // Check if data is actually ready
+    if (ADCDSTAT2bits.ARDY38) {
+     
+        // Copy conversion result into results structure
+        adc_results.POS3P3_adc_raw = ADCDATA38;
+        
+    }
     
     // Clear IRQ
     clearInterruptFlag(ADC_Data_38);
+    
+}
+
+// This is the POS12_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA39_VECTOR, IPL1SRS) POS12ADCISR(void) {
+    
+    // Check if data is actually ready
+    if (ADCDSTAT2bits.ARDY39) {
+     
+        // Copy conversion result into results structure
+        adc_results.POS12_adc_raw = ADCDATA39;
+        
+    }
+    
+    // Clear IRQ
+    clearInterruptFlag(ADC_Data_39);
+    
+}
+
+// This is the POS5_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA40_VECTOR, IPL1SRS) POS5ADCISR(void) {
+ 
+    // Check if data is actually ready
+    if (ADCDSTAT2bits.ARDY40) {
+     
+        // Copy conversion result into results structure
+        adc_results.POS5_adc_raw = ADCDATA40;
+        
+    }
+
+    // Clear IRQ
+    clearInterruptFlag(ADC_Data_40);
+    
+}
+
+// This is the POS5P5_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA41_VECTOR, IPL1SRS) POS5P5ADCISR(void) {
+ 
+    // Check if data is actually ready
+    if (ADCDSTAT2bits.ARDY41) {
+     
+        // Copy conversion result into results structure
+        adc_results.POS5P5_adc_raw = ADCDATA41;
+        
+    }
+
+    // Clear IRQ
+    clearInterruptFlag(ADC_Data_41);
+    
+}
+
+// This is the POS5P_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA42_VECTOR, IPL1SRS) POS5PADCISR(void) {
+    
+    // Check if data is actually ready
+    if (ADCDSTAT2bits.ARDY42) {
+     
+        // Copy conversion result into results structure
+        adc_results.POS5P_adc_raw = ADCDATA42;
+        
+    }
+
+    // Clear IRQ
+    clearInterruptFlag(ADC_Data_42);
     
 }

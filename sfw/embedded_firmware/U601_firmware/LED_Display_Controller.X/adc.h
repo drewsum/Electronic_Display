@@ -61,6 +61,19 @@ void __ISR(_ADC7_WARM_VECTOR, IPL4SRS) ADC7WarmISR(void);
 // This is the POS3P3_ADC Interrupt Service Routine
 void __ISR(_ADC_DATA38_VECTOR, IPL1SRS) POS3P3ADCISR(void);
 
+// This is the POS12_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA39_VECTOR, IPL1SRS) POS12ADCISR(void);
+
+// This is the POS5_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA40_VECTOR, IPL1SRS) POS5ADCISR(void);
+
+// This is the POS5P5_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA41_VECTOR, IPL1SRS) POS5P5ADCISR(void);
+
+// This is the POS5P_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA42_VECTOR, IPL1SRS) POS5PADCISR(void);
+
+
 
 #endif /* _ADC_H */
 
