@@ -63,6 +63,12 @@ void ADCInitialize(void) {
     setInterruptSubpriority(ADC_Data_42, 1);
     clearInterruptFlag(ADC_Data_42);
     
+    // Setup ADC end of scan interrupt
+    disableInterrupt(ADC_End_Of_Scan_Ready);
+    setInterruptPriority(ADC_End_Of_Scan_Ready, 1);
+    setInterruptSubpriority(ADC_End_Of_Scan_Ready, 1);
+    clearInterruptFlag(ADC_End_Of_Scan_Ready);
+    
     // Block ADC triggers for startup
     ADCCON3bits.TRGSUSP = 1;
     
@@ -110,12 +116,13 @@ void ADCInitialize(void) {
     /* Configure ADCGIRQENx */
     ADCGIRQEN1 = 0;
     ADCGIRQEN2 = 0;
-    ADCANCONbits.WKIEN7 = 1;    // Enable ADC7 warm up interrupt
+    ADCANCONbits.WKIEN7 = 1;        // Enable ADC7 warm up interrupt
     ADCGIRQEN2bits.AGIEN38 = 1;     // Enable Data 38 ready interrupt
     ADCGIRQEN2bits.AGIEN39 = 1;     // Enable Data 39 ready interrupt
     ADCGIRQEN2bits.AGIEN40 = 1;     // Enable Data 40 ready interrupt
     ADCGIRQEN2bits.AGIEN41 = 1;     // Enable Data 41 ready interrupt
     ADCGIRQEN2bits.AGIEN42 = 1;     // Enable Data 42 ready interrupt
+    ADCCON2bits.EOSIEN = 1;         // Enable interrupt on end of scan
     
     /* Configure ADCCSSx */
     ADCCSS1 = 0;
@@ -218,6 +225,9 @@ void __ISR(_ADC7_WARM_VECTOR, IPL4SRS) ADC7WarmISR(void) {
     enableInterrupt(ADC_Data_41);
     enableInterrupt(ADC_Data_42);
     
+    // Enable ADC end of scan interrupt
+    enableInterrupt(ADC_End_Of_Scan_Ready);
+    
     // Clear IRQ
     clearInterruptFlag(ADC7_Warm_Interrupt);
     
@@ -300,5 +310,25 @@ void __ISR(_ADC_DATA42_VECTOR, IPL1SRS) POS5PADCISR(void) {
 
     // Clear IRQ
     clearInterruptFlag(ADC_Data_42);
+    
+}
+
+// This is the ADC end of scan interrupt service routine
+void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void) {
+ 
+    // Make sure end of scan is complete
+    if (ADCCON2bits.EOSRDY) {
+    
+        // Convert each ADC channel to voltage from LSBs
+        adc_results.POS3P3_adc  = (double) adc_results.POS3P3_adc_raw * ADC_VOLTS_PER_LSB * POS3P3_ADC_GAIN * POS3P3_ADC_CAL;
+        adc_results.POS12_adc   = (double) adc_results.POS12_adc_raw * ADC_VOLTS_PER_LSB * POS12_ADC_GAIN * POS12_ADC_CAL;
+        adc_results.POS5_adc    = (double) adc_results.POS5_adc_raw * ADC_VOLTS_PER_LSB * POS5_ADC_GAIN * POS5_ADC_CAL;
+        adc_results.POS5P_adc   = (double) adc_results.POS5P_adc_raw * ADC_VOLTS_PER_LSB * POS5P_ADC_GAIN * POS5P_ADC_CAL;
+        adc_results.POS5P5_adc  = (double) adc_results.POS5P5_adc_raw * ADC_VOLTS_PER_LSB * POS5P5_ADC_GAIN * POS5P5_ADC_CAL;
+        
+    }    
+    
+    // Clear IRQ
+    clearInterruptFlag(ADC_End_Of_Scan_Ready);
     
 }

@@ -621,6 +621,20 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "ADC Results?") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(CYAN, BLACK, NORMAL);
+        printf("Most recent ADC conversion results:\n\r");
+        printf("    +12V Input Voltage Measurement: %0.3f V\n\r", adc_results.POS12_adc);
+        printf("    +3.3V Power Supply Measurement: %0.3f V\n\r", adc_results.POS3P3_adc);
+        printf("    +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc);
+        printf("    +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc);
+        printf("    +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc);
+        terminalTextAttributesReset();
+        
+    }
+    
     else if (strcmp(line_in, "Help") == 0) {
     
         usbUartPrintHelpMessage();
@@ -706,6 +720,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Serial Number?: Prints device serial number\n\r");
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
     printf("    Revision ID?: Prints silicon die revision ID\n\r");
+    printf("    ADC Results?: Prints results of the most recent ADC conversions for system power supplies\n\r");
     printf("    ADC Raw Data?: Prints the raw 12 bit results of the ADC conversions\n\r");
     printf("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
     printf("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
