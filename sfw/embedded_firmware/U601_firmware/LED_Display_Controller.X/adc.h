@@ -42,11 +42,11 @@
 
 // Hardcoded individual channel calibration settings
 // These were determined with a DMM and reading un-calibrated results
-#define POS3P3_ADC_CAL             1.0
-#define POS12_ADC_CAL              1.0
-#define POS5_ADC_CAL               1.0
-#define POS5P5_ADC_CAL             1.0
-#define POS5P_ADC_CAL              1.0
+#define POS3P3_ADC_CAL             1.07863
+#define POS12_ADC_CAL              1.00207
+#define POS5_ADC_CAL               1.21116
+#define POS5P5_ADC_CAL             1.37007
+#define POS5P_ADC_CAL              1.21116
 
 
 // This structure holds ADC measurement results
@@ -73,6 +73,9 @@ void ADCInitialize(void);
 
 // This function initializes Timer3 as the ADC trigger timer
 void ADCTriggerTimerInitialize(void);
+
+// This function is the analog circuits ready interrupt service routine
+void __ISR(_ADC_ARDY_VECTOR, IPL4SRS) ADCAnalogReadyISR(void);
 
 // This is the interrupt service routine for ADC7 warm up
 void __ISR(_ADC7_WARM_VECTOR, IPL4SRS) ADC7WarmISR(void);

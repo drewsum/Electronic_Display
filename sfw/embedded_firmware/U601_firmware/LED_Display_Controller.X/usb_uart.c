@@ -623,16 +623,29 @@ void usbUartRingBufferLUT(char * line_in) {
     
     else if (strcmp(line_in, "ADC Results?") == 0) {
      
-        terminalTextAttributesReset();
-        terminalTextAttributes(CYAN, BLACK, NORMAL);
-        printf("Most recent ADC conversion results:\n\r");
-        printf("    +12V Input Voltage Measurement: %0.3f V\n\r", adc_results.POS12_adc);
-        printf("    +3.3V Power Supply Measurement: %0.3f V\n\r", adc_results.POS3P3_adc);
-        printf("    +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc);
-        printf("    +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc);
-        printf("    +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc);
-        terminalTextAttributesReset();
+        if (error_handler.ADC_configuration_error_flag) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
         
+        else {
+
+            terminalTextAttributesReset();
+            terminalTextAttributes(CYAN, BLACK, NORMAL);
+            printf("Most recent ADC conversion results:\n\r");
+            printf("    +12V Input Voltage Measurement: %0.3f V\n\r", adc_results.POS12_adc);
+            printf("    +3.3V Power Supply Measurement: %0.3f V\n\r", adc_results.POS3P3_adc);
+            printf("    +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc);
+            printf("    +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc);
+            printf("    +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc);
+            terminalTextAttributesReset();
+
+        }
+            
     }
     
     else if (strcmp(line_in, "Help") == 0) {

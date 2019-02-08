@@ -27,6 +27,12 @@
 // This function initializes the ADC
 void ADCInitialize(void) {
     
+    // Setup ADC Analog Circuits Ready Interrupt
+    disableInterrupt(ADC_Analog_Circuits_Ready);
+    setInterruptPriority(ADC_Analog_Circuits_Ready, 4);
+    setInterruptSubpriority(ADC_Analog_Circuits_Ready, 2);
+    clearInterruptFlag(ADC_Analog_Circuits_Ready);
+    
     // Setup ADC7 warm interrupt
     disableInterrupt(ADC7_Warm_Interrupt);
     setInterruptPriority(ADC7_Warm_Interrupt, 4);
@@ -80,10 +86,10 @@ void ADCInitialize(void) {
     ADCCON1bits.TRBEN = 0;     // Disable Turbo Mode
     if (ADCCON1bits.TRBERR) error_handler.ADC_configuration_error_flag = 1;     // Verify turbo mode disabled
     ADCCON1bits.SIDL = 1;   // Stop ADC in idle mode
- 
+
     /* Configure ADCCON2 */
     ADCCON2 = 0;
-    ADCCON2bits.SAMC = 0b0000000001;       // Set ADC7 sample time
+    ADCCON2bits.SAMC = 0b0000001000;       // Set ADC7 sample time
     ADCCON2bits.ADCDIV = 0b0000001;         // Set clock divider
 
     /* Initialize warm up time register */
@@ -116,6 +122,7 @@ void ADCInitialize(void) {
     /* Configure ADCGIRQENx */
     ADCGIRQEN1 = 0;
     ADCGIRQEN2 = 0;
+    ADCCON2bits.BGVRIEN = 1;        // Enable analog circuits ready interrupt
     ADCANCONbits.WKIEN7 = 1;        // Enable ADC7 warm up interrupt
     ADCGIRQEN2bits.AGIEN38 = 1;     // Enable Data 38 ready interrupt
     ADCGIRQEN2bits.AGIEN39 = 1;     // Enable Data 39 ready interrupt
@@ -159,16 +166,11 @@ void ADCInitialize(void) {
     /* Turn the ADC on */
     ADCCON1bits.ON = 1;
     
+    // Enable analog circuits interrupt and continue initialization in that ISR
+    enableInterrupt(ADC_Analog_Circuits_Ready);
+    
     /* Wait for voltage reference to be stable */
-    while(!ADCCON2bits.BGVRRDY); // Wait until the reference voltage is ready
-    if (ADCCON2bits.REFFLT) error_handler.ADC_configuration_error_flag = 1;     // Record error if reference fails
-    
-    /* Enable clock to analog circuit */
-    ADCANCONbits.ANEN7 = 1; // Enable the clock to analog bias
-    
-    // Wait for ADC7 warm interrupt to IRQ
-    enableInterrupt(ADC7_Warm_Interrupt);
-    
+    // while(!ADCCON2bits.BGVRRDY); // Wait until the reference voltage is ready
 }
 
 // This function initializes Timer3 as the ADC trigger timer
@@ -198,6 +200,25 @@ void ADCTriggerTimerInitialize(void) {
     
     // Start timer 3
     T3CONbits.ON = 1;
+    
+}
+
+// This function is the analog circuits ready interrupt service routine
+void __ISR(_ADC_ARDY_VECTOR, IPL4SRS) ADCAnalogReadyISR(void) {
+    
+    if (ADCCON2bits.REFFLT) error_handler.ADC_configuration_error_flag = 1;     // Record error if reference fails
+    
+    /* Enable clock to analog circuit */
+    ADCANCONbits.ANEN7 = 1; // Enable the clock to analog bias
+    
+    // Wait for ADC7 warm interrupt to IRQ
+    enableInterrupt(ADC7_Warm_Interrupt);
+    
+    // Clear IRQ
+    clearInterruptFlag(ADC_Analog_Circuits_Ready);
+    
+    // Disable interrupt source
+    disableInterrupt(ADC_Analog_Circuits_Ready);
     
 }
 
@@ -316,18 +337,30 @@ void __ISR(_ADC_DATA42_VECTOR, IPL1SRS) POS5PADCISR(void) {
 // This is the ADC end of scan interrupt service routine
 void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void) {
  
-    // Make sure end of scan is complete
-    if (ADCCON2bits.EOSRDY) {
-    
-        // Convert each ADC channel to voltage from LSBs
-        adc_results.POS3P3_adc  = (double) adc_results.POS3P3_adc_raw * ADC_VOLTS_PER_LSB * POS3P3_ADC_GAIN * POS3P3_ADC_CAL;
-        adc_results.POS12_adc   = (double) adc_results.POS12_adc_raw * ADC_VOLTS_PER_LSB * POS12_ADC_GAIN * POS12_ADC_CAL;
-        adc_results.POS5_adc    = (double) adc_results.POS5_adc_raw * ADC_VOLTS_PER_LSB * POS5_ADC_GAIN * POS5_ADC_CAL;
-        adc_results.POS5P_adc   = (double) adc_results.POS5P_adc_raw * ADC_VOLTS_PER_LSB * POS5P_ADC_GAIN * POS5P_ADC_CAL;
-        adc_results.POS5P5_adc  = (double) adc_results.POS5P5_adc_raw * ADC_VOLTS_PER_LSB * POS5P5_ADC_GAIN * POS5P5_ADC_CAL;
+    // If we read all zeros something went wrong
+    if (adc_results.POS3P3_adc_raw == 0) {
+     
+        error_handler.ADC_configuration_error_flag = 1;
         
-    }    
+    }
     
+    // Else, if data is solid
+    else {
+
+        // Make sure end of scan is complete
+        if (ADCCON2bits.EOSRDY) {
+
+            // Convert each ADC channel to voltage from LSBs
+            adc_results.POS3P3_adc  = (double) adc_results.POS3P3_adc_raw * ADC_VOLTS_PER_LSB * POS3P3_ADC_GAIN * POS3P3_ADC_CAL;
+            adc_results.POS12_adc   = (double) adc_results.POS12_adc_raw * ADC_VOLTS_PER_LSB * POS12_ADC_GAIN * POS12_ADC_CAL;
+            adc_results.POS5_adc    = (double) adc_results.POS5_adc_raw * ADC_VOLTS_PER_LSB * POS5_ADC_GAIN * POS5_ADC_CAL;
+            adc_results.POS5P_adc   = (double) adc_results.POS5P_adc_raw * ADC_VOLTS_PER_LSB * POS5P_ADC_GAIN * POS5P_ADC_CAL;
+            adc_results.POS5P5_adc  = (double) adc_results.POS5P5_adc_raw * ADC_VOLTS_PER_LSB * POS5P5_ADC_GAIN * POS5P5_ADC_CAL;
+
+        }    
+    
+    }
+        
     // Clear IRQ
     clearInterruptFlag(ADC_End_Of_Scan_Ready);
     

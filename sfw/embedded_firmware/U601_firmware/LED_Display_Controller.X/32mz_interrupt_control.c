@@ -7044,14 +7044,14 @@ void printInterruptStatus(void) {
         if (i % 2 == 0) {
          
             
-            if (getInterruptEnable(i)) terminalTextAttributes(GREEN, BLACK, NORMAL);
+            if (getInterruptEnable(i) || getInterruptPriority(i) > 0) terminalTextAttributes(GREEN, BLACK, NORMAL);
             else terminalTextAttributes(RED, BLACK, NORMAL);
             
         }
         
         else {
          
-            if (getInterruptEnable(i)) terminalTextAttributes(GREEN, BLACK, REVERSE);
+            if (getInterruptEnable(i) || getInterruptPriority(i) > 0) terminalTextAttributes(GREEN, BLACK, REVERSE);
             else terminalTextAttributes(RED, BLACK, REVERSE);
             
         }
