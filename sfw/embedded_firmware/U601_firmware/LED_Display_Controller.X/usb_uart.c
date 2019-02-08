@@ -648,6 +648,60 @@ void usbUartRingBufferLUT(char * line_in) {
             
     }
     
+    else if (strcmp(line_in, "ADC Max Results?") == 0) {
+     
+        if (error_handler.ADC_configuration_error_flag) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else {
+
+            terminalTextAttributesReset();
+            terminalTextAttributes(CYAN, BLACK, NORMAL);
+            printf("Maximum ADC conversion results:\n\r");
+            printf("    Max +12V Input Voltage Measurement: %0.3f V\n\r", adc_results.POS12_adc_max);
+            printf("    Max +3.3V Power Supply Measurement: %0.3f V\n\r", adc_results.POS3P3_adc_max);
+            printf("    Max +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc_max);
+            printf("    Max +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc_max);
+            printf("    Max +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc_max);
+            terminalTextAttributesReset();
+
+        }
+            
+    }
+    
+    else if (strcmp(line_in, "ADC Min Results?") == 0) {
+     
+        if (error_handler.ADC_configuration_error_flag) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else {
+
+            terminalTextAttributesReset();
+            terminalTextAttributes(CYAN, BLACK, NORMAL);
+            printf("Minimum ADC conversion results:\n\r");
+            printf("    Min +12V Input Voltage Measurement: %0.3f V\n\r", adc_results.POS12_adc_min);
+            printf("    Min +3.3V Power Supply Measurement: %0.3f V\n\r", adc_results.POS3P3_adc_min);
+            printf("    Min +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc_min);
+            printf("    Min +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc_min);
+            printf("    Min +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc_min);
+            terminalTextAttributesReset();
+
+        }
+            
+    }
+    
     else if (strcmp(line_in, "ADC Status?") == 0) {
      
         printADCStatus();
@@ -740,6 +794,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
     printf("    Revision ID?: Prints silicon die revision ID\n\r");
     printf("    ADC Results?: Prints results of the most recent ADC conversions for system power supplies\n\r");
+    printf("    ADC Max Results?: prints the maximum recorded value for each ADC channel\n\r");
+    printf("    ADC Min Results?: prints the minimum recorded value for each ADC channel\n\r");
     printf("    ADC Raw Data?: Prints the raw 12 bit results of the ADC conversions\n\r");
     printf("    ADC Status?: Prints information about analog to digital converter settings\n\r");
     printf("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");

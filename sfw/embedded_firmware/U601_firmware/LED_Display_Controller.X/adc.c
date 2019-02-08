@@ -28,6 +28,19 @@
 // This function initializes the ADC
 void ADCInitialize(void) {
     
+    // Initialize max and min recorded values for adc results
+    // These will be computed in EOS ISR
+    adc_results.POS12_adc_max = 0.0;
+    adc_results.POS12_adc_min = 30.0;
+    adc_results.POS3P3_adc_max = 0.0;
+    adc_results.POS3P3_adc_min = 30.0;
+    adc_results.POS5P5_adc_max = 0.0;
+    adc_results.POS5P5_adc_min = 30.0;
+    adc_results.POS5P_adc_max = 0.0;
+    adc_results.POS5P_adc_min = 30.0;
+    adc_results.POS5_adc_max = 0.0;
+    adc_results.POS5_adc_min = 30.0;
+    
     // Setup ADC Analog Circuits Ready Interrupt
     disableInterrupt(ADC_Analog_Circuits_Ready);
     setInterruptPriority(ADC_Analog_Circuits_Ready, 4);
@@ -358,8 +371,78 @@ void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void) {
             adc_results.POS5P_adc   = (double) adc_results.POS5P_adc_raw * ADC_VOLTS_PER_LSB * POS5P_ADC_GAIN * POS5P_ADC_CAL;
             adc_results.POS5P5_adc  = (double) adc_results.POS5P5_adc_raw * ADC_VOLTS_PER_LSB * POS5P5_ADC_GAIN * POS5P5_ADC_CAL;
 
-        }    
-    
+        }
+        
+        // Record new maximum
+        if (adc_results.POS3P3_adc > adc_results.POS3P3_adc_max) {
+         
+            adc_results.POS3P3_adc_max = adc_results.POS3P3_adc;
+            
+        }
+        
+        // record new minimum
+        if (adc_results.POS3P3_adc < adc_results.POS3P3_adc_min) {
+         
+            adc_results.POS3P3_adc_min = adc_results.POS3P3_adc;
+            
+        }
+        
+        // Record new maximum
+        if (adc_results.POS12_adc > adc_results.POS12_adc_max) {
+         
+            adc_results.POS12_adc_max = adc_results.POS12_adc;
+            
+        }
+        
+        // record new minimum
+        if (adc_results.POS12_adc < adc_results.POS12_adc_min) {
+         
+            adc_results.POS12_adc_min = adc_results.POS12_adc;
+            
+        }
+        
+        // Record new maximum
+        if (adc_results.POS5P_adc > adc_results.POS5P_adc_max) {
+         
+            adc_results.POS5P_adc_max = adc_results.POS5P_adc;
+            
+        }
+        
+        // record new minimum
+        if (adc_results.POS5P_adc < adc_results.POS5P_adc_min) {
+         
+            adc_results.POS5P_adc_min = adc_results.POS5P_adc;
+            
+        }
+        
+        // Record new maximum
+        if (adc_results.POS5P5_adc > adc_results.POS5P5_adc_max) {
+         
+            adc_results.POS5P5_adc_max = adc_results.POS5P5_adc;
+            
+        }
+        
+        // record new minimum
+        if (adc_results.POS5P5_adc < adc_results.POS5P5_adc_min) {
+         
+            adc_results.POS5P5_adc_min = adc_results.POS5P5_adc;
+            
+        }
+        
+        // Record new maximum
+        if (adc_results.POS5_adc > adc_results.POS5_adc_max) {
+         
+            adc_results.POS5_adc_max = adc_results.POS5_adc;
+            
+        }
+        
+        // record new minimum
+        if (adc_results.POS5_adc < adc_results.POS5_adc_min) {
+         
+            adc_results.POS5_adc_min = adc_results.POS5_adc;
+            
+        }
+        
     }
         
     // Clear IRQ

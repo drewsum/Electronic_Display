@@ -53,17 +53,25 @@
 struct adc_results_t {
     
     double POS3P3_adc;
+    double POS3P3_adc_min;
+    double POS3P3_adc_max;
     uint32_t POS3P3_adc_raw;
     double POS12_adc;
+    double POS12_adc_min;
+    double POS12_adc_max;
     uint32_t POS12_adc_raw;
     double POS5P5_adc;
+    double POS5P5_adc_min;
+    double POS5P5_adc_max;
     uint32_t POS5P5_adc_raw;
     double POS5_adc;
+    double POS5_adc_min;
+    double POS5_adc_max;
     uint32_t POS5_adc_raw;
     double POS5P_adc;
+    double POS5P_adc_min;
+    double POS5P_adc_max;
     uint32_t POS5P_adc_raw;
-    double temp_adc;
-    uint32_t temp_adc_raw;
     
 } adc_results;
 
