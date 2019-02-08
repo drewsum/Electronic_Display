@@ -98,6 +98,9 @@ void __ISR(_ADC_DATA42_VECTOR, IPL1SRS) POS5PADCISR(void);
 // This is the ADC end of scan interrupt service routine
 void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void);
 
+// This function prints the status of the ADC
+void printADCStatus(void);
+
 
 
 #endif /* _ADC_H */

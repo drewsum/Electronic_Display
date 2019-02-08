@@ -11,6 +11,7 @@
 #include "32mz_interrupt_control.h"
 #include "error_handler.h"
 #include "pin_macros.h"
+#include "terminal_control.h"
 
 /* Used ADC channels include:
  * 
@@ -363,5 +364,254 @@ void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void) {
         
     // Clear IRQ
     clearInterruptFlag(ADC_End_Of_Scan_Ready);
+    
+}
+
+// This function prints the status of the ADC
+void printADCStatus(void) {
+
+    terminalTextAttributesReset();
+    terminalTextAttributes(GREEN, BLACK, UNDERSCORE);
+    printf("Analog to Digital Converter Status:\n\r");
+    
+    // Print if ADC is on
+    if (ADCCON1bits.ON) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC %s\n\r", ADCCON1bits.ON ? "Enabled" : "Disabled");
+    
+    // Print ADC resolution
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    ADC7 Resolution: ");
+    switch (ADCCON1bits.SELRES) {
+     
+        case 0b00:
+            printf("6 bits\n\r");
+            break;
+            
+        case 0b01:
+            printf("8 bits\n\r");
+            break;
+            
+        case 0b10:
+            printf("10 bits\n\r");
+            break;
+                    
+        case 0b11:
+            printf("12 bits\n\r");
+            break;
+        
+    }
+    
+    // Print if fractional of integer mode
+    if (ADCCON1bits.FRACT) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    Fraction Format: %s\n\r", ADCCON1bits.FRACT ? "Fractional" : "Integer");
+    
+    // Print trigger source
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    ADC Scan Trigger Source: ");
+    switch (ADCCON1bits.STRGSRC) {
+     
+        case 0b00000:
+            printf("No Trigger\n\r");
+            break;
+            
+        case 0b00001:
+            printf("Global software edge trigger (GSWTRG)\n\r");
+            break;
+            
+        case 0b00010:
+            printf("Global level software trigger (GLSWTRG)\n\r");
+            break;
+            
+        case 0b00100:
+            printf("INT0 External interrupt\n\r");
+            break;
+            
+        case 0b00101:
+            printf("TMR1 match\n\r");
+            break;
+            
+        case 0b00110:
+            printf("TMR3 match\n\r");
+            break;
+            
+        case 0b00111:
+            printf("TMR5 match\n\r");
+            break;
+            
+        case 0b01000:
+            printf("OCMP1\n\r");
+            break;
+            
+        case 0b01001:
+            printf("OCMP3\n\r");
+            break;
+            
+        case 0b01010:
+            printf("OCMP5\n\r");
+            break;
+            
+        case 0b01011:
+            printf("Comparator 1 (COUT)\n\r");
+            break;
+            
+        case 0b01100:
+            printf("Comparator 2 (COUT)\n\r");
+            break;
+            
+        default:
+            printf("Undefined\n\r");
+            break;
+            
+    }
+    
+    // print trigger level/edge
+    if (ADCCON1bits.STRGLVL) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    Trigger Sensitivity: %s\n\r", ADCCON1bits.STRGLVL ? "Level" : "Edge");
+    
+    // Print status of bandgap reference
+    if (ADCCON2bits.BGVRRDY) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    Bandgap Reference Status: %s\n\r", ADCCON2bits.BGVRRDY ? "Ready" : "Not Ready");
+    
+    // Print bandgap fault status
+    if (ADCCON2bits.REFFLT) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    Bandgap Reference is %s\n\r", ADCCON2bits.REFFLT ? "faulty" : "working properly");
+    
+    // Print SAMC7
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    ADC7 Sample Time (TSAM7) = %d * TAD7\n\r", ADCCON2bits.SAMC + 2);
+    
+    // print ADC7 clock divider
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    ADC7 Clock (TAD7) = %d * TQ\n\r", ADCCON2bits.ADCDIV * 2);
+    
+    // print ADC clock source
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    ADC Clock Source (TCLK): ");
+    switch (ADCCON3bits.ADCSEL) {
+     
+        case 0b00:
+            printf("PBCLK3\n\r");
+            break;
+            
+        case 0b01:
+            printf("System Clock (TCY)\n\r");
+            break;
+            
+        case 0b10:
+            printf("REFCLK3\n\r");
+            break;
+            
+        case 0b11:
+            printf("FRC\n\r");
+            break;
+        
+    }
+    
+    // Print control clock divider
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    ADC Control Clock (TQ) = %d * TCLK\n\r", ADCCON3bits.CONCLKDIV * 2);
+    
+    // print digital enables
+    if (ADCCON3bits.DIGEN0) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC0 is %s\n\r", ADCCON3bits.DIGEN0 ? "digital enabled" : "digital disabled");
+    if (ADCCON3bits.DIGEN1) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC1 is %s\n\r", ADCCON3bits.DIGEN1 ? "digital enabled" : "digital disabled");
+    if (ADCCON3bits.DIGEN2) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC2 is %s\n\r", ADCCON3bits.DIGEN2 ? "digital enabled" : "digital disabled");
+    if (ADCCON3bits.DIGEN3) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC3 is %s\n\r", ADCCON3bits.DIGEN3 ? "digital enabled" : "digital disabled");
+    if (ADCCON3bits.DIGEN4) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC4 is %s\n\r", ADCCON3bits.DIGEN4 ? "digital enabled" : "digital disabled");
+    if (ADCCON3bits.DIGEN7) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC7 is %s\n\r", ADCCON3bits.DIGEN7 ? "digital enabled" : "digital disabled");
+    
+    // print voltage reference selection
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    Voltage reference selection: ");
+    switch (ADCCON3bits.VREFSEL) {
+     
+        case 0b00:
+            printf("AVDD and AVSS\n\r");
+            break;
+            
+        case 0b01:
+            printf("VREFH and AVSS\n\r");
+            break;
+            
+        case 0b10:
+            printf("AVDD and VREFL\n\r");
+            break;
+            
+        case 0b11:
+            printf("VREFH and VREFL\n\r");
+            break;
+        
+    }
+    
+    // Print analog enable status    
+    if (ADCANCONbits.ANEN0) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC0 is %s\n\r", ADCANCONbits.ANEN0 ? "analog enabled" : "analog disabled");
+    if (ADCANCONbits.ANEN1) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC1 is %s\n\r", ADCANCONbits.ANEN1 ? "analog enabled" : "analog disabled");
+    if (ADCANCONbits.ANEN2) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC2 is %s\n\r", ADCANCONbits.ANEN2 ? "analog enabled" : "analog disabled");
+    if (ADCANCONbits.ANEN3) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC3 is %s\n\r", ADCANCONbits.ANEN3 ? "analog enabled" : "analog disabled");
+    if (ADCANCONbits.ANEN4) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC4 is %s\n\r", ADCANCONbits.ANEN4 ? "analog enabled" : "analog disabled");
+    if (ADCANCONbits.ANEN7) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC7 is %s\n\r", ADCANCONbits.ANEN7 ? "analog enabled" : "analog disabled");
+    
+    // print wakeup status bits
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    ADC warmup count exponent = %d\n\r", ADCANCONbits.WKUPCLKCNT);
+    
+    // print wakeup status bits
+    if (ADCANCONbits.WKRDY0) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC0 is %s\n\r", ADCANCONbits.WKRDY0 ? "warmed up" : "cold");
+    if (ADCANCONbits.WKRDY1) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC1 is %s\n\r", ADCANCONbits.WKRDY1 ? "warmed up" : "cold");
+    if (ADCANCONbits.WKRDY2) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC2 is %s\n\r", ADCANCONbits.WKRDY2 ? "warmed up" : "cold");
+    if (ADCANCONbits.WKRDY3) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC3 is %s\n\r", ADCANCONbits.WKRDY3 ? "warmed up" : "cold");
+    if (ADCANCONbits.WKRDY4) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC4 is %s\n\r", ADCANCONbits.WKRDY4 ? "warmed up" : "cold");
+    if (ADCANCONbits.WKRDY7) terminalTextAttributes(GREEN, BLACK, NORMAL);
+    else terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("    ADC7 is %s\n\r", ADCANCONbits.WKRDY7 ? "warmed up" : "cold");
+    
+    // print configuration data
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    ADC0 config data: 0x%08X\n\r", ADC0CFG);
+    printf("    ADC1 config data: 0x%08X\n\r", ADC1CFG);
+    printf("    ADC2 config data: 0x%08X\n\r", ADC2CFG);
+    printf("    ADC3 config data: 0x%08X\n\r", ADC3CFG);
+    printf("    ADC4 config data: 0x%08X\n\r", ADC4CFG);
+    printf("    ADC7 config data: 0x%08X\n\r", ADC7CFG);
+    
+    terminalTextAttributesReset();
     
 }

@@ -648,6 +648,12 @@ void usbUartRingBufferLUT(char * line_in) {
             
     }
     
+    else if (strcmp(line_in, "ADC Status?") == 0) {
+     
+        printADCStatus();
+        
+    }
+    
     else if (strcmp(line_in, "Help") == 0) {
     
         usbUartPrintHelpMessage();
@@ -735,6 +741,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Revision ID?: Prints silicon die revision ID\n\r");
     printf("    ADC Results?: Prints results of the most recent ADC conversions for system power supplies\n\r");
     printf("    ADC Raw Data?: Prints the raw 12 bit results of the ADC conversions\n\r");
+    printf("    ADC Status?: Prints information about analog to digital converter settings\n\r");
     printf("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
     printf("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     printf("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
