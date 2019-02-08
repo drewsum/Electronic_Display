@@ -469,7 +469,12 @@ void printADCStatus(void) {
     // print trigger level/edge
     if (ADCCON1bits.STRGLVL) terminalTextAttributes(GREEN, BLACK, NORMAL);
     else terminalTextAttributes(RED, BLACK, NORMAL);
-    printf("    Trigger Sensitivity: %s\n\r", ADCCON1bits.STRGLVL ? "Level" : "Edge");
+    printf("    Scan Trigger Sensitivity: %s\n\r", ADCCON1bits.STRGLVL ? "Level" : "Edge");
+    
+    // print trigger suspension status
+    if (ADCCON3bits.TRGSUSP) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    Scan Trigger Suspension: %s\n\r", ADCCON3bits.TRGSUSP ? "suspended" : "not suspended");
     
     // Print status of bandgap reference
     if (ADCCON2bits.BGVRRDY) terminalTextAttributes(GREEN, BLACK, NORMAL);
