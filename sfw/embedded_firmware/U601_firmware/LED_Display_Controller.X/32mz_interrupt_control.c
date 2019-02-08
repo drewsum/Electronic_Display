@@ -7031,9 +7031,13 @@ void printInterruptStatus(void) {
     terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("Interrupt Priority Shadow Register Setting: 0x%08X\n\r", PRISS);
     
+    terminalTextAttributes(GREEN, BLACK, REVERSE);
+    printf("\n\rInterrupts in list are marked green if they are enabled or have IPL > 0\n\r");
+    
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("\n\rInterrupt sources:\n\r");
     terminalTextAttributes(GREEN, BLACK, REVERSE);
-    printf("###  Name                     EN?  P S IRQ?\n\r");
+    printf("###  Name                     EN?  IPL ISL IRQ?\n\r");
     
     terminalTextAttributesReset();
 
@@ -7056,7 +7060,7 @@ void printInterruptStatus(void) {
             
         }
         
-        printf("%03d  %s %c  %d %d    %c\n\r", 
+        printf("%03d  %s %c    %d   %d    %c\n\r", 
                 i,
                 getInterruptNameStringPadded(i),
                 getInterruptEnable(i) ? 'T' : 'F',
