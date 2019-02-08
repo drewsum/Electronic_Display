@@ -5,14 +5,12 @@
         <group>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/error_handler.h</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/adc.h</file>
-            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/heartbeat_timer.h</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/adc.c</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/32mz_interrupt_control.h</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/usb_uart.c</file>
-            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/power_saving.c</file>
+            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/heartbeat_timer.c</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/main.c</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/error_handler.c</file>
-            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/usb_uart.h</file>
         </group>
     </open-files>
 </project-private>
