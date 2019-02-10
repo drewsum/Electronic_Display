@@ -105,19 +105,21 @@ void ebiInitialize(void){
     // Set EBI timing settings
     EBIMSK0bits.REGSEL = 0b000;
     
-    // Disable Ready pin
-    EBISMT0bits.RDYMODE = 0;
+//    // Disable Ready pin
+//    EBISMT0bits.RDYMODE = 0;
+//    
+//    // Disable Page mode
+//    EBISMT0bits.PAGEMODE = 0;
+//    
+//    // Set up EBI timing for Chip 0
+//    EBISMT0bits.TPRC = 0b0000;
+//    EBISMT0bits.TBTA = 0b000;
+//    EBISMT0bits.TWP = 0b000000;
+//    EBISMT0bits.TWR = 0b00;
+//    EBISMT0bits.TAS = 0b00;
+//    EBISMT0bits.TRC = 0b000000;
     
-    // Disable Page mode
-    EBISMT0bits.PAGEMODE = 0;
-    
-    // Set up EBI timing for Chip 0
-    EBISMT0bits.TPRC = 0b0011;
-    EBISMT0bits.TBTA = 0b111;
-    EBISMT0bits.TWP = 0b111111;
-    EBISMT0bits.TWR = 0b11;
-    EBISMT0bits.TAS = 0b11;
-    EBISMT0bits.TRC = 0b001111;
+    EBISMT0 = 0x000029CA;
     
     // EBISMCON - Memory Control Register
     // Set Register 2 width to 8 bits
@@ -128,10 +130,7 @@ void ebiInitialize(void){
     
     // Set Register 0 width to 8 bits
     EBISMCONbits.SMDWIDTH0 = 0b100;
-    
-    // Set Reset behavior
-    EBISMCONbits.SMRP = 1;
-   
+       
 }
 
 // Prints EBI status
@@ -452,26 +451,32 @@ void printEBIStatus(void){
 // This function writes a byte to EBI SRAM at the input address
 void ebiSRAMWrite(uint8_t input_data, uint32_t input_address) {
  
-    uint32_t *addr;
+//    uint32_t *addr;
+//    
+//    // Set address we're accessing to the start address + the input address
+//    addr = (uint32_t *) (const) (0xC0000000 + (uint32_t) input_address);
+//    
+//    // Write the input data to the memory location pointed to by addr
+//    *addr = input_data;
+        
     
-    // Set address we're accessing to the start address + the input address
-    addr = (uint32_t *) (const) (0xC0000000 + (uint32_t) input_address);
-    
-    // Write the input data to the memory location pointed to by addr
-    *addr = input_data;
     
 }
 
 // This function reads a byte from the input address passed
 uint8_t ebiSRAMRead(uint32_t input_address) {
  
-    uint32_t *addr;
+//    uint32_t *addr;
+//    
+//    // Set address we're accessing to the start address + the input address
+//    addr = (uint32_t *) (const) (0xC0000000 + (uint32_t) input_address);
+//    
+//    // Return the value in external memory pointed to by addr
+//    return *addr;
     
-    // Set address we're accessing to the start address + the input address
-    addr = (uint32_t *) (const) (0xC0000000 + (uint32_t) input_address);
     
-    // Return the value in external memory pointed to by addr
-    return *addr;
+    
+    
     
 }
 
@@ -487,7 +492,7 @@ uint8_t testEBISRAM(void) {
     // Write loop
     uint32_t loop_address;
     
-    for (loop_address = 0; loop_address < RAM_SIZE/4; loop_address++) {
+    for (loop_address = 0; loop_address < RAM_SIZE; loop_address++) {
         
         ext_array[loop_address] = 0xFF;
     }
@@ -496,7 +501,7 @@ uint8_t testEBISRAM(void) {
     // The value we're reading from EBI
     uint8_t val;
     
-    for (loop_address = 0 ; loop_address < RAM_SIZE/4; loop_address++) {
+    for (loop_address = 0 ; loop_address < RAM_SIZE; loop_address++) {
         
         val = ext_array[loop_address];
         if (val != 0xFF) {

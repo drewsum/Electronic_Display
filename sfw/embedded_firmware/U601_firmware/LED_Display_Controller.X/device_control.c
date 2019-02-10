@@ -127,7 +127,7 @@ void softwareDelay(uint32_t inputDelay) {
 // PBCLK4: 84 MHz
 // PBCLK5: 84 MHz
 // PBCLK7: 252 MHz
-// PBCLK8: 84 MHz
+// PBCLK8: 50.4 MHz
 void clockInitialize(void) {
  
     // unlock the device
@@ -374,8 +374,8 @@ void PBCLK8Initialize(void) {
     // wait for divisor to be ready for change
     while (PB8DIVbits.PBDIVRDY == 0);
     
-    // Set PBCLK8 divider to 3
-    PB8DIVbits.PBDIV = 0b0000010;
+    // Set PBCLK8 divider to 5
+    PB8DIVbits.PBDIV = 0b00000110;
     
     // wait for divisor to be ready for change
     while (PB8DIVbits.PBDIVRDY == 0);

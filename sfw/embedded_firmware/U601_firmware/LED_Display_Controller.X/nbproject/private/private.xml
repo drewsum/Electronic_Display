@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>error_handler.h</url>
+            <bookmark id="1">
+                <name/>
+                <line>79</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/device_control.c</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/error_handler.h</file>
-            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/adc.h</file>
-            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/adc.c</file>
-            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/32mz_interrupt_control.h</file>
+            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/external_bus_interface.c</file>
+            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/external_bus_interface.h</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/usb_uart.c</file>
-            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/heartbeat_timer.c</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/main.c</file>
             <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/error_handler.c</file>
+            <file>file:/C:/Users/Drew%20Maatman/Documents/KiCad%20Projects/Projects/Electronic_Display/sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/gpio_setup.c</file>
         </group>
     </open-files>
 </project-private>

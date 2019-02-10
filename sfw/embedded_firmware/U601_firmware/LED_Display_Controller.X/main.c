@@ -168,8 +168,8 @@ void main(void) {
     printf("EBI Initialized \n\r");
 
     // Initialize SPI
-    spiFlashInit();
-    printf("SPI Flash Initialized\n\r");
+//    spiFlashInit();
+//    printf("SPI Flash Initialized\n\r");
     
     // Initialize Analog to Digital Converter
     ADCInitialize();
