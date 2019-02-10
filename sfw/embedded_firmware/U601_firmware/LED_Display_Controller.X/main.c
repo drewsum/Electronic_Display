@@ -66,6 +66,12 @@ extern volatile uint8_t usb_uart_RxStringReady;
 // Cause of Device Reset
 reset_cause_t reset_cause;
 
+void _on_reset (void) {
+ 
+    ebiInitialize();
+    
+}
+
 // Main program entry point
 void main(void) {
     
@@ -158,7 +164,7 @@ void main(void) {
     printf("Deadman Timer Initialized\n\r");
     
     // EBI set up
-    ebiInitialize();
+    // ebiInitialize();
     printf("EBI Initialized \n\r");
 
     // Initialize SPI

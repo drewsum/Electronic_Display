@@ -75,6 +75,9 @@ void clearErrorHandler(void);
 // This function updates the error LEDs based on the error handler state
 void updateErrorLEDs(void);
 
+// This function prints short strings during a CPU exception
+void exceptionPrint(char *input_string);
+
 #endif /* _ERROR_HANDLER_H */
 
 /* *****************************************************************************

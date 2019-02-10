@@ -501,6 +501,45 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "Test EBI") == 0) {
+     
+        uint8_t test_status = 0;
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Testing writing to and reading from all external SRAM addresses...\n\r");
+        
+        test_status = testEBISRAM();
+        
+        if (test_status == 0) {
+         
+            error_handler.EBI_error_flag = 1;
+            updateErrorLEDs();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("EBI SRAM Test Failed with exit status %d\n\r", test_status);
+        
+        }
+        
+        else {
+         
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("EBI SRAM Test Passed with exit status %d\n\r", test_status);
+        
+        }
+        
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Print EBI Contents") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        ebiPrintSRAM();
+        terminalTextAttributesReset();
+        
+    }
+    
     else if (strcmp(line_in, "Error Status?") == 0) {
      
         // Print error handler status
@@ -785,6 +824,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
     printf("    Prefetch Status?: Prints the status of the predictive prefetch module\n\r");
     printf("    EBI Status?: Prints status of EBI\r\n");
+    printf("    Test EBI: Tests writing to and reading from external EBI SRAM\n\r");
+    printf("    Print EBI Contents: Prints the data saved in EBI SRAM\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");

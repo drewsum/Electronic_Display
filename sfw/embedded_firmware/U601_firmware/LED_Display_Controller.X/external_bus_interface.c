@@ -6,18 +6,40 @@
 #include "terminal_control.h"
 
 #define SRAM_ADDR_CS0 0xC0000000
-#define RAM_SIZE 256*1024
+#define RAM_SIZE 262144
+
+// This pragma tells the linker to allow access of EBI memory space
+#pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
+
+// This is tricking the compiler into placing an array in EBI SRAM
+uint8_t ext_array[262144] __attribute__((region("EBI_SRAM")));
 
 // EBI initialization function
-
 void ebiInitialize(void){
     
-    // EBI controls access of EBI pins
+    // Setup EBI permissions for memory
+//    SBT1REG2bits.BASE = (0x20000000 >> 10);     // Starting at phy mem addr 0x20000000
+//    SBT1REG2bits.SIZE = 0b01001;                // 256 kB
+//    SBT1RD2bits.GROUP0 = 1;                     // PG0 can read
+//    SBT1WR2bits.GROUP0 = 1;                     // PG0 can write
+//    SBT1RD2bits.GROUP1 = 1;                     // PG1 can read
+//    SBT1WR2bits.GROUP1 = 1;                     // PG1 can write
+//    SBT1RD2bits.GROUP2 = 1;                     // PG2 can read
+//    SBT1WR2bits.GROUP2 = 1;                     // PG2 can write
+//    SBT1RD2bits.GROUP3 = 1;                     // PG3 can read
+//    SBT1WR2bits.GROUP3 = 1;                     // PG3 can write
     
+    // Disable KSEG2 caching
+//    uint32_t val = _CP0_GET_CONFIG();
+//    val = val & 0x2FFFFFFF;
+//    val = val | 0x20000000;
+//    // Write modified value back to CP0 config register
+//    _mtc0 (_CP0_CONFIG, _CP0_CONFIG_SELECT, val); 
+    
+    // EBI controls access of EBI pins
     CFGEBIAbits.EBIPINEN = 1;
     
     // Configure EBI address pins (0 thru 17) ON 
-    
     CFGEBIAbits.EBIA0EN = 1;
     CFGEBIAbits.EBIA1EN = 1;
     CFGEBIAbits.EBIA2EN = 1;
@@ -38,7 +60,6 @@ void ebiInitialize(void){
     CFGEBIAbits.EBIA17EN = 1;
     
     // Configure EBI address pins (18 thru 23) OFF
-    
     CFGEBIAbits.EBIA18EN = 0;
     CFGEBIAbits.EBIA19EN = 0;
     CFGEBIAbits.EBIA20EN = 0;
@@ -47,85 +68,68 @@ void ebiInitialize(void){
     CFGEBIAbits.EBIA23EN = 0;
     
     // Configure EBI control signals
-   
     CFGEBICbits.EBIRDYEN3 = 0;
     CFGEBICbits.EBIRDYEN2 = 0;
     CFGEBICbits.EBIRDYEN1 = 0;
     
     // Disable RP signal
-   
     CFGEBICbits.EBIRPEN = 0;
     
     // Enable Write Enable signal
-   
     CFGEBICbits.EBIWEEN = 1;
     
     // Enable Output Enable signal
-    
     CFGEBICbits.EBIOEEN = 1;
     
     // Disable byte select signals
-    
     CFGEBICbits.EBIBSEN1 = 0;
     CFGEBICbits.EBIBSEN0 = 0;
     
     // Enable chip 0, Disable all others
-    
     CFGEBICbits.EBICSEN3 = 0;
     CFGEBICbits.EBICSEN2 = 0;
     CFGEBICbits.EBICSEN1 = 0;
     CFGEBICbits.EBICSEN0 = 1;
     
     // Disable upper byte of EBI data, enable lower byte
-    
     CFGEBICbits.EBIDEN1 = 0;
     CFGEBICbits.EBIDEN0 = 1;
     
     // Connect CS0 to physical address
-    
     EBICS0 = 0x20000000;
     
     // Define memory type as 256kB SRAM
-    
     EBIMSK0bits.MEMTYPE = 0b001;
     EBIMSK0bits.MEMSIZE = 0b00011;
     
-    // Set EBI timing
-    
+    // Set EBI timing settings
     EBIMSK0bits.REGSEL = 0b000;
     
     // Disable Ready pin
-    
     EBISMT0bits.RDYMODE = 0;
     
     // Disable Page mode
-    
     EBISMT0bits.PAGEMODE = 0;
     
     // Set up EBI timing for Chip 0
-   
-    EBISMT0bits.TPRC = 0b1111;
+    EBISMT0bits.TPRC = 0b0011;
     EBISMT0bits.TBTA = 0b111;
     EBISMT0bits.TWP = 0b111111;
     EBISMT0bits.TWR = 0b11;
     EBISMT0bits.TAS = 0b11;
-    EBISMT0bits.TRC = 0b111111;
+    EBISMT0bits.TRC = 0b001111;
     
     // EBISMCON - Memory Control Register
     // Set Register 2 width to 8 bits
-    
     EBISMCONbits.SMDWIDTH2 = 0b100;
     
     // Set Register 1 width to 8 bits
-    
     EBISMCONbits.SMDWIDTH1 = 0b100;
     
     // Set Register 0 width to 8 bits
-    
     EBISMCONbits.SMDWIDTH0 = 0b100;
     
     // Set Reset behavior
-    
     EBISMCONbits.SMRP = 1;
    
 }
@@ -451,7 +455,7 @@ void ebiSRAMWrite(uint8_t input_data, uint32_t input_address) {
     uint32_t *addr;
     
     // Set address we're accessing to the start address + the input address
-    addr = (uint32_t *)(SRAM_ADDR_CS0 + input_address);
+    addr = (uint32_t *) (const) (0xC0000000 + (uint32_t) input_address);
     
     // Write the input data to the memory location pointed to by addr
     *addr = input_data;
@@ -464,7 +468,7 @@ uint8_t ebiSRAMRead(uint32_t input_address) {
     uint32_t *addr;
     
     // Set address we're accessing to the start address + the input address
-    addr = (uint32_t *)(SRAM_ADDR_CS0 + input_address);
+    addr = (uint32_t *) (const) (0xC0000000 + (uint32_t) input_address);
     
     // Return the value in external memory pointed to by addr
     return *addr;
@@ -483,21 +487,19 @@ uint8_t testEBISRAM(void) {
     // Write loop
     uint32_t loop_address;
     
-    for (loop_address = 0; loop_address < RAM_SIZE; loop_address++) {
+    for (loop_address = 0; loop_address < RAM_SIZE/4; loop_address++) {
         
-        ebiSRAMWrite(loop_address & 0xFF, loop_address);
-        
+        ext_array[loop_address] = 0xFF;
     }
     
     
     // The value we're reading from EBI
     uint8_t val;
     
-    for (loop_address = 0 ; loop_address < RAM_SIZE; loop_address++) {
+    for (loop_address = 0 ; loop_address < RAM_SIZE/4; loop_address++) {
         
-        val = ebiSRAMRead(loop_address);
-        
-        if (val != loop_address & 0xFF) {
+        val = ext_array[loop_address];
+        if (val != 0xFF) {
         
             return (0); //Exit Failure
         
@@ -511,6 +513,33 @@ uint8_t testEBISRAM(void) {
 
 void ebiPrintSRAM(void){
     
+    // The value we're reading from EBI
+    uint8_t val;
+    
+    // Access address
+    uint32_t loop_address;
+    
     // wait for it
+    for (loop_address = 0 ; loop_address < 256; loop_address += 16) {
+        
+        printf("    0x%08X: 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X\n\r", loop_address,
+               ext_array[loop_address + 0],
+               ext_array[loop_address + 1], 
+               ext_array[loop_address + 2], 
+               ext_array[loop_address + 3], 
+               ext_array[loop_address + 4], 
+               ext_array[loop_address + 5], 
+               ext_array[loop_address + 6], 
+               ext_array[loop_address + 7], 
+               ext_array[loop_address + 8], 
+               ext_array[loop_address + 9], 
+               ext_array[loop_address + 0xA], 
+               ext_array[loop_address + 0xB], 
+               ext_array[loop_address + 0xC], 
+               ext_array[loop_address + 0xD], 
+               ext_array[loop_address + 0xE], 
+               ext_array[loop_address + 0xF]);
+        
+    }
     
 }

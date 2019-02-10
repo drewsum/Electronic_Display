@@ -1,6 +1,7 @@
 
 #include <xc.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "error_handler.h"
 #include "32mz_interrupt_control.h"
@@ -31,15 +32,6 @@ void __ISR(_SYSTEM_BUS_PROTECTION_VECTOR, ipl1SRS) systemBusProtectionISR(void) 
 // This function is called when a general exception occurs
 void __attribute__((nomips16)) _general_exception_handler(void) {
     
-    // binary expression of exception cause
-//    uint8_t exception_cause = (_CP0_GET_CAUSE() & 0x0000007C) >> 2;
-//    HEARTBEAT_LED_PIN       = (exception_cause && 0x01) >> 0;
-//    OTHER_ERROR_LED_PIN     = (exception_cause && 0x02) >> 1;
-//    USB_ERROR_LED_PIN       = (exception_cause && 0x04) >> 2;
-//    EBI_ERROR_LED_PIN       = (exception_cause && 0x08) >> 3;
-//    WIFI_ERROR_LED_PIN      = (exception_cause && 0x10) >> 4;
-//    SPI_ERROR_LED_PIN       = (exception_cause && 0x20) >> 5;
-//    nACTIVE_LED_PIN         = (exception_cause && 0x40) >> 6;
     // Signal to user something really bad happened
     EBI_ERROR_LED_PIN = 1;
     SPI_ERROR_LED_PIN = 1;
@@ -55,6 +47,15 @@ void __attribute__((nomips16)) _general_exception_handler(void) {
     kickTheDog();
     holdThumbTighter();
     
+    exceptionPrint(" \033[0;31;40mCPU General Exception! EXCCODE: ");
+    
+    uint8_t exception_code = (_CP0_GET_CAUSE() >> 2) & 0b11111;
+    char exception_code_number = exception_code + 48;
+    U3TXREG = exception_code_number;
+    exceptionPrint("\n\r");
+    
+    
+    
     // Give up
     // Wait for watchdog to save us
     while(1);
@@ -64,7 +65,7 @@ void __attribute__((nomips16)) _general_exception_handler(void) {
     
 }
 
-// This function is called when a TRB exception occurs
+// This function is called when a TLB exception occurs
 void __attribute__((nomips16)) _simple_tlb_refill_exception_handler(void) {
 
     // Signal to user something really bad happened
@@ -77,6 +78,9 @@ void __attribute__((nomips16)) _simple_tlb_refill_exception_handler(void) {
     
     // Clear watchdog to give user time to see error state
     kickTheDog();
+    holdThumbTighter();
+    
+    exceptionPrint("\033[0;31;40mCPU TLB Refill Exception!\n\r");
     
     // Give up
     // Wait for watchdog to save us
@@ -100,6 +104,9 @@ void __attribute__((nomips16)) _cache_err_exception_handler(void) {
     
     // Clear watchdog to give user time to see error state
     kickTheDog();
+    holdThumbTighter();
+    
+    exceptionPrint("\033[0;31;40mCPU Cache Exception!\n\r");
     
     // Give up
     // Wait for watchdog to save us
@@ -123,6 +130,9 @@ void __attribute__((nomips16)) _bootstrap_exception_handler(void) {
     
     // Clear watchdog to give user time to see error state
     kickTheDog();
+    holdThumbTighter();
+    
+    exceptionPrint("\033[0;31;40mCPU Bootstrap Exception!\n\r");
     
     // Give up
     // Wait for watchdog to save us
@@ -289,5 +299,26 @@ void updateErrorLEDs(void) {
     // USB Error
     if (error_handler.USB_error_flag) USB_ERROR_LED_PIN = 1;
     else USB_ERROR_LED_PIN = 0;    
+    
+}
+
+// This function prints short strings during a CPU exception
+void exceptionPrint(char *input_string) {
+ 
+    // loop through all input characters
+    int i;
+    for (i = 0; i < strlen(input_string); i++) {
+     
+        // if we're done with the string, return
+        if (input_string[i] == '\0') return;
+        
+        // send single character
+        U3TXREG = input_string[i];
+        
+        // wait for buffer to open
+        while(U3STAbits.UTXBF);
+        
+        
+    }
     
 }
