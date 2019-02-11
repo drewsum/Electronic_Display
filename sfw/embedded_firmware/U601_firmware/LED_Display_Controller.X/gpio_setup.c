@@ -160,7 +160,7 @@ void portBGPIOInitialize (void){
     ODCBbits.ODCB8      = ODC_DISABLE;
     ANSELBbits.ANSB8    = ANALOG_DISABLE;
     RPB8Rbits.RPB8R     = 0b0000;           // Disconnected from peripherals
-    
+        
     // Setup RB9
     TRISBbits.TRISB9    = TRIS_OUTPUT;
     LATBbits.LATB9      = LAT_LOW;
@@ -654,8 +654,8 @@ void portJGPIOInitialize (void){
     ODCJbits.ODCJ3      = ODC_DISABLE;
     
     // Setup RJ4
-    TRISJbits.TRISJ4    = TRIS_INPUT;
-    LATJbits.LATJ4      = LAT_HIGH;
+    TRISJbits.TRISJ4    = TRIS_OUTPUT;
+    LATJbits.LATJ4      = LAT_LOW;
     ODCJbits.ODCJ4      = ODC_DISABLE;
     
     // Setup RJ5

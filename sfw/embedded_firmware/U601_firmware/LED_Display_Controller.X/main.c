@@ -66,6 +66,12 @@ extern volatile uint8_t usb_uart_RxStringReady;
 // Cause of Device Reset
 reset_cause_t reset_cause;
 
+void _on_reset (void) {
+ 
+    ebiInitialize();
+    
+}
+
 // Main program entry point
 void main(void) {
     
@@ -158,12 +164,28 @@ void main(void) {
     printf("Deadman Timer Initialized\n\r");
     
     // EBI set up
-    ebiInitialize();
-    printf("EBI Initialized \n\r");
-
+    uint8_t ebi_exit_success = testEBISRAM();
+    
+    if (ebi_exit_success == 0) {
+         
+            error_handler.EBI_error_flag = 1;
+            updateErrorLEDs();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("EBI SRAM Initialized, but R/W self test failed\n\r");
+            terminalTextAttributesReset();
+        
+        }
+        
+        else {
+         
+            printf("EBI SRAM Initialized, R/W self test passed\n\r");
+            clearEBISRAM();
+        
+        }
+    
     // Initialize SPI
-    spiFlashInit();
-    printf("SPI Flash Initialized\n\r");
+//    spiFlashInit();
+//    printf("SPI Flash Initialized\n\r");
     
     // Initialize Analog to Digital Converter
     ADCInitialize();
@@ -172,6 +194,14 @@ void main(void) {
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
     printf("Reset LED disabled\n\r");
+    
+    // enable POS5 power supply
+    POS5_RUN_PIN = 1;
+    printf("+5V Power Supply Enabled\n\r");
+    
+    // enable panel data level shifting
+    nLEVEL_SHIFT_EN_PIN = 0;
+    printf("Panel Data Level Shifters Enabled\n\r");
     
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);

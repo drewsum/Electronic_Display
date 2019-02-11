@@ -71,7 +71,7 @@ void PMDInitialize(void) {
     // Enable SPI3, disable others
     PMD5bits.SPI1MD = 1;
     PMD5bits.SPI2MD = 1;
-    PMD5bits.SPI3MD = 0;
+    PMD5bits.SPI3MD = 1;                // CHANGE MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
     PMD5bits.SPI4MD = 1;
     PMD5bits.SPI5MD = 1;
     PMD5bits.SPI6MD = 1;
@@ -104,8 +104,8 @@ void PMDInitialize(void) {
     // Disable peripheral master port
     PMD6bits.PMPMD = 1;
     
-    // Disable external bus interface (EBI)
-    PMD6bits.EBIMD = 1;     // CHANGE THIS
+    // Enable external bus interface (EBI)
+    PMD6bits.EBIMD = 0;
     
     // Disable serial quad interface
     PMD6bits.SQI1MD = 1;
