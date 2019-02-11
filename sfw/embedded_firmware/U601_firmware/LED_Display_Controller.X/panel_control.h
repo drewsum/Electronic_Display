@@ -18,6 +18,28 @@
 
 #include <xc.h>
 
+// Display update variables
+uint8_t current_shift_clock;
+uint8_t current_row;
+uint8_t current_PWM_frame;
+
+// ram buffer index variables
+uint32_t current_shift_clock_index;
+uint32_t current_row_index;
+uint32_t current_PWM_frame_index;
+
+// Function to handle all mutliplexing for panel
+void panelMutliplexingHandler(void);
+
+// Set RGB bus state functions
+void setPanelRedBus(uint8_t inputByte);
+void setPanelGreenBus(uint8_t inputByte);
+void setPanelBlueBus(uint8_t inputByte);
+
+// Set ROW bus state functions
+void setPanelRowBus(uint8_t inputByte);
+
+
 #endif /* _PANEL_CONTROL_H */
 
 /* *****************************************************************************
