@@ -501,7 +501,7 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "Test EBI") == 0) {
+    else if (strcmp(line_in, "Test EBI SRAM") == 0) {
      
         uint8_t test_status = 0;
         
@@ -510,6 +510,8 @@ void usbUartRingBufferLUT(char * line_in) {
         printf("Testing writing to and reading from all external SRAM addresses...\n\r");
         
         test_status = testEBISRAM();
+        
+        terminalTextAttributesReset();
         
         if (test_status == 0) {
          
@@ -531,10 +533,20 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "Print EBI Contents") == 0) {
+    else if (strcmp(line_in, "Clear EBI SRAM") == 0) {
      
+        clearEBISRAM();
+        
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Clearing EBI SRAM\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Print EBI SRAM Contents") == 0) {
+     
+        terminalTextAttributesReset();
         ebiPrintSRAM();
         terminalTextAttributesReset();
         
@@ -823,9 +835,10 @@ void usbUartPrintHelpMessage(void) {
     printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
     printf("    Prefetch Status?: Prints the status of the predictive prefetch module\n\r");
-    printf("    EBI Status?: Prints status of EBI\r\n");
-    printf("    Test EBI: Tests writing to and reading from external EBI SRAM\n\r");
-    printf("    Print EBI Contents: Prints the data saved in EBI SRAM\n\r");
+    printf("    EBI Status?: Prints status of EBI configuration\r\n");
+    printf("    Test EBISRAM: Tests writing to and reading from external EBI SRAM\n\r");
+    printf("    Print EBI SRAM Contents: Prints the data saved in EBI SRAM\n\r");
+    printf("    Clear EBI SRAM: Resets all bytes within EBI SRAM to 0x00\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");

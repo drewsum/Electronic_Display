@@ -374,8 +374,8 @@ void PBCLK8Initialize(void) {
     // wait for divisor to be ready for change
     while (PB8DIVbits.PBDIVRDY == 0);
     
-    // Set PBCLK8 divider to 5
-    PB8DIVbits.PBDIV = 0b00000110;
+    // Set PBCLK8 divider to 3
+    PB8DIVbits.PBDIV = 0b00000010;
     
     // wait for divisor to be ready for change
     while (PB8DIVbits.PBDIVRDY == 0);

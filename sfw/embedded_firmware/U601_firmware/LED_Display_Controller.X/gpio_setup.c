@@ -160,17 +160,13 @@ void portBGPIOInitialize (void){
     ODCBbits.ODCB8      = ODC_DISABLE;
     ANSELBbits.ANSB8    = ANALOG_DISABLE;
     RPB8Rbits.RPB8R     = 0b0000;           // Disconnected from peripherals
-    SRCON1Bbits.SR1B8   = 0;                // Set medium slew rate
-    SRCON0Bbits.SR0B8   = 1;                // Set medium slew rate
-    
+        
     // Setup RB9
     TRISBbits.TRISB9    = TRIS_OUTPUT;
     LATBbits.LATB9      = LAT_LOW;
     ODCBbits.ODCB9      = ODC_DISABLE;
     ANSELBbits.ANSB9    = ANALOG_DISABLE;
     RPB9Rbits.RPB9R     = 0b0000;           // Disconnected from peripherals
-    SRCON1Bbits.SR1B9   = 0;                // Set medium slew rate
-    SRCON0Bbits.SR0B9   = 1;                // Set medium slew rate
     
     // Setup RB10
     TRISBbits.TRISB10   = TRIS_OUTPUT;
@@ -366,30 +362,22 @@ void portEGPIOInitialize (void){
     TRISEbits.TRISE0    = TRIS_INPUT;
     LATEbits.LATE0      = LAT_LOW;
     ODCEbits.ODCE0      = ODC_DISABLE;
-    SRCON1Ebits.SR1E0   = 0;                    // Set medium slew rate
-    SRCON0Ebits.SR0E0   = 1;                    // Set medium slew rate
     
     // Setup RE1
     TRISEbits.TRISE1    = TRIS_INPUT;
     LATEbits.LATE1      = LAT_LOW;
     ODCEbits.ODCE1      = ODC_DISABLE;
-    SRCON1Ebits.SR1E1   = 0;                    // Set medium slew rate
-    SRCON0Ebits.SR0E1   = 1;                    // Set medium slew rate
     
     // Setup RE2
     TRISEbits.TRISE2    = TRIS_INPUT;
     LATEbits.LATE2      = LAT_LOW;
     ODCEbits.ODCE2      = ODC_DISABLE;
-    SRCON1Ebits.SR1E2   = 0;                    // Set medium slew rate
-    SRCON0Ebits.SR0E2   = 1;                    // Set medium slew rate
     
     // Setup RE3
     TRISEbits.TRISE3    = TRIS_INPUT;
     LATEbits.LATE3      = LAT_LOW;
     ODCEbits.ODCE3      = ODC_DISABLE;
     RPE3Rbits.RPE3R     = 0b0000;               // Disconnected from peripherals
-    SRCON1Ebits.SR1E3   = 0;                    // Set medium slew rate
-    SRCON0Ebits.SR0E3   = 1;                    // Set medium slew rate
     
     // Setup RE4
     TRISEbits.TRISE4    = TRIS_INPUT;
@@ -529,8 +517,6 @@ void portGGPIOInitialize (void){
     ODCGbits.ODCG9      = ODC_DISABLE;
     ANSELGbits.ANSG9    = ANALOG_DISABLE;
     RPG9Rbits.RPG9R     = 0b0000;               // Disconnected from peripherals
-    SRCON1Gbits.SR1G9   = 0;                    // Set medium slew rate
-    SRCON0Gbits.SR0G9   = 1;                    // Set medium slew rate
     
     // Setup RG12
     TRISGbits.TRISG12   = TRIS_OUTPUT;
