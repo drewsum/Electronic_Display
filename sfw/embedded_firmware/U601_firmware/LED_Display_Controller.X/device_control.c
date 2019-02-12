@@ -127,7 +127,7 @@ void softwareDelay(uint32_t inputDelay) {
 // PBCLK4: 84 MHz
 // PBCLK5: 84 MHz
 // PBCLK7: 252 MHz
-// PBCLK8: 50.4 MHz
+// PBCLK8: 84 MHz
 void clockInitialize(void) {
  
     // unlock the device

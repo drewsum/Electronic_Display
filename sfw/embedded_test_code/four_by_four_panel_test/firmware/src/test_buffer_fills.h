@@ -18,8 +18,6 @@
 #ifndef _TEST_BUFFER_FILLS_H    /* Guard against multiple inclusion */
 #define _TEST_BUFFER_FILLS_H
 
-extern uint8_t ram_buffer[98324];
-
 // fill ram buffer with all white pixels
 void fillRamBufferWhite(void);
 

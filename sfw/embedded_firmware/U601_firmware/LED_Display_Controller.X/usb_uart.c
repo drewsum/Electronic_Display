@@ -18,6 +18,10 @@
 #include "cause_of_reset.h"
 #include "prefetch.h"
 #include "adc.h"
+#include "panel_control.h"
+#include "test_buffer_fills.h"
+
+#include "nfl_logo.h"
 
 volatile uint64_t usb_uart_TxHead = 0;
 volatile uint64_t usb_uart_TxTail = 0;
@@ -552,6 +556,234 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    // Identification command
+    else if(strcmp(line_in, "Enable Muxing") == 0) {
+     
+        // Disable multiplexing timer
+        panelMultiplexingTimerStart();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Multiplexing Enabled\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // disable multiplexing
+    else if(strcmp(line_in, "Disable Muxing") == 0) {
+     
+        // Disable multiplexing timer
+        panelMultiplexingTimerStop();
+        
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("Multiplexing Disabled\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer white
+    else if(strcmp(line_in, "Set White") == 0) {
+     
+        fillRamBufferWhite();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with white data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer red
+    else if(strcmp(line_in, "Set Red") == 0) {
+     
+        fillRamBufferRed();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with red data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer blue
+    else if(strcmp(line_in, "Set Blue") == 0) {
+     
+        fillRamBufferBlue();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with blue data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer white
+    else if(strcmp(line_in, "Set Green") == 0) {
+     
+        fillRamBufferGreen();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with green data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer Cyan
+    else if(strcmp(line_in, "Set Cyan") == 0) {
+     
+        fillRamBufferCyan();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with cyan data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer random
+    else if(strcmp(line_in, "Set Rand") == 0) {
+     
+        fillRamBufferRand();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with random data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer magenta
+    else if(strcmp(line_in, "Set Magenta") == 0) {
+     
+        fillRamBufferMagenta();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with magenta data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer yellow
+    else if(strcmp(line_in, "Set Yellow") == 0) {
+     
+        fillRamBufferYellow();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with yellow data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer every other red
+    else if(strcmp(line_in, "Set Every Other Red") == 0) {
+     
+        fillRamBufferEveryOtherRed();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with stripes of red\n\r");
+        terminalTextAttributesReset();
+        
+    }     
+    
+    
+    // set ram buffer every other blue
+    else if(strcmp(line_in, "Set Every Other Blue") == 0) {
+     
+        fillRamBufferEveryOtherBlue();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with stripes of blue\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer every other green
+    else if(strcmp(line_in, "Set Every Other Green") == 0) {
+     
+        fillRamBufferEveryOtherGreen();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with stripes of green\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer to christmas stripes
+    else if(strcmp(line_in, "Set Christmas Stripes") == 0) {
+     
+        fillRamBufferChristmas();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with christmas stripes\n\r");
+        terminalTextAttributesReset();
+        
+    }    
+    
+    
+    // set ram buffer to RGB pattern
+    else if(strcmp(line_in, "Set RGB Stripes") == 0) {
+     
+        fillRamBufferRGBStripes();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with rgb stripes\n\r");
+        terminalTextAttributesReset();
+        
+    }  
+
+    // set ram buffer to red rows
+    else if(strcmp(line_in, "Set Red Rows") == 0) {
+     
+        fillRamBufferRedRow();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with red rows\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer to red rows
+    else if(strcmp(line_in, "Set NFL Logo") == 0) {
+     
+        fillRamBufferNFL();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with NFL logo\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // slow down multiplexing command
+    else if(strcmp(line_in, "Slow Muxing Speed") == 0) {
+     
+        PR5 = 65535;                      
+        T5CONbits.TCKPS = 0b001;        // set prescale to 2
+        
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("Slowed down the multiplexing speed\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // slow down multiplexing command
+    else if(strcmp(line_in, "Slowest Muxing Speed") == 0) {
+     
+        PR5 = 65535;                      
+        T5CONbits.TCKPS = 0b100;        // set prescale to 16
+
+        
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("Slowed down the multiplexing speed extreme\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // reset multiplexing command
+    else if(strcmp(line_in, "Reset Muxing Speed") == 0) {
+     
+        PR5 = 250;                      
+        T5CONbits.TCKPS = 0b000;        // set prescale to 1
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Reset multiplexing speed\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
     else if (strcmp(line_in, "Error Status?") == 0) {
      
         // Print error handler status
@@ -856,30 +1088,31 @@ void usbUartPrintHelpMessage(void) {
     printf("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     printf("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
     printf("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
-//     printf("    Enable Muxing: enables the multiplexing timer \n\r");
-//     printf("    Disable Muxing: disable the multiplexing timer \n\r");
+    printf("    Enable Muxing: enables the multiplexing timer \n\r");
+    printf("    Disable Muxing: disable the multiplexing timer \n\r");
 
     printf("    Print Test Message: Print out terminal test data\n\r");
     printf("    Credits: Displays creators\n\r");
     printf("    Help: This Command\n\r");
-//    printf("    Set Red: Sets panels red\n\r");
-//    printf("    Set White: Sets panels white\n\r");    
-//    printf("    Set Blue: Sets panels blue\n\r");
-//    printf("    Set Yellow: Sets panels yellow\n\r");
-//    printf("    Set Cyan: Sets panels cyan\n\r");    
-//    printf("    Set Green: Sets panels green\n\r");    
-//    printf("    Set Magenta: Sets panels magenta\n\r");    
+    printf("    Set Red: Sets panels red\n\r");
+    printf("    Set White: Sets panels white\n\r");    
+    printf("    Set Blue: Sets panels blue\n\r");
+    printf("    Set Yellow: Sets panels yellow\n\r");
+    printf("    Set Cyan: Sets panels cyan\n\r");    
+    printf("    Set Green: Sets panels green\n\r");    
+    printf("    Set Magenta: Sets panels magenta\n\r");    
 //    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
-//    printf("    Set Rand: Sets panel to random data\n\r");
-//    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
-//    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
-//    printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
-//    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
-//    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
-//    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
-//    printf("    Slow Muxing Speed: Slows down multiplexing\n\r");
-//    printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
-//    printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
+    printf("    Set NFL Logo: Loads EBI SRAM with data for the NFL logo\n\r");
+    printf("    Set Rand: Sets panel to random data\n\r");
+    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
+    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
+    printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
+    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
+    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
+    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
+    printf("    Slow Muxing Speed: Slows down multiplexing\n\r");
+    printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
+    printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     
      
     printf("Help messages and neutral responses appear in yellow\n\r");
