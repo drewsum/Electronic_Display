@@ -189,8 +189,8 @@ public class PixelsConverter {
             System.arraycopy(pillar0, index*192, allPillars, (index*5) * 192, 192);
             System.arraycopy(pillar1, index*192, allPillars, (index*5 + 1) * 192, 192);
             System.arraycopy(pillar2, index*192, allPillars, (index*5 + 2) * 192, 192);
-            System.arraycopy(pillar2, index*192, allPillars, (index*5 + 3) * 192, 192);
-            System.arraycopy(pillar2, index*192, allPillars, (index*5 + 4) * 192, 192);
+            System.arraycopy(pillar3, index*192, allPillars, (index*5 + 3) * 192, 192);
+            System.arraycopy(pillar4, index*192, allPillars, (index*5 + 4) * 192, 192);
         }
         Log.d("total size: ", "" + allPillars.length);
         return allPillars;

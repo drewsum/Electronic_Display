@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -99,40 +100,61 @@ public class ImageSelectActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             Uri targetUri = data.getData();
             textTargetUri.setText(targetUri.toString());
-            try {
-                PixelsConverter pixelsConverter = new PixelsConverter();
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                // ready = true;
-                int panels_width = 5;
-                int panels_height = 4;
-                scaledBitmap = Bitmap.createScaledBitmap(bitmap,64*panels_width,64*panels_height,true);
-                targetImage.setImageBitmap(scaledBitmap);
-                byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
-                File file = new File("/storage/emulated/0/Download" + "/values.txt");
-                Log.d("Filepath", file.getAbsolutePath());
-                try (PrintWriter out = new PrintWriter(file)) {
-                    for(int h = 0; h < printMe.length; h++) {
-                        String s = String.format("0x%02X, ", printMe[h]);
-                        if(h == printMe.length-1)
-                        {
-                            s = String.format("0x%02X", printMe[h]);
-                        }
-                        if(h % 10 == 0)
-                        {
-                            out.println();
-                        }
-                        out.print(s);
-                    }
-                } catch (IOException io) {
-                    System.out.println(io);
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            convert(targetUri);
         }
+        finish();
     }
 
+    protected void convert(Uri targetUri)
+    {
+        try {
+            PixelsConverter pixelsConverter = new PixelsConverter();
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+            // ready = true;
+            int panels_width = 5;
+            int panels_height = 4;
+            scaledBitmap = Bitmap.createScaledBitmap(bitmap,64*panels_width,64*panels_height,true);
+            targetImage.setImageBitmap(scaledBitmap);
+            byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
+            // store to app storage
+            String filename = "img";
+            FileOutputStream outputStream;
+            Intent framepathData = new Intent();
+            framepathData.putExtra("framepath",filename);
+            setResult(RESULT_OK,framepathData);
+
+            // store to temp file for testing
+            File file = new File("/storage/emulated/0/Download" + "/values.txt");
+            Log.d("Filepath", file.getAbsolutePath());
+            String s = "";
+            try (PrintWriter out = new PrintWriter(file)) {
+                for(int h = 0; h < printMe.length; h++) {
+                    s = String.format("0x%02X, ", printMe[h]);
+                    if(h == printMe.length-1)
+                    {
+                        s = String.format("0x%02X", printMe[h]);
+                    }
+                    if(h % 10 == 0)
+                    {
+                        out.println();
+                    }
+                    out.print(s);
+                }
+            } catch (IOException io) {
+                System.out.println(io);
+            }
+//            try {
+//                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+//                outputStream.write(contents.getBytes());
+//                outputStream.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

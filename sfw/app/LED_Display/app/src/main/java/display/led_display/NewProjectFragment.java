@@ -88,8 +88,14 @@ public class NewProjectFragment extends Fragment {
                 tinyDB.putListString("projectList", projectList);
                 Log.d("projectList", projectList.toString());
 
+                // pass args
+                EditProjectFragment editFrag = new EditProjectFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString( "projectName" , newProjectName);
+                editFrag.setArguments(arguments);
+                // switch to edit project screen
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, new EditProjectFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
             }
         });
         return rootView;

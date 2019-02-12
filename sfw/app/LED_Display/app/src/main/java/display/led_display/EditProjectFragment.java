@@ -10,7 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import display.led_display.helper.TinyDB;
 
 
 /**
@@ -75,19 +80,32 @@ public class EditProjectFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_edit_project, container, false);
+        // Set Project Name being edited
+        Bundle arguments = getArguments();
+        // this only works night now if you nav from new project
+        String projectName = arguments.getString("projectName");
+        // get the frames for that project
+        TinyDB tinyDB = new TinyDB(getContext());
+        final ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
+        // framesList.add("filepath in internal storage");
+        frameCount = framesList.size();
+        ListView listview = rootView.findViewById(R.id.framesList);
+        listview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList.toArray(new String[0])));
+
         Button buttonSelectImage = (Button) rootView.findViewById(R.id.buttonAddFrame);
         buttonSelectImage.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 frameCount++;
-                startActivity(new Intent(getActivity(), ImageSelectActivity.class));
+                startActivityForResult(new Intent(getActivity(), ImageSelectActivity.class), 1);
             }
         });
+        TextView textProjectName = (TextView) rootView.findViewById(R.id.textProjectName);
+        textProjectName.setText("Editing Project: " + projectName);
 
         TextView textFrameCount = (TextView) rootView.findViewById(R.id.textFrameCount);
         textFrameCount.setText(frameCount + "/8");
-        String newProjectName = textFrameCount.getText().toString();
         return rootView;
     }
 
