@@ -59,6 +59,8 @@
 #include "rotary_encoder.h"
 // Miscellaneous Board Control
 #include "misc_board_control.h"
+// Test Buffer Fills
+#include "test_buffer_fills.h"
 
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
@@ -203,6 +205,10 @@ void main(void) {
     nLEVEL_SHIFT_EN_PIN = 0;
     printf("Panel Data Level Shifters Enabled\n\r");
     
+    // Start Timer5
+    panelMultiplexingTimerInitialize();
+    printf("Multiplexing Timer Initialized\n\r");
+ 
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
     printf("\n\rType 'Help' for list of supported commands, press enter twice after reset\n\r\n\r");
@@ -213,6 +219,7 @@ void main(void) {
     
     // Update error LEDs based on error handler status
     updateErrorLEDs();     
+    
     
     // Loop endlessly
     while (true) {

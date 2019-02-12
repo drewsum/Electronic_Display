@@ -339,6 +339,11 @@ void portDGPIOInitialize (void){
     ODCDbits.ODCD12     = ODC_DISABLE;
     RPD12Rbits.RPD12R   = 0b0000;               // Disconnected from peripherals
     
+    // Setup RD13
+    TRISDbits.TRISD13   = TRIS_OUTPUT;
+    LATDbits.LATD13     = LAT_LOW;
+    ODCDbits.ODCD13     = ODC_DISABLE;
+    
     // Setup RD14
     TRISDbits.TRISD14   = TRIS_OUTPUT;
     LATDbits.LATD14     = LAT_LOW;

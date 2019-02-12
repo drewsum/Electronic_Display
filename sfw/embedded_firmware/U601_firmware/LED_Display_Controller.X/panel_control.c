@@ -3,28 +3,24 @@
 
 #include "pin_macros.h"
 #include "panel_control.h"
+#include "external_bus_interface.h"
+#include "32mz_interrupt_control.h"
 
+// This pragma tells the linker to allow access of EBI memory space
+#pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
 
-// Display update variables
-uint8_t current_shift_clock;
-uint8_t current_row;
-uint8_t current_PWM_frame;
-
-// ram buffer index variables
-uint32_t current_shift_clock_index;
-uint32_t current_row_index;
-uint32_t current_PWM_frame_index;
-
+// This is tricking the compiler into placing an array in EBI SRAM
+extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
 
 // Function to handle all multiplexing for panel
-void panelMutliplexingHandler(void) {
+void panelMultiplexingHandler(void) {
     
     // Stop on time timer and reset to 0
- //   DRV_TMR1_Stop();
-//    DRV_TMR1_CounterValueSet(0x00);
+    panelMultiplexingTimerStop();
+    panelMultiplexingTimerClear();
     
     // Disable output
-    nDISPLAY_ENABLE_PIN = 1;
+    nPANEL_OE_PIN = 1;
     
     // Set latch low
     PANEL_LAT_PIN = 0;
@@ -43,21 +39,15 @@ void panelMutliplexingHandler(void) {
         
         // Set red pins from RAM buffer
         current_shift_clock_index = 3 * current_shift_clock;
-        uint8_t redData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
+        uint8_t redData = ebi_sram_array[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
         setPanelRedBus(redData);
         // Set green pins from RAM buffer
-        uint8_t greenData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 1];
+        uint8_t greenData = ebi_sram_array[current_shift_clock_index + current_row_index + current_PWM_frame_index + 1];
         setPanelGreenBus(greenData);
         // Set blue pins from RAM buffer
-        uint8_t blueData = ram_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 2];
+        uint8_t blueData = ebi_sram_array[current_shift_clock_index + current_row_index + current_PWM_frame_index + 2];
         setPanelBlueBus(blueData);
 
-        // Poor man's delay
-//        delay_index = 10;
-//        while (delay_index > 0) {
-//            delay_index--;
-//        };
-        
         // Clock data into panel
         PANEL_CLK_PIN = 1;
         
@@ -79,15 +69,8 @@ void panelMutliplexingHandler(void) {
     PANEL_LAT_PIN = 1;
     
     // Enable pixel output
-    nDISPLAY_ENABLE_PIN = 0;
-        
-//    // Poor man's delay
-//    uint8_t delay_index = 10;
-//    while (delay_index > 0) {
-//        delay_index--;
-//    };
-        
-    
+    nPANEL_OE_PIN = 0;
+            
     // Next function call, update the next row
     current_row++;
     
@@ -113,7 +96,7 @@ void panelMutliplexingHandler(void) {
     current_PWM_frame_index = 12288 * current_PWM_frame;
     
     // Restart on time timer
- //   DRV_TMR1_Start();
+    panelMultiplexingTimerStart();
     
 }
 
@@ -146,6 +129,75 @@ void setPanelRowBus(uint8_t inputByte) {
  
     // ROW bus is defined as RD11:15
     LATD = (LATD & 0x07FF) | ((inputByte & 0x1F) << 11);
+    
+}
+
+// This function initializes Timer5 for panel multiplexing
+void panelMultiplexingTimerInitialize(void) {
+ 
+    // Disable Timer5 interrupt
+    disableInterrupt(Timer5);
+    setInterruptPriority(Timer5, 7);
+    setInterruptSubpriority(Timer5, 3);
+    clearInterruptFlag(Timer5);
+    
+    // Stop timer 5
+    T5CONbits.ON = 0;
+    
+    // Stop timer 5 in idle
+    T5CONbits.SIDL = 1;
+    
+    // Disable gated time accumulation
+    T5CONbits.TGATE = 0;
+    
+    // Set timer 5 prescalar to 1
+    T5CONbits.TCKPS = 0b000;
+    
+    // Set timer clock input as PBCLK3
+    T5CONbits.TCS = 0;
+    
+    // Clear timer 5
+    TMR5 = 0x0000;
+    
+    // Set timer 5 period match to 250
+    PR5 = 250;
+    
+    // Start timer 5
+    T5CONbits.ON = 1;
+    
+    // Enable timer5 interrupt
+    enableInterrupt(Timer5);
+    
+}
+
+// Function for multiplexing timer ISR
+void __ISR(_TIMER_5_VECTOR, IPL7SRS) panelMultiplexingTimerISR(void) {
+    
+    // Do multiplexing tasks
+    panelMultiplexingHandler();
+    
+    clearInterruptFlag(Timer5);
+    
+}
+
+// Start muxing timer function
+void panelMultiplexingTimerStart(void) {
+    
+    T5CONbits.ON = 1;
+    
+}
+
+// Stpo muxing timer function
+void panelMultiplexingTimerStop(void) {
+    
+    T5CONbits.ON = 0;
+    
+}
+
+// Clear muxing timer function
+void panelMultiplexingTimerClear(void) {
+    
+    TMR5 = 0;
     
 }
 

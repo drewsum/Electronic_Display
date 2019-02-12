@@ -77,6 +77,7 @@
 // Port J Pin Macros
 #define PANEL_CLK_PIN               LATJbits.LATJ0
 #define PANEL_LAT_PIN               LATJbits.LATJ1
+#define nPANEL_OE_PIN               LATJbits.LATJ2
 
 // Port K Pin Macros
 #define nDISPLAY_ENABLE_PIN         PORTKbits.RK4
