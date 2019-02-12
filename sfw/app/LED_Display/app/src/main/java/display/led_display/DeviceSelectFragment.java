@@ -85,10 +85,10 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
         ArrayList<String> deviceList = tinyDB.getListString("deviceList");
         Log.d("projectList", deviceList.toString());
         ListView projectListview = rootView.findViewById(R.id.projectList);
-        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList.toArray(new String[0])));
+        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "frameList"));
         // populate physical boards list
         ListView boardListview = rootView.findViewById(R.id.deviceList);
-        boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList.toArray(new String[0])));
+        boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
         Button buttonSelectDevice = (Button) rootView.findViewById(R.id.buttonDeviceSelect);
         buttonSelectDevice.setOnClickListener(new Button.OnClickListener() {
 

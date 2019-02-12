@@ -76,11 +76,13 @@ public class ProjectSelectFragment extends Fragment {
         final TinyDB tinyDB = new TinyDB(getContext());
         ArrayList<String> projectList = tinyDB.getListString("projectList");
         Log.d("projectList", projectList.toString());
+        Log.d("here", "made it here");
         final ListView projectListview = (ListView) rootView.findViewById(R.id.projectList);
-        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList.toArray(new String[0])));
+        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "projectList"));
         projectListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("clickEvent", "item selected");
                 String selectedProject = projectListview.getItemAtPosition(i).toString();
                 EditProjectFragment editFrag = new EditProjectFragment();
                 Bundle arguments = new Bundle();

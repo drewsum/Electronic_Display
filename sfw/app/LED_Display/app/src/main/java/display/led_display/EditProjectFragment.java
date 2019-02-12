@@ -90,7 +90,7 @@ public class EditProjectFragment extends Fragment implements View.OnClickListene
         // framesList.add("filepath in internal storage");
         frameCount = framesList.size();
         ListView listview = rootView.findViewById(R.id.framesList);
-        listview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList.toArray(new String[0])));
+        listview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
 
         Button buttonSelectImage = (Button) rootView.findViewById(R.id.buttonAddFrame);
         buttonSelectImage.setOnClickListener(new Button.OnClickListener() {
