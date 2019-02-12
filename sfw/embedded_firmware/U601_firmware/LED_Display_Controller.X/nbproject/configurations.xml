@@ -29,6 +29,9 @@
         <itemPath>watchdog_timer.h</itemPath>
         <itemPath>prefetch.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3" displayName="Flash_Images" projectFiles="true">
+        <itemPath>nfl_logo.h</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -59,6 +62,9 @@
         <itemPath>32mz_interrupt_control.c</itemPath>
         <itemPath>watchdog_timer.c</itemPath>
         <itemPath>prefetch.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="Flash_Images" projectFiles="true">
+        <itemPath>nfl_logo.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>

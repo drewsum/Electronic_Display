@@ -218,7 +218,7 @@ void main(void) {
     deviceLock();
     
     // Update error LEDs based on error handler status
-    updateErrorLEDs();     
+    updateErrorLEDs(); 
     
     
     // Loop endlessly

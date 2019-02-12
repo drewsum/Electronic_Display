@@ -21,6 +21,8 @@
 #include "panel_control.h"
 #include "test_buffer_fills.h"
 
+#include "nfl_logo.h"
+
 volatile uint64_t usb_uart_TxHead = 0;
 volatile uint64_t usb_uart_TxTail = 0;
 volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
@@ -666,6 +668,85 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    // set ram buffer every other red
+    else if(strcmp(line_in, "Set Every Other Red") == 0) {
+     
+        fillRamBufferEveryOtherRed();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with stripes of red\n\r");
+        terminalTextAttributesReset();
+        
+    }     
+    
+    
+    // set ram buffer every other blue
+    else if(strcmp(line_in, "Set Every Other Blue") == 0) {
+     
+        fillRamBufferEveryOtherBlue();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with stripes of blue\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer every other green
+    else if(strcmp(line_in, "Set Every Other Green") == 0) {
+     
+        fillRamBufferEveryOtherGreen();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with stripes of green\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer to christmas stripes
+    else if(strcmp(line_in, "Set Christmas Stripes") == 0) {
+     
+        fillRamBufferChristmas();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with christmas stripes\n\r");
+        terminalTextAttributesReset();
+        
+    }    
+    
+    
+    // set ram buffer to RGB pattern
+    else if(strcmp(line_in, "Set RGB Stripes") == 0) {
+     
+        fillRamBufferRGBStripes();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with rgb stripes\n\r");
+        terminalTextAttributesReset();
+        
+    }  
+
+    // set ram buffer to red rows
+    else if(strcmp(line_in, "Set Red Rows") == 0) {
+     
+        fillRamBufferRedRow();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with red rows\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer to red rows
+    else if(strcmp(line_in, "Set NFL Logo") == 0) {
+     
+        fillRamBufferNFL();
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with NFL logo\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
     // slow down multiplexing command
     else if(strcmp(line_in, "Slow Muxing Speed") == 0) {
      
@@ -1007,8 +1088,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     printf("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
     printf("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
-     printf("    Enable Muxing: enables the multiplexing timer \n\r");
-     printf("    Disable Muxing: disable the multiplexing timer \n\r");
+    printf("    Enable Muxing: enables the multiplexing timer \n\r");
+    printf("    Disable Muxing: disable the multiplexing timer \n\r");
 
     printf("    Print Test Message: Print out terminal test data\n\r");
     printf("    Credits: Displays creators\n\r");
@@ -1021,13 +1102,14 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Green: Sets panels green\n\r");    
     printf("    Set Magenta: Sets panels magenta\n\r");    
 //    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
+    printf("    Set NFL Logo: Loads EBI SRAM with data for the NFL logo\n\r");
     printf("    Set Rand: Sets panel to random data\n\r");
-//    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
-//    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
-//    printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
-//    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
-//    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
-//    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
+    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
+    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
+    printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
+    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
+    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
+    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
     printf("    Slow Muxing Speed: Slows down multiplexing\n\r");
     printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
     printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
