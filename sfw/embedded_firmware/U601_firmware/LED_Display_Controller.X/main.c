@@ -65,9 +65,11 @@
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
 
-// Cause of Device Reset
+// Cause of Device Reset global variable
 reset_cause_t reset_cause;
 
+// EBI init needs to be called before data initialization because EBI SRAM array
+// will be initialized before entrance into main();
 void _on_reset (void) {
  
     ebiInitialize();
@@ -211,6 +213,7 @@ void main(void) {
  
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
+    printf("\n\rUSB Debug messages may appear broken when panel multiplexing is enabled\n\r");
     printf("\n\rType 'Help' for list of supported commands, press enter twice after reset\n\r\n\r");
     terminalTextAttributesReset();
     

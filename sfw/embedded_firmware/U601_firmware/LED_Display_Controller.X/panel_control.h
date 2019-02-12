@@ -57,6 +57,8 @@ void panelMultiplexingTimerClear(void);
 // Function for multiplexing timer ISR
 void __ISR(_TIMER_5_VECTOR, IPL6SRS) panelMultiplexingTimerISR(void);
 
+// This function stops multiplexing and clears all control signals
+void panelMultiplexingSuspend(void);
 
 #endif /* _PANEL_CONTROL_H */
 

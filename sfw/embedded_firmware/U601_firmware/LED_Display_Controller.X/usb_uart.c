@@ -562,20 +562,23 @@ void usbUartRingBufferLUT(char * line_in) {
         // Disable multiplexing timer
         panelMultiplexingTimerStart();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Multiplexing Enabled\n\r");
+        printf("Panel multiplexing Enabled\n\r");
         terminalTextAttributesReset();
         
     }
     
     // disable multiplexing
     else if(strcmp(line_in, "Disable Muxing") == 0) {
-     
-        // Disable multiplexing timer
-        panelMultiplexingTimerStop();
+    
+        // Suspend panel multiplexing, clear all panel IO signals
+        panelMultiplexingSuspend();
         
+        
+        terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("Multiplexing Disabled\n\r");
+        printf("Panel multiplexing Disabled\n\r");
         terminalTextAttributesReset();
         
     }
@@ -585,6 +588,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferWhite();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with white data\n\r");
         terminalTextAttributesReset();
@@ -596,6 +600,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferRed();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with red data\n\r");
         terminalTextAttributesReset();
@@ -607,6 +612,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferBlue();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with blue data\n\r");
         terminalTextAttributesReset();
@@ -618,6 +624,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferGreen();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with green data\n\r");
         terminalTextAttributesReset();
@@ -629,6 +636,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferCyan();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with cyan data\n\r");
         terminalTextAttributesReset();
@@ -640,6 +648,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferRand();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with random data\n\r");
         terminalTextAttributesReset();
@@ -651,6 +660,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferMagenta();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with magenta data\n\r");
         terminalTextAttributesReset();
@@ -662,6 +672,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferYellow();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with yellow data\n\r");
         terminalTextAttributesReset();
@@ -673,6 +684,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferEveryOtherRed();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with stripes of red\n\r");
         terminalTextAttributesReset();
@@ -685,6 +697,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferEveryOtherBlue();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with stripes of blue\n\r");
         terminalTextAttributesReset();
@@ -696,6 +709,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferEveryOtherGreen();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with stripes of green\n\r");
         terminalTextAttributesReset();
@@ -707,6 +721,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferChristmas();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with christmas stripes\n\r");
         terminalTextAttributesReset();
@@ -719,6 +734,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferRGBStripes();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with rgb stripes\n\r");
         terminalTextAttributesReset();
@@ -730,6 +746,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferRedRow();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with red rows\n\r");
         terminalTextAttributesReset();
@@ -741,6 +758,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferNFL();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with NFL logo\n\r");
         terminalTextAttributesReset();
@@ -753,6 +771,7 @@ void usbUartRingBufferLUT(char * line_in) {
         PR5 = 65535;                      
         T5CONbits.TCKPS = 0b001;        // set prescale to 2
         
+        terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);
         printf("Slowed down the multiplexing speed\n\r");
         terminalTextAttributesReset();
@@ -765,7 +784,7 @@ void usbUartRingBufferLUT(char * line_in) {
         PR5 = 65535;                      
         T5CONbits.TCKPS = 0b100;        // set prescale to 16
 
-        
+        terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);
         printf("Slowed down the multiplexing speed extreme\n\r");
         terminalTextAttributesReset();
@@ -778,6 +797,7 @@ void usbUartRingBufferLUT(char * line_in) {
         PR5 = 250;                      
         T5CONbits.TCKPS = 0b000;        // set prescale to 1
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Reset multiplexing speed\n\r");
         terminalTextAttributesReset();
@@ -816,7 +836,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("PIC32MZ Serial Number retrieved from Flash: 0x%X%X\n\r",
+        printf("PIC32MZ Serial Number retrieved from Flash: %s\n\r",
                 getStringSerialNumber());
         terminalTextAttributesReset();
         
@@ -1005,9 +1025,7 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("POS5 RUN Asserted\n\r");
         terminalTextAttributesReset();
-        
-        printf("%d\n\r", PORTFbits.RF2);
-        
+              
     }
     
     else if (strcmp(line_in, "POS5 Disable") == 0) {
@@ -1018,8 +1036,6 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributes(RED, BLACK, NORMAL);
         printf("POS5 RUN Deasserted\n\r");
         terminalTextAttributesReset();
-        
-        printf("%d\n\r", PORTFbits.RF2);
         
     }
     
@@ -1068,7 +1084,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
     printf("    Prefetch Status?: Prints the status of the predictive prefetch module\n\r");
     printf("    EBI Status?: Prints status of EBI configuration\r\n");
-    printf("    Test EBISRAM: Tests writing to and reading from external EBI SRAM\n\r");
+    printf("    Test EBI SRAM: Tests writing to and reading from external EBI SRAM\n\r");
     printf("    Print EBI SRAM Contents: Prints the data saved in EBI SRAM\n\r");
     printf("    Clear EBI SRAM: Resets all bytes within EBI SRAM to 0x00\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
@@ -1090,20 +1106,19 @@ void usbUartPrintHelpMessage(void) {
     printf("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
     printf("    Enable Muxing: enables the multiplexing timer \n\r");
     printf("    Disable Muxing: disable the multiplexing timer \n\r");
-
     printf("    Print Test Message: Print out terminal test data\n\r");
     printf("    Credits: Displays creators\n\r");
     printf("    Help: This Command\n\r");
-    printf("    Set Red: Sets panels red\n\r");
-    printf("    Set White: Sets panels white\n\r");    
-    printf("    Set Blue: Sets panels blue\n\r");
-    printf("    Set Yellow: Sets panels yellow\n\r");
-    printf("    Set Cyan: Sets panels cyan\n\r");    
-    printf("    Set Green: Sets panels green\n\r");    
-    printf("    Set Magenta: Sets panels magenta\n\r");    
+    printf("    Set Red: Sets all pixels in display red\n\r");
+    printf("    Set White: Sets all pixels in display white\n\r");    
+    printf("    Set Blue: Sets all pixels in display blue\n\r");
+    printf("    Set Yellow: Sets all pixels in display yellow\n\r");
+    printf("    Set Cyan: Sets all pixels in display cyan\n\r");    
+    printf("    Set Green: Sets all pixels in display green\n\r");    
+    printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
 //    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
     printf("    Set NFL Logo: Loads EBI SRAM with data for the NFL logo\n\r");
-    printf("    Set Rand: Sets panel to random data\n\r");
+    printf("    Set Rand: Sets pixels to display random data\n\r");
     printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
     printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
     printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
@@ -1114,7 +1129,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
     printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     
-     
+    
+    printf("\n\rUSB Debug messages may appear broken when panel multiplexing is enabled\n\r");
     printf("Help messages and neutral responses appear in yellow\n\r");
     terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("System parameters and affirmative responses appear in green\n\r");
