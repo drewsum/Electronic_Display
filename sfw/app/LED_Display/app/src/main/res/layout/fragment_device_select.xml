@@ -1,55 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DeviceSelectFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="128dp"
-        android:layout_height="27dp"
-        android:text="Add New Device"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="288dp" />
+        android:id="@+id/textSelectDevice"
+        android:layout_width="122dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="8dp"
+        android:text="Select Device:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNewProject"
+        app:layout_constraintBottom_toTopOf="@+id/deviceList" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_add_device"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="288dp"
-        android:contentDescription="TODO" />
+    <ListView
+        android:id="@+id/projectList"
+        android:layout_width="327dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:choiceMode="singleChoice"
+        app:layout_constraintBottom_toTopOf="@+id/buttonNewProject"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSelectProject"
+        app:layout_constraintVertical_bias="0.954" />
 
     <Button
         android:id="@+id/buttonDeviceSelect"
-        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connect to new Device" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Connect to new Device"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deviceList"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUpload" />
+
+    <Button
+        android:id="@+id/buttonNewProject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="Create New Project"
+        app:layout_constraintBottom_toTopOf="@+id/textSelectDevice"
+        app:layout_constraintTop_toBottomOf="@+id/projectList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonUpload"
-        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload Project" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:text="Upload Project"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDeviceSelect"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_gravity="bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Project:" />
+        android:id="@+id/textSelectProject"
+        android:layout_width="124dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:text="Select Project:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/projectList"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_gravity="bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Device:" />
+    <ListView
+        android:id="@+id/deviceList"
+        android:layout_width="331dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:choiceMode="singleChoice"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDeviceSelect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSelectDevice"
+        app:layout_constraintVertical_bias="0.432" />
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

@@ -9,8 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -20,12 +20,12 @@ import display.led_display.helper.TinyDB;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewProjectFragment.OnFragmentInteractionListener} interface
+ * {@link ProjectSelectFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewProjectFragment#newInstance} factory method to
+ * Use the {@link ProjectSelectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewProjectFragment extends Fragment {
+public class ProjectSelectFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +37,7 @@ public class NewProjectFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public NewProjectFragment() {
+    public ProjectSelectFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +47,11 @@ public class NewProjectFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment EditProjectFragment.
+     * @return A new instance of fragment ProjectSelectFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewProjectFragment newInstance(String param1, String param2) {
-        NewProjectFragment fragment = new NewProjectFragment();
+    public static ProjectSelectFragment newInstance(String param1, String param2) {
+        ProjectSelectFragment fragment = new ProjectSelectFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,26 +72,21 @@ public class NewProjectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.fragment_new_project, container, false);
-
-        Button buttonCreateProject = (Button) rootView.findViewById(R.id.buttonCreateProject);
-        buttonCreateProject.setOnClickListener(new Button.OnClickListener() {
-
+        final View rootView = inflater.inflate(R.layout.fragment_project_select, container, false);
+        final TinyDB tinyDB = new TinyDB(getContext());
+        ArrayList<String> projectList = tinyDB.getListString("projectList");
+        Log.d("projectList", projectList.toString());
+        Log.d("here", "made it here");
+        final ListView projectListview = (ListView) rootView.findViewById(R.id.projectList);
+        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "projectList"));
+        projectListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                EditText inputProjectName = (EditText) rootView.findViewById(R.id.inputProjectName);
-                String newProjectName = inputProjectName.getText().toString();
-                TinyDB tinyDB = new TinyDB(getContext());
-                ArrayList<String> projectList = tinyDB.getListString("projectList");
-                projectList.add(newProjectName);
-                tinyDB.putListString("projectList", projectList);
-                Log.d("projectList", projectList.toString());
-
-                // pass args
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("clickEvent", "item selected");
+                String selectedProject = projectListview.getItemAtPosition(i).toString();
                 EditProjectFragment editFrag = new EditProjectFragment();
                 Bundle arguments = new Bundle();
-                arguments.putString( "projectName" , newProjectName);
+                arguments.putString( "projectName" , selectedProject);
                 editFrag.setArguments(arguments);
                 // switch to edit project screen
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

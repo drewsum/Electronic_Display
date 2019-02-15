@@ -6,10 +6,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import display.led_display.helper.TinyDB;
 
 
 /**
@@ -61,6 +68,10 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+//        MenuActivity parent = (MenuActivity)this.getActivity().getParent();
+//        Project[] projectList = parent.database.projectDao.loadAll();
+//        Log.d("projects: ", "" + projectList[0].getProjectName());
+
     }
 
     @Override
@@ -68,6 +79,16 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_device_select, container, false);
+        TinyDB tinyDB = new TinyDB(getContext());
+        ArrayList<String> projectList = tinyDB.getListString("projectList");
+        Log.d("projectList", projectList.toString());
+        ArrayList<String> deviceList = tinyDB.getListString("deviceList");
+        Log.d("projectList", deviceList.toString());
+        ListView projectListview = rootView.findViewById(R.id.projectList);
+        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "frameList"));
+        // populate physical boards list
+        ListView boardListview = rootView.findViewById(R.id.deviceList);
+        boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
         Button buttonSelectDevice = (Button) rootView.findViewById(R.id.buttonDeviceSelect);
         buttonSelectDevice.setOnClickListener(new Button.OnClickListener() {
 
@@ -76,6 +97,18 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), WiFiActivity.class));
             }
         });
+
+        Button buttonNewProject = (Button) rootView.findViewById(R.id.buttonNewProject);
+        buttonNewProject.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, new NewProjectFragment()).commit();
+            }
+        });
+
         return rootView;
     }
 
