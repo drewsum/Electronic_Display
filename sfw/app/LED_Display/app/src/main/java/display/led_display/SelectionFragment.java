@@ -1,32 +1,31 @@
 package display.led_display;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import java.io.File;
+import java.util.ArrayList;
+
+import display.led_display.helper.TinyDB;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ProjectPreviewFragment.OnFragmentInteractionListener} interface
+ * {@link SelectionFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ProjectPreviewFragment#newInstance} factory method to
+ * Use the {@link SelectionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectPreviewFragment extends Fragment {
+public class SelectionFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,7 +37,7 @@ public class ProjectPreviewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ProjectPreviewFragment() {
+    public SelectionFragment() {
         // Required empty public constructor
     }
 
@@ -48,11 +47,11 @@ public class ProjectPreviewFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProjectPreviewFragment.
+     * @return A new instance of fragment SelectionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProjectPreviewFragment newInstance(String param1, String param2) {
-        ProjectPreviewFragment fragment = new ProjectPreviewFragment();
+    public static SelectionFragment newInstance(String param1, String param2) {
+        SelectionFragment fragment = new SelectionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,30 +71,47 @@ public class ProjectPreviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_project_preview, container, false);
         // Inflate the layout for this fragment
         Bundle arguments = getArguments();
-        // this only works night now if you nav from new project
-        String projectName = arguments.getString("projectName");
-        TextView textDisplayingProject = (TextView) rootView.findViewById(R.id.textDisplayingProject);
-        textDisplayingProject.setText("Preview Project: " + projectName);
-
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
-        final ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.setMessage("parse image bitmap...");
-        dialog.show();
-        try {
-            imagePreview.setImageBitmap(display.led_display.helper.FileConverter.fileToBitmap(new File("/storage/emulated/0/Download" + "/values.txt")));
-        } catch (Throwable throwable) {
-            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.marquette));
+        String selectionType = arguments.getString("selectionType");
+        final String fragmentReturn = arguments.getString("fragmentReturn");
+        final View rootView = inflater.inflate(R.layout.fragment_selection, container, false);
+        final TinyDB tinyDB = new TinyDB(getContext());
+        final ListView contentListview = (ListView) rootView.findViewById(R.id.contentList);
+        ArrayList<String> contentList = new ArrayList<String>();
+        if (selectionType == "project") {
+            contentList = tinyDB.getListString("projectList");
+        } else if (selectionType == "device") {
+            contentList = tinyDB.getListString("deviceList");
         }
-        dialog.dismiss();
+        contentListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), contentList, selectionType + "List"));
+        contentListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("clickEvent", "item selected");
+                String selectedItem = contentListview.getItemAtPosition(i).toString();
+                Bundle arguments = new Bundle();
+                if (fragmentReturn == "edit") {
+                    EditProjectFragment editFrag = new EditProjectFragment();
+                    arguments.putString( "projectName" , selectedItem);
+                    editFrag.setArguments(arguments);
+                    // switch to edit project screen
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
+                } else if (fragmentReturn == "preview") {
+                    ProjectPreviewFragment previewFrag = new ProjectPreviewFragment();
+                    arguments.putString("projectName", selectedItem);
+                    previewFrag.setArguments(arguments);
+                    // switch to project preview screen
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.flContent, previewFrag).commit();
+                } else if (fragmentReturn == "upload") {
+                    // can select device or project from upload
+
+                }
+            }
+        });
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

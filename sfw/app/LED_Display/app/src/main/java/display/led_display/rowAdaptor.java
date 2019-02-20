@@ -56,9 +56,8 @@ public class rowAdaptor extends BaseAdapter {
         final View finView = vi;
         TextView text = (TextView) vi.findViewById(R.id.text);
         text.setText(data.get(position));
-
         Button buttonDelete = (Button) vi.findViewById(R.id.buttonDelete);
-
+        buttonDelete.setFocusable(false);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
