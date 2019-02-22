@@ -146,14 +146,16 @@ void printPMDStatus(void) {
     printf("   Comparator Voltage Reference Enabled:     %s\n\r", PMD1bits.CVRMD ? "F" : "T");
     
     // Comparators
-    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    if (PMD2bits.CMP1MD) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("   Comparator 1 Enabled:                     %s\n\r", PMD2bits.CMP1MD ? "F" : "T");
     if (PMD2bits.CMP2MD) terminalTextAttributes(RED, BLACK, REVERSE);
     else terminalTextAttributes(GREEN, BLACK, REVERSE);
     printf("   Comparator 2 Enabled:                     %s\n\r", PMD2bits.CMP2MD ? "F" : "T");
     
     // Input Capture Modules:
-    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    if (PMD3bits.IC1MD) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("   Input Capture 1 Enabled:                  %s\n\r", PMD3bits.IC1MD ? "F" : "T");
     if (PMD3bits.IC2MD) terminalTextAttributes(RED, BLACK, REVERSE);
     else terminalTextAttributes(GREEN, BLACK, REVERSE);

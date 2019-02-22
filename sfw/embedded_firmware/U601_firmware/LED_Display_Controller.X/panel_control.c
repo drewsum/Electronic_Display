@@ -187,7 +187,7 @@ void panelMultiplexingTimerStart(void) {
     
 }
 
-// Stpo muxing timer function
+// Stop muxing timer function
 void panelMultiplexingTimerStop(void) {
     
     T5CONbits.ON = 0;
@@ -201,3 +201,23 @@ void panelMultiplexingTimerClear(void) {
     
 }
 
+
+// This function stops multiplexing and clears all control signals
+void panelMultiplexingSuspend(void) {
+    
+    // Stop muxing timer
+    T5CONbits.ON = 0;
+    
+    // Clear muxing timer
+    TMR5 = 0;
+    
+    // Clear all control signals
+    setPanelRedBus(0);
+    setPanelGreenBus(0);
+    setPanelBlueBus(0);
+    setPanelRowBus(0);
+    
+    // Clear output enable
+    nPANEL_OE_PIN = 1;
+    
+}
