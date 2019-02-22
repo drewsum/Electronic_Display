@@ -1201,7 +1201,6 @@ void usbUartPrintHelpMessage(void) {
     printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     
     
-    printf("\n\rUSB Debug messages may appear broken when panel multiplexing is enabled\n\r");
     printf("Help messages and neutral responses appear in yellow\n\r");
     terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("System parameters and affirmative responses appear in green\n\r");
