@@ -8,6 +8,9 @@
 // fill ram buffer with NFL logo function
 void fillRamBufferNFL(void) {
  
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     uint32_t address_index;
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
@@ -15,5 +18,8 @@ void fillRamBufferNFL(void) {
         ebi_sram_array[address_index] = nfl_array[address_index];
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
     
 }

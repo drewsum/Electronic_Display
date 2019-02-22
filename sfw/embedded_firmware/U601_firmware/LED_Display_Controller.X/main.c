@@ -177,6 +177,7 @@ void main(void) {
             terminalTextAttributes(RED, BLACK, NORMAL);
             printf("EBI SRAM Initialized, but R/W self test failed\n\r");
             terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
         
         }
         
@@ -190,10 +191,6 @@ void main(void) {
     // Initialize SPI
 //    spiFlashInit();
 //    printf("SPI Flash Initialized\n\r");
-    
-    // Initialize Analog to Digital Converter
-//    ADCInitialize();
-//    printf("ADC Initialized\n\r");
 
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
@@ -209,11 +206,10 @@ void main(void) {
     
     // Start Timer5
     panelMultiplexingTimerInitialize();
-    printf("Multiplexing Timer Initialized\n\r");
+    printf("Panel Multiplexing Timer Initialized, Multiplexing Started\n\r");
  
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
-    printf("\n\rUSB Debug messages may appear broken when panel multiplexing is enabled\n\r");
     printf("\n\rType 'Help' for list of supported commands, press enter twice after reset\n\r\n\r");
     terminalTextAttributesReset();
     
