@@ -40,8 +40,8 @@ void ADCInitialize(void) {
     adc_results.POS5P_adc_min = 30.0;
     adc_results.POS5_adc_max = 0.0;
     adc_results.POS5_adc_min = 30.0;
-    adc_results.die_temp_adc_max = 160.0;
-    adc_results.die_temp_adc_min = -40.0;
+    adc_results.die_temp_adc_max = -40.0;
+    adc_results.die_temp_adc_min = 160.0;
     
     // Setup ADC Analog Circuits Ready Interrupt
     disableInterrupt(ADC_Analog_Circuits_Ready);
@@ -277,6 +277,8 @@ void __ISR(_ADC7_WARM_VECTOR, IPL4SRS) ADC7WarmISR(void) {
     enableInterrupt(ADC_Data_40);
     enableInterrupt(ADC_Data_41);
     enableInterrupt(ADC_Data_42);
+    enableInterrupt(ADC_Data_43);
+    enableInterrupt(ADC_Data_44);
     
     // Enable ADC end of scan interrupt
     enableInterrupt(ADC_End_Of_Scan_Ready);
@@ -394,7 +396,7 @@ void __ISR(_ADC_DATA44_VECTOR, IPL1SRS) DieTempADCISR(void) {
     if (ADCDSTAT2bits.ARDY44) {
      
         // Copy conversion result into results structure
-        adc_results.die_temp_adc = ADCDATA44;
+        adc_results.die_temp_adc_raw = ADCDATA44;
         
     }
 
@@ -427,7 +429,7 @@ void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void) {
             adc_results.POS5_adc    = (double) adc_results.POS5_adc_raw * ADC_VOLTS_PER_LSB * POS5_ADC_GAIN * POS5_ADC_CAL * adc_cal_gain;
             adc_results.POS5P_adc   = (double) adc_results.POS5P_adc_raw * ADC_VOLTS_PER_LSB * POS5P_ADC_GAIN * POS5P_ADC_CAL * adc_cal_gain;
             adc_results.POS5P5_adc  = (double) adc_results.POS5P5_adc_raw * ADC_VOLTS_PER_LSB * POS5P5_ADC_GAIN * POS5P5_ADC_CAL * adc_cal_gain;
-            adc_results.die_temp_adc = (double) (adc_results.vref_adc_raw * ADC_VOLTS_PER_LSB - 0.7) / 0.005;
+            adc_results.die_temp_adc = (double) ((adc_results.die_temp_adc_raw * ADC_VOLTS_PER_LSB * adc_cal_gain) - 0.7) / 0.005;
 
         }
         

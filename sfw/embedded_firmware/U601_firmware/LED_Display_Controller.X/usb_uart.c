@@ -216,6 +216,7 @@ void usbUartPutchar(uint8_t txData) {
     if(0 == getInterruptEnable(UART3_Transfer_Done))
     {
         U3TXREG = txData;
+        panelMultiplexingSuspend();
    
     }
     else
@@ -254,6 +255,7 @@ void usbUartTransmitHandler(void) {
     else
     {
         disableInterrupt(UART3_Transfer_Done);
+        panelMultiplexingTimerStart();
         
     }
     

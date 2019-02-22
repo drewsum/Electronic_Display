@@ -13,6 +13,9 @@ extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
 // fill ram buffer with all white pixels
 void fillRamBufferWhite(void) {
  
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     unsigned int address_index;
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
@@ -21,11 +24,17 @@ void fillRamBufferWhite(void) {
         
     }
     
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 // fill ram buffer with random data
 void fillRamBufferRand(void) {
  
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     unsigned int address_index;
     
     srand(10);
@@ -36,11 +45,17 @@ void fillRamBufferRand(void) {
         
     }
     
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 // fill ram buffer with all red
 void fillRamBufferRed(void) {
 
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     unsigned int address_index;
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
@@ -58,12 +73,18 @@ void fillRamBufferRed(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
 
 }
 
 // fill ram buffer with all green
 void fillRamBufferGreen(void) {
 
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     unsigned int address_index;
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
@@ -81,12 +102,18 @@ void fillRamBufferGreen(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
 
 }
 
 // fill ram buffer with all blue
 void fillRamBufferBlue(void) {
 
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     unsigned int address_index;
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
@@ -104,12 +131,18 @@ void fillRamBufferBlue(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
 
 }
 
 // fill ram buffer with all yellow
 void fillRamBufferYellow(void) {
 
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     unsigned int address_index;
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
@@ -133,12 +166,18 @@ void fillRamBufferYellow(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
 
 }
 
 // fill ram buffer with all cyan
 void fillRamBufferCyan(void) {
  
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     unsigned int address_index;
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
@@ -163,11 +202,17 @@ void fillRamBufferCyan(void) {
         
     }
     
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 // fill ram buffer with all magenta
 void fillRamBufferMagenta(void) {
  
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     unsigned int address_index;
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
@@ -192,11 +237,17 @@ void fillRamBufferMagenta(void) {
         
     }
     
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 
 // fill ram buffer with every other red
 void fillRamBufferEveryOtherRed(void) {
+    
+    // Stop multiplexing
+    panelMultiplexingSuspend();
     
     unsigned int address_index;
     
@@ -215,10 +266,17 @@ void fillRamBufferEveryOtherRed(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 // fill ram buffer with every other blue
 void fillRamBufferEveryOtherBlue(void) {
+    
+    // Stop multiplexing
+    panelMultiplexingSuspend();
     
     unsigned int address_index;
     
@@ -238,10 +296,16 @@ void fillRamBufferEveryOtherBlue(void) {
         
     }
     
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 // fill ram buffer with every other green
 void fillRamBufferEveryOtherGreen(void) {
+    
+    // Stop multiplexing
+    panelMultiplexingSuspend();
     
     unsigned int address_index;
     
@@ -260,11 +324,18 @@ void fillRamBufferEveryOtherGreen(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 
 // fill ram buffer with christmas stripes
 void fillRamBufferChristmas(void) {
+    
+    // Stop multiplexing
+    panelMultiplexingSuspend();
     
     unsigned int address_index;
     
@@ -289,10 +360,17 @@ void fillRamBufferChristmas(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 // fill ram buffer with rgb stripes
 void fillRamBufferRGBStripes(void) {
+    
+    // Stop multiplexing
+    panelMultiplexingSuspend();
     
     unsigned int address_index;
     
@@ -323,11 +401,18 @@ void fillRamBufferRGBStripes(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
 }
 
 // fill ram buffer with red rows
 void fillRamBufferRedRow(void) {
 
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     uint8_t set_flag = 1;
     
     unsigned int address_index;
@@ -363,5 +448,8 @@ void fillRamBufferRedRow(void) {
         }
         
     }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
 
 }
