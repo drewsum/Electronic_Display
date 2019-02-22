@@ -920,6 +920,8 @@ void usbUartRingBufferLUT(char * line_in) {
         printf("    +5.5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P5_adc_raw);
         printf("    +5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5_adc_raw);
         printf("    +5VP Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P_adc_raw);
+        printf("    Internal VREF Raw ADC Conversion Result: 0x%08X\n\r", adc_results.vref_adc_raw);
+        printf("    Internal Die Temperature Raw ADC Conversion Result: 0x%08X\n\r", adc_results.die_temp_adc_raw);
         terminalTextAttributesReset();
         
     }
@@ -940,11 +942,13 @@ void usbUartRingBufferLUT(char * line_in) {
             terminalTextAttributesReset();
             terminalTextAttributes(CYAN, BLACK, NORMAL);
             printf("Most recent ADC conversion results:\n\r");
-            printf("    +12V Input Voltage Measurement: %0.3f V\n\r", adc_results.POS12_adc);
-            printf("    +3.3V Power Supply Measurement: %0.3f V\n\r", adc_results.POS3P3_adc);
-            printf("    +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc);
-            printf("    +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc);
-            printf("    +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc);
+            printf("    +12V Input Voltage Measurement: %+0.3f V\n\r", adc_results.POS12_adc);
+            printf("    +3.3V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS3P3_adc);
+            printf("    +5V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5_adc);
+            printf("    +5.5V Linear Regulator Measurement: %+0.3f V\n\r", adc_results.POS5P5_adc);
+            printf("    +5VP LED Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5P_adc);
+            printf("    Internal VREF ADC Conversion Result: %+0.3f V\n\r", adc_results.vref_adc);
+            printf("    Internal Die Temperature ADC Conversion Result: %+0.3f C\n\r", adc_results.die_temp_adc);
             terminalTextAttributesReset();
 
         }
@@ -972,6 +976,7 @@ void usbUartRingBufferLUT(char * line_in) {
             printf("    Max +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc_max);
             printf("    Max +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc_max);
             printf("    Max +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc_max);
+            printf("    Max Internal Die Temperature ADC Conversion Result: %+0.3f C\n\r", adc_results.die_temp_adc_max);
             terminalTextAttributesReset();
 
         }
@@ -999,10 +1004,17 @@ void usbUartRingBufferLUT(char * line_in) {
             printf("    Min +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc_min);
             printf("    Min +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc_min);
             printf("    Min +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc_min);
+            printf("    Min Internal Die Temperature ADC Conversion Result: %+0.3f C\n\r", adc_results.die_temp_adc_min);
             terminalTextAttributesReset();
 
         }
             
+    }
+    
+    else if (strcmp(line_in, "Initialize ADC") == 0) {
+     
+        ADCInitialize();
+        
     }
     
     else if (strcmp(line_in, "ADC Status?") == 0) {

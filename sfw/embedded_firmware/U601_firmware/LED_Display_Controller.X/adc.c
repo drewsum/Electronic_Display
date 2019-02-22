@@ -40,6 +40,8 @@ void ADCInitialize(void) {
     adc_results.POS5P_adc_min = 30.0;
     adc_results.POS5_adc_max = 0.0;
     adc_results.POS5_adc_min = 30.0;
+    adc_results.die_temp_adc_max = 160.0;
+    adc_results.die_temp_adc_min = -40.0;
     
     // Setup ADC Analog Circuits Ready Interrupt
     disableInterrupt(ADC_Analog_Circuits_Ready);
@@ -82,6 +84,18 @@ void ADCInitialize(void) {
     setInterruptPriority(ADC_Data_42, 1);
     setInterruptSubpriority(ADC_Data_42, 1);
     clearInterruptFlag(ADC_Data_42);
+    
+    // Setup ADC Data 43 data ready interrupt
+    disableInterrupt(ADC_Data_43);
+    setInterruptPriority(ADC_Data_43, 1);
+    setInterruptSubpriority(ADC_Data_43, 1);
+    clearInterruptFlag(ADC_Data_43);
+    
+    // Setup ADC Data 44 data ready interrupt
+    disableInterrupt(ADC_Data_44);
+    setInterruptPriority(ADC_Data_44, 1);
+    setInterruptSubpriority(ADC_Data_44, 1);
+    clearInterruptFlag(ADC_Data_44);
     
     // Setup ADC end of scan interrupt
     disableInterrupt(ADC_End_Of_Scan_Ready);
@@ -143,6 +157,8 @@ void ADCInitialize(void) {
     ADCGIRQEN2bits.AGIEN40 = 1;     // Enable Data 40 ready interrupt
     ADCGIRQEN2bits.AGIEN41 = 1;     // Enable Data 41 ready interrupt
     ADCGIRQEN2bits.AGIEN42 = 1;     // Enable Data 42 ready interrupt
+    ADCGIRQEN2bits.AGIEN43 = 1;     // Enable Data 43 ready interrupt
+    ADCGIRQEN2bits.AGIEN44 = 1;     // Enable Data 44 ready interrupt
     ADCCON2bits.EOSIEN = 1;         // Enable interrupt on end of scan
     
     /* Configure ADCCSSx */
@@ -153,6 +169,8 @@ void ADCInitialize(void) {
     ADCCSS2bits.CSS40 = 1;          // Enable Channel 40 for common scan
     ADCCSS2bits.CSS41 = 1;          // Enable Channel 41 for common scan
     ADCCSS2bits.CSS42 = 1;          // Enable Channel 42 for common scan
+    ADCCSS2bits.CSS43 = 1;          // Enable Channel 43 for common scan
+    ADCCSS2bits.CSS44 = 1;          // Enable Channel 44 for common scan
     
     /* Configure ADCCMPCONx */
     ADCCMPCON1 = 0; // No digital comparators are used. Setting the ADCCMPCONx
@@ -266,6 +284,11 @@ void __ISR(_ADC7_WARM_VECTOR, IPL4SRS) ADC7WarmISR(void) {
     // Clear IRQ
     clearInterruptFlag(ADC7_Warm_Interrupt);
     
+    terminalTextAttributesReset();
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("ADC Warmed Up and Scanning Inputs\n\r");
+    terminalTextAttributesReset();
+    
 }
 
 // This is the POS3P3_ADC Interrupt Service Routine
@@ -348,6 +371,38 @@ void __ISR(_ADC_DATA42_VECTOR, IPL1SRS) POS5PADCISR(void) {
     
 }
 
+// This is the VREF_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA43_VECTOR, IPL1SRS) VREFADCISR(void) {
+    
+    // Check if data is actually ready
+    if (ADCDSTAT2bits.ARDY43) {
+     
+        // Copy conversion result into results structure
+        adc_results.vref_adc_raw = ADCDATA43;
+        
+    }
+
+    // Clear IRQ
+    clearInterruptFlag(ADC_Data_43);
+    
+}
+
+// This is the DIE_TEMP_ADC Interrupt service Routine
+void __ISR(_ADC_DATA44_VECTOR, IPL1SRS) DieTempADCISR(void) {
+ 
+    // Check if data is actually ready
+    if (ADCDSTAT2bits.ARDY44) {
+     
+        // Copy conversion result into results structure
+        adc_results.die_temp_adc = ADCDATA44;
+        
+    }
+
+    // Clear IRQ
+    clearInterruptFlag(ADC_Data_44);
+    
+}
+
 // This is the ADC end of scan interrupt service routine
 void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void) {
  
@@ -365,11 +420,14 @@ void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void) {
         if (ADCCON2bits.EOSRDY) {
 
             // Convert each ADC channel to voltage from LSBs
-            adc_results.POS3P3_adc  = (double) adc_results.POS3P3_adc_raw * ADC_VOLTS_PER_LSB * POS3P3_ADC_GAIN * POS3P3_ADC_CAL;
-            adc_results.POS12_adc   = (double) adc_results.POS12_adc_raw * ADC_VOLTS_PER_LSB * POS12_ADC_GAIN * POS12_ADC_CAL;
-            adc_results.POS5_adc    = (double) adc_results.POS5_adc_raw * ADC_VOLTS_PER_LSB * POS5_ADC_GAIN * POS5_ADC_CAL;
-            adc_results.POS5P_adc   = (double) adc_results.POS5P_adc_raw * ADC_VOLTS_PER_LSB * POS5P_ADC_GAIN * POS5P_ADC_CAL;
-            adc_results.POS5P5_adc  = (double) adc_results.POS5P5_adc_raw * ADC_VOLTS_PER_LSB * POS5P5_ADC_GAIN * POS5P5_ADC_CAL;
+            adc_results.vref_adc    = (double) adc_results.vref_adc_raw * ADC_VOLTS_PER_LSB;
+            adc_cal_gain = adc_results.vref_adc / 1.2;
+            adc_results.POS3P3_adc  = (double) adc_results.POS3P3_adc_raw * ADC_VOLTS_PER_LSB * POS3P3_ADC_GAIN * POS3P3_ADC_CAL * adc_cal_gain;
+            adc_results.POS12_adc   = (double) adc_results.POS12_adc_raw * ADC_VOLTS_PER_LSB * POS12_ADC_GAIN * POS12_ADC_CAL * adc_cal_gain;
+            adc_results.POS5_adc    = (double) adc_results.POS5_adc_raw * ADC_VOLTS_PER_LSB * POS5_ADC_GAIN * POS5_ADC_CAL * adc_cal_gain;
+            adc_results.POS5P_adc   = (double) adc_results.POS5P_adc_raw * ADC_VOLTS_PER_LSB * POS5P_ADC_GAIN * POS5P_ADC_CAL * adc_cal_gain;
+            adc_results.POS5P5_adc  = (double) adc_results.POS5P5_adc_raw * ADC_VOLTS_PER_LSB * POS5P5_ADC_GAIN * POS5P5_ADC_CAL * adc_cal_gain;
+            adc_results.die_temp_adc = (double) (adc_results.vref_adc_raw * ADC_VOLTS_PER_LSB - 0.7) / 0.005;
 
         }
         
@@ -440,6 +498,20 @@ void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void) {
         if (adc_results.POS5_adc < adc_results.POS5_adc_min) {
          
             adc_results.POS5_adc_min = adc_results.POS5_adc;
+            
+        }
+        
+        // Record new maximum
+        if (adc_results.die_temp_adc > adc_results.die_temp_adc_max) {
+         
+            adc_results.die_temp_adc_max = adc_results.die_temp_adc;
+            
+        }
+        
+        // record new minimum
+        if (adc_results.die_temp_adc < adc_results.die_temp_adc_min) {
+         
+            adc_results.die_temp_adc_min = adc_results.die_temp_adc;
             
         }
         

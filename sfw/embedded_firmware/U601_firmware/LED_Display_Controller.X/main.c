@@ -192,8 +192,8 @@ void main(void) {
 //    printf("SPI Flash Initialized\n\r");
     
     // Initialize Analog to Digital Converter
-    ADCInitialize();
-    printf("ADC Initialized\n\r");
+//    ADCInitialize();
+//    printf("ADC Initialized\n\r");
 
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
