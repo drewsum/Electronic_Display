@@ -912,17 +912,40 @@ void usbUartRingBufferLUT(char * line_in) {
     
     else if (strcmp(line_in, "ADC Raw Data?") == 0) {
     
-        terminalTextAttributesReset();
-        terminalTextAttributes(CYAN, BLACK, NORMAL);
-        printf("Most recent raw 12 bit ADC conversions:\n\r");
-        printf("    +3.3V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS3P3_adc_raw);
-        printf("    +12V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS12_adc_raw);
-        printf("    +5.5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P5_adc_raw);
-        printf("    +5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5_adc_raw);
-        printf("    +5VP Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P_adc_raw);
-        printf("    Internal VREF Raw ADC Conversion Result: 0x%08X\n\r", adc_results.vref_adc_raw);
-        printf("    Internal Die Temperature Raw ADC Conversion Result: 0x%08X\n\r", adc_results.die_temp_adc_raw);
-        terminalTextAttributesReset();
+        if (error_handler.ADC_configuration_error_flag) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else if (ADCCON3bits.DIGEN7 == 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Not Initialized\n\r");
+            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else {
+            terminalTextAttributesReset();
+            terminalTextAttributes(CYAN, BLACK, NORMAL);
+            printf("Most recent raw 12 bit ADC conversions:\n\r");
+            printf("    +3.3V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS3P3_adc_raw);
+            printf("    +12V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS12_adc_raw);
+            printf("    +5.5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P5_adc_raw);
+            printf("    +5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5_adc_raw);
+            printf("    +5VP Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P_adc_raw);
+            printf("    Internal VREF Raw ADC Conversion Result: 0x%08X\n\r", adc_results.vref_adc_raw);
+            printf("    Internal Die Temperature Raw ADC Conversion Result: 0x%08X\n\r", adc_results.die_temp_adc_raw);
+            terminalTextAttributesReset();
+
+    }
         
     }
     
@@ -931,8 +954,19 @@ void usbUartRingBufferLUT(char * line_in) {
         if (error_handler.ADC_configuration_error_flag) {
          
             terminalTextAttributesReset();
-            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            terminalTextAttributes(RED, BLACK, NORMAL);
             printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else if (ADCCON3bits.DIGEN7 == 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Not Initialized\n\r");
+            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
             terminalTextAttributesReset();
             
         }
@@ -960,8 +994,19 @@ void usbUartRingBufferLUT(char * line_in) {
         if (error_handler.ADC_configuration_error_flag) {
          
             terminalTextAttributesReset();
-            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            terminalTextAttributes(RED, BLACK, NORMAL);
             printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else if (ADCCON3bits.DIGEN7 == 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Not Initialized\n\r");
+            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
             terminalTextAttributesReset();
             
         }
@@ -988,8 +1033,19 @@ void usbUartRingBufferLUT(char * line_in) {
         if (error_handler.ADC_configuration_error_flag) {
          
             terminalTextAttributesReset();
-            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            terminalTextAttributes(RED, BLACK, NORMAL);
             printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else if (ADCCON3bits.DIGEN7 == 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Not Initialized\n\r");
+            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
             terminalTextAttributesReset();
             
         }
@@ -1107,7 +1163,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    Serial Number?: Prints device serial number\n\r");
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
     printf("    Revision ID?: Prints silicon die revision ID\n\r");
-    printf("    ADC Results?: Prints results of the most recent ADC conversions for system power supplies\n\r");
+    printf("    Initialize ADC: Sets up the Analog to Digital Converter for measuring analog signals within the system\n\r");
+    printf("    ADC Results?: Prints results of the most recent ADC conversions for analog signals in the system\n\r");
     printf("    ADC Max Results?: prints the maximum recorded value for each ADC channel\n\r");
     printf("    ADC Min Results?: prints the minimum recorded value for each ADC channel\n\r");
     printf("    ADC Raw Data?: Prints the raw 12 bit results of the ADC conversions\n\r");
