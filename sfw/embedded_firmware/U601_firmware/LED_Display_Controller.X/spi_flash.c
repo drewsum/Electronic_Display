@@ -40,7 +40,7 @@ void spiFlashInit(void)
     SPI3CONbits.MSSEN = 0;      // Disable slave select SPI support
     SPI3CONbits.FRMSYPW = 0;    // Set frame sync pulse as one word length wide <1> or one clock wide <0>
     SPI3CONbits.MCLKSEL = 0;    // PBCLK is used
-    SPI3CONbits.ENHBUF = 0;     // Disable enhanced buffer
+    SPI3CONbits.ENHBUF = 1;     // Disable enhanced buffer
     SPI3CONbits.SIDL = 0;       // Continue operation in IDLE mode
     SPI3CONbits.DISSDO = 1;     // SDO3 pin is controlled PORT register
     SPI3CONbits.MODE16 = 0;     // 16 bit mode disabled
@@ -638,6 +638,9 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
 
     // Print something for now
     printf("SPI3 Receive Done ISR");
+    
+    
+    
 
     // Clear interrupt flag after ISR
     clearInterruptFlag(SPI3_Receive_Done);
@@ -654,5 +657,131 @@ void __ISR(_SPI3_TX_VECTOR, ipl4SRS) spi3TransferISR(void) {
 
 }
 
+// Function to write single byte to transmit FIFO
+void SPI3_writeByte(uint8_t write_byte) {
+    
+    SPI3BUF = write_byte;
+    
+}
 
 
+// Function to read single byte from receive FIFO
+uint8_t SPI3_readByte(void) {
+    
+    return SPI3BUF;
+    
+}
+
+//// This function erases a spi flash chip
+//void SPI_FLASH_chipErase(uint8_t chip_select) {
+// 
+//    // Enable spi_flash_state corresponding to chip_select
+//    switch (chip_select) {
+//        case 1:
+//            spi_flash_state = flash1_write;
+//            break;
+//        case 2:
+//            spi_flash_state = flash2_write;
+//            break;
+//        case 3:
+//            spi_flash_state = flash3_write;
+//            break;
+//        case 4:
+//            spi_flash_state = flash4_write;
+//            break;
+//        case 5:
+//            spi_flash_state = flash5_write;
+//            break;
+//        case 6:
+//            spi_flash_state = flash6_write;
+//            break;
+//        case 7:
+//            spi_flash_state = flash7_write;
+//            break;
+//        case 8:
+//            spi_flash_state = flash8_write;
+//            break;
+//        default:
+//            break;
+//    }
+//    
+//    // Set CS and WP signals
+//    spiFlashGPIOSet();
+//    
+//    disableInterrupt(SPI3_Transfer_Done);
+//    
+//    // Write chip erase opcode to SPI3
+//    SPI3_writeByte(0x60);
+//    
+//    // Wait for transmit buffer to empty
+//    while(SPI3STATbits.TXBUFELM != 0);
+//    
+//    // Clear state machine
+//    spi_flash_state = idle;
+//    
+//    // Clear CS and WP signals
+//    spiFlashGPIOReset();
+//    
+//}
+//
+//// This function reads from a spi flash chip
+//void SPI_FLASH_beginRead(uint8_t chip_select) {
+//    
+//    // Enable spi_flash_state corresponding to chip_select
+//    switch (chip_select) {
+//        case 1:
+//            spi_flash_state = flash1_write;
+//            break;
+//        case 2:
+//            spi_flash_state = flash2_write;
+//            break;
+//        case 3:
+//            spi_flash_state = flash3_write;
+//            break;
+//        case 4:
+//            spi_flash_state = flash4_write;
+//            break;
+//        case 5:
+//            spi_flash_state = flash5_write;
+//            break;
+//        case 6:
+//            spi_flash_state = flash6_write;
+//            break;
+//        case 7:
+//            spi_flash_state = flash7_write;
+//            break;
+//        case 8:
+//            spi_flash_state = flash8_write;
+//            break;
+//        default:
+//            break;
+//    }
+//    
+//    // Set CS and WP signals
+//    spiFlashGPIOSet();
+//      
+//    // Write chip read opcode to SPI3
+//    SPI3_writeByte(0x0B);
+//    
+//    // Write addr1 byte
+//    SPI3_writeByte(0x0);
+//    
+//    // Write addr2 byte
+//    SPI3_writeByte(0x0);
+//    
+//    // Write addr3 byte
+//    SPI3_writeByte(0x0);
+//    
+//    // Write dummy byte
+//    SPI3_writeByte(0xF);
+//    
+//    // Wait for transmit buffer to empty
+//    while(SPI3STATbits.TXBUFELM != 0);
+//    
+//    // write another dummy byte to start read
+//    SPI3_writeByte(0x00);
+//    
+//    // Enable receive interrupt and wait
+//    enableInterrupt(SPI3_Receive_Done);
+//    
+//}
