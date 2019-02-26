@@ -189,8 +189,8 @@ void main(void) {
         }
     
     // Initialize SPI
-//    spiFlashInit();
-//    printf("SPI Flash Initialized\n\r");
+    spiFlashInit();
+    printf("SPI Flash Initialized\n\r");
 
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;

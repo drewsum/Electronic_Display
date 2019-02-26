@@ -7,6 +7,14 @@
 #include "32mz_interrupt_control.h"
 #include "error_handler.h"
 #include "pin_macros.h"
+#include "external_bus_interface.h"
+#include "panel_control.h"
+
+// This pragma tells the linker to allow access of EBI memory space
+#pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
+
+// This is tricking the compiler into placing an array in EBI SRAM
+extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
 
 // Function to initialize SPI
 void spiFlashInit(void)
@@ -33,40 +41,49 @@ void spiFlashInit(void)
     // Turn off module before configuration
     SPI3CONbits.ON = 0;         
     SPI3BUF = 0;                
+    SPI3CONbits.ENHBUF = 1;     // Enabled enhanced buffer
+    SPI3BRG = 5;                // Baud Rate configuration: PBCLK2 = 84MHz, FSCK = 10MHz 
     SPI3STATbits.SPIROV = 0;    
+    SPI3CONbits.MSTEN = 1;      // Master mode
     
     // Configure SPI3 registers
     SPI3CONbits.FRMEN = 0;      // Framed SPI support is disabled
     SPI3CONbits.MSSEN = 0;      // Disable slave select SPI support
     SPI3CONbits.FRMSYPW = 0;    // Set frame sync pulse as one word length wide <1> or one clock wide <0>
     SPI3CONbits.MCLKSEL = 0;    // PBCLK is used
-    SPI3CONbits.ENHBUF = 1;     // Disable enhanced buffer
     SPI3CONbits.SIDL = 0;       // Continue operation in IDLE mode
-    SPI3CONbits.DISSDO = 1;     // SDO3 pin is controlled PORT register
+    SPI3CONbits.DISSDO = 0;     // SDO3 pin is controlled by module
     SPI3CONbits.MODE16 = 0;     // 16 bit mode disabled
     SPI3CONbits.MODE32 = 0;     // 32 bit mode disabled
     SPI3CONbits.SMP = 1;        // Input data sampled at the end of data output time
     SPI3CONbits.CKE = 1;        // Output data changes on clock falling edge
     SPI3CONbits.SSEN = 0;       // Slave Select pin is controlled by PORT 
     SPI3CONbits.CKP = 0;        // Idle state for clock is low, active state is high
-    SPI3CONbits.MSTEN = 1;      // Master mode
-    SPI3CONbits.DISSDI = 1;     // SDI3 pin is controlled by PORT
+    SPI3CONbits.DISSDI = 0;     // SDI3 pin is controlled by module
     SPI3CONbits.STXISEL = 0b01; // Interrupt is generated when buffer is empty
     SPI3CONbits.SRXISEL = 0b01; // Interrupt is generated when buffer is not empty
-    // SPI1BRG = 3;             // Baud Rate configuration
+    SPI3CON2bits.AUDEN = 0;     
     
     // Configure bits for Framed Mode ONLY
-    /* SPI3CONbits.FRMSYNC = 0;  
-     * SPI3CONbits.FRMPOL = 0;  
-     * SPI3CONbits.FRMCNT = 0;   
-     * SPI3CONbits.SPIFE = 0; */     
+    SPI3CONbits.FRMSYNC = 0;  
+    SPI3CONbits.FRMPOL = 0;  
+    SPI3CONbits.FRMCNT = 0;   
+    SPI3CONbits.SPIFE = 0;
     
     // Turn on module after configuration
     SPI3CONbits.ON = 1;         
     spi_flash_state = idle;
        
     enableInterrupt(SPI3_Fault);
+    
+    uint8_t active_chip;
+    for (active_chip = 1; active_chip <= 8; active_chip++) {
+        SPI_Flash_writeEnable(active_chip);
+    }
          
+    spi_flash_state = idle;
+    
+    spiFlashGPIOReset();
 }
 
 // Function to set GPIO pins for ~CE and ~WP
@@ -574,7 +591,6 @@ void printSPIFlashStatus(void) {
     printf("    Module SDIx Pin Control %s\n\r",
             SPI3CONbits.DISSDI ? "Disabled" : "Enabled");
     
-    
     printf("\n\r    Transmit Buffer Interrupt: ");
     
     switch (SPI3CONbits.STXISEL) {
@@ -619,6 +635,8 @@ void printSPIFlashStatus(void) {
             break;
             
     }
+        
+    printf("\n\r    SPIBRG: %d\n\r", SPI3BRG);
     
     terminalTextAttributesReset();
 }
@@ -627,7 +645,14 @@ void printSPIFlashStatus(void) {
 void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
     
     // Print something for now
-    printf("SPI3 Fault ISR");
+   // printf("SPI3 Fault ISR\n\r");
+    
+    // Record a SPI error
+    error_handler.SPI_error_flag = 1;
+    
+    // Disable SPI interrupts
+    disableInterrupt(SPI3_Transfer_Done);
+    disableInterrupt(SPI3_Receive_Done);
     
     // Clear interrupt flag after ISR
     clearInterruptFlag(SPI3_Fault);
@@ -637,20 +662,67 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
 void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
 
     // Print something for now
-    printf("SPI3 Receive Done ISR");
+    //printf("SPI3 Receive Done ISR");
+     
+    // Load in byte to ebi_sram_array and increment index
+    ebi_sram_array[sram_addr_index] = SPI3BUF;
+    sram_addr_index++;
     
-    
-    
-
+    // Check if we are at the end of the array
+    if (sram_addr_index >= PANEL_DATA_ARRAY_SIZE) {
+        
+        disableInterrupt(SPI3_Receive_Done);
+        
+        spiFlashGPIOReset();
+        
+        spi_flash_state = idle;
+               
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Transfer from Flash to EBI SRAM complete\n\r");
+        terminalTextAttributesReset();
+        
+        panelMultiplexingTimerStart();
+        
+    } else {
+        
+        SPI3_writeByte(0x00);
+        
+    }
+           
     // Clear interrupt flag after ISR
     clearInterruptFlag(SPI3_Receive_Done);
 }
 
 //SPI3 Transfer Done interrupt service routine
-void __ISR(_SPI3_TX_VECTOR, ipl4SRS) spi3TransferISR(void) {
+void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
     // Print something for now
-    printf("SPI3 Transfer Done ISR");
+    // printf("SPI3 Transfer Done ISR");
+    
+        // Load in byte to ebi_sram_array and increment index
+    SPI3BUF = ebi_sram_array[sram_addr_index];
+    sram_addr_index++;
+    //printf("%d\n\r", sram_addr_index);
+    
+    // Check if we are at the end of the array
+    if (sram_addr_index >= PANEL_DATA_ARRAY_SIZE) {
+        
+        disableInterrupt(SPI3_Transfer_Done);
+        
+        SPI3_writeByte(0x04);
+        SPI3_writeByte(0x80);
+        
+        spiFlashGPIOReset();
+        
+        spi_flash_state = idle;
+               
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Transfer from EBI SRAM to Flash complete\n\r");
+        terminalTextAttributesReset();
+        
+        panelMultiplexingTimerStart();
+        
+    }
 
     // Clear interrupt flag after ISR
     clearInterruptFlag(SPI3_Transfer_Done);
@@ -672,116 +744,241 @@ uint8_t SPI3_readByte(void) {
     
 }
 
-//// This function erases a spi flash chip
-//void SPI_FLASH_chipErase(uint8_t chip_select) {
-// 
-//    // Enable spi_flash_state corresponding to chip_select
-//    switch (chip_select) {
-//        case 1:
-//            spi_flash_state = flash1_write;
-//            break;
-//        case 2:
-//            spi_flash_state = flash2_write;
-//            break;
-//        case 3:
-//            spi_flash_state = flash3_write;
-//            break;
-//        case 4:
-//            spi_flash_state = flash4_write;
-//            break;
-//        case 5:
-//            spi_flash_state = flash5_write;
-//            break;
-//        case 6:
-//            spi_flash_state = flash6_write;
-//            break;
-//        case 7:
-//            spi_flash_state = flash7_write;
-//            break;
-//        case 8:
-//            spi_flash_state = flash8_write;
-//            break;
-//        default:
-//            break;
+// This function erases a spi flash chip
+void SPI_FLASH_chipErase(uint8_t chip_select) {
+ 
+    // Enable spi_flash_state corresponding to chip_select
+    switch (chip_select) {
+        case 1:
+            spi_flash_state = flash1_write;
+            break;
+        case 2:
+            spi_flash_state = flash2_write;
+            break;
+        case 3:
+            spi_flash_state = flash3_write;
+            break;
+        case 4:
+            spi_flash_state = flash4_write;
+            break;
+        case 5:
+            spi_flash_state = flash5_write;
+            break;
+        case 6:
+            spi_flash_state = flash6_write;
+            break;
+        case 7:
+            spi_flash_state = flash7_write;
+            break;
+        case 8:
+            spi_flash_state = flash8_write;
+            break;
+        default:
+            break;
+    }
+    
+    // Set CS and WP signals
+    spiFlashGPIOSet();
+    
+    disableInterrupt(SPI3_Transfer_Done);
+    
+    // Write enable opcode
+    //SPI_Flash_writeEnable(chip_select);
+    SPI3_writeByte(0x06);
+    
+    // Write chip erase opcode to SPI3
+    SPI3_writeByte(0x60);
+    
+    // Wait for transmit buffer to empty
+    while(SPI3STATbits.TXBUFELM != 0);
+    
+    // Clear state machine
+    spi_flash_state = idle;
+    
+    // Clear CS and WP signals
+    spiFlashGPIOReset();
+    
+}
+
+// This function reads from a spi flash chip
+void SPI_FLASH_beginRead(uint8_t chip_select) {
+    
+    panelMultiplexingSuspend();
+    
+    // Enable spi_flash_state corresponding to chip_select
+    switch (chip_select) {
+        case 1:
+            spi_flash_state = flash1_read;
+            break;
+        case 2:
+            spi_flash_state = flash2_read;
+            break;
+        case 3:
+            spi_flash_state = flash3_read;
+            break;
+        case 4:
+            spi_flash_state = flash4_read;
+            break;
+        case 5:
+            spi_flash_state = flash5_read;
+            break;
+        case 6:
+            spi_flash_state = flash6_read;
+            break;
+        case 7:
+            spi_flash_state = flash7_read;
+            break;
+        case 8:
+            spi_flash_state = flash8_read;
+            break;
+        default:
+            break;
+    }
+    
+    // Set CS and WP signals
+    spiFlashGPIOSet();
+    
+    // Set addr index to 0
+    sram_addr_index = 0;
+      
+    // Write chip read opcode to SPI3 (0x0B for high speed read, 0x03 for standard read))
+    SPI3_writeByte(0x0B);
+    
+    // Write addr1 byte
+    SPI3_writeByte(0x00);
+    
+    // Write addr2 byte
+    SPI3_writeByte(0x00);
+    
+    // Write addr3 byte
+    SPI3_writeByte(0x00);
+    
+    // Write dummy byte (needed for high speed read)
+    SPI3_writeByte(0xDD);
+    
+    // Wait for transmit buffer to empty
+    while(SPI3STATbits.TXBUFELM != 0);
+    
+    // write another dummy byte to start read
+    SPI3_writeByte(0x00);
+    
+    // Enable receive interrupt and wait
+    enableInterrupt(SPI3_Receive_Done);
+    
+}
+
+// This function writes to a spi flash chip
+void SPI_FLASH_beginWrite(uint8_t chip_select) {
+    
+    panelMultiplexingSuspend();
+    
+    // Be sure chip is in erased state
+    SPI_FLASH_chipErase(chip_select);
+    
+    // Enable spi_flash_state corresponding to chip_select
+    switch (chip_select) {
+        case 1:
+            spi_flash_state = flash1_write;
+            break;
+        case 2:
+            spi_flash_state = flash2_write;
+            break;
+        case 3:
+            spi_flash_state = flash3_write;
+            break;
+        case 4:
+            spi_flash_state = flash4_write;
+            break;
+        case 5:
+            spi_flash_state = flash5_write;
+            break;
+        case 6:
+            spi_flash_state = flash6_write;
+            break;
+        case 7:
+            spi_flash_state = flash7_write;
+            break;
+        case 8:
+            spi_flash_state = flash8_write;
+            break;
+        default:
+            break;
+    }
+    
+    // Set CS and WP signals
+    spiFlashGPIOSet();
+    
+    // Set addr index to 0
+    sram_addr_index = 0;
+    
+//    // Send write enable 
+//    SPI3_writeByte(0x06);
+    
+    // Send AAI programming opcode
+    SPI3_writeByte(0xAD);
+    
+    // Send address bytes
+    SPI3_writeByte(0x00);
+    SPI3_writeByte(0x00);
+    
+    // Wait for transmit buffer to empty
+    while(SPI3STATbits.TXBUFELM != 0);
+    
+    SPI3_writeByte(0x00);
+    
+    enableInterrupt(SPI3_Transfer_Done);
+    
+//    for(sram_addr_index=0; sram_addr_index<PANEL_DATA_ARRAY_SIZE; sram_addr_index++){
+//        
+//        SPI3_writeByte(ebi_sram_array[sram_addr_index]);
+//        
+//        // Wait for transmit buffer to empty
+//        while(SPI3STATbits.TXBUFELM != 0);
+//        
 //    }
-//    
-//    // Set CS and WP signals
-//    spiFlashGPIOSet();
-//    
-//    disableInterrupt(SPI3_Transfer_Done);
-//    
-//    // Write chip erase opcode to SPI3
-//    SPI3_writeByte(0x60);
-//    
-//    // Wait for transmit buffer to empty
-//    while(SPI3STATbits.TXBUFELM != 0);
-//    
-//    // Clear state machine
-//    spi_flash_state = idle;
-//    
-//    // Clear CS and WP signals
-//    spiFlashGPIOReset();
-//    
-//}
-//
-//// This function reads from a spi flash chip
-//void SPI_FLASH_beginRead(uint8_t chip_select) {
-//    
-//    // Enable spi_flash_state corresponding to chip_select
-//    switch (chip_select) {
-//        case 1:
-//            spi_flash_state = flash1_write;
-//            break;
-//        case 2:
-//            spi_flash_state = flash2_write;
-//            break;
-//        case 3:
-//            spi_flash_state = flash3_write;
-//            break;
-//        case 4:
-//            spi_flash_state = flash4_write;
-//            break;
-//        case 5:
-//            spi_flash_state = flash5_write;
-//            break;
-//        case 6:
-//            spi_flash_state = flash6_write;
-//            break;
-//        case 7:
-//            spi_flash_state = flash7_write;
-//            break;
-//        case 8:
-//            spi_flash_state = flash8_write;
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    // Set CS and WP signals
-//    spiFlashGPIOSet();
-//      
-//    // Write chip read opcode to SPI3
-//    SPI3_writeByte(0x0B);
-//    
-//    // Write addr1 byte
-//    SPI3_writeByte(0x0);
-//    
-//    // Write addr2 byte
-//    SPI3_writeByte(0x0);
-//    
-//    // Write addr3 byte
-//    SPI3_writeByte(0x0);
-//    
-//    // Write dummy byte
-//    SPI3_writeByte(0xF);
-//    
-//    // Wait for transmit buffer to empty
-//    while(SPI3STATbits.TXBUFELM != 0);
-//    
-//    // write another dummy byte to start read
-//    SPI3_writeByte(0x00);
-//    
-//    // Enable receive interrupt and wait
-//    enableInterrupt(SPI3_Receive_Done);
-//    
-//}
+       
+}
+
+// This function enables write enable
+void SPI_Flash_writeEnable(uint8_t chip_select){
+    
+    // Enable spi_flash_state corresponding to chip_select
+    switch (chip_select) {
+        case 1:
+            spi_flash_state = flash1_write;
+            break;
+        case 2:
+            spi_flash_state = flash2_write;
+            break;
+        case 3:
+            spi_flash_state = flash3_write;
+            break;
+        case 4:
+            spi_flash_state = flash4_write;
+            break;
+        case 5:
+            spi_flash_state = flash5_write;
+            break;
+        case 6:
+            spi_flash_state = flash6_write;
+            break;
+        case 7:
+            spi_flash_state = flash7_write;
+            break;
+        case 8:
+            spi_flash_state = flash8_write;
+            break;
+        default:
+            break;
+    }
+    
+    // Set CS and WP signals
+    spiFlashGPIOSet();
+    
+    // Send write enable opcode
+    SPI3_writeByte(0x06);
+    
+    // Wait for buffer to empty
+    while(SPI3STATbits.TXBUFELM != 0);
+    
+}
