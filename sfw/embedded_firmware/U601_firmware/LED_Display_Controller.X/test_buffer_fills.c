@@ -41,7 +41,7 @@ void fillRamBufferRand(void) {
     
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
      
-        ebi_sram_array[address_index] = (uint8_t) rand() % 255;
+        ebi_sram_array[address_index] = (uint8_t) rand() % 100;
         
     }
     

@@ -7,8 +7,13 @@
 #include "32mz_interrupt_control.h"
 
 // Optimizing writing to pins
-#define PANEL_CLK_PIN_HIGH() LATJSET = 0x01
-#define PANEL_CLK_PIN_LOW()  LATJCLR = 0x01
+#define PANEL_CLK_PIN_HIGH()    LATJSET = 0x01
+#define PANEL_CLK_PIN_LOW()     LATJCLR = 0x01
+#define PANEL_LAT_PIN_HIGH()    LATJSET = 0x02
+#define PANEL_LAT_PIN_LOW()     LATJCLR = 0x02
+#define nPANEL_OE_PIN_HIGH()    LATJSET = 0x04
+#define nPANEL_OE_PIN_LOW()     LATJCLR = 0x04
+
 
 // This pragma tells the linker to allow access of EBI memory space
 #pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
@@ -24,24 +29,17 @@ void panelMultiplexingHandler(void) {
     panelMultiplexingTimerClear();
     
     // Disable output
-    nPANEL_OE_PIN = 1;
+    nPANEL_OE_PIN_HIGH();
     
     // Set latch low
-    PANEL_LAT_PIN = 0;
+    PANEL_LAT_PIN_LOW();
       
     // loop through 64 shift clock cycles
     for (current_shift_clock = 0; current_shift_clock <= 319; current_shift_clock += 1) {
 
         // Set clock low
-        //PANEL_CLK_PIN = 0;
         PANEL_CLK_PIN_LOW();
                 
-//        // Poor man's delay
-//        uint8_t delay_index = 10;
-//        while (delay_index > 0) {
-//            delay_index--;
-//        };
-        
         // Set red pins from RAM buffer
         current_shift_clock_index = 3 * current_shift_clock;
         uint8_t redData = ebi_sram_array[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
@@ -54,7 +52,6 @@ void panelMultiplexingHandler(void) {
         setPanelBlueBus(blueData);
 
         // Clock data into panel
-        //PANEL_CLK_PIN = 1;
         PANEL_CLK_PIN_HIGH();
         
         // Poor man's delay
@@ -66,7 +63,6 @@ void panelMultiplexingHandler(void) {
     }
     
     // clear clock signal
-    //PANEL_CLK_PIN = 0;
     PANEL_CLK_PIN_LOW();
 
     
@@ -74,10 +70,10 @@ void panelMultiplexingHandler(void) {
     setPanelRowBus(current_row);
     
     // Latch shifter data into shift registers
-    PANEL_LAT_PIN = 1;
+    PANEL_LAT_PIN_HIGH();
     
     // Enable pixel output
-    nPANEL_OE_PIN = 0;
+    nPANEL_OE_PIN_LOW();
             
     // Next function call, update the next row
     current_row++;
