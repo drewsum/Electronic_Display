@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "675520942842",
+    "firebase_url": "https://geo-located-tweets.firebaseio.com",
+    "project_id": "geo-located-tweets",
+    "storage_bucket": "geo-located-tweets.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675520942842:android:d9df0ca1f6b32c44",
+        "android_client_info": {
+          "package_name": "com.jiang.geo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675520942842-i0evo7qp4if2lbhc45p5skjm8oq12nn0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jiang.geo",
+            "certificate_hash": "7048a0ea599f86d1ce42302f23f6d569e5dd8341"
+          }
+        },
+        {
+          "client_id": "675520942842-ogqqevvqvmsnud9ke7l944js9a478h4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC24bFQ0nPCs3ivg5IFziGLTOZh2LbCQEY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675520942842-ogqqevvqvmsnud9ke7l944js9a478h4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

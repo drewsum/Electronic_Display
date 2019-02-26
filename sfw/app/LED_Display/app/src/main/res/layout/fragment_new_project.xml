@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     tools:context=".NewProjectFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -17,5 +18,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add an Image" />
+
+    <FrameLayout
+        android:clipChildren="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/pop_icon_retweet"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:text="撒谎都开始打"
+            android:id="@+id/forwardPopItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"/>
+
+    </FrameLayout>
 
 </FrameLayout>

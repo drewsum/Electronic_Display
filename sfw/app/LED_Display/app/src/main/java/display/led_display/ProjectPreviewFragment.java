@@ -1,12 +1,32 @@
 package display.led_display;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.jiang.geo.R;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import static display.led_display.MenuActivity.uri;
 
 
 /**
@@ -72,6 +92,33 @@ public class ProjectPreviewFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ImageView img = getView().findViewById(R.id.img);
+                final ProgressDialog dialog = new ProgressDialog(getContext());
+                dialog.setMessage("parse image bitmap...");
+                dialog.show();
+                img.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(ImageSelectActivity.bitmap != null){
+                            try {
+                                img.setImageBitmap(FileConverter.fileToBitmap(new File("/storage/emulated/0/Download" + "/values.txt")));
+                            } catch (Throwable throwable) {
+                                img.setImageBitmap(ImageSelectActivity.bitmap);
+                            }
+                            dialog.dismiss();
+                        }
+                    }
+                }, 3000L);
+            }
+        });
     }
 
     @Override

@@ -3,20 +3,43 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "display.led_display"
-        minSdkVersion 23
-        targetSdkVersion 23
+        applicationId "com.jiang.geo"
+        minSdkVersion 19
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //X5兼容64位手机
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
     }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a','x86_64'
+            universalApk true
+        }
+    }
+    signingConfigs {
+        geokey {
+            storeFile file("geo.jks")
+            keyAlias 'geo'
+            keyPassword '123456'
+            storePassword '123456'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.geokey
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.geokey
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,10 +62,15 @@ dependencies {
     implementation 'pub.devrel:easypermissions:0.4.3'
     implementation 'com.squareup.okio:okio:1.11.0'
     implementation 'com.squareup.okhttp3:okhttp:3.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.5.0'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.google.android.gms:play-services:9.4.0'
+    implementation 'com.google.firebase:firebase-database:9.4.0'
+    implementation 'com.google.firebase:firebase-storage:9.4.0'
     implementation 'com.isseiaoki:simplecropview:1.1.8'
     implementation 'com.github.bumptech.glide:glide:4.1.1'
     implementation files('libs/itsrts-pptviewer.jar')
 }
+apply plugin: 'com.google.gms.google-services'

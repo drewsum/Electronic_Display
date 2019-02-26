@@ -20,4 +20,11 @@
         tools:layout_editor_absoluteX="136dp"
         tools:layout_editor_absoluteY="300dp" />
 
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:scaleType="fitStart" />
+
 </FrameLayout>

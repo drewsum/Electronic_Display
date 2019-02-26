@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <display.led_display.SuperFileView
-        android:id="@+id/mSuperFileView"
+    <WebView
+        android:id="@+id/web"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

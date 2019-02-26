@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jiang.geo.R;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +29,7 @@ public class ImageSelectActivity extends AppCompatActivity {
    // SeekBar seekbar;
   //  boolean ready = false;
 
-    Bitmap bitmap;
+    public static Bitmap bitmap;
     Bitmap scaledBitmap;
 
     @Override
@@ -99,13 +103,17 @@ public class ImageSelectActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK){
             Uri targetUri = data.getData();
+            MenuActivity.uri = targetUri;
             textTargetUri.setText(targetUri.toString());
+            EventBus.getDefault().post(targetUri);
             try {
                 PixelsConverter pixelsConverter = new PixelsConverter();
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
                 // ready = true;
                 scaledBitmap = Bitmap.createScaledBitmap(bitmap,128,128,true);
                 targetImage.setImageBitmap(scaledBitmap);
+                FileConverter.WIDTH_RECORD = scaledBitmap.getWidth();
+                FileConverter.HEIGHT_RECORD = scaledBitmap.getHeight();
                 byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, 2, 2);
                 File file = new File("/storage/emulated/0/Download" + "/values.txt");
                 Log.d("Filepath", file.getAbsolutePath());
@@ -115,6 +123,7 @@ public class ImageSelectActivity extends AppCompatActivity {
                         if(h == printMe.length-1)
                         {
                             s = String.format("0x%02X", printMe[h]);
+
                         }
                         if(h % 10 == 0)
                         {

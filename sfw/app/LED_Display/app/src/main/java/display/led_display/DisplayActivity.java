@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.isseiaoki.simplecropview.CropImageView;
 import com.isseiaoki.simplecropview.callback.CropCallback;
 import com.isseiaoki.simplecropview.callback.LoadCallback;
+import com.jiang.geo.R;
 
 import java.io.File;
 
@@ -25,8 +27,6 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
 
     public static Bitmap CROP_RESULT_BITMAP;
 
-    // 展示文件的View
-    private SuperFileView mSuperFileView;
     // 文件路径
     private String filePath;
     // 裁剪控件
@@ -40,6 +40,7 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
     private Uri mCropUri;
     // 记录两个菜单按钮，控制显隐
     private MenuItem crop, back;
+    private WebView mWebView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
         // 设置返回键
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // 找到View
-        mSuperFileView = (SuperFileView) findViewById(R.id.mSuperFileView);
+        mWebView = (WebView) findViewById(R.id.web);
         mCropImageView = (CropImageView) findViewById(R.id.cropImageView);
         btnCrop = (LinearLayout) findViewById(R.id.btn_crop);
         no = (ImageView) findViewById(R.id.no);
@@ -67,14 +68,9 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
         // 设置获取文件路径监听
-        mSuperFileView.setOnGetFilePathListener(new SuperFileView.OnGetFilePathListener() {
-            @Override
-            public void onGetFilePath(SuperFileView mSuperFileView) {
-                getFilePathAndShowFile(mSuperFileView);
-            }
-        });
-        setFilePath(getIntent().getStringExtra("path"));
-        mSuperFileView.show();
+        mWebView.getSettings().setUseWideViewPort(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.loadUrl(getIntent().getStringExtra("path"));
     }
 
     /**
@@ -93,9 +89,6 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
     public void onDestroy() {
         super.onDestroy();
         // 释放mSuperFileView
-        if (mSuperFileView != null) {
-            mSuperFileView.onStopDisplay();
-        }
     }
 
     public void setFilePath(String fileUrl) {
@@ -130,12 +123,11 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
     public boolean onOptionsItemSelected(MenuItem item) {
         // 裁剪菜单事件
         if (item.getItemId() == R.id.crop) {
-            mSuperFileView.postDelayed(new Runnable() {
+            mWebView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mSuperFileView.hideCountView();
                     // 让裁剪控件去加载截图的文件
-                    mCropImageView.load(mCropUri = Uri.fromFile(new File(CropViewUtil.saveImage(DisplayActivity.this, mSuperFileView)))).execute(DisplayActivity.this);
+                    mCropImageView.load(mCropUri = Uri.fromFile(new File(CropViewUtil.saveImage(DisplayActivity.this, mWebView)))).execute(DisplayActivity.this);
                     // 展示裁剪相关控件可见
                     mCropImageView.setVisibility(View.VISIBLE);
                     btnCrop.setVisibility(View.VISIBLE);
@@ -148,7 +140,7 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
             back.setVisible(false);
             crop.setVisible(true);
             // 展示隐藏文件浏览控件
-            mSuperFileView.setVisibility(View.VISIBLE);
+            mWebView.setVisibility(View.VISIBLE);
             // 隐藏之前的裁剪结果
             result.setImageBitmap(null);
             result.setVisibility(View.GONE);
@@ -197,7 +189,7 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
                             mCropImageView.setVisibility(View.GONE);
                             btnCrop.setVisibility(View.GONE);
                             // 隐藏文件浏览控件
-                            mSuperFileView.setVisibility(View.GONE);
+                            mWebView.setVisibility(View.GONE);
                             // 展示并记录裁剪结果
                             result.setImageBitmap(CROP_RESULT_BITMAP = cropped);
                             result.setVisibility(View.VISIBLE);

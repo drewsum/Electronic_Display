@@ -1,6 +1,7 @@
 package display.led_display;
 
 import android.Manifest;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.jiang.geo.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -56,6 +63,14 @@ public class MenuActivity extends AppCompatActivity
         if (!EasyPermissions.hasPermissions(MenuActivity.this, perms)) {
             EasyPermissions.requestPermissions(MenuActivity.this, "You need access to phone storage.", 10086, perms);
         }
+
+    }
+
+    public static Uri uri;
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(Uri uri) {
+        this.uri = uri;
     }
 
     @Override
@@ -66,6 +81,18 @@ public class MenuActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
