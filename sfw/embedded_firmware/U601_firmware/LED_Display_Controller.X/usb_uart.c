@@ -2,6 +2,7 @@
 #include <xc.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
 // These are macros needed for defining ISRs, included in XC32
@@ -20,6 +21,7 @@
 #include "adc.h"
 #include "panel_control.h"
 #include "test_buffer_fills.h"
+#include "spi_flash.h"
 
 #include "nfl_logo.h"
 
@@ -830,6 +832,73 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Error Handler flags cleared\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+        
+    else if (strcmp(line_in, "SPI Flash Chip Read ") == 0) {
+    
+        // Get which chip we're erasing
+        uint8_t chip_to_erase;
+        //static char copy_str[25];
+        //strcpy(copy_str, line_in);
+        //sscanf(copy_str, "SPI Flash Chip Erase %d", &chip_to_erase);
+        
+        chip_to_erase = 1;
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Reading chip %d\n\r", chip_to_erase);
+        terminalTextAttributesReset();
+        
+        SPI_FLASH_beginRead(chip_to_erase);
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Chip %d read successful\n\r", chip_to_erase);
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "SPI Flash Chip Write ") == 0) {
+        
+        uint8_t chip_to_erase;
+        //static char copy_str[25];
+        //strcpy(copy_str, line_in);
+        //sscanf(copy_str, "SPI Flash Chip Erase %d", &chip_to_erase);
+        
+        chip_to_erase = 1;
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Writing to chip %d\n\r", chip_to_erase);
+        terminalTextAttributesReset();
+        
+        SPI_FLASH_beginWrite(chip_to_erase);
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Chip %d write successful\n\r", chip_to_erase);
+        terminalTextAttributesReset();
+        
+    }
+        
+    else if (strcmp(line_in, "SPI Flash Chip Erase ") == 0) {
+    
+        // Get which chip we're erasing
+        uint8_t chip_to_erase;
+        //static char copy_str[25];
+        //strcpy(copy_str, line_in);
+        //sscanf(copy_str, "SPI Flash Chip Erase %d", &chip_to_erase);
+        
+        chip_to_erase = 1;
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Erasing chip %d\n\r", chip_to_erase);
+        terminalTextAttributesReset();
+        
+        SPI_FLASH_chipErase(chip_to_erase);
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Erased chip %d\n\r", chip_to_erase);
         terminalTextAttributesReset();
         
     }
