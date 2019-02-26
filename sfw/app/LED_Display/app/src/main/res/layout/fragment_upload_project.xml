@@ -38,17 +38,17 @@
         app:layout_constraintVertical_bias="0.954" />
 
     <Button
-        android:id="@+id/buttonDeviceSelect"
+        android:id="@+id/buttonNewDevice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Connect to new Device"
+        android:text="Add New Device"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUpload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceList"
-        app:layout_constraintBottom_toTopOf="@+id/buttonUpload" />
+        app:layout_constraintTop_toBottomOf="@+id/deviceList" />
 
     <Button
         android:id="@+id/buttonNewProject"
@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDeviceSelect"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNewDevice"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -103,7 +103,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:choiceMode="singleChoice"
-        app:layout_constraintBottom_toTopOf="@+id/buttonDeviceSelect"
+        app:layout_constraintBottom_toTopOf="@+id/buttonNewDevice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"

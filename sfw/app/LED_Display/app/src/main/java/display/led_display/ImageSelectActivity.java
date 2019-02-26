@@ -1,5 +1,7 @@
 package display.led_display;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +29,11 @@ public class ImageSelectActivity extends AppCompatActivity {
     ImageView targetImage;
    // SeekBar seekbar;
   //  boolean ready = false;
+   Uri targetUri;
+   String filePath;
+
+   String projectName;
+   int index;
 
     Bitmap bitmap;
     Bitmap scaledBitmap;
@@ -42,6 +49,20 @@ public class ImageSelectActivity extends AppCompatActivity {
         textTargetUri = (TextView) findViewById(R.id.targeturi);
         targetImage = (ImageView) findViewById(R.id.targetimage);
 
+        Button buttonConvert = (Button) findViewById(R.id.buttonConvert);
+        buttonConvert.setOnClickListener(new Button.OnClickListener() {
+              @Override
+              public void onClick(View arg0) {
+                  // TODO Auto-generated method stub
+                  Intent intent = new Intent();
+                  intent.putExtra("filePath", filePath);
+                  setResult(RESULT_OK, intent);
+                  finish();
+              }
+        });
+
+        projectName = getIntent().getExtras().getString("projectName");
+        index = getIntent().getExtras().getInt("index");
        // seekbar = (SeekBar) findViewById(R.id.seekbar);
        // seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 //            @Override
@@ -90,6 +111,8 @@ public class ImageSelectActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                 startActivityForResult(intent, 0);
             }
         });
@@ -101,11 +124,28 @@ public class ImageSelectActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            Uri targetUri = data.getData();
+            targetUri = data.getData();
             textTargetUri.setText(targetUri.toString());
             convert(targetUri);
         }
-        finish();
+        String filename = projectName + "frame" + index + ".png";
+
+        try {
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+            int panels_width = 5;
+            int panels_height = 4;
+            scaledBitmap = Bitmap.createScaledBitmap(bitmap,64*panels_width,64*panels_height,true);
+            ContextWrapper cw = new ContextWrapper(getApplicationContext());
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            // Create imageDir
+            File f = new File(directory,filename);
+            filePath = f.getPath();
+            FileOutputStream outputStream = new FileOutputStream (new File(filePath));
+            scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void convert(Uri targetUri)
@@ -119,12 +159,6 @@ public class ImageSelectActivity extends AppCompatActivity {
             scaledBitmap = Bitmap.createScaledBitmap(bitmap,64*panels_width,64*panels_height,true);
             targetImage.setImageBitmap(scaledBitmap);
             byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
-            // store to app storage
-            String filename = "img";
-            FileOutputStream outputStream;
-            Intent framepathData = new Intent();
-            framepathData.putExtra("framepath",filename);
-            setResult(RESULT_OK,framepathData);
 
             // store to temp file for testing
             File file = new File("/storage/emulated/0/Download" + "/values.txt");
@@ -146,13 +180,6 @@ public class ImageSelectActivity extends AppCompatActivity {
             } catch (IOException io) {
                 System.out.println(io);
             }
-//            try {
-//                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-//                outputStream.write(contents.getBytes());
-//                outputStream.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

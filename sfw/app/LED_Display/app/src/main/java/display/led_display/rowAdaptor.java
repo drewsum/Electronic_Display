@@ -1,6 +1,8 @@
 package display.led_display;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,17 +57,40 @@ public class rowAdaptor extends BaseAdapter {
             vi = inflater.inflate(R.layout.row, null);
         final View finView = vi;
         TextView text = (TextView) vi.findViewById(R.id.text);
-        text.setText(data.get(position));
+        text.setText(data.get(position)); // populate rows
         Button buttonDelete = (Button) vi.findViewById(R.id.buttonDelete);
-        buttonDelete.setFocusable(false);
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        buttonDelete.setFocusable(false); // needed to allow row to still be clickable
+
+        // set up "are you sure you want to delete dialog"
+        AlertDialog.Builder builder = new AlertDialog.Builder(finView.getContext());
+        builder.setTitle("Confirm deletion of " + keyName.replace("List", ""));
+        builder.setMessage("This action is permanent!");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
                 data.remove(position);
                 TinyDB tinyDB = new TinyDB(finView.getContext());
                 tinyDB.putListString(keyName, data);
                 Log.d(keyName, data.toString());
                 notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+        final AlertDialog alert = builder.create();
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("clickEvent", "button clicked");
+                alert.show();
             }
         });
         return vi;

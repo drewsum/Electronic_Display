@@ -1,21 +1,28 @@
 package display.led_display;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+import display.led_display.helper.TinyDB;
 
 
 /**
@@ -37,6 +44,9 @@ public class ProjectPreviewFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private ArrayList<String> framesList;
+    private int currentIndex = 0;
 
     public ProjectPreviewFragment() {
         // Required empty public constructor
@@ -76,9 +86,49 @@ public class ProjectPreviewFragment extends Fragment {
         // Inflate the layout for this fragment
         Bundle arguments = getArguments();
         // this only works night now if you nav from new project
-        String projectName = arguments.getString("projectName");
+        final String projectName = arguments.getString("projectName");
         TextView textDisplayingProject = (TextView) rootView.findViewById(R.id.textDisplayingProject);
         textDisplayingProject.setText("Preview Project: " + projectName);
+        TinyDB tinyDB = new TinyDB(getContext());
+        framesList = tinyDB.getListString(projectName + "frameList");
+        // set up edit button
+        Button buttonEditProject = (Button) rootView.findViewById(R.id.buttonEditProject);
+        buttonEditProject.setOnClickListener(new Button.OnClickListener() {
+             @Override
+             public void onClick(View arg0) {
+                 // pass args
+                 EditProjectFragment editFrag = new EditProjectFragment();
+                 Bundle arguments = new Bundle();
+                 arguments.putString("projectName", projectName);
+                 editFrag.setArguments(arguments);
+                 // switch to edit project screen
+                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                 fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
+             }
+         });
+        // set up nav buttons
+        Button buttonLeft = (Button) rootView.findViewById(R.id.buttonLeft);
+        buttonLeft.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                if (currentIndex > 0) {
+                    Log.d("Next Image", "" + currentIndex);
+                    currentIndex--;
+                    updateImage();
+                }
+            }
+        });
+        Button buttonRight = (Button) rootView.findViewById(R.id.buttonRight);
+        buttonRight.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                if (currentIndex < (framesList.size() - 1)) {
+                    Log.d("Prev Image", "" + currentIndex);
+                    currentIndex++;
+                    updateImage();
+                }
+            }
+        });
 
         return rootView;
     }
@@ -87,15 +137,24 @@ public class ProjectPreviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
-        final ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.setMessage("parse image bitmap...");
-        dialog.show();
-        try {
-            imagePreview.setImageBitmap(display.led_display.helper.FileConverter.fileToBitmap(new File("/storage/emulated/0/Download" + "/values.txt")));
-        } catch (Throwable throwable) {
-            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.marquette));
-        }
-        dialog.dismiss();
+//        final ProgressDialog dialog = new ProgressDialog(getContext());
+//        dialog.setMessage("parse image bitmap...");
+//        dialog.show();
+//        try {
+//            imagePreview.setImageBitmap(display.led_display.helper.FileConverter.fileToBitmap(new File("/storage/emulated/0/Download" + "/values.txt")));
+//        } catch (Throwable throwable) {
+//            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.marquette));
+//        }
+//        dialog.dismiss();
+        Log.d("framesList[0]", framesList.get(0).toString());
+        loadImageFromStorage(framesList.get(0));
+    }
+
+    private void updateImage() {
+        loadImageFromStorage(framesList.get(currentIndex));
+        TextView textFrameCount = (TextView) getView().findViewById(R.id.textFrameDisplayed);
+        textFrameCount.setText("Previewing Frame: " + (currentIndex+1) + "/" + framesList.size());
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -135,5 +194,20 @@ public class ProjectPreviewFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void loadImageFromStorage(String path)
+    {
+        try {
+            File f=new File(path);
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
+            imagePreview.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -175,9 +175,6 @@ public class PixelsConverter {
                 panelList[i][j] = BitsToMicro(bits);
             }
         }
-//        for(int m = 0; m < dimX; m++) {
-//            compilePanelLists(panelList[m][0], panelList[m][1], panelList[m][0], panelList[m][1]);
-//        }
         byte[] pillar0 = compilePanelLists(panelList[0][0], panelList[0][1], panelList[0][2], panelList[0][3]); // 49152
         byte[] pillar1 = compilePanelLists(panelList[1][0], panelList[1][1], panelList[1][2], panelList[1][3]);
         byte[] pillar2 = compilePanelLists(panelList[2][0], panelList[2][1], panelList[2][2], panelList[2][3]);

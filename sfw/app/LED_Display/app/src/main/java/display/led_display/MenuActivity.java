@@ -16,6 +16,7 @@ import android.view.MenuItem;
 public class MenuActivity extends AppCompatActivity
         implements UploadProjectFragment.OnFragmentInteractionListener,
         NewProjectFragment.OnFragmentInteractionListener,
+        NewDeviceFragment.OnFragmentInteractionListener,
         ProjectPreviewFragment.OnFragmentInteractionListener,
         EditProjectFragment.OnFragmentInteractionListener,
         SelectionFragment.OnFragmentInteractionListener,

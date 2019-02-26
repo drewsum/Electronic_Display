@@ -89,12 +89,13 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
         // populate physical boards list
         ListView boardListview = rootView.findViewById(R.id.deviceList);
         boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
-        Button buttonSelectDevice = (Button) rootView.findViewById(R.id.buttonDeviceSelect);
-        buttonSelectDevice.setOnClickListener(new Button.OnClickListener() {
+        Button buttonNewDevice = (Button) rootView.findViewById(R.id.buttonNewDevice);
+        buttonNewDevice.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, new NewDeviceFragment()).commit();
             }
         });
 
@@ -146,7 +147,7 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonDeviceSelect:
+            case R.id.buttonNewDevice:
                 startActivity(new Intent(getActivity(), WiFiActivity.class));
                 break;
         }

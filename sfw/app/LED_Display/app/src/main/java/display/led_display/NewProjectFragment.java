@@ -87,7 +87,8 @@ public class NewProjectFragment extends Fragment {
                 projectList.add(newProjectName);
                 tinyDB.putListString("projectList", projectList);
                 Log.d("projectList", projectList.toString());
-
+                // create a framesList for project
+                tinyDB.putListString(newProjectName + "frameList", new ArrayList<String>());
                 // pass args
                 EditProjectFragment editFrag = new EditProjectFragment();
                 Bundle arguments = new Bundle();

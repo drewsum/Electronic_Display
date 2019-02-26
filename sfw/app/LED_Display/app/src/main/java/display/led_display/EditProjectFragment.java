@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class EditProjectFragment extends Fragment implements View.OnClickListene
     private String mParam2;
 
     private int frameCount = 0;
+    private String projectName;
+    private ArrayList<String> framesList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -83,10 +86,11 @@ public class EditProjectFragment extends Fragment implements View.OnClickListene
         // Set Project Name being edited
         Bundle arguments = getArguments();
         // this only works night now if you nav from new project
-        String projectName = arguments.getString("projectName");
+        projectName = arguments.getString("projectName");
         // get the frames for that project
         TinyDB tinyDB = new TinyDB(getContext());
-        final ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
+        framesList = tinyDB.getListString(projectName + "frameList");
+        Log.d("FrameList fetched", framesList.toString());
         // framesList.add("filepath in internal storage");
         frameCount = framesList.size();
         ListView listview = rootView.findViewById(R.id.framesList);
@@ -97,8 +101,11 @@ public class EditProjectFragment extends Fragment implements View.OnClickListene
 
             @Override
             public void onClick(View arg0) {
-                frameCount++;
-                startActivityForResult(new Intent(getActivity(), ImageSelectActivity.class), 1);
+                // need to give index and project name for imagePath naming convention
+                Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
+                intent.putExtra("projectName", projectName);
+                intent.putExtra("index", frameCount);
+                startActivityForResult(intent, 1);
             }
         });
         TextView textProjectName = (TextView) rootView.findViewById(R.id.textProjectName);
@@ -107,6 +114,24 @@ public class EditProjectFragment extends Fragment implements View.OnClickListene
         TextView textFrameCount = (TextView) rootView.findViewById(R.id.textFrameCount);
         textFrameCount.setText(frameCount + "/8");
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            //Uri targetUri = Uri.parse(data.getExtras().getString("targetUri"));
+            String filePath = data.getExtras().getString("filePath");
+            frameCount++;
+            TextView textFrameCount = (TextView) this.getView().findViewById(R.id.textFrameCount);
+            textFrameCount.setText(frameCount + "/8");
+            Log.d("filePath", filePath);
+
+            TinyDB tinyDB = new TinyDB(getContext());
+            framesList = tinyDB.getListString(projectName + "frameList");
+            framesList.add(filePath);
+            tinyDB.putListString(projectName + "frameList", framesList);
+            Log.d("frameList", framesList.toString());
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
