@@ -67,7 +67,6 @@ public class rowAdaptor extends BaseAdapter {
         builder.setMessage("This action is permanent!");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
                 data.remove(position);
                 TinyDB tinyDB = new TinyDB(finView.getContext());
                 tinyDB.putListString(keyName, data);
@@ -79,8 +78,6 @@ public class rowAdaptor extends BaseAdapter {
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                // Do nothing
                 dialog.dismiss();
             }
         });
