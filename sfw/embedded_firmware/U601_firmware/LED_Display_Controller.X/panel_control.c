@@ -1,10 +1,20 @@
 
 #include <xc.h>
 
+#include <stdio.h>
+
 #include "pin_macros.h"
 #include "panel_control.h"
 #include "external_bus_interface.h"
 #include "32mz_interrupt_control.h"
+
+#include "terminal_control.h"
+
+// This pragma tells the linker to allow access of EBI memory space
+#pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
+
+// This is tricking the compiler into placing an array in EBI SRAM
+extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
 
 // Optimizing writing to pins
 #define PANEL_CLK_PIN_HIGH()    LATJSET = 0x01
@@ -13,13 +23,6 @@
 #define PANEL_LAT_PIN_LOW()     LATJCLR = 0x02
 #define nPANEL_OE_PIN_HIGH()    LATJSET = 0x04
 #define nPANEL_OE_PIN_LOW()     LATJCLR = 0x04
-
-
-// This pragma tells the linker to allow access of EBI memory space
-#pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
-
-// This is tricking the compiler into placing an array in EBI SRAM
-extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
 
 // Function to handle all multiplexing for panel
 void panelMultiplexingHandler(void) {
@@ -39,16 +42,16 @@ void panelMultiplexingHandler(void) {
 
         // Set clock low
         PANEL_CLK_PIN_LOW();
-                
+        
         // Set red pins from RAM buffer
         current_shift_clock_index = 3 * current_shift_clock;
-        uint8_t redData = ebi_sram_array[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
+        uint8_t redData = panel_data_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
         setPanelRedBus(redData);
         // Set green pins from RAM buffer
-        uint8_t greenData = ebi_sram_array[current_shift_clock_index + current_row_index + current_PWM_frame_index + 1];
+        uint8_t greenData = panel_data_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 1];
         setPanelGreenBus(greenData);
         // Set blue pins from RAM buffer
-        uint8_t blueData = ebi_sram_array[current_shift_clock_index + current_row_index + current_PWM_frame_index + 2];
+        uint8_t blueData = panel_data_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 2];
         setPanelBlueBus(blueData);
 
         // Clock data into panel
@@ -225,3 +228,82 @@ void panelMultiplexingSuspend(void) {
     nPANEL_OE_PIN = 1;
     
 }
+
+// This function prints the contents of the internal RAM buffer holding frame data
+void panelDataBufferPrint(void) {
+
+    // print title of data table
+    terminalTextAttributesReset();
+    terminalTextAttributes(GREEN, BLACK, UNDERSCORE);
+    printf("Contents of first kB of Internal Static Random Access Memory Buffer holding Display Data:\n\r");
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("    Starting    Lower Nibble\n\r");
+    printf("    Address:    0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F\n\r");
+    
+    // Access address
+    uint32_t loop_address;
+    
+    // wait for it
+    for (loop_address = 0 ; loop_address < PANEL_DATA_ARRAY_SIZE / 256; loop_address += 16) {
+        
+        if (loop_address % 32 == 0) {
+         
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            
+        }
+        
+        else {
+         
+            terminalTextAttributes(GREEN, BLACK, REVERSE);
+            
+        }
+        
+        printf("    0x%08X: 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X\n\r", loop_address,
+               panel_data_buffer[loop_address + 0],
+               panel_data_buffer[loop_address + 1], 
+               panel_data_buffer[loop_address + 2], 
+               panel_data_buffer[loop_address + 3], 
+               panel_data_buffer[loop_address + 4], 
+               panel_data_buffer[loop_address + 5], 
+               panel_data_buffer[loop_address + 6], 
+               panel_data_buffer[loop_address + 7], 
+               panel_data_buffer[loop_address + 8], 
+               panel_data_buffer[loop_address + 9], 
+               panel_data_buffer[loop_address + 0xA], 
+               panel_data_buffer[loop_address + 0xB], 
+               panel_data_buffer[loop_address + 0xC], 
+               panel_data_buffer[loop_address + 0xD], 
+               panel_data_buffer[loop_address + 0xE], 
+               panel_data_buffer[loop_address + 0xF]);
+        
+    }
+    
+    terminalTextAttributesReset();
+    
+    
+}
+
+// This function copies all data from the internal RAM buffer into EBI SRAM
+void movePanelDataToEBISRAM(void) {
+ 
+    uint32_t loop_address;
+    for (loop_address = 0; loop_address < PANEL_DATA_ARRAY_SIZE; loop_address++) {
+     
+        ebi_sram_array[loop_address] = panel_data_buffer[loop_address];
+        
+    }
+    
+}
+
+// This function copies panel data from EBI SRAM to the internal RAM buffer
+void movePanelDataFromEBISRAM(void) {
+ 
+    uint32_t loop_address;
+    for (loop_address = 0; loop_address < PANEL_DATA_ARRAY_SIZE; loop_address++) {
+     
+        panel_data_buffer[loop_address] = ebi_sram_array[loop_address];
+        
+    }
+    
+}
+

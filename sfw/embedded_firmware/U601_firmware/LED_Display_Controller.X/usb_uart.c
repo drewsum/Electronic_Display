@@ -560,6 +560,40 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "Print Internal RAM Contents") == 0) {
+        
+        terminalTextAttributesReset();
+        panelDataBufferPrint();
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Copy EBI SRAM to Buffer") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Moving EBI SRAM data into internal RAM buffer\n\r");
+        
+        movePanelDataFromEBISRAM();
+        
+        printf("Data copy complete\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Copy Buffer to EBI SRAM") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Moving Internal RAM buffer data into EBI SRAM\n\r");
+        
+        movePanelDataToEBISRAM();
+        
+        printf("Data copy complete\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
     // Identification command
     else if(strcmp(line_in, "Enable Muxing") == 0) {
      
@@ -1216,9 +1250,12 @@ void usbUartPrintHelpMessage(void) {
     printf("    Test EBI SRAM: Tests writing to and reading from external EBI SRAM\n\r");
     printf("    Print EBI SRAM Contents: Prints the data saved in EBI SRAM\n\r");
     printf("    Clear EBI SRAM: Resets all bytes within EBI SRAM to 0x00\n\r");
+    printf("    Print Internal RAM Contents: Prints the contents of the first kB of internal RAM buffer holding display data\n\r");
+    printf("    Copy Buffer to EBI SRAM: Moves data from Internal Buffer into EBI SRAM\n\r");
+    printf("    Copy EBI SRAM to Buffer: Moves data from EBI SRAM into Internal Buffer\n\r");
     printf("    SPI Flash Chip Write <x>: Erases the entered SPI Flash chip, x = 1:8\n\r");
-    printf("    SPI Flash Chip Write <x>: Writes the contents of the RAM buffer to the given SPI Flash chip, x = 1:8\n\r");
-    printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into RAM buffer, x = 1:8\n\r");
+    printf("    SPI Flash Chip Write <x>: Writes the contents of the EBI SRAM buffer to the given SPI Flash chip, x = 1:8\n\r");
+    printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into EBI SRAM buffer, x = 1:8\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
