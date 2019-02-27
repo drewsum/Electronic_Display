@@ -41,7 +41,7 @@ void spiFlashInit(void)
     // Turn off module before configuration
     SPI3CONbits.ON = 0;         
     SPI3BUF = 0;                
-    SPI3CONbits.ENHBUF = 1;     // Enabled enhanced buffer
+    SPI3CONbits.ENHBUF = 0;     // Disable enhanced buffer
     SPI3BRG = 5;                // Baud Rate configuration: PBCLK2 = 84MHz, FSCK = 10MHz 
     SPI3STATbits.SPIROV = 0;    
     SPI3CONbits.MSTEN = 1;      // Master mode
@@ -660,9 +660,6 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
 
 // SPI3 Receive Done interrupt service routine
 void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
-
-    // Print something for now
-    //printf("SPI3 Receive Done ISR");
      
     // Load in byte to ebi_sram_array and increment index
     ebi_sram_array[sram_addr_index] = SPI3BUF;
@@ -696,21 +693,17 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
 //SPI3 Transfer Done interrupt service routine
 void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
-    // Print something for now
-    // printf("SPI3 Transfer Done ISR");
-    
-        // Load in byte to ebi_sram_array and increment index
+    // Load in byte to ebi_sram_array and increment index
     SPI3BUF = ebi_sram_array[sram_addr_index];
     sram_addr_index++;
-    //printf("%d\n\r", sram_addr_index);
     
     // Check if we are at the end of the array
     if (sram_addr_index >= PANEL_DATA_ARRAY_SIZE) {
         
         disableInterrupt(SPI3_Transfer_Done);
         
-        SPI3_writeByte(0x04);
-        SPI3_writeByte(0x80);
+        // SPI3_writeByte(0x04);
+        // SPI3_writeByte(0x80);
         
         spiFlashGPIOReset();
         
@@ -783,20 +776,25 @@ void SPI_FLASH_chipErase(uint8_t chip_select) {
     disableInterrupt(SPI3_Transfer_Done);
     
     // Write enable opcode
-    //SPI_Flash_writeEnable(chip_select);
     SPI3_writeByte(0x06);
+
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
     
     // Write chip erase opcode to SPI3
     SPI3_writeByte(0x60);
     
-    // Wait for transmit buffer to empty
-    while(SPI3STATbits.TXBUFELM != 0);
-    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+        
     // Clear state machine
     spi_flash_state = idle;
     
     // Clear CS and WP signals
     spiFlashGPIOReset();
+    
+    clearInterruptFlag(SPI3_Transfer_Done);
+    clearInterruptFlag(SPI3_Receive_Done);
     
 }
 
@@ -844,25 +842,38 @@ void SPI_FLASH_beginRead(uint8_t chip_select) {
     // Write chip read opcode to SPI3 (0x0B for high speed read, 0x03 for standard read))
     SPI3_writeByte(0x0B);
     
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
     // Write addr1 byte
     SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
     
     // Write addr2 byte
     SPI3_writeByte(0x00);
     
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
     // Write addr3 byte
     SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
     
     // Write dummy byte (needed for high speed read)
     SPI3_writeByte(0xDD);
     
-    // Wait for transmit buffer to empty
-    while(SPI3STATbits.TXBUFELM != 0);
-    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+        
     // write another dummy byte to start read
     SPI3_writeByte(0x00);
     
     // Enable receive interrupt and wait
+    clearInterruptFlag(SPI3_Receive_Done);
     enableInterrupt(SPI3_Receive_Done);
     
 }
@@ -917,25 +928,27 @@ void SPI_FLASH_beginWrite(uint8_t chip_select) {
     // Send AAI programming opcode
     SPI3_writeByte(0xAD);
     
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
     // Send address bytes
     SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
     SPI3_writeByte(0x00);
     
-    // Wait for transmit buffer to empty
-    while(SPI3STATbits.TXBUFELM != 0);
-    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+        
     SPI3_writeByte(0x00);
     
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    clearInterruptFlag(SPI3_Transfer_Done);
     enableInterrupt(SPI3_Transfer_Done);
-    
-//    for(sram_addr_index=0; sram_addr_index<PANEL_DATA_ARRAY_SIZE; sram_addr_index++){
-//        
-//        SPI3_writeByte(ebi_sram_array[sram_addr_index]);
-//        
-//        // Wait for transmit buffer to empty
-//        while(SPI3STATbits.TXBUFELM != 0);
-//        
-//    }
        
 }
 
@@ -978,7 +991,10 @@ void SPI_Flash_writeEnable(uint8_t chip_select){
     // Send write enable opcode
     SPI3_writeByte(0x06);
     
-    // Wait for buffer to empty
-    while(SPI3STATbits.TXBUFELM != 0);
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    clearInterruptFlag(SPI3_Transfer_Done);
+    clearInterruptFlag(SPI3_Receive_Done);
     
 }
