@@ -62,7 +62,9 @@ void spiFlashInit(void)
     SPI3CONbits.DISSDI = 0;     // SDI3 pin is controlled by module
     SPI3CONbits.STXISEL = 0b01; // Interrupt is generated when buffer is empty
     SPI3CONbits.SRXISEL = 0b01; // Interrupt is generated when buffer is not empty
-    SPI3CON2bits.AUDEN = 0;     
+    SPI3CON2bits.AUDEN = 0;     // Disable audio mode
+    SPI3CON2bits.SPIROVEN = 1;  // Receive Overrun triggers a fault interrupt
+    SPI3CON2bits.SPITUREN = 1;  // Transmit underrun triggers a fault interrupt
     
     // Configure bits for Framed Mode ONLY
     SPI3CONbits.FRMSYNC = 0;  
@@ -644,11 +646,18 @@ void printSPIFlashStatus(void) {
 // SPI3 Fault interrupt service routine
 void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
     
-    // Print something for now
-   // printf("SPI3 Fault ISR\n\r");
-    
     // Record a SPI error
     error_handler.SPI_error_flag = 1;
+    
+    if (SPI3STATbits.SPIROV) {
+        error_handler.SPI_receive_overflow_error_flag = 1;
+        SPI3STATbits.SPIROV = 0;
+    }
+    
+    if (SPI3STATbits.SPITUR) {
+        error_handler.SPI_transfer_underrun_error_flag = 1;
+        SPI3STATbits.SPITUR = 0;
+    }
     
     // Disable SPI interrupts
     disableInterrupt(SPI3_Transfer_Done);
