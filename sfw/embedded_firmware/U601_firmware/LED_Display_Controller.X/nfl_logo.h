@@ -20,13 +20,6 @@
 
 #include <xc.h>
 
-// This pragma tells the linker to allow access of EBI memory space
-#pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
-
-// This is tricking the compiler into placing an array in EBI SRAM
-extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
-
-
 const uint8_t nfl_array[262144] = {
     
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 

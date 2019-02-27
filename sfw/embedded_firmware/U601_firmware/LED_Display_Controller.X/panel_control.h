@@ -21,6 +21,9 @@
 
 #define PANEL_DATA_ARRAY_SIZE 245760
 
+// Array that will hold all data currently being displayed on panels
+uint8_t panel_data_buffer[PANEL_DATA_ARRAY_SIZE];
+
 // Display update variables
 uint32_t current_shift_clock;
 uint32_t current_row;
@@ -59,6 +62,15 @@ void __ISR(_TIMER_5_VECTOR, IPL6SRS) panelMultiplexingTimerISR(void);
 
 // This function stops multiplexing and clears all control signals
 void panelMultiplexingSuspend(void);
+
+// This function prints the contents of the internal RAM buffer holding frame data
+void panelDataBufferPrint(void);
+
+// This function copies all data from the internal RAM buffer into EBI SRAM
+void movePanelDataToEBISRAM(void);
+
+// This function copies panel data from EBI SRAM to the internal RAM buffer
+void movePanelDataFromEBISRAM(void);
 
 #endif /* _PANEL_CONTROL_H */
 

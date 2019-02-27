@@ -169,6 +169,16 @@ void printErrorHandlerStatus(void) {
     else terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("   SPI Flash error %s\n\r", error_handler.SPI_error_flag ? "has occurred" : "has not occurred");
     
+    // SPI Receive Overflow Error
+    if (error_handler.SPI_receive_overflow_error_flag) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("   SPI Flash Receive Overflow error %s\n\r", error_handler.SPI_receive_overflow_error_flag ? "has occurred" : "has not occurred");
+    
+    // SPI Transfer Underrun Error
+    if (error_handler.SPI_transfer_underrun_error_flag) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("   SPI Flash Transfer Underrun error %s\n\r", error_handler.SPI_transfer_underrun_error_flag ? "has occurred" : "has not occurred");
+    
     // WIFI Error
     if (error_handler.WIFI_error_flag) terminalTextAttributes(RED, BLACK, NORMAL);
     else terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -251,6 +261,8 @@ void clearErrorHandler(void) {
     error_handler.POS5P_thermal_warning_error_flag = 0;
     error_handler.POS5_regulation_error_flag = 0;
     error_handler.SPI_error_flag = 0;
+    error_handler.SPI_receive_overflow_error_flag = 0;
+    error_handler.SPI_transfer_underrun_error_flag = 0;
     error_handler.USB_error_flag = 0;
     error_handler.WIFI_error_flag = 0;
     error_handler.configuration_error_flag = 0;
@@ -289,7 +301,7 @@ void updateErrorLEDs(void) {
     else EBI_ERROR_LED_PIN = 0;
     
     // SPI Error
-    if (error_handler.SPI_error_flag) SPI_ERROR_LED_PIN = 1;
+    if (error_handler.SPI_error_flag || error_handler.SPI_receive_overflow_error_flag || error_handler.SPI_transfer_underrun_error_flag) SPI_ERROR_LED_PIN = 1;
     else SPI_ERROR_LED_PIN = 0;
     
     // WIFI Error

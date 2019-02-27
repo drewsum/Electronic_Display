@@ -560,6 +560,40 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "Print Internal RAM Contents") == 0) {
+        
+        terminalTextAttributesReset();
+        panelDataBufferPrint();
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Copy EBI SRAM to Buffer") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Moving EBI SRAM data into internal RAM buffer\n\r");
+        
+        movePanelDataFromEBISRAM();
+        
+        printf("Data copy complete\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Copy Buffer to EBI SRAM") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Moving Internal RAM buffer data into EBI SRAM\n\r");
+        
+        movePanelDataToEBISRAM();
+        
+        printf("Data copy complete\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
     // Identification command
     else if(strcmp(line_in, "Enable Muxing") == 0) {
      
@@ -840,57 +874,47 @@ void usbUartRingBufferLUT(char * line_in) {
     else if (strcmp(line_in, "SPI Flash Chip Read ") == 0) {
     
         // Get which chip we're erasing
-        uint8_t chip_to_erase;
-        //static char copy_str[25];
-        //strcpy(copy_str, line_in);
-        //sscanf(copy_str, "SPI Flash Chip Erase %d", &chip_to_erase);
-        
-        chip_to_erase = 1;
+        static uint8_t chip_to_read;
+        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_read);
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Reading chip %d\n\r", chip_to_erase);
+        printf("Reading chip %d\n\r", chip_to_read);
         terminalTextAttributesReset();
         
-        SPI_FLASH_beginRead(chip_to_erase);
+        SPI_FLASH_beginRead(chip_to_read);
         
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Chip %d read successful\n\r", chip_to_erase);
+        printf("Chip %d read successful\n\r", chip_to_read);
         terminalTextAttributesReset();
         
     }
     
-    else if (strcmp(line_in, "SPI Flash Chip Write ") == 0) {
+    else if (strstr(line_in, "SPI Flash Chip Write ") == 0) {
         
-        uint8_t chip_to_erase;
-        //static char copy_str[25];
-        //strcpy(copy_str, line_in);
-        //sscanf(copy_str, "SPI Flash Chip Erase %d", &chip_to_erase);
+        static uint8_t chip_to_write;
+        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_write);
         
-        chip_to_erase = 1;
-        
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Writing to chip %d\n\r", chip_to_erase);
+        printf("Writing to chip %d\n\r", chip_to_write);
         terminalTextAttributesReset();
         
-        SPI_FLASH_beginWrite(chip_to_erase);
+        SPI_FLASH_beginWrite(chip_to_write);
         
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Chip %d write successful\n\r", chip_to_erase);
+        printf("Chip %d write successful\n\r", chip_to_write);
         terminalTextAttributesReset();
         
     }
-        
-    else if (strcmp(line_in, "SPI Flash Chip Erase ") == 0) {
+    
+    else if (strstr(line_in, "SPI Flash Chip Erase ") == 0) {
     
         // Get which chip we're erasing
-        uint8_t chip_to_erase;
-        //static char copy_str[25];
-        //strcpy(copy_str, line_in);
-        //sscanf(copy_str, "SPI Flash Chip Erase %d", &chip_to_erase);
+        static uint8_t chip_to_erase;
+        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_erase);
         
-        chip_to_erase = 1;
-        
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Erasing chip %d\n\r", chip_to_erase);
         terminalTextAttributesReset();
@@ -1226,6 +1250,12 @@ void usbUartPrintHelpMessage(void) {
     printf("    Test EBI SRAM: Tests writing to and reading from external EBI SRAM\n\r");
     printf("    Print EBI SRAM Contents: Prints the data saved in EBI SRAM\n\r");
     printf("    Clear EBI SRAM: Resets all bytes within EBI SRAM to 0x00\n\r");
+    printf("    Print Internal RAM Contents: Prints the contents of the first kB of internal RAM buffer holding display data\n\r");
+    printf("    Copy Buffer to EBI SRAM: Moves data from Internal Buffer into EBI SRAM\n\r");
+    printf("    Copy EBI SRAM to Buffer: Moves data from EBI SRAM into Internal Buffer\n\r");
+    printf("    SPI Flash Chip Write <x>: Erases the entered SPI Flash chip, x = 1:8\n\r");
+    printf("    SPI Flash Chip Write <x>: Writes the contents of the EBI SRAM buffer to the given SPI Flash chip, x = 1:8\n\r");
+    printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into EBI SRAM buffer, x = 1:8\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
