@@ -34,6 +34,12 @@ uint32_t current_shift_clock_index;
 uint32_t current_row_index;
 uint32_t current_PWM_frame_index;
 
+
+// THESE ARE TEMPORARY VARIABLES
+#warning "Remove temporary panel control variables"
+uint8_t panel_clock_high_delay = 10;
+uint8_t panel_clock_low_delay = 10;
+
 // Function to handle all mutliplexing for panel
 void panelMultiplexingHandler(void);
 
@@ -71,6 +77,14 @@ void movePanelDataToEBISRAM(void);
 
 // This function copies panel data from EBI SRAM to the internal RAM buffer
 void movePanelDataFromEBISRAM(void);
+
+// This function initializes output compare 3 for dimming the display
+void panelPWMInitialize(void);
+
+// This function sets panel brightness
+// Pass an integer between 0 and 100
+// Larger numbers correspond to a brighter display
+void panelPWMSetBrightness(uint8_t set_brightness);
 
 #endif /* _PANEL_CONTROL_H */
 
