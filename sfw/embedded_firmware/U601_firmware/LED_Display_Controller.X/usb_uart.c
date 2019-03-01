@@ -24,6 +24,7 @@
 #include "spi_flash.h"
 
 #include "nfl_logo.h"
+#include "esp8266.h"
 
 volatile uint64_t usb_uart_TxHead = 0;
 volatile uint64_t usb_uart_TxTail = 0;
@@ -391,7 +392,10 @@ void usbUartRingBufferLUT(char * line_in) {
  
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
-
+    if (strcmp(strncpy(line_in, 6), "WiFi: ")) {
+        // print WiFi command to UART1 RX
+        esp8266Putstring(line_in);
+    }
     if (strcmp(line_in, "Reset") == 0) {
 
          deviceReset();

@@ -39,7 +39,7 @@ uint8_t esp8266ReadByte(void);
 
 // This function places a character into the output stream of UART1
 void esp8266Putchar(uint8_t txData);
-
+void esp8266Putstring(char * string);
 // These are the UART1 interrupt handlers
 void esp8266TransmitHandler(void);
 void esp8266ReceiveHandler(void);

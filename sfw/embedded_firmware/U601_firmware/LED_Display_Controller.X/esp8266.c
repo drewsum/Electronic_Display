@@ -331,6 +331,7 @@ void esp8266RingBufferLUT(char * line_in) {
         
     }
 }
+
 // send "AT\r\n" to see if you can connect
 // send "AT+RST\r\n" to reset module
 // send "AT+VERSION\r\n" to get the firmware version of the esp module
@@ -339,28 +340,31 @@ void esp8266RingBufferLUT(char * line_in) {
 // send "AT+CIPMUX=1\r\n" to configure for multiple connections
 // send "AT+CIPSERVER=1,80\r\n" to turn on server on port 80
 // send "AT+CIFSR\r\n" to get the IP address of the module
+void esp8266Putstring(char * string) {
+    int i;
+    for(i = 0; i <= strlen(string); i++) {
+        esp8266Putchar(string[i]);
+    }
+}
 
 /*
  * sendCIPData sends bytes over the WiFi connection to the Android Device
  */
-void sendCIPData(uint8_t connectionId, uint8_t * data, uint8_t length)
-{
+void sendCIPData(uint8_t connectionId, uint8_t * data, uint8_t length) {
     strcpy(cipString, "AT+CIPSEND=");
     strcat(cipString, &connectionId);
     strcat(cipString, ", ");
     strcat(cipString, &length);
     strcat(cipString, "\r\n");
-    // esp8266Putstring(cipString);
-    //send_receive(cipString, strlen(cipString));
-    //send_receive(data, strlen(data));
+    esp8266Putstring(cipString);
+    esp8266Putstring(data);
 }
 
 /*
  * sendHTTPResponse sends HTTP Responses to the Android Device confirming
  * receipt of command / data
  */
-void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length)
-{    
+void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length) {    
     // build HTTP response
     uint8_t httpResponse[256];
     uint8_t httpHeader[256];
@@ -376,11 +380,8 @@ void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length)
     sendCIPData(connectionId, httpResponse, strlen(httpResponse));
 }
 
-// Need a print string to UART1 function or edit the printf to 
-// switch stdout between UART1 or UART3
-
 // Find cases to set WiFi error handler state to show error led
-
+    // 
 // Create a connection verification function
 // Android sends "Marco" ESP replies "Polo"
 
