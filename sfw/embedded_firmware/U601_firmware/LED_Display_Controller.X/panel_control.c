@@ -43,6 +43,11 @@ void panelMultiplexingHandler(void) {
         // Set clock low
         PANEL_CLK_PIN_LOW();
         
+        uint8_t delay_index = panel_clock_low_delay;
+        while (delay_index > 0) {
+            delay_index--;
+        };
+        
         // Set red pins from RAM buffer
         current_shift_clock_index = 3 * current_shift_clock;
         uint8_t redData = panel_data_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
@@ -58,7 +63,8 @@ void panelMultiplexingHandler(void) {
         PANEL_CLK_PIN_HIGH();
         
         // Poor man's delay
-        uint8_t delay_index = 3;
+        // uint8_t delay_index = 3;
+        delay_index = panel_clock_high_delay;
         while (delay_index > 0) {
             delay_index--;
         };
@@ -307,3 +313,20 @@ void movePanelDataFromEBISRAM(void) {
     
 }
 
+// This function initializes output compare 3 for dimming the display
+void panelPWMInitialize(void) {
+ 
+    // TO-DO: Write this
+    Nop();
+    
+}
+
+// This function sets panel brightness
+// Pass an integer between 0 and 100
+// Larger numbers correspond to a brighter display
+void panelPWMSetBrightness(uint8_t set_brightness) {
+
+    // TO-DO: Write This
+    Nop();
+    
+}

@@ -842,6 +842,36 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    // Set panel brightness
+    else if (line_in[0] == 'S' &&
+            line_in[1] == 'e' &&
+            line_in[2] == 't' &&
+            line_in[3] == ' ' &&
+            line_in[4] == 'P' &&
+            line_in[5] == 'a' &&
+            line_in[6] == 'n' &&
+            line_in[7] == 'e' &&
+            line_in[8] == 'l' &&
+            line_in[9] == ' ' &&
+            line_in[10] == 'B' &&
+            line_in[11] == 'r' &&
+            line_in[12] == 'i' &&
+            line_in[13] == 'g'
+            ) {
+     
+        // Get which chip we're erasing
+        uint32_t set_brightness;
+        sscanf(line_in, "Set Panel Brightness %d", &set_brightness);
+        
+        panelPWMSetBrightness((uint8_t) set_brightness);
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Set Panel Brightness to %d\n\r", set_brightness);
+        terminalTextAttributesReset();
+        
+    }
+    
     else if (strcmp(line_in, "Error Status?") == 0) {
      
         // Print error handler status
@@ -890,42 +920,42 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strstr(line_in, "SPI Flash Chip Write ") == 0) {
-        
-        static uint8_t chip_to_write;
-        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_write);
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Writing to chip %d\n\r", chip_to_write);
-        terminalTextAttributesReset();
-        
-        SPI_FLASH_beginWrite(chip_to_write);
-        
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Chip %d write successful\n\r", chip_to_write);
-        terminalTextAttributesReset();
-        
-    }
-    
-    else if (strstr(line_in, "SPI Flash Chip Erase ") == 0) {
-    
-        // Get which chip we're erasing
-        static uint8_t chip_to_erase;
-        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_erase);
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Erasing chip %d\n\r", chip_to_erase);
-        terminalTextAttributesReset();
-        
-        SPI_FLASH_chipErase(chip_to_erase);
-        
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Erased chip %d\n\r", chip_to_erase);
-        terminalTextAttributesReset();
-        
-    }
+//    else if (strstr(line_in, "SPI Flash Chip Write ")) {
+//        
+//        static uint8_t chip_to_write;
+//        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_write);
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Writing to chip %d\n\r", chip_to_write);
+//        terminalTextAttributesReset();
+//        
+//        SPI_FLASH_beginWrite(chip_to_write);
+//        
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Chip %d write successful\n\r", chip_to_write);
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    else if (strstr(line_in, "SPI Flash Chip Erase ")) {
+//    
+//        // Get which chip we're erasing
+//        static uint8_t chip_to_erase;
+//        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_erase);
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Erasing chip %d\n\r", chip_to_erase);
+//        terminalTextAttributesReset();
+//        
+//        SPI_FLASH_chipErase(chip_to_erase);
+//        
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Erased chip %d\n\r", chip_to_erase);
+//        terminalTextAttributesReset();
+//        
+//    }
     
     else if (strcmp(line_in, "Serial Number?") == 0) {
      
@@ -1224,6 +1254,42 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+#warning "Remove temporary serial commands"
+//    else if (strstr(line_in, "Set Panel Clock High ")) {
+//     
+//        sscanf(line_in, "Set Panel Clock High %d", &panel_clock_high_delay);
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Set panel clock high time to %d clock cycles\n\r", panel_clock_high_delay);
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    else if (strstr(line_in, "Set Panel Clock Low ")) {
+//     
+//        sscanf(line_in, "Set Panel Clock Low %d", &panel_clock_low_delay);
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Set panel clock low time to %d clock cycles\n\r", panel_clock_low_delay);
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    else if (strstr(line_in, "Set Panel Timer Period ")) {
+//     
+//        uint16_t input_period;
+//        sscanf(line_in, "Set Panel Timer Period %d", &input_period);
+//        PR5 = input_period;
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Set panel mux timer period to %d\n\r", input_period);
+//        terminalTextAttributesReset();
+//        
+//    }
+    
     
 }
 
@@ -1298,6 +1364,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Slow Muxing Speed: Slows down multiplexing\n\r");
     printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
     printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
+    printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
     
     
     printf("Help messages and neutral responses appear in yellow\n\r");
