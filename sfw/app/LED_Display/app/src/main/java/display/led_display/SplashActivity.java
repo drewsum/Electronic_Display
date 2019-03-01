@@ -1,9 +1,12 @@
 package display.led_display;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+
+import com.jiang.geo.R;
 
 /**
  * Created by Kevin on 10/8/2018.

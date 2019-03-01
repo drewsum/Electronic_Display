@@ -5,12 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.jiang.geo.R;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -73,15 +83,32 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
                 Uri uri = data.getData();
-                // 获取到路径
-                showFile(ConvertUriToFilePath.getPathFromURI(getActivity(), uri));
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference();
+                final StorageReference mountainsRef = storageRef.child(uri.getLastPathSegment());
+                UploadTask task = mountainsRef.putFile(uri);
+                task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Log.e("UPLOAD_TAG", "the file upload success." + taskSnapshot.getDownloadUrl());
+                        showFile(taskSnapshot.getDownloadUrl().toString());
+                    }
+                });
+                task.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "the file upload failed.", Toast.LENGTH_SHORT).show();
+                        Log.e("UPLOAD_TAG", "the file upload failed.");
+                    }
+                });
             }
         }
     }
 
-    private void showFile(String filePaht) {
+    private void showFile(String path) {
         startActivity(new Intent(getActivity(), DisplayActivity.class)
-                .putExtra("path", filePaht));
+                .putExtra("path", "https://docs.google.com/gview?embedded=true&url=" + path));
     }
 
     @Override

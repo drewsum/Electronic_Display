@@ -175,9 +175,6 @@ public class PixelsConverter {
                 panelList[i][j] = BitsToMicro(bits);
             }
         }
-//        for(int m = 0; m < dimX; m++) {
-//            compilePanelLists(panelList[m][0], panelList[m][1], panelList[m][0], panelList[m][1]);
-//        }
         byte[] pillar1 = compilePanelLists(panelList[0][0], panelList[0][1], panelList[0][0], panelList[0][1]); // 49152
         byte[] pillar2 = compilePanelLists(panelList[1][0], panelList[1][1], panelList[1][0], panelList[1][1]);
         byte[] allPillars = new byte[pillar1.length + pillar2.length];
@@ -189,4 +186,5 @@ public class PixelsConverter {
         Log.d("total size: ", "" + allPillars.length);
         return allPillars;
     }
+
 }
