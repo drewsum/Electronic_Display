@@ -36,54 +36,57 @@ void panelMultiplexingHandler(void) {
     
     // Set latch low
     PANEL_LAT_PIN_LOW();
-      
-    // loop through 64 shift clock cycles
-    for (current_shift_clock = 0; current_shift_clock <= 319; current_shift_clock += 1) {
 
-        // Set clock low
-        PANEL_CLK_PIN_LOW();
+    // Set clock low
+    PANEL_CLK_PIN_LOW();
+    
+    // update row bus signals
+    setPanelRowBus(current_row);
+    
+    uint32_t current_row_PWM_frame_index = 960 * current_row + 30720 * current_PWM_frame;
+    uint32_t current_row_PWM_frame_index_Red = current_row_PWM_frame_index + 0;
+    uint32_t current_row_PWM_frame_index_Green = current_row_PWM_frame_index + 1;
+    uint32_t current_row_PWM_frame_index_Blue = current_row_PWM_frame_index + 2;
+    
+    // loop through 64 shift clock cycles
+    for (current_shift_clock_index = 0; current_shift_clock_index < 960; current_shift_clock_index += 3) {
         
-        uint8_t delay_index = panel_clock_low_delay;
-        while (delay_index > 0) {
+        // Poor man's delay
+        uint8_t delay_index = panel_clock_high_delay;
+        while (delay_index > 2) {
             delay_index--;
         };
         
         // Set red pins from RAM buffer
-        current_shift_clock_index = 3 * current_shift_clock;
-        uint8_t redData = panel_data_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 0];
+        uint8_t redData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Red];
         setPanelRedBus(redData);
         // Set green pins from RAM buffer
-        uint8_t greenData = panel_data_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 1];
+        uint8_t greenData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Green];
         setPanelGreenBus(greenData);
         // Set blue pins from RAM buffer
-        uint8_t blueData = panel_data_buffer[current_shift_clock_index + current_row_index + current_PWM_frame_index + 2];
+        uint8_t blueData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Blue];
         setPanelBlueBus(blueData);
-
+        
         // Clock data into panel
         PANEL_CLK_PIN_HIGH();
         
         // Poor man's delay
-        // uint8_t delay_index = 3;
         delay_index = panel_clock_high_delay;
         while (delay_index > 0) {
             delay_index--;
         };
         
+        // Set clock low
+        PANEL_CLK_PIN_LOW();
+        
     }
-    
-    // clear clock signal
-    PANEL_CLK_PIN_LOW();
-
-    
-    // update row bus signals
-    setPanelRowBus(current_row);
     
     // Latch shifter data into shift registers
     PANEL_LAT_PIN_HIGH();
     
     // Enable pixel output
     nPANEL_OE_PIN_LOW();
-            
+    
     // Next function call, update the next row
     current_row++;
     
@@ -95,18 +98,12 @@ void panelMultiplexingHandler(void) {
         
     }
     
-    // Update row index variable
-    current_row_index = 960 * current_row;
-    
     // Reset current_PWM_frame counter
     if (current_PWM_frame >= 8) {
-     
+    
         current_PWM_frame = 0;
         
     }
-    
-    // Update PWM index variable
-    current_PWM_frame_index = 30720 * current_PWM_frame;
     
     // Restart on time timer
     panelMultiplexingTimerStart();
@@ -139,10 +136,10 @@ void setPanelBlueBus(uint8_t inputByte) {
 
 // Set ROW bus state functions
 void setPanelRowBus(uint8_t inputByte) {
- 
+
     // ROW bus is defined as RD11:15
     LATD = (LATD & 0x07FF) | ((inputByte & 0x1F) << 11);
-    
+   
 }
 
 // This function initializes Timer5 for panel multiplexing

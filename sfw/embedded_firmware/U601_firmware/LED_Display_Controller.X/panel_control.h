@@ -34,11 +34,8 @@ uint32_t current_shift_clock_index;
 uint32_t current_row_index;
 uint32_t current_PWM_frame_index;
 
-
-// THESE ARE TEMPORARY VARIABLES
-#warning "Remove temporary panel control variables"
-uint8_t panel_clock_high_delay = 10;
-uint8_t panel_clock_low_delay = 10;
+// clock signal high time in arbitrary clock units
+static uint8_t panel_clock_high_delay = 3;
 
 // Function to handle all mutliplexing for panel
 void panelMultiplexingHandler(void);

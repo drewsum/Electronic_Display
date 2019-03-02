@@ -856,9 +856,16 @@ void usbUartRingBufferLUT(char * line_in) {
             line_in[10] == 'B' &&
             line_in[11] == 'r' &&
             line_in[12] == 'i' &&
-            line_in[13] == 'g'
+            line_in[13] == 'g' &&
+            line_in[14] == 'h' &&
+            line_in[15] == 't' &&
+            line_in[16] == 'n' &&
+            line_in[17] == 'e' &&
+            line_in[18] == 's' &&
+            line_in[19] == 's' &&
+            line_in[20] == ' '
             ) {
-     
+    
         // Get which chip we're erasing
         uint32_t set_brightness;
         sscanf(line_in, "Set Panel Brightness %d", &set_brightness);
@@ -1254,42 +1261,31 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-#warning "Remove temporary serial commands"
-//    else if (strstr(line_in, "Set Panel Clock High ")) {
-//     
-//        sscanf(line_in, "Set Panel Clock High %d", &panel_clock_high_delay);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Set panel clock high time to %d clock cycles\n\r", panel_clock_high_delay);
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    else if (strstr(line_in, "Set Panel Clock Low ")) {
-//     
-//        sscanf(line_in, "Set Panel Clock Low %d", &panel_clock_low_delay);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Set panel clock low time to %d clock cycles\n\r", panel_clock_low_delay);
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    else if (strstr(line_in, "Set Panel Timer Period ")) {
-//     
-//        uint16_t input_period;
-//        sscanf(line_in, "Set Panel Timer Period %d", &input_period);
-//        PR5 = input_period;
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Set panel mux timer period to %d\n\r", input_period);
-//        terminalTextAttributesReset();
-//        
-//    }
-    
+    else if (line_in[0] == 'S' &&
+            line_in[1] == 'e' &&
+            line_in[2] == 't' &&
+            line_in[3] == ' ' &&
+            line_in[4] == 'R' &&
+            line_in[5] == 'a' &&
+            line_in[6] == 'n' &&
+            line_in[7] == 'd' &&
+            line_in[8] == ' ' &&
+            line_in[9] == 'S' &&
+            line_in[10] == 'e' &&
+            line_in[11] == 'e' &&
+            line_in[12] == 'd' &&
+            line_in[13] == ' ' ) {
+     
+        uint32_t rand_seed;
+        sscanf(line_in, "Set Rand Seed %d", &rand_seed);
+        srand(rand_seed);
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Set random seed to %d\n\r", rand_seed);
+        terminalTextAttributesReset();
+        
+    }
     
 }
 
@@ -1355,6 +1351,7 @@ void usbUartPrintHelpMessage(void) {
 //    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
     printf("    Set NFL Logo: Loads EBI SRAM with data for the NFL logo\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
+    printf("    Set Rand Seed <x>: Sets the random number seet to the given number x\n\r");
     printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
     printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
     printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
