@@ -313,11 +313,55 @@ void movePanelDataFromEBISRAM(void) {
     
 }
 
-// This function initializes output compare 3 for dimming the display
+// This function initializes output compare 4 for dimming the display
 void panelPWMInitialize(void) {
  
-    // TO-DO: Write this
-    Nop();
+    // Set up Timer 2
+    /////////////////
+    // Stop timer 2
+    T2CONbits.ON = 0;
+    
+    // Stop timer 2 in idle
+    T2CONbits.SIDL = 1;
+    
+    // Disable gated time accumulation
+    T2CONbits.TGATE = 0;
+    
+    // Set timer 2 prescalar to 4
+    T2CONbits.TCKPS = 0b010;
+    
+    // Set timer clock input as PBCLK3
+    // PBCLK3 is 15.75 MHz
+    T2CONbits.TCS = 0;
+    
+    // Clear timer 2
+    TMR2 = 0x0000;
+    
+    // Set timer 2 period match to 8000
+    // This should get us a Timer2 period of 1600uS, or a Timer2 frequency of 1250Hz
+    PR2 = 8000;
+        
+    // Set up Output Compare 4
+    ///////////////////////////////////
+    
+    // Disable Output Compare when CPU in idle mode
+    OC4CONbits.SIDL = 0;
+    
+    // Select Timer 2 as source for OC4
+    OC4CONbits.OCTSEL = 0;
+    
+    // Set OC4 to PWM mode, Fault pins disabled
+    OC4CONbits.OCM = 0b110;
+    
+    // Enable Output Compare peripheral
+    OC4CONbits.ON = 1;
+    
+    // Set PWM duty cycle to 50%
+    OC4R = PR2 >> 1;
+    
+    // Start timer 2
+    T2CONbits.ON = 1;
+    
     
 }
 
@@ -326,7 +370,10 @@ void panelPWMInitialize(void) {
 // Larger numbers correspond to a brighter display
 void panelPWMSetBrightness(uint8_t set_brightness) {
 
-    // TO-DO: Write This
-    Nop();
+    // Invert since OE pin is active low
+    set_brightness = 100 - set_brightness;
+    
+    // Set duty cycle
+    OC3R = (set_brightness * PR2) / 100;
     
 }

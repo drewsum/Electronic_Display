@@ -41,12 +41,12 @@ void PMDInitialize(void) {
     PMD3bits.OC1MD = 1;
     PMD3bits.OC2MD = 1;
     PMD3bits.OC3MD = 1;
-    PMD3bits.OC4MD = 1;
+    PMD3bits.OC4MD = 0;
     PMD3bits.OC5MD = 1;
     PMD3bits.OC6MD = 1;
     PMD3bits.OC7MD = 1;
     PMD3bits.OC8MD = 1;
-    PMD3bits.OC9MD = 0;
+    PMD3bits.OC9MD = 1;
     
     // Enable all hardware timers
     // TO-DO: This may change

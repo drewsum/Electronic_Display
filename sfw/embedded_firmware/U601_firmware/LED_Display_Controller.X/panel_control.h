@@ -78,7 +78,7 @@ void movePanelDataToEBISRAM(void);
 // This function copies panel data from EBI SRAM to the internal RAM buffer
 void movePanelDataFromEBISRAM(void);
 
-// This function initializes output compare 3 for dimming the display
+// This function initializes output compare 4 for dimming the display
 void panelPWMInitialize(void);
 
 // This function sets panel brightness

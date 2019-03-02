@@ -490,6 +490,7 @@ void portGGPIOInitialize (void){
     TRISGbits.TRISG0    = TRIS_OUTPUT;
     LATGbits.LATG0      = LAT_LOW;
     ODCGbits.ODCG0      = ODC_DISABLE;
+    RPG0Rbits.RPG0R     = 0b1011;               // Routed OC4 to RPG0
     
     // Setup RG1
     TRISGbits.TRISG1    = TRIS_OUTPUT;
