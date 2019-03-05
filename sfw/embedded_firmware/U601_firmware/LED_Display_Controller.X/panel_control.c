@@ -111,7 +111,7 @@ void panelMultiplexingHandler(void) {
     }
     
     // Reset current_PWM_frame counter
-    if (current_PWM_frame >= 8) {
+    if (current_PWM_frame >= 5) {
     
         current_PWM_frame = 0;
         
@@ -126,7 +126,9 @@ void panelMultiplexingHandler(void) {
 void setPanelRedBus(uint8_t inputByte) {
     
     // RED bus is defined as RD0:7
-    LATD = (LATD & 0xFF00) | inputByte;
+    // LATD = (LATD & 0xFF00) | inputByte;
+    LATDCLR = 0x00FF;
+    LATDSET = inputByte;
     
 }
 
@@ -134,7 +136,9 @@ void setPanelRedBus(uint8_t inputByte) {
 void setPanelGreenBus(uint8_t inputByte) {
     
     // GREEN bus is defined as RJ5:12
-    LATJ = (LATJ & 0xE01F) | (inputByte << 5);
+    // LATJ = (LATJ & 0xE01F) | (inputByte << 5);
+    LATJCLR = 0x1FE0;
+    LATJSET = (inputByte << 5);
     
 }
 
@@ -142,7 +146,9 @@ void setPanelGreenBus(uint8_t inputByte) {
 void setPanelBlueBus(uint8_t inputByte) {
     
     // BLUE bus is defined as RH8:15
-    LATH = (LATH & 0x00FF) | (inputByte << 8);
+    // LATH = (LATH & 0x00FF) | (inputByte << 8);
+    LATHCLR = 0xFF00;
+    LATHSET = (inputByte << 8);
     
 }
 
@@ -150,7 +156,10 @@ void setPanelBlueBus(uint8_t inputByte) {
 void setPanelRowBus(uint8_t inputByte) {
 
     // ROW bus is defined as RD11:15
-    LATD = (LATD & 0x07FF) | ((inputByte & 0x1F) << 11);
+    // LATD = (LATD & 0x07FF) | ((inputByte & 0x1F) << 11);
+    LATDCLR = 0xFA00;
+    LATDSET = (inputByte << 11);
+    
    
 }
 
@@ -182,7 +191,7 @@ void panelMultiplexingTimerInitialize(void) {
     TMR5 = 0x0000;
     
     // Set timer 5 period match to 250
-    PR5 = 250;
+    PR5 = 64;
     
     // Start timer 5
     T5CONbits.ON = 1;

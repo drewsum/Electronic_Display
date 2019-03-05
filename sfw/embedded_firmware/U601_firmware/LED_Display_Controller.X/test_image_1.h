@@ -22,8 +22,8 @@
 
 #include "panel_control.h"
 
-const uint8_t nfl_array[PANEL_DATA_ARRAY_SIZE] = {
-    
+const uint8_t test_image_1_array[PANEL_DATA_ARRAY_SIZE] = {
+
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -24603,8 +24603,8 @@ const uint8_t nfl_array[PANEL_DATA_ARRAY_SIZE] = {
 
 };
 
-// fill ram buffer with NFL function
-void fillRamBufferNFL(void);
+// fill ram buffer with Test Image 1 function
+void fillRamBufferTestImage1(void);
 
 #endif /* _NFL_H */
 
