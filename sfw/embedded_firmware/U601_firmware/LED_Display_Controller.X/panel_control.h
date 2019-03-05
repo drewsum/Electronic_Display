@@ -19,7 +19,9 @@
 #include <xc.h>
 #include <sys/attribs.h>
 
-#define PANEL_DATA_ARRAY_SIZE 245760
+#define PANEL_DATA_ARRAY_SIZE 153600
+
+#define MUXING_TIMER_PERIOD     66
 
 // Array that will hold all data currently being displayed on panels
 uint8_t panel_data_buffer[PANEL_DATA_ARRAY_SIZE];
@@ -34,11 +36,8 @@ uint32_t current_shift_clock_index;
 uint32_t current_row_index;
 uint32_t current_PWM_frame_index;
 
-
-// THESE ARE TEMPORARY VARIABLES
-#warning "Remove temporary panel control variables"
-uint8_t panel_clock_high_delay = 10;
-uint8_t panel_clock_low_delay = 10;
+// clock signal high time in arbitrary clock units
+static uint8_t panel_clock_high_delay = 3;
 
 // Function to handle all mutliplexing for panel
 void panelMultiplexingHandler(void);

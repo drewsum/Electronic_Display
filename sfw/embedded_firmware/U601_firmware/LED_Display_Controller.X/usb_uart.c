@@ -23,7 +23,7 @@
 #include "test_buffer_fills.h"
 #include "spi_flash.h"
 
-#include "nfl_logo.h"
+#include "test_image_1.h"
 
 volatile uint64_t usb_uart_TxHead = 0;
 volatile uint64_t usb_uart_TxTail = 0;
@@ -791,14 +791,24 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    // set ram buffer to red rows
-    else if(strcmp(line_in, "Set NFL Logo") == 0) {
+    else if(strcmp(line_in, "Set Test Image 1") == 0) {
      
-        fillRamBufferNFL();
+        fillRamBufferTestImage1();
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with NFL logo\n\r");
+        printf("Ram buffer filled with Test Image 1\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if(strcmp(line_in, "Set Test Image 2") == 0) {
+     
+        fillRamBufferTestImage2();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with Test Image 2\n\r");
         terminalTextAttributesReset();
         
     }
@@ -832,7 +842,7 @@ void usbUartRingBufferLUT(char * line_in) {
     // reset multiplexing command
     else if(strcmp(line_in, "Reset Muxing Speed") == 0) {
      
-        PR5 = 250;                      
+        PR5 = MUXING_TIMER_PERIOD;
         T5CONbits.TCKPS = 0b000;        // set prescale to 1
         
         terminalTextAttributesReset();
@@ -843,22 +853,8 @@ void usbUartRingBufferLUT(char * line_in) {
     }
     
     // Set panel brightness
-    else if (line_in[0] == 'S' &&
-            line_in[1] == 'e' &&
-            line_in[2] == 't' &&
-            line_in[3] == ' ' &&
-            line_in[4] == 'P' &&
-            line_in[5] == 'a' &&
-            line_in[6] == 'n' &&
-            line_in[7] == 'e' &&
-            line_in[8] == 'l' &&
-            line_in[9] == ' ' &&
-            line_in[10] == 'B' &&
-            line_in[11] == 'r' &&
-            line_in[12] == 'i' &&
-            line_in[13] == 'g'
-            ) {
-     
+    else if (strstart(line_in, "Set Panel Brightness ") == 0) {
+    
         // Get which chip we're erasing
         uint32_t set_brightness;
         sscanf(line_in, "Set Panel Brightness %d", &set_brightness);
@@ -1254,42 +1250,35 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-#warning "Remove temporary serial commands"
-//    else if (strstr(line_in, "Set Panel Clock High ")) {
-//     
-//        sscanf(line_in, "Set Panel Clock High %d", &panel_clock_high_delay);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Set panel clock high time to %d clock cycles\n\r", panel_clock_high_delay);
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    else if (strstr(line_in, "Set Panel Clock Low ")) {
-//     
-//        sscanf(line_in, "Set Panel Clock Low %d", &panel_clock_low_delay);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Set panel clock low time to %d clock cycles\n\r", panel_clock_low_delay);
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    else if (strstr(line_in, "Set Panel Timer Period ")) {
-//     
-//        uint16_t input_period;
-//        sscanf(line_in, "Set Panel Timer Period %d", &input_period);
-//        PR5 = input_period;
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Set panel mux timer period to %d\n\r", input_period);
-//        terminalTextAttributesReset();
-//        
-//    }
+//    else if (line_in[0] == 'S' &&
+//            line_in[1] == 'e' &&
+//            line_in[2] == 't' &&
+//            line_in[3] == ' ' &&
+//            line_in[4] == 'R' &&
+//            line_in[5] == 'a' &&
+//            line_in[6] == 'n' &&
+//            line_in[7] == 'd' &&
+//            line_in[8] == ' ' &&
+//            line_in[9] == 'S' &&
+//            line_in[10] == 'e' &&
+//            line_in[11] == 'e' &&
+//            line_in[12] == 'd' &&
+//            line_in[13] == ' ' ) {
     
+    else if (strstart(line_in, "Set Rand Seed ") == 0) {
+     
+        uint32_t rand_seed;
+        sscanf(line_in, "Set Rand Seed %d", &rand_seed);
+        srand(rand_seed);
+        
+        fillRamBufferRand();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Set random seed to %d\n\r", rand_seed);
+        terminalTextAttributesReset();
+        
+    }
     
 }
 
@@ -1353,8 +1342,10 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Green: Sets all pixels in display green\n\r");    
     printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
 //    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
-    printf("    Set NFL Logo: Loads EBI SRAM with data for the NFL logo\n\r");
+    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
+    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
+    printf("    Set Rand Seed <x>: Sets the random number seet to the given number x\n\r");
     printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
     printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
     printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
@@ -1495,5 +1486,31 @@ char * getStringSecondsAsTime(uint32_t input_seconds) {
     }
     
     return return_string;
+    
+}
+
+// This function compares the "needle" string parameter to see if it is the 
+// beginning of the "haystack" string variable
+// Returns 0 for success, 1 for failure
+uint8_t strstart(const char * haystack, const char * needle) {
+ 
+    // First check to see if needle is longer than haystack, if it is 
+    // we already know this is not a match
+    if (strlen(needle) >= strlen(haystack)) return 1;
+    
+    // Next loop through each element in needle to see if it matches the 
+    // same character in haystack at the same position
+    // If the characters do not match, return 1
+    // After the loop, return 0 for exit success
+    uint8_t char_index;
+    for(char_index = 0; char_index < strlen(needle); char_index++) {
+        
+        // Return a 1 if there is not a match
+        if (needle[char_index] != haystack[char_index]) return 1;
+        
+    }
+    
+    // return a 0 for exit success
+    return 0;
     
 }

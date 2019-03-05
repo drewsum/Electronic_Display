@@ -69,9 +69,13 @@ void usbUartRingBufferLUT(char * USB_UART_line);
 // Misc functions
 void usbUartPrintHelpMessage(void);
 
-
 // This function returns a string of a large number of seconds in a human readable format
 char * getStringSecondsAsTime(uint32_t input_seconds);
+
+// This function compares the "needle" string parameter to see if it is the 
+// beginning of the "haystack" string variable
+// Returns 0 for success, 1 for failure
+uint8_t strstart(const char * haystack, const char * needle);
 
 #endif /* _USB_UART_H */
 

@@ -31,11 +31,9 @@ void fillRamBufferRand(void) {
     
     unsigned int address_index;
     
-    srand(10);
-    
     for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
      
-        panel_data_buffer[address_index] = (uint8_t) rand() % 100;
+        panel_data_buffer[address_index] = (uint8_t) rand();
         
     }
     

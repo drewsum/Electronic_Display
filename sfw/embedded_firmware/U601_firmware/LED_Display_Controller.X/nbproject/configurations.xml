@@ -30,7 +30,8 @@
         <itemPath>prefetch.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="Flash_Images" projectFiles="true">
-        <itemPath>nfl_logo.h</itemPath>
+        <itemPath>test_image_1.h</itemPath>
+        <itemPath>test_image_2.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -64,7 +65,8 @@
         <itemPath>prefetch.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="Flash_Images" projectFiles="true">
-        <itemPath>nfl_logo.c</itemPath>
+        <itemPath>test_image_1.c</itemPath>
+        <itemPath>test_image_2.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
@@ -321,6 +323,7 @@
         <property key="UART5" value="true"/>
         <property key="UART6" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
