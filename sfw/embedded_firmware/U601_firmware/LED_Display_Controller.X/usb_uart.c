@@ -791,7 +791,6 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    // set ram buffer to red rows
     else if(strcmp(line_in, "Set Test Image 1") == 0) {
      
         fillRamBufferTestImage1();
@@ -799,6 +798,17 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with Test Image 1\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if(strcmp(line_in, "Set Test Image 2") == 0) {
+     
+        fillRamBufferTestImage2();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with Test Image 2\n\r");
         terminalTextAttributesReset();
         
     }
@@ -832,7 +842,7 @@ void usbUartRingBufferLUT(char * line_in) {
     // reset multiplexing command
     else if(strcmp(line_in, "Reset Muxing Speed") == 0) {
      
-        PR5 = 64;                      
+        PR5 = MUXING_TIMER_PERIOD;
         T5CONbits.TCKPS = 0b000;        // set prescale to 1
         
         terminalTextAttributesReset();
@@ -843,28 +853,7 @@ void usbUartRingBufferLUT(char * line_in) {
     }
     
     // Set panel brightness
-    else if (line_in[0] == 'S' &&
-            line_in[1] == 'e' &&
-            line_in[2] == 't' &&
-            line_in[3] == ' ' &&
-            line_in[4] == 'P' &&
-            line_in[5] == 'a' &&
-            line_in[6] == 'n' &&
-            line_in[7] == 'e' &&
-            line_in[8] == 'l' &&
-            line_in[9] == ' ' &&
-            line_in[10] == 'B' &&
-            line_in[11] == 'r' &&
-            line_in[12] == 'i' &&
-            line_in[13] == 'g' &&
-            line_in[14] == 'h' &&
-            line_in[15] == 't' &&
-            line_in[16] == 'n' &&
-            line_in[17] == 'e' &&
-            line_in[18] == 's' &&
-            line_in[19] == 's' &&
-            line_in[20] == ' '
-            ) {
+    else if (strstart(line_in, "Set Panel Brightness ") == 0) {
     
         // Get which chip we're erasing
         uint32_t set_brightness;
@@ -1354,6 +1343,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
 //    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
     printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
+    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
     printf("    Set Rand Seed <x>: Sets the random number seet to the given number x\n\r");
     printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");

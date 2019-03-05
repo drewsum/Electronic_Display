@@ -19,7 +19,9 @@
 #include <xc.h>
 #include <sys/attribs.h>
 
-#define PANEL_DATA_ARRAY_SIZE 245760
+#define PANEL_DATA_ARRAY_SIZE 153600
+
+#define MUXING_TIMER_PERIOD     66
 
 // Array that will hold all data currently being displayed on panels
 uint8_t panel_data_buffer[PANEL_DATA_ARRAY_SIZE];

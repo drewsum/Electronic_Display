@@ -31,6 +31,7 @@
       </logicalFolder>
       <logicalFolder name="f3" displayName="Flash_Images" projectFiles="true">
         <itemPath>test_image_1.h</itemPath>
+        <itemPath>test_image_2.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -65,6 +66,7 @@
       </logicalFolder>
       <logicalFolder name="f3" displayName="Flash_Images" projectFiles="true">
         <itemPath>test_image_1.c</itemPath>
+        <itemPath>test_image_2.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>

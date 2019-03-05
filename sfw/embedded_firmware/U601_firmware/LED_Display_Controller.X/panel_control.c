@@ -191,7 +191,7 @@ void panelMultiplexingTimerInitialize(void) {
     TMR5 = 0x0000;
     
     // Set timer 5 period match to 250
-    PR5 = 64;
+    PR5 = MUXING_TIMER_PERIOD;
     
     // Start timer 5
     T5CONbits.ON = 1;
