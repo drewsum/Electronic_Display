@@ -32,7 +32,7 @@
 #pragma config FUSBIDIO = OFF           // USB USBID Selection (Controlled by Port Function)
 
 // DEVCFG2
-#pragma config FPLLIDIV = DIV_1         // System PLL Input Divider (1x Divider)
+#pragma config FPLLIDIV = DIV_4         // System PLL Input Divider (1x Divider)
 #pragma config FPLLRNG = RANGE_5_10_MHZ // System PLL Input Range (5-10 MHz Input)
 #pragma config FPLLICLK = PLL_FRC       // System PLL Input Clock Selection (FRC is input to the System PLL)
 #pragma config FPLLMULT = MUL_63        // System PLL Multiplier (PLL Multiply by 63)
@@ -61,7 +61,7 @@
 #pragma config ICESEL = ICS_PGx1        // ICE/ICD Comm Channel Select (Communicate on PGEC1/PGED1)
 #pragma config TRCEN = OFF              // Trace Enable (Trace features in the CPU are disabled)
 #pragma config BOOTISA = MIPS32         // Boot ISA Selection (Boot code and Exception code is MIPS32)
-#pragma config FECCCON = ON             // Dynamic Flash ECC Configuration (Flash ECC is enabled (ECCCON bits are locked))
+#pragma config FECCCON = OFF_LOCKED             // Dynamic Flash ECC Configuration (Flash ECC is enabled (ECCCON bits are locked))
 #pragma config FSLEEP = OFF             // Flash Sleep Mode (Flash is powered down when the device is in Sleep mode)
 #pragma config DBGPER = PG_ALL          // Debug Mode CPU Access Permission (Allow CPU access to all permission regions)
 #pragma config SMCLR = MCLR_NORM        // Soft Master Clear Enable bit (MCLR pin generates a normal system Reset)
@@ -73,6 +73,9 @@
 
 // DEVCP0
 #pragma config CP = OFF                 // Code Protect (Protection Disabled)
+
+#pragma config TSEQ = 0xffff
+#pragma config CSEQ = 0xffff
 
 // SEQ3
 
@@ -98,7 +101,7 @@
 #pragma config_alt FUSBIDIO = OFF       // USB USBID Selection (Controlled by Port Function)
 
 // ADEVCFG2
-#pragma config_alt FPLLIDIV = DIV_1     // System PLL Input Divider (1x Divider)
+#pragma config_alt FPLLIDIV = DIV_4     // System PLL Input Divider (1x Divider)
 #pragma config_alt FPLLRNG = RANGE_5_10_MHZ// System PLL Input Range (5-10 MHz Input)
 #pragma config_alt FPLLICLK = PLL_FRC   // System PLL Input Clock Selection (FRC is input to the System PLL)
 #pragma config_alt FPLLMULT = MUL_63    // System PLL Multiplier (PLL Multiply by 63)
@@ -127,7 +130,7 @@
 #pragma config_alt ICESEL = ICS_PGx1    // ICE/ICD Comm Channel Select (Communicate on PGEC1/PGED1)
 #pragma config_alt TRCEN = OFF           // Trace Disable (Trace features in the CPU are Disabled)
 #pragma config_alt BOOTISA = MIPS32     // Boot ISA Selection (Boot code and Exception code is MIPS32)
-#pragma config_alt FECCCON = DYNAMIC    // Dynamic Flash ECC Configuration (Dynamic Flash ECC is enabled (ECCCON bits are locked))
+#pragma config_alt FECCCON = OFF_LOCKED    // Dynamic Flash ECC Configuration (Dynamic Flash ECC is enabled (ECCCON bits are locked))
 #pragma config_alt FSLEEP = OFF         // Flash Sleep Mode (Flash is powered down when the device is in Sleep mode)
 #pragma config_alt DBGPER = PG_ALL      // Debug Mode CPU Access Permission (Allow CPU access to all permission regions)
 #pragma config_alt SMCLR = MCLR_NORM    // Soft Master Clear Enable bit (MCLR pin generates a normal system Reset)
@@ -139,6 +142,9 @@
 
 // ADEVCP0
 #pragma config_alt CP = OFF             // Code Protect (Protection Disabled)
+
+#pragma config_alt TSEQ = 0xffff
+#pragma config_alt CSEQ = 0xffff
 
 // ASEQ3
 
@@ -152,7 +158,7 @@
 #pragma config_auba FUSBIDIO = OFF      // USB USBID Selection (Controlled by Port Function)
 
 // AUBADEVCFG2
-#pragma config_auba FPLLIDIV = DIV_1    // System PLL Input Divider (1x Divider)
+#pragma config_auba FPLLIDIV = DIV_4    // System PLL Input Divider (1x Divider)
 #pragma config_auba FPLLRNG = RANGE_5_10_MHZ// System PLL Input Range (5-10 MHz Input)
 #pragma config_auba FPLLICLK = PLL_FRC  // System PLL Input Clock Selection (FRC is input to the System PLL)
 #pragma config_auba FPLLMULT = MUL_63   // System PLL Multiplier (PLL Multiply by 63)
@@ -163,7 +169,7 @@
 #pragma config_auba FNOSC = SPLL        // Oscillator Selection Bits (System PLL)
 #pragma config_auba DMTINTV = WIN_127_128// DMT Count Window Interval (Window/Interval value is 127/128 counter value)
 #pragma config_auba FSOSCEN = OFF       // Secondary Oscillator Enable (Disable SOSC)
-#pragma config_auba IESO = ON           // Internal/External Switch Over (Enabled)
+#pragma config_auba IESO = OFF           // Internal/External Switch Over (Disabled)
 #pragma config_auba POSCMOD = OFF       // Primary Oscillator Configuration (Primary osc disabled)
 #pragma config_auba OSCIOFNC = OFF      // CLKO Output Signal Active on the OSCO Pin (Disabled)
 #pragma config_auba FCKSM = CSECME      // Clock Switching and Monitor Selection (Clock Switch Enabled, FSCM Enabled)
@@ -181,7 +187,7 @@
 #pragma config_auba ICESEL = ICS_PGx1   // ICE/ICD Comm Channel Select (Communicate on PGEC1/PGED1)
 #pragma config_auba TRCEN = OFF         // Trace Enable (Trace features in the CPU are disabled)
 #pragma config_auba BOOTISA = MIPS32    // Boot ISA Selection (Boot code and Exception code is MIPS32)
-#pragma config_auba FECCCON = DYNAMIC   // Dynamic Flash ECC Configuration (Dynamic Flash ECC is enabled (ECCCON bits are locked))
+#pragma config_auba FECCCON = OFF_LOCKED   // Dynamic Flash ECC Configuration (Dynamic Flash ECC is enabled (ECCCON bits are locked))
 #pragma config_auba FSLEEP = OFF        // Flash Sleep Mode (Flash is powered down when the device is in Sleep mode)
 #pragma config_auba DBGPER = PG_ALL     // Debug Mode CPU Access Permission (Allow CPU access to all permission regions)
 #pragma config_auba SMCLR = MCLR_NORM   // Soft Master Clear Enable bit (MCLR pin generates a normal system Reset)
@@ -193,6 +199,9 @@
 
 // AUBADEVCP0
 #pragma config_auba CP = OFF            // Code Protect (Protection Disabled)
+
+#pragma config_auba TSEQ = 0xffff
+#pragma config_auba CSEQ = 0xffff
 
 // AUBASEQ3
 
@@ -206,7 +215,7 @@
 #pragma config_uba FUSBIDIO = OFF       // USB USBID Selection (Controlled by Port Function)
 
 // UBADEVCFG2
-#pragma config_uba FPLLIDIV = DIV_1     // System PLL Input Divider (1x Divider)
+#pragma config_uba FPLLIDIV = DIV_4     // System PLL Input Divider (1x Divider)
 #pragma config_uba FPLLRNG = RANGE_5_10_MHZ// System PLL Input Range (5-10 MHz Input)
 #pragma config_uba FPLLICLK = PLL_FRC   // System PLL Input Clock Selection (FRC is input to the System PLL)
 #pragma config_uba FPLLMULT = MUL_63    // System PLL Multiplier (PLL Multiply by 63)
@@ -217,7 +226,7 @@
 #pragma config_uba FNOSC = SPLL         // Oscillator Selection Bits (System PLL)
 #pragma config_uba DMTINTV = WIN_127_128// DMT Count Window Interval (Window/Interval value is 127/128 counter value)
 #pragma config_uba FSOSCEN = OFF        // Secondary Oscillator Enable (Disable SOSC)
-#pragma config_uba IESO = ON            // Internal/External Switch Over (Enabled)
+#pragma config_uba IESO = OFF            // Internal/External Switch Over (Disabled)
 #pragma config_uba POSCMOD = OFF        // Primary Oscillator Configuration (Primary osc disabled)
 #pragma config_uba OSCIOFNC = OFF       // CLKO Output Signal Active on the OSCO Pin (Disabled)
 #pragma config_uba FCKSM = CSECME       // Clock Switching and Monitor Selection (Clock Switch Enabled, FSCM Enabled)
@@ -235,7 +244,7 @@
 #pragma config_uba ICESEL = ICS_PGx1    // ICE/ICD Comm Channel Select (Communicate on PGEC1/PGED1)
 #pragma config_uba TRCEN = OFF          // Trace Enable (Trace features in the CPU are disabled)
 #pragma config_uba BOOTISA = MIPS32     // Boot ISA Selection (Boot code and Exception code is MIPS32)
-#pragma config_uba FECCCON = DYNAMIC    // Dynamic Flash ECC Configuration (Dynamic Flash ECC is enabled (ECCCON bits are locked))
+#pragma config_uba FECCCON = OFF_LOCKED    // Dynamic Flash ECC Configuration (Dynamic Flash ECC is enabled (ECCCON bits are locked))
 #pragma config_uba FSLEEP = OFF         // Flash Sleep Mode (Flash is powered down when the device is in Sleep mode)
 #pragma config_uba DBGPER = PG_ALL      // Debug Mode CPU Access Permission (Allow CPU access to all permission regions)
 #pragma config_uba SMCLR = MCLR_NORM    // Soft Master Clear Enable bit (MCLR pin generates a normal system Reset)
@@ -247,6 +256,9 @@
 
 // UBADEVCP0
 #pragma config_uba CP = OFF             // Code Protect (Protection Disabled)
+
+#pragma config_uba TSEQ = 0xffff
+#pragma config_uba CSEQ = 0xffff
 
 #endif /* _CONFIGURE_H */
 

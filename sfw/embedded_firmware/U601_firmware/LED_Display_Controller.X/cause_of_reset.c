@@ -85,7 +85,6 @@ reset_cause_t getResetCause(void) {
     
     if (RCONbits.BCFGERR) {
     
-    //    reset_cause = Primary_Config_Registers_Error;
         error_handler.configuration_error_flag = 1;
         RCONbits.BCFGERR = 0;
         
@@ -93,7 +92,6 @@ reset_cause_t getResetCause(void) {
     
     if (RCONbits.BCFGFAIL) {
      
-    //    reset_cause = Primary_Secondary_Config_Registers_Error;
         error_handler.configuration_error_flag = 1;
         RCONbits.BCFGFAIL = 0;
         

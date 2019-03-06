@@ -143,12 +143,12 @@ void usbUartInitialize(void) {
     U3MODEbits.ON = 1;
     
     // Trick UART into thinking user has pressed enter twice
-    U3MODEbits.LPBACK = 1;
-    U3TXREG = '\n';
-    U3TXREG = '\r';
-    U3TXREG = '\n';
-    U3TXREG = '\r';
-    U3MODEbits.LPBACK = 0;
+//    U3MODEbits.LPBACK = 1;
+//    U3TXREG = '\n';
+//    U3TXREG = '\r';
+//    U3TXREG = '\n';
+//    U3TXREG = '\r';
+//    U3MODEbits.LPBACK = 0;
     
     // Enable receive and error interrupts
     // Transfer interrupt is set in write function
@@ -924,10 +924,10 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strstart(line_in, "SPI Flash Chip Write ")) {
+    else if (strstart(line_in, "SPI Flash Chip Write ") == 0) {
         
         uint8_t chip_to_write;
-        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_write);
+        sscanf(line_in, "SPI Flash Chip Write %d", &chip_to_write);
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -942,7 +942,7 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strstart(line_in, "SPI Flash Chip Erase ")) {
+    else if (strstart(line_in, "SPI Flash Chip Erase ") == 0) {
     
         // Get which chip we're erasing
         uint8_t chip_to_erase;
@@ -1286,7 +1286,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Print Internal RAM Contents: Prints the contents of the first kB of internal RAM buffer holding display data\n\r");
     printf("    Copy Buffer to EBI SRAM: Moves data from Internal Buffer into EBI SRAM\n\r");
     printf("    Copy EBI SRAM to Buffer: Moves data from EBI SRAM into Internal Buffer\n\r");
-    printf("    SPI Flash Chip Write <x>: Erases the entered SPI Flash chip, x = 1:8\n\r");
+    printf("    SPI Flash Chip Erase <x>: Erases the entered SPI Flash chip, x = 1:8\n\r");
     printf("    SPI Flash Chip Write <x>: Writes the contents of the EBI SRAM buffer to the given SPI Flash chip, x = 1:8\n\r");
     printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into EBI SRAM buffer, x = 1:8\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
