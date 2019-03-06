@@ -933,3 +933,21 @@ void printClockStatus(uint32_t input_sysclk) {
     terminalTextAttributesReset();
 
 }
+
+// This function initializes the random number generator
+void RNGInitialize(void) {
+ 
+    // Enable ring oscillator bias correction mode
+    RNGCONbits.TRNGMODE = 1;
+    
+    // Change numbers continously
+    RNGCONbits.CONT = 1;
+    
+    // Enable both TRNG and PRNG
+    RNGCONbits.TRNGEN = 1;
+    RNGCONbits.PRNGEN = 1;
+    
+    // Load seed
+    RNGCONbits.LOAD = 1;
+    
+}

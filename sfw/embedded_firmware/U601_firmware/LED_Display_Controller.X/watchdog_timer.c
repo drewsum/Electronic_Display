@@ -319,7 +319,7 @@ void coreTimerInitialize(void) {
 }
 
 // This is the core timer interrupt service routine
-void __ISR(_CORE_TIMER_VECTOR, ipl7AUTO) coreTimerISR(void) {
+void __ISR(_CORE_TIMER_VECTOR, ipl7SRS) coreTimerISR(void) {
      
     disableInterrupt(Core_Timer_Interrupt);
         

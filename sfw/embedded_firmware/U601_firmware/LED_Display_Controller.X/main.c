@@ -191,6 +191,10 @@ void main(void) {
     // Initialize SPI
     spiFlashInit();
     printf("SPI Flash Initialized\n\r");
+    
+    // Setup RNG for random pixel values
+    RNGInitialize();
+    printf("Random Number Generator Initialized\n\r");
 
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
