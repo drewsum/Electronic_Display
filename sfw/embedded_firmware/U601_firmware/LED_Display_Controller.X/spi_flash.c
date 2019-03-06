@@ -63,7 +63,9 @@ void spiFlashInit(void)
     SPI3CONbits.STXISEL = 0b01; // Interrupt is generated when buffer is empty
     SPI3CONbits.SRXISEL = 0b01; // Interrupt is generated when buffer is not empty
     SPI3CON2bits.AUDEN = 0;     // Disable audio mode
-    SPI3CON2bits.SPITUREN = 1;  // Transmit underrun triggers a fault interrupt
+    // SPI3CON2bits.SPITUREN = 1;  // Transmit underrun triggers a fault interrupt
+    SPI3CON2bits.SPITUREN = 0;  // Transmit underrun does not trigger a fault interrupt
+    SPI3CON2bits.SPIROVEN = 0;  // Receive overflow doesn't cause an fault interrupt
     
     // Configure bits for Framed Mode ONLY
     SPI3CONbits.FRMSYNC = 0;  
@@ -648,15 +650,15 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
     // Record a SPI error
     error_handler.SPI_error_flag = 1;
     
-    if (SPI3STATbits.SPIROV) {
-        error_handler.SPI_receive_overflow_error_flag = 1;
-        SPI3STATbits.SPIROV = 0;
-    }
-    
-    if (SPI3STATbits.SPITUR) {
-        error_handler.SPI_transfer_underrun_error_flag = 1;
-        SPI3STATbits.SPITUR = 0;
-    }
+//    if (SPI3STATbits.SPIROV) {
+//        error_handler.SPI_receive_overflow_error_flag = 1;
+//        SPI3STATbits.SPIROV = 0;
+//    }
+//    
+//    if (SPI3STATbits.SPITUR) {
+//        error_handler.SPI_transfer_underrun_error_flag = 1;
+//        SPI3STATbits.SPITUR = 0;
+//    }
     
     // Disable SPI interrupts
     disableInterrupt(SPI3_Transfer_Done);
@@ -683,8 +685,8 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
         spi_flash_state = idle;
         
         // Disable RX overrun interrupt trigger
-        SPI3STATbits.SPIROV = 0;
-        SPI3CON2bits.SPIROVEN = 0;
+//        SPI3STATbits.SPIROV = 0;
+//        SPI3CON2bits.SPIROVEN = 0;
         
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Transfer from Flash to EBI SRAM complete\n\r");
@@ -885,8 +887,8 @@ void SPI_FLASH_beginRead(uint8_t chip_select) {
     SPI3_writeByte(0x00);
     
     // Enable overrun error detection
-    SPI3STATbits.SPIROV = 0;
-    SPI3CON2bits.SPIROVEN = 1;  // Receive Overrun triggers a fault interrupt
+    // SPI3STATbits.SPIROV = 0;
+    // SPI3CON2bits.SPIROVEN = 1;  // Receive Overrun triggers a fault interrupt
 
     
     // Enable receive interrupt and wait

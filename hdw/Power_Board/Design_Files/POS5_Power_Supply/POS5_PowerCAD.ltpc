@@ -95,18 +95,15 @@
       <Cd3AtNoVoltage>0.00010000000949949049</Cd3AtNoVoltage>
       <Rd3>500</Rd3>
       <Cob>0.0001</Cob>
-      <ESRb>0.07</ESRb>
-      <ESLb>1.2E-09</ESLb>
-      <Numb>24</Numb>
-      <BulkCapacitorManufacturer>KEMET</BulkCapacitorManufacturer>
-      <BulkCapacitorPartNumber>T520T107M006ATE070</BulkCapacitorPartNumber>
+      <ESRb>1</ESRb>
+      <ESLb>1.0000000000000002E-06</ESLb>
       <BulkCapacitorLength>3.5</BulkCapacitorLength>
       <BulkCapacitorWidth>2.8</BulkCapacitorWidth>
       <BulkCapacitorHeight>1.2</BulkCapacitorHeight>
       <BulkCapacitorPackage>T</BulkCapacitorPackage>
       <CobAtHalfRated>0.0001</CobAtHalfRated>
       <CobAtFullRated>0.0001</CobAtFullRated>
-      <CobAtNoVoltage>0.0001</CobAtNoVoltage>
+      <CobAtNoVoltage>0.00021999999999999998</CobAtNoVoltage>
       <CobDerated>0.0001</CobDerated>
       <CobVoltageRating>6.3</CobVoltageRating>
       <Coc>3.962E-05</Coc>
@@ -127,11 +124,11 @@
       <CapacitorDeratingEnabled>true</CapacitorDeratingEnabled>
       <RfbTopActual>100000</RfbTopActual>
       <RfbBotActual>13700</RfbBotActual>
-      <FcDesired>200000</FcDesired>
+      <FcDesired>70000</FcDesired>
       <PhaseBoostDesired>10</PhaseBoostDesired>
-      <PhaseMarginDesired>60</PhaseMarginDesired>
-      <Ilim>0.034</Ilim>
-      <MarginIoLimit>120</MarginIoLimit>
+      <PhaseMarginDesired>100</PhaseMarginDesired>
+      <Ilim>0.0369</Ilim>
+      <MarginIoLimit>130</MarginIoLimit>
       <Rsense>0.001</Rsense>
       <RsenseFilterR>200</RsenseFilterR>
       <RsenseFilterC>1E-09</RsenseFilterC>
@@ -158,16 +155,16 @@
       <FootprintClearanceFactor>1</FootprintClearanceFactor>
       <R1>10000</R1>
       <C3>3.3000000000000006E-09</C3>
-      <R3>320</R3>
-      <C1>2.2000000000000003E-09</C1>
+      <R3>332</R3>
+      <C1>3.3000000000000006E-09</C1>
       <R2>6040</R2>
-      <C2>1.0000000000000002E-10</C2>
-      <Z1>-37724.167859549809</Z1>
-      <Z2>65000</Z2>
-      <P1>800000</P1>
-      <P2>2000000</P2>
-      <CompensatorGain>128.73722657469489</CompensatorGain>
-      <RLIM>59000</RLIM>
+      <C2>3.3000000000000009E-11</C2>
+      <Z1>-10697.49146761132</Z1>
+      <Z2>-10697.49146761132</Z2>
+      <P1>494500</P1>
+      <P2>700000</P2>
+      <CompensatorGain>81.90198199328961</CompensatorGain>
+      <RLIM>61900</RLIM>
       <VinD>7</VinD>
       <VoRipplePkPkMaxTargetPercent>1</VoRipplePkPkMaxTargetPercent>
       <TotalVoRippleMaxTargetPercent>3.5</TotalVoRippleMaxTargetPercent>
@@ -225,7 +222,7 @@
       <OutputLCFilterSensingIsLocal>false</OutputLCFilterSensingIsLocal>
       <OutputLCFilterSensingIsRemote>false</OutputLCFilterSensingIsRemote>
       <Efficiency>0.9817</Efficiency>
-      <VoutRipplePercent>3.32621E-05</VoutRipplePercent>
+      <VoutRipplePercent>3.69123E-05</VoutRipplePercent>
       <LossCurveA2>0.000420604</LossCurveA2>
       <LossCurveA1>0.025133655</LossCurveA1>
       <LossCurveA0>0.458007558</LossCurveA0>
