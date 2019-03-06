@@ -63,7 +63,6 @@ void spiFlashInit(void)
     SPI3CONbits.STXISEL = 0b01; // Interrupt is generated when buffer is empty
     SPI3CONbits.SRXISEL = 0b01; // Interrupt is generated when buffer is not empty
     SPI3CON2bits.AUDEN = 0;     // Disable audio mode
-    SPI3CON2bits.SPIROVEN = 1;  // Receive Overrun triggers a fault interrupt
     SPI3CON2bits.SPITUREN = 1;  // Transmit underrun triggers a fault interrupt
     
     // Configure bits for Framed Mode ONLY
@@ -682,7 +681,11 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
         spiFlashGPIOReset();
         
         spi_flash_state = idle;
-               
+        
+        // Disable RX overrun interrupt trigger
+        SPI3STATbits.SPIROV = 0;
+        SPI3CON2bits.SPIROVEN = 0;
+        
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Transfer from Flash to EBI SRAM complete\n\r");
         terminalTextAttributesReset();
@@ -880,6 +883,11 @@ void SPI_FLASH_beginRead(uint8_t chip_select) {
         
     // write another dummy byte to start read
     SPI3_writeByte(0x00);
+    
+    // Enable overrun error detection
+    SPI3STATbits.SPIROV = 0;
+    SPI3CON2bits.SPIROVEN = 1;  // Receive Overrun triggers a fault interrupt
+
     
     // Enable receive interrupt and wait
     clearInterruptFlag(SPI3_Receive_Done);

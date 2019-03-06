@@ -141,7 +141,15 @@ void usbUartInitialize(void) {
     
     // Enable UART 3
     U3MODEbits.ON = 1;
-            
+    
+    // Trick UART into thinking user has pressed enter twice
+    U3MODEbits.LPBACK = 1;
+    U3TXREG = '\n';
+    U3TXREG = '\r';
+    U3TXREG = '\n';
+    U3TXREG = '\r';
+    U3MODEbits.LPBACK = 0;
+    
     // Enable receive and error interrupts
     // Transfer interrupt is set in write function
     enableInterrupt(UART3_Receive_Done);
@@ -897,11 +905,11 @@ void usbUartRingBufferLUT(char * line_in) {
     }
     
         
-    else if (strcmp(line_in, "SPI Flash Chip Read ") == 0) {
+    else if (strstart(line_in, "SPI Flash Chip Read ") == 0) {
     
         // Get which chip we're erasing
-        static uint8_t chip_to_read;
-        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_read);
+        uint8_t chip_to_read;
+        sscanf(line_in, "SPI Flash Chip Read %d", &chip_to_read);
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -916,42 +924,42 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-//    else if (strstr(line_in, "SPI Flash Chip Write ")) {
-//        
-//        static uint8_t chip_to_write;
-//        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_write);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Writing to chip %d\n\r", chip_to_write);
-//        terminalTextAttributesReset();
-//        
-//        SPI_FLASH_beginWrite(chip_to_write);
-//        
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Chip %d write successful\n\r", chip_to_write);
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    else if (strstr(line_in, "SPI Flash Chip Erase ")) {
-//    
-//        // Get which chip we're erasing
-//        static uint8_t chip_to_erase;
-//        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_erase);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Erasing chip %d\n\r", chip_to_erase);
-//        terminalTextAttributesReset();
-//        
-//        SPI_FLASH_chipErase(chip_to_erase);
-//        
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Erased chip %d\n\r", chip_to_erase);
-//        terminalTextAttributesReset();
-//        
-//    }
+    else if (strstart(line_in, "SPI Flash Chip Write ")) {
+        
+        uint8_t chip_to_write;
+        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_write);
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Writing to chip %d\n\r", chip_to_write);
+        terminalTextAttributesReset();
+        
+        SPI_FLASH_beginWrite(chip_to_write);
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Chip %d write successful\n\r", chip_to_write);
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strstart(line_in, "SPI Flash Chip Erase ")) {
+    
+        // Get which chip we're erasing
+        uint8_t chip_to_erase;
+        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_erase);
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Erasing chip %d\n\r", chip_to_erase);
+        terminalTextAttributesReset();
+        
+        SPI_FLASH_chipErase(chip_to_erase);
+        
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Erased chip %d\n\r", chip_to_erase);
+        terminalTextAttributesReset();
+        
+    }
     
     else if (strcmp(line_in, "Serial Number?") == 0) {
      
@@ -1246,36 +1254,6 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);
         printf("POS5P RUN Deasserted\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
-//    else if (line_in[0] == 'S' &&
-//            line_in[1] == 'e' &&
-//            line_in[2] == 't' &&
-//            line_in[3] == ' ' &&
-//            line_in[4] == 'R' &&
-//            line_in[5] == 'a' &&
-//            line_in[6] == 'n' &&
-//            line_in[7] == 'd' &&
-//            line_in[8] == ' ' &&
-//            line_in[9] == 'S' &&
-//            line_in[10] == 'e' &&
-//            line_in[11] == 'e' &&
-//            line_in[12] == 'd' &&
-//            line_in[13] == ' ' ) {
-    
-    else if (strstart(line_in, "Set Rand Seed ") == 0) {
-     
-        uint32_t rand_seed;
-        sscanf(line_in, "Set Rand Seed %d", &rand_seed);
-        srand(rand_seed);
-        
-        fillRamBufferRand();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Set random seed to %d\n\r", rand_seed);
         terminalTextAttributesReset();
         
     }

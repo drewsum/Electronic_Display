@@ -82,6 +82,9 @@ char * getRevisionIDString(uint8_t revision_ID);
 void printClockStatus(uint32_t input_sysclk);
 
 
+// This function initializes the random number generator
+void RNGInitialize(void);
+
 #endif /* _DEVICE_CONTROL_H */
 
 /* *****************************************************************************
