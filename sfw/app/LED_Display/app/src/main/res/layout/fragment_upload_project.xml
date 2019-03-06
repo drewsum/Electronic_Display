@@ -23,7 +23,7 @@
 
     <ListView
         android:id="@+id/projectList"
-        android:layout_width="327dp"
+        android:layout_width="356dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -96,7 +96,7 @@
 
     <ListView
         android:id="@+id/deviceList"
-        android:layout_width="331dp"
+        android:layout_width="370dp"
         android:layout_height="92dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

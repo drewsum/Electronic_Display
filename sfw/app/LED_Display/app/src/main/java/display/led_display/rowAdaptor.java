@@ -3,15 +3,23 @@ package display.led_display;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import display.led_display.helper.TinyDB;
 
@@ -49,17 +57,73 @@ public class rowAdaptor extends BaseAdapter {
         return position;
     }
 
+    private Bitmap loadImageFromStorage(String path)
+    {
+        Bitmap b = null;
+        try {
+            File f=new File(path);
+            b = BitmapFactory.decodeStream(new FileInputStream(f));
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        return b;
+    }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         View vi = convertView;
-        if (vi == null)
-            vi = inflater.inflate(R.layout.row, null);
+        if (vi == null) {
+            if (keyName == "frameList") {
+                vi = inflater.inflate(R.layout.image_row, null);
+            } else {
+                vi = inflater.inflate(R.layout.row, null);
+            }
+        }
         final View finView = vi;
         TextView text = (TextView) vi.findViewById(R.id.text);
         text.setText(data.get(position)); // populate rows
         Button buttonDelete = (Button) vi.findViewById(R.id.buttonDelete);
         buttonDelete.setFocusable(false); // needed to allow row to still be clickable
+        if (keyName == "frameList") {
+            ImageView thumbnail = (ImageView) vi.findViewById(R.id.imageThumb);
+            thumbnail.setImageBitmap(loadImageFromStorage(data.get(position)));
+            text.setText("Frame " + position); // populate rows
+            // use a spinner to select a number
+//            Spinner dropdown = vi.findViewById(R.id.spinnerDropDown);
+//            String[] items = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(vi.getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+//            dropdown.setAdapter(adapter);
+            // use up and down arrows to adjust ordering
+            ImageButton buttonUp = (ImageButton) vi.findViewById(R.id.buttonUp);
+            buttonUp.setFocusable(false); // needed to allow row to still be clickable
+            ImageButton buttonDown = (ImageButton) vi.findViewById(R.id.buttonDown);
+            buttonDown.setFocusable(false); // needed to allow row to still be clickable
+            final TinyDB tinyDB = new TinyDB(vi.getContext());
+            //data.get(position);
+            final ArrayList<String> framesList = tinyDB.getListString("test1" + "frameList");
+            buttonUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("clickEvent", "up button clicked");
+                    // decrement the position of image
+                    Collections.swap(framesList, position, position - 1);
+                    tinyDB.putListString("test1" + "frameList", framesList);
+                }
+            });
+            buttonDown.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("clickEvent", "down button clicked");
+                    // increment the position of image
+                    Collections.swap(framesList, position, position + 1);
+                    tinyDB.putListString("test1" + "frameList", framesList);
+                }
+            });
+
+        }
 
         // set up "are you sure you want to delete dialog"
         AlertDialog.Builder builder = new AlertDialog.Builder(finView.getContext());
@@ -93,3 +157,4 @@ public class rowAdaptor extends BaseAdapter {
         return vi;
     }
 }
+

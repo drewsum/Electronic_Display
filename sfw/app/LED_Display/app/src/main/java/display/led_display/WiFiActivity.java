@@ -3,7 +3,6 @@ package display.led_display;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +29,7 @@ public class WiFiActivity extends AppCompatActivity implements View.OnClickListe
     public final static String PREF_IP = "PREF_IP_ADDRESS";
     public final static String PREF_PORT = "PREF_PORT_NUMBER";
     // declare buttons and text inputs
-    private Button buttonHeartBeat, buttonHeartFade;
+    private Button buttonSend0, buttonSend1;
     private EditText editTextIPAddress, editTextPortNumber;
     // shared preferences objects used to save the IP address and port so that the user doesn't have to
     // type them next time he/she opens the app.
@@ -50,18 +49,16 @@ public class WiFiActivity extends AppCompatActivity implements View.OnClickListe
         editTextPortNumber = (EditText)findViewById(R.id.editTextPortNumber);
 
         // assign buttons, which are private member variables of this class;
-        buttonHeartBeat = (Button)findViewById(R.id.buttonHeartBeat);
-        buttonHeartBeat.setPadding(0, 0, 0, 0);
-        buttonHeartBeat.setTextColor(Color.parseColor("#7f3c3c"));
-        buttonHeartBeat.setBackgroundResource(R.drawable.mybutton); // mybutton.xml that controls normal, pressed, focused, etc;
-        buttonHeartFade = (Button)findViewById(R.id.buttonHeartFade);
-        buttonHeartFade.setPadding(0, 0, 0, 0);
-        buttonHeartFade.setTextColor(Color.parseColor("#7f3c3c"));
-        buttonHeartFade.setBackgroundResource(R.drawable.mybutton); // mybutton.xml that controls normal, pressed, focused, etc;
+        buttonSend0 = (Button)findViewById(R.id.buttonSend0);
+        buttonSend0.setPadding(0, 0, 0, 0);
+        buttonSend0.setBackgroundResource(R.drawable.mybutton); // mybutton.xml that controls normal, pressed, focused, etc;
+        buttonSend1 = (Button)findViewById(R.id.buttonSend1);
+        buttonSend1.setPadding(0, 0, 0, 0);
+        buttonSend1.setBackgroundResource(R.drawable.mybutton); // mybutton.xml that controls normal, pressed, focused, etc;
 
         // set button listener (this class);
-        buttonHeartBeat.setOnClickListener(this);
-        buttonHeartFade.setOnClickListener(this);
+        buttonSend1.setOnClickListener(this);
+        buttonSend0.setOnClickListener(this);
 
         // get the IP address and port number from the last time the user used the app,
         // put an empty string "" is this is the first time.
@@ -90,11 +87,11 @@ public class WiFiActivity extends AppCompatActivity implements View.OnClickListe
         // we want to toggle the first heart effect, which is Beat;
         // if button buttonHeartFade is pressed, we'll send a "2" to the Arduino, meaning
         // we want to toggle the second heart effect, which is Fade;
-        if (view.getId()==buttonHeartBeat.getId()) {
+        if (view.getId()==buttonSend1.getId()) {
             parameterValue = "1";
         }
-        else if (view.getId()==buttonHeartFade.getId()) {
-            parameterValue = "2";
+        else if (view.getId()==buttonSend0.getId()) {
+            parameterValue = "0";
         }
 
 
@@ -102,7 +99,7 @@ public class WiFiActivity extends AppCompatActivity implements View.OnClickListe
         // which has value 1 if first button is pressed or 2 if second button is pressed;
         if (ipAddress.length()>0 && portNumber.length()>0) {
             new HttpRequestAsyncTask(
-                    view.getContext(), parameterValue, ipAddress, portNumber, "effect"
+                    view.getContext(), parameterValue, ipAddress, portNumber, "Test"
             ).execute();
         }
     }
@@ -211,7 +208,6 @@ public class WiFiActivity extends AppCompatActivity implements View.OnClickListe
         return result.toString();
     }
 
-
     // An AsyncTask is needed to execute HTTP requests in the background so that they do not
     // block the user interface.
     private class HttpRequestAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -249,7 +245,7 @@ public class WiFiActivity extends AppCompatActivity implements View.OnClickListe
         // @return
         @Override
         protected Void doInBackground(Void... voids) {
-            alertDialog.setMessage("Data sent, waiting for reply from server...");
+            alertDialog.setMessage("Data sent, waiting for receipt confirmation from device...");
             if (!alertDialog.isShowing()) {
                 alertDialog.show();
             }
@@ -280,7 +276,7 @@ public class WiFiActivity extends AppCompatActivity implements View.OnClickListe
         // The function will set the dialog's message and display the dialog.
         @Override
         protected void onPreExecute() {
-            alertDialog.setMessage("Sending data to server, please wait...");
+            alertDialog.setMessage("Sending, please wait...");
             if (!alertDialog.isShowing()) {
                 alertDialog.show();
             }

@@ -35,7 +35,7 @@ android:layout_height="fill_parent">
 
 
     <Button
-        android:id="@+id/buttonHeartBeat"
+        android:id="@+id/buttonSend1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="1.0"
@@ -44,7 +44,7 @@ android:layout_height="fill_parent">
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/buttonHeartFade"
+        android:id="@+id/buttonSend0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="1.0"

@@ -27,7 +27,7 @@ import display.led_display.helper.TinyDB;
  * Use the {@link EditProjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditProjectFragment extends Fragment implements View.OnClickListener {
+public class EditProjectFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -164,14 +164,6 @@ public class EditProjectFragment extends Fragment implements View.OnClickListene
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonAddFrame:
-                startActivity(new Intent(getActivity(), ImageSelectActivity.class));
-                break;
-        }
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
