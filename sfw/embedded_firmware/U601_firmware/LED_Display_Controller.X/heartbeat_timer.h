@@ -28,7 +28,7 @@
 
 
 // API Variables
-uint32_t device_on_time_counter;
+uint32_t device_on_time_counter __attribute__((persistent));
 
 
 // API Functions

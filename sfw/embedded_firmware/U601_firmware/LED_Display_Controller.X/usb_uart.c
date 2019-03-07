@@ -38,7 +38,7 @@ volatile uint32_t usb_uart_RxCount;
 volatile uint8_t usb_uart_RxStringReady = 0;
 
 // Printable Variables from other header files
-extern uint32_t device_on_time_counter;
+extern uint32_t device_on_time_counter __attribute__((persistent));
 extern reset_cause_t reset_cause;
 
 
@@ -426,7 +426,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("On time since last device reset: %s\n\r", 
+        printf("On time since last power on reset: %s\n\r", 
                 getStringSecondsAsTime(device_on_time_counter));
         terminalTextAttributesReset();
         
@@ -1274,7 +1274,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Clear: Clears the terminal\n\r");
     printf("    Cause of Reset?: Prints the cause of the most recent device reset\n\r");
     printf("    *IDN?: Prints identification string\n\r");
-    printf("    Device On Time?: Returns the device on time since last reset\n\r");
+    printf("    Device On Time?: Returns the device on time since last power on reset\n\r");
     printf("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
     printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
