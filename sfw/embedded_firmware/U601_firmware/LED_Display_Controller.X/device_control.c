@@ -789,15 +789,24 @@ void printClockStatus(uint32_t input_sysclk) {
     else terminalTextAttributes(RED, BLACK, NORMAL);
     printf("\n\r    Dream Mode %s\n\r", OSCCONbits.DRMEN ? "Enabled" : "Disabled");
     
-    // Print PLL status
+    // Print boot PLL status
     terminalTextAttributes(GREEN, BLACK, NORMAL);
-    printf("\n\r    PLL Input Divider is set to: %d\n\r", (DEVCFG2bits.FPLLIDIV + 1));
-    printf("    PLL Multiplier is set to: %d\n\r", (DEVCFG2bits.FPLLMULT + 1));
-    printf("    PLL Output Divider is set to: %d\n\r", (DEVCFG2bits.FPLLODIV + 1));
+    printf("\n\r    Boot PLL Input Divider is set to: %d\n\r", (DEVCFG2bits.FPLLIDIV + 1));
+    printf("    Boot PLL Multiplier is set to: %d\n\r", (DEVCFG2bits.FPLLMULT + 1));
+    printf("    Boot PLL Output Divider is set to: %d\n\r", (DEVCFG2bits.FPLLODIV + 1));
     
-    printf("    Overall PLL Gain is: %.3f\n\r", 
+    printf("    Overall Boot PLL Gain is: %.3f\n\r", 
             (float) (DEVCFG2bits.FPLLMULT + 1) / ((DEVCFG2bits.FPLLIDIV) + (DEVCFG2bits.FPLLODIV) + 1));
     
+    
+    // Print changed PLL status
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("\n\r    Operational PLL Input Divider is set to: %d\n\r", (SPLLCONbits.PLLIDIV + 1));
+    printf("    Operational PLL Multiplier is set to: %d\n\r", (SPLLCONbits.PLLMULT + 1));
+    printf("    Operational PLL Output Divider is set to: %d\n\r", (SPLLCONbits.PLLODIV + 1));
+    
+    printf("    Overall Operational PLL Gain is: %.3f\n\r", 
+            (float) (SPLLCONbits.PLLMULT + 1) / ((SPLLCONbits.PLLIDIV) + (SPLLCONbits.PLLODIV) + 1));
     
     
     // Determine refclk1
