@@ -935,10 +935,6 @@ void usbUartRingBufferLUT(char * line_in) {
         
         SPI_FLASH_beginRead(chip_to_read);
         
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Chip %d read successful\n\r", chip_to_read);
-        terminalTextAttributesReset();
-        
     }
     
     else if (strstart(line_in, "SPI Flash Chip Write ") == 0) {
@@ -952,10 +948,6 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributesReset();
         
         SPI_FLASH_beginWrite(chip_to_write);
-        
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Chip %d write successful\n\r", chip_to_write);
-        terminalTextAttributesReset();
         
     }
     
