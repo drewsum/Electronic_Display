@@ -98,9 +98,6 @@ void main(void) {
     // Initialize GPIO pins to startup settings
     gpioInitialize();
     
-    // Setup core timer
-    coreTimerInitialize();
-    
     // Initialize UART USB debugging
     usbUartInitialize();
     
@@ -141,7 +138,6 @@ void main(void) {
     printf("Interrupt Controller Initialized, Global Interrupts Enabled\n\r");
     printf("GPIO Pins Initialized\n\r");
     printf("USB UART Initialized\n\r");
-    printf("Core Timer Initialized\n\r");
     
     // Setup error handling
     errorHandlerInitialize();
