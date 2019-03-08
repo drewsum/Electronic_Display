@@ -48,6 +48,9 @@ void esp8266ReceiveHandler(void);
 void esp8266RingBufferPull(void);
 void esp8266RingBufferLUT(char * esp_8266_line);
 
+// configure the chip with AT commands
+void esp8266Configure(void);
+
 // WiFi specific functions
 void sendCIPData(uint8_t connectionId, uint8_t * data, uint8_t length);
 void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length);

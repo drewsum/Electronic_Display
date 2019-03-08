@@ -64,6 +64,8 @@
 
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
+// esp8266 Ready Flag
+extern volatile uint8_t esp_8266_RxStringReady;
 
 // Cause of Device Reset global variable
 reset_cause_t reset_cause;

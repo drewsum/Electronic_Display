@@ -7,6 +7,8 @@
 #include "esp8266.h"
 #include "32mz_interrupt_control.h"
 #include "error_handler.h"
+#include "pin_macros.h"
+#include "terminal_control.h"
 
 
 volatile uint64_t esp_8266_TxHead = 0;
@@ -130,6 +132,14 @@ void esp8266Initialize(void) {
     enableInterrupt(UART1_Receive_Done);
     enableInterrupt(UART1_Fault);
     
+    // set the reset line on the chip to low
+    nWIFI_RESET_PIN = 0;
+    // set the chip enable to high (active high)
+    WIFI_CHPD_PIN = 1;
+    
+    // configure the chip
+    esp8266Configure();
+    
 }
 
 // This is the esp8266 receive interrupt service routine
@@ -159,7 +169,13 @@ void __ISR(_UART1_FAULT_VECTOR, ipl1SRS) esp8266FaultISR(void) {
     
     // TO-DO: Fault tasks
     error_handler.WIFI_error_flag = 1;   
+    // nWIFI_RESET_PIN = 1;
+    // wait for chip to reset (time delay)
+    // esp8266Initialize()
     
+    
+    // maybe do a reset here and then reconfigure etc.
+    // 
     // Clear fault interrupt flag
     clearInterruptFlag(UART1_Fault);
     
@@ -333,25 +349,17 @@ void esp8266RingBufferLUT(char * line_in) {
  
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
-
-//    if (strcmp(line_in, "Reset") == 0) {
-//
-//         deviceReset();
-//        
-//    }
+    char * substring;
+    substring = strncpy(line_in, substring, 5);
+    if (strcmp(substring, "Image") == 0) {
+        esp_8266_FlashFlag = 1;
+    }
     // WRITE SOME COMMANDS HERE
+    
     Nop();
     
 }
 
-// send "AT\r\n" to see if you can connect
-// send "AT+RST\r\n" to reset module
-// send "AT+VERSION\r\n" to get the firmware version of the esp module
-// send "AT+NAME*NAME*\r\n" to give the module a name
-// send "AT+CWMODE=2\r\n" to configure as access point
-// send "AT+CIPMUX=1\r\n" to configure for multiple connections
-// send "AT+CIPSERVER=1,80\r\n" to turn on server on port 80
-// send "AT+CIFSR\r\n" to get the IP address of the module
 void esp8266Putstring(char * string) {
     int i;
     for(i = 0; i <= strlen(string); i++) {
@@ -364,10 +372,19 @@ void esp8266Putstring(char * string) {
  * to boot the chip, get the IP address, etc.
  */
 void esp8266Configure(void) {
-    // reset
+    // reset esp and get the firmware version
+    esp8266Putstring("AT");
     esp8266Putstring("AT+RST\r\n");
     esp8266Putstring("AT+VERSION\r\n");
-    // start configuration
+    // start configuration with AT commands
+    // configure esp8266 as access point (own network)
+    esp8266Putstring("AT+CWMODE=2\r\n");
+    // configure for multiple connections
+    esp8266Putstring("AT+CIPMUX=1\r\n");
+    // turn on the CIP server at port 80
+    esp8266Putstring("AT+CIPSERVER=1,80\r\n");
+    // get the IP address
+    esp8266Putstring("CIFSR\r\n");
 }
 
 /*

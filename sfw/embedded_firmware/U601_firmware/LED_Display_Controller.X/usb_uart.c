@@ -400,7 +400,9 @@ void usbUartRingBufferLUT(char * line_in) {
  
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
-    if (strcmp(strncpy(line_in, 6), "WiFi: ")) {
+    char * substring;
+    strncpy(line_in, substring,6);
+    if (strcmp(substring, "WiFi: ")) {
         // print WiFi command to UART1 RX
         esp8266Putstring(line_in);
     }
