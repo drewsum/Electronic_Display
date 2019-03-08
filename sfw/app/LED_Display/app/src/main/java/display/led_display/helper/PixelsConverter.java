@@ -79,45 +79,23 @@ public class PixelsConverter {
             int[] spacedValue = new int[8];
             int val = rgb.get(i);
             // 8 bit mode
-//            spacedValue[0] = (val > 0) ? 1 : 0;
-//            spacedValue[2] = (val > 32) ? 1 : 0;
-//            spacedValue[4] = (val > 64) ? 1 : 0;
-//            spacedValue[6] = (val > 96) ? 1 : 0;
-//            spacedValue[1] = (val > 128) ? 1 : 0;
-//            spacedValue[3] = (val > 160) ? 1 : 0;
-//            spacedValue[5] = (val > 192) ? 1 : 0;
-//            spacedValue[7] = (val > 224) ? 1 : 0;
-            // 4 bit mode
-//            spacedValue[0] = (val > 0) ? 1 : 0;
-//            spacedValue[2] = (val > 64) ? 1 : 0;
-//            spacedValue[1] = (val > 128) ? 1 : 0;
-//            spacedValue[3] = (val > 192) ? 1 : 0;
-            // 5 bit mode
             spacedValue[0] = (val > 0) ? 1 : 0;
-            spacedValue[2] = (val > 51) ? 1 : 0;
-            spacedValue[4] = (val > 102) ? 1 : 0;
-            spacedValue[1] = (val > 154) ? 1 : 0;
-            spacedValue[3] = (val > 205) ? 1 : 0;
+            spacedValue[2] = (val > 32) ? 1 : 0;
+            spacedValue[4] = (val > 64) ? 1 : 0;
+            spacedValue[6] = (val > 96) ? 1 : 0;
+            spacedValue[1] = (val > 128) ? 1 : 0;
+            spacedValue[3] = (val > 160) ? 1 : 0;
+            spacedValue[5] = (val > 192) ? 1 : 0;
+            spacedValue[7] = (val > 224) ? 1 : 0;
             // 8 bit mode
-//            bytesOfData.add(spacedValue[0]);
-//            bytesOfData.add(spacedValue[1]);
-//            bytesOfData.add(spacedValue[2]);
-//            bytesOfData.add(spacedValue[3]);
-//            bytesOfData.add(spacedValue[4]);
-//            bytesOfData.add(spacedValue[5]);
-//            bytesOfData.add(spacedValue[6]);
-//            bytesOfData.add(spacedValue[7]);
-            // 4 bit mode
-//            bytesOfData.add(spacedValue[0]);
-//            bytesOfData.add(spacedValue[1]);
-//            bytesOfData.add(spacedValue[2]);
-//            bytesOfData.add(spacedValue[3]);
-            // 5 bit mode
             bytesOfData.add(spacedValue[0]);
             bytesOfData.add(spacedValue[1]);
             bytesOfData.add(spacedValue[2]);
             bytesOfData.add(spacedValue[3]);
             bytesOfData.add(spacedValue[4]);
+            bytesOfData.add(spacedValue[5]);
+            bytesOfData.add(spacedValue[6]);
+            bytesOfData.add(spacedValue[7]);
         }
         Log.d("bytes of data Length: ", "" + bytesOfData.size());
         return bytesOfData;
@@ -129,37 +107,13 @@ public class PixelsConverter {
         Log.d("second half size: ", "" + secondHalf.size());
         Log.d("bits size: ", "" + bits.size());
         // 8 bit mode
-//        for(int j = 0; j < 8; j++)
-//        {
-//            finalScript.clear();
-//            for(int i = 0; i < (secondHalf.size()/8); i++) // 6144 times
-//            {
-//                finalScript.add(2*i, bits.get(8*i+j)); // grab every 8th bit and put in order
-//                finalScript.add(2*i+1, secondHalf.get(8*i+j)); // grab every 8th and put in order
-//            }
-//            Log.d("final script size: ", "" + finalScript.size()); // 12288 long (1 time worth for full panel)
-//            masterScript.addAll(finalScript);
-//        }
-        // 4 bit mode
-//        for(int j = 0; j < 4; j++)
-//        {
-//            finalScript.clear();
-//            for(int i = 0; i < (secondHalf.size()/4); i++) // 6144 times
-//            {
-//                finalScript.add(2*i, bits.get(4*i+j)); // grab every 8th bit and put in order
-//                finalScript.add(2*i+1, secondHalf.get(4*i+j)); // grab every 8th and put in order
-//            }
-//            Log.d("final script size: ", "" + finalScript.size()); // 12288 long (1 time worth for full panel)
-//            masterScript.addAll(finalScript);
-//        }
-        // 5 bit mode
-        for(int j = 0; j < 5; j++)
+        for(int j = 0; j < 8; j++)
         {
             finalScript.clear();
-            for(int i = 0; i < (secondHalf.size()/5); i++) // 6144 times
+            for(int i = 0; i < (secondHalf.size()/8); i++) // 6144 times
             {
-                finalScript.add(2*i, bits.get(5*i+j)); // grab every 8th bit and put in order
-                finalScript.add(2*i+1, secondHalf.get(5*i+j)); // grab every 8th and put in order
+                finalScript.add(2*i, bits.get(8*i+j)); // grab every 8th bit and put in order
+                finalScript.add(2*i+1, secondHalf.get(8*i+j)); // grab every 8th and put in order
             }
             Log.d("final script size: ", "" + finalScript.size()); // 12288 long (1 time worth for full panel)
             masterScript.addAll(finalScript);
