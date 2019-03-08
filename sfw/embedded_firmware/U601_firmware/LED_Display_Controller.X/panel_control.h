@@ -19,15 +19,17 @@
 #include <xc.h>
 #include <sys/attribs.h>
 
-#define PANEL_DATA_ARRAY_SIZE 153600
+// #define PANEL_DATA_ARRAY_SIZE 153600
+#define PANEL_DATA_ARRAY_SIZE 245760
 
-#define MUXING_TIMER_PERIOD     66
+#define PANEL_DATA_PWM_FRAMES   8
+
+#define MUXING_TIMER_PERIOD     64
 
 // Array that will hold all data currently being displayed on panels
 uint8_t panel_data_buffer[PANEL_DATA_ARRAY_SIZE];
 
 // Display update variables
-uint32_t current_shift_clock;
 uint32_t current_row;
 uint32_t current_PWM_frame;
 
@@ -36,16 +38,13 @@ uint32_t current_shift_clock_index;
 uint32_t current_row_index;
 uint32_t current_PWM_frame_index;
 
-// clock signal high time in arbitrary clock units
-static uint8_t panel_clock_high_delay = 3;
-
 // Function to handle all mutliplexing for panel
 void panelMultiplexingHandler(void);
 
-// Set RGB bus state functions
-void setPanelRedBus(uint8_t inputByte);
-void setPanelGreenBus(uint8_t inputByte);
-void setPanelBlueBus(uint8_t inputByte);
+// Set RGB bus state function
+// This function presents the given parameters onto hardware pins, and thus the
+// panel shift registers
+void setPanelRGBBus(uint8_t inputRedByte, uint8_t inputGreenByte, uint8_t inputBlueByte);
 
 // Set ROW bus state functions
 void setPanelRowBus(uint8_t inputByte);

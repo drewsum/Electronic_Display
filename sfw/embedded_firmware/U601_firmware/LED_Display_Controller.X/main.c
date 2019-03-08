@@ -100,9 +100,6 @@ void main(void) {
     // Initialize GPIO pins to startup settings
     gpioInitialize();
     
-    // Setup core timer
-    coreTimerInitialize();
-    
     // Initialize UART USB debugging
     usbUartInitialize();
     
@@ -143,7 +140,6 @@ void main(void) {
     printf("Interrupt Controller Initialized, Global Interrupts Enabled\n\r");
     printf("GPIO Pins Initialized\n\r");
     printf("USB UART Initialized\n\r");
-    printf("Core Timer Initialized\n\r");
     
     // Setup error handling
     errorHandlerInitialize();
@@ -176,6 +172,7 @@ void main(void) {
          
             error_handler.EBI_error_flag = 1;
             updateErrorLEDs();
+            terminalTextAttributesReset();
             terminalTextAttributes(RED, BLACK, NORMAL);
             printf("EBI SRAM Initialized, but R/W self test failed\n\r");
             terminalTextAttributesReset();
@@ -184,15 +181,16 @@ void main(void) {
         }
         
         else {
-         
-            printf("EBI SRAM Initialized, R/W self test passed\n\r");
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("EBI SRAM Initialized, R/W self test passed \n\r");
             clearEBISRAM();
         
         }
     
     // Initialize SPI
     spiFlashInit();
-    printf("SPI Flash Initialized\n\r");
+    printf("SPI Flash  Initialized\n\r");
     
     // Initialize ESP 8266 chip
     esp8266Initialize();
@@ -200,6 +198,10 @@ void main(void) {
     // Setup RNG for random pixel values
     RNGInitialize();
     printf("Random Number Generator Initialized\n\r");
+    
+    // Setup panel brightness PWM
+    panelPWMInitialize();
+    printf("Panel Brightness PWM Initialized\n\r");
 
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
