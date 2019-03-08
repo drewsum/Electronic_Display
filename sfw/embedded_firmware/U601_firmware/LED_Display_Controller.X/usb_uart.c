@@ -1323,7 +1323,6 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
     printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
-    printf("    Set Rand Seed <x>: Sets the random number seet to the given number x\n\r");
     printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
     printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
     printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");

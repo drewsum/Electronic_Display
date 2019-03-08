@@ -174,6 +174,7 @@ void main(void) {
          
             error_handler.EBI_error_flag = 1;
             updateErrorLEDs();
+            terminalTextAttributesReset();
             terminalTextAttributes(RED, BLACK, NORMAL);
             printf("EBI SRAM Initialized, but R/W self test failed\n\r");
             terminalTextAttributesReset();
@@ -182,15 +183,16 @@ void main(void) {
         }
         
         else {
-         
-            printf("EBI SRAM Initialized, R/W self test passed\n\r");
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("EBI SRAM Initialized, R/W self test passed \n\r");
             clearEBISRAM();
         
         }
     
     // Initialize SPI
     spiFlashInit();
-    printf("SPI Flash Initialized\n\r");
+    printf("SPI Flash  Initialized\n\r");
     
     // Setup RNG for random pixel values
     RNGInitialize();

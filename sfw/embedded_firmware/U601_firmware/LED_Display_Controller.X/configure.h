@@ -75,7 +75,7 @@
 #pragma config CP = OFF                 // Code Protect (Protection Disabled)
 
 #pragma config TSEQ = 0xffff
-#pragma config CSEQ = 0xffff
+#pragma config CSEQ = 0x0000
 
 // SEQ3
 
@@ -143,8 +143,8 @@
 // ADEVCP0
 #pragma config_alt CP = OFF             // Code Protect (Protection Disabled)
 
-#pragma config_alt TSEQ = 0xffff
-#pragma config_alt CSEQ = 0xffff
+#pragma config_alt TSEQ = 0xfffe
+#pragma config_alt CSEQ = 00001
 
 // ASEQ3
 
@@ -200,8 +200,8 @@
 // AUBADEVCP0
 #pragma config_auba CP = OFF            // Code Protect (Protection Disabled)
 
-#pragma config_auba TSEQ = 0xffff
-#pragma config_auba CSEQ = 0xffff
+#pragma config_auba TSEQ = 0xfffd
+#pragma config_auba CSEQ = 0x0002
 
 // AUBASEQ3
 
@@ -257,8 +257,8 @@
 // UBADEVCP0
 #pragma config_uba CP = OFF             // Code Protect (Protection Disabled)
 
-#pragma config_uba TSEQ = 0xffff
-#pragma config_uba CSEQ = 0xffff
+#pragma config_uba TSEQ = 0xfffc
+#pragma config_uba CSEQ = 00003
 
 #endif /* _CONFIGURE_H */
 

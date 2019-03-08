@@ -277,7 +277,7 @@ void clearErrorHandler(void) {
 void updateErrorLEDs(void) {
  
     // Configuration Error
-    if ( // error_handler.configuration_error_flag ||
+    if (    error_handler.configuration_error_flag ||
             error_handler.DMT_error_flag ||
             error_handler.POS12_regulation_error_flag ||
             error_handler.POS3P3_regulation_error_flag ||

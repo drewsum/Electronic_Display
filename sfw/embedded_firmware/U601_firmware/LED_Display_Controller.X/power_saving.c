@@ -91,7 +91,6 @@ void PMDInitialize(void) {
     PMD5bits.CAN2MD = 1;
     
     // Disable real time clock/calendar
-    // TO-DO: This may change
     PMD6bits.RTCCMD = 1;
     
     // Disable all reference clocks
@@ -114,12 +113,10 @@ void PMDInitialize(void) {
     PMD6bits.ETHMD = 1;
     
     // Disable DMA
-    // TO-DO: This may change
     PMD7bits.DMAMD = 1;
     
-    // Disable random number generator
-    // TO-DO: This may change
-    PMD7bits.RNGMD = 1;
+    // Enable random number generator
+    PMD7bits.RNGMD = 0;
     
     // Lock PMD
     PMDLock();
