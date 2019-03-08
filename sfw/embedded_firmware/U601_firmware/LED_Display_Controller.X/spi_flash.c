@@ -74,7 +74,7 @@ void spiFlashInit(void)
     SPI3CONbits.SPIFE = 0;
     
     // Turn on module after configuration
-    SPI3CONbits.ON = 1;         
+    SPI3CONbits.ON = 1;
     spi_flash_state = idle;
        
     enableInterrupt(SPI3_Fault);
@@ -671,6 +671,8 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
 // SPI3 Receive Done interrupt service routine
 void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
      
+    printf("AHHHH\n\r");
+    
     // Load in byte to ebi_sram_array and increment index
     ebi_sram_array[sram_addr_index] = SPI3BUF;
     sram_addr_index++;
@@ -688,20 +690,24 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
 //        SPI3STATbits.SPIROV = 0;
 //        SPI3CON2bits.SPIROVEN = 0;
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Transfer from Flash to EBI SRAM complete\n\r");
         terminalTextAttributesReset();
         
         panelMultiplexingTimerStart();
         
-    } else {
+    } 
+    
+    else {
         
-        SPI3_writeByte(0x00);
+        SPI3BUF = 0x00;
         
     }
            
     // Clear interrupt flag after ISR
     clearInterruptFlag(SPI3_Receive_Done);
+    
 }
 
 //SPI3 Transfer Done interrupt service routine
@@ -882,18 +888,19 @@ void SPI_FLASH_beginRead(uint8_t chip_select) {
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
-        
+    
+    // Enable receive interrupt and wait
+    clearInterruptFlag(SPI3_Receive_Done);
+    clearInterruptFlag(SPI3_Transfer_Done);
+    disableInterrupt(SPI3_Transfer_Done);
+    enableInterrupt(SPI3_Receive_Done);
+    
     // write another dummy byte to start read
     SPI3_writeByte(0x00);
     
     // Enable overrun error detection
     // SPI3STATbits.SPIROV = 0;
     // SPI3CON2bits.SPIROVEN = 1;  // Receive Overrun triggers a fault interrupt
-
-    
-    // Enable receive interrupt and wait
-    clearInterruptFlag(SPI3_Receive_Done);
-    enableInterrupt(SPI3_Receive_Done);
     
 }
 
