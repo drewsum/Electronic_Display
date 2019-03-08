@@ -192,6 +192,9 @@ void main(void) {
     spiFlashInit();
     printf("SPI Flash Initialized\n\r");
     
+    // Initialize ESP 8266 chip
+    esp8266Initialize();
+    
     // Setup RNG for random pixel values
     RNGInitialize();
     printf("Random Number Generator Initialized\n\r");
@@ -235,6 +238,11 @@ void main(void) {
 
             usbUartRingBufferPull();
         
+        }
+        
+        // Check if we've got a received WiFi string waiting
+        if(esp_8266_RxStringReady != 0) {
+            esp8266RingBufferPull();
         }
         
     }

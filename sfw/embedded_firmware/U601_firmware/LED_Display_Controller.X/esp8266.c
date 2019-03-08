@@ -20,6 +20,7 @@ volatile uint32_t esp_8266_RxBuffer[ESP_8266_RX_BUFFER_SIZE];
 volatile uint32_t esp_8266_RxCount;
 
 volatile uint8_t esp_8266_RxStringReady = 0;
+volatile uint8_t esp_8266_FlashFlag = 0;
 
 uint8_t * cipString;
 
@@ -107,7 +108,7 @@ void esp8266Initialize(void) {
         
     
     // Set interrupt priorities
-    setInterruptPriority(UART1_Receive_Done, 2);
+    setInterruptPriority(UART1_Receive_Done, 7);
     setInterruptPriority(UART1_Transfer_Done, 7);
     setInterruptPriority(UART1_Fault, 1);
     
@@ -135,7 +136,7 @@ void esp8266Initialize(void) {
 void __ISR(_UART1_RX_VECTOR, ipl2SRS) esp8266ReceiveISR(void) {
     
     // Do receive tasks
-    usbUartReceiveHandler();
+    esp8266ReceiveHandler();
     
     // Clear receive interrupt flag
     clearInterruptFlag(UART1_Receive_Done);
@@ -146,7 +147,7 @@ void __ISR(_UART1_RX_VECTOR, ipl2SRS) esp8266ReceiveISR(void) {
 void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void) {
     
     // Do transfer tasks
-    usbUartTransmitHandler();
+    esp8266TransmitHandler();
     
     // Clear interrupt flag
     clearInterruptFlag(UART1_Transfer_Done);
@@ -157,7 +158,7 @@ void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void) {
 void __ISR(_UART1_FAULT_VECTOR, ipl1SRS) esp8266FaultISR(void) {
     
     // TO-DO: Fault tasks
-    error_handler.USB_error_flag = 1;   
+    error_handler.WIFI_error_flag = 1;   
     
     // Clear fault interrupt flag
     clearInterruptFlag(UART1_Fault);
@@ -226,7 +227,7 @@ void esp8266TransmitHandler(void) {
  
     if(sizeof(esp_8266_TxBuffer) > esp_8266_TxBufferRemaining)
     {
-        U3TXREG = esp_8266_TxBuffer[esp_8266_TxTail++];
+        U1TXREG = esp_8266_TxBuffer[esp_8266_TxTail++];
         if(sizeof(esp_8266_TxBuffer) <= esp_8266_TxTail)
         {
             esp_8266_TxTail = 0;
@@ -236,9 +237,7 @@ void esp8266TransmitHandler(void) {
     
     else
     {
-        disableInterrupt(UART1_Transfer_Done);
-        panelMultiplexingTimerStart();
-        
+        disableInterrupt(UART1_Transfer_Done);        
     }
     
     
@@ -250,10 +249,15 @@ void esp8266ReceiveHandler(void) {
     if(1 == U1STAbits.OERR)
     {
         U1MODEbits.ON = 0;
-        error_handler.USB_error_flag = 1;
+        error_handler.WIFI_error_flag = 1;
         U1MODEbits.ON = 1;
     }
-    
+    // need to add a check on a flag to see if we are reading image
+    // bytes or just string bytes. image bytes need to go straight to
+    // EBI and not go into the ring buffer.
+    if(1 == esp_8266_FlashFlag) {
+        
+    }
     while(U1STAbits.URXDA) {
     
         esp_8266_RxBuffer[esp_8266_RxHead++] = U1RXREG;
@@ -317,7 +321,12 @@ void esp8266RingBufferPull(void) {
     // Clear ready flag
     esp_8266_RxStringReady = 0;
     // Check to see if line matches a command
-    esp8266RingBufferLUT(esp_8266_line);
+    // esp8266RingBufferLUT(esp_8266_line);
+    terminalTextAttributesReset();
+    terminalTextAttributes(CYAN, BLACK, NORMAL);
+    printf("WiFi Module Sent:\n\r");
+    printf(esp_8266_line);
+    terminalTextAttributesReset();
 }
 
 void esp8266RingBufferLUT(char * line_in) {
@@ -325,11 +334,14 @@ void esp8266RingBufferLUT(char * line_in) {
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
 
-    if (strcmp(line_in, "Reset") == 0) {
-
-         deviceReset();
-        
-    }
+//    if (strcmp(line_in, "Reset") == 0) {
+//
+//         deviceReset();
+//        
+//    }
+    // WRITE SOME COMMANDS HERE
+    Nop();
+    
 }
 
 // send "AT\r\n" to see if you can connect
@@ -345,6 +357,17 @@ void esp8266Putstring(char * string) {
     for(i = 0; i <= strlen(string); i++) {
         esp8266Putchar(string[i]);
     }
+}
+
+/*
+ * esp8266Configure send the start-up AT Commands to the module
+ * to boot the chip, get the IP address, etc.
+ */
+void esp8266Configure(void) {
+    // reset
+    esp8266Putstring("AT+RST\r\n");
+    esp8266Putstring("AT+VERSION\r\n");
+    // start configuration
 }
 
 /*
