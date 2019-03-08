@@ -24,6 +24,7 @@
 #include "spi_flash.h"
 
 #include "test_image_1.h"
+#include "esp8266.h"
 
 volatile uint64_t usb_uart_TxHead = 0;
 volatile uint64_t usb_uart_TxTail = 0;
@@ -400,7 +401,12 @@ void usbUartRingBufferLUT(char * line_in) {
  
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
-
+    char * substring;
+    strncpy(line_in, substring,6);
+    if (strcmp(substring, "WiFi: ")) {
+        // print WiFi command to UART1 RX
+        esp8266Putstring(line_in);
+    }
     if (strcmp(line_in, "Reset") == 0) {
 
          deviceReset();
