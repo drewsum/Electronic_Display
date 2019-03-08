@@ -28,8 +28,8 @@ extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
 void panelMultiplexingHandler(void) {
     
     // Stop on time timer and reset to 0
-    panelMultiplexingTimerStop();
-    panelMultiplexingTimerClear();
+    T5CONbits.ON = 0;
+    TMR5 = 0;
     
     // Disable output
     nPANEL_OE_PIN_HIGH();
@@ -41,9 +41,11 @@ void panelMultiplexingHandler(void) {
     PANEL_CLK_PIN_LOW();
     
     // update row bus signals
-    setPanelRowBus(current_row);
+    LATDCLR = 0xFA00;
+    LATDSET = (current_row << 11);
     
-    uint32_t current_row_PWM_frame_index = 960 * current_row + 30720 * current_PWM_frame;
+    // uint32_t current_row_PWM_frame_index = 960 * current_row + 30720 * current_PWM_frame;
+    uint32_t current_row_PWM_frame_index = 960 * current_row + current_PWM_frame_index;
     uint32_t current_row_PWM_frame_index_Red = current_row_PWM_frame_index + 0;
     uint32_t current_row_PWM_frame_index_Green = current_row_PWM_frame_index + 1;
     uint32_t current_row_PWM_frame_index_Blue = current_row_PWM_frame_index + 2;
@@ -56,12 +58,15 @@ void panelMultiplexingHandler(void) {
     for (current_shift_clock_index = 3; current_shift_clock_index < 960; current_shift_clock_index += 3) {
         
         // Present previously gathered data to panels
-        // Set red pins from RAM buffer
-        setPanelRedBus(redData);
-        // Set green pins from RAM buffer
-        setPanelGreenBus(greenData);
-        // Set blue pins from RAM buffer
-        setPanelBlueBus(blueData);
+        // Set red data bus
+        LATDCLR = 0x00FF;
+        LATDSET = redData;
+        // Set green data bus
+        LATJCLR = 0x1FE0;
+        LATJSET = (greenData << 5);
+        // Set blue data bus
+        LATHCLR = 0xFF00;
+        LATHSET = (blueData << 8);
         
         // Clock data into panel
         PANEL_CLK_PIN_HIGH();
@@ -76,19 +81,18 @@ void panelMultiplexingHandler(void) {
         
     }
     
-    // Set red pins from RAM buffer
-    setPanelRedBus(redData);
-    // Set green pins from RAM buffer
-    setPanelGreenBus(greenData);
-    // Set blue pins from RAM buffer
-    setPanelBlueBus(blueData);
+    // setPanelRGBBus(redData, greenData, blueData);
+    LATDCLR = 0x00FF;
+    LATDSET = redData;
+    // Set green data bus
+    LATJCLR = 0x1FE0;
+    LATJSET = (greenData << 5);
+    // Set blue data bus
+    LATHCLR = 0xFF00;
+    LATHSET = (blueData << 8);
     
     // Clock in last column of data
     PANEL_CLK_PIN_HIGH();
-    
-    // Poor man's delay
-    uint8_t delay = 3;
-    while (delay > 0) delay--;
     
     // Release Clock
     PANEL_CLK_PIN_LOW();
@@ -106,61 +110,45 @@ void panelMultiplexingHandler(void) {
     if (current_row >= 32) {
      
         current_row = 0;
-        current_PWM_frame++;
+        current_PWM_frame_index += 30720;
         
     }
     
     // Reset current_PWM_frame counter
-    if (current_PWM_frame >= 5) {
+    if (current_PWM_frame_index >= PANEL_DATA_PWM_FRAMES * 30720) {
     
-        current_PWM_frame = 0;
+        current_PWM_frame_index = 0;
         
     }
     
     // Restart on time timer
-    panelMultiplexingTimerStart();
+    T5CONbits.ON = 1;
     
 }
 
-// This function sets the state of the 8 RED bus pins
-void setPanelRedBus(uint8_t inputByte) {
-    
-    // RED bus is defined as RD0:7
-    // LATD = (LATD & 0xFF00) | inputByte;
+inline void setPanelRGBBus(uint8_t inputRedByte, uint8_t inputGreenByte, uint8_t inputBlueByte) {
+ 
+    // Set red data bus
     LATDCLR = 0x00FF;
-    LATDSET = inputByte;
+    LATDSET = inputRedByte;
     
-}
-
-// This function sets the state of the 8 GREEN bus pins
-void setPanelGreenBus(uint8_t inputByte) {
-    
-    // GREEN bus is defined as RJ5:12
-    // LATJ = (LATJ & 0xE01F) | (inputByte << 5);
+    // Set green data bus
     LATJCLR = 0x1FE0;
-    LATJSET = (inputByte << 5);
+    LATJSET = (inputGreenByte << 5);
     
-}
-
-// This function sets the state of the 8 BLUE bus pins
-void setPanelBlueBus(uint8_t inputByte) {
-    
-    // BLUE bus is defined as RH8:15
-    // LATH = (LATH & 0x00FF) | (inputByte << 8);
+    // Set blue data bus
     LATHCLR = 0xFF00;
-    LATHSET = (inputByte << 8);
+    LATHSET = (inputBlueByte << 8);
     
 }
 
 // Set ROW bus state functions
-void setPanelRowBus(uint8_t inputByte) {
+inline void setPanelRowBus(uint8_t inputByte) {
 
     // ROW bus is defined as RD11:15
-    // LATD = (LATD & 0x07FF) | ((inputByte & 0x1F) << 11);
     LATDCLR = 0xFA00;
     LATDSET = (inputByte << 11);
     
-   
 }
 
 // This function initializes Timer5 for panel multiplexing
@@ -212,21 +200,21 @@ void __ISR(_TIMER_5_VECTOR, IPL6SRS) panelMultiplexingTimerISR(void) {
 }
 
 // Start muxing timer function
-void panelMultiplexingTimerStart(void) {
+inline void panelMultiplexingTimerStart(void) {
     
     T5CONbits.ON = 1;
     
 }
 
 // Stop muxing timer function
-void panelMultiplexingTimerStop(void) {
+inline void panelMultiplexingTimerStop(void) {
     
     T5CONbits.ON = 0;
     
 }
 
 // Clear muxing timer function
-void panelMultiplexingTimerClear(void) {
+inline void panelMultiplexingTimerClear(void) {
     
     TMR5 = 0;
     
@@ -243,9 +231,7 @@ void panelMultiplexingSuspend(void) {
     TMR5 = 0;
     
     // Clear all control signals
-    setPanelRedBus(0);
-    setPanelGreenBus(0);
-    setPanelBlueBus(0);
+    setPanelRGBBus(0, 0, 0);
     setPanelRowBus(0);
     
     // Clear output enable
@@ -345,8 +331,8 @@ void panelPWMInitialize(void) {
     // Disable gated time accumulation
     T2CONbits.TGATE = 0;
     
-    // Set timer 2 prescalar to 4
-    T2CONbits.TCKPS = 0b010;
+    // Set timer 2 prescalar to 1
+    T2CONbits.TCKPS = 0b000;
     
     // Set timer clock input as PBCLK3
     // PBCLK3 is 15.75 MHz
@@ -357,7 +343,7 @@ void panelPWMInitialize(void) {
     
     // Set timer 2 period match to 8000
     // This should get us a Timer2 period of 1600uS, or a Timer2 frequency of 1250Hz
-    PR2 = 8000;
+    PR2 = 2000;
         
     // Set up Output Compare 4
     ///////////////////////////////////
@@ -374,7 +360,7 @@ void panelPWMInitialize(void) {
     // Enable Output Compare peripheral
     OC4CONbits.ON = 1;
     
-    // Set PWM duty cycle to 50%
+    // Set PWM duty cycle to 100% at boot
     OC4R = PR2 >> 1;
     
     // Start timer 2
@@ -391,6 +377,6 @@ void panelPWMSetBrightness(uint8_t set_brightness) {
     set_brightness = 100 - set_brightness;
     
     // Set duty cycle
-    OC3R = (set_brightness * PR2) / 100;
+    OC4R = (set_brightness * PR2) / 100;
     
 }
