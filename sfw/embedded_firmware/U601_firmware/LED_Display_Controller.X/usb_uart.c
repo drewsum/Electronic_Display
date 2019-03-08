@@ -41,7 +41,7 @@ volatile uint8_t usb_uart_RxStringReady = 0;
 extern uint32_t device_on_time_counter;
 extern reset_cause_t reset_cause;
 
-
+uint8_t muxing_state;
 
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void) {
@@ -226,6 +226,7 @@ void usbUartPutchar(uint8_t txData) {
     if(0 == getInterruptEnable(UART3_Transfer_Done))
     {
         U3TXREG = txData;
+        muxing_state = T5CONbits.ON;
         panelMultiplexingSuspend();
    
     }
@@ -265,7 +266,7 @@ void usbUartTransmitHandler(void) {
     else
     {
         disableInterrupt(UART3_Transfer_Done);
-        panelMultiplexingTimerStart();
+        if (muxing_state) panelMultiplexingTimerStart();
         
     }
     
@@ -607,6 +608,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         // Disable multiplexing timer
         panelMultiplexingTimerStart();
+        muxing_state = 1;
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -620,7 +622,7 @@ void usbUartRingBufferLUT(char * line_in) {
     
         // Suspend panel multiplexing, clear all panel IO signals
         panelMultiplexingSuspend();
-        
+        muxing_state = 0;
         
         terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);
@@ -860,12 +862,27 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strstart(line_in, "Set Panel Muxing On Time ") == 0) {
+     
+        // Get PR5 setting
+        uint32_t set_period;
+        sscanf(line_in, "Set Panel Muxing On Time %u", &set_period);
+        
+        PR5 = set_period;
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Set Panel multiplexing timer period to %d\n\r", set_period);
+        terminalTextAttributesReset();
+        
+    }
+    
     // Set panel brightness
     else if (strstart(line_in, "Set Panel Brightness ") == 0) {
     
         // Get which chip we're erasing
         uint32_t set_brightness;
-        sscanf(line_in, "Set Panel Brightness %d", &set_brightness);
+        sscanf(line_in, "Set Panel Brightness %u", &set_brightness);
         
         panelPWMSetBrightness((uint8_t) set_brightness);
         
@@ -909,7 +926,7 @@ void usbUartRingBufferLUT(char * line_in) {
     
         // Get which chip we're erasing
         uint8_t chip_to_read;
-        sscanf(line_in, "SPI Flash Chip Read %d", &chip_to_read);
+        sscanf(line_in, "SPI Flash Chip Read %u", &chip_to_read);
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -927,7 +944,7 @@ void usbUartRingBufferLUT(char * line_in) {
     else if (strstart(line_in, "SPI Flash Chip Write ") == 0) {
         
         uint8_t chip_to_write;
-        sscanf(line_in, "SPI Flash Chip Write %d", &chip_to_write);
+        sscanf(line_in, "SPI Flash Chip Write %u", &chip_to_write);
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -946,7 +963,7 @@ void usbUartRingBufferLUT(char * line_in) {
     
         // Get which chip we're erasing
         uint8_t chip_to_erase;
-        sscanf(line_in, "SPI Flash Chip Erase %d", &chip_to_erase);
+        sscanf(line_in, "SPI Flash Chip Erase %u", &chip_to_erase);
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -1332,6 +1349,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Slow Muxing Speed: Slows down multiplexing\n\r");
     printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
     printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
+    printf("    Set Panel Muxing On Time <x>: Sets the panel multiplexing timer period to x\n\r");
     printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
     
     

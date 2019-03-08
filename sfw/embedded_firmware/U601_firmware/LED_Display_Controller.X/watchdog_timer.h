@@ -58,12 +58,6 @@ void printWatchdogStatus(void);
 // This function prints information on the deadman timer
 void printDeadmanStatus(void);
 
-// This function sets up the core timer, which resets the WDT and deadman timer
-void coreTimerInitialize(void);
-
-// This is the core timer interrupt service routine
-void __ISR(_CORE_TIMER_VECTOR, ipl7SRS) coreTimerISR(void);
-
 #endif /* _WATCHDOG_TIMER_H */
 
 /* *****************************************************************************
