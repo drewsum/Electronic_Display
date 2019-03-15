@@ -716,12 +716,45 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
 //SPI3 Transfer Done interrupt service routine
 void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
+    // Toggle CE pin for where we're writing high, wait a bit, then set low
+    switch (spi_flash_state) {
+     
+        case flash1_write:
+            nFLASH_CE1_PIN = 1;
+            break;
+        
+        case flash2_write:
+            nFLASH_CE2_PIN = 1;
+            break;
+            
+        case flash3_write:
+            nFLASH_CE3_PIN = 1;
+            break;
+            
+        case flash4_write:
+            nFLASH_CE4_PIN = 1;
+            break;
+            
+        case flash5_write:
+            nFLASH_CE5_PIN = 1;
+            break;
+            
+        case flash6_write:
+            nFLASH_CE6_PIN = 1;
+            break;
+            
+        case flash7_write:
+            nFLASH_CE7_PIN = 1;
+            break;
+            
+        case flash8_write:
+            nFLASH_CE8_PIN = 1;
+            break;
+                
+    }
     
     
-    // Toggle CE
-    spiFlashGPIOReset();
-    
-    uint8_t delay = 10;
+    uint16_t delay = 800;
     while (delay > 0) delay--;
     
     // Toggle CE
