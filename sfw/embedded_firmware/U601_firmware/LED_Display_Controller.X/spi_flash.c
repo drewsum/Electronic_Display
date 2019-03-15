@@ -82,14 +82,16 @@ void spiFlashInit(void)
        
     enableInterrupt(SPI3_Fault);
     
-//    uint8_t active_chip;
-//    for (active_chip = 1; active_chip <= 8; active_chip++) {
-//        SPI_Flash_writeEnable(active_chip);
-//    }
-//         
-//    spi_flash_state = idle;
-//    
-//    spiFlashGPIOReset();
+    uint8_t active_chip;
+    for (active_chip = 1; active_chip <= 8; active_chip++) {
+        SPI_Flash_writeEnable(active_chip);
+        SPI_Flash_blockProtectionDisable(active_chip);
+        
+    }
+         
+    spi_flash_state = idle;
+    
+    spiFlashGPIOReset();
 }
 
 // Function to set GPIO pins for ~CE and ~WP
@@ -108,14 +110,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 0;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;   
+            nFLASH_WP1_PIN = 1;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;   
             
             break;
             
@@ -131,14 +133,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -154,14 +156,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 0;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 1;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -177,14 +179,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -200,14 +202,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 0;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 1;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -223,14 +225,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -246,14 +248,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 0;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 1;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -269,14 +271,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -292,14 +294,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 0;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 1;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -315,14 +317,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -338,14 +340,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 0;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 1;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -361,14 +363,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
             
@@ -384,14 +386,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 0;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 1;
+            nFLASH_WP8_PIN = 0;  
             
             break;
         
@@ -407,14 +409,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
         
@@ -430,14 +432,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 0;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 0;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 1;  
             
             break;
         
@@ -453,14 +455,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 0;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
      
@@ -476,14 +478,14 @@ void spiFlashGPIOSet(void) {
             nFLASH_CE8_PIN = 1;
             
             // ~WP Pins
-            nFLASH_WP1_PIN = 1;
-            nFLASH_WP2_PIN = 1;
-            nFLASH_WP3_PIN = 1;
-            nFLASH_WP4_PIN = 1;
-            nFLASH_WP5_PIN = 1;
-            nFLASH_WP6_PIN = 1;
-            nFLASH_WP7_PIN = 1;
-            nFLASH_WP8_PIN = 1;  
+            nFLASH_WP1_PIN = 0;
+            nFLASH_WP2_PIN = 0;
+            nFLASH_WP3_PIN = 0;
+            nFLASH_WP4_PIN = 0;
+            nFLASH_WP5_PIN = 0;
+            nFLASH_WP6_PIN = 0;
+            nFLASH_WP7_PIN = 0;
+            nFLASH_WP8_PIN = 0;  
             
             break;
     }
@@ -504,14 +506,14 @@ void spiFlashGPIOReset(void) {
     nFLASH_CE8_PIN = 1;
 
     // ~WP Pins
-    nFLASH_WP1_PIN = 1;
-    nFLASH_WP2_PIN = 1;
-    nFLASH_WP3_PIN = 1;
-    nFLASH_WP4_PIN = 1;
-    nFLASH_WP5_PIN = 1;
-    nFLASH_WP6_PIN = 1;
-    nFLASH_WP7_PIN = 1;
-    nFLASH_WP8_PIN = 1; 
+    nFLASH_WP1_PIN = 0;
+    nFLASH_WP2_PIN = 0;
+    nFLASH_WP3_PIN = 0;
+    nFLASH_WP4_PIN = 0;
+    nFLASH_WP5_PIN = 0;
+    nFLASH_WP6_PIN = 0;
+    nFLASH_WP7_PIN = 0;
+    nFLASH_WP8_PIN = 0; 
     
 }
 
@@ -782,6 +784,50 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
         
         disableInterrupt(SPI3_Transfer_Done);
         
+        // Toggle CE pin for where we're writing high, wait a bit, then set low
+        switch (spi_flash_state) {
+
+            case flash1_write:
+                nFLASH_CE1_PIN = 1;
+                break;
+
+            case flash2_write:
+                nFLASH_CE2_PIN = 1;
+                break;
+
+            case flash3_write:
+                nFLASH_CE3_PIN = 1;
+                break;
+
+            case flash4_write:
+                nFLASH_CE4_PIN = 1;
+                break;
+
+            case flash5_write:
+                nFLASH_CE5_PIN = 1;
+                break;
+
+            case flash6_write:
+                nFLASH_CE6_PIN = 1;
+                break;
+
+            case flash7_write:
+                nFLASH_CE7_PIN = 1;
+                break;
+
+            case flash8_write:
+                nFLASH_CE8_PIN = 1;
+                break;
+
+        }
+
+
+        uint16_t delay = 800;
+        while (delay > 0) delay--;
+
+        // Toggle CE
+        spiFlashGPIOSet();
+        
         // Send Write Disable opcode
         SPI3_writeByte(0x04);
         
@@ -806,7 +852,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 }
 
 // Function to write single byte to transmit FIFO
-void SPI3_writeByte(uint8_t write_byte) {
+inline void SPI3_writeByte(uint8_t write_byte) {
     
     SPI3BUF = write_byte;
     
@@ -814,7 +860,7 @@ void SPI3_writeByte(uint8_t write_byte) {
 
 
 // Function to read single byte from receive FIFO
-uint8_t SPI3_readByte(void) {
+inline uint8_t SPI3_readByte(void) {
     
     return SPI3BUF;
     
@@ -822,7 +868,7 @@ uint8_t SPI3_readByte(void) {
 
 // This function erases a spi flash chip
 void SPI_FLASH_chipErase(uint8_t chip_select) {
- 
+
     // Enable spi_flash_state corresponding to chip_select
     switch (chip_select) {
         case 1:
@@ -858,12 +904,12 @@ void SPI_FLASH_chipErase(uint8_t chip_select) {
     
     disableInterrupt(SPI3_Transfer_Done);
     
-    // Write enable opcode
-    SPI3_writeByte(0x06);
-
-    // Wait for transfer to complete
-    while(SPI3STATbits.SPIBUSY);
-    
+//    // Write enable opcode
+//    SPI3_writeByte(0x06);
+//
+//    // Wait for transfer to complete
+//    while(SPI3STATbits.SPIBUSY);
+//    
     // Write chip erase opcode to SPI3
     SPI3_writeByte(0x60);
     
@@ -974,8 +1020,13 @@ void SPI_FLASH_beginWrite(uint8_t chip_select) {
     
     SPI_Flash_writeEnable(chip_select);
     
+    // SPI_Flash_blockProtectionDisable(chip_select);
+    
     // Be sure chip is in erased state
     SPI_FLASH_chipErase(chip_select);
+    
+    uint32_t delay = 1250000;
+    while (delay > 0) delay--;
     
     // Enable spi_flash_state corresponding to chip_select
     switch (chip_select) {
@@ -1106,5 +1157,67 @@ void SPI_Flash_writeEnable(uint8_t chip_select){
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
+    
+}
+
+// This function programs the status register in the chip passed as a parameter
+// It sets all bits in the status register to 0, which disables block protection
+// The write enable functions must be called beforehand
+void SPI_Flash_blockProtectionDisable(uint8_t chip_select) {
+ 
+    // Enable spi_flash_state corresponding to chip_select
+    switch (chip_select) {
+        case 1:
+            spi_flash_state = flash1_write;
+            break;
+        case 2:
+            spi_flash_state = flash2_write;
+            break;
+        case 3:
+            spi_flash_state = flash3_write;
+            break;
+        case 4:
+            spi_flash_state = flash4_write;
+            break;
+        case 5:
+            spi_flash_state = flash5_write;
+            break;
+        case 6:
+            spi_flash_state = flash6_write;
+            break;
+        case 7:
+            spi_flash_state = flash7_write;
+            break;
+        case 8:
+            spi_flash_state = flash8_write;
+            break;
+        default:
+            break;
+    }
+    
+    // Set CS and WP signals
+    spiFlashGPIOSet();
+    
+    // Send status register opcode
+    SPI3_writeByte(0x01);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write all zeros to status register
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // reset state machine
+    spi_flash_state = idle;
+    
+    // Clear CE and WP signals
+    spiFlashGPIOReset();
+    
+    clearInterruptFlag(SPI3_Transfer_Done);
+    clearInterruptFlag(SPI3_Receive_Done);
+    
     
 }

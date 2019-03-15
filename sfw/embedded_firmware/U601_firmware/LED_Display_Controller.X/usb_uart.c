@@ -957,6 +957,8 @@ void usbUartRingBufferLUT(char * line_in) {
         
         if (chip_to_erase <= 8 && chip_to_erase >= 1) {
             
+            SPI_Flash_writeEnable(chip_to_erase);
+            SPI_Flash_blockProtectionDisable(chip_to_erase);
             SPI_FLASH_chipErase(chip_to_erase);
             terminalTextAttributes(GREEN, BLACK, NORMAL);
             printf("Erased chip %u\n\r", chip_to_erase);
