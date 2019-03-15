@@ -82,16 +82,19 @@ void spiFlashInit(void)
        
     enableInterrupt(SPI3_Fault);
     
-    uint8_t active_chip;
-    for (active_chip = 1; active_chip <= 8; active_chip++) {
-        SPI_Flash_writeEnable(active_chip);
-        SPI_Flash_blockProtectionDisable(active_chip);
-        
-    }
+//    uint8_t active_chip;
+//    for (active_chip = 1; active_chip <= 8; active_chip++) {
+//        SPI_Flash_writeEnable(active_chip);
+//        SPI_Flash_blockProtectionDisable(active_chip);
+//        
+//    }
          
     spi_flash_state = idle;
     
     spiFlashGPIOReset();
+
+    nFLASH_HOLD_PIN = 1;
+    
 }
 
 // Function to set GPIO pins for ~CE and ~WP
@@ -835,7 +838,65 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
         while(SPI3STATbits.SPIBUSY);
         
         spiFlashGPIOReset();
+   
+        // Toggle CE pin for where we're writing high, wait a bit, then set low
+        switch (spi_flash_state) {
+
+            case flash1_write:
+                nFLASH_CE1_PIN = 1;
+                break;
+
+            case flash2_write:
+                nFLASH_CE2_PIN = 1;
+                break;
+
+            case flash3_write:
+                nFLASH_CE3_PIN = 1;
+                break;
+
+            case flash4_write:
+                nFLASH_CE4_PIN = 1;
+                break;
+
+            case flash5_write:
+                nFLASH_CE5_PIN = 1;
+                break;
+
+            case flash6_write:
+                nFLASH_CE6_PIN = 1;
+                break;
+
+            case flash7_write:
+                nFLASH_CE7_PIN = 1;
+                break;
+
+            case flash8_write:
+                nFLASH_CE8_PIN = 1;
+                break;
+
+        }
+
+
+        delay = 800;
+        while (delay > 0) delay--;
+
+        // Toggle CE
+        spiFlashGPIOSet();
         
+        // Send read status register opcode
+        SPI3_writeByte(0x05);
+        
+        // Wait for transfer to complete
+        while(SPI3STATbits.SPIBUSY);
+        
+        // Send garbage data to read back status register, we're not doing anything with this though
+        SPI3_writeByte(0x00);
+        
+        // Wait for transfer to complete
+        while(SPI3STATbits.SPIBUSY);
+                
+        spiFlashGPIOReset();
+   
         spi_flash_state = idle;
                
         terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -921,6 +982,9 @@ void SPI_FLASH_chipErase(uint8_t chip_select) {
     
     // Clear CS and WP signals
     spiFlashGPIOReset();
+    
+    uint32_t delay = 1250000;
+    while (delay > 0) delay--;
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
@@ -1020,13 +1084,15 @@ void SPI_FLASH_beginWrite(uint8_t chip_select) {
     
     SPI_Flash_writeEnable(chip_select);
     
-    // SPI_Flash_blockProtectionDisable(chip_select);
+    SPI_Flash_blockProtectionDisable(chip_select);
+    
+    SPI_Flash_writeEnable(chip_select);
     
     // Be sure chip is in erased state
     SPI_FLASH_chipErase(chip_select);
     
-    uint32_t delay = 1250000;
-    while (delay > 0) delay--;
+    SPI_Flash_writeEnable(chip_select);
+    
     
     // Enable spi_flash_state corresponding to chip_select
     switch (chip_select) {
@@ -1063,9 +1129,6 @@ void SPI_FLASH_beginWrite(uint8_t chip_select) {
     
     // Set addr index to 0
     sram_addr_index = 0;
-    
-//    // Send write enable 
-//    SPI3_writeByte(0x06);
     
     // Send AAI programming opcode
     SPI3_writeByte(0xAD);
@@ -1155,6 +1218,9 @@ void SPI_Flash_writeEnable(uint8_t chip_select){
     // Clear CE and WP signals
     spiFlashGPIOReset();
     
+    uint16_t delay = 10000;
+    while (delay > 0) delay--;
+    
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
     
@@ -1215,6 +1281,9 @@ void SPI_Flash_blockProtectionDisable(uint8_t chip_select) {
     
     // Clear CE and WP signals
     spiFlashGPIOReset();
+    
+    uint16_t delay = 10000;
+    while (delay > 0) delay--;
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
