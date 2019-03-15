@@ -47,6 +47,8 @@ uint8_t muxing_state;
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void) {
  
+    __XC_UART = 3;
+    
     // Disable UART 3 interrupts
     disableInterrupt(UART3_Receive_Done);
     disableInterrupt(UART3_Transfer_Done);

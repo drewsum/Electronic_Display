@@ -189,7 +189,7 @@ uint8_t esp8266ReadByte(void) {
     // This state should never be entered
     while(0 == esp_8266_RxCount)
     {
-        error_handler.USB_error_flag = 1;
+        error_handler.WIFI_error_flag = 1;
         return 0;
     }
 
@@ -343,17 +343,18 @@ void esp8266RingBufferPull(void) {
     printf("WiFi Module Sent:\n\r");
     printf(esp_8266_line);
     terminalTextAttributesReset();
+    
 }
 
 void esp8266RingBufferLUT(char * line_in) {
  
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
-    char * substring;
-    substring = strncpy(line_in, substring, 5);
-    if (strcmp(substring, "Image") == 0) {
-        esp_8266_FlashFlag = 1;
-    }
+//    char * substring;
+//    substring = strncpy(line_in, substring, 5);
+//    if (strcmp(substring, "Image") == 0) {
+//        esp_8266_FlashFlag = 1;
+//    }
     // WRITE SOME COMMANDS HERE
     
     Nop();
