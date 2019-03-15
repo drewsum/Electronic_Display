@@ -132,13 +132,13 @@ void esp8266Initialize(void) {
     enableInterrupt(UART1_Receive_Done);
     enableInterrupt(UART1_Fault);
     
-    // set the reset line on the chip to low
+    // set the reset line on the chip to high
     nWIFI_RESET_PIN = 0;
     // set the chip enable to high (active high)
     WIFI_CHPD_PIN = 1;
     
     // configure the chip
-    esp8266Configure();
+    // esp8266Configure();
     
 }
 

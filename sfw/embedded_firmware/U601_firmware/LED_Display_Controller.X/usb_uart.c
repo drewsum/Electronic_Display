@@ -401,12 +401,7 @@ void usbUartRingBufferLUT(char * line_in) {
  
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
-    char * substring;
-    strncpy(line_in, substring,6);
-    if (strcmp(substring, "WiFi: ")) {
-        // print WiFi command to UART1 RX
-        esp8266Putstring(line_in);
-    }
+    
     if (strcmp(line_in, "Reset") == 0) {
 
          deviceReset();
@@ -637,6 +632,18 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    // set ram buffer black
+    else if(strcmp(line_in, "Set Black") == 0) {
+     
+        fillRamBufferBlack();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with black data\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
     // set ram buffer white
     else if(strcmp(line_in, "Set White") == 0) {
      
@@ -829,45 +836,6 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    // slow down multiplexing command
-    else if(strcmp(line_in, "Slow Muxing Speed") == 0) {
-     
-        PR5 = 65535;                      
-        T5CONbits.TCKPS = 0b001;        // set prescale to 2
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("Slowed down the multiplexing speed\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
-    // slow down multiplexing command
-    else if(strcmp(line_in, "Slowest Muxing Speed") == 0) {
-     
-        PR5 = 65535;                      
-        T5CONbits.TCKPS = 0b100;        // set prescale to 16
-
-        terminalTextAttributesReset();
-        terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("Slowed down the multiplexing speed extreme\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
-    // reset multiplexing command
-    else if(strcmp(line_in, "Reset Muxing Speed") == 0) {
-     
-        PR5 = MUXING_TIMER_PERIOD;
-        T5CONbits.TCKPS = 0b000;        // set prescale to 1
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Reset multiplexing speed\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
     else if (strstart(line_in, "Set Panel Muxing On Time ") == 0) {
      
         // Get PR5 setting
@@ -931,49 +899,80 @@ void usbUartRingBufferLUT(char * line_in) {
     else if (strstart(line_in, "SPI Flash Chip Read ") == 0) {
     
         // Get which chip we're erasing
-        uint8_t chip_to_read;
+        uint32_t chip_to_read;
         sscanf(line_in, "SPI Flash Chip Read %u", &chip_to_read);
         
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Reading chip %d\n\r", chip_to_read);
-        terminalTextAttributesReset();
+        if (chip_to_read <= 8 && chip_to_read >= 1) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Reading chip %d\n\r", chip_to_read);
+            terminalTextAttributesReset();
+
+            SPI_FLASH_beginRead(chip_to_read);
+            
+        }
         
-        SPI_FLASH_beginRead(chip_to_read);
+        else {
+         
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("Chip %u is not valid\n\r", chip_to_read);
+            terminalTextAttributesReset();
         
+        }
+
     }
     
     else if (strstart(line_in, "SPI Flash Chip Write ") == 0) {
         
-        uint8_t chip_to_write;
+        uint32_t chip_to_write;
         sscanf(line_in, "SPI Flash Chip Write %u", &chip_to_write);
         
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Writing to chip %d\n\r", chip_to_write);
-        terminalTextAttributesReset();
+        if (chip_to_write <= 8 && chip_to_write >= 1) {
+            
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Writing to chip %u\n\r", chip_to_write);
+            terminalTextAttributesReset();
+            SPI_FLASH_beginWrite(chip_to_write);
+
+        }
         
-        SPI_FLASH_beginWrite(chip_to_write);
+        else {
+         
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("Chip %u is not valid\n\r", chip_to_write);
+            terminalTextAttributesReset();
+            
+        }
+        
         
     }
     
     else if (strstart(line_in, "SPI Flash Chip Erase ") == 0) {
     
         // Get which chip we're erasing
-        uint8_t chip_to_erase;
+        uint32_t chip_to_erase;
         sscanf(line_in, "SPI Flash Chip Erase %u", &chip_to_erase);
         
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Erasing chip %d\n\r", chip_to_erase);
-        terminalTextAttributesReset();
+        if (chip_to_erase <= 8 && chip_to_erase >= 1) {
+            
+            SPI_FLASH_chipErase(chip_to_erase);
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Erased chip %u\n\r", chip_to_erase);
+            terminalTextAttributesReset();
         
-        SPI_FLASH_chipErase(chip_to_erase);
+        }
         
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Erased chip %d\n\r", chip_to_erase);
-        terminalTextAttributesReset();
-        
+        else {
+         
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("Chip %u is not valid\n\r", chip_to_erase);
+            terminalTextAttributesReset();
+            
+        }
+            
+
     }
     
     else if (strcmp(line_in, "Serial Number?") == 0) {
@@ -1273,6 +1272,23 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strstart(line_in, "WiFi: ") == 0) {
+        // print WiFi command to UART1 RX
+        // esp8266Putstring(line_in);
+        
+        char esp_tx_string[20];
+        sscanf(line_in, "WiFi: %s", esp_tx_string);
+        esp8266Putstring(esp_tx_string);
+        
+//        uint8_t char_index;
+//        for(char_index = 6; char_index < strlen(line_in); char_index++) {
+//         
+//            esp8266Putchar(line_in[char_index]);
+//            
+//        }
+        
+    }
+    
 }
 
 // Print help message, used in a command above
@@ -1328,13 +1344,13 @@ void usbUartPrintHelpMessage(void) {
     printf("    Credits: Displays creators\n\r");
     printf("    Help: This Command\n\r");
     printf("    Set Red: Sets all pixels in display red\n\r");
+    printf("    Set Black: Sets all pixels to display black\n\r");
     printf("    Set White: Sets all pixels in display white\n\r");    
     printf("    Set Blue: Sets all pixels in display blue\n\r");
     printf("    Set Yellow: Sets all pixels in display yellow\n\r");
     printf("    Set Cyan: Sets all pixels in display cyan\n\r");    
     printf("    Set Green: Sets all pixels in display green\n\r");    
     printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
-//    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
     printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
     printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
@@ -1344,18 +1360,16 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
     printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
     printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
-    printf("    Slow Muxing Speed: Slows down multiplexing\n\r");
-    printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
-    printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
     printf("    Set Panel Muxing On Time <x>: Sets the panel multiplexing timer period to x\n\r");
     printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
+    printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");
     
     
     printf("Help messages and neutral responses appear in yellow\n\r");
     terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("System parameters and affirmative responses appear in green\n\r");
     terminalTextAttributes(CYAN, BLACK, NORMAL);
-    printf("Measurement responses appear in cyan\n\r");
+    printf("Measurement responses and WiFi responses appear in cyan\n\r");
     terminalTextAttributes(RED, BLACK, NORMAL);
     printf("Errors and negative responses appear in red\n\r");
     terminalTextAttributesReset();

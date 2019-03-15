@@ -67,6 +67,9 @@ void spiFlashInit(void)
     SPI3CON2bits.SPITUREN = 0;  // Transmit underrun does not trigger a fault interrupt
     SPI3CON2bits.SPIROVEN = 0;  // Receive overflow doesn't cause an fault interrupt
     
+    SPI3CON2bits.IGNROV = 1;    // Receive overflow does not stop SPI operation
+    SPI3CON2bits.IGNTUR = 1;    // Transfer overflow does not stop SPI operation
+    
     // Configure bits for Framed Mode ONLY
     SPI3CONbits.FRMSYNC = 0;  
     SPI3CONbits.FRMPOL = 0;  
@@ -79,14 +82,14 @@ void spiFlashInit(void)
        
     enableInterrupt(SPI3_Fault);
     
-    uint8_t active_chip;
-    for (active_chip = 1; active_chip <= 8; active_chip++) {
-        SPI_Flash_writeEnable(active_chip);
-    }
-         
-    spi_flash_state = idle;
-    
-    spiFlashGPIOReset();
+//    uint8_t active_chip;
+//    for (active_chip = 1; active_chip <= 8; active_chip++) {
+//        SPI_Flash_writeEnable(active_chip);
+//    }
+//         
+//    spi_flash_state = idle;
+//    
+//    spiFlashGPIOReset();
 }
 
 // Function to set GPIO pins for ~CE and ~WP
@@ -670,15 +673,13 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
 
 // SPI3 Receive Done interrupt service routine
 void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
-     
-    printf("AHHHH\n\r");
     
     // Load in byte to ebi_sram_array and increment index
     ebi_sram_array[sram_addr_index] = SPI3BUF;
     sram_addr_index++;
     
     // Check if we are at the end of the array
-    if (sram_addr_index >= PANEL_DATA_ARRAY_SIZE) {
+    if (sram_addr_index >= EBI_SRAM_SIZE) {
         
         disableInterrupt(SPI3_Receive_Done);
         
@@ -693,28 +694,54 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Transfer from Flash to EBI SRAM complete\n\r");
-        terminalTextAttributesReset();
+        terminalTextAttributesReset(); 
         
-        panelMultiplexingTimerStart();
+        // panelMultiplexingTimerStart();
         
     } 
     
     else {
         
+        // Write another byte to start a read transaction
         SPI3BUF = 0x00;
         
     }
            
     // Clear interrupt flag after ISR
     clearInterruptFlag(SPI3_Receive_Done);
+    clearInterruptFlag(SPI3_Transfer_Done);
     
 }
 
 //SPI3 Transfer Done interrupt service routine
 void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
-    // Load in byte to ebi_sram_array and increment index
-    SPI3BUF = ebi_sram_array[sram_addr_index];
+    
+    
+    // Toggle CE
+    spiFlashGPIOReset();
+    
+    uint8_t delay = 10;
+    while (delay > 0) delay--;
+    
+    // Toggle CE
+    spiFlashGPIOSet();
+    
+    // Send AAI opcode again
+    SPI3_writeByte(0xAD);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Send first byte of data to be programmed
+    SPI3_writeByte(ebi_sram_array[sram_addr_index]);
+    sram_addr_index++;
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write next byte, we'll send the next group of two bytes on next TX interrupt
+    SPI3_writeByte(ebi_sram_array[sram_addr_index]);
     sram_addr_index++;
     
     // Check if we are at the end of the array
@@ -722,8 +749,11 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
         
         disableInterrupt(SPI3_Transfer_Done);
         
-        // SPI3_writeByte(0x04);
-        // SPI3_writeByte(0x80);
+        // Send Write Disable opcode
+        SPI3_writeByte(0x04);
+        
+        // Wait for transfer to complete
+        while(SPI3STATbits.SPIBUSY);
         
         spiFlashGPIOReset();
         
@@ -733,7 +763,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
         printf("Transfer from EBI SRAM to Flash complete\n\r");
         terminalTextAttributesReset();
         
-        panelMultiplexingTimerStart();
+        // panelMultiplexingTimerStart();
         
     }
 
@@ -821,7 +851,7 @@ void SPI_FLASH_chipErase(uint8_t chip_select) {
 // This function reads from a spi flash chip
 void SPI_FLASH_beginRead(uint8_t chip_select) {
     
-    panelMultiplexingSuspend();
+    // panelMultiplexingSuspend();
     
     // Enable spi_flash_state corresponding to chip_select
     switch (chip_select) {
@@ -907,7 +937,9 @@ void SPI_FLASH_beginRead(uint8_t chip_select) {
 // This function writes to a spi flash chip
 void SPI_FLASH_beginWrite(uint8_t chip_select) {
     
-    panelMultiplexingSuspend();
+    // panelMultiplexingSuspend();
+    
+    SPI_Flash_writeEnable(chip_select);
     
     // Be sure chip is in erased state
     SPI_FLASH_chipErase(chip_select);
@@ -957,21 +989,34 @@ void SPI_FLASH_beginWrite(uint8_t chip_select) {
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
     
-    // Send address bytes
+    // Send addr2
     SPI3_writeByte(0x00);
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
     
+    // Send addr1
     SPI3_writeByte(0x00);
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
         
+    // Send addr0
     SPI3_writeByte(0x00);
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
+    
+    // Send first byte of data to be programmed
+    SPI3_writeByte(ebi_sram_array[sram_addr_index]);
+    sram_addr_index++;
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write next byte, we'll send the next group of two bytes on next TX interrupt
+    SPI3_writeByte(ebi_sram_array[sram_addr_index]);
+    sram_addr_index++;
     
     clearInterruptFlag(SPI3_Transfer_Done);
     enableInterrupt(SPI3_Transfer_Done);
@@ -1019,6 +1064,12 @@ void SPI_Flash_writeEnable(uint8_t chip_select){
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
+    
+    // reset state machine
+    spi_flash_state = idle;
+    
+    // Clear CE and WP signals
+    spiFlashGPIOReset();
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);

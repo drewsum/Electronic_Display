@@ -510,12 +510,14 @@ void portGGPIOInitialize (void){
     LATGbits.LATG7      = LAT_LOW;
     ODCGbits.ODCG7      = ODC_DISABLE;
     ANSELGbits.ANSG7    = ANALOG_DISABLE;
+    RPG7Rbits.RPG7R     = 0b0001;               // Set RG7 to U1TX
     
     // Setup RG8
     TRISGbits.TRISG8    = TRIS_INPUT;
     LATGbits.LATG8      = LAT_LOW;
     ODCGbits.ODCG8      = ODC_DISABLE;
     ANSELGbits.ANSG8    = ANALOG_DISABLE;
+    U1RXRbits.U1RXR     = 0b0001;               // RG8 to U1RX
     
     // Setup RG9
     TRISGbits.TRISG9    = TRIS_OUTPUT;

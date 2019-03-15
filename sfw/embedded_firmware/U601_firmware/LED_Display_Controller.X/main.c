@@ -193,7 +193,8 @@ void main(void) {
     printf("SPI Flash  Initialized\n\r");
     
     // Initialize ESP 8266 chip
-    esp8266Initialize();
+    // esp8266Initialize();
+    // printf("ESP8266 Initialized\n\r");
     
     // Setup RNG for random pixel values
     RNGInitialize();

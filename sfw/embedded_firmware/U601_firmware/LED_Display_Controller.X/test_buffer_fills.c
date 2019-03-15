@@ -4,6 +4,25 @@
 
 #include "panel_control.h"
 
+// fill ram buffer with all black pixels
+void fillRamBufferBlack(void) {
+ 
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
+    unsigned int address_index;
+    
+    for (address_index = 0; address_index < PANEL_DATA_ARRAY_SIZE; address_index++) {
+     
+        panel_data_buffer[address_index] = 0x00;
+        
+    }
+    
+    // Start multiplexing
+    panelMultiplexingTimerStart();
+    
+}
+
 // fill ram buffer with all white pixels
 void fillRamBufferWhite(void) {
  

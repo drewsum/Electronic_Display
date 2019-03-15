@@ -6,7 +6,6 @@
 #include "terminal_control.h"
 
 #define SRAM_ADDR_CS0 0xC0000000
-#define RAM_SIZE 262144
 
 // This pragma tells the linker to allow access of EBI memory space
 #pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
@@ -439,7 +438,7 @@ uint8_t testEBISRAM(void) {
     // Write loop
     uint32_t loop_address;
     
-    for (loop_address = 0; loop_address < RAM_SIZE; loop_address++) {
+    for (loop_address = 0; loop_address < EBI_SRAM_SIZE; loop_address++) {
         
         ebi_sram_array[loop_address] = (uint8_t) loop_address & 0xFF;
         
@@ -449,7 +448,7 @@ uint8_t testEBISRAM(void) {
     // The value we're reading from EBI
     uint8_t val;
     
-    for (loop_address = 0 ; loop_address < RAM_SIZE; loop_address++) {
+    for (loop_address = 0 ; loop_address < EBI_SRAM_SIZE; loop_address++) {
         
         val = ebi_sram_array[loop_address];
         
@@ -479,7 +478,7 @@ void ebiPrintSRAM(void){
     uint32_t loop_address;
     
     // wait for it
-    for (loop_address = 0 ; loop_address < RAM_SIZE / 256; loop_address += 16) {
+    for (loop_address = 0 ; loop_address < EBI_SRAM_SIZE / 256; loop_address += 16) {
         
         if (loop_address % 32 == 0) {
          
@@ -521,7 +520,7 @@ void ebiPrintSRAM(void){
 void clearEBISRAM(void) {
  
     uint32_t loop_address;
-    for (loop_address = 0; loop_address < RAM_SIZE; loop_address++) {\
+    for (loop_address = 0; loop_address < EBI_SRAM_SIZE; loop_address++) {\
      
         ebi_sram_array[loop_address] = 0x00;
         
