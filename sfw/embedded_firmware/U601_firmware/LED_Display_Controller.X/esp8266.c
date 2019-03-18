@@ -132,13 +132,13 @@ void esp8266Initialize(void) {
     enableInterrupt(UART1_Receive_Done);
     enableInterrupt(UART1_Fault);
     
-    // set the reset line on the chip to low
+    // set the reset line on the chip to high
     nWIFI_RESET_PIN = 0;
     // set the chip enable to high (active high)
     WIFI_CHPD_PIN = 1;
     
     // configure the chip
-    esp8266Configure();
+    // esp8266Configure();
     
 }
 
@@ -189,7 +189,7 @@ uint8_t esp8266ReadByte(void) {
     // This state should never be entered
     while(0 == esp_8266_RxCount)
     {
-        error_handler.USB_error_flag = 1;
+        error_handler.WIFI_error_flag = 1;
         return 0;
     }
 
@@ -343,17 +343,18 @@ void esp8266RingBufferPull(void) {
     printf("WiFi Module Sent:\n\r");
     printf(esp_8266_line);
     terminalTextAttributesReset();
+    
 }
 
 void esp8266RingBufferLUT(char * line_in) {
  
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
-    char * substring;
-    substring = strncpy(line_in, substring, 5);
-    if (strcmp(substring, "Image") == 0) {
-        esp_8266_FlashFlag = 1;
-    }
+//    char * substring;
+//    substring = strncpy(line_in, substring, 5);
+//    if (strcmp(substring, "Image") == 0) {
+//        esp_8266_FlashFlag = 1;
+//    }
     // WRITE SOME COMMANDS HERE
     
     Nop();

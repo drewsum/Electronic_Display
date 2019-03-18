@@ -40,7 +40,7 @@
 #pragma config UPLLFSEL = FREQ_24MHZ    // USB PLL Input Frequency Selection (USB PLL input is 24 MHz)
 
 // DEVCFG1
-#pragma config FNOSC = SPLL             // Oscillator Selection Bits (System PLL)
+#pragma config FNOSC = FRCDIV             // Oscillator Selection Bits (FRC)
 #pragma config DMTINTV = WIN_127_128    // DMT Count Window Interval (Window/Interval value is 127/128 counter value)
 #pragma config FSOSCEN = OFF            // Secondary Oscillator Enable (Disable SOSC)
 #pragma config IESO = OFF               // Internal/External Switch Over (Disabled)
@@ -109,7 +109,7 @@
 #pragma config_alt UPLLFSEL = FREQ_24MHZ// USB PLL Input Frequency Selection (USB PLL input is 24 MHz)
 
 // ADEVCFG1
-#pragma config_alt FNOSC = SPLL         // Oscillator Selection Bits (System PLL)
+#pragma config_alt FNOSC = FRCDIV             // Oscillator Selection Bits (FRC)
 #pragma config_alt DMTINTV = WIN_127_128// DMT Count Window Interval (Window/Interval value is 127/128 counter value)
 #pragma config_alt FSOSCEN = OFF        // Secondary Oscillator Enable (Disable SOSC)
 #pragma config_alt IESO = OFF           // Internal/External Switch Over (Disabled)
@@ -166,7 +166,7 @@
 #pragma config_auba UPLLFSEL = FREQ_24MHZ// USB PLL Input Frequency Selection (USB PLL input is 24 MHz)
 
 // AUBADEVCFG1
-#pragma config_auba FNOSC = SPLL        // Oscillator Selection Bits (System PLL)
+#pragma config_auba FNOSC = FRCDIV             // Oscillator Selection Bits (FRC)
 #pragma config_auba DMTINTV = WIN_127_128// DMT Count Window Interval (Window/Interval value is 127/128 counter value)
 #pragma config_auba FSOSCEN = OFF       // Secondary Oscillator Enable (Disable SOSC)
 #pragma config_auba IESO = OFF           // Internal/External Switch Over (Disabled)
@@ -200,8 +200,8 @@
 // AUBADEVCP0
 #pragma config_auba CP = OFF            // Code Protect (Protection Disabled)
 
-#pragma config_auba TSEQ = 0xfffd
-#pragma config_auba CSEQ = 0x0002
+#pragma config_auba TSEQ = 0xfffc
+#pragma config_auba CSEQ = 0x0003
 
 // AUBASEQ3
 
@@ -223,7 +223,7 @@
 #pragma config_uba UPLLFSEL = FREQ_24MHZ// USB PLL Input Frequency Selection (USB PLL input is 24 MHz)
 
 // UBADEVCFG1
-#pragma config_uba FNOSC = SPLL         // Oscillator Selection Bits (System PLL)
+#pragma config_uba FNOSC = FRCDIV             // Oscillator Selection Bits (FRC)
 #pragma config_uba DMTINTV = WIN_127_128// DMT Count Window Interval (Window/Interval value is 127/128 counter value)
 #pragma config_uba FSOSCEN = OFF        // Secondary Oscillator Enable (Disable SOSC)
 #pragma config_uba IESO = OFF            // Internal/External Switch Over (Disabled)
@@ -257,8 +257,8 @@
 // UBADEVCP0
 #pragma config_uba CP = OFF             // Code Protect (Protection Disabled)
 
-#pragma config_uba TSEQ = 0xfffc
-#pragma config_uba CSEQ = 00003
+#pragma config_uba TSEQ = 0xfffd
+#pragma config_uba CSEQ = 0000e
 
 #endif /* _CONFIGURE_H */
 

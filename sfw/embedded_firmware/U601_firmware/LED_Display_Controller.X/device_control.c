@@ -157,6 +157,15 @@ void clockInitialize(void) {
     
     // Initialize the PLL
     PLLInitialize();
+    
+    // Set new clock source as SPLL
+    OSCCONbits.NOSC = 0b001;
+    
+    // Initiate clock switch
+    OSCCONbits.OSWEN = 1;
+    
+    // wait for switch to complete
+    while (OSCCONbits.OSWEN == 1);
         
     // lock clock and PLL settings
     OSCCONbits.CLKLOCK = 1;

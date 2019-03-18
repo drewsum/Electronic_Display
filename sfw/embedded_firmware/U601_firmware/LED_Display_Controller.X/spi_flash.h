@@ -84,6 +84,10 @@ void SPI_FLASH_beginWrite(uint8_t chip_select);
 // This function enables write enable
 void SPI_Flash_writeEnable(uint8_t chip_select);
 
+// This function programs the status register in the chip passed as a parameter
+// It sets all bits in the status register to 0, which disables block protection
+// The write enable functions must be called beforehand
+void SPI_Flash_blockProtectionDisable(uint8_t chip_select);
 
 #endif /* _SPI_FLASH_H */
 

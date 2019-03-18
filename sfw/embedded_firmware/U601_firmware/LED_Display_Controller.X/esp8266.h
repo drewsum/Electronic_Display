@@ -21,7 +21,7 @@
 #include <sys/attribs.h>
 
 // Sizes of TX and RX ring buffers
-#define ESP_8266_TX_BUFFER_SIZE 16384
+#define ESP_8266_TX_BUFFER_SIZE 2048
 #define ESP_8266_RX_BUFFER_SIZE 2048
 
 char esp_8266_line[ESP_8266_RX_BUFFER_SIZE];

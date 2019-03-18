@@ -18,6 +18,9 @@
 #ifndef _TEST_BUFFER_FILLS_H    /* Guard against multiple inclusion */
 #define _TEST_BUFFER_FILLS_H
 
+// fill ram buffer with all black pixels
+void fillRamBufferBlack(void);
+
 // fill ram buffer with all white pixels
 void fillRamBufferWhite(void);
 
