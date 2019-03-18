@@ -108,9 +108,13 @@ public class rowAdaptor extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Log.d("clickEvent", "up button clicked");
+                    Log.d("original list", "" + position);
                     // decrement the position of image
                     Collections.swap(framesList, position, position - 1);
                     tinyDB.putListString("test1" + "frameList", framesList);
+                    data = framesList;
+                    notifyDataSetChanged();
+                    finView.refreshDrawableState();
                 }
             });
             buttonDown.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +124,8 @@ public class rowAdaptor extends BaseAdapter {
                     // increment the position of image
                     Collections.swap(framesList, position, position + 1);
                     tinyDB.putListString("test1" + "frameList", framesList);
+                    data = framesList;
+                    notifyDataSetChanged();
                 }
             });
 
