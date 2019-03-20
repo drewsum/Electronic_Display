@@ -90,10 +90,10 @@ public class rowAdaptor extends BaseAdapter {
         if (keyName == "frameList") {
             ImageView thumbnail = (ImageView) vi.findViewById(R.id.imageThumb);
             thumbnail.setImageBitmap(loadImageFromStorage(data.get(position)));
-            text.setText("Frame " + position); // populate rows
-            // use a spinner to select a number
+            text.setText("Frame " + (position + 1)); // populate rows
+            // use a spinner to select a number (time)
 //            Spinner dropdown = vi.findViewById(R.id.spinnerDropDown);
-//            String[] items = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
+//            String[] items = new String[]{"5", "10", "15", "20", "25", "30", "60", "120"};
 //            ArrayAdapter<String> adapter = new ArrayAdapter<String>(vi.getContext(), android.R.layout.simple_spinner_dropdown_item, items);
 //            dropdown.setAdapter(adapter);
             // use up and down arrows to adjust ordering
@@ -103,7 +103,10 @@ public class rowAdaptor extends BaseAdapter {
             buttonDown.setFocusable(false); // needed to allow row to still be clickable
             final TinyDB tinyDB = new TinyDB(vi.getContext());
             //data.get(position);
-            final ArrayList<String> framesList = tinyDB.getListString("test1" + "frameList");
+            String[] path = data.get(position).split("/");
+            String projectName = path[path.length-1].replace("frame" + position + ".png", "");
+            Log.d("projectName", projectName);
+            final ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
             buttonUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -114,7 +117,7 @@ public class rowAdaptor extends BaseAdapter {
                     tinyDB.putListString("test1" + "frameList", framesList);
                     data = framesList;
                     notifyDataSetChanged();
-                    finView.refreshDrawableState();
+                    //TextView textFrameCount = (TextView) finView.findViewById(R.id.textFrameCount);
                 }
             });
             buttonDown.setOnClickListener(new View.OnClickListener() {
@@ -137,10 +140,24 @@ public class rowAdaptor extends BaseAdapter {
         builder.setMessage("This action is permanent!");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                data.remove(position);
-                TinyDB tinyDB = new TinyDB(finView.getContext());
-                tinyDB.putListString(keyName, data);
-                Log.d(keyName, data.toString());
+                TinyDB tinyDB = new TinyDB(finView.getContext().getApplicationContext());
+                if(keyName == "frameList") {
+                    // delete frame from current framelist
+                    String[] path = data.get(position).split("/");
+                    String projectName = path[path.length-1].replace("frame" + position + ".png", "");
+                    Log.d("projectName", projectName);
+                    data.remove(position);
+                    tinyDB.putListString(projectName + keyName, data);
+                    Log.d("New " + projectName + keyName, data.toString());
+                    // also need to rename the other frames if they slide around
+                } else if(keyName == "projectList") {
+                    String projectName = data.get(position);
+                    data.remove(position);
+                    tinyDB.putListString(keyName, data);
+                    tinyDB.remove(projectName + "frameList");
+                    Log.d("deleted", projectName + "frameList");
+                    Log.d(keyName, data.toString());
+                }
                 notifyDataSetChanged();
                 dialog.dismiss();
             }

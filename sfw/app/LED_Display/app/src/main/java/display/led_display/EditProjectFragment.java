@@ -1,7 +1,9 @@
 package display.led_display;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -96,16 +98,31 @@ public class EditProjectFragment extends Fragment {
         ListView listview = rootView.findViewById(R.id.framesList);
         listview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
 
-        Button buttonSelectImage = (Button) rootView.findViewById(R.id.buttonAddFrame);
-        buttonSelectImage.setOnClickListener(new Button.OnClickListener() {
+        Button buttonAddFrame = (Button) rootView.findViewById(R.id.buttonAddFrame);
+        buttonAddFrame.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // need to give index and project name for imagePath naming convention
-                Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
-                intent.putExtra("projectName", projectName);
-                intent.putExtra("index", frameCount);
-                startActivityForResult(intent, 1);
+                if(frameCount < 8) {
+                    Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
+                    intent.putExtra("projectName", projectName);
+                    intent.putExtra("index", frameCount);
+                    startActivityForResult(intent, 1);
+                } else {
+                    // show a message
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Maximum Amount of Frames Reached");
+                    builder.setMessage("A single project can only hold up to 8 frames.");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("clickEvent", "OK button clicked");
+                            dialog.dismiss();
+                        }
+                    });
+                    final AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
         TextView textProjectName = (TextView) rootView.findViewById(R.id.textProjectName);
@@ -121,9 +138,6 @@ public class EditProjectFragment extends Fragment {
         if (requestCode == 1) {
             //Uri targetUri = Uri.parse(data.getExtras().getString("targetUri"));
             String filePath = data.getExtras().getString("filePath");
-            frameCount++;
-            TextView textFrameCount = (TextView) this.getView().findViewById(R.id.textFrameCount);
-            textFrameCount.setText(frameCount + "/8");
             Log.d("filePath", filePath);
 
             TinyDB tinyDB = new TinyDB(getContext());
@@ -131,6 +145,12 @@ public class EditProjectFragment extends Fragment {
             framesList.add(filePath);
             tinyDB.putListString(projectName + "frameList", framesList);
             Log.d("frameList", framesList.toString());
+            frameCount = framesList.size();
+            TextView textFrameCount = (TextView) this.getView().findViewById(R.id.textFrameCount);
+            textFrameCount.setText(frameCount + "/8");
+            ListView listView = (ListView) this.getView().findViewById(R.id.framesList);
+            //listView.getAdapter().notify();
+            listView.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
         }
     }
 

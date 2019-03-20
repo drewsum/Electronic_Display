@@ -83,9 +83,9 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
         ArrayList<String> projectList = tinyDB.getListString("projectList");
         Log.d("projectList", projectList.toString());
         ArrayList<String> deviceList = tinyDB.getListString("deviceList");
-        Log.d("projectList", deviceList.toString());
+        Log.d("deviceList", deviceList.toString());
         ListView projectListview = rootView.findViewById(R.id.projectList);
-        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "frameList"));
+        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "projectList"));
         // populate physical boards list
         ListView boardListview = rootView.findViewById(R.id.deviceList);
         boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));

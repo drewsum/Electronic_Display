@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -107,7 +108,7 @@ public class ProjectPreviewFragment extends Fragment {
              }
          });
         // set up nav buttons
-        Button buttonLeft = (Button) rootView.findViewById(R.id.buttonLeft);
+        ImageButton buttonLeft = (ImageButton) rootView.findViewById(R.id.buttonLeft);
         buttonLeft.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -118,7 +119,7 @@ public class ProjectPreviewFragment extends Fragment {
                 }
             }
         });
-        Button buttonRight = (Button) rootView.findViewById(R.id.buttonRight);
+        ImageButton buttonRight = (ImageButton) rootView.findViewById(R.id.buttonRight);
         buttonRight.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -146,7 +147,7 @@ public class ProjectPreviewFragment extends Fragment {
 //            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.marquette));
 //        }
 //        dialog.dismiss();
-        Log.d("framesList[0]", framesList.get(0).toString());
+        Log.d("framesList[0]", framesList.get(0));
         loadImageFromStorage(framesList.get(0));
     }
 

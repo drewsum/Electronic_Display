@@ -59,32 +59,32 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
-        app:layout_constraintEnd_toStartOf="@+id/textView5"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/textFixedAspectRatio"
+        app:layout_constraintStart_toEndOf="@+id/textStretchToFit"
         app:layout_constraintTop_toBottomOf="@+id/targetimage"
         />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textStretchToFit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
-        android:text="Fixed Aspect Ratio"
+        android:text="Stretch To Fit"
         app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
         app:layout_constraintEnd_toStartOf="@+id/switchAspectRatio"
         app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textFixedAspectRatio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
-        android:text="Stretch to Fit"
+        android:text="Fixed Aspect Ratio"
         app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.367"
