@@ -354,6 +354,12 @@ void panelPWMInitialize(void) {
     // Select Timer 2 as source for OC4
     OC4CONbits.OCTSEL = 0;
     
+    // Set OC4 to 16 bit mode
+    OC4CONbits.OC32 = 0;
+    
+    // Set default output compare clocks to timers 2 and 3
+    CFGCONbits.OCACLK = 0;
+    
     // Set OC4 to PWM mode, Fault pins disabled
     OC4CONbits.OCM = 0b110;
     

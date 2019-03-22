@@ -22,16 +22,19 @@
 
 // Sizes of TX and RX ring buffers
 #define ESP_8266_TX_BUFFER_SIZE 2048
-#define ESP_8266_RX_BUFFER_SIZE 2048
+#define ESP_8266_RX_BUFFER_SIZE 4096
 
 char esp_8266_line[ESP_8266_RX_BUFFER_SIZE];
 
 // This function initializes UART 6 for USB debugging
 void esp8266Initialize(void);
 
+// This function configures the esp on initialization
+void esp8366InitializeConfiguration(void);
+
 // These are the USB UART Interrupt Service Routines
-void __ISR(_UART1_RX_VECTOR, ipl2SRS) esp8266ReceiveISR(void);
-void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void);
+void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void);
+void __ISR(_UART1_TX_VECTOR, ipl6SRS) esp8266TransferISR(void);
 void __ISR(_UART1_FAULT_VECTOR, ipl1SRS) esp8266FaultISR(void);
 
 // This function allows reading of a byte from UART1
