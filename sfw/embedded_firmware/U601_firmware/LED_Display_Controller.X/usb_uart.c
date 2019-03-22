@@ -23,7 +23,8 @@
 #include "test_buffer_fills.h"
 #include "spi_flash.h"
 
-#include "test_image_1.h"
+// #include "test_image_1.h"
+// #include "test_image_2.h"
 #include "esp8266.h"
 
 volatile uint64_t usb_uart_TxHead = 0;
@@ -816,27 +817,27 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if(strcmp(line_in, "Set Test Image 1") == 0) {
-     
-        fillRamBufferTestImage1();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with Test Image 1\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
-    else if(strcmp(line_in, "Set Test Image 2") == 0) {
-     
-        fillRamBufferTestImage2();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with Test Image 2\n\r");
-        terminalTextAttributesReset();
-        
-    }
+//    else if(strcmp(line_in, "Set Test Image 1") == 0) {
+//     
+//        fillRamBufferTestImage1();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with Test Image 1\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    else if(strcmp(line_in, "Set Test Image 2") == 0) {
+//     
+//        fillRamBufferTestImage2();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with Test Image 2\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
     
     else if (strstart(line_in, "Set Panel Muxing On Time ") == 0) {
      
@@ -1283,7 +1284,8 @@ void usbUartRingBufferLUT(char * line_in) {
         
         char esp_tx_string[32];
         sscanf(line_in, "WiFi: %s", esp_tx_string);
-        strcat(esp_tx_string, "\n\r");
+        printf("We are sending %s\r\n", esp_tx_string);
+        strcat(esp_tx_string, "\r\n");
         esp8266Putstring(esp_tx_string);
         
     }

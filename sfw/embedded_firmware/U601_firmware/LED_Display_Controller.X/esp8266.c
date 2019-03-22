@@ -111,7 +111,7 @@ void esp8266Initialize(void) {
     
     // Set interrupt priorities
     setInterruptPriority(UART1_Receive_Done, 7);
-    setInterruptPriority(UART1_Transfer_Done, 6);
+    setInterruptPriority(UART1_Transfer_Done, 7);
     setInterruptPriority(UART1_Fault, 1);
     
     // Set interrupt subpriorities
@@ -144,7 +144,7 @@ void esp8366InitializeConfiguration(void) {
     nWIFI_RESET_PIN = 0;
     
     // configure the chip
-    esp8266Configure();
+    // esp8266Configure();
     
 }
 
@@ -160,7 +160,7 @@ void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void) {
 }
 
 // This is the esp8266 transfer interrupt service routine
-void __ISR(_UART1_TX_VECTOR, ipl6SRS) esp8266TransferISR(void) {
+void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void) {
     
     // Do transfer tasks
     esp8266TransmitHandler();

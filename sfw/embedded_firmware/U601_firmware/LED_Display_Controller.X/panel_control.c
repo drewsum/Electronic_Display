@@ -182,7 +182,7 @@ void panelMultiplexingTimerInitialize(void) {
     PR5 = MUXING_TIMER_PERIOD;
     
     // Start timer 5
-    T5CONbits.ON = 1;
+    // T5CONbits.ON = 1;
     
     // Enable timer5 interrupt
     enableInterrupt(Timer5);
