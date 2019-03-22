@@ -14,11 +14,11 @@
 #include <stddef.h>
 
 // Include device control APIs
-// These are APIs written for portability between projects and set up the device
+// These are modules written for portability between projects and set up the device
 // for basic use
-// The functions allow low level control of the device
+// These functions allow low level control of the device
 #include "device_control.h"
-// Include PIC32MZ interrupt control APIs
+// Include PIC32MZ interrupt control
 #include "32mz_interrupt_control.h"
 // Include cause of reset determination
 #include "cause_of_reset.h"
@@ -39,7 +39,7 @@
 #include "pin_macros.h"
 // heartbeat timer
 #include "heartbeat_timer.h"
-// Power saving APIs (PMD, SLEEP, etc)
+// Power saving module (PMD, SLEEP, etc)
 #include "power_saving.h"
 // Terminal control for USB debugging
 #include "terminal_control.h"
@@ -193,8 +193,8 @@ void main(void) {
     printf("SPI Flash  Initialized\n\r");
     
     // Initialize ESP 8266 chip
-    // esp8266Initialize();
-    // printf("ESP8266 Initialized\n\r");
+    esp8266Initialize();
+    printf("ESP8266 Initialized\n\r");
     
     // Setup RNG for random pixel values
     RNGInitialize();
@@ -231,6 +231,8 @@ void main(void) {
     // Update error LEDs based on error handler status
     updateErrorLEDs(); 
     
+    // Setup ESP after UART1 has been initialized
+    esp8366InitializeConfiguration();
     
     // Loop endlessly
     while (true) {

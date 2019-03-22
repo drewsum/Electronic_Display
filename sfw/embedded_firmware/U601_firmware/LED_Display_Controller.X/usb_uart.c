@@ -1281,16 +1281,10 @@ void usbUartRingBufferLUT(char * line_in) {
         // print WiFi command to UART1 RX
         // esp8266Putstring(line_in);
         
-        char esp_tx_string[20];
+        char esp_tx_string[32];
         sscanf(line_in, "WiFi: %s", esp_tx_string);
+        strcat(esp_tx_string, "\n\r");
         esp8266Putstring(esp_tx_string);
-        
-//        uint8_t char_index;
-//        for(char_index = 6; char_index < strlen(line_in); char_index++) {
-//         
-//            esp8266Putchar(line_in[char_index]);
-//            
-//        }
         
     }
     

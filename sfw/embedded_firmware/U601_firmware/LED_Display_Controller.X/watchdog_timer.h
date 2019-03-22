@@ -8,7 +8,7 @@
     watchdog_timer.h
 
   @Summary
- Sets up the watchdog timer for a 2 second timeout
+ Sets up the watchdog timer for a 2.048 second timeout
 
  */
 /* ************************************************************************** */

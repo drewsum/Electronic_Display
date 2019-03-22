@@ -111,7 +111,7 @@ void esp8266Initialize(void) {
     
     // Set interrupt priorities
     setInterruptPriority(UART1_Receive_Done, 7);
-    setInterruptPriority(UART1_Transfer_Done, 7);
+    setInterruptPriority(UART1_Transfer_Done, 6);
     setInterruptPriority(UART1_Fault, 1);
     
     // Set interrupt subpriorities
@@ -132,18 +132,24 @@ void esp8266Initialize(void) {
     enableInterrupt(UART1_Receive_Done);
     enableInterrupt(UART1_Fault);
     
-    // set the reset line on the chip to high
-    nWIFI_RESET_PIN = 0;
+}
+
+// This function configures the esp on initialization
+void esp8366InitializeConfiguration(void) {
+ 
     // set the chip enable to high (active high)
     WIFI_CHPD_PIN = 1;
     
+    // set the reset line on the chip to high
+    nWIFI_RESET_PIN = 0;
+    
     // configure the chip
-    // esp8266Configure();
+    esp8266Configure();
     
 }
 
 // This is the esp8266 receive interrupt service routine
-void __ISR(_UART1_RX_VECTOR, ipl2SRS) esp8266ReceiveISR(void) {
+void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void) {
     
     // Do receive tasks
     esp8266ReceiveHandler();
@@ -154,7 +160,7 @@ void __ISR(_UART1_RX_VECTOR, ipl2SRS) esp8266ReceiveISR(void) {
 }
 
 // This is the esp8266 transfer interrupt service routine
-void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void) {
+void __ISR(_UART1_TX_VECTOR, ipl6SRS) esp8266TransferISR(void) {
     
     // Do transfer tasks
     esp8266TransmitHandler();
@@ -334,6 +340,7 @@ void esp8266RingBufferPull(void) {
         esp_8266_line[strlen(esp_8266_line) - 1] = '\0';
         
     }
+    
     // Clear ready flag
     esp_8266_RxStringReady = 0;
     // Check to see if line matches a command
@@ -341,7 +348,7 @@ void esp8266RingBufferPull(void) {
     terminalTextAttributesReset();
     terminalTextAttributes(CYAN, BLACK, NORMAL);
     printf("WiFi Module Sent:\n\r");
-    printf(esp_8266_line);
+    printf("    %s\n\r", esp_8266_line);
     terminalTextAttributesReset();
     
 }
@@ -374,7 +381,7 @@ void esp8266Putstring(char * string) {
  */
 void esp8266Configure(void) {
     // reset esp and get the firmware version
-    esp8266Putstring("AT");
+    esp8266Putstring("AT\r\n");
     esp8266Putstring("AT+RST\r\n");
     esp8266Putstring("AT+VERSION\r\n");
     // start configuration with AT commands
