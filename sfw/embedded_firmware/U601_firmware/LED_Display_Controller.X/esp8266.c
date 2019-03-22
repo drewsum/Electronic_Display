@@ -9,6 +9,7 @@
 #include "error_handler.h"
 #include "pin_macros.h"
 #include "terminal_control.h"
+#include "usb_uart.h"
 
 
 volatile uint64_t esp_8266_TxHead = 0;
@@ -111,7 +112,7 @@ void esp8266Initialize(void) {
     
     // Set interrupt priorities
     setInterruptPriority(UART1_Receive_Done, 7);
-    setInterruptPriority(UART1_Transfer_Done, 6);
+    setInterruptPriority(UART1_Transfer_Done, 7);
     setInterruptPriority(UART1_Fault, 1);
     
     // Set interrupt subpriorities
@@ -144,7 +145,7 @@ void esp8366InitializeConfiguration(void) {
     nWIFI_RESET_PIN = 0;
     
     // configure the chip
-    esp8266Configure();
+    // esp8266Configure();
     
 }
 
@@ -152,7 +153,9 @@ void esp8366InitializeConfiguration(void) {
 void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void) {
     
     // Do receive tasks
-    esp8266ReceiveHandler();
+    // esp8266ReceiveHandler();
+    
+    usbUartPutchar(U1RXREG);
     
     // Clear receive interrupt flag
     clearInterruptFlag(UART1_Receive_Done);
@@ -160,7 +163,7 @@ void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void) {
 }
 
 // This is the esp8266 transfer interrupt service routine
-void __ISR(_UART1_TX_VECTOR, ipl6SRS) esp8266TransferISR(void) {
+void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void) {
     
     // Do transfer tasks
     esp8266TransmitHandler();
@@ -272,6 +275,7 @@ void esp8266ReceiveHandler(void) {
     {
         U1MODEbits.ON = 0;
         error_handler.WIFI_error_flag = 1;
+        U1STAbits.OERR = 0;
         U1MODEbits.ON = 1;
     }
     // need to add a check on a flag to see if we are reading image
@@ -281,7 +285,7 @@ void esp8266ReceiveHandler(void) {
         
     }
     while(U1STAbits.URXDA) {
-    
+        
         esp_8266_RxBuffer[esp_8266_RxHead++] = U1RXREG;
         
         if(sizeof(esp_8266_RxBuffer) <= esp_8266_RxHead)
@@ -383,7 +387,7 @@ void esp8266Configure(void) {
     // reset esp and get the firmware version
     esp8266Putstring("AT\r\n");
     esp8266Putstring("AT+RST\r\n");
-    esp8266Putstring("AT+VERSION\r\n");
+    esp8266Putstring("AT+GMR\r\n");
     // start configuration with AT commands
     // configure esp8266 as access point (own network)
     esp8266Putstring("AT+CWMODE=2\r\n");

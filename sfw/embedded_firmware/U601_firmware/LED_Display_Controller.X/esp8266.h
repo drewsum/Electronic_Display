@@ -34,7 +34,7 @@ void esp8366InitializeConfiguration(void);
 
 // These are the USB UART Interrupt Service Routines
 void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void);
-void __ISR(_UART1_TX_VECTOR, ipl6SRS) esp8266TransferISR(void);
+void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void);
 void __ISR(_UART1_FAULT_VECTOR, ipl1SRS) esp8266FaultISR(void);
 
 // This function allows reading of a byte from UART1
