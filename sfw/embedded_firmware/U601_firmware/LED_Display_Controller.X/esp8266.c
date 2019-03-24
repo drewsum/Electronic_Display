@@ -146,7 +146,7 @@ void esp8266InitializeConfiguration(void) {
     nWIFI_RESET_PIN = 0;
     
     // start the delay timer that will interrupt
-    // delayTimerStart(0x2FFF, esp8266Delay);
+    delayTimerStart(0xFFFF, esp8266Delay1);
     
 }
 
@@ -378,7 +378,8 @@ void esp8266RingBufferLUT(char * line_in) {
 
 void esp8266Putstring(char * string) {
     int i;
-    char * new_string;
+    //char * new_string;
+    char new_string[64];
     strcpy(new_string, "               ");
     strcat(new_string, string);
     
@@ -397,17 +398,17 @@ void esp8266Putstring(char * string) {
 void esp8266Configure(void) {
     // reset esp and get the firmware version
     esp8266Putstring("AT\r\n");
-    esp8266Putstring("AT+RST\r\n");
-    esp8266Putstring("AT+GMR\r\n");
-    // start configuration with AT commands
-    // configure esp8266 as access point (own network)
-    esp8266Putstring("AT+CWMODE_CUR=2\r\n");
-    // configure for multiple connections
-    esp8266Putstring("AT+CIPMUX=1\r\n");
-    // turn on the CIP server at port 80
-    esp8266Putstring("AT+CIPSERVER=1,80\r\n");
-    // get the IP address
-    esp8266Putstring("AT+CIFSR\r\n");
+//    esp8266Putstring("AT+RST\r\n");
+//    esp8266Putstring("AT+GMR\r\n");
+//    // start configuration with AT commands
+//    // configure esp8266 as access point (own network)
+//    esp8266Putstring("AT+CWMODE_CUR=2\r\n");
+//    // configure for multiple connections
+//    esp8266Putstring("AT+CIPMUX=1\r\n");
+//    // turn on the CIP server at port 80
+//    esp8266Putstring("AT+CIPSERVER=1,80\r\n");
+//    // get the IP address
+//    esp8266Putstring("AT+CIFSR\r\n");
 }
 
 /*

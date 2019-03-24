@@ -19,8 +19,17 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
     // Handle the task
     switch(timer_task)
     {
-        case esp8266Delay:
-            esp8266Configure();
+        case esp8266Delay1:
+            esp8266Putstring("AT+CWMODE_CUR=2\r\n");
+            delayTimerStart(0xFFFF, esp8266Delay2);
+            //esp8266Configure();
+            break;
+        case esp8266Delay2:
+            esp8266Putstring("AT+CIPMUX=1\r\n");
+            delayTimerStart(0xFFFF, esp8266Delay3);
+            break;
+        case esp8266Delay3:
+            esp8266Putstring("AT+CIPSERVER=1,80\r\n");
             break;
         default:
             break;
@@ -45,8 +54,8 @@ void delayTimerInitialize(void)
     // Disable gated time accumulation
     T4CONbits.TGATE = 0;
     
-    // Set timer 4 prescalar to 4
-    T4CONbits.TCKPS = 0b010;
+    // Set timer 4 prescalar to 8
+    T4CONbits.TCKPS = 0b111;
     
     // Set timer clock input as PBCLK3
     T4CONbits.TCS = 0;
@@ -67,6 +76,8 @@ void delayTimerStart(uint16_t delay_value, timer_task_t input_task)
     
     // Clear the Timer
     TMR4 = 0;
+    
+    clearInterruptFlag(Timer4);
     
     // Enable timer4 interrupt
     enableInterrupt(Timer4);

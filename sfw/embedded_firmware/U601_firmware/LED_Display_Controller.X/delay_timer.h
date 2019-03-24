@@ -22,8 +22,9 @@
 
 // define Timer tasks
 typedef enum {
-    esp8266Delay,
-    do_not_use
+    esp8266Delay1,
+    esp8266Delay2,
+    esp8266Delay3
 } timer_task_t;
 
 // Global task type for the timer
