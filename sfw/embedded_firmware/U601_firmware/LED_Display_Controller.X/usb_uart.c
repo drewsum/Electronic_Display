@@ -22,19 +22,20 @@
 #include "panel_control.h"
 #include "test_buffer_fills.h"
 #include "spi_flash.h"
+#include "esp8266.h"
 
 // #include "test_image_1.h"
 // #include "test_image_2.h"
 #include "esp8266.h"
 
-volatile uint64_t usb_uart_TxHead = 0;
-volatile uint64_t usb_uart_TxTail = 0;
+volatile uint32_t usb_uart_TxHead = 0;
+volatile uint32_t usb_uart_TxTail = 0;
 volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
-volatile uint64_t usb_uart_TxBufferRemaining;
+volatile uint32_t usb_uart_TxBufferRemaining;
 
 volatile uint32_t usb_uart_RxHead = 0;
 volatile uint32_t usb_uart_RxTail = 0;
-volatile uint32_t usb_uart_RxBuffer[USB_UART_RX_BUFFER_SIZE];
+volatile uint8_t usb_uart_RxBuffer[USB_UART_RX_BUFFER_SIZE];
 volatile uint32_t usb_uart_RxCount;
 
 volatile uint8_t usb_uart_RxStringReady = 0;
@@ -130,7 +131,7 @@ void usbUartInitialize(void) {
     
     // Set interrupt priorities
     setInterruptPriority(UART3_Receive_Done, 2);
-    setInterruptPriority(UART3_Transfer_Done, 7);
+    setInterruptPriority(UART3_Transfer_Done, 6);
     setInterruptPriority(UART3_Fault, 1);
     
     // Set interrupt subpriorities
@@ -173,7 +174,7 @@ void __ISR(_UART3_RX_VECTOR, ipl2SRS) usbUartReceiveISR(void) {
 }
 
 // This is the USB UART transfer interrupt service routine
-void __ISR(_UART3_TX_VECTOR, ipl7SRS) usbUartTransferISR(void) {
+void __ISR(_UART3_TX_VECTOR, ipl6SRS) usbUartTransferISR(void) {
     
     // Do transfer tasks
     usbUartTransmitHandler();
@@ -1283,9 +1284,10 @@ void usbUartRingBufferLUT(char * line_in) {
         // print WiFi command to UART1 RX
         // esp8266Putstring(line_in);
         
-        char esp_tx_string[32];
-        sscanf(line_in, "WiFi: %s", esp_tx_string);
-        printf("We are sending %s\r\n", esp_tx_string);
+        char *esp_tx_string = malloc(32);
+        memset(esp_tx_string, 0, sizeof(esp_tx_string));
+        sscanf(line_in, "WiFi: %31c", esp_tx_string);
+        
         strcat(esp_tx_string, "\r\n");
         esp8266Putstring(esp_tx_string);
         

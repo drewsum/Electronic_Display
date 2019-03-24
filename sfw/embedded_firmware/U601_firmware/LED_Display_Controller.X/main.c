@@ -61,6 +61,8 @@
 #include "misc_board_control.h"
 // Test Buffer Fills
 #include "test_buffer_fills.h"
+// Delay Timer
+#include "delay_timer.h"
 
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
@@ -165,6 +167,10 @@ void main(void) {
     deadmanTimerInitialize();
     printf("Deadman Timer Initialized\n\r");
     
+    // Startup the delay timer
+    delayTimerInitialize();
+    printf("Delay Timer Initialized\r\n");
+    
     // EBI set up
     uint8_t ebi_exit_success = testEBISRAM();
     
@@ -190,7 +196,7 @@ void main(void) {
     
     // Initialize SPI
     spiFlashInit();
-    printf("SPI Flash  Initialized\n\r");
+    printf("SPI Flash Initialized\n\r");
     
     // Initialize ESP 8266 chip
     esp8266Initialize();
@@ -232,7 +238,7 @@ void main(void) {
     updateErrorLEDs(); 
     
     // Setup ESP after UART1 has been initialized
-    esp8366InitializeConfiguration();
+    esp8266InitializeConfiguration();
     
     // Loop endlessly
     while (true) {

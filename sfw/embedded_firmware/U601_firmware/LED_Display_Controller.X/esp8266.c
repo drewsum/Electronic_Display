@@ -10,16 +10,17 @@
 #include "pin_macros.h"
 #include "terminal_control.h"
 #include "usb_uart.h"
+#include "delay_timer.h"
 
 
-volatile uint64_t esp_8266_TxHead = 0;
-volatile uint64_t esp_8266_TxTail = 0;
+volatile uint32_t esp_8266_TxHead = 0;
+volatile uint32_t esp_8266_TxTail = 0;
 volatile uint8_t esp_8266_TxBuffer[ESP_8266_TX_BUFFER_SIZE];
-volatile uint64_t esp_8266_TxBufferRemaining;
+volatile uint32_t esp_8266_TxBufferRemaining;
 
 volatile uint32_t esp_8266_RxHead = 0;
 volatile uint32_t esp_8266_RxTail = 0;
-volatile uint32_t esp_8266_RxBuffer[ESP_8266_RX_BUFFER_SIZE];
+volatile uint8_t esp_8266_RxBuffer[ESP_8266_RX_BUFFER_SIZE];
 volatile uint32_t esp_8266_RxCount;
 
 volatile uint8_t esp_8266_RxStringReady = 0;
@@ -116,7 +117,7 @@ void esp8266Initialize(void) {
     setInterruptPriority(UART1_Fault, 1);
     
     // Set interrupt subpriorities
-    setInterruptSubpriority(UART1_Receive_Done, 2);
+    setInterruptSubpriority(UART1_Receive_Done, 1);
     setInterruptSubpriority(UART1_Transfer_Done, 2);
     setInterruptSubpriority(UART1_Fault, 1);
     
@@ -136,7 +137,7 @@ void esp8266Initialize(void) {
 }
 
 // This function configures the esp on initialization
-void esp8366InitializeConfiguration(void) {
+void esp8266InitializeConfiguration(void) {
  
     // set the chip enable to high (active high)
     WIFI_CHPD_PIN = 1;
@@ -144,8 +145,8 @@ void esp8366InitializeConfiguration(void) {
     // set the reset line on the chip to high
     nWIFI_RESET_PIN = 0;
     
-    // configure the chip
-    // esp8266Configure();
+    // start the delay timer that will interrupt
+    // delayTimerStart(0x2FFF, esp8266Delay);
     
 }
 
@@ -153,9 +154,9 @@ void esp8366InitializeConfiguration(void) {
 void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void) {
     
     // Do receive tasks
-    // esp8266ReceiveHandler();
+    esp8266ReceiveHandler();
     
-    usbUartPutchar(U1RXREG);
+    //usbUartPutchar(U1RXREG);
     
     // Clear receive interrupt flag
     clearInterruptFlag(UART1_Receive_Done);
@@ -167,7 +168,6 @@ void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void) {
     
     // Do transfer tasks
     esp8266TransmitHandler();
-    
     // Clear interrupt flag
     clearInterruptFlag(UART1_Transfer_Done);
     
@@ -252,7 +252,9 @@ void esp8266TransmitHandler(void) {
  
     if(sizeof(esp_8266_TxBuffer) > esp_8266_TxBufferRemaining)
     {
+        while(U1STAbits.UTXBF == 1);
         U1TXREG = esp_8266_TxBuffer[esp_8266_TxTail++];
+        // usbUartPutchar(esp_8266_TxBuffer[esp_8266_TxTail-1]);
         if(sizeof(esp_8266_TxBuffer) <= esp_8266_TxTail)
         {
             esp_8266_TxTail = 0;
@@ -299,8 +301,8 @@ void esp8266ReceiveHandler(void) {
     // This chunk tells main() or whatever is pulling from the ring buffer that
     // data is ready to be read, since the terminal sent a newline or 
     // carriage return
-    if((esp_8266_RxBuffer[esp_8266_RxHead - 1] == (int) '\n') || 
-       (esp_8266_RxBuffer[esp_8266_RxHead - 1] == (int) '\r')) {
+    if((esp_8266_RxBuffer[esp_8266_RxHead - 1] == (int) '\n') ||
+    (esp_8266_RxBuffer[esp_8266_RxHead - 1] == (int) '\r')) {
 
         esp_8266_RxStringReady = 1;
                 
@@ -337,23 +339,25 @@ void esp8266RingBufferPull(void) {
     esp_8266_RxTail = esp_8266_RxHead;
 
     // Try to kill off ending returns/newlines
-    while((esp_8266_line[strlen(esp_8266_line) - 1] == (int) '\n') ||
+    /*while((esp_8266_line[strlen(esp_8266_line) - 1] == (int) '\n') ||
           (esp_8266_line[strlen(esp_8266_line) - 1] == (int) '\r')) {
      
         // NULL
         esp_8266_line[strlen(esp_8266_line) - 1] = '\0';
         
     }
+    */
     
-    // Clear ready flag
-    esp_8266_RxStringReady = 0;
     // Check to see if line matches a command
     // esp8266RingBufferLUT(esp_8266_line);
     terminalTextAttributesReset();
     terminalTextAttributes(CYAN, BLACK, NORMAL);
-    printf("WiFi Module Sent:\n\r");
-    printf("    %s\n\r", esp_8266_line);
+    // printf("WiFi Module Sent:\r\n");
+    printf("%s", esp_8266_line);
     terminalTextAttributesReset();
+    
+    // Clear ready flag
+    esp_8266_RxStringReady = 0;
     
 }
 
@@ -374,9 +378,16 @@ void esp8266RingBufferLUT(char * line_in) {
 
 void esp8266Putstring(char * string) {
     int i;
-    for(i = 0; i <= strlen(string); i++) {
-        esp8266Putchar(string[i]);
+    char * new_string;
+    strcpy(new_string, "               ");
+    strcat(new_string, string);
+    
+    for(i = 0; i <= strlen(new_string); i++) {
+        
+        esp8266Putchar(new_string[i]);
+    
     }
+    
 }
 
 /*
@@ -390,13 +401,13 @@ void esp8266Configure(void) {
     esp8266Putstring("AT+GMR\r\n");
     // start configuration with AT commands
     // configure esp8266 as access point (own network)
-    esp8266Putstring("AT+CWMODE=2\r\n");
+    esp8266Putstring("AT+CWMODE_CUR=2\r\n");
     // configure for multiple connections
     esp8266Putstring("AT+CIPMUX=1\r\n");
     // turn on the CIP server at port 80
     esp8266Putstring("AT+CIPSERVER=1,80\r\n");
     // get the IP address
-    esp8266Putstring("CIFSR\r\n");
+    esp8266Putstring("AT+CIFSR\r\n");
 }
 
 /*

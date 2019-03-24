@@ -20,17 +20,24 @@
 // These are macros needed for defining ISRs, included in XC32
 #include <sys/attribs.h>
 
+#include "delay_timer.h"
+
 // Sizes of TX and RX ring buffers
 #define ESP_8266_TX_BUFFER_SIZE 2048
 #define ESP_8266_RX_BUFFER_SIZE 4096
 
 char esp_8266_line[ESP_8266_RX_BUFFER_SIZE];
 
+extern volatile uint32_t esp_8266_TxHead;
+extern volatile uint32_t esp_8266_TxTail;
+extern volatile uint32_t esp_8266_TxBufferRemaining;
+
+
 // This function initializes UART 6 for USB debugging
 void esp8266Initialize(void);
 
 // This function configures the esp on initialization
-void esp8366InitializeConfiguration(void);
+void esp8266InitializeConfiguration(void);
 
 // These are the USB UART Interrupt Service Routines
 void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void);
