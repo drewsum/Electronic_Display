@@ -108,6 +108,14 @@ public class SelectionFragment extends Fragment {
                 } else if (fragmentReturn == "upload") {
                     // can select device or project from upload
 
+                } else if (fragmentReturn == "control") {
+                    // device contol
+                    DeviceControlFragment controlFrag = new DeviceControlFragment();
+                    arguments.putString("deviceName", selectedItem);
+                    controlFrag.setArguments(arguments);
+                    // switch to device control screen
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.flContent, controlFrag).commit();
                 }
             }
         });

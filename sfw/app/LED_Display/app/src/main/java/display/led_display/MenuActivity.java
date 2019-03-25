@@ -20,6 +20,7 @@ public class MenuActivity extends AppCompatActivity
         ProjectPreviewFragment.OnFragmentInteractionListener,
         EditProjectFragment.OnFragmentInteractionListener,
         SelectionFragment.OnFragmentInteractionListener,
+        DeviceControlFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -99,6 +100,10 @@ public class MenuActivity extends AppCompatActivity
             arguments.putString( "fragmentReturn" , "preview");
         } else if (id == R.id.nav_upload) {
             fragmentClass = UploadProjectFragment.class;
+        } else if (id == R.id.nav_control) {
+            fragmentClass = SelectionFragment.class;
+            arguments.putString("selectionType", "device");
+            arguments.putString("fragmentReturn", "control");
         }
 
         try {

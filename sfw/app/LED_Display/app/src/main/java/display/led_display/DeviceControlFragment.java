@@ -7,6 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import display.led_display.helper.TinyDB;
 
 
 /**
@@ -26,6 +34,9 @@ public class DeviceControlFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ArrayList<String> deviceList;
+    private int brightnessLevel = 0;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +75,49 @@ public class DeviceControlFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_device_control, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_device_control, container, false);
+        Bundle arguments = getArguments();
+        final String deviceName = arguments.getString("deviceName");
+        TextView textDeviceName = (TextView) rootView.findViewById(R.id.textDeviceName);
+        textDeviceName.setText("Controlling Device: " + deviceName);
+        TinyDB tinyDB = new TinyDB(getContext());
+        //deviceList = tinyDB.getListString(projectName + "frameList");
+        // set up Power button
+        Button buttonPower = (Button) rootView.findViewById(R.id.buttonPower);
+        buttonPower.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // send WiFi command to Turn Multiplexing ON
+            }
+        });
+        // set up Brightness seekbar
+        final TextView textBrightness = (TextView) rootView.findViewById(R.id.textBrightness);
+        SeekBar seekbar = (SeekBar) rootView.findViewById(R.id.seekBar);
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+           @Override
+           public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+               brightnessLevel = progress;
+                textBrightness.setText("Brightness: " + progress);
+           }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+           }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+           }
+       });
+        Button buttonSendCommand = (Button) rootView.findViewById(R.id.buttonSendCommand);
+        buttonSendCommand.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // send AT command to microcontroller
+                EditText editWiFiCommands = (EditText) rootView.findViewById(R.id.editWiFiCommands);
+                String commands = editWiFiCommands.getText().toString();
+            }
+        });
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

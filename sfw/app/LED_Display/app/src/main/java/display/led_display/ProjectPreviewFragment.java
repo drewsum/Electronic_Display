@@ -86,7 +86,6 @@ public class ProjectPreviewFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_project_preview, container, false);
         // Inflate the layout for this fragment
         Bundle arguments = getArguments();
-        // this only works night now if you nav from new project
         final String projectName = arguments.getString("projectName");
         TextView textDisplayingProject = (TextView) rootView.findViewById(R.id.textDisplayingProject);
         textDisplayingProject.setText("Preview Project: " + projectName);
