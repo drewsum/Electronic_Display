@@ -157,6 +157,15 @@ void clockInitialize(void) {
     
     // Initialize the PLL
     PLLInitialize();
+    
+    // Set new clock source as SPLL
+    OSCCONbits.NOSC = 0b001;
+    
+    // Initiate clock switch
+    OSCCONbits.OSWEN = 1;
+    
+    // wait for switch to complete
+    while (OSCCONbits.OSWEN == 1);
         
     // lock clock and PLL settings
     OSCCONbits.CLKLOCK = 1;
@@ -789,15 +798,24 @@ void printClockStatus(uint32_t input_sysclk) {
     else terminalTextAttributes(RED, BLACK, NORMAL);
     printf("\n\r    Dream Mode %s\n\r", OSCCONbits.DRMEN ? "Enabled" : "Disabled");
     
-    // Print PLL status
+    // Print boot PLL status
     terminalTextAttributes(GREEN, BLACK, NORMAL);
-    printf("\n\r    PLL Input Divider is set to: %d\n\r", (DEVCFG2bits.FPLLIDIV + 1));
-    printf("    PLL Multiplier is set to: %d\n\r", (DEVCFG2bits.FPLLMULT + 1));
-    printf("    PLL Output Divider is set to: %d\n\r", (DEVCFG2bits.FPLLODIV + 1));
+    printf("\n\r    Boot PLL Input Divider is set to: %d\n\r", (DEVCFG2bits.FPLLIDIV + 1));
+    printf("    Boot PLL Multiplier is set to: %d\n\r", (DEVCFG2bits.FPLLMULT + 1));
+    printf("    Boot PLL Output Divider is set to: %d\n\r", (DEVCFG2bits.FPLLODIV + 1));
     
-    printf("    Overall PLL Gain is: %.3f\n\r", 
+    printf("    Overall Boot PLL Gain is: %.3f\n\r", 
             (float) (DEVCFG2bits.FPLLMULT + 1) / ((DEVCFG2bits.FPLLIDIV) + (DEVCFG2bits.FPLLODIV) + 1));
     
+    
+    // Print changed PLL status
+    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    printf("\n\r    Operational PLL Input Divider is set to: %d\n\r", (SPLLCONbits.PLLIDIV + 1));
+    printf("    Operational PLL Multiplier is set to: %d\n\r", (SPLLCONbits.PLLMULT + 1));
+    printf("    Operational PLL Output Divider is set to: %d\n\r", (SPLLCONbits.PLLODIV + 1));
+    
+    printf("    Overall Operational PLL Gain is: %.3f\n\r", 
+            (float) (SPLLCONbits.PLLMULT + 1) / ((SPLLCONbits.PLLIDIV) + (SPLLCONbits.PLLODIV) + 1));
     
     
     // Determine refclk1
@@ -932,4 +950,22 @@ void printClockStatus(uint32_t input_sysclk) {
 
     terminalTextAttributesReset();
 
+}
+
+// This function initializes the random number generator
+void RNGInitialize(void) {
+ 
+    // Enable ring oscillator bias correction mode
+    RNGCONbits.TRNGMODE = 1;
+    
+    // Change numbers continously
+    RNGCONbits.CONT = 1;
+    
+    // Enable both TRNG and PRNG
+    RNGCONbits.TRNGEN = 1;
+    RNGCONbits.PRNGEN = 1;
+    
+    // Load seed
+    RNGCONbits.LOAD = 1;
+    
 }

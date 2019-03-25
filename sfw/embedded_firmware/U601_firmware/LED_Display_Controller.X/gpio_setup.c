@@ -490,6 +490,7 @@ void portGGPIOInitialize (void){
     TRISGbits.TRISG0    = TRIS_OUTPUT;
     LATGbits.LATG0      = LAT_LOW;
     ODCGbits.ODCG0      = ODC_DISABLE;
+    RPG0Rbits.RPG0R     = 0b1011;               // Routed OC4 to RPG0
     
     // Setup RG1
     TRISGbits.TRISG1    = TRIS_OUTPUT;
@@ -509,12 +510,14 @@ void portGGPIOInitialize (void){
     LATGbits.LATG7      = LAT_LOW;
     ODCGbits.ODCG7      = ODC_DISABLE;
     ANSELGbits.ANSG7    = ANALOG_DISABLE;
+    RPG7Rbits.RPG7R     = 0b0001;               // Set RG7 to U1TX
     
     // Setup RG8
     TRISGbits.TRISG8    = TRIS_INPUT;
     LATGbits.LATG8      = LAT_LOW;
     ODCGbits.ODCG8      = ODC_DISABLE;
     ANSELGbits.ANSG8    = ANALOG_DISABLE;
+    U1RXRbits.U1RXR     = 0b0001;               // RG8 to U1RX
     
     // Setup RG9
     TRISGbits.TRISG9    = TRIS_OUTPUT;

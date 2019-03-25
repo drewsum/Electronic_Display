@@ -72,9 +72,17 @@ struct adc_results_t {
     double POS5P_adc_min;
     double POS5P_adc_max;
     uint32_t POS5P_adc_raw;
+    double vref_adc;
+    uint32_t vref_adc_raw;
+    double die_temp_adc;
+    double die_temp_adc_min;
+    double die_temp_adc_max;
+    uint32_t die_temp_adc_raw;
     
 } adc_results;
 
+// This is an ADC result scaling factor calculated using the internal reference voltage
+double adc_cal_gain;
 
 // This function initializes the ADC modules
 void ADCInitialize(void);
@@ -102,6 +110,12 @@ void __ISR(_ADC_DATA41_VECTOR, IPL1SRS) POS5P5ADCISR(void);
 
 // This is the POS5P_ADC Interrupt Service Routine
 void __ISR(_ADC_DATA42_VECTOR, IPL1SRS) POS5PADCISR(void);
+
+// This is the VREF_ADC Interrupt Service Routine
+void __ISR(_ADC_DATA43_VECTOR, IPL1SRS) VREFADCISR(void);
+
+// This is the DIE_TEMP_ADC Interrupt service Routine
+void __ISR(_ADC_DATA44_VECTOR, IPL1SRS) DieTempADCISR(void);
 
 // This is the ADC end of scan interrupt service routine
 void __ISR(_ADC_EOS_VECTOR, IPL1SRS) ADCEndOfScanISR(void);

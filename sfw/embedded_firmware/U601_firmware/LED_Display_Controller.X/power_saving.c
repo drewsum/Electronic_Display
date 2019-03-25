@@ -37,16 +37,16 @@ void PMDInitialize(void) {
     PMD3bits.IC8MD = 1;
     PMD3bits.IC9MD = 1;
     
-    // Disable all output compare modules besides OC9
+    // Disable all output compare modules besides OC4
     PMD3bits.OC1MD = 1;
     PMD3bits.OC2MD = 1;
     PMD3bits.OC3MD = 1;
-    PMD3bits.OC4MD = 1;
+    PMD3bits.OC4MD = 0;
     PMD3bits.OC5MD = 1;
     PMD3bits.OC6MD = 1;
     PMD3bits.OC7MD = 1;
     PMD3bits.OC8MD = 1;
-    PMD3bits.OC9MD = 0;
+    PMD3bits.OC9MD = 1;
     
     // Enable all hardware timers
     // TO-DO: This may change
@@ -71,7 +71,7 @@ void PMDInitialize(void) {
     // Enable SPI3, disable others
     PMD5bits.SPI1MD = 1;
     PMD5bits.SPI2MD = 1;
-    PMD5bits.SPI3MD = 1;                // CHANGE MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+    PMD5bits.SPI3MD = 0;                
     PMD5bits.SPI4MD = 1;
     PMD5bits.SPI5MD = 1;
     PMD5bits.SPI6MD = 1;
@@ -91,7 +91,6 @@ void PMDInitialize(void) {
     PMD5bits.CAN2MD = 1;
     
     // Disable real time clock/calendar
-    // TO-DO: This may change
     PMD6bits.RTCCMD = 1;
     
     // Disable all reference clocks
@@ -114,12 +113,10 @@ void PMDInitialize(void) {
     PMD6bits.ETHMD = 1;
     
     // Disable DMA
-    // TO-DO: This may change
     PMD7bits.DMAMD = 1;
     
-    // Disable random number generator
-    // TO-DO: This may change
-    PMD7bits.RNGMD = 1;
+    // Enable random number generator
+    PMD7bits.RNGMD = 0;
     
     // Lock PMD
     PMDLock();
@@ -146,14 +143,16 @@ void printPMDStatus(void) {
     printf("   Comparator Voltage Reference Enabled:     %s\n\r", PMD1bits.CVRMD ? "F" : "T");
     
     // Comparators
-    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    if (PMD2bits.CMP1MD) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("   Comparator 1 Enabled:                     %s\n\r", PMD2bits.CMP1MD ? "F" : "T");
     if (PMD2bits.CMP2MD) terminalTextAttributes(RED, BLACK, REVERSE);
     else terminalTextAttributes(GREEN, BLACK, REVERSE);
     printf("   Comparator 2 Enabled:                     %s\n\r", PMD2bits.CMP2MD ? "F" : "T");
     
     // Input Capture Modules:
-    terminalTextAttributes(GREEN, BLACK, NORMAL);
+    if (PMD3bits.IC1MD) terminalTextAttributes(RED, BLACK, NORMAL);
+    else terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("   Input Capture 1 Enabled:                  %s\n\r", PMD3bits.IC1MD ? "F" : "T");
     if (PMD3bits.IC2MD) terminalTextAttributes(RED, BLACK, REVERSE);
     else terminalTextAttributes(GREEN, BLACK, REVERSE);

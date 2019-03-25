@@ -16,6 +16,8 @@
 #ifndef _EXTERNAL_BUS_INTERFACE_H    /* Guard against multiple inclusion */
 #define _EXTERNAL_BUS_INTERFACE_H
 
+#define EBI_SRAM_SIZE 262144
+
 // EBI initialization function
 
 void ebiInitialize(void);

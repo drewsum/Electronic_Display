@@ -14,11 +14,11 @@
 #include <stddef.h>
 
 // Include device control APIs
-// These are APIs written for portability between projects and set up the device
+// These are modules written for portability between projects and set up the device
 // for basic use
-// The functions allow low level control of the device
+// These functions allow low level control of the device
 #include "device_control.h"
-// Include PIC32MZ interrupt control APIs
+// Include PIC32MZ interrupt control
 #include "32mz_interrupt_control.h"
 // Include cause of reset determination
 #include "cause_of_reset.h"
@@ -39,7 +39,7 @@
 #include "pin_macros.h"
 // heartbeat timer
 #include "heartbeat_timer.h"
-// Power saving APIs (PMD, SLEEP, etc)
+// Power saving module (PMD, SLEEP, etc)
 #include "power_saving.h"
 // Terminal control for USB debugging
 #include "terminal_control.h"
@@ -61,13 +61,19 @@
 #include "misc_board_control.h"
 // Test Buffer Fills
 #include "test_buffer_fills.h"
+// Delay Timer
+#include "delay_timer.h"
 
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
+// esp8266 Ready Flag
+extern volatile uint8_t esp_8266_RxStringReady;
 
-// Cause of Device Reset
+// Cause of Device Reset global variable
 reset_cause_t reset_cause;
 
+// EBI init needs to be called before data initialization because EBI SRAM array
+// will be initialized before entrance into main();
 void _on_reset (void) {
  
     ebiInitialize();
@@ -95,9 +101,6 @@ void main(void) {
     
     // Initialize GPIO pins to startup settings
     gpioInitialize();
-    
-    // Setup core timer
-    coreTimerInitialize();
     
     // Initialize UART USB debugging
     usbUartInitialize();
@@ -139,7 +142,6 @@ void main(void) {
     printf("Interrupt Controller Initialized, Global Interrupts Enabled\n\r");
     printf("GPIO Pins Initialized\n\r");
     printf("USB UART Initialized\n\r");
-    printf("Core Timer Initialized\n\r");
     
     // Setup error handling
     errorHandlerInitialize();
@@ -165,6 +167,10 @@ void main(void) {
     deadmanTimerInitialize();
     printf("Deadman Timer Initialized\n\r");
     
+    // Startup the delay timer
+    delayTimerInitialize();
+    printf("Delay Timer Initialized\r\n");
+    
     // EBI set up
     uint8_t ebi_exit_success = testEBISRAM();
     
@@ -172,26 +178,37 @@ void main(void) {
          
             error_handler.EBI_error_flag = 1;
             updateErrorLEDs();
+            terminalTextAttributesReset();
             terminalTextAttributes(RED, BLACK, NORMAL);
             printf("EBI SRAM Initialized, but R/W self test failed\n\r");
             terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
         
         }
         
         else {
-         
-            printf("EBI SRAM Initialized, R/W self test passed\n\r");
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("EBI SRAM Initialized, R/W self test passed \n\r");
             clearEBISRAM();
         
         }
     
     // Initialize SPI
-//    spiFlashInit();
-//    printf("SPI Flash Initialized\n\r");
+    spiFlashInit();
+    printf("SPI Flash Initialized\n\r");
     
-    // Initialize Analog to Digital Converter
-    ADCInitialize();
-    printf("ADC Initialized\n\r");
+    // Initialize ESP 8266 chip
+    esp8266Initialize();
+    printf("ESP8266 Initialized\n\r");
+    
+    // Setup RNG for random pixel values
+    RNGInitialize();
+    printf("Random Number Generator Initialized\n\r");
+    
+    // Setup panel brightness PWM
+    panelPWMInitialize();
+    printf("Panel Brightness PWM Initialized\n\r");
 
     // Turn off RESET LED
     nACTIVE_LED_PIN = 0;
@@ -207,7 +224,7 @@ void main(void) {
     
     // Start Timer5
     panelMultiplexingTimerInitialize();
-    printf("Multiplexing Timer Initialized\n\r");
+    printf("Panel Multiplexing Timer Initialized, Multiplexing Started\n\r");
  
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
@@ -220,6 +237,8 @@ void main(void) {
     // Update error LEDs based on error handler status
     updateErrorLEDs(); 
     
+    // Setup ESP after UART1 has been initialized
+    esp8266InitializeConfiguration();
     
     // Loop endlessly
     while (true) {
@@ -232,6 +251,11 @@ void main(void) {
 
             usbUartRingBufferPull();
         
+        }
+        
+        // Check if we've got a received WiFi string waiting
+        if(esp_8266_RxStringReady != 0) {
+            esp8266RingBufferPull();
         }
         
     }

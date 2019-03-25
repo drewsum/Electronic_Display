@@ -38,9 +38,9 @@ char usb_uart_line[USB_UART_RX_BUFFER_SIZE];
 extern volatile uint32_t usb_uart_RxBufferRemaining;
 extern volatile uint32_t usb_uart_RxCount;
 
-extern volatile uint64_t usb_uart_TxHead;
-extern volatile uint64_t usb_uart_TxTail;
-extern volatile uint64_t usb_uart_TxBufferRemaining;
+extern volatile uint32_t usb_uart_TxHead;
+extern volatile uint32_t usb_uart_TxTail;
+extern volatile uint32_t usb_uart_TxBufferRemaining;
 extern volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
 
 
@@ -49,7 +49,7 @@ void usbUartInitialize(void);
 
 // These are the USB UART Interrupt Service Routines
 void __ISR(_UART3_RX_VECTOR, ipl2SRS) usbUartReceiveISR(void);
-void __ISR(_UART3_TX_VECTOR, ipl7SRS) usbUartTransferISR(void);
+void __ISR(_UART3_TX_VECTOR, ipl6SRS) usbUartTransferISR(void);
 void __ISR(_UART3_FAULT_VECTOR, ipl1SRS) usbUartFaultISR(void);
 
 // This function allows reading of a byre from UART3
@@ -69,9 +69,13 @@ void usbUartRingBufferLUT(char * USB_UART_line);
 // Misc functions
 void usbUartPrintHelpMessage(void);
 
-
 // This function returns a string of a large number of seconds in a human readable format
 char * getStringSecondsAsTime(uint32_t input_seconds);
+
+// This function compares the "needle" string parameter to see if it is the 
+// beginning of the "haystack" string variable
+// Returns 0 for success, 1 for failure
+uint8_t strstart(const char * haystack, const char * needle);
 
 #endif /* _USB_UART_H */
 

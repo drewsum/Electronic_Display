@@ -2,6 +2,7 @@
 #include <xc.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
 // These are macros needed for defining ISRs, included in XC32
@@ -20,17 +21,21 @@
 #include "adc.h"
 #include "panel_control.h"
 #include "test_buffer_fills.h"
+#include "spi_flash.h"
+#include "esp8266.h"
 
-#include "nfl_logo.h"
+// #include "test_image_1.h"
+// #include "test_image_2.h"
+#include "esp8266.h"
 
-volatile uint64_t usb_uart_TxHead = 0;
-volatile uint64_t usb_uart_TxTail = 0;
+volatile uint32_t usb_uart_TxHead = 0;
+volatile uint32_t usb_uart_TxTail = 0;
 volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
-volatile uint64_t usb_uart_TxBufferRemaining;
+volatile uint32_t usb_uart_TxBufferRemaining;
 
 volatile uint32_t usb_uart_RxHead = 0;
 volatile uint32_t usb_uart_RxTail = 0;
-volatile uint32_t usb_uart_RxBuffer[USB_UART_RX_BUFFER_SIZE];
+volatile uint8_t usb_uart_RxBuffer[USB_UART_RX_BUFFER_SIZE];
 volatile uint32_t usb_uart_RxCount;
 
 volatile uint8_t usb_uart_RxStringReady = 0;
@@ -39,11 +44,13 @@ volatile uint8_t usb_uart_RxStringReady = 0;
 extern uint32_t device_on_time_counter;
 extern reset_cause_t reset_cause;
 
-
+uint8_t muxing_state;
 
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void) {
  
+    __XC_UART = 3;
+    
     // Disable UART 3 interrupts
     disableInterrupt(UART3_Receive_Done);
     disableInterrupt(UART3_Transfer_Done);
@@ -124,7 +131,7 @@ void usbUartInitialize(void) {
     
     // Set interrupt priorities
     setInterruptPriority(UART3_Receive_Done, 2);
-    setInterruptPriority(UART3_Transfer_Done, 7);
+    setInterruptPriority(UART3_Transfer_Done, 6);
     setInterruptPriority(UART3_Fault, 1);
     
     // Set interrupt subpriorities
@@ -139,7 +146,15 @@ void usbUartInitialize(void) {
     
     // Enable UART 3
     U3MODEbits.ON = 1;
-            
+    
+    // Trick UART into thinking user has pressed enter twice
+//    U3MODEbits.LPBACK = 1;
+//    U3TXREG = '\n';
+//    U3TXREG = '\r';
+//    U3TXREG = '\n';
+//    U3TXREG = '\r';
+//    U3MODEbits.LPBACK = 0;
+    
     // Enable receive and error interrupts
     // Transfer interrupt is set in write function
     enableInterrupt(UART3_Receive_Done);
@@ -159,7 +174,7 @@ void __ISR(_UART3_RX_VECTOR, ipl2SRS) usbUartReceiveISR(void) {
 }
 
 // This is the USB UART transfer interrupt service routine
-void __ISR(_UART3_TX_VECTOR, ipl7SRS) usbUartTransferISR(void) {
+void __ISR(_UART3_TX_VECTOR, ipl6SRS) usbUartTransferISR(void) {
     
     // Do transfer tasks
     usbUartTransmitHandler();
@@ -216,6 +231,8 @@ void usbUartPutchar(uint8_t txData) {
     if(0 == getInterruptEnable(UART3_Transfer_Done))
     {
         U3TXREG = txData;
+        muxing_state = T5CONbits.ON;
+        panelMultiplexingSuspend();
    
     }
     else
@@ -254,6 +271,7 @@ void usbUartTransmitHandler(void) {
     else
     {
         disableInterrupt(UART3_Transfer_Done);
+        if (muxing_state) panelMultiplexingTimerStart();
         
     }
     
@@ -268,6 +286,7 @@ void usbUartReceiveHandler(void) {
     {
         U3MODEbits.ON = 0;
         error_handler.USB_error_flag = 1;
+        U3STAbits.OERR = 0;
         U3MODEbits.ON = 1;
     }
     
@@ -387,7 +406,7 @@ void usbUartRingBufferLUT(char * line_in) {
  
     // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
     // ACT ON IT
-
+    
     if (strcmp(line_in, "Reset") == 0) {
 
          deviceReset();
@@ -556,26 +575,76 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "Print Internal RAM Contents") == 0) {
+        
+        terminalTextAttributesReset();
+        panelDataBufferPrint();
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Copy EBI SRAM to Buffer") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Moving EBI SRAM data into internal RAM buffer\n\r");
+        
+        movePanelDataFromEBISRAM();
+        
+        printf("Data copy complete\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Copy Buffer to EBI SRAM") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Moving Internal RAM buffer data into EBI SRAM\n\r");
+        
+        movePanelDataToEBISRAM();
+        
+        printf("Data copy complete\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
     // Identification command
     else if(strcmp(line_in, "Enable Muxing") == 0) {
      
         // Disable multiplexing timer
         panelMultiplexingTimerStart();
+        muxing_state = 1;
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Multiplexing Enabled\n\r");
+        printf("Panel multiplexing Enabled\n\r");
         terminalTextAttributesReset();
         
     }
     
     // disable multiplexing
     else if(strcmp(line_in, "Disable Muxing") == 0) {
-     
-        // Disable multiplexing timer
-        panelMultiplexingTimerStop();
+    
+        // Suspend panel multiplexing, clear all panel IO signals
+        panelMultiplexingSuspend();
+        muxing_state = 0;
         
+        terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("Multiplexing Disabled\n\r");
+        printf("Panel multiplexing Disabled\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // set ram buffer black
+    else if(strcmp(line_in, "Set Black") == 0) {
+     
+        fillRamBufferBlack();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with black data\n\r");
         terminalTextAttributesReset();
         
     }
@@ -585,6 +654,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferWhite();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with white data\n\r");
         terminalTextAttributesReset();
@@ -596,6 +666,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferRed();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with red data\n\r");
         terminalTextAttributesReset();
@@ -607,6 +678,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferBlue();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with blue data\n\r");
         terminalTextAttributesReset();
@@ -618,6 +690,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferGreen();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with green data\n\r");
         terminalTextAttributesReset();
@@ -629,6 +702,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferCyan();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with cyan data\n\r");
         terminalTextAttributesReset();
@@ -640,6 +714,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferRand();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with random data\n\r");
         terminalTextAttributesReset();
@@ -651,6 +726,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferMagenta();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with magenta data\n\r");
         terminalTextAttributesReset();
@@ -662,6 +738,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferYellow();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with yellow data\n\r");
         terminalTextAttributesReset();
@@ -673,6 +750,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferEveryOtherRed();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with stripes of red\n\r");
         terminalTextAttributesReset();
@@ -685,6 +763,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferEveryOtherBlue();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with stripes of blue\n\r");
         terminalTextAttributesReset();
@@ -696,6 +775,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferEveryOtherGreen();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with stripes of green\n\r");
         terminalTextAttributesReset();
@@ -707,6 +787,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferChristmas();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with christmas stripes\n\r");
         terminalTextAttributesReset();
@@ -719,6 +800,7 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferRGBStripes();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with rgb stripes\n\r");
         terminalTextAttributesReset();
@@ -730,56 +812,62 @@ void usbUartRingBufferLUT(char * line_in) {
      
         fillRamBufferRedRow();
         
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Ram buffer filled with red rows\n\r");
         terminalTextAttributesReset();
         
     }
     
-    // set ram buffer to red rows
-    else if(strcmp(line_in, "Set NFL Logo") == 0) {
+//    else if(strcmp(line_in, "Set Test Image 1") == 0) {
+//     
+//        fillRamBufferTestImage1();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with Test Image 1\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    else if(strcmp(line_in, "Set Test Image 2") == 0) {
+//     
+//        fillRamBufferTestImage2();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with Test Image 2\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
+    
+    else if (strstart(line_in, "Set Panel Muxing On Time ") == 0) {
      
-        fillRamBufferNFL();
+        // Get PR5 setting
+        uint32_t set_period;
+        sscanf(line_in, "Set Panel Muxing On Time %u", &set_period);
         
+        PR5 = set_period;
+        
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with NFL logo\n\r");
+        printf("Set Panel multiplexing timer period to %d\n\r", set_period);
         terminalTextAttributesReset();
         
     }
     
-    // slow down multiplexing command
-    else if(strcmp(line_in, "Slow Muxing Speed") == 0) {
-     
-        PR5 = 65535;                      
-        T5CONbits.TCKPS = 0b001;        // set prescale to 2
-        
-        terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("Slowed down the multiplexing speed\n\r");
-        terminalTextAttributesReset();
-        
-    }
+    // Set panel brightness
+    else if (strstart(line_in, "Set Panel Brightness ") == 0) {
     
-    // slow down multiplexing command
-    else if(strcmp(line_in, "Slowest Muxing Speed") == 0) {
-     
-        PR5 = 65535;                      
-        T5CONbits.TCKPS = 0b100;        // set prescale to 16
-
+        // Get which chip we're erasing
+        uint32_t set_brightness;
+        sscanf(line_in, "Set Panel Brightness %u", &set_brightness);
         
-        terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("Slowed down the multiplexing speed extreme\n\r");
+        panelPWMSetBrightness((uint8_t) set_brightness);
+        
         terminalTextAttributesReset();
-        
-    }
-    
-    // reset multiplexing command
-    else if(strcmp(line_in, "Reset Muxing Speed") == 0) {
-     
-        PR5 = 250;                      
-        T5CONbits.TCKPS = 0b000;        // set prescale to 1
-        
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Reset multiplexing speed\n\r");
+        printf("Set Panel Brightness to %d\n\r", set_brightness);
         terminalTextAttributesReset();
         
     }
@@ -812,11 +900,94 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+        
+    else if (strstart(line_in, "SPI Flash Chip Read ") == 0) {
+    
+        // Get which chip we're erasing
+        uint32_t chip_to_read;
+        sscanf(line_in, "SPI Flash Chip Read %u", &chip_to_read);
+        
+        if (chip_to_read <= 8 && chip_to_read >= 1) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Reading chip %d\n\r", chip_to_read);
+            terminalTextAttributesReset();
+
+            SPI_FLASH_beginRead(chip_to_read);
+            
+        }
+        
+        else {
+         
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("Chip %u is not valid\n\r", chip_to_read);
+            terminalTextAttributesReset();
+        
+        }
+
+    }
+    
+    else if (strstart(line_in, "SPI Flash Chip Write ") == 0) {
+        
+        uint32_t chip_to_write;
+        sscanf(line_in, "SPI Flash Chip Write %u", &chip_to_write);
+        
+        if (chip_to_write <= 8 && chip_to_write >= 1) {
+            
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Writing to chip %u\n\r", chip_to_write);
+            terminalTextAttributesReset();
+            SPI_FLASH_beginWrite(chip_to_write);
+
+        }
+        
+        else {
+         
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("Chip %u is not valid\n\r", chip_to_write);
+            terminalTextAttributesReset();
+            
+        }
+        
+        
+    }
+    
+    else if (strstart(line_in, "SPI Flash Chip Erase ") == 0) {
+    
+        // Get which chip we're erasing
+        uint32_t chip_to_erase;
+        sscanf(line_in, "SPI Flash Chip Erase %u", &chip_to_erase);
+        
+        if (chip_to_erase <= 8 && chip_to_erase >= 1) {
+            
+            SPI_Flash_writeEnable(chip_to_erase);
+            SPI_Flash_blockProtectionDisable(chip_to_erase);
+            SPI_Flash_writeEnable(chip_to_erase);
+            SPI_FLASH_chipErase(chip_to_erase);
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Erased chip %u\n\r", chip_to_erase);
+            terminalTextAttributesReset();
+        
+        }
+        
+        else {
+         
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("Chip %u is not valid\n\r", chip_to_erase);
+            terminalTextAttributesReset();
+            
+        }
+            
+
+    }
+    
     else if (strcmp(line_in, "Serial Number?") == 0) {
      
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("PIC32MZ Serial Number retrieved from Flash: 0x%X%X\n\r",
+        printf("PIC32MZ Serial Number retrieved from Flash: %s\n\r",
                 getStringSerialNumber());
         terminalTextAttributesReset();
         
@@ -892,15 +1063,40 @@ void usbUartRingBufferLUT(char * line_in) {
     
     else if (strcmp(line_in, "ADC Raw Data?") == 0) {
     
-        terminalTextAttributesReset();
-        terminalTextAttributes(CYAN, BLACK, NORMAL);
-        printf("Most recent raw 12 bit ADC conversions:\n\r");
-        printf("    +3.3V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS3P3_adc_raw);
-        printf("    +12V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS12_adc_raw);
-        printf("    +5.5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P5_adc_raw);
-        printf("    +5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5_adc_raw);
-        printf("    +5VP Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P_adc_raw);
-        terminalTextAttributesReset();
+        if (error_handler.ADC_configuration_error_flag) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else if (ADCCON3bits.DIGEN7 == 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Not Initialized\n\r");
+            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else {
+            terminalTextAttributesReset();
+            terminalTextAttributes(CYAN, BLACK, NORMAL);
+            printf("Most recent raw 12 bit ADC conversions:\n\r");
+            printf("    +3.3V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS3P3_adc_raw);
+            printf("    +12V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS12_adc_raw);
+            printf("    +5.5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P5_adc_raw);
+            printf("    +5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5_adc_raw);
+            printf("    +5VP Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P_adc_raw);
+            printf("    Internal VREF Raw ADC Conversion Result: 0x%08X\n\r", adc_results.vref_adc_raw);
+            printf("    Internal Die Temperature Raw ADC Conversion Result: 0x%08X\n\r", adc_results.die_temp_adc_raw);
+            terminalTextAttributesReset();
+
+    }
         
     }
     
@@ -909,8 +1105,19 @@ void usbUartRingBufferLUT(char * line_in) {
         if (error_handler.ADC_configuration_error_flag) {
          
             terminalTextAttributesReset();
-            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            terminalTextAttributes(RED, BLACK, NORMAL);
             printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else if (ADCCON3bits.DIGEN7 == 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Not Initialized\n\r");
+            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
             terminalTextAttributesReset();
             
         }
@@ -920,11 +1127,13 @@ void usbUartRingBufferLUT(char * line_in) {
             terminalTextAttributesReset();
             terminalTextAttributes(CYAN, BLACK, NORMAL);
             printf("Most recent ADC conversion results:\n\r");
-            printf("    +12V Input Voltage Measurement: %0.3f V\n\r", adc_results.POS12_adc);
-            printf("    +3.3V Power Supply Measurement: %0.3f V\n\r", adc_results.POS3P3_adc);
-            printf("    +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc);
-            printf("    +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc);
-            printf("    +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc);
+            printf("    +12V Input Voltage Measurement: %+0.3f V\n\r", adc_results.POS12_adc);
+            printf("    +3.3V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS3P3_adc);
+            printf("    +5V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5_adc);
+            printf("    +5.5V Linear Regulator Measurement: %+0.3f V\n\r", adc_results.POS5P5_adc);
+            printf("    +5VP LED Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5P_adc);
+            printf("    Internal VREF ADC Conversion Result: %+0.3f V\n\r", adc_results.vref_adc);
+            printf("    Internal Die Temperature ADC Conversion Result: %+0.3f C\n\r", adc_results.die_temp_adc);
             terminalTextAttributesReset();
 
         }
@@ -936,8 +1145,19 @@ void usbUartRingBufferLUT(char * line_in) {
         if (error_handler.ADC_configuration_error_flag) {
          
             terminalTextAttributesReset();
-            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            terminalTextAttributes(RED, BLACK, NORMAL);
             printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else if (ADCCON3bits.DIGEN7 == 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Not Initialized\n\r");
+            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
             terminalTextAttributesReset();
             
         }
@@ -952,6 +1172,7 @@ void usbUartRingBufferLUT(char * line_in) {
             printf("    Max +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc_max);
             printf("    Max +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc_max);
             printf("    Max +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc_max);
+            printf("    Max Internal Die Temperature ADC Conversion Result: %+0.3f C\n\r", adc_results.die_temp_adc_max);
             terminalTextAttributesReset();
 
         }
@@ -963,8 +1184,19 @@ void usbUartRingBufferLUT(char * line_in) {
         if (error_handler.ADC_configuration_error_flag) {
          
             terminalTextAttributesReset();
-            terminalTextAttributes(BLACK, BLACK, NORMAL);
+            terminalTextAttributes(RED, BLACK, NORMAL);
             printf("ADC Configuration Error\n\r");
+            terminalTextAttributesReset();
+            
+        }
+        
+        else if (ADCCON3bits.DIGEN7 == 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("ADC Not Initialized\n\r");
+            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
             terminalTextAttributesReset();
             
         }
@@ -979,10 +1211,17 @@ void usbUartRingBufferLUT(char * line_in) {
             printf("    Min +5V Power Supply Measurement: %0.3f V\n\r", adc_results.POS5_adc_min);
             printf("    Min +5.5V Linear Regulator Measurement: %0.3f V\n\r", adc_results.POS5P5_adc_min);
             printf("    Min +5VP LED Power Supply Measurement: %0.3f V\n\r", adc_results.POS5P_adc_min);
+            printf("    Min Internal Die Temperature ADC Conversion Result: %+0.3f C\n\r", adc_results.die_temp_adc_min);
             terminalTextAttributesReset();
 
         }
             
+    }
+    
+    else if (strcmp(line_in, "Initialize ADC") == 0) {
+     
+        ADCInitialize();
+        
     }
     
     else if (strcmp(line_in, "ADC Status?") == 0) {
@@ -1005,9 +1244,7 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("POS5 RUN Asserted\n\r");
         terminalTextAttributesReset();
-        
-        printf("%d\n\r", PORTFbits.RF2);
-        
+              
     }
     
     else if (strcmp(line_in, "POS5 Disable") == 0) {
@@ -1018,8 +1255,6 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributes(RED, BLACK, NORMAL);
         printf("POS5 RUN Deasserted\n\r");
         terminalTextAttributesReset();
-        
-        printf("%d\n\r", PORTFbits.RF2);
         
     }
     
@@ -1045,6 +1280,18 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strstart(line_in, "WiFi: ") == 0) {
+        // print WiFi command to UART1 RX
+        // esp8266Putstring(line_in);
+        
+        char *esp_tx_string = malloc(32);
+        memset(esp_tx_string, 0, sizeof(esp_tx_string));
+        sscanf(line_in, "WiFi: %31c", esp_tx_string);
+        
+        strcat(esp_tx_string, "\r\n");
+        esp8266Putstring(esp_tx_string);
+        
+    }
     
 }
 
@@ -1068,9 +1315,15 @@ void usbUartPrintHelpMessage(void) {
     printf("    DMT Status?: Prints the state of the deadman timer\n\r");
     printf("    Prefetch Status?: Prints the status of the predictive prefetch module\n\r");
     printf("    EBI Status?: Prints status of EBI configuration\r\n");
-    printf("    Test EBISRAM: Tests writing to and reading from external EBI SRAM\n\r");
+    printf("    Test EBI SRAM: Tests writing to and reading from external EBI SRAM\n\r");
     printf("    Print EBI SRAM Contents: Prints the data saved in EBI SRAM\n\r");
     printf("    Clear EBI SRAM: Resets all bytes within EBI SRAM to 0x00\n\r");
+    printf("    Print Internal RAM Contents: Prints the contents of the first kB of internal RAM buffer holding display data\n\r");
+    printf("    Copy Buffer to EBI SRAM: Moves data from Internal Buffer into EBI SRAM\n\r");
+    printf("    Copy EBI SRAM to Buffer: Moves data from EBI SRAM into Internal Buffer\n\r");
+    printf("    SPI Flash Chip Erase <x>: Erases the entered SPI Flash chip, x = 1:8\n\r");
+    printf("    SPI Flash Chip Write <x>: Writes the contents of the EBI SRAM buffer to the given SPI Flash chip, x = 1:8\n\r");
+    printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into EBI SRAM buffer, x = 1:8\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
@@ -1079,7 +1332,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    Serial Number?: Prints device serial number\n\r");
     printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
     printf("    Revision ID?: Prints silicon die revision ID\n\r");
-    printf("    ADC Results?: Prints results of the most recent ADC conversions for system power supplies\n\r");
+    printf("    Initialize ADC: Sets up the Analog to Digital Converter for measuring analog signals within the system\n\r");
+    printf("    ADC Results?: Prints results of the most recent ADC conversions for analog signals in the system\n\r");
     printf("    ADC Max Results?: prints the maximum recorded value for each ADC channel\n\r");
     printf("    ADC Min Results?: prints the minimum recorded value for each ADC channel\n\r");
     printf("    ADC Raw Data?: Prints the raw 12 bit results of the ADC conversions\n\r");
@@ -1090,36 +1344,36 @@ void usbUartPrintHelpMessage(void) {
     printf("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
     printf("    Enable Muxing: enables the multiplexing timer \n\r");
     printf("    Disable Muxing: disable the multiplexing timer \n\r");
-
     printf("    Print Test Message: Print out terminal test data\n\r");
     printf("    Credits: Displays creators\n\r");
     printf("    Help: This Command\n\r");
-    printf("    Set Red: Sets panels red\n\r");
-    printf("    Set White: Sets panels white\n\r");    
-    printf("    Set Blue: Sets panels blue\n\r");
-    printf("    Set Yellow: Sets panels yellow\n\r");
-    printf("    Set Cyan: Sets panels cyan\n\r");    
-    printf("    Set Green: Sets panels green\n\r");    
-    printf("    Set Magenta: Sets panels magenta\n\r");    
-//    printf("    Set MU Logo: Sets panel as MU Logo static image\n\r");
-    printf("    Set NFL Logo: Loads EBI SRAM with data for the NFL logo\n\r");
-    printf("    Set Rand: Sets panel to random data\n\r");
+    printf("    Set Red: Sets all pixels in display red\n\r");
+    printf("    Set Black: Sets all pixels to display black\n\r");
+    printf("    Set White: Sets all pixels in display white\n\r");    
+    printf("    Set Blue: Sets all pixels in display blue\n\r");
+    printf("    Set Yellow: Sets all pixels in display yellow\n\r");
+    printf("    Set Cyan: Sets all pixels in display cyan\n\r");    
+    printf("    Set Green: Sets all pixels in display green\n\r");    
+    printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
+    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
+    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
+    printf("    Set Rand: Sets pixels to display random data\n\r");
     printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
     printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
     printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
     printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
     printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
     printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
-    printf("    Slow Muxing Speed: Slows down multiplexing\n\r");
-    printf("    Slowest Muxing Speed: Slows down muxing speed extremely\n\r");
-    printf("    Reset Muxing Speed: Resets to faster multiplexing speed\n\r");
+    printf("    Set Panel Muxing On Time <x>: Sets the panel multiplexing timer period to x\n\r");
+    printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
+    printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");
     
-     
+    
     printf("Help messages and neutral responses appear in yellow\n\r");
     terminalTextAttributes(GREEN, BLACK, NORMAL);
     printf("System parameters and affirmative responses appear in green\n\r");
     terminalTextAttributes(CYAN, BLACK, NORMAL);
-    printf("Measurement responses appear in cyan\n\r");
+    printf("Measurement responses and WiFi responses appear in cyan\n\r");
     terminalTextAttributes(RED, BLACK, NORMAL);
     printf("Errors and negative responses appear in red\n\r");
     terminalTextAttributesReset();
@@ -1243,5 +1497,31 @@ char * getStringSecondsAsTime(uint32_t input_seconds) {
     }
     
     return return_string;
+    
+}
+
+// This function compares the "needle" string parameter to see if it is the 
+// beginning of the "haystack" string variable
+// Returns 0 for success, 1 for failure
+uint8_t strstart(const char * haystack, const char * needle) {
+ 
+    // First check to see if needle is longer than haystack, if it is 
+    // we already know this is not a match
+    if (strlen(needle) >= strlen(haystack)) return 1;
+    
+    // Next loop through each element in needle to see if it matches the 
+    // same character in haystack at the same position
+    // If the characters do not match, return 1
+    // After the loop, return 0 for exit success
+    uint8_t char_index;
+    for(char_index = 0; char_index < strlen(needle); char_index++) {
+        
+        // Return a 1 if there is not a match
+        if (needle[char_index] != haystack[char_index]) return 1;
+        
+    }
+    
+    // return a 0 for exit success
+    return 0;
     
 }

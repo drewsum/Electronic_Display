@@ -8,7 +8,7 @@
     watchdog_timer.h
 
   @Summary
- Sets up the watchdog timer for a 2 second timeout
+ Sets up the watchdog timer for a 2.048 second timeout
 
  */
 /* ************************************************************************** */
@@ -57,12 +57,6 @@ void printWatchdogStatus(void);
 
 // This function prints information on the deadman timer
 void printDeadmanStatus(void);
-
-// This function sets up the core timer, which resets the WDT and deadman timer
-void coreTimerInitialize(void);
-
-// This is the core timer interrupt service routine
-void __ISR(_CORE_TIMER_VECTOR, ipl7AUTO) coreTimerISR(void);
 
 #endif /* _WATCHDOG_TIMER_H */
 

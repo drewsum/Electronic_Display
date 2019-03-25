@@ -19,11 +19,11 @@ void prefetchInitialize(void) {
     // Enable prefetch SEC interrupt
     PRECONbits.PFMSECEN = 1;
     
-    // Set prefetch module access time to seven wait states
-    PRECONbits.PFMWS = 0b111;
+    // Set prefetch module access time to four wait states
+    PRECONbits.PFMWS = 0b100;
     
-    // Enable predictive prefetch for CPU instructions only
-    PRECONbits.PREFEN = 0b01;
+    // Enable predictive prefetch for any memory address
+    PRECONbits.PREFEN = 0b11;
     
     // Enable prefetch SEC interrupt
     enableInterrupt(Prefetch_Module_SEC_Event);

@@ -36,7 +36,7 @@ void heartbeatTimerInitialize(void) {
     clearInterruptFlag(Timer1);
     
     // Set Timer 1 interrupt priority
-    setInterruptPriority(Timer1, 4);
+    setInterruptPriority(Timer1, 6);
     
     // Clear on time counter
     device_on_time_counter = 0;
@@ -66,7 +66,7 @@ void heartbeatTimerStop(void) {
 }
 
 // Heartbeat timer interrupt service routine
-void __ISR(_TIMER_1_VECTOR, ipl4SRS) hearbeatTimerISR(void) {
+void __ISR(_TIMER_1_VECTOR, ipl6SRS) hearbeatTimerISR(void) {
 
     // Toggle heartbeat LED
     HEARTBEAT_LED_PIN = !(HEARTBEAT_LED_PIN);
@@ -78,6 +78,15 @@ void __ISR(_TIMER_1_VECTOR, ipl4SRS) hearbeatTimerISR(void) {
     device_on_time_counter++;
     
     // TO-DO: If we're going to keep track of display on time with a counter, increment it here too
+    
+    // Clear the watchdog timer
+    kickTheDog();
+    
+    // Clear the deadman timer
+    holdThumbTighter();
+    
+    // Check to see if DMT actually cleared
+    verifyThumbTightEnough();
     
     // Clear interrupt flag
     clearInterruptFlag(Timer1);

@@ -32,6 +32,8 @@ struct {
     unsigned configuration_error_flag                   : 1;    // error in device setup
     unsigned EBI_error_flag                             : 1;    // error with extended bus interface (external SRAM)
     unsigned SPI_error_flag                             : 1;    // Error with external flash SPI
+    unsigned SPI_receive_overflow_error_flag            : 1;    // A SPI receive overflow error occurred
+    unsigned SPI_transfer_underrun_error_flag           : 1;    // A SPI transfer underrun error occurred
     unsigned WIFI_error_flag                            : 1;    // Error with WIFI module
     unsigned USB_error_flag                             : 1;    // Error with USB debugging interface
     unsigned other_error_flag                           : 1;    // Other error event

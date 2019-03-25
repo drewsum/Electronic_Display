@@ -42,6 +42,9 @@ enum spi_flash_state_t {
     
 } spi_flash_state;
 
+// indexes ebi sram array as we read the flash chip
+uint32_t sram_addr_index;
+
 // Function to initialize SPI
 void spiFlashInit(void);
 
@@ -61,8 +64,30 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void);
 void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void);
 
 //SPI3 Transfer Done interrupt service routine
-void __ISR(_SPI3_TX_VECTOR, ipl4SRS) spi3TransferISR(void);
+void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void);
 
+// Function to write single byte to transmit FIFO
+void SPI3_writeByte(uint8_t write_byte);
+
+// Function to read single byte from receive FIFO
+uint8_t SPI3_readByte(void);
+
+// This function erases q spi flash chip
+void SPI_FLASH_chipErase(uint8_t chip_select);
+
+// This function reads from a spi flash chip
+void SPI_FLASH_beginRead(uint8_t chip_select);
+
+// This function writes to a spi flash chip
+void SPI_FLASH_beginWrite(uint8_t chip_select);
+
+// This function enables write enable
+void SPI_Flash_writeEnable(uint8_t chip_select);
+
+// This function programs the status register in the chip passed as a parameter
+// It sets all bits in the status register to 0, which disables block protection
+// The write enable functions must be called beforehand
+void SPI_Flash_blockProtectionDisable(uint8_t chip_select);
 
 #endif /* _SPI_FLASH_H */
 
