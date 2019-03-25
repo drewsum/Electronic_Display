@@ -285,6 +285,7 @@ void usbUartReceiveHandler(void) {
     {
         U3MODEbits.ON = 0;
         error_handler.USB_error_flag = 1;
+        U3STAbits.OERR = 0;
         U3MODEbits.ON = 1;
     }
     
