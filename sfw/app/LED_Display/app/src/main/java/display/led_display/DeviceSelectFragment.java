@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     private OnFragmentInteractionListener mListener;
     private ImageView mImageView;
     private Button mButton;
+    private GridView mGridView;
 
     public DeviceSelectFragment() {
         // Required empty public constructor
@@ -124,6 +126,7 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), WiFiActivity.class));
             }
         });
+        mGridView = rootView.findViewById(R.id.grid);
         mButton = rootView.findViewById(R.id.select_ppt);
         mImageView = rootView.findViewById(R.id.result);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +152,7 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     private void moveToNewActivity() {
         Intent i = new Intent(getActivity(), WiFiActivity.class);
         startActivity(i);
-        ((Activity) getActivity()).overridePendingTransition(0,0);
+        ((Activity) getActivity()).overridePendingTransition(0, 0);
 
     }
 
@@ -178,6 +181,7 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
                 break;
         }
     }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -196,8 +200,14 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        if(DisplayActivity.CROP_RESULT_BITMAP != null) {
+        if (DisplayActivity.CROP_RESULT_BITMAP != null) {
+            mGridView.setVisibility(View.GONE);
+            mImageView.setVisibility(View.VISIBLE);
             mImageView.setImageBitmap(DisplayActivity.CROP_RESULT_BITMAP);
+        } else if (ScreenUtil.mBitmaps != null && ScreenUtil.mBitmaps.size() != 0) {
+            mImageView.setVisibility(View.GONE);
+            mGridView.setVisibility(View.VISIBLE);
+            mGridView.setAdapter(new ItemImgAdapter(getContext(), ScreenUtil.mBitmaps));
         }
     }
 }

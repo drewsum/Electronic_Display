@@ -1,14 +1,26 @@
 package display.led_display;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.net.Uri;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -19,6 +31,11 @@ import com.isseiaoki.simplecropview.callback.LoadCallback;
 import com.jiang.geo.R;
 
 import java.io.File;
+
+import static android.webkit.WebView.enableSlowWholeDocumentDraw;
+import static display.led_display.ScreenUtil.CROP_PAGE;
+import static display.led_display.ScreenUtil.DURATION;
+import static display.led_display.ScreenUtil.all;
 
 /**
  * 展示文件的页面
@@ -41,10 +58,12 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
     // 记录两个菜单按钮，控制显隐
     private MenuItem crop, back;
     private WebView mWebView;
+    private boolean isSetHeight;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        enableSlowWholeDocumentDraw();
         setContentView(R.layout.activity_file_display);
         init();
     }
@@ -68,9 +87,28 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
         // 设置获取文件路径监听
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                mWebView.getLayoutParams().height = 100000;
+            }
+        });
         mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setDisplayZoomControls(false);
+        mWebView.getSettings().setUseWideViewPort(true);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.loadUrl(getIntent().getStringExtra("path"));
+        // mWebView.loadUrl("https://www.sina.com.cn"); // 测试地址
     }
 
     /**
@@ -123,6 +161,7 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
     public boolean onOptionsItemSelected(MenuItem item) {
         // 裁剪菜单事件
         if (item.getItemId() == R.id.crop) {
+            isSetHeight = false;
             mWebView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -150,7 +189,72 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
             finish();
             return true;
         }
+        if (item.getItemId() == R.id.all) {
+            isSetHeight = true;
+            View view = LayoutInflater.from(DisplayActivity.this)
+                    .inflate(R.layout.dialog_info, null, false);
+            final EditText et1 = (EditText) view.findViewById(R.id.et1);
+            final EditText et2 = (EditText) view.findViewById(R.id.et2);
+            new AlertDialog.Builder(DisplayActivity.this)
+                    .setTitle("Input Info")
+                    .setView(view)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String et1s = et1.getText().toString();
+                            String et2s = et2.getText().toString();
+                            if (TextUtils.isEmpty(et1s) || TextUtils.isEmpty(et2s)) {
+                                Toast.makeText(DisplayActivity.this, "Please enter information", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            int int1 = Integer.parseInt(et1s);
+                            int int2 = Integer.parseInt(et2s);
+                            if (int1 < int2) {
+                                Toast.makeText(DisplayActivity.this, "The total number of pages cannot be less than the number of truncated pages", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            ScreenUtil.CROP_PAGE = int2;
+                            ScreenUtil.TOTAL_PAGE = int1;
+                            Toast.makeText(DisplayActivity.this, "Please set the height of one page of PPT", Toast.LENGTH_SHORT).show();
+                            mWebView.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // 让裁剪控件去加载截图的文件
+                                    mCropImageView.load(mCropUri = Uri.fromFile(new File(CropViewUtil.saveImage(DisplayActivity.this, mWebView)))).execute(DisplayActivity.this);
+                                    // 展示裁剪相关控件可见
+                                    mCropImageView.setVisibility(View.VISIBLE);
+                                    btnCrop.setVisibility(View.VISIBLE);
+                                }
+                            }, 500L);
+                        }
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private Bitmap captureScreenforRecord(WebView webView, int singleHeight) {
+        webView.measure(View.MeasureSpec.makeMeasureSpec(
+                View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        webView.layout(0, 0, webView.getMeasuredWidth(),
+                webView.getMeasuredHeight());
+        webView.setDrawingCacheEnabled(true);
+        webView.buildDrawingCache();
+
+        /*Bitmap bm = Bitmap.createBitmap(webView.getMeasuredWidth(),
+                webView.getMeasuredHeight(), Bitmap.Config.RGB_565);*/
+        Bitmap bm = Bitmap.createBitmap(webView.getMeasuredWidth(),
+                singleHeight * CROP_PAGE, Bitmap.Config.RGB_565);
+
+        Canvas bigcanvas = new Canvas(bm);
+        Paint paint = new Paint();
+        int iHeight = bm.getHeight();
+        bigcanvas.drawBitmap(bm, 0, iHeight, paint);
+        webView.draw(bigcanvas);
+        return bm;
     }
 
     /**
@@ -182,18 +286,34 @@ public class DisplayActivity extends AppCompatActivity implements LoadCallback, 
             mCropImageView.crop(mCropUri)
                     .execute(new CropCallback() {
                         @Override
-                        public void onSuccess(Bitmap cropped) {
-                            crop.setVisible(false);
-                            back.setVisible(true);
-                            // 隐藏裁剪控件
-                            mCropImageView.setVisibility(View.GONE);
-                            btnCrop.setVisibility(View.GONE);
-                            // 隐藏文件浏览控件
-                            mWebView.setVisibility(View.GONE);
-                            // 展示并记录裁剪结果
-                            result.setImageBitmap(CROP_RESULT_BITMAP = cropped);
-                            result.setVisibility(View.VISIBLE);
-                            finish();
+                        public void onSuccess(final Bitmap cropped) {
+                            if (isSetHeight) {
+                                isSetHeight = false;
+                                all(findViewById(R.id.main).getHeight(), mWebView, cropped.getHeight(), 0);
+                                mCropImageView.setVisibility(View.GONE);
+                                btnCrop.setVisibility(View.GONE);
+                                mWebView.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // result.setImageBitmap(CROP_RESULT_BITMAP = captureScreenforRecord(DisplayActivity.this, mWebView, cropped.getHeight()));
+                                        result.setImageBitmap(CROP_RESULT_BITMAP);
+                                        result.setVisibility(View.VISIBLE);
+                                        finish();
+                                    }
+                                }, DURATION * (CROP_PAGE + 2));
+                            } else {
+                                crop.setVisible(false);
+                                back.setVisible(true);
+                                // 隐藏裁剪控件
+                                mCropImageView.setVisibility(View.GONE);
+                                btnCrop.setVisibility(View.GONE);
+                                // 隐藏文件浏览控件
+                                mWebView.setVisibility(View.GONE);
+                                // 展示并记录裁剪结果
+                                result.setImageBitmap(CROP_RESULT_BITMAP = cropped);
+                                result.setVisibility(View.VISIBLE);
+                                finish();
+                            }
                         }
 
                         @Override

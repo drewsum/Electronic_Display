@@ -19,6 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        android.webkit.WebView.enableSlowWholeDocumentDraw();
 
         int time = 2000;
         new Handler().postDelayed(new Runnable() {

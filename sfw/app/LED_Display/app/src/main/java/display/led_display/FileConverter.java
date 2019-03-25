@@ -29,12 +29,11 @@ public class FileConverter {
         byte[] pillar1 = getPillar1(allByte);
         byte[] pillar2 = getPillar2(allByte);
         ArrayList<Integer>[][] arrayLists = pillarsToArrayList(pillar1, pillar2);
-        ArrayList<Integer> single0 = microToBits(arrayLists[0][0],arrayLists[0][1],arrayLists[0][2],arrayLists[0][3]);
-        ArrayList<Integer> single1 = microToBits(arrayLists[1][0],arrayLists[1][1],arrayLists[1][2],arrayLists[1][3]);
-        ArrayList<Integer> single2 = microToBits(arrayLists[2][0],arrayLists[2][1],arrayLists[2][2],arrayLists[2][3]);
-        ArrayList<Integer> single3 = microToBits(arrayLists[3][0],arrayLists[3][1],arrayLists[3][2],arrayLists[3][3]);
-        ArrayList<Integer> single4 = microToBits(arrayLists[4][0],arrayLists[4][1],arrayLists[4][2],arrayLists[4][3]);
-        Bitmap[] bitmaps = rbgToBitmap(single0.toArray(), single1.toArray(), single2.toArray(), single3.toArray(),single4.toArray());
+        ArrayList<Integer> single00 = microToBits(arrayLists[0][0]);
+        ArrayList<Integer> single01 = microToBits(arrayLists[0][1]);
+        ArrayList<Integer> single10 = microToBits(arrayLists[1][0]);
+        ArrayList<Integer> single11 = microToBits(arrayLists[1][1]);
+        Bitmap[] bitmaps = rbgToBitmap(single00.toArray(), single01.toArray(), single10.toArray(), single11.toArray());
         Bitmap bitmap = bitmapsToCreateOne(bitmaps);
         if (bitmap != null && !bitmap.isRecycled()) {
             return bitmap;
@@ -158,26 +157,18 @@ public class FileConverter {
     /**
      * 6.micro to bits
      */
-    public static ArrayList<Integer> microToBits(ArrayList<Integer> ... source) {
-        if (source == null || source.length == 0) {
+    public static ArrayList<Integer> microToBits(ArrayList<Integer> source) {
+        if (source == null || source.size() == 0) {
             return null;
         }
         ArrayList<Integer> masterScript = new ArrayList<Integer>();
         ArrayList<Integer> finalScript = new ArrayList<Integer>();
         for (int j = 0; j < 8; j++) {
             finalScript.clear();
-            for (int i = 0; i < (source[0].size()); i++) // 6144 times
+            for (int i = 0; i < (source.size()); i++) // 6144 times
             {
-                byte bite = 0;
-                bite |= (source[0].get(2/i) << 0);
-                bite |= (source[0].get(2/i-1) << 1);
-                bite |= (source[1].get(2/i) << 2);
-                bite |= (source[1].get(2/i-1) << 3);
-                bite |= (source[2].get(2/i) << 4);
-                bite |= (source[2].get(2/i-1) << 5);
-                bite |= (source[3].get(2/i) << 6);
-                bite |= (source[3].get(2/i-1) << 7);
-                finalScript.add((int) bite);
+                finalScript.add(2 * i, source.get(i + j)); // grab every 8th bit and put in order
+                finalScript.add(2 * i + 1, source.get(i + j)); // grab every 8th and put in order
             }
             masterScript.addAll(finalScript);
         }
@@ -216,17 +207,16 @@ public class FileConverter {
     /**
      * 8.rbg to bitmaps
      */
-    public static Bitmap[] rbgToBitmap(Object[] rgb1, Object[] rgb2, Object[] rgb3, Object[] rgb4,Object[] rgb5) {
-        if (rgb2 == null || rgb2 == null || rgb3 == null || rgb4 == null || rgb5 == null) {
+    public static Bitmap[] rbgToBitmap(Object[] rgb00, Object[] rgb01, Object[] rgb10, Object[] rgb11) {
+        if (rgb00 == null || rgb01 == null || rgb10 == null || rgb11 == null) {
             return null;
         }
 
-        Bitmap[] bitmaps = new Bitmap[5];
-        bitmaps[0] = Bitmap.createBitmap(integersToInts((Integer[]) rgb1), WIDTH_RECORD / 4, HEIGHT_RECORD / 5, null);
-        bitmaps[1] = Bitmap.createBitmap(integersToInts((Integer[]) rgb2), WIDTH_RECORD / 4, HEIGHT_RECORD / 5, null);
-        bitmaps[2] = Bitmap.createBitmap(integersToInts((Integer[]) rgb3), WIDTH_RECORD / 4, HEIGHT_RECORD / 5, null);
-        bitmaps[3] = Bitmap.createBitmap(integersToInts((Integer[]) rgb4), WIDTH_RECORD / 4, HEIGHT_RECORD / 5, null);
-        bitmaps[4] = Bitmap.createBitmap(integersToInts((Integer[]) rgb5), WIDTH_RECORD / 4, HEIGHT_RECORD / 5, null);
+        Bitmap[] bitmaps = new Bitmap[4];
+        bitmaps[0] = Bitmap.createBitmap(integersToInts((Integer[]) rgb00), WIDTH_RECORD / 2, HEIGHT_RECORD / 2, null);
+        bitmaps[1] = Bitmap.createBitmap(integersToInts((Integer[]) rgb01), WIDTH_RECORD / 2, HEIGHT_RECORD / 2, null);
+        bitmaps[2] = Bitmap.createBitmap(integersToInts((Integer[]) rgb10), WIDTH_RECORD / 2, HEIGHT_RECORD / 2, null);
+        bitmaps[3] = Bitmap.createBitmap(integersToInts((Integer[]) rgb11), WIDTH_RECORD / 2, HEIGHT_RECORD / 2, null);
         return bitmaps;
     }
 
@@ -241,11 +231,10 @@ public class FileConverter {
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        canvas.drawBitmap(bitmaps[0], 0, HEIGHT_RECORD/5 * 0, paint);
-        canvas.drawBitmap(bitmaps[1], 0, HEIGHT_RECORD/5 * 1, paint);
-        canvas.drawBitmap(bitmaps[2], 0, HEIGHT_RECORD/5 * 2, paint);
-        canvas.drawBitmap(bitmaps[3], 0, HEIGHT_RECORD/5 * 3, paint);
-        canvas.drawBitmap(bitmaps[4], 0, HEIGHT_RECORD/5 * 4, paint);
+        canvas.drawBitmap(bitmaps[0], 0, 0, paint);
+        canvas.drawBitmap(bitmaps[1], WIDTH_RECORD / 2, 0, paint);
+        canvas.drawBitmap(bitmaps[2], 0, HEIGHT_RECORD / 2, paint);
+        canvas.drawBitmap(bitmaps[3], WIDTH_RECORD / 2, HEIGHT_RECORD / 2, paint);
         return bitmap;
     }
 
