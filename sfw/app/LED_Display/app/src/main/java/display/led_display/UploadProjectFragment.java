@@ -109,6 +109,15 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
                 fragmentManager.beginTransaction().replace(R.id.flContent, new NewProjectFragment()).commit();
             }
         });
+        Button buttonUploadProject = (Button) rootView.findViewById(R.id.buttonUpload);
+        buttonUploadProject.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                moveToNewActivity();
+            }
+        });
 
         return rootView;
     }
