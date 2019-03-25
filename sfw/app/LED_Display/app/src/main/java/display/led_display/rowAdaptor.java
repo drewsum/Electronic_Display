@@ -141,6 +141,7 @@ public class rowAdaptor extends BaseAdapter {
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 TinyDB tinyDB = new TinyDB(finView.getContext().getApplicationContext());
+                Log.d("deleting item from: ", keyName);
                 if(keyName == "frameList") {
                     // delete frame from current framelist
                     String[] path = data.get(position).split("/");
@@ -157,6 +158,12 @@ public class rowAdaptor extends BaseAdapter {
                     tinyDB.remove(projectName + "frameList");
                     Log.d("deleted", projectName + "frameList");
                     Log.d(keyName, data.toString());
+                } else if(keyName == "deviceList") {
+                    String deviceName = data.get(position);
+                    data.remove(position);
+                    // delete the device data
+                    tinyDB.remove(deviceName + "Data");
+                    Log.d("deleted", deviceName + "Data");
                 }
                 notifyDataSetChanged();
                 dialog.dismiss();

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import display.led_display.helper.TinyDB;
+import display.led_display.helper.WiFiController;
 
 
 /**
@@ -81,13 +82,24 @@ public class DeviceControlFragment extends Fragment {
         TextView textDeviceName = (TextView) rootView.findViewById(R.id.textDeviceName);
         textDeviceName.setText("Controlling Device: " + deviceName);
         TinyDB tinyDB = new TinyDB(getContext());
+        final WiFiController wiFiController = new WiFiController();
         //deviceList = tinyDB.getListString(projectName + "frameList");
+        // set up Ping button
+        Button buttonPing = (Button) rootView.findViewById(R.id.buttonPing);
+        buttonPing.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // Ping the Micro
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Test", "hello world");
+            }
+        });
         // set up Power button
         Button buttonPower = (Button) rootView.findViewById(R.id.buttonPower);
         buttonPower.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // send WiFi command to Turn Multiplexing ON
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Power=toggle");
             }
         });
         // set up Brightness seekbar
@@ -98,6 +110,7 @@ public class DeviceControlFragment extends Fragment {
            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                brightnessLevel = progress;
                 textBrightness.setText("Brightness: " + progress);
+               wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Dim=" + progress);
            }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -115,6 +128,7 @@ public class DeviceControlFragment extends Fragment {
                 // send AT command to microcontroller
                 EditText editWiFiCommands = (EditText) rootView.findViewById(R.id.editWiFiCommands);
                 String commands = editWiFiCommands.getText().toString();
+                wiFiController.sendOverWiFi(getContext(), deviceName, "ATCommand", commands);
             }
         });
         return rootView;
