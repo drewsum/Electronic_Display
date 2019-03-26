@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,8 @@ public class DeviceControlFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // Ping the Micro
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Test", "hello world");
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Test", "hello world\r\n");
+                Log.d("wifi", "message sent");
             }
         });
         // set up Power button
@@ -129,6 +131,7 @@ public class DeviceControlFragment extends Fragment {
                 EditText editWiFiCommands = (EditText) rootView.findViewById(R.id.editWiFiCommands);
                 String commands = editWiFiCommands.getText().toString();
                 wiFiController.sendOverWiFi(getContext(), deviceName, "ATCommand", commands);
+                Log.d("wifi", "message sent");
             }
         });
         return rootView;

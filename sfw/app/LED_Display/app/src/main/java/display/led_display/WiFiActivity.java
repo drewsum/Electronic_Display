@@ -85,7 +85,7 @@ public class WiFiActivity extends AppCompatActivity implements View.OnClickListe
         // which has value 1 if first button is pressed or 2 if second button is pressed;
         if (ipAddress.length()>0 && portNumber.length()>0) {
             WiFiController wifiController = new WiFiController();
-            wifiController.sendOverWiFi(getApplicationContext(), "test", "Test", "hi");
+            wifiController.sendOverWiFi(getApplicationContext(), "test", "Test", parameterValue);
         }
     }
 

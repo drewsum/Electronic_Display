@@ -84,7 +84,9 @@ public class WiFiController {
         try {
             // create the URL object, and set the connection so that we can write to it;
             URL url = new URL(requestURL);
+            Log.d("url", url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            Log.d("conn", conn.toString());
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("POST");

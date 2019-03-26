@@ -60,7 +60,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="IP Address"
-        android:inputType="number"
+        android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/textPortNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
