@@ -23,8 +23,8 @@
 #include "delay_timer.h"
 
 // Sizes of TX and RX ring buffers
-#define ESP_8266_TX_BUFFER_SIZE 2048
-#define ESP_8266_RX_BUFFER_SIZE 4096
+#define ESP_8266_TX_BUFFER_SIZE 16384
+#define ESP_8266_RX_BUFFER_SIZE 2048
 
 char esp_8266_line[ESP_8266_RX_BUFFER_SIZE];
 
@@ -32,14 +32,21 @@ extern volatile uint32_t esp_8266_TxHead;
 extern volatile uint32_t esp_8266_TxTail;
 extern volatile uint32_t esp_8266_TxBufferRemaining;
 
+// This is the current connection ID for the ESP
+uint32_t current_connection_id = 20;
 
-// This function initializes UART 6 for USB debugging
+// This is the string that is included in an HTTP request
+char http_android_string[256];
+
+
+
+// This function initializes UART 1 for ESP8266 WiFi Module
 void esp8266Initialize(void);
 
 // This function configures the esp on initialization
 void esp8266InitializeConfiguration(void);
 
-// These are the USB UART Interrupt Service Routines
+// These are the ESP UART Interrupt Service Routines
 void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void);
 void __ISR(_UART1_TX_VECTOR, ipl7SRS) esp8266TransferISR(void);
 void __ISR(_UART1_FAULT_VECTOR, ipl1SRS) esp8266FaultISR(void);
@@ -58,11 +65,8 @@ void esp8266ReceiveHandler(void);
 void esp8266RingBufferPull(void);
 void esp8266RingBufferLUT(char * esp_8266_line);
 
-// configure the chip with AT commands
-void esp8266Configure(void);
-
 // WiFi specific functions
-void sendCIPData(uint8_t connectionId, uint8_t * data, uint8_t length);
+void sendCIPData(uint8_t connectionId, char *data, uint8_t length);
 void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length);
 
 #endif /* _ESP8266_H */

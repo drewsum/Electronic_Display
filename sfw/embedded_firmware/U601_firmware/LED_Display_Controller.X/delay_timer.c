@@ -6,6 +6,8 @@
 #include "32mz_interrupt_control.h"
 #include "delay_timer.h"
 #include "esp8266.h"
+#include "error_handler.h"
+#include "terminal_control.h"
 
 void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
 {
@@ -16,21 +18,32 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
     clearInterruptFlag(Timer4);
     disableInterrupt(Timer4);
     
+    char response_message[40];
+    
     // Handle the task
     switch(timer_task)
     {
         case esp8266Delay1:
             esp8266Putstring("AT+CWMODE_CUR=2\r\n");
-            delayTimerStart(0xFFFF, esp8266Delay2);
+            delayTimerStart(0xAFFF, esp8266Delay2);
             //esp8266Configure();
             break;
         case esp8266Delay2:
             esp8266Putstring("AT+CIPMUX=1\r\n");
-            delayTimerStart(0xFFFF, esp8266Delay3);
+            delayTimerStart(0xAFFF, esp8266Delay3);
             break;
         case esp8266Delay3:
             esp8266Putstring("AT+CIPSERVER=1,80\r\n");
+            // Clear startup WIFI error
+            error_handler.WIFI_error_flag = 0;
             break;
+            
+        case esp8266_http_response_delay:
+            memset(response_message, 0, sizeof(response_message));
+            strcpy(response_message, "Message%20Received");
+            sendHTTPResponse((uint8_t) current_connection_id, response_message, strlen(response_message));
+            break;
+            
         default:
             break;
     }

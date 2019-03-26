@@ -26,7 +26,7 @@ volatile uint32_t esp_8266_RxCount;
 volatile uint8_t esp_8266_RxStringReady = 0;
 volatile uint8_t esp_8266_FlashFlag = 0;
 
-uint8_t * cipString;
+// uint8_t * cipString;
 
 
 void esp8266Initialize(void) {
@@ -349,12 +349,7 @@ void esp8266RingBufferPull(void) {
     */
     
     // Check to see if line matches a command
-    // esp8266RingBufferLUT(esp_8266_line);
-    terminalTextAttributesReset();
-    terminalTextAttributes(CYAN, BLACK, NORMAL);
-    // printf("WiFi Module Sent:\r\n");
-    printf("%s", esp_8266_line);
-    terminalTextAttributesReset();
+    esp8266RingBufferLUT(esp_8266_line);
     
     // Clear ready flag
     esp_8266_RxStringReady = 0;
@@ -372,14 +367,63 @@ void esp8266RingBufferLUT(char * line_in) {
 //    }
     // WRITE SOME COMMANDS HERE
     
-    Nop();
+//    if (strstart(line_in, "+CIFSR:APIP") == 0) {
+//     
+//        char IP_String[32];
+//        memset(IP_String, 0, sizeof(IP_String));
+//        sscanf(line_in, "+CIFSR:APIP,\"%31c\"\r\n", IP_String);
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(CYAN, BLACK, NORMAL);
+//        printf("IP Address is %s\r\n", IP_String);
+//        terminalTextAttributesReset();
+//
+//    }
+//    
+//    else if (strstart(line_in, "+CIFSR:APMAC,") == 0) {
+//     
+//        char MAC_String[32];
+//        memset(MAC_String, 0, sizeof(MAC_String));
+//        sscanf(line_in, "+CIFSR:APMAC,\"%31c\"\r\n", MAC_String);
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(CYAN, BLACK, NORMAL);
+//        printf("MAC Address is %s\r\n", MAC_String);
+//        terminalTextAttributesReset();
+//
+//    }
+    
+    if (strstart(line_in, "+IPD,") == 0) {
+     
+        uint32_t dummy;
+        memset(http_android_string, 0, sizeof(http_android_string));
+        sscanf(line_in, "+IPD,%u,%u:POST /?%s HTTP/1.1\r\n", 
+                &current_connection_id,
+                &dummy,
+                http_android_string);
+
+        delayTimerStart(0xFFFF, esp8266_http_response_delay);
+        
+    }
+    
+    else if (strcmp(line_in, "Connection: Keep-Alive\r\n") == 0) {
+     
+        // sendHTTPResponse(
+        
+    }
+     
+    terminalTextAttributesReset();
+    terminalTextAttributes(CYAN, BLACK, NORMAL);
+    // printf("WiFi Module Sent:\r\n");
+    printf("%s", esp_8266_line);
+    terminalTextAttributesReset();
     
 }
 
 void esp8266Putstring(char * string) {
-    int i;
+    uint32_t i;
     //char * new_string;
-    char new_string[64];
+    char new_string[512];
     strcpy(new_string, "               ");
     strcat(new_string, string);
     
@@ -392,36 +436,19 @@ void esp8266Putstring(char * string) {
 }
 
 /*
- * esp8266Configure send the start-up AT Commands to the module
- * to boot the chip, get the IP address, etc.
- */
-void esp8266Configure(void) {
-    // reset esp and get the firmware version
-    esp8266Putstring("AT\r\n");
-//    esp8266Putstring("AT+RST\r\n");
-//    esp8266Putstring("AT+GMR\r\n");
-//    // start configuration with AT commands
-//    // configure esp8266 as access point (own network)
-//    esp8266Putstring("AT+CWMODE_CUR=2\r\n");
-//    // configure for multiple connections
-//    esp8266Putstring("AT+CIPMUX=1\r\n");
-//    // turn on the CIP server at port 80
-//    esp8266Putstring("AT+CIPSERVER=1,80\r\n");
-//    // get the IP address
-//    esp8266Putstring("AT+CIFSR\r\n");
-}
-
-/*
  * sendCIPData sends bytes over the WiFi connection to the Android Device
  */
-void sendCIPData(uint8_t connectionId, uint8_t * data, uint8_t length) {
-    strcpy(cipString, "AT+CIPSEND=");
-    strcat(cipString, &connectionId);
-    strcat(cipString, ", ");
-    strcat(cipString, &length);
-    strcat(cipString, "\r\n");
-    esp8266Putstring(cipString);
-    esp8266Putstring(data);
+void sendCIPData(uint8_t connectionId, char *data, uint8_t length) {
+    
+    char cip_output_string[256];
+    memset(cip_output_string, 0, sizeof(cip_output_string));
+    sprintf(cip_output_string, "AT+CIPSEND=%u, %u, %s",
+            connectionId,
+            length,
+            data);
+    
+    esp8266Putstring(cip_output_string);
+   
 }
 
 /*
@@ -433,12 +460,12 @@ void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length) {
     uint8_t httpResponse[256];
     uint8_t httpHeader[256];
     uint8_t len[8];
-    sprintf(len, "%d", length);
+    sprintf(len, "%u", length);
     // HTTP Header
-    strcpy(httpHeader, "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n"); 
+    strcpy(httpHeader, "HTTP/1.1 200 OK Content-Type: text/html; charset=UTF-8 "); 
     strcat(httpHeader, "Content-Length: ");
     strcat(httpHeader, len);
-    strcat(httpHeader, "\r\nConnection: close\r\n\r\n");
+    strcat(httpHeader, " Connection: close \r\n");
     strcpy(httpResponse, httpHeader);
     strcat(httpResponse, content);
     sendCIPData(connectionId, httpResponse, strlen(httpResponse));

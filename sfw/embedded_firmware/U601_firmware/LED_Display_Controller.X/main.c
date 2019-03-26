@@ -200,7 +200,7 @@ void main(void) {
     
     // Initialize ESP 8266 chip
     esp8266Initialize();
-    printf("ESP8266 Initialized\n\r");
+    printf("ESP8266 UART Initialized\n\r");
     
     // Setup RNG for random pixel values
     RNGInitialize();
