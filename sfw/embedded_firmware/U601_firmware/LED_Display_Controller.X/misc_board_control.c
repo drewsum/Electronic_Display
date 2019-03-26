@@ -1,10 +1,16 @@
 
 #include <xc.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "gpio_setup.h"
 #include "misc_board_control.h"
 #include "32mz_interrupt_control.h"
 #include "pin_macros.h"
+#include "adc.h"
+#include "terminal_control.h"
+#include "error_handler.h"
+#include "panel_control.h"
 
 
 // Initialize change notifications
@@ -16,11 +22,11 @@ void changeNotificationInit(void) {
     
     // Configuration for Port F
     CNCONFbits.ON           = 1;
-    CNCONFbits.EDGEDETECT   = 1;
+    CNCONFbits.EDGEDETECT   = 1;        
     
     // Configuration for Port K
     CNCONKbits.ON           = 1;
-    CNCONKbits.EDGEDETECT   = 1;
+    CNCONKbits.EDGEDETECT   = 1;        
     
     // Interrupt Priorities
     setInterruptPriority(PORTF_Input_Change_Interrupt, 2);
@@ -44,28 +50,27 @@ void changeNotificationInit(void) {
 void __ISR(_CHANGE_NOTICE_F_VECTOR, IPL2SRS) portFCNISR(void) {
     
     if (CNFFbits.CNFF1 && CNNEFbits.CNNEF1) {
-    
-        pos12PGoodHandler();
+            
+        pos12PGoodFEHandler();
     
     }
     
     if (CNFFbits.CNFF3 && CNNEFbits.CNNEF3) {
-    
-        pos5PGoodHandler();
-        
+            
+        pos5PGoodFEHandler();
+                
     }
     
     if (CNFFbits.CNFF8 && CNNEFbits.CNNEF8) {
-    
-        pos5pPGoodHandler();
-    
+            
+        pos5pPGoodFEHandler();
+         
     }
     
-    
     if (CNFFbits.CNFF12 && CNNEFbits.CNNEF12) {
-        
-        pos5pThermalWarningHandler();
-        
+            
+        pos5pThermalWarningFEHandler();
+
     }
     
     clearInterruptFlag(PORTF_Input_Change_Interrupt);
@@ -76,108 +81,130 @@ void __ISR(_CHANGE_NOTICE_F_VECTOR, IPL2SRS) portFCNISR(void) {
 void __ISR(_CHANGE_NOTICE_K_VECTOR, IPL2SRS) portKCNISR(void) {
     
     if (CNFKbits.CNFK4 && CNNEKbits.CNNEK4) {
-        
-        displayEnableHandler();
-        
+            
+        displayEnableFEHandler();
+                   
     }
     
     if (CNFKbits.CNFK5 && CNENKbits.CNIEK5) {
-        
-        encoderStepHandler();
+            
+        encoderStepREHandler();
         
     }
     
     if (CNFKbits.CNFK7 && CNNEKbits.CNNEK7) {
-        
-        pos3p3PGoodHandler();
-        
+            
+        pos3p3PGoodFEHandler();
+                    
     }
     
     clearInterruptFlag(PORTK_Input_Change_Interrupt);
 
 }
 
-// POS5P Thermal Warning interrupt handler
-void pos5pThermalWarningHandler(void) {
+// POS5P Thermal Warning falling edge interrupt handler
+void pos5pThermalWarningFEHandler(void) {
     
-    // Turn POS5 Run pin low and turn on error LED
-    OTHER_ERROR_LED_PIN = 1;
-    POS5_RUN_PIN = 0;
     
-    // Wait until POS5P THWN pin is high again
-    while(!nPOS5P_THWN_PIN);
-    
-    // Turn POS5 Run pin high and turn off error LED
-    OTHER_ERROR_LED_PIN = 0;
-    POS5_RUN_PIN = 1;
+    error_handler.POS5P_thermal_warning_error_flag = 1;
     
 }
 
-// POS12 PGOOD interrupt handler
-void pos12PGoodHandler(void) {
+// POS12 PGOOD falling edge interrupt handler
+void pos12PGoodFEHandler(void) {  
+       
+    // Display on USB UART the value of ADC
+    terminalTextAttributesReset();
+    terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("+12V Input Voltage Measurement: %+0.3f V\n\r", adc_results.POS12_adc);
+    terminalTextAttributesReset();
     
-    // Turn on error LED
-    OTHER_ERROR_LED_PIN = 1;   
-    
-    
-    
-    
-    // Turn off error LED
-    OTHER_ERROR_LED_PIN = 0;
+    // flag error
+    error_handler.POS12_regulation_error_flag = 1;
+            
 }
 
-// POS5 PGOOD interrupt handler
-void pos5PGoodHandler(void) {
+// POS5 PGOOD falling edge interrupt handler
+void pos5PGoodFEHandler(void) {
     
-    // Turn POS5 Run pin low and turn on error LED
-    OTHER_ERROR_LED_PIN = 1;
-    POS5_RUN_PIN = 0;
+    // Display on USB UART the value of ADC
+    terminalTextAttributesReset();
+    terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("+5V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5_adc);
+    terminalTextAttributesReset();
     
-    // Wait until POS5 PGOOD pin is high again
-    while(!POS5_PGOOD_PIN);
-    
-    // Turn POS5 Run pin high and turn off error LED
-    OTHER_ERROR_LED_PIN = 0;
-    POS5_RUN_PIN = 1;
-    
-}
-
-// POS5P PGOOD interrupt handler
-void pos5pPGoodHandler(void) {
-    
-    // Turn POS5 Run pin low and turn on error LED
-    OTHER_ERROR_LED_PIN = 1;
-    POS5_RUN_PIN = 0;
-    
-    // Wait until POS5P PGOOD pin is high again
-    while(!POS5P_PGOOD_PIN);
-    
-    // Turn POS5 Run pin high and turn off error LED
-    OTHER_ERROR_LED_PIN = 0;
-    POS5_RUN_PIN = 1;
+    // flag error
+    error_handler.POS5_regulation_error_flag = 1;
     
 }
 
-// Display enable interrupt handler
-void displayEnableHandler(void) {
+// POS5P PGOOD falling edge interrupt handler
+void pos5pPGoodFEHandler(void) {
+     
+    // Display on USB UART the value of ADC
+    terminalTextAttributesReset();
+    terminalTextAttributes(RED, BLACK, NORMAL);    
+    printf("+5VP LED Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5P_adc);
+    terminalTextAttributesReset();
     
+    // flag error
+    error_handler.POS5P_regulation_error_flag = 1;
+
+}
+
+// Display enable falling edge interrupt handler
+void displayEnableFEHandler(void) {
     
+    if (T5CONbits.ON) {
+        
+        panelMultiplexingSuspend();
+                
+    } else {
+        
+        panelMultiplexingTimerStart();
+                
+    }
     
 }
 
-// Encoder step interrupt handler
-void encoderStepHandler(void) {
+// Encoder step rising edge interrupt handler
+void encoderStepREHandler(void) {
     
+    uint8_t current_brightness = (OC4R * 100) / PR2;
     
+    // Not sure if this is right
+    if (ENCODER_DIR_PIN) {
+        
+        // If we are not at maximum brightness, make brighter
+        if (current_brightness < 100) {
+            
+            panelPWMSetBrightness(current_brightness + 10);
+            
+        }
+        
+    } else {
+        
+        // if we are not at minimum brightness, make dimmer
+        if (current_brightness > 0) {
+        
+            panelPWMSetBrightness(current_brightness - 10);
+            
+        }   
+        
+    }
     
 }
 
-// POS3P3 PGOOD interrupt handler
-void pos3p3PGoodHandler(void) {
-    
-    
+// POS3P3 PGOOD falling edge interrupt handler
+void pos3p3PGoodFEHandler(void) {
+           
+    // Display on USB UART the value of ADC
+    terminalTextAttributesReset();
+    terminalTextAttributes(RED, BLACK, NORMAL);
+    printf("+3.3V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS3P3_adc);
+    terminalTextAttributesReset();
+
+    // flag error
+    error_handler.POS3P3_regulation_error_flag = 1;
     
 }
-
-
-

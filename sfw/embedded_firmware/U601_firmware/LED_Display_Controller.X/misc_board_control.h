@@ -29,28 +29,26 @@ void __ISR(_CHANGE_NOTICE_F_VECTOR, IPL2SRS) portFCNISR(void);
 // Port K ISR
 void __ISR(_CHANGE_NOTICE_K_VECTOR, IPL2SRS) portKCNISR(void);
 
-// POS5P Thermal Warning interrupt handler
-void pos5pThermalWarningHandler(void);
+// POS5P Thermal Warning falling edge interrupt handler
+void pos5pThermalWarningFEHandler(void);
 
-// POS12 PGOOD interrupt handler
-void pos12PGoodHandler(void);
+// POS12 PGOOD falling edge interrupt handler
+void pos12PGoodFEHandler(void);
 
-// POS5 PGOOD interrupt handler
-void pos5PGoodHandler(void);
+// POS5 PGOOD falling edge interrupt handler
+void pos5PGoodFEHandler(void);
 
-// POS5P PGOOD interrupt handler
-void pos5pPGoodHandler(void);
+// POS5P PGOOD falling edge interrupt handler
+void pos5pPGoodFEHandler(void);
 
-// Display enable interrupt handler
-void displayEnableHandler(void);
+// Display enable falling edge interrupt handler
+void displayEnableFEHandler(void);
 
-// Encoder step interrupt handler
-void encoderStepHandler(void);
+// Encoder step rising edge interrupt handler
+void encoderStepREHandler(void);
 
-// POS3P3 PGOOD interrupt handler
-void pos3p3PGoodHandler(void);
-
-
+// POS3P3 PGOOD falling edge interrupt handler
+void pos3p3PGoodFEHandler(void);
 
 #endif /* _MISC_BOARD_CONTROL_H */
 
