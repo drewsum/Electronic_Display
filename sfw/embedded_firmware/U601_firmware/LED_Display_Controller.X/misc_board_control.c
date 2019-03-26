@@ -95,7 +95,7 @@ void __ISR(_CHANGE_NOTICE_K_VECTOR, IPL2SRS) portKCNISR(void) {
     if (CNFKbits.CNFK7 && CNNEKbits.CNNEK7) {
             
         pos3p3PGoodFEHandler();
-                    
+                            
     }
     
     clearInterruptFlag(PORTK_Input_Change_Interrupt);
