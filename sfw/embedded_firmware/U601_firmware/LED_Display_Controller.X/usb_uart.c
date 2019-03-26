@@ -26,7 +26,6 @@
 
 // #include "test_image_1.h"
 // #include "test_image_2.h"
-#include "esp8266.h"
 
 volatile uint32_t usb_uart_TxHead = 0;
 volatile uint32_t usb_uart_TxTail = 0;
@@ -1291,6 +1290,15 @@ void usbUartRingBufferLUT(char * line_in) {
         strcat(esp_tx_string, "\r\n");
         esp8266Putstring(esp_tx_string);
         
+        free(esp_tx_string);
+        
+    }
+    
+    else if (strcmp(line_in, "IP Addr?") == 0 || strcmp(line_in, "MAC Addr?") == 0) {
+     
+        // Set AT command for printing IP address
+        esp8266Putstring("AT+CIFSR\r\n");
+        
     }
     
 }
@@ -1367,6 +1375,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Panel Muxing On Time <x>: Sets the panel multiplexing timer period to x\n\r");
     printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
     printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");
+    printf("    IP Addr?: Prints the logic board IP Address and MAC Address\r\n");
+    printf("    MAC Addr?: Prints the logic board IP Address and MAC Address\r\n");
     
     
     printf("Help messages and neutral responses appear in yellow\n\r");

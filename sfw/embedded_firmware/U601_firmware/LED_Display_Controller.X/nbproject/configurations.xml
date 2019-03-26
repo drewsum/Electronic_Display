@@ -20,6 +20,7 @@
         <itemPath>rotary_encoder.h</itemPath>
         <itemPath>terminal_control.h</itemPath>
         <itemPath>test_buffer_fills.h</itemPath>
+        <itemPath>delay_timer.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.h</itemPath>
@@ -56,6 +57,7 @@
         <itemPath>external_bus_interface.c</itemPath>
         <itemPath>terminal_control.c</itemPath>
         <itemPath>test_buffer_fills.c</itemPath>
+        <itemPath>delay_timer.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.c</itemPath>
