@@ -438,7 +438,8 @@ void portFGPIOInitialize (void){
     TRISFbits.TRISF1    = TRIS_INPUT;
     LATFbits.LATF1      = LAT_LOW;
     ODCFbits.ODCF1      = ODC_DISABLE;
-    CNNEFbits.CNNEF1    = 1;                    // Enable falling edge change notification
+    // I DONT THINK THIS IS RIGHT SO IM COMMENTING IT OUT - Caroline 
+//    CNNEFbits.CNNEF1    = 1;                    // Enable falling edge change notification
     
     // Setup RF2
     TRISFbits.TRISF2    = TRIS_OUTPUT;
@@ -451,7 +452,8 @@ void portFGPIOInitialize (void){
     LATFbits.LATF3      = LAT_LOW;
     ODCFbits.ODCF3      = ODC_DISABLE;
     RPF3Rbits.RPF3R     = 0b0000;               // Disconnected from peripherals
-    CNNEFbits.CNNEF3    = 1;                    // Enable falling edge change notification
+    // I DONT THINK THIS IS RIGHT SO IM COMMENTING IT OUT - Caroline
+//    CNNEFbits.CNNEF3    = 1;                    // Enable falling edge change notification
     
     // Setup RF4
     TRISFbits.TRISF4    = TRIS_OUTPUT;
@@ -469,14 +471,16 @@ void portFGPIOInitialize (void){
     TRISFbits.TRISF8    = TRIS_INPUT;
     LATFbits.LATF8      = LAT_LOW;
     ODCFbits.ODCF8      = ODC_DISABLE;
-    CNNEFbits.CNNEF8    = 1;                    // Enable falling edge change notification
+    // I DONT THINK THIS IS RIGHT SO IM COMMENTING IT OUT - Caroline
+//    CNNEFbits.CNNEF8    = 1;                    // Enable falling edge change notification
     
     // Setup RF12
     TRISFbits.TRISF12   = TRIS_INPUT;
     LATFbits.LATF12     = LAT_HIGH;
     ODCFbits.ODCF12     = ODC_DISABLE;
     ANSELFbits.ANSF12   = ANALOG_DISABLE;
-    CNNEFbits.CNNEF12    = 1;                    // Enable falling edge change notification
+    // I DONT THINK THIS IS RIGHT SO IM COMMENTING IT OUT - Caroline
+//    CNNEFbits.CNNEF12   = 1;                    // Enable falling edge change notification
     
     // Setup RF13
     TRISFbits.TRISF13   = TRIS_OUTPUT;
@@ -757,13 +761,15 @@ void portKGPIOInitialize (void){
     TRISKbits.TRISK4    = TRIS_INPUT;
     LATKbits.LATK4      = LAT_HIGH;
     ODCKbits.ODCK4      = ODC_DISABLE;
-    CNNEKbits.CNNEK4    = 1;                    // Enable falling edge change notification
+    // I DONT THINK THIS IS RIGHT SO IM COMMENTING IT OUT - Caroline
+//    CNNEKbits.CNNEK4    = 1;                    // Enable falling edge change notification
     
     // Setup RK5
     TRISKbits.TRISK5    = TRIS_INPUT;
     LATKbits.LATK5      = LAT_LOW;
     ODCKbits.ODCK5      = ODC_DISABLE;
-    CNENKbits.CNIEK5    = 1;                    // Enable rising edge change notification
+    // I DONT THINK THIS IS RIGHT SO IM COMMENTING IT OUT - Caroline
+//    CNENKbits.CNIEK5    = 1;                    // Enable rising edge change notification
     
     // Setup RK6
     TRISKbits.TRISK6    = TRIS_INPUT;
@@ -774,6 +780,7 @@ void portKGPIOInitialize (void){
     TRISKbits.TRISK7    = TRIS_INPUT;
     LATKbits.LATK7      = LAT_LOW;
     ODCKbits.ODCK7      = ODC_DISABLE;
-    CNNEKbits.CNNEK7    = 1;                    // Enable falling edge change notification
+    // I DONT THINK THIS IS RIGHT SO IM COMMENTING IT OUT - Caroline
+//    CNNEKbits.CNNEK7    = 1;                    // Enable falling edge change notification
     
 }
