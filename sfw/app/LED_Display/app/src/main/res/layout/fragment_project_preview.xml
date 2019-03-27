@@ -9,7 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textDisplayingProject"
+        android:id="@+id/textCurrentFrameCount"
         android:layout_width="208dp"
         android:layout_height="27dp"
         android:layout_marginStart="8dp"
@@ -54,7 +54,7 @@
         android:layout_marginBottom="8dp"
         android:src="@drawable/marquette"
         app:layout_constraintBottom_toTopOf="@+id/textFrameDisplayed"
-        app:layout_constraintTop_toBottomOf="@+id/textDisplayingProject"
+        app:layout_constraintTop_toBottomOf="@+id/textCurrentFrameCount"
         app:layout_constraintStart_toEndOf="@id/buttonLeft"
         app:layout_constraintEnd_toStartOf="@id/buttonRight"
         app:layout_constraintVertical_bias="0.502"
@@ -72,7 +72,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textFrameDisplayed"
         app:layout_constraintEnd_toStartOf="@+id/imagePreview"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDisplayingProject" />
+        app:layout_constraintTop_toBottomOf="@+id/textCurrentFrameCount" />
 
     <ImageButton
         android:id="@+id/buttonRight"
@@ -86,6 +86,6 @@
         app:layout_constraintBottom_toTopOf="@+id/textFrameDisplayed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imagePreview"
-        app:layout_constraintTop_toBottomOf="@+id/textDisplayingProject" />
+        app:layout_constraintTop_toBottomOf="@+id/textCurrentFrameCount" />
 
 </android.support.constraint.ConstraintLayout>

@@ -40,7 +40,7 @@ public class ImageSelectActivity extends AppCompatActivity {
    String filePath;
 
    String projectName;
-   int index;
+   int namingNumber;
 
     Bitmap bitmap;
     Bitmap scaledBitmap;
@@ -60,7 +60,7 @@ public class ImageSelectActivity extends AppCompatActivity {
         targetImage = (ImageView) findViewById(R.id.targetimage);
 
         projectName = getIntent().getExtras().getString("projectName");
-        index = getIntent().getExtras().getInt("index");
+        namingNumber = getIntent().getExtras().getInt("namingNumber");
 
         Switch switchAspectRatio = (Switch) findViewById(R.id.switchAspectRatio);
         if (switchAspectRatio != null) {
@@ -75,7 +75,7 @@ public class ImageSelectActivity extends AppCompatActivity {
                         TinyDB tinyDB = new TinyDB(getApplicationContext());
                         Map<String, ?> tinyDBAll = tinyDB.getAll();
                         Log.d("print all", tinyDBAll.toString());
-                    } else {
+                    } else {`
                         // switch is "OFF" so it is false
                         boolAspectRatio = false;
                         Log.d("switchPressed", "Stretch To Fit");
@@ -127,7 +127,7 @@ public class ImageSelectActivity extends AppCompatActivity {
 
     protected void saveOff()
     {
-        String filename = projectName + "frame" + index + ".png";
+        String filename = projectName + "frame" + namingNumber + ".png";
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));

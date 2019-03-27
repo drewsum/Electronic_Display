@@ -2,6 +2,7 @@ package display.led_display;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -72,7 +73,7 @@ public class rowAdaptor extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, final View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         View vi = convertView;
         if (vi == null) {
@@ -103,18 +104,29 @@ public class rowAdaptor extends BaseAdapter {
             buttonDown.setFocusable(false); // needed to allow row to still be clickable
             final TinyDB tinyDB = new TinyDB(vi.getContext());
             //data.get(position);
-            String[] path = data.get(position).split("/");
-            String projectName = path[path.length-1].replace("frame" + position + ".png", "");
-            Log.d("projectName", projectName);
+            String[] splitPath = data.get(position).split("/");
+            String dirtyName = splitPath[splitPath.length-1];
+            final String projectName = dirtyName.substring(0, dirtyName.indexOf("frame"));
             final ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
+            final String namingNumber = framesList.get(0);
+            Log.d("namingNumber", namingNumber);
+            framesList.remove(0);
             buttonUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d("clickEvent", "up button clicked");
-                    Log.d("original list", "" + position);
+                    Log.d("original list location", "" + position);
                     // decrement the position of image
-                    Collections.swap(framesList, position, position - 1);
-                    tinyDB.putListString("test1" + "frameList", framesList);
+                    if (position != 0) {
+                        Collections.swap(framesList, position, position - 1);
+                    } else {
+                        Collections.swap(framesList, position, framesList.size() -1);
+                    }
+                    // save off the ordering
+                    framesList.add(0, namingNumber);
+                    tinyDB.putListString(projectName + "frameList", framesList);
+                    Log.d("new ordered frameList", framesList.toString());
+                    framesList.remove(0);
                     data = framesList;
                     notifyDataSetChanged();
                     //TextView textFrameCount = (TextView) finView.findViewById(R.id.textFrameCount);
@@ -125,8 +137,16 @@ public class rowAdaptor extends BaseAdapter {
                 public void onClick(View v) {
                     Log.d("clickEvent", "down button clicked");
                     // increment the position of image
-                    Collections.swap(framesList, position, position + 1);
-                    tinyDB.putListString("test1" + "frameList", framesList);
+                    if(position != framesList.size() - 1) {
+                        Collections.swap(framesList, position, position + 1);
+                    } else {
+                        Collections.swap(framesList, position, 0);
+                    }
+                    // save off the ordering
+                    framesList.add(0, namingNumber);
+                    tinyDB.putListString(projectName + "frameList", framesList);
+                    Log.d("new ordered frameList", framesList.toString());
+                    framesList.remove(0);
                     data = framesList;
                     notifyDataSetChanged();
                 }
@@ -141,30 +161,42 @@ public class rowAdaptor extends BaseAdapter {
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 TinyDB tinyDB = new TinyDB(finView.getContext().getApplicationContext());
-                Log.d("deleting item from: ", keyName);
-                if(keyName == "frameList") {
+                Log.d("deleting item from", keyName);
+                if(keyName.equals("frameList")) {
                     // delete frame from current framelist
-                    String[] path = data.get(position).split("/");
-                    String projectName = path[path.length-1].replace("frame" + position + ".png", "");
-                    Log.d("projectName", projectName);
+                    String path = data.get(position);
+                    String[] splitPath = path.split("/");
+                    String projectName = splitPath[splitPath.length-1];
+                    projectName = projectName.substring(0, projectName.indexOf("frame"));
+                    ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
                     data.remove(position);
-                    tinyDB.putListString(projectName + keyName, data);
+                    framesList.remove(position + 1);
+                    tinyDB.putListString(projectName + keyName, framesList);
                     Log.d("New " + projectName + keyName, data.toString());
-                    // also need to rename the other frames if they slide around
-                } else if(keyName == "projectList") {
+                    //Log.d("convertView", convertView.toString());
+                    //TextView textFrameCount = convertView.findViewById(R.id.textFrameCount);
+                    //textFrameCount.setText("Current Frame Count: " + data.size() + "/8");
+                    // also need delete image from internal storage
+                    ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
+                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                    File f = new File(directory,splitPath[splitPath.length-1]);
+                    f.delete();
+                } else if(keyName.equals("projectList")) {
+                    Log.d("projectList", data.toString());
                     String projectName = data.get(position);
                     data.remove(position);
                     tinyDB.putListString(keyName, data);
                     tinyDB.remove(projectName + "frameList");
                     Log.d("deleted", projectName + "frameList");
                     Log.d(keyName, data.toString());
-                } else if(keyName == "deviceList") {
+                } else if(keyName.equals("deviceList")) {
                     String deviceName = data.get(position);
                     data.remove(position);
                     // delete the device data
                     tinyDB.remove(deviceName + "Data");
                     Log.d("deleted", deviceName + "Data");
                 }
+                Log.d("done", "done");
                 notifyDataSetChanged();
                 dialog.dismiss();
             }

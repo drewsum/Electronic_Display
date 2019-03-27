@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -76,7 +77,9 @@ public class SelectionFragment extends Fragment {
         String selectionType = arguments.getString("selectionType");
         final String fragmentReturn = arguments.getString("fragmentReturn");
         final View rootView = inflater.inflate(R.layout.fragment_selection, container, false);
-        final TinyDB tinyDB = new TinyDB(getContext());
+        final TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
+        TextView textContentType = (TextView) rootView.findViewById(R.id.textSelectContent);
+        textContentType.setText("Select a " + selectionType);
         final ListView contentListview = (ListView) rootView.findViewById(R.id.contentList);
         ArrayList<String> contentList = new ArrayList<String>();
         if (selectionType == "project") {

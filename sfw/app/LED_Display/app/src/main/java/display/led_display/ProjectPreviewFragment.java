@@ -87,10 +87,11 @@ public class ProjectPreviewFragment extends Fragment {
         // Inflate the layout for this fragment
         Bundle arguments = getArguments();
         final String projectName = arguments.getString("projectName");
-        TextView textDisplayingProject = (TextView) rootView.findViewById(R.id.textDisplayingProject);
+        TextView textDisplayingProject = (TextView) rootView.findViewById(R.id.textCurrentFrameCount);
         textDisplayingProject.setText("Preview Project: " + projectName);
         TinyDB tinyDB = new TinyDB(getContext());
         framesList = tinyDB.getListString(projectName + "frameList");
+        framesList.remove(0);
         // set up edit button
         Button buttonEditProject = (Button) rootView.findViewById(R.id.buttonEditProject);
         buttonEditProject.setOnClickListener(new Button.OnClickListener() {

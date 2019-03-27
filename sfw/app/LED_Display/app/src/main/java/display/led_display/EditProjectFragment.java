@@ -42,6 +42,7 @@ public class EditProjectFragment extends Fragment {
     private int frameCount = 0;
     private String projectName;
     private ArrayList<String> framesList;
+    private int namingNumber;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,10 +75,6 @@ public class EditProjectFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-//        MenuActivity parent = (MenuActivity)this.getActivity().getParent();
-//        Project project = new Project();
-//        project.setProjectName("Test Project");
-//        parent.database.projectDao().insert(project);
     }
 
     @Override
@@ -93,6 +90,8 @@ public class EditProjectFragment extends Fragment {
         TinyDB tinyDB = new TinyDB(getContext());
         framesList = tinyDB.getListString(projectName + "frameList");
         Log.d("FrameList fetched", framesList.toString());
+        namingNumber = Integer.parseInt(framesList.get(0));
+        framesList.remove(0);
         // framesList.add("filepath in internal storage");
         frameCount = framesList.size();
         ListView listview = rootView.findViewById(R.id.framesList);
@@ -105,9 +104,10 @@ public class EditProjectFragment extends Fragment {
             public void onClick(View arg0) {
                 // need to give index and project name for imagePath naming convention
                 if(frameCount < 8) {
+                    namingNumber++;
                     Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
                     intent.putExtra("projectName", projectName);
-                    intent.putExtra("index", frameCount);
+                    intent.putExtra("namingNumber", namingNumber);
                     startActivityForResult(intent, 1);
                 } else {
                     // show a message
@@ -140,12 +140,22 @@ public class EditProjectFragment extends Fragment {
             String filePath = data.getExtras().getString("filePath");
             Log.d("filePath", filePath);
 
-            TinyDB tinyDB = new TinyDB(getContext());
+            TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
             framesList = tinyDB.getListString(projectName + "frameList");
             framesList.add(filePath);
+            Log.d("frameList", framesList.toString());
+            //framesList.add(0, "" + namingNumber);
+            Log.d("frameList", framesList.toString());
+            framesList.remove(0);
+            framesList.add(0, "" + namingNumber);
             tinyDB.putListString(projectName + "frameList", framesList);
+            framesList.remove(0);
             Log.d("frameList", framesList.toString());
             frameCount = framesList.size();
+            /*if (frameCount > 7) {
+                Button buttonAddFrame = (Button) getView().findViewById(R.id.buttonAddFrame);
+                buttonAddFrame.setClickable(false);
+            }*/
             TextView textFrameCount = (TextView) this.getView().findViewById(R.id.textFrameCount);
             textFrameCount.setText(frameCount + "/8");
             ListView listView = (ListView) this.getView().findViewById(R.id.framesList);
