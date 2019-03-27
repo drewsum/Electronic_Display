@@ -5,12 +5,12 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProjectSelectFragment">
+    tools:context=".SelectionFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <ListView
-        android:id="@+id/projectList"
+        android:id="@+id/contentList"
         android:layout_width="339dp"
         android:layout_height="399dp"
         android:layout_marginStart="8dp"
@@ -21,10 +21,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSelectProject" />
+        app:layout_constraintTop_toBottomOf="@+id/textSelectContent" />
 
     <TextView
-        android:id="@+id/textSelectProject"
+        android:id="@+id/textSelectContent"
         android:layout_width="147dp"
         android:layout_height="38dp"
         android:layout_marginStart="8dp"

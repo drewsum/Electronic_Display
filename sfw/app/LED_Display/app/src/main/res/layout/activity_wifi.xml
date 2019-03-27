@@ -35,22 +35,22 @@ android:layout_height="fill_parent">
 
 
     <Button
-        android:id="@+id/buttonHeartBeat"
+        android:id="@+id/buttonSend1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:alpha="1.0"
-        android:background="#000000"
-        android:text="Send a 1" />
+        android:background="@android:color/background_light"
+        android:text="Send a 1"
+        android:textSize="16sp" />
 
     <Button
-        android:id="@+id/buttonHeartFade"
+        android:id="@+id/buttonSend0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:alpha="1.0"
-        android:background="#000000"
-        android:text="Send a 2" />
+        android:background="@android:color/background_light"
+        android:text="Send a 2"
+        android:textSize="16sp" />
 
 </LinearLayout>
 

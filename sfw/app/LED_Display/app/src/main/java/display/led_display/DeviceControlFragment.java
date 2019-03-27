@@ -1,33 +1,33 @@
 package display.led_display;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import display.led_display.helper.TinyDB;
+import display.led_display.helper.WiFiController;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DeviceSelectFragment.OnFragmentInteractionListener} interface
+ * {@link DeviceControlFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DeviceSelectFragment#newInstance} factory method to
+ * Use the {@link DeviceControlFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DeviceSelectFragment extends Fragment implements View.OnClickListener {
+public class DeviceControlFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,9 +37,12 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
     private String mParam1;
     private String mParam2;
 
+    private ArrayList<String> deviceList;
+    private int brightnessLevel = 0;
+
     private OnFragmentInteractionListener mListener;
 
-    public DeviceSelectFragment() {
+    public DeviceControlFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +52,11 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DeviceSelectFragment.
+     * @return A new instance of fragment DeviceControlFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DeviceSelectFragment newInstance(String param1, String param2) {
-        DeviceSelectFragment fragment = new DeviceSelectFragment();
+    public static DeviceControlFragment newInstance(String param1, String param2) {
+        DeviceControlFragment fragment = new DeviceControlFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,47 +71,69 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-//        MenuActivity parent = (MenuActivity)this.getActivity().getParent();
-//        Project[] projectList = parent.database.projectDao.loadAll();
-//        Log.d("projects: ", "" + projectList[0].getProjectName());
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_device_select, container, false);
-        TinyDB tinyDB = new TinyDB(getContext());
-        ArrayList<String> projectList = tinyDB.getListString("projectList");
-        Log.d("projectList", projectList.toString());
-        ArrayList<String> deviceList = tinyDB.getListString("deviceList");
-        Log.d("projectList", deviceList.toString());
-        ListView projectListview = rootView.findViewById(R.id.projectList);
-        projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "frameList"));
-        // populate physical boards list
-        ListView boardListview = rootView.findViewById(R.id.deviceList);
-        boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
-        Button buttonSelectDevice = (Button) rootView.findViewById(R.id.buttonDeviceSelect);
-        buttonSelectDevice.setOnClickListener(new Button.OnClickListener() {
-
+        final View rootView = inflater.inflate(R.layout.fragment_device_control, container, false);
+        Bundle arguments = getArguments();
+        final String deviceName = arguments.getString("deviceName");
+        TextView textDeviceName = (TextView) rootView.findViewById(R.id.textDeviceName);
+        textDeviceName.setText("Controlling Device: " + deviceName);
+        TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
+        final WiFiController wiFiController = new WiFiController();
+        //deviceList = tinyDB.getListString(projectName + "frameList");
+        // set up Ping button
+        Button buttonPing = (Button) rootView.findViewById(R.id.buttonPing);
+        buttonPing.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
+                // Ping the Micro
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Test", "hello world\r\n");
+                Log.d("wifi", "message sent");
             }
         });
-
-        Button buttonNewProject = (Button) rootView.findViewById(R.id.buttonNewProject);
-        buttonNewProject.setOnClickListener(new Button.OnClickListener() {
-
+        // set up Power button
+        Button buttonPower = (Button) rootView.findViewById(R.id.buttonPower);
+        buttonPower.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, new NewProjectFragment()).commit();
+                // send WiFi command to Turn Multiplexing ON
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Power=toggle");
             }
         });
+        // set up Brightness seekbar
+        final TextView textBrightness = (TextView) rootView.findViewById(R.id.textBrightness);
+        SeekBar seekbar = (SeekBar) rootView.findViewById(R.id.seekBar);
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+           @Override
+           public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+               brightnessLevel = progress;
+                textBrightness.setText("Brightness: " + progress);
+           }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
+           }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //wiFiController.connectToNetwork(getContext());
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Dim=" + brightnessLevel);
+           }
+       });
+        Button buttonSendCommand = (Button) rootView.findViewById(R.id.buttonSendCommand);
+        buttonSendCommand.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // send AT command to microcontroller
+                EditText editWiFiCommands = (EditText) rootView.findViewById(R.id.editWiFiCommands);
+                String commands = editWiFiCommands.getText().toString();
+                wiFiController.sendOverWiFi(getContext(), deviceName, "ATCommand", commands);
+                Log.d("wifi", "message sent");
+            }
+        });
         return rootView;
     }
 
@@ -117,13 +142,6 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
-
-    private void moveToNewActivity() {
-        Intent i = new Intent(getActivity(), WiFiActivity.class);
-        startActivity(i);
-        ((Activity) getActivity()).overridePendingTransition(0,0);
-
     }
 
     @Override
@@ -143,14 +161,6 @@ public class DeviceSelectFragment extends Fragment implements View.OnClickListen
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonDeviceSelect:
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
-                break;
-        }
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

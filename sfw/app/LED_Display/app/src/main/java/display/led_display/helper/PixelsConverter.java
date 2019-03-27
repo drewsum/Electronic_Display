@@ -78,6 +78,7 @@ public class PixelsConverter {
         {
             int[] spacedValue = new int[8];
             int val = rgb.get(i);
+            // 8 bit mode
             spacedValue[0] = (val > 0) ? 1 : 0;
             spacedValue[2] = (val > 32) ? 1 : 0;
             spacedValue[4] = (val > 64) ? 1 : 0;
@@ -86,15 +87,7 @@ public class PixelsConverter {
             spacedValue[3] = (val > 160) ? 1 : 0;
             spacedValue[5] = (val > 192) ? 1 : 0;
             spacedValue[7] = (val > 224) ? 1 : 0;
-            // fucked up mode
-//            spacedValue[0] = (val > 0) ? 1 : 0;
-//            spacedValue[2] = (val > 16) ? 1 : 0;
-//            spacedValue[4] = (val > 32) ? 1 : 0;
-//            spacedValue[6] = (val > 64) ? 1 : 0;
-//            spacedValue[1] = (val > 96) ? 1 : 0;
-//            spacedValue[3] = (val > 128) ? 1 : 0;
-//            spacedValue[5] = (val > 160) ? 1 : 0;
-//            spacedValue[7] = (val > 200) ? 1 : 0;
+            // 8 bit mode
             bytesOfData.add(spacedValue[0]);
             bytesOfData.add(spacedValue[1]);
             bytesOfData.add(spacedValue[2]);
@@ -113,6 +106,7 @@ public class PixelsConverter {
         ArrayList<Integer> secondHalf = new ArrayList<Integer>(bits.subList(bits.size() / 2, bits.size())); // 49152 - 98304
         Log.d("second half size: ", "" + secondHalf.size());
         Log.d("bits size: ", "" + bits.size());
+        // 8 bit mode
         for(int j = 0; j < 8; j++)
         {
             finalScript.clear();
@@ -175,9 +169,6 @@ public class PixelsConverter {
                 panelList[i][j] = BitsToMicro(bits);
             }
         }
-//        for(int m = 0; m < dimX; m++) {
-//            compilePanelLists(panelList[m][0], panelList[m][1], panelList[m][0], panelList[m][1]);
-//        }
         byte[] pillar0 = compilePanelLists(panelList[0][0], panelList[0][1], panelList[0][2], panelList[0][3]); // 49152
         byte[] pillar1 = compilePanelLists(panelList[1][0], panelList[1][1], panelList[1][2], panelList[1][3]);
         byte[] pillar2 = compilePanelLists(panelList[2][0], panelList[2][1], panelList[2][2], panelList[2][3]);

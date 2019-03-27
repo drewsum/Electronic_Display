@@ -14,11 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MenuActivity extends AppCompatActivity
-        implements DeviceSelectFragment.OnFragmentInteractionListener,
+        implements UploadProjectFragment.OnFragmentInteractionListener,
         NewProjectFragment.OnFragmentInteractionListener,
+        NewDeviceFragment.OnFragmentInteractionListener,
         ProjectPreviewFragment.OnFragmentInteractionListener,
         EditProjectFragment.OnFragmentInteractionListener,
-        ProjectSelectFragment.OnFragmentInteractionListener,
+        SelectionFragment.OnFragmentInteractionListener,
+        DeviceControlFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -83,18 +85,30 @@ public class MenuActivity extends AppCompatActivity
         Fragment fragment = null;
         Class fragmentClass = null;
 
+        // pass args
+        Bundle arguments = new Bundle();
+
         if (id == R.id.nav_add) {
             fragmentClass = NewProjectFragment.class;
         } else if (id == R.id.nav_edit) {
-            fragmentClass = ProjectSelectFragment.class;
+            fragmentClass = SelectionFragment.class;
+            arguments.putString( "selectionType" , "project");
+            arguments.putString( "fragmentReturn" , "edit");
         } else if (id == R.id.nav_preview) {
-            fragmentClass = ProjectPreviewFragment.class;
+            fragmentClass = SelectionFragment.class;
+            arguments.putString( "selectionType" , "project");
+            arguments.putString( "fragmentReturn" , "preview");
         } else if (id == R.id.nav_upload) {
-            fragmentClass = DeviceSelectFragment.class;
+            fragmentClass = UploadProjectFragment.class;
+        } else if (id == R.id.nav_control) {
+            fragmentClass = SelectionFragment.class;
+            arguments.putString("selectionType", "device");
+            arguments.putString("fragmentReturn", "control");
         }
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+            fragment.setArguments(arguments);
         } catch (Exception e) {
             e.printStackTrace();
         }
