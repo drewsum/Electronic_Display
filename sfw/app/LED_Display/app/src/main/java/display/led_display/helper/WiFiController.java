@@ -2,6 +2,8 @@ package display.led_display.helper;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -218,5 +220,17 @@ public class WiFiController {
             }
         }
 
+    }
+
+    public void connectToNetwork(Context context) {
+        WifiConfiguration wifiConfig = new WifiConfiguration();
+        wifiConfig.SSID = String.format("\"%s\"", "AI-Thinker_5D90B5");
+
+        WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+//remember id
+        int netId = wifiManager.addNetwork(wifiConfig);
+        wifiManager.disconnect();
+        wifiManager.enableNetwork(netId, true);
+        wifiManager.reconnect();
     }
 }
