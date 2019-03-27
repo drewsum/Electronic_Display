@@ -75,7 +75,7 @@ public class ImageSelectActivity extends AppCompatActivity {
                         TinyDB tinyDB = new TinyDB(getApplicationContext());
                         Map<String, ?> tinyDBAll = tinyDB.getAll();
                         Log.d("print all", tinyDBAll.toString());
-                    } else {`
+                    } else {
                         // switch is "OFF" so it is false
                         boolAspectRatio = false;
                         Log.d("switchPressed", "Stretch To Fit");
