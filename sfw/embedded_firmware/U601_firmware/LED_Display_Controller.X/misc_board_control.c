@@ -172,7 +172,7 @@ void encoderStepREHandler(void) {
     
     uint8_t current_brightness = (OC4R * 100) / PR2;
     
-    // Not sure if this is right
+    // if ENCODER_DIR_PIN is high, we are rotating clockwise
     if (ENCODER_DIR_PIN) {
         
         // If we are not at maximum brightness, make brighter
