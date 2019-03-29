@@ -70,7 +70,7 @@ void sendCIPData(uint8_t connectionId, char *data, uint8_t length);
 void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length);
 
 // Caroline made this
-void esp8266PutStringInArray(void);
+// void esp8266PutStringInArray(void);
 
 #endif /* _ESP8266_H */
 

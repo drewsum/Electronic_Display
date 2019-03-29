@@ -222,6 +222,10 @@ void main(void) {
     nLEVEL_SHIFT_EN_PIN = 0;
     printf("Panel Data Level Shifters Enabled\n\r");
     
+    // Initialize change notifications
+    changeNotificationInit();
+    printf("Change Notifications Enabled\r\n");
+    
     // Start Timer5
     panelMultiplexingTimerInitialize();
     printf("Panel Multiplexing Timer Initialized, Multiplexing Started\n\r");

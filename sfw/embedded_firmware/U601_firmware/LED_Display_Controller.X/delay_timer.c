@@ -38,10 +38,21 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
             error_handler.WIFI_error_flag = 0;
             break;
             
-        case esp8266_http_response_delay:
+        case esp8266_http_response_delay1:
+//            memset(response_message, 0, sizeof(response_message));
+//            strcpy(response_message, "Message%20Received");
+//            sendHTTPResponse((uint8_t) current_connection_id, response_message, strlen(response_message));
+//            memset(response_message, 0, sizeof(response_message));
             memset(response_message, 0, sizeof(response_message));
-            strcpy(response_message, "Message%20Received");
-            sendHTTPResponse((uint8_t) current_connection_id, response_message, strlen(response_message));
+            sprintf(response_message, "AT+CIPSEND=%u, %u\r\n", current_connection_id, 5);
+            esp8266Putstring(response_message);
+            delayTimerStart(0xFFFF, esp8266_http_response_delay2);
+            break;
+            
+        case esp8266_http_response_delay2:
+            memset(response_message, 0, sizeof(response_message));
+            sprintf(response_message, "ABCDE\r\n");
+            esp8266Putstring(response_message);
             break;
             
         default:
