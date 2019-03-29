@@ -29,6 +29,7 @@ import java.util.Map;
 
 import display.led_display.helper.PixelsConverter;
 import display.led_display.helper.TinyDB;
+import display.led_display.helper.WiFiController;
 
 public class ImageSelectActivity extends AppCompatActivity {
     TextView textTargetUri;
@@ -163,7 +164,14 @@ public class ImageSelectActivity extends AppCompatActivity {
             int panels_height = 4;
             scaledBitmap = Bitmap.createScaledBitmap(bitmap,64*panels_width,64*panels_height,true);
             byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
-
+            WiFiController wiFiController = new WiFiController();
+            String str = "";
+            for(int h = 0; h < 10000; h++) {
+                str += String.format("%02X", printMe[h]);
+                Log.d("hi", "working...");
+            }
+            Log.d("bytes", str);
+            wiFiController.sendOverWiFi(getBaseContext(), "Display Board","ImageData", str);
             // store to temp file for testing
             File file = new File("/storage/emulated/0/Download" + "/values.txt");
             Log.d("Filepath", file.getAbsolutePath());

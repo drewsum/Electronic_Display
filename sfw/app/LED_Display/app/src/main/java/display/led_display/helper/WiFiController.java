@@ -32,13 +32,13 @@ public class WiFiController {
         Log.d("portNumber", portNumber);
         Log.d("data length", "" + data.length());
         if (messageType == "Test") {
-            new HttpRequestAsyncTask(context, data.toString(), ipAddress, portNumber, messageType).execute();
+            new HttpRequestAsyncTask(context, data, ipAddress, portNumber, messageType).execute();
         } else if (messageType == "Control") {
-            new HttpRequestAsyncTask(context, data.toString(), ipAddress, portNumber, messageType).execute();
+            new HttpRequestAsyncTask(context, data, ipAddress, portNumber, messageType).execute();
         } else if (messageType == "ATCommand") {
-            new HttpRequestAsyncTask(context, data.toString(), ipAddress, portNumber, messageType).execute();
+            new HttpRequestAsyncTask(context, data, ipAddress, portNumber, messageType).execute();
         } else if (messageType == "ImageData") {
-            new HttpRequestAsyncTask(context, data.toString(), ipAddress, portNumber, messageType).execute();
+            new HttpRequestAsyncTask(context, data, ipAddress, portNumber, messageType).execute();
         }
     }
     // I create my own local NameValuePair class as a substitute for the
@@ -68,18 +68,18 @@ public class WiFiController {
     // @return The ip address' reply text, or an ERROR message is it fails to receive one
     public String sendRequest(String parameterValue, String ipAddress, String portNumber, String parameterName)
             throws Exception {
-
+        // parameterName is ImageData, Control, etc.
         String serverResponse = "";
         // method 1:
         // define the URL e.g. http://myIpaddress:myport/?pin=13 (to toggle pin 13 for example)
         // if we had just a parameter at a time to send, we could use the form commented below;
         // for more parameters, we can use the list with several parameters;
-        String requestURL = "http://"+ipAddress+":"+portNumber+"/?"+parameterName+"="+parameterValue;
+        String requestURL = "http://"+ipAddress+":"+portNumber+"/";
         // method 2: include here as many parameters to params as needed;
         // right now, this is just a place-holder;
         //String requestURL = "http://"+ipAddress;
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        //params.add(new NameValuePair(parameterName, parameterValue));
+        params.add(new NameValuePair(parameterName, parameterValue));
         //params.add(new BasicNameValuePair("secondParam", paramValue2));
         //params.add(new BasicNameValuePair("thirdParam", paramValue3));
 
@@ -185,11 +185,11 @@ public class WiFiController {
         protected Void doInBackground(Void... voids) {
             alertDialog.setMessage("Data sent, waiting for receipt confirmation from device...");
             if (!alertDialog.isShowing()) {
-                alertDialog.show();
+                //alertDialog.show();
             }
 
             try {
-                requestReply = sendRequest(parameterValue, ipAddress,portNumber, parameter);
+                requestReply = sendRequest(parameterValue, ipAddress, portNumber, parameter);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -205,7 +205,7 @@ public class WiFiController {
         protected void onPostExecute(Void aVoid) {
             alertDialog.setMessage(requestReply);
             if (!alertDialog.isShowing()) {
-                alertDialog.show(); // show dialog
+                //alertDialog.show(); // show dialog
             }
         }
 
@@ -216,9 +216,13 @@ public class WiFiController {
         protected void onPreExecute() {
             alertDialog.setMessage("Sending, please wait...");
             if (!alertDialog.isShowing()) {
-                alertDialog.show();
+                //alertDialog.show();
             }
         }
+
+    }
+
+    public void sendCIP(Context context) {
 
     }
 
