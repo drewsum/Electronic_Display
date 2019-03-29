@@ -26,7 +26,7 @@ void changeNotificationInit(void) {
     
     // Configuration for Port K
     CNCONKbits.ON           = 1;
-    CNCONKbits.EDGEDETECT   = 1;        
+    CNCONKbits.EDGEDETECT   = 1;
     
     // Interrupt Priorities
     setInterruptPriority(PORTF_Input_Change_Interrupt, 2);
@@ -62,16 +62,21 @@ void __ISR(_CHANGE_NOTICE_F_VECTOR, IPL2SRS) portFCNISR(void) {
     }
     
     if (CNFFbits.CNFF8 && CNNEFbits.CNNEF8) {
-            
+        
         pos5pPGoodFEHandler();
          
     }
     
     if (CNFFbits.CNFF12 && CNNEFbits.CNNEF12) {
-            
+        
         pos5pThermalWarningFEHandler();
 
     }
+    
+    CNFF    = 0;
+    CNSTATF = 0;
+    
+    uint16_t dummy = PORTF;
     
     clearInterruptFlag(PORTF_Input_Change_Interrupt);
     
@@ -98,6 +103,11 @@ void __ISR(_CHANGE_NOTICE_K_VECTOR, IPL2SRS) portKCNISR(void) {
                             
     }
     
+    CNFK    = 0;
+    CNSTATK = 0;
+    
+    uint16_t dummy = PORTK;
+    
     clearInterruptFlag(PORTK_Input_Change_Interrupt);
 
 }
@@ -105,7 +115,11 @@ void __ISR(_CHANGE_NOTICE_K_VECTOR, IPL2SRS) portKCNISR(void) {
 // POS5P Thermal Warning falling edge interrupt handler
 void pos5pThermalWarningFEHandler(void) {
     
-    
+//    terminalTextAttributesReset();
+//    terminalTextAttributes(RED, BLACK, NORMAL);
+//    printf("+5VP Thermal Warning\n\r", adc_results.POS12_adc);
+//    terminalTextAttributesReset();
+//    
     error_handler.POS5P_thermal_warning_error_flag = 1;
     
 }
@@ -114,11 +128,11 @@ void pos5pThermalWarningFEHandler(void) {
 void pos12PGoodFEHandler(void) {  
        
     // Display on USB UART the value of ADC
-    terminalTextAttributesReset();
-    terminalTextAttributes(RED, BLACK, NORMAL);
-    printf("+12V Input Voltage Measurement: %+0.3f V\n\r", adc_results.POS12_adc);
-    terminalTextAttributesReset();
-    
+//    terminalTextAttributesReset();
+//    terminalTextAttributes(RED, BLACK, NORMAL);
+//    printf("+12V Input Voltage Measurement: %+0.3f V\n\r", adc_results.POS12_adc);
+//    terminalTextAttributesReset();
+//    
     // flag error
     error_handler.POS12_regulation_error_flag = 1;
             
@@ -128,11 +142,11 @@ void pos12PGoodFEHandler(void) {
 void pos5PGoodFEHandler(void) {
     
     // Display on USB UART the value of ADC
-    terminalTextAttributesReset();
-    terminalTextAttributes(RED, BLACK, NORMAL);
-    printf("+5V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5_adc);
-    terminalTextAttributesReset();
-    
+//    terminalTextAttributesReset();
+//    terminalTextAttributes(RED, BLACK, NORMAL);
+//    printf("+5V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5_adc);
+//    terminalTextAttributesReset();
+//    
     // flag error
     error_handler.POS5_regulation_error_flag = 1;
     
@@ -142,11 +156,11 @@ void pos5PGoodFEHandler(void) {
 void pos5pPGoodFEHandler(void) {
      
     // Display on USB UART the value of ADC
-    terminalTextAttributesReset();
-    terminalTextAttributes(RED, BLACK, NORMAL);    
-    printf("+5VP LED Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5P_adc);
-    terminalTextAttributesReset();
-    
+//    terminalTextAttributesReset();
+//    terminalTextAttributes(RED, BLACK, NORMAL);    
+//    printf("+5VP LED Power Supply Measurement: %+0.3f V\n\r", adc_results.POS5P_adc);
+//    terminalTextAttributesReset();
+//    
     // flag error
     error_handler.POS5P_regulation_error_flag = 1;
 
@@ -170,7 +184,7 @@ void displayEnableFEHandler(void) {
 // Encoder step rising edge interrupt handler
 void encoderStepREHandler(void) {
     
-    uint8_t current_brightness = (OC4R * 100) / PR2;
+    uint8_t current_brightness = ((PR2 - OC4R) * 100) / PR2;
     
     // if ENCODER_DIR_PIN is high, we are rotating clockwise
     if (ENCODER_DIR_PIN) {
@@ -199,10 +213,10 @@ void encoderStepREHandler(void) {
 void pos3p3PGoodFEHandler(void) {
            
     // Display on USB UART the value of ADC
-    terminalTextAttributesReset();
-    terminalTextAttributes(RED, BLACK, NORMAL);
-    printf("+3.3V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS3P3_adc);
-    terminalTextAttributesReset();
+//    terminalTextAttributesReset();
+//    terminalTextAttributes(RED, BLACK, NORMAL);
+//    printf("+3.3V Power Supply Measurement: %+0.3f V\n\r", adc_results.POS3P3_adc);
+//    terminalTextAttributesReset();
 
     // flag error
     error_handler.POS3P3_regulation_error_flag = 1;
