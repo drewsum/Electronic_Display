@@ -397,11 +397,20 @@ void esp8266RingBufferLUT(char * line_in) {
      
         uint32_t dummy;
         memset(http_android_string, 0, sizeof(http_android_string));
-        sscanf(line_in, "+IPD,%u,%u:POST /?%s HTTP/1.1\r\n", 
+        sscanf(line_in, "+IPD,%u,%u:POST /? HTTP/1.1\r\n", 
                 &current_connection_id,
-                &dummy,
-                http_android_string);
+                &dummy);
 
+        //delayTimerStart(0xFFFF, esp8266_http_response_delay);
+        
+    }
+    
+    else if (strstart(line_in, "ImageData") == 0) {
+        
+        sscanf(line_in, "ImageData=%s\r\n", &http_android_string);
+        
+        esp8266PutStringInArray();
+        
         delayTimerStart(0xFFFF, esp8266_http_response_delay);
         
     }
@@ -469,6 +478,27 @@ void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length) {
     strcpy(httpResponse, httpHeader);
     strcat(httpResponse, content);
     sendCIPData(connectionId, httpResponse, strlen(httpResponse));
+}
+
+//Caroline made this and it doesnt work
+void esp8266PutStringInArray(void) {
+        
+    uint16_t array[16384];
+    char * string;
+    
+    uint8_t a = 0;
+    uint8_t b = 0;
+    
+    for (a = 0; a < 16384; a++) {
+        
+        b = 0;
+        strcpy(string, "0x");
+        strcat(string, http_android_string[b]);
+        strcat(string, http_android_string[b+1]);
+        array[a] = uint16_t(string, 16);           
+        
+    }
+    
 }
 
 // Find cases to set WiFi error handler state to show error led

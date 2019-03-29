@@ -36,7 +36,7 @@ extern volatile uint32_t esp_8266_TxBufferRemaining;
 uint32_t current_connection_id = 20;
 
 // This is the string that is included in an HTTP request
-char http_android_string[256];
+char http_android_string[16384];
 
 
 
@@ -68,6 +68,9 @@ void esp8266RingBufferLUT(char * esp_8266_line);
 // WiFi specific functions
 void sendCIPData(uint8_t connectionId, char *data, uint8_t length);
 void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length);
+
+// Caroline made this
+void esp8266PutStringInArray(void);
 
 #endif /* _ESP8266_H */
 
