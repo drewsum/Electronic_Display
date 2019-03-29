@@ -341,10 +341,9 @@ void panelPWMInitialize(void) {
     // Clear timer 2
     TMR2 = 0x0000;
     
-    // Set timer 2 period match to 8000
-    // This should get us a Timer2 period of 1600uS, or a Timer2 frequency of 1250Hz
-    PR2 = 2000;
-        
+    // Set timer 2 period match to 100
+    PR2 = 100;
+    
     // Set up Output Compare 4
     ///////////////////////////////////
     
@@ -366,8 +365,9 @@ void panelPWMInitialize(void) {
     // Enable Output Compare peripheral
     OC4CONbits.ON = 1;
     
-    // Set PWM duty cycle to 100% at boot
-    OC4R = PR2 >> 1;
+    // Set PWM duty cycle to 0% at boot
+    OC4RS = 0;
+    OC4R = 0;
     
     // Start timer 2
     T2CONbits.ON = 1;
@@ -383,6 +383,6 @@ void panelPWMSetBrightness(uint8_t set_brightness) {
     set_brightness = 100 - set_brightness;
     
     // Set duty cycle
-    OC4R = (set_brightness * PR2) / 100;
+    OC4RS = (set_brightness * PR2) / 100;
     
 }

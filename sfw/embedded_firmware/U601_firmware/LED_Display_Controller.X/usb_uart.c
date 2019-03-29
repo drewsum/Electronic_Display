@@ -839,7 +839,7 @@ void usbUartRingBufferLUT(char * line_in) {
 //        terminalTextAttributesReset();
 //        
 //    }
-    
+        
     else if (strstart(line_in, "Set Panel Muxing On Time ") == 0) {
      
         // Get PR5 setting
@@ -862,13 +862,27 @@ void usbUartRingBufferLUT(char * line_in) {
         uint32_t set_brightness;
         sscanf(line_in, "Set Panel Brightness %u", &set_brightness);
         
-        panelPWMSetBrightness((uint8_t) set_brightness);
+        if (set_brightness > 100 || set_brightness < 0) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("Please enter a brightness between 0%% and 100%%, user entered %u%%\n\r", set_brightness);
+            terminalTextAttributesReset();
+
+            
+        }
         
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Set Panel Brightness to %d\n\r", set_brightness);
-        terminalTextAttributesReset();
-        
+        else {
+
+            panelPWMSetBrightness((uint8_t) set_brightness);
+
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Set Panel Brightness to %u%%\n\r", set_brightness);
+            terminalTextAttributesReset();
+
+        }
+            
     }
     
     else if (strcmp(line_in, "Error Status?") == 0) {
@@ -1363,8 +1377,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Cyan: Sets all pixels in display cyan\n\r");    
     printf("    Set Green: Sets all pixels in display green\n\r");    
     printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
-    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
-    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
+    // printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
+    // printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
     printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
     printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
