@@ -341,10 +341,9 @@ void panelPWMInitialize(void) {
     // Clear timer 2
     TMR2 = 0x0000;
     
-    // Set timer 2 period match to 8000
-    // This should get us a Timer2 period of 800uS, or a Timer2 frequency of 2500Hz
-    PR2 = 1000;
-        
+    // Set timer 2 period match to 100
+    PR2 = 100;
+    
     // Set up Output Compare 4
     ///////////////////////////////////
     
