@@ -105,7 +105,7 @@ void deviceReset(void) {
 
 // This function is a software delay that simply counts loops while decrementing
 // the argument
-void softwareDelay(uint32_t inputDelay) {
+inline void softwareDelay(uint32_t inputDelay) {
  
     while (inputDelay > 0) {
      
