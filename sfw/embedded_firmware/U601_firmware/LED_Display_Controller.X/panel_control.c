@@ -45,11 +45,15 @@ void panelMultiplexingHandler(void) {
     LATDSET = (current_row << 11);
     
     // uint32_t current_row_PWM_frame_index = 960 * current_row + 30720 * current_PWM_frame;
-    uint32_t current_row_PWM_frame_index = 960 * current_row + current_PWM_frame_index;
-    uint32_t current_row_PWM_frame_index_Red = current_row_PWM_frame_index + 0;
-    uint32_t current_row_PWM_frame_index_Green = current_row_PWM_frame_index + 1;
-    uint32_t current_row_PWM_frame_index_Blue = current_row_PWM_frame_index + 2;
-    
+    uint32_t current_row_PWM_frame_index_Red = 960 * current_row + current_PWM_frame_index;
+    uint32_t current_row_PWM_frame_index_Green = current_row_PWM_frame_index_Red + 1;
+    uint32_t current_row_PWM_frame_index_Blue = current_row_PWM_frame_index_Red + 2;
+//    
+//    uint32_t current_row_PWM_frame_index_Red = current_row_PWM_frame_index + 0;
+//    uint32_t current_row_PWM_frame_index_Green = current_row_PWM_frame_index + 1;
+//    uint32_t current_row_PWM_frame_index_Blue = current_row_PWM_frame_index + 2;
+//    
+    // Grab data for first shift clock cycle
     uint8_t redData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Red];
     uint8_t greenData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Green];
     uint8_t blueData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Blue];
@@ -81,7 +85,7 @@ void panelMultiplexingHandler(void) {
         
     }
     
-    // setPanelRGBBus(redData, greenData, blueData);
+    // Present data for last shift clock cycle to panels
     LATDCLR = 0x00FF;
     LATDSET = redData;
     // Set green data bus
