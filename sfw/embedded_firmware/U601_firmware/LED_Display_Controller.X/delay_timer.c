@@ -25,12 +25,12 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
     {
         case esp8266Delay1:
             esp8266Putstring("AT+CWMODE_CUR=2\r\n");
-            delayTimerStart(0xAFFF, esp8266Delay2);
+            delayTimerStart(0x5FFF, esp8266Delay2);
             //esp8266Configure();
             break;
         case esp8266Delay2:
             esp8266Putstring("AT+CIPMUX=1\r\n");
-            delayTimerStart(0xAFFF, esp8266Delay3);
+            delayTimerStart(0x5FFF, esp8266Delay3);
             break;
         case esp8266Delay3:
             esp8266Putstring("AT+CIPSERVER=1,80\r\n");

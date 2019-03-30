@@ -9,6 +9,7 @@
 #include "pin_macros.h"
 #include "external_bus_interface.h"
 #include "panel_control.h"
+#include "device_control.h"
 
 // This pragma tells the linker to allow access of EBI memory space
 #pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
@@ -758,9 +759,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
                 
     }
     
-    
-    uint16_t delay = 800;
-    while (delay > 0) delay--;
+    softwareDelay(800);
     
     // Toggle CE
     spiFlashGPIOSet();
@@ -824,9 +823,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
         }
 
-
-        uint16_t delay = 800;
-        while (delay > 0) delay--;
+        softwareDelay(800);
 
         // Toggle CE
         spiFlashGPIOSet();
@@ -876,9 +873,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
         }
 
-
-        delay = 800;
-        while (delay > 0) delay--;
+        softwareDelay(800);
 
         // Toggle CE
         spiFlashGPIOSet();
@@ -899,6 +894,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
    
         spi_flash_state = idle;
                
+        terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Transfer from EBI SRAM to Flash complete\n\r");
         terminalTextAttributesReset();
@@ -983,8 +979,7 @@ void SPI_FLASH_chipErase(uint8_t chip_select) {
     // Clear CS and WP signals
     spiFlashGPIOReset();
     
-    uint32_t delay = 1250000;
-    while (delay > 0) delay--;
+    softwareDelay(1250000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
@@ -1218,8 +1213,7 @@ void SPI_Flash_writeEnable(uint8_t chip_select){
     // Clear CE and WP signals
     spiFlashGPIOReset();
     
-    uint16_t delay = 10000;
-    while (delay > 0) delay--;
+    softwareDelay(10000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
@@ -1282,8 +1276,7 @@ void SPI_Flash_blockProtectionDisable(uint8_t chip_select) {
     // Clear CE and WP signals
     spiFlashGPIOReset();
     
-    uint16_t delay = 10000;
-    while (delay > 0) delay--;
+    softwareDelay(10000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);

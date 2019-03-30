@@ -146,7 +146,7 @@ void esp8266InitializeConfiguration(void) {
     nWIFI_RESET_PIN = 0;
     
     // start the delay timer that will interrupt
-    delayTimerStart(0xFFFF, esp8266Delay1);
+    delayTimerStart(0x5FFF, esp8266Delay1);
     
 }
 
