@@ -996,6 +996,41 @@ void usbUartRingBufferLUT(char * line_in) {
 
     }
     
+    else if (strstart(line_in, "SPI Flash Data Check  ") == 0) {
+    
+        // Get which chip we're erasing
+        uint32_t chip_to_check;
+        sscanf(line_in, "SPI Flash Data Check %u", &chip_to_check);
+        
+        if (chip_to_check <= 8 && chip_to_check >= 1) {
+         
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Checking chip %d\n\r", chip_to_check);
+            terminalTextAttributesReset();
+
+            uint8_t result = SPI_FLASH_dataCheck(chip_to_check);
+            if(result == 1)
+            {
+                printf("Chip %d has data");
+            }
+            else
+            {
+                printf("Chip %d is blank");
+            }
+            
+        }
+        
+        else {
+         
+            terminalTextAttributes(RED, BLACK, NORMAL);
+            printf("Chip %u is not valid\n\r", chip_to_check);
+            terminalTextAttributesReset();
+        
+        }
+
+    }
+    
     else if (strcmp(line_in, "Serial Number?") == 0) {
      
         terminalTextAttributesReset();
@@ -1347,6 +1382,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    SPI Flash Chip Write <x>: Writes the contents of the EBI SRAM buffer to the given SPI Flash chip, x = 1:8\n\r");
     printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into EBI SRAM buffer, x = 1:8\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
+    printf("    SPI Flash Data Check <x>: Determines if a SPI chip contains image data\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
