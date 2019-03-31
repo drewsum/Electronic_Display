@@ -1057,17 +1057,25 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     uint8_t eraseCheck = SPI3_readByte();
     
     // Checks if last address has been written to
-    if (eraseCheck != 0xFF)
+    if (eraseCheck == 0xFF)
     {
-        return 1;
+        return 0;
     }
     
     // Last address has not been written to
     else
     {
-        return 0;
+        return 1;
     }
 
+    // reset state machine
+    spi_flash_state = idle;
+    
+    // Clear CE and WP signals
+    spiFlashGPIOReset();
+    
+    clearInterruptFlag(SPI3_Transfer_Done);
+    clearInterruptFlag(SPI3_Receive_Done);
     
 }
 

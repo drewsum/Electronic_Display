@@ -24,8 +24,8 @@
 #include "spi_flash.h"
 #include "esp8266.h"
 
- #include "test_image_1.h"
- #include "test_image_2.h"
+// #include "test_image_1.h"
+// #include "test_image_2.h"
 
 volatile uint32_t usb_uart_TxHead = 0;
 volatile uint32_t usb_uart_TxTail = 0;
@@ -818,28 +818,28 @@ void usbUartRingBufferLUT(char * line_in) {
 //        
 //    }
     
-    else if(strcmp(line_in, "Set Test Image 1") == 0) {
-     
-        fillRamBufferTestImage1();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with Test Image 1\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
-    else if(strcmp(line_in, "Set Test Image 2") == 0) {
-     
-        fillRamBufferTestImage2();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with Test Image 2\n\r");
-        terminalTextAttributesReset();
-        
-    }
-        
+//    else if(strcmp(line_in, "Set Test Image 1") == 0) {
+//     
+//        fillRamBufferTestImage1();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with Test Image 1\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    else if(strcmp(line_in, "Set Test Image 2") == 0) {
+//     
+//        fillRamBufferTestImage2();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with Test Image 2\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
+//        
     else if (strstart(line_in, "Set Panel Muxing On Time ") == 0) {
      
         // Get PR5 setting
@@ -996,7 +996,7 @@ void usbUartRingBufferLUT(char * line_in) {
 
     }
     
-    else if (strstart(line_in, "SPI Flash Data Check  ") == 0) {
+    else if (strstart(line_in, "SPI Flash Data Check ") == 0) {
     
         // Get which chip we're erasing
         uint32_t chip_to_check;
@@ -1004,19 +1004,21 @@ void usbUartRingBufferLUT(char * line_in) {
         
         if (chip_to_check <= 8 && chip_to_check >= 1) {
          
-            terminalTextAttributesReset();
-            terminalTextAttributes(GREEN, BLACK, NORMAL);
-            printf("Checking chip %d\n\r", chip_to_check);
-            terminalTextAttributesReset();
-
             uint8_t result = SPI_FLASH_dataCheck(chip_to_check);
+            
             if(result == 1)
             {
-                printf("Chip %d has data");
+                terminalTextAttributesReset();
+                terminalTextAttributes(GREEN, BLACK, NORMAL);
+                printf("Chip %u has data\r\n", chip_to_check);
+                terminalTextAttributesReset();
             }
             else
             {
-                printf("Chip %d is blank");
+                terminalTextAttributesReset();
+                terminalTextAttributes(RED, BLACK, NORMAL);
+                printf("Chip %u is blank\r\n", chip_to_check);
+                terminalTextAttributesReset();
             }
             
         }
@@ -1413,8 +1415,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Cyan: Sets all pixels in display cyan\n\r");    
     printf("    Set Green: Sets all pixels in display green\n\r");    
     printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
-    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
-    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
+//    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
+//    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
 //    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
 //    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");

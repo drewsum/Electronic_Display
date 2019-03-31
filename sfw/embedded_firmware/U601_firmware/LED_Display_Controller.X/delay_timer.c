@@ -19,6 +19,7 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
     disableInterrupt(Timer4);
     
     char response_message[40];
+    char cipsend_message[40];
     
     // Handle the task
     switch(timer_task)
@@ -39,14 +40,28 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
             error_handler.WIFI_error_flag = 0;
             break;
             
-        case esp8266_tcp_response_delay:
-//            memset(response_message, 0, sizeof(response_message));
-//            strcpy(response_message, "Message%20Received");
-//            sendHTTPResponse((uint8_t) current_connection_id, response_message, strlen(response_message));
-//            memset(response_message, 0, sizeof(response_message));
+        case esp8266_tcp_response_delay1:
+            memset(cipsend_message, 0, sizeof(cipsend_message));
             memset(response_message, 0, sizeof(response_message));
-            sprintf(response_message, "AT+CIPSEND=%u,%u,Received Message\r\n", current_connection_id, 17);
+            strcpy(response_message, "Message Received");
+            sprintf(cipsend_message, "AT+CIPSEND=%u,%u\r\n\r\n", current_connection_id, strlen(response_message) + 1 + 15);
+            esp8266Putstring(cipsend_message);
+            delayTimerStart(0x3FFF, esp8266_tcp_response_delay2);
+            break;
+            
+        case esp8266_tcp_response_delay2:
+            
+            strcpy(response_message, "Message Received\r\n");
             esp8266Putstring(response_message);
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay3);
+
+            break;
+            
+        case esp8266_tcp_response_delay3:
+            
+            sprintf(cipsend_message,"AT+CIPCLOSE=%u\r\n", current_connection_id);
+            esp8266Putstring(cipsend_message);
+            
             break;
             
         default:

@@ -25,7 +25,9 @@ typedef enum {
     esp8266Delay1,
     esp8266Delay2,
     esp8266Delay3,
-    esp8266_tcp_response_delay
+    esp8266_tcp_response_delay1,
+    esp8266_tcp_response_delay2,
+    esp8266_tcp_response_delay3
 } timer_task_t;
 
 // Global task type for the timer

@@ -1,0 +1,21 @@
+<<<<<<< HEAD
+#
+#Sun Mar 31 14:14:19 CDT 2019
+default.com-microchip-mplab-nbide-toolchainXC32-XC32LanguageToolchain.md5=f86c6f65de49a1ea6ceda521d64aed4e
+default.languagetoolchain.dir=C\:\\Program Files (x86)\\Microchip\\xc32\\v2.10\\bin
+configurations-xml=0309b4cb62ad41aa3b4a341310ce611e
+com-microchip-mplab-nbide-embedded-makeproject-MakeProject.md5=fe6bc8387062251d924fb28d44703093
+default.languagetoolchain.version=2.10
+host.platform=windows
+conf.ids=default
+=======
+#
+#Sun Mar 31 12:32:03 CDT 2019
+default.com-microchip-mplab-nbide-toolchainXC32-XC32LanguageToolchain.md5=07a552e25c866346f6478a1a55ec834c
+default.languagetoolchain.dir=/Applications/microchip/xc32/v2.05/bin
+configurations-xml=5f1b6850683042e39d5cffcde0317992
+com-microchip-mplab-nbide-embedded-makeproject-MakeProject.md5=9d53b989b6ed2b6446aae58c2779ca87
+default.languagetoolchain.version=2.05
+host.platform=mac
+conf.ids=default
+>>>>>>> origin/master

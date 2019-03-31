@@ -359,16 +359,22 @@ void esp8266RingBufferPull(void) {
 void esp8266RingBufferLUT(char * line_in) {
  
     if (strstart(line_in, "+IPD,") == 0) {
-     
+    
         uint32_t dummy;
         char received_string[40];
         memset(http_android_string, 0, sizeof(http_android_string));
-        sscanf(line_in, "+IPD,%u,%u:%s\r\n", 
+        sscanf(line_in, "+IPD,%u,%u:%39c",
                 &current_connection_id,
                 &dummy,
                 received_string);
         
-        if (0 == strcmp(received_string, "Power=toggle")) {
+        // printf("Received string = %s, length = %u\r\n", received_string, strlen(received_string));
+        
+        if (0 == strstart(received_string, "hello world")) {
+            printf("Received Hello World\r\n");
+        }
+        
+        else if (0 == strstart(received_string, "Power=toggle")) {
          
             if (T5CONbits.ON) {
         
@@ -382,7 +388,7 @@ void esp8266RingBufferLUT(char * line_in) {
             
         }
         
-        delayTimerStart(0xFFFF, esp8266_tcp_response_delay);
+        delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
         
     }
     
