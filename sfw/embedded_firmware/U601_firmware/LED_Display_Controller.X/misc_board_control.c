@@ -134,6 +134,9 @@ void pos5pThermalWarningFEHandler(void) {
 //    
     error_handler.POS5P_thermal_warning_error_flag = 1;
     
+    // Shutoff panel power supply
+    POS5P_RUN_PIN = 0;
+    
 }
 
 // POS12 PGOOD falling edge interrupt handler
@@ -204,7 +207,7 @@ void encoderStepREHandler(void) {
         // If we are not at maximum brightness, make brighter
         if (current_brightness < 100) {
             
-            panelPWMSetBrightness(current_brightness + 10);
+            panelPWMSetBrightness(current_brightness + 5);
             
         }
         
@@ -213,7 +216,7 @@ void encoderStepREHandler(void) {
         // if we are not at minimum brightness, make dimmer
         if (current_brightness > 0) {
         
-            panelPWMSetBrightness(current_brightness - 10);
+            panelPWMSetBrightness(current_brightness - 5);
             
         }   
         

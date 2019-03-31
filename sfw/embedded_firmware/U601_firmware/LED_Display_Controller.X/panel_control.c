@@ -7,6 +7,7 @@
 #include "panel_control.h"
 #include "external_bus_interface.h"
 #include "32mz_interrupt_control.h"
+#include "device_control.h"
 
 #include "terminal_control.h"
 
@@ -28,8 +29,9 @@ extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
 void panelMultiplexingHandler(void) {
     
     // Stop on time timer and reset to 0
-    T5CONbits.ON = 0;
-    TMR5 = 0;
+    // T5CONbits.ON = 0;
+    T5CONCLR = 0b1000000000000000;
+    // TMR5 = 0;
     
     // Disable output
     nPANEL_OE_PIN_HIGH();
@@ -48,17 +50,13 @@ void panelMultiplexingHandler(void) {
     uint32_t current_row_PWM_frame_index_Red = 960 * current_row + current_PWM_frame_index;
     uint32_t current_row_PWM_frame_index_Green = current_row_PWM_frame_index_Red + 1;
     uint32_t current_row_PWM_frame_index_Blue = current_row_PWM_frame_index_Red + 2;
-//    
-//    uint32_t current_row_PWM_frame_index_Red = current_row_PWM_frame_index + 0;
-//    uint32_t current_row_PWM_frame_index_Green = current_row_PWM_frame_index + 1;
-//    uint32_t current_row_PWM_frame_index_Blue = current_row_PWM_frame_index + 2;
-//    
-    // Grab data for first shift clock cycle
-    uint8_t redData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Red];
-    uint8_t greenData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Green];
-    uint8_t blueData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Blue];
     
-    // loop through 64 shift clock cycles
+    // Grab data for first shift clock cycle
+    uint32_t redData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Red];
+    uint32_t greenData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Green];
+    uint32_t blueData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Blue];
+    
+    // loop through 320 shift clock cycles
     for (current_shift_clock_index = 3; current_shift_clock_index < 960; current_shift_clock_index += 3) {
         
         // Present previously gathered data to panels
@@ -75,6 +73,22 @@ void panelMultiplexingHandler(void) {
         // Clock data into panel
         PANEL_CLK_PIN_HIGH();
         
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        
         // Grab data for next clock cycle
         redData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Red];
         greenData = panel_data_buffer[current_shift_clock_index + current_row_PWM_frame_index_Green];
@@ -82,6 +96,22 @@ void panelMultiplexingHandler(void) {
         
         // Set clock low
         PANEL_CLK_PIN_LOW();
+        
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
         
     }
     
@@ -98,6 +128,8 @@ void panelMultiplexingHandler(void) {
     // Clock in last column of data
     PANEL_CLK_PIN_HIGH();
     
+    softwareDelay(6);
+    
     // Release Clock
     PANEL_CLK_PIN_LOW();
     
@@ -107,26 +139,27 @@ void panelMultiplexingHandler(void) {
     // Enable pixel output
     nPANEL_OE_PIN_LOW();
     
+    // Restart on time timer
+    // T5CONbits.ON = 1;
+    T5CONSET = 0b1000000000000000;
+    
     // Next function call, update the next row
     current_row++;
     
     // Reset current_row counter
-    if (current_row >= 32) {
-     
+    if (current_row == 32) {
+    
         current_row = 0;
         current_PWM_frame_index += 30720;
         
     }
     
     // Reset current_PWM_frame counter
-    if (current_PWM_frame_index >= PANEL_DATA_PWM_FRAMES * 30720) {
+    if (current_PWM_frame_index == PANEL_DATA_PWM_FRAMES * 30720) {
     
         current_PWM_frame_index = 0;
         
     }
-    
-    // Restart on time timer
-    T5CONbits.ON = 1;
     
 }
 
@@ -312,12 +345,20 @@ void movePanelDataToEBISRAM(void) {
 // This function copies panel data from EBI SRAM to the internal RAM buffer
 void movePanelDataFromEBISRAM(void) {
  
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     uint32_t loop_address;
     for (loop_address = 0; loop_address < PANEL_DATA_ARRAY_SIZE; loop_address++) {
      
         panel_data_buffer[loop_address] = ebi_sram_array[loop_address];
         
     }
+    
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 

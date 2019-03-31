@@ -224,7 +224,7 @@ void esp8266Putchar(uint8_t txData) {
     if(0 == getInterruptEnable(UART1_Transfer_Done))
     {
         U1TXREG = txData;
-        panelMultiplexingSuspend();
+        // panelMultiplexingSuspend();
    
     }
     else
@@ -358,69 +358,34 @@ void esp8266RingBufferPull(void) {
 
 void esp8266RingBufferLUT(char * line_in) {
  
-    // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
-    // ACT ON IT
-//    char * substring;
-//    substring = strncpy(line_in, substring, 5);
-//    if (strcmp(substring, "Image") == 0) {
-//        esp_8266_FlashFlag = 1;
-//    }
-    // WRITE SOME COMMANDS HERE
-    
-//    if (strstart(line_in, "+CIFSR:APIP") == 0) {
-//     
-//        char IP_String[32];
-//        memset(IP_String, 0, sizeof(IP_String));
-//        sscanf(line_in, "+CIFSR:APIP,\"%31c\"\r\n", IP_String);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(CYAN, BLACK, NORMAL);
-//        printf("IP Address is %s\r\n", IP_String);
-//        terminalTextAttributesReset();
-//
-//    }
-//    
-//    else if (strstart(line_in, "+CIFSR:APMAC,") == 0) {
-//     
-//        char MAC_String[32];
-//        memset(MAC_String, 0, sizeof(MAC_String));
-//        sscanf(line_in, "+CIFSR:APMAC,\"%31c\"\r\n", MAC_String);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(CYAN, BLACK, NORMAL);
-//        printf("MAC Address is %s\r\n", MAC_String);
-//        terminalTextAttributesReset();
-//
-//    }
-    
     if (strstart(line_in, "+IPD,") == 0) {
      
         uint32_t dummy;
+        char received_string[40];
         memset(http_android_string, 0, sizeof(http_android_string));
-        sscanf(line_in, "+IPD,%u,%u:POST /? HTTP/1.1\r\n", 
+        sscanf(line_in, "+IPD,%u,%u:%s\r\n", 
                 &current_connection_id,
-                &dummy);
-
-        delayTimerStart(0xFFFF, esp8266_http_response_delay1);
+                &dummy,
+                received_string);
+        
+        if (0 == strcmp(received_string, "Power=toggle")) {
+         
+            if (T5CONbits.ON) {
+        
+                panelMultiplexingSuspend();
+                
+            } else {
+        
+                panelMultiplexingTimerStart();
+                
+            }
+            
+        }
+        
+        delayTimerStart(0xFFFF, esp8266_tcp_response_delay);
         
     }
     
-    else if (strstart(line_in, "ImageData") == 0) {
-        
-        sscanf(line_in, "ImageData=%s\r\n", &http_android_string);
-        
-        // esp8266PutStringInArray();
-        
-        delayTimerStart(0xFFFF, esp8266_http_response_delay1);
-        
-    }
-    
-//    else if (strcmp(line_in, "Connection: Keep-Alive\r\n") == 0) {
-//     
-//        // sendHTTPResponse(
-//        
-//    }
-     
     terminalTextAttributesReset();
     terminalTextAttributes(CYAN, BLACK, NORMAL);
     // printf("WiFi Module Sent:\r\n");

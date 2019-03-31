@@ -108,7 +108,8 @@ void deviceReset(void) {
 inline void softwareDelay(uint32_t inputDelay) {
  
     while (inputDelay > 0) {
-     
+        
+        Nop();
         inputDelay--;
         
     }
