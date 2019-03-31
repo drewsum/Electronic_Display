@@ -986,6 +986,91 @@ void SPI_FLASH_chipErase(uint8_t chip_select) {
     
 }
 
+// Checks if image data is present in flash chip
+// Returns 0 if chip is blank, 1 if chip has been written to
+uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
+    
+    // Enable spi_flash_state corresponding to chip_select
+    switch (chip_select) {
+        case 1:
+            spi_flash_state = flash1_read;
+            break;
+        case 2:
+            spi_flash_state = flash2_read;
+            break;
+        case 3:
+            spi_flash_state = flash3_read;
+            break;
+        case 4:
+            spi_flash_state = flash4_read;
+            break;
+        case 5:
+            spi_flash_state = flash5_read;
+            break;
+        case 6:
+            spi_flash_state = flash6_read;
+            break;
+        case 7:
+            spi_flash_state = flash7_read;
+            break;
+        case 8:
+            spi_flash_state = flash8_read;
+            break;
+        default:
+            break;
+    }
+    
+    // Set CS and WP signals
+    spiFlashGPIOSet();
+      
+    // Write chip read opcode to SPI3 (0x0B for high speed read, 0x03 for standard read))
+    SPI3_writeByte(0x03);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Highest address in SPI Flash is 0x03FFFF
+    // Write addr1 byte
+    SPI3_writeByte(0x03);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write addr2 byte
+    SPI3_writeByte(0xFF);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write addr3 byte
+    SPI3_writeByte(0xFF);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+       
+    // Write dummy byte (needed for low speed read)
+    SPI3_writeByte(0xDD);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+
+    uint8_t eraseCheck = SPI3_readByte();
+    
+    // Checks if last address has been written to
+    if (eraseCheck != 0xFF)
+    {
+        return 1;
+    }
+    
+    // Last address has not been written to
+    else
+    {
+        return 0;
+    }
+
+    
+}
+
 // This function reads from a spi flash chip
 void SPI_FLASH_beginRead(uint8_t chip_select) {
     

@@ -21,6 +21,7 @@
         <itemPath>terminal_control.h</itemPath>
         <itemPath>test_buffer_fills.h</itemPath>
         <itemPath>delay_timer.h</itemPath>
+        <itemPath>standard_operation_sm.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.h</itemPath>
@@ -71,6 +72,7 @@
         <itemPath>test_image_2.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
+      <itemPath>Application Specific/standard_operation_sm.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -91,11 +93,11 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.10</languageToolchainVersion>
+        <languageToolchainVersion>2.05</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.20"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="0.1.15"/>
       </packs>
       <compileType>
         <linkerTool>
