@@ -5,10 +5,26 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="menu_image_description">Menu Logo</string>
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_image_select">ImageSelectActivity</string>
+    <string name="power_button">Power</string>
+    <string name="brightness_text">Brightness Level:</string>
+    <string name="device_name_text">Controlling Device:</string>
+    <string name="at_command_hint">Send AT+COMMANDS</string>
+    <string name="send_text">Send</string>
+    <string name="ping_button">Ping</string>
+    <string name="ping_button_description">Use this button to test connection</string>
+    <string name="left_button_description">Go Left</string>
+    <string name="right_button_description">Go Right</string>
+    <string name="up_button_description">Move Up</string>
+    <string name="down_button_description">Move Down</string>
+    <string name="delete_button_text">X</string>
+    <string name="preview_image_description">Frame being previewed</string>
+    <string name="splash_image_description">Splash Screen Image</string>
+    <string name="selection_image_description">Image loaded from android device</string>
+    <string name="row_image_description">Thumbnail for frame selection</string>
 </resources>
