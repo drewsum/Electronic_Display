@@ -23,6 +23,12 @@ public class MenuActivity extends AppCompatActivity
         DeviceControlFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
+    public static int SENDING = 1;
+    public static int SENT = 2;
+    public static int ERROR = 3;
+    public static int CONNECTING = 4;
+    public static int SHUTDOWN = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

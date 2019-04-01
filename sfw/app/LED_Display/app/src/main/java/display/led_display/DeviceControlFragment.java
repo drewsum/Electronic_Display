@@ -91,7 +91,7 @@ public class DeviceControlFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // Ping the Micro
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Test", "hello world\r\n");
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "hello world");
                 Log.d("wifi", "message sent");
             }
         });

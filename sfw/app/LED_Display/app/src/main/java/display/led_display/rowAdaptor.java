@@ -192,6 +192,7 @@ public class rowAdaptor extends BaseAdapter {
                 } else if(keyName.equals("deviceList")) {
                     String deviceName = data.get(position);
                     data.remove(position);
+                    tinyDB.putListString(keyName, data);
                     // delete the device data
                     tinyDB.remove(deviceName + "Data");
                     Log.d("deleted", deviceName + "Data");

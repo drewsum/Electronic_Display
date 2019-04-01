@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import display.led_display.helper.PixelsConverter;
@@ -165,20 +166,30 @@ public class ImageSelectActivity extends AppCompatActivity {
             scaledBitmap = Bitmap.createScaledBitmap(bitmap,64*panels_width,64*panels_height,true);
             byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
             WiFiController wiFiController = new WiFiController();
-            String str = "";
-            for(int h = 0; h < 10000; h++) {
-                str += String.format("%02X", printMe[h]);
+            String str = new String(printMe, "ASCII");
+            /*for(int h = 0; h < 1000; h++) {
+                str += (char)printMe[h];
                 Log.d("hi", "working...");
+            }*/
+            /*byte[] test = new byte[10];
+            for (int u = 0; u < 10; u++)
+            {
+                test[u] = 0x66;
             }
-            Log.d("bytes", str);
-            wiFiController.sendOverWiFi(getBaseContext(), "Display Board","ImageData", str);
+            String big_s = "";
+            for(int h = 0; h < 1000; h++) {
+                big_s += (char)printMe[h];
+                Log.d("next" + h, big_s);
+            }*/
+            Log.d("bytes", str.substring(0,1000));
+            wiFiController.sendOverWiFi(getBaseContext(), "Display Board","ImageData", str.substring(0,1000));
             // store to temp file for testing
             File file = new File("/storage/emulated/0/Download" + "/values.txt");
             Log.d("Filepath", file.getAbsolutePath());
             String s = "";
             try (PrintWriter out = new PrintWriter(file)) {
                 for(int h = 0; h < printMe.length; h++) {
-                    s = String.format("0x%02X, ", printMe[h]);
+                    /*s = String.format("0x%02X, ", printMe[h]);
                     if(h == printMe.length-1)
                     {
                         s = String.format("0x%02X", printMe[h]);
@@ -187,12 +198,15 @@ public class ImageSelectActivity extends AppCompatActivity {
                     {
                         out.println();
                     }
-                    out.print(s);
+                    out.print(s);*/
+                    out.print(str.substring(0,1000));
                 }
             } catch (IOException io) {
                 System.out.println(io);
             }
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }

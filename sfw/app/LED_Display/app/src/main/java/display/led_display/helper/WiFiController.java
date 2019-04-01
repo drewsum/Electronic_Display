@@ -5,21 +5,12 @@ import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
+import display.led_display.MenuActivity;
 
 public class WiFiController {
 
@@ -32,181 +23,96 @@ public class WiFiController {
         Log.d("portNumber", portNumber);
         Log.d("data length", "" + data.length());
         if (messageType == "Test") {
-            new HttpRequestAsyncTask(context, data, ipAddress, portNumber, messageType).execute();
+            sendTCP(context, ipAddress, portNumber, data);
         } else if (messageType == "Control") {
-            new HttpRequestAsyncTask(context, data, ipAddress, portNumber, messageType).execute();
+            sendTCP(context, ipAddress, portNumber, data);
         } else if (messageType == "ATCommand") {
-            new HttpRequestAsyncTask(context, data, ipAddress, portNumber, messageType).execute();
+            sendTCP(context, ipAddress, portNumber, data);
         } else if (messageType == "ImageData") {
-            new HttpRequestAsyncTask(context, data, ipAddress, portNumber, messageType).execute();
-        }
-    }
-    // I create my own local NameValuePair class as a substitute for the
-    // one that used to come with org.apache.http.NameValuePair;
-    // I use it to create lists for http connections;
-    public static class NameValuePair {
-        private final String name;
-        private final String value;
-        public NameValuePair(final String name, final String value) {
-            this.name = name;
-            this.value = value;
-        }
-        String getName() {
-            return name;
-        }
-        String getValue() {
-            return value;
+            sendTCP(context, ipAddress, portNumber, data);
         }
     }
 
-    // Description: Send an HTTP Get request to a specified ip address and port.
-    // Also send a parameter "parameterName" with the value of "parameterValue".
-    // @param parameterValue the pin number to toggle
-    // @param ipAddress the ip address to send the request to
-    // @param portNumber the port number of the ip address
-    // @param parameterName
-    // @return The ip address' reply text, or an ERROR message is it fails to receive one
-    public String sendRequest(String parameterValue, String ipAddress, String portNumber, String parameterName)
-            throws Exception {
-        // parameterName is ImageData, Control, etc.
-        String serverResponse = "";
-        // method 1:
-        // define the URL e.g. http://myIpaddress:myport/?pin=13 (to toggle pin 13 for example)
-        // if we had just a parameter at a time to send, we could use the form commented below;
-        // for more parameters, we can use the list with several parameters;
-        String requestURL = "http://"+ipAddress+":"+portNumber+"/";
-        // method 2: include here as many parameters to params as needed;
-        // right now, this is just a place-holder;
-        //String requestURL = "http://"+ipAddress;
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new NameValuePair(parameterName, parameterValue));
-        //params.add(new BasicNameValuePair("secondParam", paramValue2));
-        //params.add(new BasicNameValuePair("thirdParam", paramValue3));
+    public String sendTCP(Context context, String ipAddress, String portNumber, String data)
+    {
+        Handler handler = new Handler();
+        new SendTCPAsyncTask(handler, ipAddress, portNumber, data, context).execute();
 
-        try {
-            // create the URL object, and set the connection so that we can write to it;
-            URL url = new URL(requestURL);
-            Log.d("url", url.toString());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            Log.d("conn", conn.toString());
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-
-            // create an output stream on the connection and open an OutputStreamWriter on it;
-            // if the URL does not support output, getOutputStream method throws an UnknownServiceException;
-            // if the URL does support output, then this method returns an output stream that is connected
-            // to the input stream of the URL on the server side ? the client's output is the server's input;
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(os, "UTF-8") );
-            // write the required information to the output stream and closes the stream;
-            // this writes to the output stream using the write method;
-            writer.write( getPostDataString(params) );
-            writer.flush();
-            writer.close();
-            os.close();
-
-            // now we need to read the string the server has sent back;
-            int responseCode=conn.getResponseCode();
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                String line;
-                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while ((line=br.readLine()) != null) {
-                    serverResponse+=line;
-                }
-            }
-            else {
-                serverResponse="ERROR";
-            }
-        } catch (Exception e) {
-            serverResponse = e.getMessage();
-            e.printStackTrace();
-        }
-
-        // return the server's reply/response text
-        return serverResponse;
+        return "";
     }
 
-    // used inside sendRequest() above;
-    private String getPostDataString(List<NameValuePair> params) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-        for (NameValuePair pair : params) {
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
-        }
-        return result.toString();
-    }
-
-    // An AsyncTask is needed to execute HTTP requests in the background so that they do not
-    // block the user interface.
-    private class HttpRequestAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        // declare variables needed
-        private String requestReply,ipAddress, portNumber;
+    public class SendTCPAsyncTask extends AsyncTask<String, String, TCPClient> {
+        private String data;
+        private TCPClient tcpClient;
+        private Handler mHandler;
         private Context context;
+        private String ipAddress;
+        private int portNumber;
         private AlertDialog alertDialog;
-        private String parameter;
-        private String parameterValue;
+        private static final String TAG = "SendAsyncTask";
 
-        // Description: The asyncTask class constructor. Assigns the values used in its other methods.
-        // @param context the application context, needed to create the dialog
-        // @param parameterValue the pin number to toggle
-        // @param ipAddress the ip address to send the request to
-        // @param portNumber the port number of the ip address
-        public HttpRequestAsyncTask(Context context, String parameterValue,
-                                    String ipAddress, String portNumber, String parameter) {
+        /**
+         * ShutdownAsyncTask constructor with handler passed as argument. The UI is updated via handler.
+         * In doInBackground(...) method, the handler is passed to TCPClient object.
+         *
+         * @param mHandler Handler object that is retrieved from MainActivity class and passed to TCPClient
+         *                 class for sending messages and updating UI.
+         */
+        public SendTCPAsyncTask(Handler mHandler, String ipAddress, String portNumber, String data, Context context) {
+            this.mHandler = mHandler;
             this.context = context;
-
+            this.ipAddress = ipAddress;
+            this.portNumber = Integer.parseInt(portNumber);
+            this.data = data;
             alertDialog = new AlertDialog.Builder(this.context)
-                    .setTitle("HTTP Response From IP Address:")
+                    .setTitle("TCP Response Message:")
                     .setCancelable(true)
                     .create();
-
-            this.ipAddress = ipAddress;
-            this.parameterValue = parameterValue;
-            this.portNumber = portNumber;
-            this.parameter = parameter;
         }
 
-        // Name: doInBackground
-        // Description: Sends the request to the ip address
-        // @param voids
-        // @return
+        /**
+         * Overriden method from AsyncTask class. There the TCPClient object is created.
+         *
+         * @param params From MainActivity class empty string is passed.
+         * @return TCPClient object for closing it in onPostExecute method.
+         */
         @Override
-        protected Void doInBackground(Void... voids) {
-            alertDialog.setMessage("Data sent, waiting for receipt confirmation from device...");
-            if (!alertDialog.isShowing()) {
-                //alertDialog.show();
-            }
-
+        protected TCPClient doInBackground(String... params) {
+            Log.d(TAG, "In do in background");
             try {
-                requestReply = sendRequest(parameterValue, ipAddress, portNumber, parameter);
-            } catch (Exception e) {
+                tcpClient = new TCPClient(mHandler,
+                        data,
+                        this.ipAddress,
+                        this.portNumber,
+                        new TCPClient.MessageCallback() {
+                            @Override
+                            public void callbackMessageReceiver(String message) {
+                                publishProgress(message);
+                            }
+                        });
+
+            } catch (NullPointerException e) {
+                Log.d(TAG, "Caught null pointer exception");
                 e.printStackTrace();
             }
+            tcpClient.run();
             return null;
         }
 
-        // Name: onPostExecute
-        // Description: This function is executed after the HTTP request returns from the ip address.
-        // The function sets the dialog's message with the reply text from the server and display the dialog
-        // if it's not displayed already (in case it was closed by accident);
-        // @param aVoid void parameter
         @Override
-        protected void onPostExecute(Void aVoid) {
-            alertDialog.setMessage(requestReply);
-            if (!alertDialog.isShowing()) {
-                //alertDialog.show(); // show dialog
+        protected void onPostExecute(TCPClient result){
+            super.onPostExecute(result);
+            Log.d(TAG, "In on post execute");
+            if(result != null){
+                result.stopClient();
             }
+            mHandler.sendEmptyMessageDelayed(MenuActivity.SENT, 4000);
+
+            alertDialog.setMessage("");
+            if (!alertDialog.isShowing()) {
+                alertDialog.show(); // show dialog
+            }
+
         }
 
         // Name: onPreExecute
@@ -214,16 +120,12 @@ public class WiFiController {
         // The function will set the dialog's message and display the dialog.
         @Override
         protected void onPreExecute() {
+            Log.d(TAG, "In on pre execute");
             alertDialog.setMessage("Sending, please wait...");
             if (!alertDialog.isShowing()) {
-                //alertDialog.show();
+                alertDialog.show();
             }
         }
-
-    }
-
-    public void sendCIP(Context context) {
-
     }
 
     public void connectToNetwork(Context context) {
