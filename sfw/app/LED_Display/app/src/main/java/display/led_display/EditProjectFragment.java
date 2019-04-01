@@ -1,6 +1,5 @@
 package display.led_display;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -171,12 +170,6 @@ public class EditProjectFragment extends Fragment {
         }
     }
 
-    private void moveToNewActivity() {
-        Intent i = new Intent(getActivity(), WiFiActivity.class);
-        startActivity(i);
-        ((Activity) getActivity()).overridePendingTransition(0,0);
-
-    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

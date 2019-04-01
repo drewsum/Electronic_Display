@@ -1,8 +1,6 @@
 package display.led_display;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,7 +25,7 @@ import display.led_display.helper.TinyDB;
  * Use the {@link UploadProjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UploadProjectFragment extends Fragment implements View.OnClickListener {
+public class UploadProjectFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -114,8 +112,7 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                moveToNewActivity();
+                // add the code to send start the upload project routine
             }
         });
 
@@ -127,13 +124,6 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
-
-    private void moveToNewActivity() {
-        Intent i = new Intent(getActivity(), WiFiActivity.class);
-        startActivity(i);
-        ((Activity) getActivity()).overridePendingTransition(0,0);
-
     }
 
     @Override
@@ -153,14 +143,6 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonNewDevice:
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
-                break;
-        }
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
