@@ -27,4 +27,9 @@
     <string name="splash_image_description">Splash Screen Image</string>
     <string name="selection_image_description">Image loaded from android device</string>
     <string name="row_image_description">Thumbnail for frame selection</string>
+    <string name="new_project_title">New Project</string>
+    <string name="edit_project_title">Edit Project</string>
+    <string name="preview_project_title">Preview Project</string>
+    <string name="upload_project_title">Upload Project</string>
+    <string name="device_control_title">Device Control</string>
 </resources>
