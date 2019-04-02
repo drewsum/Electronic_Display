@@ -95,18 +95,18 @@ public class ProjectPreviewFragment extends Fragment {
         // set up edit button
         Button buttonEditProject = (Button) rootView.findViewById(R.id.buttonEditProject);
         buttonEditProject.setOnClickListener(new Button.OnClickListener() {
-             @Override
-             public void onClick(View arg0) {
-                 // pass args
-                 EditProjectFragment editFrag = new EditProjectFragment();
-                 Bundle arguments = new Bundle();
-                 arguments.putString("projectName", projectName);
-                 editFrag.setArguments(arguments);
-                 // switch to edit project screen
-                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                 fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
-             }
-         });
+            @Override
+            public void onClick(View arg0) {
+                // pass args
+                EditProjectFragment editFrag = new EditProjectFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString("projectName", projectName);
+                editFrag.setArguments(arguments);
+                // switch to edit project screen
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
+            }
+        });
         // set up nav buttons
         ImageButton buttonLeft = (ImageButton) rootView.findViewById(R.id.buttonLeft);
         buttonLeft.setOnClickListener(new Button.OnClickListener() {
@@ -154,7 +154,7 @@ public class ProjectPreviewFragment extends Fragment {
     private void updateImage() {
         loadImageFromStorage(framesList.get(currentIndex));
         TextView textFrameCount = (TextView) getView().findViewById(R.id.textFrameDisplayed);
-        textFrameCount.setText("Previewing Frame: " + (currentIndex+1) + "/" + framesList.size());
+        textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
 
     }
 
@@ -197,16 +197,13 @@ public class ProjectPreviewFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void loadImageFromStorage(String path)
-    {
+    private void loadImageFromStorage(String path) {
         try {
-            File f=new File(path);
+            File f = new File(path);
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
             imagePreview.setImageBitmap(b);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 

@@ -22,9 +22,7 @@ public class WiFiController {
         Log.d("ipAddress", ipAddress);
         Log.d("portNumber", portNumber);
         Log.d("data length", "" + data.length());
-        if (messageType == "Test") {
-            sendTCP(context, ipAddress, portNumber, data);
-        } else if (messageType == "Control") {
+        if (messageType == "Control") {
             sendTCP(context, ipAddress, portNumber, data);
         } else if (messageType == "ATCommand") {
             sendTCP(context, ipAddress, portNumber, data);
@@ -65,7 +63,7 @@ public class WiFiController {
             this.portNumber = Integer.parseInt(portNumber);
             this.data = data;
             alertDialog = new AlertDialog.Builder(this.context)
-                    .setTitle("TCP Response Message:")
+                    .setTitle("TCP Connection:")
                     .setCancelable(true)
                     .create();
         }
@@ -108,7 +106,7 @@ public class WiFiController {
             }
             mHandler.sendEmptyMessageDelayed(MenuActivity.SENT, 4000);
 
-            alertDialog.setMessage("");
+            alertDialog.setMessage("Finished Execution");
             if (!alertDialog.isShowing()) {
                 alertDialog.show(); // show dialog
             }

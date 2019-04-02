@@ -32,4 +32,7 @@
     <string name="preview_project_title">Preview Project</string>
     <string name="upload_project_title">Upload Project</string>
     <string name="device_control_title">Device Control</string>
+    <string name="convert_button_text">Convert</string>
+    <string name="aspect_switch_text_left">Stretch To Fit</string>
+    <string name="aspect_switch_text_right">Fixed Aspect Ratio</string>
 </resources>

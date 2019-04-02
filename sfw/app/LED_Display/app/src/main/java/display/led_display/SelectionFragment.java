@@ -96,7 +96,7 @@ public class SelectionFragment extends Fragment {
                 Bundle arguments = new Bundle();
                 if (fragmentReturn == "edit") {
                     EditProjectFragment editFrag = new EditProjectFragment();
-                    arguments.putString( "projectName" , selectedItem);
+                    arguments.putString("projectName", selectedItem);
                     editFrag.setArguments(arguments);
                     // switch to edit project screen
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

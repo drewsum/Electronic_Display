@@ -102,7 +102,7 @@ public class EditProjectFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // need to give index and project name for imagePath naming convention
-                if(frameCount < 8) {
+                if (frameCount < 8) {
                     namingNumber++;
                     Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
                     intent.putExtra("projectName", projectName);

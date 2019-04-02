@@ -92,7 +92,7 @@ public class DeviceControlFragment extends Fragment {
             public void onClick(View arg0) {
                 // Ping the Micro
                 wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "hello world");
-                Log.d("wifi", "message sent");
+                Log.d("WiFi", "Pinged Device");
             }
         });
         // set up Power button
@@ -120,7 +120,7 @@ public class DeviceControlFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 //wiFiController.connectToNetwork(getContext());
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Dim=" + brightnessLevel);
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Dim=" + brightnessLevel + " ");
            }
        });
         Button buttonSendCommand = (Button) rootView.findViewById(R.id.buttonSendCommand);

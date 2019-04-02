@@ -87,7 +87,7 @@ public class UploadProjectFragment extends Fragment {
         // populate physical boards list
         ListView boardListview = rootView.findViewById(R.id.deviceList);
         boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
-        Button buttonNewDevice = (Button) rootView.findViewById(R.id.buttonNewDevice);
+        Button buttonNewDevice = rootView.findViewById(R.id.buttonNewDevice);
         buttonNewDevice.setOnClickListener(new Button.OnClickListener() {
 
             @Override
@@ -97,7 +97,7 @@ public class UploadProjectFragment extends Fragment {
             }
         });
 
-        Button buttonNewProject = (Button) rootView.findViewById(R.id.buttonNewProject);
+        Button buttonNewProject = rootView.findViewById(R.id.buttonNewProject);
         buttonNewProject.setOnClickListener(new Button.OnClickListener() {
 
             @Override
@@ -107,7 +107,7 @@ public class UploadProjectFragment extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.flContent, new NewProjectFragment()).commit();
             }
         });
-        Button buttonUploadProject = (Button) rootView.findViewById(R.id.buttonUpload);
+        Button buttonUploadProject = rootView.findViewById(R.id.buttonUpload);
         buttonUploadProject.setOnClickListener(new Button.OnClickListener() {
 
             @Override

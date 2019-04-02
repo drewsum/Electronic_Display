@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,16 +32,12 @@ import display.led_display.helper.TinyDB;
 import display.led_display.helper.WiFiController;
 
 public class ImageSelectActivity extends AppCompatActivity {
-    TextView textTargetUri;
-    //TextView texter;
     ImageView targetImage;
-   // SeekBar seekbar;
-  //  boolean ready = false;
-   Uri targetUri;
-   String filePath;
+    Uri targetUri;
+    String filePath;
 
-   String projectName;
-   int namingNumber;
+    String projectName;
+    int namingNumber;
 
     Bitmap bitmap;
     Bitmap scaledBitmap;
@@ -56,9 +51,7 @@ public class ImageSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Button buttonLoadImage = (Button) findViewById(R.id.loadimage);
-        //texter = (TextView) findViewById(R.id.texter);
-        textTargetUri = (TextView) findViewById(R.id.targeturi);
+        Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadImage);
         targetImage = (ImageView) findViewById(R.id.targetimage);
 
         projectName = getIntent().getExtras().getString("projectName");
@@ -69,7 +62,7 @@ public class ImageSelectActivity extends AppCompatActivity {
             switchAspectRatio.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
+                    if (isChecked) {
                         // switch is "ON" so it is true
                         boolAspectRatio = true;
                         Log.d("switchPressed", "Keep Aspect Ratio");
@@ -109,7 +102,6 @@ public class ImageSelectActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             targetUri = data.getData();
             // display the image here depending on how the boolean value is
-            textTargetUri.setText(targetUri.toString());
             Button confirmButton = (Button) findViewById(R.id.buttonConvert);
             saveOff();
             confirmButton.setOnClickListener(new Button.OnClickListener() {
@@ -127,16 +119,15 @@ public class ImageSelectActivity extends AppCompatActivity {
 
     }
 
-    protected void saveOff()
-    {
+    protected void saveOff() {
         String filename = projectName + "frame" + namingNumber + ".png";
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
             int panels_width = 320;
             int panels_height = 256;
-            if(boolAspectRatio == false) {
-                scaledBitmap = Bitmap.createScaledBitmap(bitmap, panels_width, panels_height,true);
+            if (boolAspectRatio == false) {
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, panels_width, panels_height, true);
             } else {
                 scaledBitmap = fixedRatio(bitmap, panels_width, panels_height);
             }
@@ -144,9 +135,9 @@ public class ImageSelectActivity extends AppCompatActivity {
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
             File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
             // Create imageDir
-            File f = new File(directory,filename);
+            File f = new File(directory, filename);
             filePath = f.getPath();
-            FileOutputStream outputStream = new FileOutputStream (new File(filePath));
+            FileOutputStream outputStream = new FileOutputStream(new File(filePath));
             scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
             outputStream.close();
         } catch (Exception e) {
@@ -154,8 +145,7 @@ public class ImageSelectActivity extends AppCompatActivity {
         }
     }
 
-    protected void convert(Uri targetUri)
-    {
+    protected void convert(Uri targetUri) {
         try {
             PixelsConverter pixelsConverter = new PixelsConverter();
             // switch this to get the image from tinyDB
@@ -163,7 +153,7 @@ public class ImageSelectActivity extends AppCompatActivity {
             // ready = true;
             int panels_width = 5;
             int panels_height = 4;
-            scaledBitmap = Bitmap.createScaledBitmap(bitmap,64*panels_width,64*panels_height,true);
+            scaledBitmap = Bitmap.createScaledBitmap(bitmap, 64 * panels_width, 64 * panels_height, true);
             byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
             WiFiController wiFiController = new WiFiController();
             String str = new String(printMe, "ASCII");
@@ -181,14 +171,14 @@ public class ImageSelectActivity extends AppCompatActivity {
                 big_s += (char)printMe[h];
                 Log.d("next" + h, big_s);
             }*/
-            Log.d("bytes", str.substring(0,1000));
-            wiFiController.sendOverWiFi(getBaseContext(), "Display Board","ImageData", str.substring(0,1000));
+            Log.d("bytes", str.substring(0, 1000));
+            wiFiController.sendOverWiFi(getBaseContext(), "Display Board", "ImageData", str.substring(0, 1000));
             // store to temp file for testing
             File file = new File("/storage/emulated/0/Download" + "/values.txt");
             Log.d("Filepath", file.getAbsolutePath());
             String s = "";
             try (PrintWriter out = new PrintWriter(file)) {
-                for(int h = 0; h < printMe.length; h++) {
+                for (int h = 0; h < printMe.length; h++) {
                     /*s = String.format("0x%02X, ", printMe[h]);
                     if(h == printMe.length-1)
                     {
@@ -199,7 +189,7 @@ public class ImageSelectActivity extends AppCompatActivity {
                         out.println();
                     }
                     out.print(s);*/
-                    out.print(str.substring(0,1000));
+                    out.print(str.substring(0, 1000));
                 }
             } catch (IOException io) {
                 System.out.println(io);
@@ -221,11 +211,11 @@ public class ImageSelectActivity extends AppCompatActivity {
             float heightRatio = (float) destinationHeight / (float) height;
 
             //Use the ratio that will fit the image into the desired sizes
-            int finalWidth = (int)Math.floor(width * widthRatio);
-            int finalHeight = (int)Math.floor(height * widthRatio);
+            int finalWidth = (int) Math.floor(width * widthRatio);
+            int finalHeight = (int) Math.floor(height * widthRatio);
             if (finalWidth > destinationWidth || finalHeight > destinationHeight) {
-                finalWidth = (int)Math.floor(width * heightRatio);
-                finalHeight = (int)Math.floor(height * heightRatio);
+                finalWidth = (int) Math.floor(width * heightRatio);
+                finalHeight = (int) Math.floor(height * heightRatio);
             }
 
             //Scale given bitmap to fit into the desired area
@@ -242,10 +232,10 @@ public class ImageSelectActivity extends AppCompatActivity {
             canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
 
             //Calculate the ratios and decide which part will have empty areas (width or height)
-            float ratioBitmap = (float)finalWidth / (float)finalHeight;
+            float ratioBitmap = (float) finalWidth / (float) finalHeight;
             float destinationRatio = (float) destinationWidth / (float) destinationHeight;
-            float left = ratioBitmap >= destinationRatio ? 0 : (float)(destinationWidth - finalWidth) / 2;
-            float top = ratioBitmap < destinationRatio ? 0: (float)(destinationHeight - finalHeight) / 2;
+            float left = ratioBitmap >= destinationRatio ? 0 : (float) (destinationWidth - finalWidth) / 2;
+            float top = ratioBitmap < destinationRatio ? 0 : (float) (destinationHeight - finalHeight) / 2;
             canvas.drawBitmap(imageToScale, left, top, null);
 
             return scaledImage;
