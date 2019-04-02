@@ -73,8 +73,7 @@ void panelMultiplexingHandler(void) {
         // Clock data into panel
         PANEL_CLK_PIN_HIGH();
         
-        Nop();
-        Nop();
+        // DO NOT REMOVE THIS
         Nop();
         Nop();
         Nop();
@@ -96,22 +95,6 @@ void panelMultiplexingHandler(void) {
         
         // Set clock low
         PANEL_CLK_PIN_LOW();
-        
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
         
     }
     

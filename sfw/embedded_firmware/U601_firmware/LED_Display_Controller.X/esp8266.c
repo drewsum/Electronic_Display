@@ -11,6 +11,7 @@
 #include "terminal_control.h"
 #include "usb_uart.h"
 #include "delay_timer.h"
+#include "panel_control.h"
 
 
 volatile uint32_t esp_8266_TxHead = 0;
@@ -368,7 +369,7 @@ void esp8266RingBufferLUT(char * line_in) {
                 &dummy,
                 received_string);
         
-        // printf("Received string = %s, length = %u\r\n", received_string, strlen(received_string));
+        printf("Received string = %s, length = %u\r\n", received_string, strlen(received_string));
         
         if (0 == strstart(received_string, "hello world")) {
             printf("Received Hello World\r\n");
@@ -376,18 +377,32 @@ void esp8266RingBufferLUT(char * line_in) {
         
         else if (0 == strstart(received_string, "Power=toggle")) {
          
-            if (T5CONbits.ON) {
+            if (muxing_state) {
         
                 panelMultiplexingSuspend();
+                muxing_state = 0;
                 
             } else {
         
                 panelMultiplexingTimerStart();
+                muxing_state = 1;
                 
             }
             
         }
         
+        else if (0 == strstart(received_string, "Dim=")) {
+
+            uint32_t set_brightness;
+            sscanf(received_string, "Dim=%u ", &set_brightness);
+
+            printf("Set brightness = %u\r\n", set_brightness);
+            
+            if (set_brightness <= 100 && set_brightness >= 0) panelPWMSetBrightness((uint8_t) set_brightness);
+        
+        }
+        
+        // Tell kevin we received message
         delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
         
     }
