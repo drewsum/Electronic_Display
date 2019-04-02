@@ -28,7 +28,7 @@ public class rowAdaptor extends BaseAdapter {
 
     Context context;
     String keyName;
-    ArrayList<String> data = new ArrayList<String>();
+    ArrayList<String> data = new ArrayList<>();
     private static LayoutInflater inflater = null;
 
     public rowAdaptor(Context context, ArrayList<String> data, String keyName) {
@@ -84,12 +84,12 @@ public class rowAdaptor extends BaseAdapter {
             }
         }
         final View finView = vi;
-        TextView text = (TextView) vi.findViewById(R.id.text);
+        TextView text = vi.findViewById(R.id.text);
         text.setText(data.get(position)); // populate rows
-        Button buttonDelete = (Button) vi.findViewById(R.id.buttonDelete);
+        Button buttonDelete = vi.findViewById(R.id.buttonDelete);
         buttonDelete.setFocusable(false); // needed to allow row to still be clickable
         if (keyName == "frameList") {
-            ImageView thumbnail = (ImageView) vi.findViewById(R.id.imageThumb);
+            ImageView thumbnail = vi.findViewById(R.id.imageThumb);
             thumbnail.setImageBitmap(loadImageFromStorage(data.get(position)));
             text.setText("Frame " + (position + 1)); // populate rows
             // use a spinner to select a number (time)
@@ -98,9 +98,9 @@ public class rowAdaptor extends BaseAdapter {
 //            ArrayAdapter<String> adapter = new ArrayAdapter<String>(vi.getContext(), android.R.layout.simple_spinner_dropdown_item, items);
 //            dropdown.setAdapter(adapter);
             // use up and down arrows to adjust ordering
-            ImageButton buttonUp = (ImageButton) vi.findViewById(R.id.buttonUp);
+            ImageButton buttonUp = vi.findViewById(R.id.buttonUp);
             buttonUp.setFocusable(false); // needed to allow row to still be clickable
-            ImageButton buttonDown = (ImageButton) vi.findViewById(R.id.buttonDown);
+            ImageButton buttonDown = vi.findViewById(R.id.buttonDown);
             buttonDown.setFocusable(false); // needed to allow row to still be clickable
             final TinyDB tinyDB = new TinyDB(vi.getContext());
             //data.get(position);
@@ -162,40 +162,46 @@ public class rowAdaptor extends BaseAdapter {
             public void onClick(DialogInterface dialog, int which) {
                 TinyDB tinyDB = new TinyDB(finView.getContext().getApplicationContext());
                 Log.d("deleting item from", keyName);
-                if(keyName.equals("frameList")) {
-                    // delete frame from current framelist
-                    String path = data.get(position);
-                    String[] splitPath = path.split("/");
-                    String projectName = splitPath[splitPath.length-1];
-                    projectName = projectName.substring(0, projectName.indexOf("frame"));
-                    ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
-                    data.remove(position);
-                    framesList.remove(position + 1);
-                    tinyDB.putListString(projectName + keyName, framesList);
-                    Log.d("New " + projectName + keyName, data.toString());
-                    //Log.d("convertView", convertView.toString());
-                    //TextView textFrameCount = convertView.findViewById(R.id.textFrameCount);
-                    //textFrameCount.setText("Current Frame Count: " + data.size() + "/8");
-                    // also need delete image from internal storage
-                    ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
-                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-                    File f = new File(directory,splitPath[splitPath.length-1]);
-                    f.delete();
-                } else if(keyName.equals("projectList")) {
-                    Log.d("projectList", data.toString());
-                    String projectName = data.get(position);
-                    data.remove(position);
-                    tinyDB.putListString(keyName, data);
-                    tinyDB.remove(projectName + "frameList");
-                    Log.d("deleted", projectName + "frameList");
-                    Log.d(keyName, data.toString());
-                } else if(keyName.equals("deviceList")) {
-                    String deviceName = data.get(position);
-                    data.remove(position);
-                    tinyDB.putListString(keyName, data);
-                    // delete the device data
-                    tinyDB.remove(deviceName + "Data");
-                    Log.d("deleted", deviceName + "Data");
+                switch (keyName) {
+                    case "frameList": {
+                        // delete frame from current framelist
+                        String path = data.get(position);
+                        String[] splitPath = path.split("/");
+                        String projectName = splitPath[splitPath.length - 1];
+                        projectName = projectName.substring(0, projectName.indexOf("frame"));
+                        ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
+                        data.remove(position);
+                        framesList.remove(position + 1);
+                        tinyDB.putListString(projectName + keyName, framesList);
+                        Log.d("New " + projectName + keyName, data.toString());
+                        //Log.d("convertView", convertView.toString());
+                        //TextView textFrameCount = convertView.findViewById(R.id.textFrameCount);
+                        //textFrameCount.setText("Current Frame Count: " + data.size() + "/8");
+                        // also need delete image from internal storage
+                        ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
+                        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                        File f = new File(directory, splitPath[splitPath.length - 1]);
+                        f.delete();
+                        break;
+                    }
+                    case "projectList": {
+                        Log.d("projectList", data.toString());
+                        String projectName = data.get(position);
+                        data.remove(position);
+                        tinyDB.putListString(keyName, data);
+                        tinyDB.remove(projectName + "frameList");
+                        Log.d("deleted", projectName + "frameList");
+                        Log.d(keyName, data.toString());
+                        break;
+                    }
+                    case "deviceList":
+                        String deviceName = data.get(position);
+                        data.remove(position);
+                        tinyDB.putListString(keyName, data);
+                        // delete the device data
+                        tinyDB.remove(deviceName + "Data");
+                        Log.d("deleted", deviceName + "Data");
+                        break;
                 }
                 Log.d("done", "done");
                 notifyDataSetChanged();

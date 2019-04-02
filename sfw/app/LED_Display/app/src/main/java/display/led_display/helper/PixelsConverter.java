@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class PixelsConverter {
 
@@ -37,21 +38,18 @@ public class PixelsConverter {
     }
 
     private ArrayList<Integer> PixelsToRGB(int[] pixels) {
-        ArrayList<Integer> RGB = new ArrayList<Integer>();
-        for (int i = 0; i < pixels.length; i++) {
-//            if (pixels[i] == 0x000000) {
-//                pixels[i] = 0x010101;
-//            }
-            RGB.add((pixels[i] & 0xff0000) >> 16);
-            RGB.add((pixels[i] & 0x00ff00) >> 8);
-            RGB.add((pixels[i] & 0x0000ff) >> 0);
+        ArrayList<Integer> RGB = new ArrayList<>();
+        for (int pixel : pixels) {
+            RGB.add((pixel & 0xff0000) >> 16);
+            RGB.add((pixel & 0x00ff00) >> 8);
+            RGB.add(pixel & 0x0000ff);
         }
         Log.d("RGB array Length: ", "" + RGB.size());
         return RGB;
     }
 
     private ArrayList<Integer> RGBToBits(ArrayList<Integer> rgb) {
-        ArrayList<Integer> bytesOfData = new ArrayList<Integer>();
+        ArrayList<Integer> bytesOfData = new ArrayList<>();
         for (int i = 0; i < rgb.size(); i++) //12288
         {
             int[] spacedValue = new int[8];
@@ -80,9 +78,9 @@ public class PixelsConverter {
     }
 
     private ArrayList<Integer> BitsToMicro(ArrayList<Integer> bits) { // bits = 98304
-        ArrayList<Integer> masterScript = new ArrayList<Integer>();
-        ArrayList<Integer> finalScript = new ArrayList<Integer>();
-        ArrayList<Integer> secondHalf = new ArrayList<Integer>(bits.subList(bits.size() / 2, bits.size())); // 49152 - 98304
+        ArrayList<Integer> masterScript = new ArrayList<>();
+        ArrayList<Integer> finalScript = new ArrayList<>();
+        ArrayList<Integer> secondHalf = new ArrayList<>(bits.subList(bits.size() / 2, bits.size())); // 49152 - 98304
         Log.d("second half size: ", "" + secondHalf.size());
         Log.d("bits size: ", "" + bits.size());
         // 8 bit mode
@@ -108,7 +106,7 @@ public class PixelsConverter {
         for (int i = 0; i < size / 2; i++) // 49152
         {
             byte bite = 0;
-            bite |= (panel0.get(2 * i) << 0);
+            bite |= panel0.get(2 * i);
             bite |= (panel0.get(2 * i + 1) << 1);
             bite |= (panel1.get(2 * i) << 2);
             bite |= (panel1.get(2 * i + 1) << 3);
@@ -123,7 +121,7 @@ public class PixelsConverter {
     }
 
     public byte[] BitmapToByteArray(Bitmap bitmap, int dimX, int dimY) {
-        ArrayList<Integer>[][] panelList = new ArrayList[dimX][dimY];
+        ArrayList[][] panelList = new ArrayList[dimX][dimY];
         Bitmap[][] bitmapArray = SplitBitmap(bitmap, dimX, dimY);
         for (int i = 0; i < dimX; i++) {
             for (int j = 0; j < dimY; j++) {
@@ -133,14 +131,14 @@ public class PixelsConverter {
                 Log.d("Filepath", file.getAbsolutePath());
                 try (PrintWriter out = new PrintWriter(file)) {
                     for (int h = 0; h < rgb.size(); h++) {
-                        String s = String.format("%d, ", rgb.get(h));
+                        String s = String.format(Locale.ENGLISH, "%d, ", rgb.get(h));
                         if (h % 9 == 0) {
                             out.println();
                         }
                         out.print(s);
                     }
                 } catch (IOException io) {
-                    System.out.println(io);
+                    io.printStackTrace();
                 }
                 ArrayList<Integer> bits = RGBToBits(rgb);
                 panelList[i][j] = BitsToMicro(bits);

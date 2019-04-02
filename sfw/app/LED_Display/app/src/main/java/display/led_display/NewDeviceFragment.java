@@ -74,24 +74,24 @@ public class NewDeviceFragment extends Fragment {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_new_device, container, false);
 
-        Button buttonCreateDevice = (Button) rootView.findViewById(R.id.buttonCreateDevice);
+        Button buttonCreateDevice = rootView.findViewById(R.id.buttonCreateDevice);
         buttonCreateDevice.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                EditText inputDeviceName = (EditText) rootView.findViewById(R.id.inputDeviceName);
+                EditText inputDeviceName = rootView.findViewById(R.id.inputDeviceName);
                 String newDeviceName = inputDeviceName.getText().toString();
-                EditText inputIpAddress = (EditText) rootView.findViewById(R.id.inputIPAddress);
+                EditText inputIpAddress = rootView.findViewById(R.id.inputIPAddress);
                 String newIPAddress = inputIpAddress.getText().toString();
-                EditText inputPortNumber = (EditText) rootView.findViewById(R.id.inputPortNumber);
+                EditText inputPortNumber = rootView.findViewById(R.id.inputPortNumber);
                 String newPortNumber = inputPortNumber.getText().toString();
                 TinyDB tinyDB = new TinyDB(getContext());
                 ArrayList<String> deviceList = tinyDB.getListString("deviceList");
                 deviceList.add(newDeviceName);
                 tinyDB.putListString("deviceList", deviceList);
                 Log.d("deviceList", deviceList.toString());
-                ArrayList<String> deviceData = new ArrayList<String>();
+                ArrayList<String> deviceData = new ArrayList<>();
                 deviceData.add(0, newIPAddress);
                 deviceData.add(1, newPortNumber);
                 tinyDB.putListString(newDeviceName + "Data", deviceData);

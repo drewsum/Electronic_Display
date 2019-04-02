@@ -16,13 +16,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Project Name"
+        android:hint="@string/input_project_name_hint"
         android:inputType="textPersonName"
+        android:importantForAutofill="no"
         app:layout_constraintBottom_toTopOf="@+id/buttonCreateProject"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMessage" />
+        app:layout_constraintTop_toBottomOf="@+id/textPleaseNameProject" />
 
     <Button
         android:id="@+id/buttonCreateProject"
@@ -31,21 +32,21 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="372dp"
-        android:text="Create Project"
+        android:text="@string/create_project_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textMessage"
+        android:id="@+id/textPleaseNameProject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Please Enter a name for the Project"
+        android:text="@string/please_name_project_text"
         app:layout_constraintBottom_toTopOf="@+id/inputProjectName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"

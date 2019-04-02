@@ -96,7 +96,7 @@ public class EditProjectFragment extends Fragment {
         ListView listview = rootView.findViewById(R.id.framesList);
         listview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
 
-        Button buttonAddFrame = (Button) rootView.findViewById(R.id.buttonAddFrame);
+        Button buttonAddFrame = rootView.findViewById(R.id.buttonAddFrame);
         buttonAddFrame.setOnClickListener(new Button.OnClickListener() {
 
             @Override
@@ -124,10 +124,10 @@ public class EditProjectFragment extends Fragment {
                 }
             }
         });
-        TextView textProjectName = (TextView) rootView.findViewById(R.id.textProjectName);
+        TextView textProjectName = rootView.findViewById(R.id.textProjectName);
         textProjectName.setText("Editing Project: " + projectName);
 
-        TextView textFrameCount = (TextView) rootView.findViewById(R.id.textFrameCount);
+        TextView textFrameCount = rootView.findViewById(R.id.textFrameCount);
         textFrameCount.setText(frameCount + "/8");
         return rootView;
     }
@@ -155,9 +155,9 @@ public class EditProjectFragment extends Fragment {
                 Button buttonAddFrame = (Button) getView().findViewById(R.id.buttonAddFrame);
                 buttonAddFrame.setClickable(false);
             }*/
-            TextView textFrameCount = (TextView) this.getView().findViewById(R.id.textFrameCount);
+            TextView textFrameCount = this.getView().findViewById(R.id.textFrameCount);
             textFrameCount.setText(frameCount + "/8");
-            ListView listView = (ListView) this.getView().findViewById(R.id.framesList);
+            ListView listView = this.getView().findViewById(R.id.framesList);
             //listView.getAdapter().notify();
             listView.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
         }

@@ -80,13 +80,13 @@ public class DeviceControlFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_device_control, container, false);
         Bundle arguments = getArguments();
         final String deviceName = arguments.getString("deviceName");
-        TextView textDeviceName = (TextView) rootView.findViewById(R.id.textDeviceName);
+        TextView textDeviceName = rootView.findViewById(R.id.textDeviceName);
         textDeviceName.setText("Controlling Device: " + deviceName);
         TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
         final WiFiController wiFiController = new WiFiController();
         //deviceList = tinyDB.getListString(projectName + "frameList");
         // set up Ping button
-        Button buttonPing = (Button) rootView.findViewById(R.id.buttonPing);
+        Button buttonPing = rootView.findViewById(R.id.buttonPing);
         buttonPing.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -96,7 +96,7 @@ public class DeviceControlFragment extends Fragment {
             }
         });
         // set up Power button
-        Button buttonPower = (Button) rootView.findViewById(R.id.buttonPower);
+        Button buttonPower = rootView.findViewById(R.id.buttonPower);
         buttonPower.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -105,8 +105,8 @@ public class DeviceControlFragment extends Fragment {
             }
         });
         // set up Brightness seekbar
-        final TextView textBrightness = (TextView) rootView.findViewById(R.id.textBrightness);
-        SeekBar seekbar = (SeekBar) rootView.findViewById(R.id.seekBar);
+        final TextView textBrightness = rootView.findViewById(R.id.textBrightness);
+        SeekBar seekbar = rootView.findViewById(R.id.seekBar);
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
            @Override
            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -123,12 +123,12 @@ public class DeviceControlFragment extends Fragment {
                 wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Dim=" + brightnessLevel + " ");
            }
        });
-        Button buttonSendCommand = (Button) rootView.findViewById(R.id.buttonSendCommand);
+        Button buttonSendCommand = rootView.findViewById(R.id.buttonSendCommand);
         buttonSendCommand.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // send AT command to microcontroller
-                EditText editWiFiCommands = (EditText) rootView.findViewById(R.id.editWiFiCommands);
+                EditText editWiFiCommands = rootView.findViewById(R.id.inputWiFiCommands);
                 String commands = editWiFiCommands.getText().toString();
                 wiFiController.sendOverWiFi(getContext(), deviceName, "ATCommand", commands);
                 Log.d("wifi", "message sent");

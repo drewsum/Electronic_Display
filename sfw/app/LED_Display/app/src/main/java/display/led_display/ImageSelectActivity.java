@@ -24,7 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import display.led_display.helper.PixelsConverter;
@@ -49,15 +49,15 @@ public class ImageSelectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_select);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadImage);
-        targetImage = (ImageView) findViewById(R.id.targetimage);
+        Button buttonLoadImage = findViewById(R.id.buttonLoadImage);
+        targetImage = findViewById(R.id.targetimage);
 
         projectName = getIntent().getExtras().getString("projectName");
         namingNumber = getIntent().getExtras().getInt("namingNumber");
 
-        Switch switchAspectRatio = (Switch) findViewById(R.id.switchAspectRatio);
+        Switch switchAspectRatio = findViewById(R.id.switchAspectRatio);
         if (switchAspectRatio != null) {
             switchAspectRatio.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
                 @Override
@@ -102,7 +102,7 @@ public class ImageSelectActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             targetUri = data.getData();
             // display the image here depending on how the boolean value is
-            Button confirmButton = (Button) findViewById(R.id.buttonConvert);
+            Button confirmButton = findViewById(R.id.buttonConvert);
             saveOff();
             confirmButton.setOnClickListener(new Button.OnClickListener() {
                 @Override
@@ -126,7 +126,7 @@ public class ImageSelectActivity extends AppCompatActivity {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
             int panels_width = 320;
             int panels_height = 256;
-            if (boolAspectRatio == false) {
+            if (!boolAspectRatio) {
                 scaledBitmap = Bitmap.createScaledBitmap(bitmap, panels_width, panels_height, true);
             } else {
                 scaledBitmap = fixedRatio(bitmap, panels_width, panels_height);
@@ -156,7 +156,7 @@ public class ImageSelectActivity extends AppCompatActivity {
             scaledBitmap = Bitmap.createScaledBitmap(bitmap, 64 * panels_width, 64 * panels_height, true);
             byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
             WiFiController wiFiController = new WiFiController();
-            String str = new String(printMe, "ASCII");
+            String str = new String(printMe, StandardCharsets.US_ASCII);
             /*for(int h = 0; h < 1000; h++) {
                 str += (char)printMe[h];
                 Log.d("hi", "working...");
@@ -192,11 +192,9 @@ public class ImageSelectActivity extends AppCompatActivity {
                     out.print(str.substring(0, 1000));
                 }
             } catch (IOException io) {
-                System.out.println(io);
+                io.printStackTrace();
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }

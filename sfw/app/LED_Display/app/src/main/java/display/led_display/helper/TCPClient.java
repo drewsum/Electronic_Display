@@ -161,6 +161,6 @@ public class TCPClient {
          *
          * @param message Received message from server app.
          */
-        public void callbackMessageReceiver(String message);
+        void callbackMessageReceiver(String message);
     }
 }
