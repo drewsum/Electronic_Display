@@ -994,14 +994,12 @@ void usbUartRingBufferLUT(char * line_in) {
 
     }
     
-    else if (strstart(line_in, "SPI Flash Data Check ") == 0) {
+    else if (strcmp(line_in, "SPI Flash Data Check") == 0) {
     
-        // Get which chip we're erasing
-        uint32_t chip_to_check;
-        sscanf(line_in, "SPI Flash Data Check %u", &chip_to_check);
-        
-        if (chip_to_check <= 8 && chip_to_check >= 1) {
-         
+        // Loop through all 8 SPI Flash chips and check if each has data, printing results
+        uint8_t chip_to_check;
+        for (chip_to_check = 1; chip_to_check <= 8; chip_to_check++) {
+            
             uint8_t result = SPI_FLASH_dataCheck(chip_to_check);
             
             if(result == 1)
@@ -1015,20 +1013,13 @@ void usbUartRingBufferLUT(char * line_in) {
             {
                 terminalTextAttributesReset();
                 terminalTextAttributes(RED, BLACK, NORMAL);
-                printf("Chip %u is blank\r\n", chip_to_check);
+                printf("Chip %u is in erased state\r\n", chip_to_check);
                 terminalTextAttributesReset();
             }
             
         }
         
-        else {
-         
-            terminalTextAttributes(RED, BLACK, NORMAL);
-            printf("Chip %u is not valid\n\r", chip_to_check);
-            terminalTextAttributesReset();
         
-        }
-
     }
     
     else if (strcmp(line_in, "Serial Number?") == 0) {
@@ -1382,7 +1373,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    SPI Flash Chip Write <x>: Writes the contents of the EBI SRAM buffer to the given SPI Flash chip, x = 1:8\n\r");
     printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into EBI SRAM buffer, x = 1:8\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
-    printf("    SPI Flash Data Check <x>: Determines if a SPI chip contains image data\n\r");
+    printf("    SPI Flash Data Check: Prints if each SPI Flash chip has data in it or is erased\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
@@ -1412,7 +1403,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Yellow: Sets all pixels in display yellow\n\r");
     printf("    Set Cyan: Sets all pixels in display cyan\n\r");    
     printf("    Set Green: Sets all pixels in display green\n\r");    
-    printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
+    printf("    Set Magenta: Sets all pixels in display magenta\n\r");
 //    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
 //    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");

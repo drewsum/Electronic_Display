@@ -759,7 +759,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
                 
     }
     
-    softwareDelay(800);
+    softwareDelay(1200);
     
     // Toggle CE
     spiFlashGPIOSet();
@@ -823,7 +823,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
         }
 
-        softwareDelay(800);
+        softwareDelay(1200);
 
         // Toggle CE
         spiFlashGPIOSet();
@@ -873,7 +873,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
         }
 
-        softwareDelay(800);
+        softwareDelay(1200);
 
         // Toggle CE
         spiFlashGPIOSet();
@@ -979,7 +979,7 @@ void SPI_FLASH_chipErase(uint8_t chip_select) {
     // Clear CS and WP signals
     spiFlashGPIOReset();
     
-    softwareDelay(1250000);
+    softwareDelay(2250000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
@@ -1043,18 +1043,61 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     while(SPI3STATbits.SPIBUSY);
     
     // Write addr3 byte
-    SPI3_writeByte(0xFF);
+    SPI3_writeByte(0xFA);
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
        
     // Write dummy byte (needed for low speed read)
-    SPI3_writeByte(0xDD);
+    SPI3_writeByte(0x00);
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
-
+    
+    // Write dummy byte (needed for low speed read)
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write dummy byte (needed for low speed read)
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write dummy byte (needed for low speed read)
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write dummy byte (needed for low speed read)
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // Write dummy byte (needed for low speed read)
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
     uint8_t eraseCheck = SPI3_readByte();
+    
+    // reset state machine
+    spi_flash_state = idle;
+    
+    // Clear CE and WP signals
+    spiFlashGPIOReset();
+    
+    clearInterruptFlag(SPI3_Transfer_Done);
+    clearInterruptFlag(SPI3_Receive_Done);
+    
+    softwareDelay(1200);
+    
+    printf("Read byte: 0x%02X\r\n", eraseCheck);
     
     // Checks if last address has been written to
     if (eraseCheck == 0xFF)
@@ -1067,15 +1110,6 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     {
         return 1;
     }
-
-    // reset state machine
-    spi_flash_state = idle;
-    
-    // Clear CE and WP signals
-    spiFlashGPIOReset();
-    
-    clearInterruptFlag(SPI3_Transfer_Done);
-    clearInterruptFlag(SPI3_Receive_Done);
     
 }
 
@@ -1306,7 +1340,7 @@ void SPI_Flash_writeEnable(uint8_t chip_select){
     // Clear CE and WP signals
     spiFlashGPIOReset();
     
-    softwareDelay(10000);
+    softwareDelay(20000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
@@ -1369,7 +1403,7 @@ void SPI_Flash_blockProtectionDisable(uint8_t chip_select) {
     // Clear CE and WP signals
     spiFlashGPIOReset();
     
-    softwareDelay(10000);
+    softwareDelay(20000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
