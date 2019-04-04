@@ -12,6 +12,14 @@
 #include "usb_uart.h"
 #include "delay_timer.h"
 #include "panel_control.h"
+#include "external_bus_interface.h"
+
+// This pragma tells the linker to allow access of EBI memory space
+#pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
+
+// This is tricking the compiler into placing an array in EBI SRAM
+extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
+
 
 
 volatile uint32_t esp_8266_TxHead = 0;
@@ -362,17 +370,18 @@ void esp8266RingBufferLUT(char * line_in) {
     if (strstart(line_in, "+IPD,") == 0) {
     
         uint32_t dummy;
-        char received_string[40];
-        memset(http_android_string, 0, sizeof(http_android_string));
-        sscanf(line_in, "+IPD,%u,%u:%39c",
+        sscanf(line_in, "+IPD,%u,%u:%s",
                 &current_connection_id,
                 &dummy,
                 received_string);
         
-        printf("Received string = %s, length = %u\r\n", received_string, strlen(received_string));
+        // printf("Received string = %s, length = %u\r\n", received_string, strlen(received_string));
         
         if (0 == strstart(received_string, "hello world")) {
             printf("Received Hello World\r\n");
+            strcpy(response_message, "Message Received, Close\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
         }
         
         else if (0 == strstart(received_string, "Power=toggle")) {
@@ -389,6 +398,9 @@ void esp8266RingBufferLUT(char * line_in) {
                 
             }
             
+            strcpy(response_message, "Message Received, Close\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
         }
         
         else if (0 == strstart(received_string, "Dim=")) {
@@ -399,11 +411,54 @@ void esp8266RingBufferLUT(char * line_in) {
             printf("Set brightness = %u\r\n", set_brightness);
             
             if (set_brightness <= 100 && set_brightness >= 0) panelPWMSetBrightness((uint8_t) set_brightness);
+            
+            strcpy(response_message, "Message Received, Close\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
         
         }
         
-        // Tell kevin we received message
-        delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+        else if (0 == strstart(received_string, "ImageData=")) {
+
+            uint32_t image_starting_addr;
+            
+            // Image data is encoded in this string
+            char image_data_str[1200];
+            
+            sscanf(received_string, "ImageData=Addr=%u,Data=%1024c", &image_starting_addr, image_data_str);
+
+            printf("Starting Addr = %u, Data = %s\r\n", image_starting_addr, image_data_str);
+            
+            // Loop through received image data characters and load into EBI SRAM
+            uint16_t char_loop_addr;
+            for (char_loop_addr = 0; char_loop_addr <= 1024; char_loop_addr += 2) {
+             
+                // Copy the current hex number into a holding char array
+                char hex_input[3];
+                hex_input[0] = image_data_str[char_loop_addr];
+                hex_input[1] = image_data_str[char_loop_addr + 1];
+                hex_input[2] = '\0';
+                
+                uint32_t current_byte;
+                
+                sscanf(hex_input, "%02X", &current_byte);
+                
+                ebi_sram_array[char_loop_addr / 2 + image_starting_addr] = (uint8_t) current_byte;
+                // ebi_sram_array[char_loop_addr / 2 + image_starting_addr] = (uint8_t) (image_data_str[char_loop_addr] << 4) + (image_data_str[char_loop_addr + 1]);
+                
+            }
+            
+            strcpy(response_message, "Message Received, Keep Open\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+        
+        }
+        
+        else {
+            strcpy(response_message, "Message Received, Close\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+        }
         
     }
     

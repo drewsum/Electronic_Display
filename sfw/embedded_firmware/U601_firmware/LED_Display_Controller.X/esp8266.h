@@ -35,10 +35,12 @@ extern volatile uint32_t esp_8266_TxBufferRemaining;
 // This is the current connection ID for the ESP
 uint32_t current_connection_id = 20;
 
-// This is the string that is included in an HTTP request
-char http_android_string[16384];
+// This is the string that is sent back to the android app after a TCP transaction
+char response_message[40];
 
-
+// This is the string of data plucked out of the TCP transaction,
+// it should match exactly what is sent from the android phone
+char received_string[2500];
 
 // This function initializes UART 1 for ESP8266 WiFi Module
 void esp8266Initialize(void);
