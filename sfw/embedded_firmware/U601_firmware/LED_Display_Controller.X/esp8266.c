@@ -449,7 +449,7 @@ void esp8266RingBufferLUT(char * line_in) {
             else strcpy(response_message, "Message Received, Close\r\n");
             
             // Tell kevin we received message
-            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            delayTimerStart(0x000F, esp8266_tcp_response_delay1);
         
         }
         

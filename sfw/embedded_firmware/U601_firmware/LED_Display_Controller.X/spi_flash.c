@@ -1077,6 +1077,8 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
     
+    uint8_t eraseCheck = SPI3BUF;
+    
     // printf("Read byte: 0x%02X\r\n", SPI3BUF);
     
     SPI3_writeByte(0x00);
@@ -1084,7 +1086,7 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
     
-    uint8_t eraseCheck = SPI3BUF;
+    
     
     // Write dummy byte (needed for low speed read)
     SPI3_writeByte(0x00);

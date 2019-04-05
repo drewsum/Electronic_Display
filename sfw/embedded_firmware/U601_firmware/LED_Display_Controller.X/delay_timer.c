@@ -44,13 +44,13 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
             memset(cipsend_message, 0, sizeof(cipsend_message));
             sprintf(cipsend_message, "AT+CIPSEND=%u,%u\r\n\r\n", current_connection_id, strlen(response_message) + 1 + 15);
             esp8266Putstring(cipsend_message);
-            delayTimerStart(0x3FFF, esp8266_tcp_response_delay2);
+            delayTimerStart(0x04FF, esp8266_tcp_response_delay2);
             break;
             
         case esp8266_tcp_response_delay2:
             
             esp8266Putstring(response_message);
-            delayTimerStart(0xFFFF, esp8266_tcp_response_delay3);
+            delayTimerStart(0x04FF, esp8266_tcp_response_delay3);
 
             break;
             
