@@ -425,9 +425,9 @@ void esp8266RingBufferLUT(char * line_in) {
             // Image data is encoded in this string
             char image_data_str[1200];
             
-            sscanf(received_string, "ImageData=Addr=%u,Data=%1024c", &image_starting_addr, image_data_str);
+            sscanf(received_string, "ImageData=Addr=0x%06X,Data=%1024c", &image_starting_addr, image_data_str);
 
-            printf("Starting Addr = %u, Data = %s\r\n", image_starting_addr, image_data_str);
+            // printf("Starting Addr = %u, Data = %s\r\n", image_starting_addr, image_data_str);
             
             // Loop through received image data characters and load into EBI SRAM
             uint16_t char_loop_addr;
@@ -439,16 +439,15 @@ void esp8266RingBufferLUT(char * line_in) {
                 hex_input[1] = image_data_str[char_loop_addr + 1];
                 hex_input[2] = '\0';
                 
-                uint32_t current_byte;
+                uint8_t current_byte = strtol(hex_input, NULL, 16);
                 
-                sscanf(hex_input, "%02X", &current_byte);
-                
-                ebi_sram_array[char_loop_addr / 2 + image_starting_addr] = (uint8_t) current_byte;
-                // ebi_sram_array[char_loop_addr / 2 + image_starting_addr] = (uint8_t) (image_data_str[char_loop_addr] << 4) + (image_data_str[char_loop_addr + 1]);
+                ebi_sram_array[char_loop_addr / 2 + image_starting_addr] = current_byte;
                 
             }
             
-            strcpy(response_message, "Message Received, Keep Open\r\n");
+            if (image_starting_addr < 0x3BE00) strcpy(response_message, "Message Received, Keep Open\r\n");
+            else strcpy(response_message, "Message Received, Close\r\n");
+            
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
         

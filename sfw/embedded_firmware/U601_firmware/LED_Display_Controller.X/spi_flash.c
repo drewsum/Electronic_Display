@@ -782,8 +782,9 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
     sram_addr_index++;
     
     // Check if we are at the end of the array
-    if (sram_addr_index >= PANEL_DATA_ARRAY_SIZE) {
-        
+    // if (sram_addr_index >= PANEL_DATA_ARRAY_SIZE) {
+    if (sram_addr_index >= EBI_SRAM_SIZE) {
+    
         disableInterrupt(SPI3_Transfer_Done);
         
         // Toggle CE pin for where we're writing high, wait a bit, then set low
@@ -1023,8 +1024,11 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     // Set CS and WP signals
     spiFlashGPIOSet();
       
+    disableInterrupt(SPI3_Transfer_Done);
+    disableInterrupt(SPI3_Receive_Done);
+    
     // Write chip read opcode to SPI3 (0x0B for high speed read, 0x03 for standard read))
-    SPI3_writeByte(0x03);
+    SPI3_writeByte(0x0B);
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
@@ -1047,18 +1051,48 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
-       
+    
+    // Write dummy byte for high speed read
+    SPI3_writeByte(0xDD);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // printf("Read byte: 0x%02X\r\n", SPI3BUF);
+    
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // printf("Read byte: 0x%02X\r\n", SPI3BUF);
+    
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    // printf("Read byte: 0x%02X\r\n", SPI3BUF);
+    
+    SPI3_writeByte(0x00);
+    
+    // Wait for transfer to complete
+    while(SPI3STATbits.SPIBUSY);
+    
+    uint8_t eraseCheck = SPI3BUF;
+    
     // Write dummy byte (needed for low speed read)
     SPI3_writeByte(0x00);
     
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
     
-    // Write dummy byte (needed for low speed read)
-    SPI3_writeByte(0x00);
-    
-    // Wait for transfer to complete
-    while(SPI3STATbits.SPIBUSY);
+    // printf("Read byte: 0x%02X\r\n", SPI3BUF);
     
     // Write dummy byte (needed for low speed read)
     SPI3_writeByte(0x00);
@@ -1066,25 +1100,7 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     // Wait for transfer to complete
     while(SPI3STATbits.SPIBUSY);
     
-    // Write dummy byte (needed for low speed read)
-    SPI3_writeByte(0x00);
-    
-    // Wait for transfer to complete
-    while(SPI3STATbits.SPIBUSY);
-    
-    // Write dummy byte (needed for low speed read)
-    SPI3_writeByte(0x00);
-    
-    // Wait for transfer to complete
-    while(SPI3STATbits.SPIBUSY);
-    
-    // Write dummy byte (needed for low speed read)
-    SPI3_writeByte(0x00);
-    
-    // Wait for transfer to complete
-    while(SPI3STATbits.SPIBUSY);
-    
-    uint8_t eraseCheck = SPI3_readByte();
+    // uint8_t eraseCheck = SPI3BUF;
     
     // reset state machine
     spi_flash_state = idle;
@@ -1097,7 +1113,7 @@ uint8_t SPI_FLASH_dataCheck(uint8_t chip_select) {
     
     softwareDelay(1200);
     
-    printf("Read byte: 0x%02X\r\n", eraseCheck);
+    // printf("Read byte: 0x%02X\r\n", eraseCheck);
     
     // Checks if last address has been written to
     if (eraseCheck == 0xFF)
