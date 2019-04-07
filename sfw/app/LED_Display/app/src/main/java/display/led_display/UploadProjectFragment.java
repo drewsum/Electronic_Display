@@ -77,16 +77,16 @@ public class UploadProjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_upload_project, container, false);
-        TinyDB tinyDB = new TinyDB(getContext());
-        ArrayList<String> projectList = tinyDB.getListString("projectList");
+        final TinyDB tinyDB = new TinyDB(getContext());
+        final ArrayList<String> projectList = tinyDB.getListString("projectList");
         Log.d("projectList", projectList.toString());
-        ArrayList<String> deviceList = tinyDB.getListString("deviceList");
+        final ArrayList<String> deviceList = tinyDB.getListString("deviceList");
         Log.d("deviceList", deviceList.toString());
-        ListView projectListview = rootView.findViewById(R.id.projectList);
+        final ListView projectListview = rootView.findViewById(R.id.projectList);
         projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "projectList"));
         // populate physical boards list
-        ListView boardListview = rootView.findViewById(R.id.deviceList);
-        boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
+        final ListView deviceListview = rootView.findViewById(R.id.deviceList);
+        deviceListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
         Button buttonNewDevice = rootView.findViewById(R.id.buttonNewDevice);
         buttonNewDevice.setOnClickListener(new Button.OnClickListener() {
 
@@ -113,17 +113,16 @@ public class UploadProjectFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // add the code to send start the upload project routine
+                String selectedProject = projectList.get(projectListview.getSelectedItemPosition()+1);
+                ArrayList<String> frameList = tinyDB.getListString(selectedProject + "frameList");
+                String selectedDevice = deviceList.get(deviceListview.getSelectedItemPosition()+1);
+                ArrayList<String> deviceData = tinyDB.getListString(selectedDevice + "Data");
+                Log.d("projectSelected", selectedProject);
+                Log.d("deviceSelected", selectedDevice);
             }
         });
 
         return rootView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override

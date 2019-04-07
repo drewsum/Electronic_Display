@@ -139,7 +139,7 @@ public class ProjectPreviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
         Log.d("framesList[0]", framesList.get(0));
-        loadImageFromStorage(framesList.get(0));
+        updateImage();
     }
 
     private void updateImage() {

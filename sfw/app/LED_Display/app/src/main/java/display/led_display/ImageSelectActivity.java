@@ -20,15 +20,12 @@ import android.widget.ImageView;
 import android.widget.Switch;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 import display.led_display.helper.PixelsConverter;
-import display.led_display.helper.TinyDB;
 import display.led_display.helper.WiFiController;
 
 public class ImageSelectActivity extends AppCompatActivity {
@@ -67,9 +64,9 @@ public class ImageSelectActivity extends AppCompatActivity {
                         boolAspectRatio = true;
                         Log.d("switchPressed", "Keep Aspect Ratio");
                         saveOff();
-                        TinyDB tinyDB = new TinyDB(getApplicationContext());
-                        Map<String, ?> tinyDBAll = tinyDB.getAll();
-                        Log.d("print all", tinyDBAll.toString());
+//                        TinyDB tinyDB = new TinyDB(getApplicationContext());
+//                        Map<String, ?> tinyDBAll = tinyDB.getAll();
+//                        Log.d("print all", tinyDBAll.toString());
                     } else {
                         // switch is "OFF" so it is false
                         boolAspectRatio = false;
@@ -146,57 +143,42 @@ public class ImageSelectActivity extends AppCompatActivity {
     }
 
     protected void convert(Uri targetUri) {
+        PixelsConverter pixelsConverter = new PixelsConverter();
+        // switch this to get the image from tinyDB
+        int panels_width = 5;
+        int panels_height = 4;
+        // get image from internal storage
+        String filename = projectName + "frame" + namingNumber + ".png";
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File f = new File(directory, filename);
         try {
-            PixelsConverter pixelsConverter = new PixelsConverter();
-            // switch this to get the image from tinyDB
-            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-            // ready = true;
-            int panels_width = 5;
-            int panels_height = 4;
-            scaledBitmap = Bitmap.createScaledBitmap(bitmap, 64 * panels_width, 64 * panels_height, true);
-            byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
-            WiFiController wiFiController = new WiFiController();
-            String str = new String(printMe, StandardCharsets.US_ASCII);
-            /*for(int h = 0; h < 1000; h++) {
-                str += (char)printMe[h];
-                Log.d("hi", "working...");
-            }*/
-            /*byte[] test = new byte[10];
-            for (int u = 0; u < 10; u++)
-            {
-                test[u] = 0x66;
-            }
-            String big_s = "";
-            for(int h = 0; h < 1000; h++) {
-                big_s += (char)printMe[h];
-                Log.d("next" + h, big_s);
-            }*/
-            Log.d("bytes", str.substring(0, 1000));
-            wiFiController.sendOverWiFi(getBaseContext(), "Display Board", "ImageData", str.substring(0, 1000));
-            // store to temp file for testing
-            File file = new File("/storage/emulated/0/Download" + "/values.txt");
-            Log.d("Filepath", file.getAbsolutePath());
-            String s = "";
-            try (PrintWriter out = new PrintWriter(file)) {
-                for (int h = 0; h < printMe.length; h++) {
-                    /*s = String.format("0x%02X, ", printMe[h]);
-                    if(h == printMe.length-1)
-                    {
-                        s = String.format("0x%02X", printMe[h]);
-                    }
-                    if(h % 10 == 0)
-                    {
-                        out.println();
-                    }
-                    out.print(s);*/
-                    out.print(str.substring(0, 1000));
-                }
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            InputStream is = getBaseContext().openFileInput(f.getName());
+            scaledBitmap = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch(IOException io) {
+            io.printStackTrace();
         }
+        byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
+        ArrayList<String> payloadList = new ArrayList<>();
+        WiFiController wiFiController = new WiFiController();
+        //payloadList.add("Power=0");
+        String str = "";
+        // use a string builder
+        for(int h = 0; h < printMe.length; h++) {
+            if(h % 512 == 0) {
+                Log.d("string", str);
+                str = "";
+                str += String.format("ImageData=Addr=0x%06X,Data=", h);
+            }
+            str += String.format("%02X", printMe[h]);
+            if(h % 512 == 511) {
+                payloadList.add(str);
+                Log.d("added to list", ""+payloadList.size());
+            }
+        }
+        wiFiController.sendOverWiFi(getBaseContext(), "Display Board", "ImageData", payloadList);
+        Log.d("wifi commands sent", "" +payloadList.size());
     }
 
     private static Bitmap fixedRatio(Bitmap imageToScale, int destinationWidth, int destinationHeight) {

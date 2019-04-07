@@ -78,9 +78,9 @@ public class rowAdaptor extends BaseAdapter {
         View vi = convertView;
         if (vi == null) {
             if (keyName == "frameList") {
-                vi = inflater.inflate(R.layout.image_row, null);
+                vi = inflater.inflate(R.layout.image_row, parent, false);
             } else {
-                vi = inflater.inflate(R.layout.row, null);
+                vi = inflater.inflate(R.layout.row, parent, false);
             }
         }
         final View finView = vi;
@@ -174,9 +174,8 @@ public class rowAdaptor extends BaseAdapter {
                         framesList.remove(position + 1);
                         tinyDB.putListString(projectName + keyName, framesList);
                         Log.d("New " + projectName + keyName, data.toString());
-                        //Log.d("convertView", convertView.toString());
-                        //TextView textFrameCount = convertView.findViewById(R.id.textFrameCount);
-                        //textFrameCount.setText("Current Frame Count: " + data.size() + "/8");
+                        TextView textFrameCount = finView.getRootView().findViewById(R.id.textFrameCount);
+                        textFrameCount.setText(data.size() + "/8");
                         // also need delete image from internal storage
                         ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
                         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);

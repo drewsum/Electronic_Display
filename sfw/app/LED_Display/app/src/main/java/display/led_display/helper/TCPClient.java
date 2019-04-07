@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import display.led_display.MenuActivity;
 
@@ -17,7 +18,8 @@ public class TCPClient {
 
     private static final String TAG = "TCPClient";
     private final Handler mHandler;
-    private String ipNumber, incomingMessage, command;
+    private String ipNumber, incomingMessage;
+    private ArrayList<String> command;
     int portNumber;
     BufferedReader in;
     PrintWriter out;
@@ -32,7 +34,7 @@ public class TCPClient {
      * @param ipNumber String retrieved from IpGetter class that is looking for ip number.
      * @param listener Callback interface object
      */
-    public TCPClient(Handler mHandler, String command, String ipNumber, int portNumber, MessageCallback listener) {
+    public TCPClient(Handler mHandler, ArrayList<String> command, String ipNumber, int portNumber, MessageCallback listener) {
         this.listener = listener;
         this.ipNumber = ipNumber;
         this.portNumber = portNumber;
@@ -100,33 +102,38 @@ public class TCPClient {
 
                 Log.d(TAG, "In/Out created");
 
-                //Sending message with command specified by AsyncTask
-                this.sendMessage(command);
+                for(int i = 0; i < command.size(); i++) {
+                    Log.d("Loop Count", ""+i);
+                    //Sending message with command specified by AsyncTask
+                    this.sendMessage(command.get(i));
+                    Log.d("being sent", "" + command.size());
 
-                //
-                //mHandler.sendEmptyMessageDelayed(MenuActivity.SENDING, 2000);
+                    //
+                    //mHandler.sendEmptyMessageDelayed(MenuActivity.SENDING, 2000);
 
-                //Listen for the incoming messages while mRun = true
-                while (mRun) {
-                    incomingMessage = in.readLine();
-                    if (incomingMessage != null && listener != null) {
-                        Log.d("Received message", incomingMessage);
-                        incomingMessage = incomingMessage.trim();
-                        if(incomingMessage.equals("Message Received. Close.")) {
-                            Log.d("Response Parser", "Closing TCP connection");
-                        } else if(incomingMessage.equals("Message Received. Keep Alive.")) {
-                            Log.d("Response Parser", "Keeping Connection open");
+                    //Listen for the incoming messages while mRun = true
+                    while (mRun) {
+                        incomingMessage = in.readLine();
+                        if (incomingMessage != null && listener != null) {
+                            Log.d("Received message", incomingMessage);
+                            incomingMessage = incomingMessage.trim();
+                            if (incomingMessage.equals("Message Received, Close")) {
+                                Log.d("Response Parser", "Closing TCP connection");
+                            } else if (incomingMessage.equals("Message Received, Keep Open")) {
+                                Log.d("Response Parser", "Keeping Connection open");
+                                break;
+                            }
+                            /**
+                             * Incoming message is passed to MessageCallback object.
+                             * Next it is retrieved by AsyncTask and passed to onPublishProgress method.
+                             *
+                             */
+                            //listener.callbackMessageReceiver(incomingMessage);
+
                         }
-                        /**
-                         * Incoming message is passed to MessageCallback object.
-                         * Next it is retrieved by AsyncTask and passed to onPublishProgress method.
-                         *
-                         */
-                        listener.callbackMessageReceiver(incomingMessage);
+                        incomingMessage = null;
 
                     }
-                    incomingMessage = null;
-
                 }
 
                 Log.d(TAG, "Received Message: " + incomingMessage);

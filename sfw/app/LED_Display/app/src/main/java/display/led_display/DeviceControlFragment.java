@@ -91,7 +91,9 @@ public class DeviceControlFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // Ping the Micro
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "hello world");
+                ArrayList<String> messageList = new ArrayList<>();
+                messageList.add("hello world");
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", messageList);
                 Log.d("WiFi", "Pinged Device");
             }
         });
@@ -101,7 +103,9 @@ public class DeviceControlFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // send WiFi command to Turn Multiplexing ON
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Power=toggle");
+                ArrayList<String> messageList = new ArrayList<>();
+                messageList.add("Power=toggle");
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", messageList);
             }
         });
         // set up Brightness seekbar
@@ -120,7 +124,9 @@ public class DeviceControlFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 //wiFiController.connectToNetwork(getContext());
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", "Dim=" + brightnessLevel + " ");
+                ArrayList<String> messageList = new ArrayList<>();
+                messageList.add("Dim=" + brightnessLevel + " ");
+                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", messageList);
            }
        });
         Button buttonSendCommand = rootView.findViewById(R.id.buttonSendCommand);
@@ -129,8 +135,9 @@ public class DeviceControlFragment extends Fragment {
             public void onClick(View arg0) {
                 // send AT command to microcontroller
                 EditText editWiFiCommands = rootView.findViewById(R.id.inputWiFiCommands);
-                String commands = editWiFiCommands.getText().toString();
-                wiFiController.sendOverWiFi(getContext(), deviceName, "ATCommand", commands);
+                ArrayList<String> messageList = new ArrayList<>();
+                messageList.add(editWiFiCommands.getText().toString());
+                wiFiController.sendOverWiFi(getContext(), deviceName, "ATCommand", messageList);
                 Log.d("wifi", "message sent");
             }
         });

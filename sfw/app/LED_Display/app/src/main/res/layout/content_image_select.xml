@@ -22,13 +22,13 @@
 
     <ImageView
         android:id="@+id/targetimage"
-        android:layout_width="292dp"
-        android:layout_height="335dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="335dp"
+        android:layout_height="358dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/selection_image_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintBottom_toTopOf="@+id/switchAspectRatio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoadImage" />
 
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textFixedAspectRatio"
         app:layout_constraintStart_toEndOf="@+id/textStretchToFit"
         app:layout_constraintTop_toBottomOf="@+id/targetimage"
-        />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textStretchToFit"

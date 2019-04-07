@@ -14,14 +14,14 @@ import display.led_display.MenuActivity;
 
 public class WiFiController {
 
-    public void sendOverWiFi(Context context, String deviceName, String messageType, String data) {
+    public void sendOverWiFi(Context context, String deviceName, String messageType, ArrayList<String> data) {
         TinyDB tinyDB = new TinyDB(context.getApplicationContext());
         ArrayList<String> deviceData = tinyDB.getListString(deviceName + "Data");
         String ipAddress = deviceData.get(0);
         String portNumber = deviceData.get(1);
         Log.d("ipAddress", ipAddress);
         Log.d("portNumber", portNumber);
-        Log.d("data length", "" + data.length());
+        Log.d("data length", "" + data.size());
         if (messageType == "Control") {
             sendTCP(context, ipAddress, portNumber, data);
         } else if (messageType == "ATCommand") {
@@ -31,7 +31,7 @@ public class WiFiController {
         }
     }
 
-    public String sendTCP(Context context, String ipAddress, String portNumber, String data)
+    public String sendTCP(Context context, String ipAddress, String portNumber, ArrayList<String> data)
     {
         Handler handler = new Handler();
         new SendTCPAsyncTask(handler, ipAddress, portNumber, data, context).execute();
@@ -40,14 +40,16 @@ public class WiFiController {
     }
 
     public class SendTCPAsyncTask extends AsyncTask<String, String, TCPClient> {
-        private String data;
+        private ArrayList<String> data;
         private TCPClient tcpClient;
         private Handler mHandler;
         private Context context;
         private String ipAddress;
         private int portNumber;
         private AlertDialog alertDialog;
+        private String messageType = "";
         private static final String TAG = "SendAsyncTask";
+        private int busyFlag = 0;
 
         /**
          * ShutdownAsyncTask constructor with handler passed as argument. The UI is updated via handler.
@@ -56,12 +58,15 @@ public class WiFiController {
          * @param mHandler Handler object that is retrieved from MainActivity class and passed to TCPClient
          *                 class for sending messages and updating UI.
          */
-        public SendTCPAsyncTask(Handler mHandler, String ipAddress, String portNumber, String data, Context context) {
+        public SendTCPAsyncTask(Handler mHandler, String ipAddress, String portNumber, ArrayList<String> data, Context context) {
             this.mHandler = mHandler;
             this.context = context;
             this.ipAddress = ipAddress;
             this.portNumber = Integer.parseInt(portNumber);
             this.data = data;
+            if(data.contains("ImageData")) {
+                this.messageType = "ImageData";
+            }
             alertDialog = new AlertDialog.Builder(this.context)
                     .setTitle("TCP Connection:")
                     .setCancelable(true)
@@ -86,6 +91,7 @@ public class WiFiController {
                             @Override
                             public void callbackMessageReceiver(String message) {
                                 publishProgress(message);
+                                // now we know the message was received and we can send another chunk
                             }
                         });
 
@@ -108,7 +114,7 @@ public class WiFiController {
 
             alertDialog.setMessage("Finished Execution");
             if (!alertDialog.isShowing()) {
-                alertDialog.show(); // show dialog
+                //alertDialog.show(); // show dialog
             }
 
         }
@@ -121,7 +127,7 @@ public class WiFiController {
             Log.d(TAG, "In on pre execute");
             alertDialog.setMessage("Sending, please wait...");
             if (!alertDialog.isShowing()) {
-                alertDialog.show();
+                //alertDialog.show();
             }
         }
     }
