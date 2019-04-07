@@ -3,11 +3,7 @@ package display.led_display.helper;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class PixelsConverter {
 
@@ -127,19 +123,6 @@ public class PixelsConverter {
             for (int j = 0; j < dimY; j++) {
                 int[] pixels = BitmapToPixels(bitmapArray[i][j]);
                 ArrayList<Integer> rgb = PixelsToRGB(pixels);
-                File file = new File("/storage/emulated/0/Download" + "/rgb.txt");
-                Log.d("Filepath", file.getAbsolutePath());
-                try (PrintWriter out = new PrintWriter(file)) {
-                    for (int h = 0; h < rgb.size(); h++) {
-                        String s = String.format(Locale.ENGLISH, "%d, ", rgb.get(h));
-                        if (h % 9 == 0) {
-                            out.println();
-                        }
-                        out.print(s);
-                    }
-                } catch (IOException io) {
-                    io.printStackTrace();
-                }
                 ArrayList<Integer> bits = RGBToBits(rgb);
                 panelList[i][j] = BitsToMicro(bits);
             }

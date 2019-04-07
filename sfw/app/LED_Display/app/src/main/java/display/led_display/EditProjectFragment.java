@@ -136,15 +136,13 @@ public class EditProjectFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             //Uri targetUri = Uri.parse(data.getExtras().getString("targetUri"));
-            String filePath = data.getExtras().getString("filePath");
-            Log.d("filePath", filePath);
+            String fileName = data.getExtras().getString("fileName");
+            Log.d("fileName", fileName);
 
             TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
             framesList = tinyDB.getListString(projectName + "frameList");
-            framesList.add(filePath);
-            Log.d("frameList", framesList.toString());
+            framesList.add(fileName);
             //framesList.add(0, "" + namingNumber);
-            Log.d("frameList", framesList.toString());
             framesList.remove(0);
             framesList.add(0, "" + namingNumber);
             tinyDB.putListString(projectName + "frameList", framesList);

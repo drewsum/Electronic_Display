@@ -41,11 +41,6 @@ public class MenuActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        Room.databaseBuilder(this, AppDataBase.class,
-//                "mu-led").build();
-//        database = AppDataBase.getInstance(this);
-//        Log.d("db: ", "" + this.database.toString());
-//        Log.d("hello", "hi");
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

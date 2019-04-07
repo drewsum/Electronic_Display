@@ -113,23 +113,19 @@ public class TCPClient {
 
                     //Listen for the incoming messages while mRun = true
                     while (mRun) {
+                        Log.d("waiting", "give ME SOMETHING!!!");
                         incomingMessage = in.readLine();
                         if (incomingMessage != null && listener != null) {
                             Log.d("Received message", incomingMessage);
                             incomingMessage = incomingMessage.trim();
-                            if (incomingMessage.equals("Message Received, Close")) {
+                            if (incomingMessage.equals("Message Received")) {
                                 Log.d("Response Parser", "Closing TCP connection");
-                            } else if (incomingMessage.equals("Message Received, Keep Open")) {
-                                Log.d("Response Parser", "Keeping Connection open");
                                 break;
                             }
-                            /**
-                             * Incoming message is passed to MessageCallback object.
-                             * Next it is retrieved by AsyncTask and passed to onPublishProgress method.
-                             *
-                             */
-                            //listener.callbackMessageReceiver(incomingMessage);
-
+//                            } else if (incomingMessage.equals("Message Received, Keep Open")) {
+//                                Log.d("Response Parser", "Keeping Connection open");
+//                                break;
+//                            }
                         }
                         incomingMessage = null;
 

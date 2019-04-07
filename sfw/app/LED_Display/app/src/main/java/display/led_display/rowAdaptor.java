@@ -58,11 +58,13 @@ public class rowAdaptor extends BaseAdapter {
         return position;
     }
 
-    private Bitmap loadImageFromStorage(String path)
+    private Bitmap loadImageFromStorage(String fileName)
     {
         Bitmap b = null;
         try {
-            File f=new File(path);
+            ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File f=new File(directory, fileName);
             b = BitmapFactory.decodeStream(new FileInputStream(f));
         }
         catch (FileNotFoundException e)
@@ -109,7 +111,6 @@ public class rowAdaptor extends BaseAdapter {
             final String projectName = dirtyName.substring(0, dirtyName.indexOf("frame"));
             final ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
             final String namingNumber = framesList.get(0);
-            Log.d("namingNumber", namingNumber);
             framesList.remove(0);
             buttonUp.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -202,7 +203,6 @@ public class rowAdaptor extends BaseAdapter {
                         Log.d("deleted", deviceName + "Data");
                         break;
                 }
-                Log.d("done", "done");
                 notifyDataSetChanged();
                 dialog.dismiss();
             }

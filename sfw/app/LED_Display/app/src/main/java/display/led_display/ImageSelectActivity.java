@@ -21,17 +21,11 @@ import android.widget.Switch;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import display.led_display.helper.PixelsConverter;
-import display.led_display.helper.WiFiController;
 
 public class ImageSelectActivity extends AppCompatActivity {
     ImageView targetImage;
     Uri targetUri;
-    String filePath;
+    String fileName;
 
     String projectName;
     int namingNumber;
@@ -105,9 +99,8 @@ public class ImageSelectActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
                     // TODO Auto-generated method stub
-                    convert(targetUri);
                     Intent intent = new Intent();
-                    intent.putExtra("filePath", filePath);
+                    intent.putExtra("fileName", fileName);
                     setResult(RESULT_OK, intent);
                     finish();
                 }
@@ -117,7 +110,7 @@ public class ImageSelectActivity extends AppCompatActivity {
     }
 
     protected void saveOff() {
-        String filename = projectName + "frame" + namingNumber + ".png";
+        fileName = projectName + "frame" + namingNumber + ".png";
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
@@ -132,53 +125,13 @@ public class ImageSelectActivity extends AppCompatActivity {
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
             File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
             // Create imageDir
-            File f = new File(directory, filename);
-            filePath = f.getPath();
-            FileOutputStream outputStream = new FileOutputStream(new File(filePath));
+            File f = new File(directory, fileName);
+            FileOutputStream outputStream = new FileOutputStream(f);
             scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    protected void convert(Uri targetUri) {
-        PixelsConverter pixelsConverter = new PixelsConverter();
-        // switch this to get the image from tinyDB
-        int panels_width = 5;
-        int panels_height = 4;
-        // get image from internal storage
-        String filename = projectName + "frame" + namingNumber + ".png";
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        File f = new File(directory, filename);
-        try {
-            InputStream is = getBaseContext().openFileInput(f.getName());
-            scaledBitmap = BitmapFactory.decodeStream(is);
-            is.close();
-        } catch(IOException io) {
-            io.printStackTrace();
-        }
-        byte[] printMe = pixelsConverter.BitmapToByteArray(scaledBitmap, panels_width, panels_height);
-        ArrayList<String> payloadList = new ArrayList<>();
-        WiFiController wiFiController = new WiFiController();
-        //payloadList.add("Power=0");
-        String str = "";
-        // use a string builder
-        for(int h = 0; h < printMe.length; h++) {
-            if(h % 512 == 0) {
-                Log.d("string", str);
-                str = "";
-                str += String.format("ImageData=Addr=0x%06X,Data=", h);
-            }
-            str += String.format("%02X", printMe[h]);
-            if(h % 512 == 511) {
-                payloadList.add(str);
-                Log.d("added to list", ""+payloadList.size());
-            }
-        }
-        wiFiController.sendOverWiFi(getBaseContext(), "Display Board", "ImageData", payloadList);
-        Log.d("wifi commands sent", "" +payloadList.size());
     }
 
     private static Bitmap fixedRatio(Bitmap imageToScale, int destinationWidth, int destinationHeight) {

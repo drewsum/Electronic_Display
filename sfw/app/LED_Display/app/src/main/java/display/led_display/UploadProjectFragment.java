@@ -1,6 +1,9 @@
 package display.led_display;
 
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,9 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import display.led_display.helper.PixelsConverter;
 import display.led_display.helper.TinyDB;
+import display.led_display.helper.WiFiController;
 
 
 /**
@@ -119,6 +128,48 @@ public class UploadProjectFragment extends Fragment {
                 ArrayList<String> deviceData = tinyDB.getListString(selectedDevice + "Data");
                 Log.d("projectSelected", selectedProject);
                 Log.d("deviceSelected", selectedDevice);
+
+                PixelsConverter pixelsConverter = new PixelsConverter();
+                int panels_width = 5;
+                int panels_height = 4;
+                Bitmap bitmap = null;
+                for(int i = 1; i < frameList.size()+1; i++) {
+                    // get image from internal storage
+                    String filename = frameList.get(i);
+                    ContextWrapper cw = new ContextWrapper(getActivity().getApplicationContext());
+                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                    File f = new File(directory, filename);
+                    Log.d("directory", directory.toString());
+                    Log.d("fileName", filename);
+                    try {
+                        InputStream is = new FileInputStream(f);
+                        bitmap = BitmapFactory.decodeStream(is);
+                        is.close();
+                    } catch (IOException io) {
+                        io.printStackTrace();
+                    }
+                    byte[] printMe = pixelsConverter.BitmapToByteArray(bitmap, panels_width, panels_height);
+                    ArrayList<String> payloadList = new ArrayList<>();
+                    WiFiController wiFiController = new WiFiController();
+                    String str = "";
+                    // use a string builder
+                    payloadList.add("Power=0");
+                    payloadList.add("Clear_EBI");
+                    for (int h = 0; h < printMe.length; h++) {
+                        if (h % 512 == 0) {
+                            str = "";
+                            str += String.format("ImageData=Addr=0x%06X,Data=", h);
+                        }
+                        str += String.format("%02X", printMe[h]);
+                        if (h % 512 == 511) {
+                            payloadList.add(str);
+                        }
+                    }
+                    payloadList.add("EBI_2_Flash=" + i);
+                    Log.d("size of payload", "" + payloadList.size());
+                    wiFiController.sendOverWiFi(getActivity().getBaseContext(), "Display Board", "ImageData", payloadList);
+                    Log.d("wifi commands sent", "" + payloadList.size());
+                }
             }
         });
 
