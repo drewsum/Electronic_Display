@@ -11,7 +11,7 @@
 #include "terminal_control.h"
 #include "error_handler.h"
 #include "panel_control.h"
-
+#include "device_control.h"
 
 // Initialize change notifications
 void changeNotificationInit(void) {
@@ -73,9 +73,15 @@ void __ISR(_CHANGE_NOTICE_F_VECTOR, IPL2SRS) portFCNISR(void) {
 
     }
     
+    // Wait a bit, software deboucning
+    softwareDelay(1000);
+    
+    // Clear all change notification flags
+    // If this is not done, we'll continuously trigger on edges that aren't there
     CNFF    = 0;
     CNSTATF = 0;
     
+    // Read PORTF, this clears more CN flags
     uint16_t dummy = PORTF;
     
     clearInterruptFlag(PORTF_Input_Change_Interrupt);
@@ -103,9 +109,15 @@ void __ISR(_CHANGE_NOTICE_K_VECTOR, IPL2SRS) portKCNISR(void) {
                             
     }
     
+    // Wait a bit, software debouncing
+    softwareDelay(1000);
+    
+    // Clear all change notification flags
+    // If this is not done, we'll continuously trigger on edges that aren't there
     CNFK    = 0;
     CNSTATK = 0;
     
+    // Read PORTK, this clears more CN flags
     uint16_t dummy = PORTK;
     
     clearInterruptFlag(PORTK_Input_Change_Interrupt);
@@ -121,6 +133,9 @@ void pos5pThermalWarningFEHandler(void) {
 //    terminalTextAttributesReset();
 //    
     error_handler.POS5P_thermal_warning_error_flag = 1;
+    
+    // Shutoff panel power supply
+    POS5P_RUN_PIN = 0;
     
 }
 
@@ -163,7 +178,7 @@ void pos5pPGoodFEHandler(void) {
 //    
     // flag error
     error_handler.POS5P_regulation_error_flag = 1;
-
+    
 }
 
 // Display enable falling edge interrupt handler
@@ -192,7 +207,7 @@ void encoderStepREHandler(void) {
         // If we are not at maximum brightness, make brighter
         if (current_brightness < 100) {
             
-            panelPWMSetBrightness(current_brightness + 10);
+            panelPWMSetBrightness(current_brightness + 5);
             
         }
         
@@ -201,7 +216,7 @@ void encoderStepREHandler(void) {
         // if we are not at minimum brightness, make dimmer
         if (current_brightness > 0) {
         
-            panelPWMSetBrightness(current_brightness - 10);
+            panelPWMSetBrightness(current_brightness - 5);
             
         }   
         

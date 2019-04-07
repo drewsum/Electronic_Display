@@ -43,8 +43,6 @@ volatile uint8_t usb_uart_RxStringReady = 0;
 extern uint32_t device_on_time_counter;
 extern reset_cause_t reset_cause;
 
-uint8_t muxing_state;
-
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void) {
  
@@ -561,7 +559,7 @@ void usbUartRingBufferLUT(char * line_in) {
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Clearing EBI SRAM\n\r");
+        printf("All EBI SRAM addresses cleared\n\r");
         terminalTextAttributesReset();
         
     }
@@ -574,7 +572,7 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "Print Internal RAM Contents") == 0) {
+    else if (strcmp(line_in, "Print Buffer Contents") == 0) {
         
         terminalTextAttributesReset();
         panelDataBufferPrint();
@@ -744,79 +742,79 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    // set ram buffer every other red
-    else if(strcmp(line_in, "Set Every Other Red") == 0) {
-     
-        fillRamBufferEveryOtherRed();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with stripes of red\n\r");
-        terminalTextAttributesReset();
-        
-    }     
-    
-    
-    // set ram buffer every other blue
-    else if(strcmp(line_in, "Set Every Other Blue") == 0) {
-     
-        fillRamBufferEveryOtherBlue();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with stripes of blue\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
-    // set ram buffer every other green
-    else if(strcmp(line_in, "Set Every Other Green") == 0) {
-     
-        fillRamBufferEveryOtherGreen();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with stripes of green\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
-    // set ram buffer to christmas stripes
-    else if(strcmp(line_in, "Set Christmas Stripes") == 0) {
-     
-        fillRamBufferChristmas();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with christmas stripes\n\r");
-        terminalTextAttributesReset();
-        
-    }    
-    
-    
-    // set ram buffer to RGB pattern
-    else if(strcmp(line_in, "Set RGB Stripes") == 0) {
-     
-        fillRamBufferRGBStripes();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with rgb stripes\n\r");
-        terminalTextAttributesReset();
-        
-    }  
-
-    // set ram buffer to red rows
-    else if(strcmp(line_in, "Set Red Rows") == 0) {
-     
-        fillRamBufferRedRow();
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Ram buffer filled with red rows\n\r");
-        terminalTextAttributesReset();
-        
-    }
+//    // set ram buffer every other red
+//    else if(strcmp(line_in, "Set Every Other Red") == 0) {
+//     
+//        fillRamBufferEveryOtherRed();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with stripes of red\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }     
+//    
+//    
+//    // set ram buffer every other blue
+//    else if(strcmp(line_in, "Set Every Other Blue") == 0) {
+//     
+//        fillRamBufferEveryOtherBlue();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with stripes of blue\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    // set ram buffer every other green
+//    else if(strcmp(line_in, "Set Every Other Green") == 0) {
+//     
+//        fillRamBufferEveryOtherGreen();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with stripes of green\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    // set ram buffer to christmas stripes
+//    else if(strcmp(line_in, "Set Christmas Stripes") == 0) {
+//     
+//        fillRamBufferChristmas();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with christmas stripes\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }    
+//    
+//    
+//    // set ram buffer to RGB pattern
+//    else if(strcmp(line_in, "Set RGB Stripes") == 0) {
+//     
+//        fillRamBufferRGBStripes();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with rgb stripes\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }  
+//
+//    // set ram buffer to red rows
+//    else if(strcmp(line_in, "Set Red Rows") == 0) {
+//     
+//        fillRamBufferRedRow();
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Ram buffer filled with red rows\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
     
 //    else if(strcmp(line_in, "Set Test Image 1") == 0) {
 //     
@@ -975,10 +973,10 @@ void usbUartRingBufferLUT(char * line_in) {
         
         if (chip_to_erase <= 8 && chip_to_erase >= 1) {
             
-            SPI_Flash_writeEnable(chip_to_erase);
-            SPI_Flash_blockProtectionDisable(chip_to_erase);
-            SPI_Flash_writeEnable(chip_to_erase);
-            SPI_FLASH_chipErase(chip_to_erase);
+            SPI_Flash_writeEnable((uint8_t) chip_to_erase);
+            SPI_Flash_blockProtectionDisable((uint8_t) chip_to_erase);
+            SPI_Flash_writeEnable((uint8_t) chip_to_erase);
+            SPI_FLASH_chipErase((uint8_t) chip_to_erase);
             terminalTextAttributes(GREEN, BLACK, NORMAL);
             printf("Erased chip %u\n\r", chip_to_erase);
             terminalTextAttributesReset();
@@ -996,39 +994,32 @@ void usbUartRingBufferLUT(char * line_in) {
 
     }
     
-    else if (strstart(line_in, "SPI Flash Data Check  ") == 0) {
+    else if (strcmp(line_in, "SPI Flash Data Check") == 0) {
     
-        // Get which chip we're erasing
-        uint32_t chip_to_check;
-        sscanf(line_in, "SPI Flash Data Check %u", &chip_to_check);
-        
-        if (chip_to_check <= 8 && chip_to_check >= 1) {
-         
-            terminalTextAttributesReset();
-            terminalTextAttributes(GREEN, BLACK, NORMAL);
-            printf("Checking chip %d\n\r", chip_to_check);
-            terminalTextAttributesReset();
-
+        // Loop through all 8 SPI Flash chips and check if each has data, printing results
+        uint8_t chip_to_check;
+        for (chip_to_check = 1; chip_to_check <= 8; chip_to_check++) {
+            
             uint8_t result = SPI_FLASH_dataCheck(chip_to_check);
+            
             if(result == 1)
             {
-                printf("Chip %d has data");
+                terminalTextAttributesReset();
+                terminalTextAttributes(GREEN, BLACK, NORMAL);
+                printf("Chip %u has data\r\n", chip_to_check);
+                terminalTextAttributesReset();
             }
             else
             {
-                printf("Chip %d is blank");
+                terminalTextAttributesReset();
+                terminalTextAttributes(RED, BLACK, NORMAL);
+                printf("Chip %u is in erased state\r\n", chip_to_check);
+                terminalTextAttributesReset();
             }
             
         }
         
-        else {
-         
-            terminalTextAttributes(RED, BLACK, NORMAL);
-            printf("Chip %u is not valid\n\r", chip_to_check);
-            terminalTextAttributesReset();
         
-        }
-
     }
     
     else if (strcmp(line_in, "Serial Number?") == 0) {
@@ -1109,44 +1100,44 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "ADC Raw Data?") == 0) {
-    
-        if (error_handler.ADC_configuration_error_flag) {
-         
-            terminalTextAttributesReset();
-            terminalTextAttributes(RED, BLACK, NORMAL);
-            printf("ADC Configuration Error\n\r");
-            terminalTextAttributesReset();
-            
-        }
-        
-        else if (ADCCON3bits.DIGEN7 == 0) {
-         
-            terminalTextAttributesReset();
-            terminalTextAttributes(RED, BLACK, NORMAL);
-            printf("ADC Not Initialized\n\r");
-            terminalTextAttributes(YELLOW, BLACK, NORMAL);
-            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
-            terminalTextAttributesReset();
-            
-        }
-        
-        else {
-            terminalTextAttributesReset();
-            terminalTextAttributes(CYAN, BLACK, NORMAL);
-            printf("Most recent raw 12 bit ADC conversions:\n\r");
-            printf("    +3.3V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS3P3_adc_raw);
-            printf("    +12V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS12_adc_raw);
-            printf("    +5.5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P5_adc_raw);
-            printf("    +5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5_adc_raw);
-            printf("    +5VP Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P_adc_raw);
-            printf("    Internal VREF Raw ADC Conversion Result: 0x%08X\n\r", adc_results.vref_adc_raw);
-            printf("    Internal Die Temperature Raw ADC Conversion Result: 0x%08X\n\r", adc_results.die_temp_adc_raw);
-            terminalTextAttributesReset();
-
-    }
-        
-    }
+//    else if (strcmp(line_in, "ADC Raw Data?") == 0) {
+//    
+//        if (error_handler.ADC_configuration_error_flag) {
+//         
+//            terminalTextAttributesReset();
+//            terminalTextAttributes(RED, BLACK, NORMAL);
+//            printf("ADC Configuration Error\n\r");
+//            terminalTextAttributesReset();
+//            
+//        }
+//        
+//        else if (ADCCON3bits.DIGEN7 == 0) {
+//         
+//            terminalTextAttributesReset();
+//            terminalTextAttributes(RED, BLACK, NORMAL);
+//            printf("ADC Not Initialized\n\r");
+//            terminalTextAttributes(YELLOW, BLACK, NORMAL);
+//            printf("Call 'Initialize ADC' to Initialize ADC for measurements\n\r");
+//            terminalTextAttributesReset();
+//            
+//        }
+//        
+//        else {
+//            terminalTextAttributesReset();
+//            terminalTextAttributes(CYAN, BLACK, NORMAL);
+//            printf("Most recent raw 12 bit ADC conversions:\n\r");
+//            printf("    +3.3V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS3P3_adc_raw);
+//            printf("    +12V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS12_adc_raw);
+//            printf("    +5.5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P5_adc_raw);
+//            printf("    +5V Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5_adc_raw);
+//            printf("    +5VP Raw ADC Conversion Result: 0x%08X\n\r", adc_results.POS5P_adc_raw);
+//            printf("    Internal VREF Raw ADC Conversion Result: 0x%08X\n\r", adc_results.vref_adc_raw);
+//            printf("    Internal Die Temperature Raw ADC Conversion Result: 0x%08X\n\r", adc_results.die_temp_adc_raw);
+//            terminalTextAttributesReset();
+//
+//      }
+//        
+//    }
     
     else if (strcmp(line_in, "ADC Results?") == 0) {
      
@@ -1284,27 +1275,27 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "POS5 Enable") == 0) {
-     
-        POS5_RUN_PIN = 1;
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("POS5 RUN Asserted\n\r");
-        terminalTextAttributesReset();
-              
-    }
-    
-    else if (strcmp(line_in, "POS5 Disable") == 0) {
-     
-        POS5_RUN_PIN = 0;
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("POS5 RUN Deasserted\n\r");
-        terminalTextAttributesReset();
-        
-    }
+//    else if (strcmp(line_in, "POS5 Enable") == 0) {
+//     
+//        POS5_RUN_PIN = 1;
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("POS5 RUN Asserted\n\r");
+//        terminalTextAttributesReset();
+//              
+//    }
+//    
+//    else if (strcmp(line_in, "POS5 Disable") == 0) {
+//     
+//        POS5_RUN_PIN = 0;
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(RED, BLACK, NORMAL);
+//        printf("POS5 RUN Deasserted\n\r");
+//        terminalTextAttributesReset();
+//        
+//    }
     
     else if (strcmp(line_in, "POS5P Enable") == 0) {
      
@@ -1375,14 +1366,14 @@ void usbUartPrintHelpMessage(void) {
     printf("    Test EBI SRAM: Tests writing to and reading from external EBI SRAM\n\r");
     printf("    Print EBI SRAM Contents: Prints the data saved in EBI SRAM\n\r");
     printf("    Clear EBI SRAM: Resets all bytes within EBI SRAM to 0x00\n\r");
-    printf("    Print Internal RAM Contents: Prints the contents of the first kB of internal RAM buffer holding display data\n\r");
+    printf("    Print Buffer Contents: Prints the contents of the first kB of internal RAM buffer holding display data\n\r");
     printf("    Copy Buffer to EBI SRAM: Moves data from Internal Buffer into EBI SRAM\n\r");
     printf("    Copy EBI SRAM to Buffer: Moves data from EBI SRAM into Internal Buffer\n\r");
     printf("    SPI Flash Chip Erase <x>: Erases the entered SPI Flash chip, x = 1:8\n\r");
     printf("    SPI Flash Chip Write <x>: Writes the contents of the EBI SRAM buffer to the given SPI Flash chip, x = 1:8\n\r");
     printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into EBI SRAM buffer, x = 1:8\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
-    printf("    SPI Flash Data Check <x>: Determines if a SPI chip contains image data\n\r");
+    printf("    SPI Flash Data Check: Prints if each SPI Flash chip has data in it or is erased\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
@@ -1394,10 +1385,10 @@ void usbUartPrintHelpMessage(void) {
     printf("    ADC Results?: Prints results of the most recent ADC conversions for analog signals in the system\n\r");
     printf("    ADC Max Results?: prints the maximum recorded value for each ADC channel\n\r");
     printf("    ADC Min Results?: prints the minimum recorded value for each ADC channel\n\r");
-    printf("    ADC Raw Data?: Prints the raw 12 bit results of the ADC conversions\n\r");
+//    printf("    ADC Raw Data?: Prints the raw 12 bit results of the ADC conversions\n\r");
     printf("    ADC Status?: Prints information about analog to digital converter settings\n\r");
-    printf("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
-    printf("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
+//    printf("    POS5 Enable: Turns on the on board +5V Power Supply for level shifters\n\r");
+//    printf("    POS5 Disable: Turns off the on board +5V Power Supply for level shifters\n\r");
     printf("    POS5P Enable: Turns on the external +5V Power Supply for LED panels\n\r");
     printf("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
     printf("    Enable Muxing: enables the multiplexing timer \n\r");
@@ -1412,16 +1403,16 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Yellow: Sets all pixels in display yellow\n\r");
     printf("    Set Cyan: Sets all pixels in display cyan\n\r");    
     printf("    Set Green: Sets all pixels in display green\n\r");    
-    printf("    Set Magenta: Sets all pixels in display magenta\n\r");    
-    // printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
-    // printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
+    printf("    Set Magenta: Sets all pixels in display magenta\n\r");
+//    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
+//    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
-    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
-    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
-    printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
-    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
-    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
-    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
+//    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
+//    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
+//    printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
+//    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
+//    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
+//    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
     printf("    Set Panel Muxing On Time <x>: Sets the panel multiplexing timer period to x\n\r");
     printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
     printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");

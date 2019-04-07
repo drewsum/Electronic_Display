@@ -8,6 +8,9 @@
 // fill ram buffer with Test Image 2 logo function
 void fillRamBufferTestImage2(void) {
  
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -20,6 +23,6 @@ void fillRamBufferTestImage2(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }

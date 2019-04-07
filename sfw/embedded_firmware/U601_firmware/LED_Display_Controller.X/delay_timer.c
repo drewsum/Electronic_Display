@@ -18,41 +18,47 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
     clearInterruptFlag(Timer4);
     disableInterrupt(Timer4);
     
-    char response_message[40];
+    char cipsend_message[40];
     
     // Handle the task
     switch(timer_task)
     {
         case esp8266Delay1:
             esp8266Putstring("AT+CWMODE_CUR=2\r\n");
-            delayTimerStart(0xAFFF, esp8266Delay2);
+            delayTimerStart(0x5FFF, esp8266Delay2);
             //esp8266Configure();
             break;
         case esp8266Delay2:
             esp8266Putstring("AT+CIPMUX=1\r\n");
-            delayTimerStart(0xAFFF, esp8266Delay3);
+            delayTimerStart(0x5FFF, esp8266Delay3);
             break;
+            
         case esp8266Delay3:
-            esp8266Putstring("AT+CIPSERVER=1,80\r\n");
+            // esp8266Putstring("AT+CIPSERVER=1,80\r\n");
+            esp8266Putstring("AT+CIPSERVER=1,333\r\n");
             // Clear startup WIFI error
             error_handler.WIFI_error_flag = 0;
             break;
             
-        case esp8266_http_response_delay1:
-//            memset(response_message, 0, sizeof(response_message));
-//            strcpy(response_message, "Message%20Received");
-//            sendHTTPResponse((uint8_t) current_connection_id, response_message, strlen(response_message));
-//            memset(response_message, 0, sizeof(response_message));
-            memset(response_message, 0, sizeof(response_message));
-            sprintf(response_message, "AT+CIPSEND=%u, %u\r\n", current_connection_id, 5);
-            esp8266Putstring(response_message);
-            delayTimerStart(0xFFFF, esp8266_http_response_delay2);
+        case esp8266_tcp_response_delay1:
+            memset(cipsend_message, 0, sizeof(cipsend_message));
+            sprintf(cipsend_message, "AT+CIPSEND=%u,%u\r\n\r\n", current_connection_id, strlen(response_message) + 1 + 15);
+            esp8266Putstring(cipsend_message);
+            delayTimerStart(0x0500, esp8266_tcp_response_delay2);
             break;
             
-        case esp8266_http_response_delay2:
-            memset(response_message, 0, sizeof(response_message));
-            sprintf(response_message, "ABCDE\r\n");
+        case esp8266_tcp_response_delay2:
+            
             esp8266Putstring(response_message);
+            delayTimerStart(0x0500, esp8266_tcp_response_delay3);
+
+            break;
+            
+        case esp8266_tcp_response_delay3:
+            
+            sprintf(cipsend_message,"AT+CIPCLOSE=%u\r\n", current_connection_id);
+            esp8266Putstring(cipsend_message);
+            
             break;
             
         default:

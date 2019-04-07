@@ -21,7 +21,6 @@
         <itemPath>terminal_control.h</itemPath>
         <itemPath>test_buffer_fills.h</itemPath>
         <itemPath>delay_timer.h</itemPath>
-        <itemPath>standard_operation_sm.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.h</itemPath>
@@ -72,7 +71,6 @@
         <itemPath>test_image_2.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
-      <itemPath>Application Specific/standard_operation_sm.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -93,11 +91,11 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.05</languageToolchainVersion>
+        <languageToolchainVersion>2.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="0.1.15"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.20"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -192,7 +190,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="256"/>
+        <property key="heap-size" value="2048"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -251,6 +249,7 @@
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
+        <appendMe value="-O2"/>
       </C32Global>
       <PICkit3PlatformTool>
         <property key="ADC" value="true"/>
@@ -327,7 +326,6 @@
         <property key="UART5" value="true"/>
         <property key="UART6" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

@@ -11,6 +11,15 @@
 #include "terminal_control.h"
 #include "usb_uart.h"
 #include "delay_timer.h"
+#include "panel_control.h"
+#include "external_bus_interface.h"
+
+// This pragma tells the linker to allow access of EBI memory space
+#pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
+
+// This is tricking the compiler into placing an array in EBI SRAM
+extern uint8_t ebi_sram_array[262144] __attribute__((region("EBI_SRAM")));
+
 
 
 volatile uint32_t esp_8266_TxHead = 0;
@@ -146,7 +155,7 @@ void esp8266InitializeConfiguration(void) {
     nWIFI_RESET_PIN = 0;
     
     // start the delay timer that will interrupt
-    delayTimerStart(0xFFFF, esp8266Delay1);
+    delayTimerStart(0x5FFF, esp8266Delay1);
     
 }
 
@@ -224,7 +233,7 @@ void esp8266Putchar(uint8_t txData) {
     if(0 == getInterruptEnable(UART1_Transfer_Done))
     {
         U1TXREG = txData;
-        panelMultiplexingSuspend();
+        // panelMultiplexingSuspend();
    
     }
     else
@@ -358,69 +367,133 @@ void esp8266RingBufferPull(void) {
 
 void esp8266RingBufferLUT(char * line_in) {
  
-    // THIS IS WHERE WE DO THE ACTUAL PARSING OF RECEIVED STRING AND
-    // ACT ON IT
-//    char * substring;
-//    substring = strncpy(line_in, substring, 5);
-//    if (strcmp(substring, "Image") == 0) {
-//        esp_8266_FlashFlag = 1;
-//    }
-    // WRITE SOME COMMANDS HERE
-    
-//    if (strstart(line_in, "+CIFSR:APIP") == 0) {
-//     
-//        char IP_String[32];
-//        memset(IP_String, 0, sizeof(IP_String));
-//        sscanf(line_in, "+CIFSR:APIP,\"%31c\"\r\n", IP_String);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(CYAN, BLACK, NORMAL);
-//        printf("IP Address is %s\r\n", IP_String);
-//        terminalTextAttributesReset();
-//
-//    }
-//    
-//    else if (strstart(line_in, "+CIFSR:APMAC,") == 0) {
-//     
-//        char MAC_String[32];
-//        memset(MAC_String, 0, sizeof(MAC_String));
-//        sscanf(line_in, "+CIFSR:APMAC,\"%31c\"\r\n", MAC_String);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(CYAN, BLACK, NORMAL);
-//        printf("MAC Address is %s\r\n", MAC_String);
-//        terminalTextAttributesReset();
-//
-//    }
-    
     if (strstart(line_in, "+IPD,") == 0) {
-     
+    
         uint32_t dummy;
-        memset(http_android_string, 0, sizeof(http_android_string));
-        sscanf(line_in, "+IPD,%u,%u:POST /? HTTP/1.1\r\n", 
+        sscanf(line_in, "+IPD,%u,%u:%2499c",
                 &current_connection_id,
-                &dummy);
+                &dummy,
+                received_string);
+        
+        // printf("Received string = %s, length = %u\r\n", received_string, strlen(received_string));
+        
+        if (0 == strstart(received_string, "hello world")) {
+            printf("Received Hello World\r\n");
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+        }
+        
+        else if (0 == strstart(received_string, "Power=toggle")) {
+         
+            if (muxing_state) {
+        
+                panelMultiplexingSuspend();
+                muxing_state = 0;
+                
+            } else {
+        
+                panelMultiplexingTimerStart();
+                muxing_state = 1;
+                
+            }
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+        }
+        
+        else if (0 == strstart(received_string, "Power=0")) {
 
-        delayTimerStart(0xFFFF, esp8266_http_response_delay1);
+            panelMultiplexingSuspend();
+            muxing_state = 0;
+
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            
+        }
+        
+                
+        else if (0 == strstart(received_string, "Clear_EBI")) {
+
+            clearEBISRAM(); 
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            
+        }
+        
+        else if (0 == strstart(received_string, "EBI_2_Flash=")) {
+
+            uint32_t chip_to_write;
+            sscanf(received_string, "EBI_2_Flash=%u", &chip_to_write);
+            if (chip_to_write >= 1 && chip_to_write <= 8) SPI_FLASH_beginWrite((uint8_t) chip_to_write);
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+        }
+        
+        else if (0 == strstart(received_string, "Dim=")) {
+
+            uint32_t set_brightness;
+            sscanf(received_string, "Dim=%u ", &set_brightness);
+
+            printf("Set brightness = %u\r\n", set_brightness);
+            
+            if (set_brightness <= 100 && set_brightness >= 0) panelPWMSetBrightness((uint8_t) set_brightness);
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+        
+        }
+        
+        else if (0 == strstart(received_string, "ImageData=")) {
+
+            uint32_t image_starting_addr;
+            
+            // Image data is encoded in this string
+            char image_data_str[1200];
+            
+            sscanf(received_string, "ImageData=Addr=0x%06X,Data=%1024c", &image_starting_addr, image_data_str);
+
+            // printf("Starting Addr = %u, Data = %s\r\n", image_starting_addr, image_data_str);
+            
+            // Loop through received image data characters and load into EBI SRAM
+            uint16_t char_loop_addr;
+            for (char_loop_addr = 0; char_loop_addr <= 1024; char_loop_addr += 2) {
+             
+                // Copy the current hex number into a holding char array
+                char hex_input[3];
+                hex_input[0] = image_data_str[char_loop_addr];
+                hex_input[1] = image_data_str[char_loop_addr + 1];
+                hex_input[2] = '\0';
+                
+                uint8_t current_byte = strtol(hex_input, NULL, 16);
+                
+                ebi_sram_array[char_loop_addr / 2 + image_starting_addr] = current_byte;
+                
+            }
+            
+            strcpy(response_message, "Message Received\r\n");
+            
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+        
+        }
+        
+        else {
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+        }
         
     }
     
-    else if (strstart(line_in, "ImageData") == 0) {
-        
-        sscanf(line_in, "ImageData=%s\r\n", &http_android_string);
-        
-        // esp8266PutStringInArray();
-        
-        delayTimerStart(0xFFFF, esp8266_http_response_delay1);
-        
-    }
-    
-//    else if (strcmp(line_in, "Connection: Keep-Alive\r\n") == 0) {
-//     
-//        // sendHTTPResponse(
-//        
-//    }
-     
     terminalTextAttributesReset();
     terminalTextAttributes(CYAN, BLACK, NORMAL);
     // printf("WiFi Module Sent:\r\n");

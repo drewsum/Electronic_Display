@@ -228,7 +228,7 @@ void main(void) {
     
     // Start Timer5
     panelMultiplexingTimerInitialize();
-    printf("Panel Multiplexing Timer Initialized, Multiplexing Started\n\r");
+    printf("Panel Multiplexing Timer Initialized\n\r");
  
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);

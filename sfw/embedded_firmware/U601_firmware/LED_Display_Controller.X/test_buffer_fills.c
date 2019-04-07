@@ -7,6 +7,9 @@
 // fill ram buffer with all black pixels
 void fillRamBufferBlack(void) {
  
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -19,13 +22,16 @@ void fillRamBufferBlack(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 // fill ram buffer with all white pixels
 void fillRamBufferWhite(void) {
  
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -38,13 +44,16 @@ void fillRamBufferWhite(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 // fill ram buffer with random data
 void fillRamBufferRand(void) {
  
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -60,13 +69,16 @@ void fillRamBufferRand(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 // fill ram buffer with all red
 void fillRamBufferRed(void) {
 
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -89,13 +101,16 @@ void fillRamBufferRed(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
 
 }
 
 // fill ram buffer with all green
 void fillRamBufferGreen(void) {
 
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -118,13 +133,16 @@ void fillRamBufferGreen(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
 
 }
 
 // fill ram buffer with all blue
 void fillRamBufferBlue(void) {
 
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -147,13 +165,16 @@ void fillRamBufferBlue(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
 
 }
 
 // fill ram buffer with all yellow
 void fillRamBufferYellow(void) {
 
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -182,13 +203,16 @@ void fillRamBufferYellow(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
 
 }
 
 // fill ram buffer with all cyan
 void fillRamBufferCyan(void) {
  
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -217,13 +241,16 @@ void fillRamBufferCyan(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 // fill ram buffer with all magenta
 void fillRamBufferMagenta(void) {
  
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -252,13 +279,16 @@ void fillRamBufferMagenta(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 
 // fill ram buffer with every other red
 void fillRamBufferEveryOtherRed(void) {
+    
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
     
     // Stop multiplexing
     panelMultiplexingSuspend();
@@ -282,12 +312,15 @@ void fillRamBufferEveryOtherRed(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 // fill ram buffer with every other blue
 void fillRamBufferEveryOtherBlue(void) {
+    
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
     
     // Stop multiplexing
     panelMultiplexingSuspend();
@@ -311,12 +344,15 @@ void fillRamBufferEveryOtherBlue(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 // fill ram buffer with every other green
 void fillRamBufferEveryOtherGreen(void) {
+    
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
     
     // Stop multiplexing
     panelMultiplexingSuspend();
@@ -340,13 +376,16 @@ void fillRamBufferEveryOtherGreen(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 
 // fill ram buffer with christmas stripes
 void fillRamBufferChristmas(void) {
+    
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
     
     // Stop multiplexing
     panelMultiplexingSuspend();
@@ -376,12 +415,15 @@ void fillRamBufferChristmas(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 // fill ram buffer with rgb stripes
 void fillRamBufferRGBStripes(void) {
+    
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
     
     // Stop multiplexing
     panelMultiplexingSuspend();
@@ -417,13 +459,16 @@ void fillRamBufferRGBStripes(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
 // fill ram buffer with red rows
 void fillRamBufferRedRow(void) {
 
+    // Get muxing state
+    uint8_t muxing_state = T5CONbits.ON;
+    
     // Stop multiplexing
     panelMultiplexingSuspend();
     
@@ -464,6 +509,6 @@ void fillRamBufferRedRow(void) {
     }
     
     // Start multiplexing
-    panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
 
 }

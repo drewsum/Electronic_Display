@@ -44,6 +44,8 @@ extern volatile uint32_t usb_uart_TxBufferRemaining;
 extern volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
 
 
+uint8_t muxing_state;
+
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void);
 
