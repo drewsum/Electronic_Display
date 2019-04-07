@@ -370,7 +370,7 @@ void esp8266RingBufferLUT(char * line_in) {
     if (strstart(line_in, "+IPD,") == 0) {
     
         uint32_t dummy;
-        sscanf(line_in, "+IPD,%u,%u:%s",
+        sscanf(line_in, "+IPD,%u,%u:%2499c",
                 &current_connection_id,
                 &dummy,
                 received_string);
@@ -379,9 +379,9 @@ void esp8266RingBufferLUT(char * line_in) {
         
         if (0 == strstart(received_string, "hello world")) {
             printf("Received Hello World\r\n");
-            strcpy(response_message, "Message Received, Close\r\n");
+            strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
-            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
         }
         
         else if (0 == strstart(received_string, "Power=toggle")) {
@@ -398,9 +398,43 @@ void esp8266RingBufferLUT(char * line_in) {
                 
             }
             
-            strcpy(response_message, "Message Received, Close\r\n");
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+        }
+        
+        else if (0 == strstart(received_string, "Power=0")) {
+
+            panelMultiplexingSuspend();
+            muxing_state = 0;
+
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            
+        }
+        
+                
+        else if (0 == strstart(received_string, "Clear_EBI")) {
+
+            clearEBISRAM(); 
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            
+        }
+        
+        else if (0 == strstart(received_string, "EBI_2_Flash=")) {
+
+            uint32_t chip_to_write;
+            sscanf(received_string, "EBI_2_Flash=%u", &chip_to_write);
+            if (chip_to_write >= 1 && chip_to_write <= 8) SPI_FLASH_beginWrite((uint8_t) chip_to_write);
+            
+            strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
         }
         
         else if (0 == strstart(received_string, "Dim=")) {
@@ -412,9 +446,9 @@ void esp8266RingBufferLUT(char * line_in) {
             
             if (set_brightness <= 100 && set_brightness >= 0) panelPWMSetBrightness((uint8_t) set_brightness);
             
-            strcpy(response_message, "Message Received, Close\r\n");
+            strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
-            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
         
         }
         
@@ -445,16 +479,15 @@ void esp8266RingBufferLUT(char * line_in) {
                 
             }
             
-            if (image_starting_addr < 0x3BE00) strcpy(response_message, "Message Received, Keep Open\r\n");
-            else strcpy(response_message, "Message Received, Close\r\n");
+            strcpy(response_message, "Message Received\r\n");
             
             // Tell kevin we received message
-            delayTimerStart(0x000F, esp8266_tcp_response_delay1);
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
         
         }
         
         else {
-            strcpy(response_message, "Message Received, Close\r\n");
+            strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
         }
