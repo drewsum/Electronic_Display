@@ -17,11 +17,11 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
 
-        int time = 2000;
+        int time = 1000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent( SplashActivity.this, MenuActivity.class));
+                startActivity(new Intent(SplashActivity.this, MenuActivity.class));
             }
         }, time);
 

@@ -74,13 +74,13 @@ public class NewProjectFragment extends Fragment {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_new_project, container, false);
 
-        Button buttonCreateProject = (Button) rootView.findViewById(R.id.buttonCreateProject);
+        Button buttonCreateProject = rootView.findViewById(R.id.buttonCreateProject);
         buttonCreateProject.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                EditText inputProjectName = (EditText) rootView.findViewById(R.id.inputProjectName);
+                EditText inputProjectName = rootView.findViewById(R.id.inputProjectName);
                 String newProjectName = inputProjectName.getText().toString();
                 TinyDB tinyDB = new TinyDB(getContext());
                 ArrayList<String> projectList = tinyDB.getListString("projectList");
@@ -88,7 +88,7 @@ public class NewProjectFragment extends Fragment {
                 tinyDB.putListString("projectList", projectList);
                 Log.d("projectList", projectList.toString());
                 // create a framesList for project
-                ArrayList<String> newFrameList = new ArrayList<String>();
+                ArrayList<String> newFrameList = new ArrayList<>();
                 newFrameList.add("0");
                 tinyDB.putListString(newProjectName + "frameList", newFrameList);
                 // pass args
