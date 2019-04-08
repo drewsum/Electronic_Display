@@ -12,19 +12,22 @@
 #include "panel_control.h"
 #include "device_control.h"
 
-// putting var in 0xBD1FFFFF
-// #pragma region name = "frameNumber" origin = 0xBD1FFFFF size = 0x4
-//const uint32_t __attribute__((space(prog),address(0xBD1FFFFF))) foo;
-
-
 // Initialize state machine 
 void standardOpSMInit(void) {
     
-    flash_chip = 1;
-    continue_autopilot = 1;
-    state = start;
-    image_num = readFrameNumber();
-    nextState(begin);
+    if (readFrameNumber() >= 2 && readFrameNumber() <= 8) {
+        
+        flash_chip = 1;
+        continue_autopilot = 1;
+        state = start;
+        image_num = readFrameNumber();
+        // nextState(begin);
+        
+        // Read what's in SPI Flash 1
+        SPI_FLASH_beginRead(1);
+        
+        
+    }
     
 }
 
@@ -181,14 +184,14 @@ void showSRAMData(void){
     
     // use countdown timer for display time
     // will be customized later
-    uint8_t i;
-    for (i = 0; i < 100000; i++) {
-        
-        countdown_val = 0xFFFF;
-        // 0xF053 equates to a ~1 second timer countdown
-        countdownTimerStart();
-        
-    }
+//    uint8_t i;
+//    for (i = 0; i < 100000; i++) {
+//        
+//        countdown_val = 0xFFFF;
+//        // 0xF053 equates to a ~1 second timer countdown
+//        countdownTimerStart();
+//        
+//    }
     
 }
 
@@ -197,66 +200,89 @@ void exitSM(void) {
     
     autopilot = 0;
     
+    T6CONbits.ON = 0;
+    
+    flash_chip = 1;
+    
 }
  
-void __ISR(_TIMER_6_VECTOR, ipl1SRS) countdownTimerISR(void) {
+void __ISR(_TIMER_7_VECTOR, ipl1SRS) countdownTimerISR(void) {
     
     // Turn off Timer 6
     T6CONbits.ON = 0;
     
+    // Write over frame buffer with what is in EBI SRAM
+    movePanelDataFromEBISRAM();
+    
+    // Move the next frame needed
+    flash_chip++;
+    if (flash_chip >= image_num) flash_chip = 1;
+    
     // Clear interrupt flag
-    clearInterruptFlag(Timer6);
-    disableInterrupt(Timer6);
+    clearInterruptFlag(Timer7);
+    disableInterrupt(Timer7);
+    
+    SPI_FLASH_beginRead(flash_chip);
     
 }
     
 
-// This function initializes the Delay Timer (Timer 4)
+// This function initializes the countdown timer
+// Uses timer 6 and timer 7 in 32 bit mode
 void countdownTimerInit(void) {
     
     // Disable Timer6 interrupt
-    disableInterrupt(Timer6);
-    setInterruptPriority(Timer6, 1);
-    setInterruptSubpriority(Timer6, 1);
-    clearInterruptFlag(Timer6);
+    disableInterrupt(Timer7);
+    setInterruptPriority(Timer7, 1);
+    setInterruptSubpriority(Timer7, 1);
+    clearInterruptFlag(Timer7);
     
     // Stop timer 6
     T6CONbits.ON = 0;
+    // T7CONbits.ON = 0;
     
     // Stop timer 6 in idle
     T6CONbits.SIDL = 1;
+    // T7CONbits.SIDL = 1;
     
     // Disable gated time accumulation
     T6CONbits.TGATE = 0;
+    // T7CONbits.TGATE = 0;
     
     // Set timer 6 prescalar to 256
     T6CONbits.TCKPS = 0b111;
+    
+    // Set timers 6/7 to 32 bit timer mode
+    T6CONbits.T32 = 1;
     
     // Set timer clock input as PBCLK3
     T6CONbits.TCS = 0;
     
     // Clear timer 6
     TMR6 = 0x0000;
+    TMR7 = 0x0000;
     
 }
  
 
 // This function sets the period of the timer and starts it
-void countdownTimerStart(void) {
+void countdownTimerStart(uint32_t timer_period_seconds) {
     
     // Set Timer 6 period to passed value
-    PR6 = countdown_val;
-        
+    PR6 = 0xFFFF;
+    PR7 = timer_period_seconds;
+    
     // Clear the Timer
     TMR6 = 0;
+    TMR7 = 0;
     
     // clear the timer flag
-    clearInterruptFlag(Timer6);
+    clearInterruptFlag(Timer7);
     
     // Enable timer4 interrupt
-    enableInterrupt(Timer6);
+    enableInterrupt(Timer7);
     
-    // Turn Timer 4 ON
+    // Turn Timer 6/7 ON
     T6CONbits.ON = 1;
     
 }

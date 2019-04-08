@@ -33,6 +33,9 @@ typedef enum {
 // Global task type for the timer
 timer_task_t timer_task;
 
+
+char cipsend_message[40];
+
 // This is the Delay Timer Interrupt Service Routine
 void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void);
 

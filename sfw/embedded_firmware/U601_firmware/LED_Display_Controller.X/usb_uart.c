@@ -621,6 +621,30 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    // Identification command
+    else if(strcmp(line_in, "Enable State Machine") == 0) {
+     
+        standardOpSMInit();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Standard Operation State Machine Enabled\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // Identification command
+    else if(strcmp(line_in, "Disable State Machine") == 0) {
+     
+        exitSM();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("Standard Operation State Machine Enabled\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
     // disable multiplexing
     else if(strcmp(line_in, "Disable Muxing") == 0) {
     
@@ -884,30 +908,29 @@ void usbUartRingBufferLUT(char * line_in) {
             
     }
     
-    // Set panel brightness
-//    else if (strstart(line_in, "Set Frame Num ") == 0) {
-//    
-//        // Get which chip we're erasing
-//        uint32_t set_frame;
-//        sscanf(line_in, "Set Frame Num %u", &set_frame);
-//        
-//        writeFrameNumber((uint8_t) set_frame);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Set NVM Frame Number to %u\n\r", set_frame);
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    else if (strcmp(line_in, "Get Frame Num") == 0) {  
-//     
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("NVM Frame Number read as %u\n\r", readFrameNumber());
-//        terminalTextAttributesReset();
-//        
-//    }
+    else if (strstart(line_in, "Set Frame Num ") == 0) {
+    
+        // Get which chip we're erasing
+        uint32_t set_frame;
+        sscanf(line_in, "Set Frame Num %u", &set_frame);
+        
+        writeFrameNumber((uint8_t) set_frame);
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Set NVM Frame Number to %u\n\r", set_frame);
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Get Frame Num") == 0) {  
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("NVM Frame Number read as %u\n\r", readFrameNumber());
+        terminalTextAttributesReset();
+        
+    }
     
     else if (strcmp(line_in, "Error Status?") == 0) {
      
@@ -1415,6 +1438,10 @@ void usbUartPrintHelpMessage(void) {
     printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");
     printf("    IP Addr?: Prints the logic board IP Address and MAC Address\r\n");
     printf("    MAC Addr?: Prints the logic board IP Address and MAC Address\r\n");
+    printf("    Set Frame Num <x>: Sets the number of frames for the standard operation state machine to loop through\r\n");
+    printf("    Get Frame Num: Reads how many frames the standard operation state machine is looping through\r\n");
+    printf("    Enable State Machine: Enables the standard operation state machine, or 'Autopilot'\r\n");
+    printf("    Disable State Machine: Disables the standard operation state machine\r\n");
     
     
     printf("Help messages and neutral responses appear in yellow\n\r");

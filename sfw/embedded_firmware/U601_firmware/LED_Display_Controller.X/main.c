@@ -63,6 +63,8 @@
 #include "test_buffer_fills.h"
 // Delay Timer
 #include "delay_timer.h"
+// Standard operation state machine
+#include "standard_operation_sm.h"
 
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
@@ -226,6 +228,10 @@ void main(void) {
     changeNotificationInit();
     printf("Change Notifications Enabled\r\n");
     
+    // Setup state machine countdown timer
+    countdownTimerInit();
+    printf("State Machine Countdown Timer Initialized\r\n");
+    
     // Start Timer5
     panelMultiplexingTimerInitialize();
     printf("Panel Multiplexing Timer Initialized\n\r");
@@ -247,9 +253,6 @@ void main(void) {
     // Loop endlessly
     while (true) {
         
-        // Twiddle thumbs
-        Nop();
-                
         // Check if we've got a received USB UART command waiting
         if(usb_uart_RxStringReady != 0) {
 
@@ -259,7 +262,34 @@ void main(void) {
         
         // Check if we've got a received WiFi string waiting
         if(esp_8266_RxStringReady != 0) {
+            
             esp8266RingBufferPull();
+        
+        }
+        
+        // If we've moved next frame from SPI Flash into EBI, start state machine timer
+        if (SPI_Read_Finished_Flag && continue_autopilot) {
+         
+            SPI_Read_Finished_Flag = 0;
+            
+            countdownTimerStart(5);
+            
+        }
+        
+        if (state == start && SPI_Read_Finished_Flag) {
+         
+            SPI_Read_Finished_Flag = 0;
+            
+            // Copy frame 1 into display buffer
+            movePanelDataFromEBISRAM();
+
+            // Start displaying frame 1
+            panelMultiplexingTimerStart();
+
+            // increment next flash chip
+            flash_chip++;
+            SPI_FLASH_beginRead(flash_chip);
+            
         }
         
     }

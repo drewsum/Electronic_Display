@@ -18,8 +18,6 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
     clearInterruptFlag(Timer4);
     disableInterrupt(Timer4);
     
-    char cipsend_message[40];
-    
     // Handle the task
     switch(timer_task)
     {
@@ -44,19 +42,20 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
             memset(cipsend_message, 0, sizeof(cipsend_message));
             sprintf(cipsend_message, "AT+CIPSEND=%u,%u\r\n\r\n", current_connection_id, strlen(response_message) + 1 + 15);
             esp8266Putstring(cipsend_message);
-            delayTimerStart(0x0500, esp8266_tcp_response_delay2);
+            delayTimerStart(0x0510, esp8266_tcp_response_delay2);
             break;
             
         case esp8266_tcp_response_delay2:
             
             esp8266Putstring(response_message);
-            delayTimerStart(0x0500, esp8266_tcp_response_delay3);
+            delayTimerStart(0x0510, esp8266_tcp_response_delay3);
 
             break;
             
         case esp8266_tcp_response_delay3:
             
-            sprintf(cipsend_message,"AT+CIPCLOSE=%u\r\n", current_connection_id);
+            // sprintf(cipsend_message,"AT+CIPCLOSE=%u\r\n", current_connection_id);
+            sprintf(cipsend_message,"AT+CIPSEND\r\n");
             esp8266Putstring(cipsend_message);
             
             break;

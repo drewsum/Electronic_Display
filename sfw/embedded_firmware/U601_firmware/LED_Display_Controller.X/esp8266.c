@@ -346,8 +346,10 @@ void esp8266RingBufferPull(void) {
     }
 
     // Reset ring buffer
-    esp_8266_RxTail = esp_8266_RxHead;
-
+    esp_8266_RxTail = 0;
+    esp_8266_RxHead = 0;
+    esp_8266_RxCount = 0;
+    
     // Try to kill off ending returns/newlines
     /*while((esp_8266_line[strlen(esp_8266_line) - 1] == (int) '\n') ||
           (esp_8266_line[strlen(esp_8266_line) - 1] == (int) '\r')) {
@@ -369,7 +371,7 @@ void esp8266RingBufferPull(void) {
 void esp8266RingBufferLUT(char * line_in) {
  
     // +IPD is satisfied during a TCP packet
-    if (strstart(line_in, "+IPD,") == 0) {
+    if (strstart(line_in, "+IPD,") == 0 || strstart(line_in, "IPD,") == 0) {
     
         uint32_t dummy;
         sscanf(line_in, "+IPD,%u,%u:%2499c",
@@ -526,7 +528,11 @@ void esp8266RingBufferLUT(char * line_in) {
             strcpy(response_message, "Message Received\r\n");
             
             // Tell kevin we received message
-            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            // delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            memset(cipsend_message, 0, sizeof(cipsend_message));
+            sprintf(cipsend_message, "AT+CIPSEND=%u,%u\r\n\r\n", current_connection_id, strlen(response_message) + 1 + 15);
+            esp8266Putstring(cipsend_message);
+            delayTimerStart(0x0510, esp8266_tcp_response_delay2);
         
         }
         
@@ -535,16 +541,27 @@ void esp8266RingBufferLUT(char * line_in) {
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+            terminalTextAttributesReset();
+            terminalTextAttributes(CYAN, BLACK, NORMAL);
+            // printf("WiFi Module Sent:\r\n");
+            printf("%s", esp_8266_line);
+            terminalTextAttributesReset();
+            
         }
         
     }
     
-    terminalTextAttributesReset();
-    terminalTextAttributes(CYAN, BLACK, NORMAL);
-    // printf("WiFi Module Sent:\r\n");
-    printf("%s", esp_8266_line);
-    terminalTextAttributesReset();
-    
+    else {
+
+        terminalTextAttributesReset();
+        terminalTextAttributes(CYAN, BLACK, NORMAL);
+        // printf("WiFi Module Sent:\r\n");
+        printf("%s", esp_8266_line);
+        terminalTextAttributesReset();
+
+    }
+        
 }
 
 void esp8266Putstring(char * string) {

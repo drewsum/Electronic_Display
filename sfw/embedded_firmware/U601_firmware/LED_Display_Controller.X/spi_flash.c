@@ -697,6 +697,8 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
 //        SPI3STATbits.SPIROV = 0;
 //        SPI3CON2bits.SPIROVEN = 0;
         
+        SPI_Read_Finished_Flag = 1;
+        
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Transfer from Flash to EBI SRAM complete\n\r");
