@@ -78,10 +78,10 @@ public class SelectionFragment extends Fragment {
         final String fragmentReturn = arguments.getString("fragmentReturn");
         final View rootView = inflater.inflate(R.layout.fragment_selection, container, false);
         final TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-        TextView textContentType = (TextView) rootView.findViewById(R.id.textSelectContent);
+        TextView textContentType = rootView.findViewById(R.id.textSelectContent);
         textContentType.setText("Select a " + selectionType);
-        final ListView contentListview = (ListView) rootView.findViewById(R.id.contentList);
-        ArrayList<String> contentList = new ArrayList<String>();
+        final ListView contentListview = rootView.findViewById(R.id.contentList);
+        ArrayList<String> contentList = new ArrayList<>();
         if (selectionType == "project") {
             contentList = tinyDB.getListString("projectList");
         } else if (selectionType == "device") {
@@ -96,7 +96,7 @@ public class SelectionFragment extends Fragment {
                 Bundle arguments = new Bundle();
                 if (fragmentReturn == "edit") {
                     EditProjectFragment editFrag = new EditProjectFragment();
-                    arguments.putString( "projectName" , selectedItem);
+                    arguments.putString("projectName", selectedItem);
                     editFrag.setArguments(arguments);
                     // switch to edit project screen
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

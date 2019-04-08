@@ -1,8 +1,9 @@
 package display.led_display;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import display.led_display.helper.PixelsConverter;
 import display.led_display.helper.TinyDB;
+import display.led_display.helper.WiFiController;
 
 
 /**
@@ -27,7 +34,7 @@ import display.led_display.helper.TinyDB;
  * Use the {@link UploadProjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UploadProjectFragment extends Fragment implements View.OnClickListener {
+public class UploadProjectFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,17 +86,17 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_upload_project, container, false);
-        TinyDB tinyDB = new TinyDB(getContext());
-        ArrayList<String> projectList = tinyDB.getListString("projectList");
+        final TinyDB tinyDB = new TinyDB(getContext());
+        final ArrayList<String> projectList = tinyDB.getListString("projectList");
         Log.d("projectList", projectList.toString());
-        ArrayList<String> deviceList = tinyDB.getListString("deviceList");
+        final ArrayList<String> deviceList = tinyDB.getListString("deviceList");
         Log.d("deviceList", deviceList.toString());
-        ListView projectListview = rootView.findViewById(R.id.projectList);
+        final ListView projectListview = rootView.findViewById(R.id.projectList);
         projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "projectList"));
         // populate physical boards list
-        ListView boardListview = rootView.findViewById(R.id.deviceList);
-        boardListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
-        Button buttonNewDevice = (Button) rootView.findViewById(R.id.buttonNewDevice);
+        final ListView deviceListview = rootView.findViewById(R.id.deviceList);
+        deviceListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
+        Button buttonNewDevice = rootView.findViewById(R.id.buttonNewDevice);
         buttonNewDevice.setOnClickListener(new Button.OnClickListener() {
 
             @Override
@@ -99,7 +106,7 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
             }
         });
 
-        Button buttonNewProject = (Button) rootView.findViewById(R.id.buttonNewProject);
+        Button buttonNewProject = rootView.findViewById(R.id.buttonNewProject);
         buttonNewProject.setOnClickListener(new Button.OnClickListener() {
 
             @Override
@@ -109,31 +116,64 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
                 fragmentManager.beginTransaction().replace(R.id.flContent, new NewProjectFragment()).commit();
             }
         });
-        Button buttonUploadProject = (Button) rootView.findViewById(R.id.buttonUpload);
+        Button buttonUploadProject = rootView.findViewById(R.id.buttonUpload);
         buttonUploadProject.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                moveToNewActivity();
+                // add the code to send start the upload project routine
+                String selectedProject = projectList.get(projectListview.getSelectedItemPosition()+1);
+                ArrayList<String> frameList = tinyDB.getListString(selectedProject + "frameList");
+                String selectedDevice = deviceList.get(deviceListview.getSelectedItemPosition()+1);
+                ArrayList<String> deviceData = tinyDB.getListString(selectedDevice + "Data");
+                Log.d("projectSelected", selectedProject);
+                Log.d("deviceSelected", selectedDevice);
+
+                PixelsConverter pixelsConverter = new PixelsConverter();
+                int panels_width = 5;
+                int panels_height = 4;
+                Bitmap bitmap = null;
+                for(int i = 1; i < frameList.size()+1; i++) {
+                    // get image from internal storage
+                    String filename = frameList.get(i);
+                    ContextWrapper cw = new ContextWrapper(getActivity().getApplicationContext());
+                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                    File f = new File(directory, filename);
+                    Log.d("directory", directory.toString());
+                    Log.d("fileName", filename);
+                    try {
+                        InputStream is = new FileInputStream(f);
+                        bitmap = BitmapFactory.decodeStream(is);
+                        is.close();
+                    } catch (IOException io) {
+                        io.printStackTrace();
+                    }
+                    byte[] printMe = pixelsConverter.BitmapToByteArray(bitmap, panels_width, panels_height);
+                    ArrayList<String> payloadList = new ArrayList<>();
+                    WiFiController wiFiController = new WiFiController();
+                    String str = "";
+                    // use a string builder
+                    payloadList.add("Power=0");
+                    payloadList.add("Clear_EBI");
+                    for (int h = 0; h < printMe.length; h++) {
+                        if (h % 512 == 0) {
+                            str = "";
+                            str += String.format("ImageData=Addr=0x%06X,Data=", h);
+                        }
+                        str += String.format("%02X", printMe[h]);
+                        if (h % 512 == 511) {
+                            payloadList.add(str);
+                        }
+                    }
+                    payloadList.add("EBI_2_Flash=" + i);
+                    Log.d("size of payload", "" + payloadList.size());
+                    wiFiController.sendOverWiFi(getActivity().getBaseContext(), "Display Board", "ImageData", payloadList);
+                    Log.d("wifi commands sent", "" + payloadList.size());
+                }
             }
         });
 
         return rootView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    private void moveToNewActivity() {
-        Intent i = new Intent(getActivity(), WiFiActivity.class);
-        startActivity(i);
-        ((Activity) getActivity()).overridePendingTransition(0,0);
-
     }
 
     @Override
@@ -153,14 +193,6 @@ public class UploadProjectFragment extends Fragment implements View.OnClickListe
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonNewDevice:
-                startActivity(new Intent(getActivity(), WiFiActivity.class));
-                break;
-        }
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

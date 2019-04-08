@@ -7,23 +7,23 @@
         <item
             android:id="@+id/nav_add"
             android:icon="@drawable/ic_menu_add"
-            android:title="New Project" />
+            android:title="@string/new_project_title" />
         <item
             android:id="@+id/nav_edit"
             android:icon="@drawable/ic_menu_edit"
-            android:title="Edit Project" />
+            android:title="@string/edit_project_title" />
         <item
             android:id="@+id/nav_preview"
             android:icon="@drawable/ic_menu_preview"
-            android:title="Preview Project" />
+            android:title="@string/preview_project_title" />
         <item
             android:id="@+id/nav_upload"
             android:icon="@drawable/ic_menu_upload"
-            android:title="Upload Project" />
+            android:title="@string/upload_project_title" />
         <item
             android:id="@+id/nav_control"
             android:icon="@drawable/ic_menu_control"
-            android:title="Device Control" />
+            android:title="@string/device_control_title" />
     </group>
 
 </menu>

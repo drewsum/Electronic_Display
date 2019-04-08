@@ -1,6 +1,5 @@
 package display.led_display;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -97,13 +96,13 @@ public class EditProjectFragment extends Fragment {
         ListView listview = rootView.findViewById(R.id.framesList);
         listview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
 
-        Button buttonAddFrame = (Button) rootView.findViewById(R.id.buttonAddFrame);
+        Button buttonAddFrame = rootView.findViewById(R.id.buttonAddFrame);
         buttonAddFrame.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // need to give index and project name for imagePath naming convention
-                if(frameCount < 8) {
+                if (frameCount < 8) {
                     namingNumber++;
                     Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
                     intent.putExtra("projectName", projectName);
@@ -125,10 +124,10 @@ public class EditProjectFragment extends Fragment {
                 }
             }
         });
-        TextView textProjectName = (TextView) rootView.findViewById(R.id.textProjectName);
+        TextView textProjectName = rootView.findViewById(R.id.textProjectName);
         textProjectName.setText("Editing Project: " + projectName);
 
-        TextView textFrameCount = (TextView) rootView.findViewById(R.id.textFrameCount);
+        TextView textFrameCount = rootView.findViewById(R.id.textFrameCount);
         textFrameCount.setText(frameCount + "/8");
         return rootView;
     }
@@ -137,15 +136,13 @@ public class EditProjectFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             //Uri targetUri = Uri.parse(data.getExtras().getString("targetUri"));
-            String filePath = data.getExtras().getString("filePath");
-            Log.d("filePath", filePath);
+            String fileName = data.getExtras().getString("fileName");
+            Log.d("fileName", fileName);
 
             TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
             framesList = tinyDB.getListString(projectName + "frameList");
-            framesList.add(filePath);
-            Log.d("frameList", framesList.toString());
+            framesList.add(fileName);
             //framesList.add(0, "" + namingNumber);
-            Log.d("frameList", framesList.toString());
             framesList.remove(0);
             framesList.add(0, "" + namingNumber);
             tinyDB.putListString(projectName + "frameList", framesList);
@@ -156,9 +153,9 @@ public class EditProjectFragment extends Fragment {
                 Button buttonAddFrame = (Button) getView().findViewById(R.id.buttonAddFrame);
                 buttonAddFrame.setClickable(false);
             }*/
-            TextView textFrameCount = (TextView) this.getView().findViewById(R.id.textFrameCount);
+            TextView textFrameCount = this.getView().findViewById(R.id.textFrameCount);
             textFrameCount.setText(frameCount + "/8");
-            ListView listView = (ListView) this.getView().findViewById(R.id.framesList);
+            ListView listView = this.getView().findViewById(R.id.framesList);
             //listView.getAdapter().notify();
             listView.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
         }
@@ -171,12 +168,6 @@ public class EditProjectFragment extends Fragment {
         }
     }
 
-    private void moveToNewActivity() {
-        Intent i = new Intent(getActivity(), WiFiActivity.class);
-        startActivity(i);
-        ((Activity) getActivity()).overridePendingTransition(0,0);
-
-    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

@@ -11,198 +11,55 @@
 #include "terminal_control.h"
 #include "panel_control.h"
 #include "device_control.h"
+#include "32mz_interrupt_control.h"
 
 // Initialize state machine 
 void standardOpSMInit(void) {
     
-    if (readFrameNumber() >= 2 && readFrameNumber() <= 8) {
+    if(readFrameNumber() >= 2 && readFrameNumber() <= 8) {
         
+    panelMultiplexingSuspend();
         flash_chip = 1;
+        autopilot = 1;
         continue_autopilot = 1;
-        state = sm_start;
+        Countdown_Timer_Done = 1;
         image_num = readFrameNumber();
-        // nextState(begin);
-        
-        // Read what's in SPI Flash 1
-        SPI_FLASH_beginRead(1);
-        
-        
+        state = first_load;
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("State Machine Initiated\n\r");
+        terminalTextAttributesReset();
+
     }
     
 }
 
-// Function to transition to next state
-//void nextState(enum events event) {
-//    switch(state) {
-//        
-//        case start:
-//            switch(event) {
-//                
-//                case begin:
-//                    // next state will be to load the first set of data
-//                    state = load;
-//                    nextState(loop);
-//                    break;
-//                
-//                default:
-//                    // exit state machine
-//                    exitSM();
-//                    break;
-//            }       
-//            break;
-//            
-//        case load:
-//            switch(event) {
-//                
-//                case loop:
-//                    // next state will be to display sram data
-//                    state = display;
-//                    
-//                    // if statement to determine if we want to continue
-//                    if (continue_autopilot){
-//                        // load new data from next flash chip and loop to display
-//                        // nextFlashData();
-//                        nextState(loop);
-//                    } else {
-//                        // start stopping sequence
-//                        nextState(stop);
-//                    }
-//                    break;
-//                
-//                case stop:
-//                    // next state will be to end
-//                    state = end;
-//                    break;
-//                
-//                default:
-//                    // exit state machine
-//                    exitSM();
-//                    break;
-//            }
-//            break;
-//        
-//        case display:
-//            switch(event) {
-//                
-//                case loop:
-//                    // next state will be to load new data
-//                    state = load;
-//                    
-//                    // if statement to determine if we want to continue
-//                    if (continue_autopilot){
-//                        // display data and loop to load
-//                        showSRAMData();
-//                        nextState(loop);
-//                    } else {
-//                        // start stopping sequence
-//                        nextState(stop);
-//                    }
-//                    break;
-//                
-//                case stop:
-//                    // next state will be to end
-//                    state = end;
-//                    break;
-//                
-//                default:
-//                    // exit state machine
-//                    exitSM();
-//                    break;
-//            }
-//            break;
-//        
-//        case end:
-//            // exit state machine
-//            exitSM();
-//            break;
-//            
-//    }
-//    
-//}
-
 // Function to move to next flash chip
-//void nextFlashData(void){
-//    
-//    // if statement to check if next chip to contain data
-//    if (SPI_FLASH_dataCheck(flash_chip)) {
-//        
-//        // bring flash chip data to ebi
-//        SPI_FLASH_beginRead(flash_chip);
-//        
-//        // wait until reading is complete
-//        while(flash_read_done == 0);
-//        
-//        // print out we are done reading 
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Data moved from Flash to EBI...\n\r");
-//        terminalTextAttributesReset();
-//        
-//        // increment flash chip
-//        if (flash_chip < 8) {
-//            
-//            flash_chip++;
-//            
-//        } else {
-//            
-//            flash_chip = 1;
-//            
-//        }
-//        
-//    } else {
-//        
-//        flash_chip = 1;
-//        nextFlashData();
-//        
-//    }
-//        
-//}
-
-// Function to display current sram data
-void showSRAMData(void){
+void nextFlashData(void){
     
-    // disable muxing
-    panelMultiplexingSuspend();
-    //muxing_state = 0;
+    // if statement to check if next chip to contain data
+    if (flash_chip > image_num) {
+        
+        flash_chip = 1;
+    }
+        
+    SPI_Read_Finished_Flag = 0;
     
-    // transfer data from ebi to buffer
-    movePanelDataFromEBISRAM();
-    
-    terminalTextAttributesReset();
-    terminalTextAttributes(GREEN, BLACK, NORMAL);
-    printf("Data moved from EBI to SRAM...\n\r");
-    terminalTextAttributesReset();
-    
-    // enable muxing
-    panelMultiplexingTimerStart();
-    terminalTextAttributesReset();
-    terminalTextAttributes(GREEN, BLACK, NORMAL);
-    printf("Displaying...\n\r");
-    terminalTextAttributesReset();
-    
-    //muxing_state = 1;
-    
-    // use countdown timer for display time
-    // will be customized later
-//    uint8_t i;
-//    for (i = 0; i < 100000; i++) {
-//        
-//        countdown_val = 0xFFFF;
-//        // 0xF053 equates to a ~1 second timer countdown
-//        countdownTimerStart();
-//        
-//    }
-    
+    // bring flash chip data to ebi
+    SPI_FLASH_beginRead(flash_chip);
+        
 }
 
 // Function to exit state machine
 void exitSM(void) {
     
     autopilot = 0;
-    
+        
     T6CONbits.ON = 0;
     
     flash_chip = 1;
+    
+    panelMultiplexingSuspend();
     
 }
  
@@ -211,24 +68,17 @@ void __ISR(_TIMER_7_VECTOR, ipl1SRS) countdownTimerISR(void) {
     // Turn off Timer 6
     T6CONbits.ON = 0;
     
-    // Write over frame buffer with what is in EBI SRAM
-    movePanelDataFromEBISRAM();
-    
-    // Move the next frame needed
-    flash_chip++;
-    if (flash_chip >= readFrameNumber()) flash_chip = 1;
+    // Tell main we are done with our countdown timer
+    Countdown_Timer_Done = 1;
     
     // Clear interrupt flag
     clearInterruptFlag(Timer7);
     disableInterrupt(Timer7);
     
-    SPI_FLASH_beginRead(flash_chip);
-    
 }
     
 
-// This function initializes the countdown timer
-// Uses timer 6 and timer 7 in 32 bit mode
+// This function initializes the Delay Timer (Timer 4)
 void countdownTimerInit(void) {
     
     // Disable Timer6 interrupt
@@ -270,7 +120,7 @@ void countdownTimerStart(uint32_t timer_period_seconds) {
     
     // Set Timer 6 period to passed value
     PR6 = 0xFFFF;
-    PR7 = timer_period_seconds;
+    PR7 = (uint16_t) timer_period_seconds;
     
     // Clear the Timer
     TMR6 = 0;
@@ -288,10 +138,7 @@ void countdownTimerStart(uint32_t timer_period_seconds) {
 }
 // This function will read from the program flash memory and determine number of images to display
 uint8_t readFrameNumber(void){
-    
-    // set address and data reg
-    //NVMADDR = 0xBD000000;
-    
+        
     uint32_t frame_num_ret = *((uint32_t *)(0xBD1FFFF0));
     
     return (uint8_t) frame_num_ret;

@@ -251,7 +251,6 @@
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
-        <appendMe value="-O2"/>
       </C32Global>
       <PICkit3PlatformTool>
         <property key="ADC" value="true"/>

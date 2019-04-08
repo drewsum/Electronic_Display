@@ -87,28 +87,28 @@ public class ProjectPreviewFragment extends Fragment {
         // Inflate the layout for this fragment
         Bundle arguments = getArguments();
         final String projectName = arguments.getString("projectName");
-        TextView textDisplayingProject = (TextView) rootView.findViewById(R.id.textCurrentFrameCount);
+        TextView textDisplayingProject = rootView.findViewById(R.id.textCurrentFrameCount);
         textDisplayingProject.setText("Preview Project: " + projectName);
         TinyDB tinyDB = new TinyDB(getContext());
         framesList = tinyDB.getListString(projectName + "frameList");
         framesList.remove(0);
         // set up edit button
-        Button buttonEditProject = (Button) rootView.findViewById(R.id.buttonEditProject);
+        Button buttonEditProject = rootView.findViewById(R.id.buttonEditProject);
         buttonEditProject.setOnClickListener(new Button.OnClickListener() {
-             @Override
-             public void onClick(View arg0) {
-                 // pass args
-                 EditProjectFragment editFrag = new EditProjectFragment();
-                 Bundle arguments = new Bundle();
-                 arguments.putString("projectName", projectName);
-                 editFrag.setArguments(arguments);
-                 // switch to edit project screen
-                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                 fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
-             }
-         });
+            @Override
+            public void onClick(View arg0) {
+                // pass args
+                EditProjectFragment editFrag = new EditProjectFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString("projectName", projectName);
+                editFrag.setArguments(arguments);
+                // switch to edit project screen
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
+            }
+        });
         // set up nav buttons
-        ImageButton buttonLeft = (ImageButton) rootView.findViewById(R.id.buttonLeft);
+        ImageButton buttonLeft = rootView.findViewById(R.id.buttonLeft);
         buttonLeft.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -119,7 +119,7 @@ public class ProjectPreviewFragment extends Fragment {
                 }
             }
         });
-        ImageButton buttonRight = (ImageButton) rootView.findViewById(R.id.buttonRight);
+        ImageButton buttonRight = rootView.findViewById(R.id.buttonRight);
         buttonRight.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -138,23 +138,14 @@ public class ProjectPreviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
-//        final ProgressDialog dialog = new ProgressDialog(getContext());
-//        dialog.setMessage("parse image bitmap...");
-//        dialog.show();
-//        try {
-//            imagePreview.setImageBitmap(display.led_display.helper.FileConverter.fileToBitmap(new File("/storage/emulated/0/Download" + "/values.txt")));
-//        } catch (Throwable throwable) {
-//            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.marquette));
-//        }
-//        dialog.dismiss();
         Log.d("framesList[0]", framesList.get(0));
-        loadImageFromStorage(framesList.get(0));
+        updateImage();
     }
 
     private void updateImage() {
         loadImageFromStorage(framesList.get(currentIndex));
-        TextView textFrameCount = (TextView) getView().findViewById(R.id.textFrameDisplayed);
-        textFrameCount.setText("Previewing Frame: " + (currentIndex+1) + "/" + framesList.size());
+        TextView textFrameCount = getView().findViewById(R.id.textFrameDisplayed);
+        textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
 
     }
 
@@ -197,16 +188,13 @@ public class ProjectPreviewFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void loadImageFromStorage(String path)
-    {
+    private void loadImageFromStorage(String path) {
         try {
-            File f=new File(path);
+            File f = new File(path);
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
             imagePreview.setImageBitmap(b);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 

@@ -235,6 +235,10 @@ void main(void) {
     // Start Timer5
     panelMultiplexingTimerInitialize();
     printf("Panel Multiplexing Timer Initialized\n\r");
+    
+    // Setup state machine countdown timer
+    countdownTimerInit();
+    printf("State Machine Countdown Timer Initialized\r\n");    
  
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
@@ -249,6 +253,10 @@ void main(void) {
     
     // Setup ESP after UART1 has been initialized
     esp8266InitializeConfiguration();
+    
+    // Initiate state machine
+    //if(continue_autopilot) standardOpSMInit(); 
+    //countdown_val = 5; // for now
     
     // Loop endlessly
     while (true) {
@@ -292,6 +300,64 @@ void main(void) {
             
         }
         
+        if(continue_autopilot) {
+            
+            switch(state) {
+                case(start):
+                    standardOpSMInit();
+                    break;
+                    
+                case(first_load):
+                    state = display;
+                    First_Load = 1;
+                    nextFlashData();
+                    break;
+                    
+                case(next_load):
+                    state = display;
+                    nextFlashData();
+                    countdownTimerStart(3);
+                    terminalTextAttributesReset();
+                    terminalTextAttributes(YELLOW, BLACK, NORMAL);
+                    printf("Timer Started...\n\r");
+                    terminalTextAttributesReset();
+                    break;
+                    
+                case(display):
+                    if (SPI_Read_Finished_Flag && Countdown_Timer_Done) {
+                   // if (SPI_Read_Finished_Flag) {
+                        
+                        flash_chip++;
+                        state = next_load;
+                        Countdown_Timer_Done = 0;
+                        movePanelDataFromEBISRAM();
+                                                
+                        if (First_Load) {
+
+                            panelMultiplexingTimerStart();
+                            First_Load = 0;
+
+                        }
+                                                                        
+                    }
+                    
+                    break;      
+                
+                default:
+                    break;
+                    
+            }
+            
+        } else {
+            
+            if(SPI_Read_Finished_Flag) {
+                
+                exitSM();
+                
+            }
+            
+        }
+             
     }
     
     

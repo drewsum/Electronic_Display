@@ -697,6 +697,7 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
         // Disable RX overrun interrupt trigger
 //        SPI3STATbits.SPIROV = 0;
 //        SPI3CON2bits.SPIROVEN = 0;
+        SPI_Read_Finished_Flag = 1;
         
         if (continue_autopilot) SPI_Read_Finished_Flag = 1;
         
