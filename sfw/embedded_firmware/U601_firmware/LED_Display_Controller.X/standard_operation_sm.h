@@ -14,32 +14,23 @@
 
 enum states_t{
     
-	start,
-    load,
+    start,
+    first_load,
+    next_load,
     display,
     end
             
 } state;
 
-enum events {
-    
-    begin,
-    loop,
-    stop,
-    
-};
-
 uint8_t flash_chip;
 uint8_t autopilot;
 uint8_t continue_autopilot;
-uint16_t countdown_val;
 uint8_t image_num;
+uint8_t Countdown_Timer_Done;
+uint8_t First_Load;
 
 // Initialize state machine 
 void standardOpSMInit(void);
-
-// Function to transition to next state
-void nextState(enum events event);
 
 // Function to exit state machine
 void exitSM(void);
@@ -51,13 +42,13 @@ void nextFlashData(void);
 void showSRAMData(void);
 
 // This is the Delay Timer Interrupt Service Routine
-void __ISR(_TIMER_6_VECTOR, ipl1SRS) countdownTimerISR(void);
+void __ISR(_TIMER_7_VECTOR, ipl1SRS) countdownTimerISR(void);
 
 // This function initializes the Delay Timer (Timer 6)
 void countdownTimerInit(void);
 
 // This function sets the period of the timer and starts it
-void countdownTimerStart(void);
+void countdownTimerStart(uint32_t timer_period_seconds);
 
 // This function will read from the program flash memory and determine number of images to display
 uint8_t readFrameNumber(void);

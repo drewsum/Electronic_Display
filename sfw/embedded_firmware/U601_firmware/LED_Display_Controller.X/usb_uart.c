@@ -885,29 +885,29 @@ void usbUartRingBufferLUT(char * line_in) {
     }
     
     // Set panel brightness
-//    else if (strstart(line_in, "Set Frame Num ") == 0) {
-//    
-//        // Get which chip we're erasing
-//        uint32_t set_frame;
-//        sscanf(line_in, "Set Frame Num %u", &set_frame);
-//        
-//        writeFrameNumber((uint8_t) set_frame);
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Set NVM Frame Number to %u\n\r", set_frame);
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    else if (strcmp(line_in, "Get Frame Num") == 0) {  
-//     
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("NVM Frame Number read as %u\n\r", readFrameNumber());
-//        terminalTextAttributesReset();
-//        
-//    }
+    else if (strstart(line_in, "Set Frame Num ") == 0) {
+    
+        // Get which chip we're erasing
+        uint32_t set_frame;
+        sscanf(line_in, "Set Frame Num %u", &set_frame);
+        
+        writeFrameNumber((uint8_t) set_frame);
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Set NVM Frame Number to %u\n\r", set_frame);
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Get Frame Num") == 0) {  
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("NVM Frame Number read as %u\n\r", readFrameNumber());
+        terminalTextAttributesReset();
+        
+    }
     
     else if (strcmp(line_in, "Error Status?") == 0) {
      
@@ -1317,6 +1317,27 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "Start State Machine") == 0) {
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Starting State Machine...\n\r");
+        terminalTextAttributesReset();
+        continue_autopilot = 1;
+        state = start;
+        
+    }
+    
+    else if (strcmp(line_in, "Stop State Machine") == 0) {
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Stopping State Machine...\n\r");
+        terminalTextAttributesReset();
+        continue_autopilot = 0;
+        
+    }
+        
     else if (strstart(line_in, "WiFi: ") == 0) {
         // print WiFi command to UART1 RX
         // esp8266Putstring(line_in);
@@ -1338,7 +1359,7 @@ void usbUartRingBufferLUT(char * line_in) {
         esp8266Putstring("AT+CIFSR\r\n");
         
     }
-    
+      
 }
 
 // Print help message, used in a command above
