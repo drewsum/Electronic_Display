@@ -394,7 +394,7 @@ void panelPWMInitialize(void) {
     OC4CONbits.ON = 1;
     
     // Set PWM duty cycle to 0% at boot
-    OC4RS = 0;
+    OC4RS = PR2 >> 1;
     OC4R = 0;
     
     // Start timer 2

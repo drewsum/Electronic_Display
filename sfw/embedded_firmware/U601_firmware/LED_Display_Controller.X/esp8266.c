@@ -13,6 +13,7 @@
 #include "delay_timer.h"
 #include "panel_control.h"
 #include "external_bus_interface.h"
+#include "standard_operation_sm.h"
 
 // This pragma tells the linker to allow access of EBI memory space
 #pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
@@ -367,6 +368,7 @@ void esp8266RingBufferPull(void) {
 
 void esp8266RingBufferLUT(char * line_in) {
  
+    // +IPD is satisfied during a TCP packet
     if (strstart(line_in, "+IPD,") == 0) {
     
         uint32_t dummy;
@@ -384,6 +386,7 @@ void esp8266RingBufferLUT(char * line_in) {
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
         }
         
+        // This allows the android app to toggle the multiplexing state
         else if (0 == strstart(received_string, "Power=toggle")) {
          
             if (muxing_state) {
@@ -403,6 +406,7 @@ void esp8266RingBufferLUT(char * line_in) {
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
         }
         
+        // This allows the android app to disable multiplexing
         else if (0 == strstart(received_string, "Power=0")) {
 
             panelMultiplexingSuspend();
@@ -414,7 +418,7 @@ void esp8266RingBufferLUT(char * line_in) {
             
         }
         
-                
+        // This allows the android app to clear EBI SRAM
         else if (0 == strstart(received_string, "Clear_EBI")) {
 
             clearEBISRAM(); 
@@ -425,6 +429,7 @@ void esp8266RingBufferLUT(char * line_in) {
             
         }
         
+        // This allows the android app to move data from EBI SRAM to SPI Flash
         else if (0 == strstart(received_string, "EBI_2_Flash=")) {
 
             uint32_t chip_to_write;
@@ -437,6 +442,43 @@ void esp8266RingBufferLUT(char * line_in) {
             
         }
         
+        // This allows the android app to tell us how many frames we need to loop through
+        // when operating on "autopilot"
+        else if (0 == strstart(received_string, "Num_Frames=")) {
+
+            uint32_t number_of_frames;
+            sscanf(received_string, "Num_Frames=%u", &number_of_frames);
+            if (number_of_frames >= 1 && number_of_frames <= 8) writeFrameNumber((uint8_t) number_of_frames);
+         
+            // erase unused flash chips
+            if (number_of_frames < 8) {
+                
+                uint8_t erase_index;
+                for (erase_index = number_of_frames + 1; erase_index <= 8; erase_index++) {
+
+                    SPI_FLASH_chipErase(erase_index);
+                    
+                }
+
+            }
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+        }
+        
+        // This allows the android app to tell us to resume "autopilot"
+        else if (0 == strstart(received_string, "Restart_State_Machine")) {
+
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+        }
+        
+        // This allows the android app to dim the panels
         else if (0 == strstart(received_string, "Dim=")) {
 
             uint32_t set_brightness;
@@ -452,6 +494,8 @@ void esp8266RingBufferLUT(char * line_in) {
         
         }
         
+        // This allows the android app to send 512 Bytes of image data at a time
+        // This data is loaded into EBI SRAM
         else if (0 == strstart(received_string, "ImageData=")) {
 
             uint32_t image_starting_addr;
@@ -486,6 +530,7 @@ void esp8266RingBufferLUT(char * line_in) {
         
         }
         
+        // Send a late response to the android app if we were unable to parse strings
         else {
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
@@ -517,86 +562,3 @@ void esp8266Putstring(char * string) {
     
 }
 
-/*
- * sendCIPData sends bytes over the WiFi connection to the Android Device
- */
-void sendCIPData(uint8_t connectionId, char *data, uint8_t length) {
-    
-    char cip_output_string[256];
-    memset(cip_output_string, 0, sizeof(cip_output_string));
-    sprintf(cip_output_string, "AT+CIPSEND=%u, %u, %s",
-            connectionId,
-            length,
-            data);
-    
-    esp8266Putstring(cip_output_string);
-   
-}
-
-/*
- * sendHTTPResponse sends HTTP Responses to the Android Device confirming
- * receipt of command / data
- */
-void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length) {    
-    // build HTTP response
-    uint8_t httpResponse[256];
-//    uint8_t httpHeader[256];
-//    uint8_t len[8];
-//    sprintf(len, "%u", length);
-//    // HTTP Header
-//    strcpy(httpHeader, "HTTP/1.1 200 OK Content-Type: text/html; charset=UTF-8 "); 
-//    strcat(httpHeader, "Content-Length: ");
-//    strcat(httpHeader, len);
-//    strcat(httpHeader, " Connection: close \r\n");
-//    strcpy(httpResponse, httpHeader);
-//    strcat(httpResponse, content);
-//    
-    sprintf(httpResponse, "HTTP/1.1 200 OK%%0D%%0AContent-Type: text/html; charset=UTF-8%%0D%%0AContent-Length: %u%%0D%%0AConnection: close%%0D%%0A %s%%0D%%0A\r\n",
-            length,
-            content);
-    
-    sendCIPData(connectionId, httpResponse, strlen(httpResponse));
-}
-
-//Caroline made this and it doesnt work
-//void esp8266PutStringInArray(void) {
-//        
-//    uint16_t array[16384];
-//    char * string;
-//    
-//    uint8_t a = 0;
-//    uint8_t b = 0;
-//    
-//    for (a = 0; a < 16384; a++) {
-//        
-//        b = 0;
-//        strcpy(string, "0x");
-//        strcat(string, http_android_string[b]);
-//        strcat(string, http_android_string[b+1]);
-//        array[a] = uint16_t(string, 16);           
-//        
-//    }
-//    
-//}
-
-// Find cases to set WiFi error handler state to show error led
-    // 
-// Create a connection verification function
-// Android sends "Marco" ESP replies "Polo"
-
-// Create a read data function
-// Android sends "Project: {# of images}"
-// ESP then knows its about to receive that much data
-// Android continues sending all 247600 bytes of each image
-// ESP replies "Received Frame {index of frame it received}
-// ESP finally replies "Received all Frames"
-
-// These reply messages could just be integers representing codes that get 
-// converted to messages on the Android side.
-
-// Create a device control command function
-// Android sends "System: {type of system control},{value}"
-// ex. "System: Dim, 85"
-// ESP replies "SUCCESS" or "FAILURE"
-// possibly include an optional description field afterward
-// up to one packet length

@@ -21,6 +21,7 @@
         <itemPath>terminal_control.h</itemPath>
         <itemPath>test_buffer_fills.h</itemPath>
         <itemPath>delay_timer.h</itemPath>
+        <itemPath>standard_operation_sm.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.h</itemPath>
@@ -58,6 +59,7 @@
         <itemPath>terminal_control.c</itemPath>
         <itemPath>test_buffer_fills.c</itemPath>
         <itemPath>delay_timer.c</itemPath>
+        <itemPath>standard_operation_sm.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Device Control" projectFiles="true">
         <itemPath>device_control.c</itemPath>
@@ -198,7 +200,7 @@
         <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
         <property key="no-device-startup-code" value="false"/>
         <property key="no-startup-files" value="false"/>
-        <property key="oXC32ld-extra-opts" value=""/>
+        <property key="oXC32ld-extra-opts" value="-mreserve=prog@0x1d1ffff0:0x1d1fffff"/>
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros" value=""/>
         <property key="remove-unused-sections" value="false"/>

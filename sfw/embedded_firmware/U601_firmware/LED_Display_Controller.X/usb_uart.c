@@ -23,6 +23,7 @@
 #include "test_buffer_fills.h"
 #include "spi_flash.h"
 #include "esp8266.h"
+#include "standard_operation_sm.h"
 
 // #include "test_image_1.h"
 // #include "test_image_2.h"
@@ -883,6 +884,31 @@ void usbUartRingBufferLUT(char * line_in) {
             
     }
     
+    // Set panel brightness
+//    else if (strstart(line_in, "Set Frame Num ") == 0) {
+//    
+//        // Get which chip we're erasing
+//        uint32_t set_frame;
+//        sscanf(line_in, "Set Frame Num %u", &set_frame);
+//        
+//        writeFrameNumber((uint8_t) set_frame);
+//        
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Set NVM Frame Number to %u\n\r", set_frame);
+//        terminalTextAttributesReset();
+//        
+//    }
+//    
+//    else if (strcmp(line_in, "Get Frame Num") == 0) {  
+//     
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("NVM Frame Number read as %u\n\r", readFrameNumber());
+//        terminalTextAttributesReset();
+//        
+//    }
+    
     else if (strcmp(line_in, "Error Status?") == 0) {
      
         // Print error handler status
@@ -992,34 +1018,6 @@ void usbUartRingBufferLUT(char * line_in) {
         }
             
 
-    }
-    
-    else if (strcmp(line_in, "SPI Flash Data Check") == 0) {
-    
-        // Loop through all 8 SPI Flash chips and check if each has data, printing results
-        uint8_t chip_to_check;
-        for (chip_to_check = 1; chip_to_check <= 8; chip_to_check++) {
-            
-            uint8_t result = SPI_FLASH_dataCheck(chip_to_check);
-            
-            if(result == 1)
-            {
-                terminalTextAttributesReset();
-                terminalTextAttributes(GREEN, BLACK, NORMAL);
-                printf("Chip %u has data\r\n", chip_to_check);
-                terminalTextAttributesReset();
-            }
-            else
-            {
-                terminalTextAttributesReset();
-                terminalTextAttributes(RED, BLACK, NORMAL);
-                printf("Chip %u is in erased state\r\n", chip_to_check);
-                terminalTextAttributesReset();
-            }
-            
-        }
-        
-        
     }
     
     else if (strcmp(line_in, "Serial Number?") == 0) {
@@ -1373,7 +1371,6 @@ void usbUartPrintHelpMessage(void) {
     printf("    SPI Flash Chip Write <x>: Writes the contents of the EBI SRAM buffer to the given SPI Flash chip, x = 1:8\n\r");
     printf("    SPI Flash Chip Read <x>: Moves data from the given SPI Flash chip into EBI SRAM buffer, x = 1:8\n\r");
     printf("    SPI Status?: Prints the SPI configuration bits\n\r");
-    printf("    SPI Flash Data Check: Prints if each SPI Flash chip has data in it or is erased\n\r");
     printf("    Interrupt Status? Prints information on interrupt settings\n\r");
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
