@@ -13,6 +13,7 @@
 #include "delay_timer.h"
 #include "panel_control.h"
 #include "external_bus_interface.h"
+#include "standard_operation_sm.h"
 
 // This pragma tells the linker to allow access of EBI memory space
 #pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
@@ -367,6 +368,7 @@ void esp8266RingBufferPull(void) {
 
 void esp8266RingBufferLUT(char * line_in) {
  
+    // +IPD is satisfied during a TCP packet
     if (strstart(line_in, "+IPD,") == 0) {
     
         uint32_t dummy;
@@ -384,6 +386,7 @@ void esp8266RingBufferLUT(char * line_in) {
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
         }
         
+        // This allows the android app to toggle the multiplexing state
         else if (0 == strstart(received_string, "Power=toggle")) {
          
             if (muxing_state) {
@@ -403,6 +406,7 @@ void esp8266RingBufferLUT(char * line_in) {
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
         }
         
+        // This allows the android app to disable multiplexing
         else if (0 == strstart(received_string, "Power=0")) {
 
             panelMultiplexingSuspend();
@@ -414,7 +418,7 @@ void esp8266RingBufferLUT(char * line_in) {
             
         }
         
-                
+        // This allows the android app to clear EBI SRAM
         else if (0 == strstart(received_string, "Clear_EBI")) {
 
             clearEBISRAM(); 
@@ -425,6 +429,7 @@ void esp8266RingBufferLUT(char * line_in) {
             
         }
         
+        // This allows the android app to move data from EBI SRAM to SPI Flash
         else if (0 == strstart(received_string, "EBI_2_Flash=")) {
 
             uint32_t chip_to_write;
@@ -437,6 +442,43 @@ void esp8266RingBufferLUT(char * line_in) {
             
         }
         
+        // This allows the android app to tell us how many frames we need to loop through
+        // when operating on "autopilot"
+        else if (0 == strstart(received_string, "Num_Frames=")) {
+
+            uint32_t number_of_frames;
+            sscanf(received_string, "Num_Frames=%u", &number_of_frames);
+            if (number_of_frames >= 1 && number_of_frames <= 8) writeFrameNumber((uint8_t) number_of_frames);
+         
+            // erase unused flash chips
+            if (number_of_frames < 8) {
+                
+                uint8_t erase_index;
+                for (erase_index = number_of_frames + 1; erase_index <= 8; erase_index++) {
+
+                    SPI_FLASH_chipErase(erase_index);
+                    
+                }
+
+            }
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+        }
+        
+        // This allows the android app to tell us to resume "autopilot"
+        else if (0 == strstart(received_string, "Restart_State_Machine")) {
+
+            
+            strcpy(response_message, "Message Received\r\n");
+            // Tell kevin we received message
+            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+        }
+        
+        // This allows the android app to dim the panels
         else if (0 == strstart(received_string, "Dim=")) {
 
             uint32_t set_brightness;
@@ -452,6 +494,8 @@ void esp8266RingBufferLUT(char * line_in) {
         
         }
         
+        // This allows the android app to send 512 Bytes of image data at a time
+        // This data is loaded into EBI SRAM
         else if (0 == strstart(received_string, "ImageData=")) {
 
             uint32_t image_starting_addr;
@@ -486,6 +530,7 @@ void esp8266RingBufferLUT(char * line_in) {
         
         }
         
+        // Send a late response to the android app if we were unable to parse strings
         else {
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
