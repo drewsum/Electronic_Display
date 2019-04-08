@@ -1,134 +1,110 @@
 package display.led_display.helper;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.util.ArrayList;
 
-import display.led_display.MenuActivity;
-
 public class WiFiController {
 
-    public void sendOverWiFi(Context context, String deviceName, String messageType, ArrayList<String> data) {
+    private Dialog dialog;
+    private static final String TAG = "TCPClient";
+    private String ipAddress, incomingMessage;
+    private int portNumber;
+    private ArrayList<String> messages;
+    private TCPClient tcpClient;
+    private Context context;
+
+    public WiFiController(Context context, String deviceName) {
+        this.context = context;
         TinyDB tinyDB = new TinyDB(context.getApplicationContext());
         ArrayList<String> deviceData = tinyDB.getListString(deviceName + "Data");
-        String ipAddress = deviceData.get(0);
-        String portNumber = deviceData.get(1);
-        Log.d("ipAddress", ipAddress);
-        Log.d("portNumber", portNumber);
-        Log.d("data length", "" + data.size());
-        if (messageType == "Control") {
-            sendTCP(context, ipAddress, portNumber, data);
-        } else if (messageType == "ATCommand") {
-            sendTCP(context, ipAddress, portNumber, data);
-        } else if (messageType == "ImageData") {
-            sendTCP(context, ipAddress, portNumber, data);
-        }
+        this.ipAddress = deviceData.get(0);;
+        this.portNumber = Integer.parseInt(deviceData.get(1));
+        this.dialog = new AlertDialog.Builder(this.context)
+                .setTitle("TCP Connection:")
+                .setCancelable(true)
+                .create();
     }
 
-    public String sendTCP(Context context, String ipAddress, String portNumber, ArrayList<String> data)
-    {
-        Handler handler = new Handler();
-        new SendTCPAsyncTask(handler, ipAddress, portNumber, data, context).execute();
+    public void sendOverWiFi(String messageType, ArrayList<String> messages) {
+        this.messages = messages;
+        Log.d("data length", "" + messages.size());
+        if (messageType == "ImageData") {
+            new TCPAsyncTask(WiFiController.handler).execute();
+            while(!handler.hasMessages(2)) {
 
-        return "";
-    }
-
-    public class SendTCPAsyncTask extends AsyncTask<String, String, TCPClient> {
-        private ArrayList<String> data;
-        private TCPClient tcpClient;
-        private Handler mHandler;
-        private Context context;
-        private String ipAddress;
-        private int portNumber;
-        private AlertDialog alertDialog;
-        private String messageType = "";
-        private static final String TAG = "SendAsyncTask";
-        private int busyFlag = 0;
-
-        /**
-         * ShutdownAsyncTask constructor with handler passed as argument. The UI is updated via handler.
-         * In doInBackground(...) method, the handler is passed to TCPClient object.
-         *
-         * @param mHandler Handler object that is retrieved from MainActivity class and passed to TCPClient
-         *                 class for sending messages and updating UI.
-         */
-        public SendTCPAsyncTask(Handler mHandler, String ipAddress, String portNumber, ArrayList<String> data, Context context) {
-            this.mHandler = mHandler;
-            this.context = context;
-            this.ipAddress = ipAddress;
-            this.portNumber = Integer.parseInt(portNumber);
-            this.data = data;
-            if(data.contains("ImageData")) {
-                this.messageType = "ImageData";
             }
-            alertDialog = new AlertDialog.Builder(this.context)
-                    .setTitle("TCP Connection:")
-                    .setCancelable(true)
-                    .create();
+            handler.removeMessages(2);
+            Log.d("message removed if false", ""+handler.hasMessages(2));
+        } else {
+            new TCPAsyncTask(WiFiController.handler).execute();
+        }
+    }
+
+    private static Handler handler = new Handler() {
+        @Override
+        public void handleMessage (Message msg){
+            Log.d("h", "Handling something");
+            switch (msg.what) {
+                case 0:
+                    Log.d("Handler is handling","0");
+                    break;
+                case 1:
+                    Log.d("Handler is handling", "1");
+                    break;
+            }
+        }
+    };
+
+    public class TCPAsyncTask extends AsyncTask<Void, Void, TCPClient> {
+        private Handler handler;
+
+        public TCPAsyncTask(Handler handler) {
+            this.handler = handler;
         }
 
-        /**
-         * Overriden method from AsyncTask class. There the TCPClient object is created.
-         *
-         * @param params From MainActivity class empty string is passed.
-         * @return TCPClient object for closing it in onPostExecute method.
-         */
         @Override
-        protected TCPClient doInBackground(String... params) {
-            Log.d(TAG, "In do in background");
+        protected TCPClient doInBackground(Void... params) {
             try {
-                tcpClient = new TCPClient(mHandler,
-                        data,
-                        this.ipAddress,
-                        this.portNumber,
-                        new TCPClient.MessageCallback() {
-                            @Override
-                            public void callbackMessageReceiver(String message) {
-                                publishProgress(message);
-                                // now we know the message was received and we can send another chunk
-                            }
-                        });
-
-            } catch (NullPointerException e) {
-                Log.d(TAG, "Caught null pointer exception");
+                tcpClient = new TCPClient(handler, ipAddress, portNumber, messages, new TCPClient.MessageCallback(){
+                    @Override
+                    public void callbackMessageReceiver(String message) {
+                        Log.d("got", "something");
+                        publishProgress();
+                    }
+                });
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             tcpClient.run();
+            //handler.sendEmptyMessage(2);
             return null;
         }
 
         @Override
-        protected void onPostExecute(TCPClient result){
-            super.onPostExecute(result);
-            Log.d(TAG, "In on post execute");
-            if(result != null){
-                result.stopClient();
-            }
-            mHandler.sendEmptyMessageDelayed(MenuActivity.SENT, 4000);
-
-            alertDialog.setMessage("Finished Execution");
-            if (!alertDialog.isShowing()) {
-                //alertDialog.show(); // show dialog
-            }
-
+        protected void onPreExecute()    {
+            super.onPreExecute();
+            Log.d("wifi", "On Pre Execute");
+            //dialog.show();
         }
 
-        // Name: onPreExecute
-        // Description: This function is executed before the HTTP request is sent to ip address.
-        // The function will set the dialog's message and display the dialog.
         @Override
-        protected void onPreExecute() {
-            Log.d(TAG, "In on pre execute");
-            alertDialog.setMessage("Sending, please wait...");
-            if (!alertDialog.isShowing()) {
-                //alertDialog.show();
+        protected void onPostExecute(TCPClient result)    {
+            super.onPostExecute(result);
+            Log.d("wifi", "On Post Execute");
+            if(result != null && result.isRunning()){
+                result.stopClient();
             }
+            //handler.sendEmptyMessage(1);
+            //dialog.show();
         }
     }
 

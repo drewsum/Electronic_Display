@@ -83,7 +83,7 @@ public class DeviceControlFragment extends Fragment {
         TextView textDeviceName = rootView.findViewById(R.id.textDeviceName);
         textDeviceName.setText("Controlling Device: " + deviceName);
         TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-        final WiFiController wiFiController = new WiFiController();
+        final WiFiController wiFiController = new WiFiController(getContext(), deviceName);
         //deviceList = tinyDB.getListString(projectName + "frameList");
         // set up Ping button
         Button buttonPing = rootView.findViewById(R.id.buttonPing);
@@ -93,7 +93,7 @@ public class DeviceControlFragment extends Fragment {
                 // Ping the Micro
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add("hello world");
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", messageList);
+                wiFiController.sendOverWiFi("Control", messageList);
                 Log.d("WiFi", "Pinged Device");
             }
         });
@@ -105,7 +105,7 @@ public class DeviceControlFragment extends Fragment {
                 // send WiFi command to Turn Multiplexing ON
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add("Power=toggle");
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", messageList);
+                wiFiController.sendOverWiFi("Control", messageList);
             }
         });
         // set up Brightness seekbar
@@ -126,7 +126,7 @@ public class DeviceControlFragment extends Fragment {
                 //wiFiController.connectToNetwork(getContext());
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add("Dim=" + brightnessLevel + " ");
-                wiFiController.sendOverWiFi(getContext(), deviceName, "Control", messageList);
+                wiFiController.sendOverWiFi("Control", messageList);
            }
        });
         Button buttonSendCommand = rootView.findViewById(R.id.buttonSendCommand);
@@ -137,7 +137,7 @@ public class DeviceControlFragment extends Fragment {
                 EditText editWiFiCommands = rootView.findViewById(R.id.inputWiFiCommands);
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add(editWiFiCommands.getText().toString());
-                wiFiController.sendOverWiFi(getContext(), deviceName, "ATCommand", messageList);
+                wiFiController.sendOverWiFi("ATCommand", messageList);
                 Log.d("wifi", "message sent");
             }
         });
