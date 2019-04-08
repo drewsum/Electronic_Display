@@ -14,20 +14,21 @@
 
 enum states_t{
     
-	start,
-    load,
-    display,
-    end
+    sm_idle,
+	sm_start,
+    sm_load,
+    sm_display,
+    sm_end
             
 } state;
 
-enum events {
-    
-    begin,
-    loop,
-    stop,
-    
-};
+//enum events {
+//    
+//    begin,
+//    loop,
+//    stop,
+//    
+//};
 
 uint8_t flash_chip;
 uint8_t autopilot;
@@ -39,7 +40,7 @@ uint8_t image_num;
 void standardOpSMInit(void);
 
 // Function to transition to next state
-void nextState(enum events event);
+// void nextState(enum events event);
 
 // Function to exit state machine
 void exitSM(void);

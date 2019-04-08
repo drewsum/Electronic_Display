@@ -276,7 +276,7 @@ void main(void) {
             
         }
         
-        if (state == start && SPI_Read_Finished_Flag) {
+        if (state == sm_start && SPI_Read_Finished_Flag) {
          
             SPI_Read_Finished_Flag = 0;
             

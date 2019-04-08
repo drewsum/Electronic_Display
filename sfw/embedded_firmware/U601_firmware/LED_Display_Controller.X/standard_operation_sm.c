@@ -19,7 +19,7 @@ void standardOpSMInit(void) {
         
         flash_chip = 1;
         continue_autopilot = 1;
-        state = start;
+        state = sm_start;
         image_num = readFrameNumber();
         // nextState(begin);
         
@@ -32,93 +32,93 @@ void standardOpSMInit(void) {
 }
 
 // Function to transition to next state
-void nextState(enum events event) {
-    switch(state) {
-        
-        case start:
-            switch(event) {
-                
-                case begin:
-                    // next state will be to load the first set of data
-                    state = load;
-                    nextState(loop);
-                    break;
-                
-                default:
-                    // exit state machine
-                    exitSM();
-                    break;
-            }       
-            break;
-            
-        case load:
-            switch(event) {
-                
-                case loop:
-                    // next state will be to display sram data
-                    state = display;
-                    
-                    // if statement to determine if we want to continue
-                    if (continue_autopilot){
-                        // load new data from next flash chip and loop to display
-                        // nextFlashData();
-                        nextState(loop);
-                    } else {
-                        // start stopping sequence
-                        nextState(stop);
-                    }
-                    break;
-                
-                case stop:
-                    // next state will be to end
-                    state = end;
-                    break;
-                
-                default:
-                    // exit state machine
-                    exitSM();
-                    break;
-            }
-            break;
-        
-        case display:
-            switch(event) {
-                
-                case loop:
-                    // next state will be to load new data
-                    state = load;
-                    
-                    // if statement to determine if we want to continue
-                    if (continue_autopilot){
-                        // display data and loop to load
-                        showSRAMData();
-                        nextState(loop);
-                    } else {
-                        // start stopping sequence
-                        nextState(stop);
-                    }
-                    break;
-                
-                case stop:
-                    // next state will be to end
-                    state = end;
-                    break;
-                
-                default:
-                    // exit state machine
-                    exitSM();
-                    break;
-            }
-            break;
-        
-        case end:
-            // exit state machine
-            exitSM();
-            break;
-            
-    }
-    
-}
+//void nextState(enum events event) {
+//    switch(state) {
+//        
+//        case start:
+//            switch(event) {
+//                
+//                case begin:
+//                    // next state will be to load the first set of data
+//                    state = load;
+//                    nextState(loop);
+//                    break;
+//                
+//                default:
+//                    // exit state machine
+//                    exitSM();
+//                    break;
+//            }       
+//            break;
+//            
+//        case load:
+//            switch(event) {
+//                
+//                case loop:
+//                    // next state will be to display sram data
+//                    state = display;
+//                    
+//                    // if statement to determine if we want to continue
+//                    if (continue_autopilot){
+//                        // load new data from next flash chip and loop to display
+//                        // nextFlashData();
+//                        nextState(loop);
+//                    } else {
+//                        // start stopping sequence
+//                        nextState(stop);
+//                    }
+//                    break;
+//                
+//                case stop:
+//                    // next state will be to end
+//                    state = end;
+//                    break;
+//                
+//                default:
+//                    // exit state machine
+//                    exitSM();
+//                    break;
+//            }
+//            break;
+//        
+//        case display:
+//            switch(event) {
+//                
+//                case loop:
+//                    // next state will be to load new data
+//                    state = load;
+//                    
+//                    // if statement to determine if we want to continue
+//                    if (continue_autopilot){
+//                        // display data and loop to load
+//                        showSRAMData();
+//                        nextState(loop);
+//                    } else {
+//                        // start stopping sequence
+//                        nextState(stop);
+//                    }
+//                    break;
+//                
+//                case stop:
+//                    // next state will be to end
+//                    state = end;
+//                    break;
+//                
+//                default:
+//                    // exit state machine
+//                    exitSM();
+//                    break;
+//            }
+//            break;
+//        
+//        case end:
+//            // exit state machine
+//            exitSM();
+//            break;
+//            
+//    }
+//    
+//}
 
 // Function to move to next flash chip
 //void nextFlashData(void){
@@ -216,7 +216,7 @@ void __ISR(_TIMER_7_VECTOR, ipl1SRS) countdownTimerISR(void) {
     
     // Move the next frame needed
     flash_chip++;
-    if (flash_chip >= image_num) flash_chip = 1;
+    if (flash_chip >= readFrameNumber()) flash_chip = 1;
     
     // Clear interrupt flag
     clearInterruptFlag(Timer7);

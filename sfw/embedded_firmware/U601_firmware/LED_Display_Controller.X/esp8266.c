@@ -386,6 +386,9 @@ void esp8266RingBufferLUT(char * line_in) {
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            
+            esp8266PrintReceivedLine();
+            
         }
         
         // This allows the android app to toggle the multiplexing state
@@ -406,6 +409,9 @@ void esp8266RingBufferLUT(char * line_in) {
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            
+            esp8266PrintReceivedLine();
+            
         }
         
         // This allows the android app to disable multiplexing
@@ -418,6 +424,8 @@ void esp8266RingBufferLUT(char * line_in) {
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
             
+            esp8266PrintReceivedLine();
+            
         }
         
         // This allows the android app to clear EBI SRAM
@@ -429,18 +437,22 @@ void esp8266RingBufferLUT(char * line_in) {
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
             
+            esp8266PrintReceivedLine();
+            
         }
         
         // This allows the android app to move data from EBI SRAM to SPI Flash
         else if (0 == strstart(received_string, "EBI_2_Flash=")) {
 
             uint32_t chip_to_write;
-            sscanf(received_string, "EBI_2_Flash=%u", &chip_to_write);
+            sscanf(received_string, "EBI_2_Flash=%u ", &chip_to_write);
             if (chip_to_write >= 1 && chip_to_write <= 8) SPI_FLASH_beginWrite((uint8_t) chip_to_write);
             
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+            esp8266PrintReceivedLine();
             
         }
         
@@ -449,24 +461,26 @@ void esp8266RingBufferLUT(char * line_in) {
         else if (0 == strstart(received_string, "Num_Frames=")) {
 
             uint32_t number_of_frames;
-            sscanf(received_string, "Num_Frames=%u", &number_of_frames);
+            sscanf(received_string, "Num_Frames=%u ", &number_of_frames);
             if (number_of_frames >= 1 && number_of_frames <= 8) writeFrameNumber((uint8_t) number_of_frames);
          
             // erase unused flash chips
-            if (number_of_frames < 8) {
-                
-                uint8_t erase_index;
-                for (erase_index = number_of_frames + 1; erase_index <= 8; erase_index++) {
-
-                    SPI_FLASH_chipErase(erase_index);
-                    
-                }
-
-            }
+//            if (number_of_frames < 8) {
+//                
+//                uint8_t erase_index;
+//                for (erase_index = number_of_frames + 1; erase_index <= 8; erase_index++) {
+//
+//                    SPI_FLASH_chipErase(erase_index);
+//                    
+//                }
+//
+//            }
             
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+            esp8266PrintReceivedLine();
             
         }
         
@@ -477,6 +491,8 @@ void esp8266RingBufferLUT(char * line_in) {
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            
+            esp8266PrintReceivedLine();
             
         }
         
@@ -493,6 +509,8 @@ void esp8266RingBufferLUT(char * line_in) {
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+            
+            esp8266PrintReceivedLine();
         
         }
         
@@ -542,11 +560,7 @@ void esp8266RingBufferLUT(char * line_in) {
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
             
-            terminalTextAttributesReset();
-            terminalTextAttributes(CYAN, BLACK, NORMAL);
-            // printf("WiFi Module Sent:\r\n");
-            printf("%s", esp_8266_line);
-            terminalTextAttributesReset();
+            esp8266PrintReceivedLine();
             
         }
         
@@ -554,11 +568,7 @@ void esp8266RingBufferLUT(char * line_in) {
     
     else {
 
-        terminalTextAttributesReset();
-        terminalTextAttributes(CYAN, BLACK, NORMAL);
-        // printf("WiFi Module Sent:\r\n");
-        printf("%s", esp_8266_line);
-        terminalTextAttributesReset();
+        esp8266PrintReceivedLine();
 
     }
         
@@ -579,3 +589,13 @@ void esp8266Putstring(char * string) {
     
 }
 
+// This function prints the current ESP Line to the USB UART terminal
+void esp8266PrintReceivedLine(void) {
+    
+    terminalTextAttributesReset();
+    terminalTextAttributes(CYAN, BLACK, NORMAL);
+    // printf("WiFi Module Sent:\r\n");
+    printf("%s", esp_8266_line);
+    terminalTextAttributesReset();
+    
+}

@@ -10,6 +10,7 @@
 #include "external_bus_interface.h"
 #include "panel_control.h"
 #include "device_control.h"
+#include "standard_operation_sm.h"
 
 // This pragma tells the linker to allow access of EBI memory space
 #pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
@@ -697,12 +698,12 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
 //        SPI3STATbits.SPIROV = 0;
 //        SPI3CON2bits.SPIROVEN = 0;
         
-        SPI_Read_Finished_Flag = 1;
+        if (continue_autopilot) SPI_Read_Finished_Flag = 1;
         
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Transfer from Flash to EBI SRAM complete\n\r");
-        terminalTextAttributesReset(); 
+//        terminalTextAttributesReset();
+//        terminalTextAttributes(GREEN, BLACK, NORMAL);
+//        printf("Transfer from Flash to EBI SRAM complete\n\r");
+//        terminalTextAttributesReset(); 
         
         // panelMultiplexingTimerStart();
         
