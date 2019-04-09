@@ -551,6 +551,12 @@ void esp8266RingBufferLUT(char * line_in) {
             sprintf(cipsend_message, "AT+CIPSEND=%u,%u\r\n\r\n", current_connection_id, strlen(response_message) + 1 + 15);
             esp8266Putstring(cipsend_message);
             delayTimerStart(0x0510, esp8266_tcp_response_delay2);
+            
+            terminalTextAttributesReset();
+            terminalTextAttributes(CYAN, BLACK, NORMAL);
+            // printf("WiFi Module Sent:\r\n");
+            printf("Image Data Addr: 0x%06X\r\n", image_starting_addr);
+            terminalTextAttributesReset();
         
         }
         

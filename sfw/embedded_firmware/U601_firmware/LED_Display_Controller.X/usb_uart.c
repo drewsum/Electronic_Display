@@ -624,7 +624,9 @@ void usbUartRingBufferLUT(char * line_in) {
     // Identification command
     else if(strcmp(line_in, "Enable State Machine") == 0) {
      
-        standardOpSMInit();
+        // Setup state machine variables
+        continue_autopilot = 1;
+        state = sm_start;
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
@@ -636,7 +638,8 @@ void usbUartRingBufferLUT(char * line_in) {
     // Identification command
     else if(strcmp(line_in, "Disable State Machine") == 0) {
      
-        exitSM();
+        // Stop state machine
+        continue_autopilot = 0;
         
         terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);

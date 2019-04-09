@@ -660,16 +660,6 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
     // Record a SPI error
     error_handler.SPI_error_flag = 1;
     
-//    if (SPI3STATbits.SPIROV) {
-//        error_handler.SPI_receive_overflow_error_flag = 1;
-//        SPI3STATbits.SPIROV = 0;
-//    }
-//    
-//    if (SPI3STATbits.SPITUR) {
-//        error_handler.SPI_transfer_underrun_error_flag = 1;
-//        SPI3STATbits.SPITUR = 0;
-//    }
-    
     // Disable SPI interrupts
     disableInterrupt(SPI3_Transfer_Done);
     disableInterrupt(SPI3_Receive_Done);
@@ -694,19 +684,13 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
         
         spi_flash_state = idle;
         
-        // Disable RX overrun interrupt trigger
-//        SPI3STATbits.SPIROV = 0;
-//        SPI3CON2bits.SPIROVEN = 0;
-        SPI_Read_Finished_Flag = 1;
-        
         if (continue_autopilot) SPI_Read_Finished_Flag = 1;
         
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Transfer from Flash to EBI SRAM complete\n\r");
-//        terminalTextAttributesReset(); 
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Transfer from Flash to EBI SRAM complete\n\r");
+        terminalTextAttributesReset(); 
         
-        // panelMultiplexingTimerStart();
         
     } 
     

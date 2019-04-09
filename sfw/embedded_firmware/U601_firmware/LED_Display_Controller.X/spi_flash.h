@@ -43,8 +43,6 @@ enum spi_flash_state_t {
 } spi_flash_state;
 
 
-uint8_t SPI_Read_Finished_Flag;
-
 // indexes ebi sram array as we read the flash chip
 uint32_t sram_addr_index;
 

@@ -238,7 +238,7 @@ void main(void) {
     
     // Setup state machine countdown timer
     countdownTimerInit();
-    printf("State Machine Countdown Timer Initialized\r\n");    
+    printf("State Machine Countdown Timer Initialized\r\n");   
  
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
@@ -303,33 +303,34 @@ void main(void) {
         if(continue_autopilot) {
             
             switch(state) {
-                case(start):
+                case(sm_start):
                     standardOpSMInit();
                     break;
                     
-                case(first_load):
-                    state = display;
+                case(sm_first_load):
+                    state = sm_display;
                     First_Load = 1;
                     nextFlashData();
                     break;
                     
-                case(next_load):
-                    state = display;
+                case(sm_next_load):
+                    state = sm_display;
                     nextFlashData();
-                    countdownTimerStart(3);
-                    terminalTextAttributesReset();
-                    terminalTextAttributes(YELLOW, BLACK, NORMAL);
-                    printf("Timer Started...\n\r");
-                    terminalTextAttributesReset();
+//                    countdownTimerStart(3);
+//                    terminalTextAttributesReset();
+//                    terminalTextAttributes(YELLOW, BLACK, NORMAL);
+//                    printf("Timer Started...\n\r");
+//                    terminalTextAttributesReset();
                     break;
                     
-                case(display):
-                    if (SPI_Read_Finished_Flag && Countdown_Timer_Done) {
-                   // if (SPI_Read_Finished_Flag) {
+                case(sm_display):
+                    // if (SPI_Read_Finished_Flag && Countdown_Timer_Done) {
+                   if (SPI_Read_Finished_Flag) {
                         
                         flash_chip++;
-                        state = next_load;
+                        state = sm_next_load;
                         Countdown_Timer_Done = 0;
+                        SPI_Read_Finished_Flag = 0;
                         movePanelDataFromEBISRAM();
                                                 
                         if (First_Load) {
