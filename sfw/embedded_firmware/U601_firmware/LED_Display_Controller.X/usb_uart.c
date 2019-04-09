@@ -250,6 +250,7 @@ void usbUartPutchar(uint8_t txData) {
 
      enableInterrupt(UART3_Transfer_Done);
    
+     
     
 }
 
@@ -621,29 +622,29 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    // Identification command
+    // start state machine
     else if(strcmp(line_in, "Enable State Machine") == 0) {
-     
-        // Setup state machine variables
-        continue_autopilot = 1;
-        state = sm_start;
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Standard Operation State Machine Enabled\n\r");
+        printf("Starting State Machine...\n\r");
         terminalTextAttributesReset();
-        
+             
+        // Setup state machine variables
+        continue_autopilot = 1;
+        state = sm_start;
+          
     }
     
-    // Identification command
+    // stop state machine
     else if(strcmp(line_in, "Disable State Machine") == 0) {
-     
+             
         // Stop state machine
         continue_autopilot = 0;
         
         terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("Standard Operation State Machine Enabled\n\r");
+        printf("State Machine Disabled\n\r");
         terminalTextAttributesReset();
         
     }
@@ -915,7 +916,7 @@ void usbUartRingBufferLUT(char * line_in) {
     
         // Get which chip we're erasing
         uint32_t set_frame;
-        sscanf(line_in, "Set Frame Num %u", &set_frame);
+        sscanf(line_in, "Set Frame Num %u", readFrameNumber());
         
         writeFrameNumber((uint8_t) set_frame);
         
