@@ -93,7 +93,7 @@ public class ImageSelectActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             targetUri = data.getData();
             // display the image here depending on how the boolean value is
-            Button confirmButton = findViewById(R.id.buttonConvert);
+            Button confirmButton = findViewById(R.id.buttonConfirm);
             saveOff();
             confirmButton.setOnClickListener(new Button.OnClickListener() {
                 @Override

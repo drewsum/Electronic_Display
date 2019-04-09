@@ -164,7 +164,7 @@ public class UploadProjectFragment extends Fragment {
                     String str = "";
                     // use a string builder
                     payloadList.add("Clear_EBI");
-                    for (int h = 0; h < printMe.length/16; h++) {
+                    for (int h = 0; h < printMe.length; h++) {
                         if (h % 512 == 0) {
                             str = "";
                             str += String.format("ImageData=Addr=0x%06X,Data=", h);
