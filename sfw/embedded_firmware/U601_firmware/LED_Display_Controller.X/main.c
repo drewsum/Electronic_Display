@@ -220,6 +220,10 @@ void main(void) {
     POS5_RUN_PIN = 1;
     printf("+5V Power Supply Enabled\n\r");
     
+    // enable POS5p power supply
+    POS5P_RUN_PIN = 1;
+    printf("+5VP Power Supply Enabled\n\r");
+    
     // enable panel data level shifting
     nLEVEL_SHIFT_EN_PIN = 0;
     printf("Panel Data Level Shifters Enabled\n\r");
@@ -229,17 +233,13 @@ void main(void) {
     printf("Change Notifications Enabled\r\n");
     
     // Setup state machine countdown timer
-    countdownTimerInit();
+    stateMachineTimerInit();
     printf("State Machine Countdown Timer Initialized\r\n");
     
     // Start Timer5
     panelMultiplexingTimerInitialize();
     printf("Panel Multiplexing Timer Initialized\n\r");
-    
-    // Setup state machine countdown timer
-    countdownTimerInit();
-    printf("State Machine Countdown Timer Initialized\r\n");   
- 
+     
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
     printf("\n\rType 'Help' for list of supported commands, press enter twice after reset\n\r\n\r");
@@ -253,11 +253,7 @@ void main(void) {
     
     // Setup ESP after UART1 has been initialized
     esp8266InitializeConfiguration();
-    
-    // Initiate state machine
-    //if(continue_autopilot) standardOpSMInit(); 
-    //countdown_val = 5; // for now
-    
+        
     // Loop endlessly
     while (true) {
         
@@ -273,31 +269,6 @@ void main(void) {
             
             esp8266RingBufferPull();
         
-        }
-        
-        // If we've moved next frame from SPI Flash into EBI, start state machine timer
-        if (SPI_Read_Finished_Flag && continue_autopilot) {
-         
-            SPI_Read_Finished_Flag = 0;
-            
-            countdownTimerStart(5);
-            
-        }
-        
-        if (state == sm_start && SPI_Read_Finished_Flag) {
-         
-            SPI_Read_Finished_Flag = 0;
-            
-            // Copy frame 1 into display buffer
-            movePanelDataFromEBISRAM();
-
-            // Start displaying frame 1
-            panelMultiplexingTimerStart();
-
-            // increment next flash chip
-            flash_chip++;
-            SPI_FLASH_beginRead(flash_chip);
-            
         }
         
         if(continue_autopilot) {
@@ -316,20 +287,15 @@ void main(void) {
                 case(sm_next_load):
                     state = sm_display;
                     nextFlashData();
-//                    countdownTimerStart(3);
-//                    terminalTextAttributesReset();
-//                    terminalTextAttributes(YELLOW, BLACK, NORMAL);
-//                    printf("Timer Started...\n\r");
-//                    terminalTextAttributesReset();
+                    stateMachineTimerStart(3);
                     break;
                     
                 case(sm_display):
-                    // if (SPI_Read_Finished_Flag && Countdown_Timer_Done) {
-                   if (SPI_Read_Finished_Flag) {
+                    if (SPI_Read_Finished_Flag && SM_Timer_Done) {
                         
                         flash_chip++;
                         state = sm_next_load;
-                        Countdown_Timer_Done = 0;
+                        SM_Timer_Done = 0;
                         SPI_Read_Finished_Flag = 0;
                         movePanelDataFromEBISRAM();
                                                 

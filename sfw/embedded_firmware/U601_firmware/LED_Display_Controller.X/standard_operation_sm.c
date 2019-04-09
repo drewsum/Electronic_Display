@@ -16,21 +16,22 @@
 // Initialize state machine 
 void standardOpSMInit(void) {
     
-    if(readFrameNumber() >= 2 && readFrameNumber() <= 8) {
+    //if(readFrameNumber() >= 2 && readFrameNumber() <= 8) {
         
         panelMultiplexingSuspend();
         flash_chip = 1;
         autopilot = 1;
         continue_autopilot = 1;
-        Countdown_Timer_Done = 1;
-        image_num = readFrameNumber();
+        SM_Timer_Done = 1;
+        //image_num = readFrameNumber();
+        image_num = 8;
         state = sm_first_load;
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("State Machine Initiated\n\r");
         terminalTextAttributesReset();
 
-    }
+    //}
     
 }
 
@@ -59,17 +60,15 @@ void exitSM(void) {
     
     flash_chip = 1;
     
-    panelMultiplexingSuspend();
-    
 }
  
-void __ISR(_TIMER_7_VECTOR, ipl1SRS) countdownTimerISR(void) {
+void __ISR(_TIMER_7_VECTOR, ipl1SRS) stateMachineTimerISR(void) {
     
     // Turn off Timer 6
     T6CONbits.ON = 0;
     
     // Tell main we are done with our countdown timer
-    Countdown_Timer_Done = 1;
+    SM_Timer_Done = 1;
     
     // Clear interrupt flag
     clearInterruptFlag(Timer7);
@@ -79,7 +78,7 @@ void __ISR(_TIMER_7_VECTOR, ipl1SRS) countdownTimerISR(void) {
     
 
 // This function initializes the Delay Timer (Timer 4)
-void countdownTimerInit(void) {
+void stateMachineTimerInit(void) {
     
     // Disable Timer6 interrupt
     disableInterrupt(Timer7);
@@ -116,7 +115,7 @@ void countdownTimerInit(void) {
  
 
 // This function sets the period of the timer and starts it
-void countdownTimerStart(uint32_t timer_period_seconds) {
+void stateMachineTimerStart(uint32_t timer_period_seconds) {
     
     // Set Timer 6 period to passed value
     PR6 = 0xF053;
@@ -148,14 +147,36 @@ uint8_t readFrameNumber(void){
 // This function will write to the program flash memory to tell how many images should be displayed
 void writeFrameNumber(uint8_t frame_num){
     
+    // Page Erase
+    NVMADDR = 0x1D1FEFFF;
+    NVMCONbits.NVMOP = 0x4;
+
+    int int_status; // storage for current Interrupt Enable state ]
+    
+    // Disable Interrupts 
+    int_status = getGlobalInterruptsState();
+    disableGlobalInterrupts();
+    
+    NVMKEY = 0x0;
+    NVMKEY = 0xAA996655; 
+    NVMKEY = 0x556699AA; 
+    NVMCONSET = 1 << 15;// must be an atomic instruction 
+    while(NVMCONbits.WR);
+    NVMCONbits.WREN = 0;
+    
+    // Restore Interrupts
+    if (int_status && 0x00000001) {
+        
+        enableGlobalInterrupts();
+        
+    }
+    
     // set address and data reg
     NVMADDR = 0x1D1FFFF0;
     NVMDATA0 = (uint32_t) frame_num;
-    
+        
     NVMCONbits.NVMOP = 0x1;
     NVMCONbits.WREN = 1;
-    
-    int int_status; // storage for current Interrupt Enable state ]
     
     // Disable Interrupts 
     int_status = getGlobalInterruptsState();

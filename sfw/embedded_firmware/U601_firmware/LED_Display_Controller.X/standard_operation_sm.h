@@ -27,7 +27,7 @@ volatile uint8_t flash_chip;
 volatile uint8_t autopilot;
 volatile uint8_t continue_autopilot = 0;
 volatile uint8_t image_num;
-volatile uint8_t Countdown_Timer_Done;
+volatile uint8_t SM_Timer_Done;
 volatile uint8_t First_Load;
 
 // Initialize state machine 
@@ -43,13 +43,13 @@ void nextFlashData(void);
 void showSRAMData(void);
 
 // This is the Delay Timer Interrupt Service Routine
-void __ISR(_TIMER_7_VECTOR, ipl1SRS) countdownTimerISR(void);
+void __ISR(_TIMER_7_VECTOR, ipl1SRS) stateMachineTimerISR(void);
 
 // This function initializes the Delay Timer (Timer 6)
-void countdownTimerInit(void);
+void stateMachineTimerInit(void);
 
 // This function sets the period of the timer and starts it
-void countdownTimerStart(uint32_t timer_period_seconds);
+void stateMachineTimerStart(uint32_t timer_period_seconds);
 
 // This function will read from the program flash memory and determine number of images to display
 uint8_t readFrameNumber(void);
