@@ -220,6 +220,10 @@ void main(void) {
     POS5_RUN_PIN = 1;
     printf("+5V Power Supply Enabled\n\r");
     
+    // enable POS5p power supply
+    POS5P_RUN_PIN = 1;
+    printf("+5VP Power Supply Enabled\n\r");
+    
     // enable panel data level shifting
     nLEVEL_SHIFT_EN_PIN = 0;
     printf("Panel Data Level Shifters Enabled\n\r");
