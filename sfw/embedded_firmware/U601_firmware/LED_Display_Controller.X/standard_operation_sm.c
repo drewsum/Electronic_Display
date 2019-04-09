@@ -18,13 +18,13 @@ void standardOpSMInit(void) {
     
     if(readFrameNumber() >= 2 && readFrameNumber() <= 8) {
         
-    panelMultiplexingSuspend();
+        panelMultiplexingSuspend();
         flash_chip = 1;
         autopilot = 1;
         continue_autopilot = 1;
         Countdown_Timer_Done = 1;
         image_num = readFrameNumber();
-        state = first_load;
+        state = sm_first_load;
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("State Machine Initiated\n\r");
@@ -119,7 +119,7 @@ void countdownTimerInit(void) {
 void countdownTimerStart(uint32_t timer_period_seconds) {
     
     // Set Timer 6 period to passed value
-    PR6 = 0xFFFF;
+    PR6 = 0xF053;
     PR7 = (uint16_t) timer_period_seconds;
     
     // Clear the Timer

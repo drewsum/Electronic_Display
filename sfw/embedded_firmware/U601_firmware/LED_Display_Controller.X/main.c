@@ -63,7 +63,7 @@
 #include "test_buffer_fills.h"
 // Delay Timer
 #include "delay_timer.h"
-// State machine
+// Standard operation state machine
 #include "standard_operation_sm.h"
 
 // USB UART Command Ready Flag
@@ -228,13 +228,17 @@ void main(void) {
     changeNotificationInit();
     printf("Change Notifications Enabled\r\n");
     
+    // Setup state machine countdown timer
+    countdownTimerInit();
+    printf("State Machine Countdown Timer Initialized\r\n");
+    
     // Start Timer5
     panelMultiplexingTimerInitialize();
     printf("Panel Multiplexing Timer Initialized\n\r");
     
     // Setup state machine countdown timer
     countdownTimerInit();
-    printf("State Machine Countdown Timer Initialized\r\n");    
+    printf("State Machine Countdown Timer Initialized\r\n");   
  
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
@@ -257,9 +261,6 @@ void main(void) {
     // Loop endlessly
     while (true) {
         
-        // Twiddle thumbs
-        Nop();
-                
         // Check if we've got a received USB UART command waiting
         if(usb_uart_RxStringReady != 0) {
 
@@ -269,39 +270,67 @@ void main(void) {
         
         // Check if we've got a received WiFi string waiting
         if(esp_8266_RxStringReady != 0) {
+            
             esp8266RingBufferPull();
+        
+        }
+        
+        // If we've moved next frame from SPI Flash into EBI, start state machine timer
+        if (SPI_Read_Finished_Flag && continue_autopilot) {
+         
+            SPI_Read_Finished_Flag = 0;
+            
+            countdownTimerStart(5);
+            
+        }
+        
+        if (state == sm_start && SPI_Read_Finished_Flag) {
+         
+            SPI_Read_Finished_Flag = 0;
+            
+            // Copy frame 1 into display buffer
+            movePanelDataFromEBISRAM();
+
+            // Start displaying frame 1
+            panelMultiplexingTimerStart();
+
+            // increment next flash chip
+            flash_chip++;
+            SPI_FLASH_beginRead(flash_chip);
+            
         }
         
         if(continue_autopilot) {
             
             switch(state) {
-                case(start):
+                case(sm_start):
                     standardOpSMInit();
                     break;
                     
-                case(first_load):
-                    state = display;
+                case(sm_first_load):
+                    state = sm_display;
                     First_Load = 1;
                     nextFlashData();
                     break;
                     
-                case(next_load):
-                    state = display;
+                case(sm_next_load):
+                    state = sm_display;
                     nextFlashData();
-                    countdownTimerStart(3);
-                    terminalTextAttributesReset();
-                    terminalTextAttributes(YELLOW, BLACK, NORMAL);
-                    printf("Timer Started...\n\r");
-                    terminalTextAttributesReset();
+//                    countdownTimerStart(3);
+//                    terminalTextAttributesReset();
+//                    terminalTextAttributes(YELLOW, BLACK, NORMAL);
+//                    printf("Timer Started...\n\r");
+//                    terminalTextAttributesReset();
                     break;
                     
-                case(display):
-                    if (SPI_Read_Finished_Flag && Countdown_Timer_Done) {
-                   // if (SPI_Read_Finished_Flag) {
+                case(sm_display):
+                    // if (SPI_Read_Finished_Flag && Countdown_Timer_Done) {
+                   if (SPI_Read_Finished_Flag) {
                         
                         flash_chip++;
-                        state = next_load;
+                        state = sm_next_load;
                         Countdown_Timer_Done = 0;
+                        SPI_Read_Finished_Flag = 0;
                         movePanelDataFromEBISRAM();
                                                 
                         if (First_Load) {

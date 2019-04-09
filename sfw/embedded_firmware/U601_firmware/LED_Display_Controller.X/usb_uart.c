@@ -621,6 +621,33 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    // Identification command
+    else if(strcmp(line_in, "Enable State Machine") == 0) {
+     
+        // Setup state machine variables
+        continue_autopilot = 1;
+        state = sm_start;
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Standard Operation State Machine Enabled\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    // Identification command
+    else if(strcmp(line_in, "Disable State Machine") == 0) {
+     
+        // Stop state machine
+        continue_autopilot = 0;
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("Standard Operation State Machine Enabled\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
     // disable multiplexing
     else if(strcmp(line_in, "Disable Muxing") == 0) {
     
@@ -884,7 +911,6 @@ void usbUartRingBufferLUT(char * line_in) {
             
     }
     
-    // Set panel brightness
     else if (strstart(line_in, "Set Frame Num ") == 0) {
     
         // Get which chip we're erasing
@@ -1317,27 +1343,6 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "Start State Machine") == 0) {
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Starting State Machine...\n\r");
-        terminalTextAttributesReset();
-        continue_autopilot = 1;
-        state = start;
-        
-    }
-    
-    else if (strcmp(line_in, "Stop State Machine") == 0) {
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Stopping State Machine...\n\r");
-        terminalTextAttributesReset();
-        continue_autopilot = 0;
-        
-    }
-        
     else if (strstart(line_in, "WiFi: ") == 0) {
         // print WiFi command to UART1 RX
         // esp8266Putstring(line_in);
@@ -1359,7 +1364,7 @@ void usbUartRingBufferLUT(char * line_in) {
         esp8266Putstring("AT+CIFSR\r\n");
         
     }
-      
+    
 }
 
 // Print help message, used in a command above
@@ -1436,6 +1441,10 @@ void usbUartPrintHelpMessage(void) {
     printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");
     printf("    IP Addr?: Prints the logic board IP Address and MAC Address\r\n");
     printf("    MAC Addr?: Prints the logic board IP Address and MAC Address\r\n");
+    printf("    Set Frame Num <x>: Sets the number of frames for the standard operation state machine to loop through\r\n");
+    printf("    Get Frame Num: Reads how many frames the standard operation state machine is looping through\r\n");
+    printf("    Enable State Machine: Enables the standard operation state machine, or 'Autopilot'\r\n");
+    printf("    Disable State Machine: Disables the standard operation state machine\r\n");
     
     
     printf("Help messages and neutral responses appear in yellow\n\r");

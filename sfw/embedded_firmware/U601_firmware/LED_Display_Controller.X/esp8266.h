@@ -67,6 +67,9 @@ void esp8266ReceiveHandler(void);
 void esp8266RingBufferPull(void);
 void esp8266RingBufferLUT(char * esp_8266_line);
 
+// This function prints the current ESP Line to the USB UART terminal
+void esp8266PrintReceivedLine(void);
+
 #endif /* _ESP8266_H */
 
 /* *****************************************************************************

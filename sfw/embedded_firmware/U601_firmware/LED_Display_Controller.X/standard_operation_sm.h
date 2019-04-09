@@ -14,20 +14,21 @@
 
 enum states_t{
     
-    start,
-    first_load,
-    next_load,
-    display,
-    end
+    sm_undefined,
+    sm_start,
+    sm_first_load,
+    sm_next_load,
+    sm_display,
+    sm_end
             
 } state;
 
-uint8_t flash_chip;
-uint8_t autopilot;
-uint8_t continue_autopilot;
-uint8_t image_num;
-uint8_t Countdown_Timer_Done;
-uint8_t First_Load;
+volatile uint8_t flash_chip;
+volatile uint8_t autopilot;
+volatile uint8_t continue_autopilot = 0;
+volatile uint8_t image_num;
+volatile uint8_t Countdown_Timer_Done;
+volatile uint8_t First_Load;
 
 // Initialize state machine 
 void standardOpSMInit(void);
