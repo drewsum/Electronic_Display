@@ -629,6 +629,8 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Starting State Machine...\n\r");
         terminalTextAttributesReset();
+        
+        panelMultiplexingSuspend();
              
         // Setup state machine variables
         continue_autopilot = 1;
@@ -641,6 +643,8 @@ void usbUartRingBufferLUT(char * line_in) {
              
         // Stop state machine
         continue_autopilot = 0;
+        state = sm_start;
+        sm_previous = 0;
         
         terminalTextAttributesReset();
         terminalTextAttributes(RED, BLACK, NORMAL);

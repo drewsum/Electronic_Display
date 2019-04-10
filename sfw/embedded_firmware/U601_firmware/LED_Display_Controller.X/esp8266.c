@@ -399,10 +399,18 @@ void esp8266RingBufferLUT(char * line_in) {
                 panelMultiplexingSuspend();
                 muxing_state = 0;
                 
+                // state machine flags
+                if (autopilot) continue_autopilot = 0;
+                state = sm_start;
+                
             } else {
         
-                panelMultiplexingTimerStart();
-                muxing_state = 1;
+                //panelMultiplexingTimerStart();
+                //muxing_state = 1;
+                
+                // state machine flags
+                continue_autopilot = 1;
+                state = sm_start;
                 
             }
             
@@ -419,6 +427,16 @@ void esp8266RingBufferLUT(char * line_in) {
 
             panelMultiplexingSuspend();
             muxing_state = 0;
+            if (autopilot) {
+                
+                continue_autopilot = 0;
+                sm_previous = 1;
+                
+            } else {
+                
+                sm_previous = 0;
+                
+            }
 
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
@@ -487,6 +505,9 @@ void esp8266RingBufferLUT(char * line_in) {
         // This allows the android app to tell us to resume "autopilot"
         else if (0 == strstart(received_string, "Restart_State_Machine")) {
 
+            // set up state machine variables
+            state = sm_start;
+            continue_autopilot = 1;
             
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message

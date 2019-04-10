@@ -271,59 +271,8 @@ void main(void) {
         
         }
         
-        if(continue_autopilot) {
-            
-            switch(state) {
-                case(sm_start):
-                    standardOpSMInit();
-                    break;
-                    
-                case(sm_first_load):
-                    state = sm_display;
-                    First_Load = 1;
-                    nextFlashData();
-                    break;
-                    
-                case(sm_next_load):
-                    state = sm_display;
-                    nextFlashData();
-                    stateMachineTimerStart(3);
-                    break;
-                    
-                case(sm_display):
-                    if (SPI_Read_Finished_Flag && SM_Timer_Done) {
-                        
-                        flash_chip++;
-                        state = sm_next_load;
-                        SM_Timer_Done = 0;
-                        SPI_Read_Finished_Flag = 0;
-                        movePanelDataFromEBISRAM();
-                                                
-                        if (First_Load) {
-
-                            panelMultiplexingTimerStart();
-                            First_Load = 0;
-
-                        }
-                                                                        
-                    }
-                    
-                    break;      
-                
-                default:
-                    break;
-                    
-            }
-            
-        } else {
-            
-            if(SPI_Read_Finished_Flag) {
-                
-                exitSM();
-                
-            }
-            
-        }
+        // state machine switch
+        autopilotMode();
              
     }
     
