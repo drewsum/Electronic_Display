@@ -525,7 +525,7 @@ void esp8266RingBufferLUT(char * line_in) {
 
             printf("Set brightness = %u\r\n", set_brightness);
             
-            if (set_brightness <= 100 && set_brightness >= 0) panelPWMSetBrightness((uint8_t) set_brightness);
+            if (set_brightness <= 100 && set_brightness >= 5) panelPWMSetBrightness((uint8_t) set_brightness);
             
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message

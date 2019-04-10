@@ -223,7 +223,7 @@ void encoderStepREHandler(void) {
     } else {
         
         // if we are not at minimum brightness, make dimmer
-        if (current_brightness > 0) {
+        if (current_brightness > 5) {
         
             panelPWMSetBrightness(current_brightness - 5);
             

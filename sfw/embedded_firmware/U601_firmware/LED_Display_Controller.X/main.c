@@ -258,18 +258,10 @@ void main(void) {
     while (true) {
         
         // Check if we've got a received USB UART command waiting
-        if(usb_uart_RxStringReady != 0) {
-
-            usbUartRingBufferPull();
-        
-        }
+        if(usb_uart_RxStringReady) usbUartRingBufferPull();
         
         // Check if we've got a received WiFi string waiting
-        if(esp_8266_RxStringReady != 0) {
-            
-            esp8266RingBufferPull();
-        
-        }
+        if(esp_8266_RxStringReady) esp8266RingBufferPull();
         
         // state machine switch
         autopilotMode();

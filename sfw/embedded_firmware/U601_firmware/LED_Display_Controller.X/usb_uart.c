@@ -1349,9 +1349,10 @@ void usbUartPrintHelpMessage(void) {
     printf("    Clear: Clears the terminal\n\r");
     printf("    Cause of Reset?: Prints the cause of the most recent device reset\n\r");
     printf("    *IDN?: Prints identification string\n\r");
+    printf("    MCU IDs?: Print microcontroller serial number, device ID, and silicon revision ID\r\n");
+    printf("    MCU Status?: Prints the status of the watchdog timer, deadman timer and predictive prefetch module\n\r");
     printf("    Device On Time?: Returns the device on time since last reset\n\r");
     printf("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
-    printf("    MCU Status?: Prints the status of the watchdog timer, deadman timer and predictive prefetch module\n\r");
     printf("    EBI Status?: Prints status of EBI configuration\r\n");
     printf("    Test EBI SRAM: Tests writing to and reading from external EBI SRAM\n\r");
     printf("    Print EBI SRAM Contents: Prints the data saved in EBI SRAM\n\r");
@@ -1367,7 +1368,6 @@ void usbUartPrintHelpMessage(void) {
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
     printf("    Clear Errors: Clears all error handler flags\n\r");
-    printf("    MCU IDs?: Print microcontroller serial number, device ID, and silicon revision ID\r\n");
     printf("    Initialize ADC: Sets up the Analog to Digital Converter for measuring analog signals within the system\n\r");
     printf("    ADC Results?: Prints results of the most recent ADC conversions for analog signals in the system\n\r");
     printf("    ADC Max Results?: prints the maximum recorded value for each ADC channel\n\r");
