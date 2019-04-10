@@ -29,6 +29,7 @@ volatile uint8_t continue_autopilot = 0;
 volatile uint8_t image_num;
 volatile uint8_t SM_Timer_Done;
 volatile uint8_t First_Load;
+volatile uint8_t sm_previous;
 
 // Initialize state machine 
 void standardOpSMInit(void);
@@ -56,5 +57,8 @@ uint8_t readFrameNumber(void);
 
 // This function will write to the program flash memory to tell how many images should be displayed
 void writeFrameNumber(uint8_t frame_num);
+
+// This function will be called from main for autopilot mode
+void autopilotMode(void);
 
 #endif /* STANDARD_OPERATION_SM_H */

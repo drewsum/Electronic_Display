@@ -12,6 +12,7 @@
 #include "error_handler.h"
 #include "panel_control.h"
 #include "device_control.h"
+#include "standard_operation_sm.h"
 
 // Initialize change notifications
 void changeNotificationInit(void) {
@@ -187,10 +188,18 @@ void displayEnableFEHandler(void) {
     if (T5CONbits.ON) {
         
         panelMultiplexingSuspend();
+        
+        // state machine flags
+        if (autopilot) continue_autopilot = 0;
+        state = sm_start;
                 
     } else {
         
-        panelMultiplexingTimerStart();
+        //panelMultiplexingTimerStart();
+        
+        // state machine flags
+        continue_autopilot = 1;
+        state = sm_start;
                 
     }
     

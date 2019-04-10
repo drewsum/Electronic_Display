@@ -18,7 +18,10 @@ void standardOpSMInit(void) {
     
     //if(readFrameNumber() >= 2 && readFrameNumber() <= 8) {
         
+        // stop muxing to begin state machine
         panelMultiplexingSuspend();
+        
+        // set various start up flags and variables
         flash_chip = 1;
         autopilot = 1;
         continue_autopilot = 1;
@@ -26,11 +29,7 @@ void standardOpSMInit(void) {
         //image_num = readFrameNumber();
         image_num = 8;
         state = sm_first_load;
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("State Machine Initiated\n\r");
-        terminalTextAttributesReset();
-
+        
     //}
     
 }
@@ -43,7 +42,8 @@ void nextFlashData(void){
         
         flash_chip = 1;
     }
-        
+    
+    // clear flash read flag before we begin a new read
     SPI_Read_Finished_Flag = 0;
     
     // bring flash chip data to ebi
@@ -54,12 +54,16 @@ void nextFlashData(void){
 // Function to exit state machine
 void exitSM(void) {
     
-    autopilot = 0;
-        
+    // set various ending flags and variables
+    autopilot = 0;    
     T6CONbits.ON = 0;
-    
     flash_chip = 1;
     
+    disableInterrupt(SPI3_Transfer_Done);
+    disableInterrupt(SPI3_Receive_Done);
+    
+    spi_flash_state = idle;
+    spiFlashGPIOReset();
 }
  
 void __ISR(_TIMER_7_VECTOR, ipl1SRS) stateMachineTimerISR(void) {
@@ -206,4 +210,69 @@ void writeFrameNumber(uint8_t frame_num){
     
     // Lock NVM
     NVMKEY = 0x0;
+}
+
+// This function will be called from main for autopilot mode
+void autopilotMode(void) {
+    
+    // state machine switch statement
+    if(continue_autopilot) {
+
+        switch(state) {
+            // sm_start state initializes state machine
+            case(sm_start):
+                standardOpSMInit();
+                break;
+            // sm_first_load pulls in first flash chip data
+            case(sm_first_load):
+                state = sm_display;
+                First_Load = 1;
+                nextFlashData();
+                break;
+            // sm_next_load pulls in next flash chip data while muxing
+            case(sm_next_load):
+                state = sm_display;
+                nextFlashData();
+                stateMachineTimerStart(3);
+                break;
+            // sm_display puts ebi data to buffer    
+            case(sm_display):
+                // only if the last timer has finished and we finished reading from flash chip
+                if (SPI_Read_Finished_Flag && SM_Timer_Done) {
+
+                    state = sm_next_load;
+                    SM_Timer_Done = 0;
+                    SPI_Read_Finished_Flag = 0;
+                    
+                    movePanelDataFromEBISRAM();
+
+                    terminalTextAttributesReset();
+                    terminalTextAttributes(GREEN, BLACK, NORMAL);
+                    printf("Displaying Frame Number %u\n\r", flash_chip);
+                    terminalTextAttributesReset(); 
+
+                    flash_chip++;
+                    
+                    // if it's the first image, start muxing
+                    if (First_Load) {
+
+                        panelMultiplexingTimerStart();
+                        First_Load = 0;
+
+                    }
+
+                }
+
+                break;      
+
+            default:
+                break;
+
+        }
+
+    } else {
+
+        exitSM();
+
+    }
 }

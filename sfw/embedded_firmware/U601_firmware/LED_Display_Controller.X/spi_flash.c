@@ -684,13 +684,18 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
         
         spi_flash_state = idle;
         
-        if (continue_autopilot) SPI_Read_Finished_Flag = 1;
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Transfer from Flash to EBI SRAM complete\n\r");
-        terminalTextAttributesReset(); 
-        
+        if (continue_autopilot) {
+            
+            SPI_Read_Finished_Flag = 1;
+            
+        } else {
+
+            terminalTextAttributesReset();
+            terminalTextAttributes(GREEN, BLACK, NORMAL);
+            printf("Transfer from Flash to EBI SRAM complete\n\r");
+            terminalTextAttributesReset(); 
+
+        }
         
     } 
     
