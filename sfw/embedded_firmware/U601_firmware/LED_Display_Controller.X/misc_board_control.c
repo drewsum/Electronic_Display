@@ -178,7 +178,7 @@ void pos5pPGoodFEHandler(void) {
 //    terminalTextAttributesReset();
 //    
     // flag error
-    error_handler.POS5P_regulation_error_flag = 1;
+    if (POS5P_RUN_PIN == 1) error_handler.POS5P_regulation_error_flag = 1;
     
 }
 
@@ -223,7 +223,7 @@ void encoderStepREHandler(void) {
     } else {
         
         // if we are not at minimum brightness, make dimmer
-        if (current_brightness > 0) {
+        if (current_brightness > 5) {
         
             panelPWMSetBrightness(current_brightness - 5);
             

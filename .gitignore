@@ -25,3 +25,5 @@ sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/build/
 sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/dist/
 sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/private/private.xmil
 sfw/embedded_firmware/U601_firmware/LED_Display_Controller.X/nbproject/private/private.xml
+hdw/Logic_Board/LED_Display_Controller/fp-info-cache
+

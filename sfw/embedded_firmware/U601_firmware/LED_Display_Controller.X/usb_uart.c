@@ -46,8 +46,6 @@ extern reset_cause_t reset_cause;
 
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void) {
- 
-    __XC_UART = 3;
     
     // Disable UART 3 interrupts
     disableInterrupt(UART3_Receive_Done);
@@ -447,18 +445,6 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "WDT Status?") == 0) {
-     
-        printWatchdogStatus();
-        
-    }
-    
-    else if (strcmp(line_in, "DMT Status?") == 0) {
-     
-        printDeadmanStatus();
-
-    }
-
     else if (strcmp(line_in, "SPI Status?") == 0) {
      
         printSPIFlashStatus(); 
@@ -511,11 +497,6 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
-    else if (strcmp(line_in, "Prefetch Status?") == 0) {
-     
-        printPrefetchStatus();
-
-    }
     
     else if (strcmp(line_in, "EBI Status?") == 0) {
         
@@ -871,21 +852,6 @@ void usbUartRingBufferLUT(char * line_in) {
 //        
 //    }
         
-    else if (strstart(line_in, "Set Panel Muxing On Time ") == 0) {
-     
-        // Get PR5 setting
-        uint32_t set_period;
-        sscanf(line_in, "Set Panel Muxing On Time %u", &set_period);
-        
-        PR5 = set_period;
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Set Panel multiplexing timer period to %d\n\r", set_period);
-        terminalTextAttributesReset();
-        
-    }
-    
     // Set panel brightness
     else if (strstart(line_in, "Set Panel Brightness ") == 0) {
     
@@ -1051,44 +1017,41 @@ void usbUartRingBufferLUT(char * line_in) {
 
     }
     
-    else if (strcmp(line_in, "Serial Number?") == 0) {
+    else if (strcmp(line_in, "MCU IDs?") == 0) {
      
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("PIC32MZ Serial Number retrieved from Flash: %s\n\r",
+        
+        // Print serial number
+        printf("    PIC32MZ Serial Number retrieved from Flash: %s\n\r",
                 getStringSerialNumber());
+        
+        // Print device ID
+        printf("    Device ID retrieved from Flash: %s (0x%X)\n\r", 
+            getDeviceIDString(getDeviceID()), 
+            getDeviceID());
+
+        // Print revision ID
+        printf("    Revision ID retrieved from Flash: %s (0x%X)\n\r", 
+            getRevisionIDString(getRevisionID()), 
+            getRevisionID());
+
         terminalTextAttributesReset();
         
     }
     
-    else if (strcmp(line_in, "Device ID?") == 0) {
+    else if (strcmp(line_in, "MCU Status?") == 0) {
      
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Device ID retrieved from Flash: %s (0x%X)\n\r", 
-                getDeviceIDString(getDeviceID()), 
-                getDeviceID());
-        terminalTextAttributesReset();        
-                
-    }
-    
-    else if (strcmp(line_in, "Revision ID?") == 0) {
-     
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Revision ID retrieved from Flash: %s (0x%X)\n\r", 
-                getRevisionIDString(getRevisionID()), 
-                getRevisionID());
-        terminalTextAttributesReset();        
+        printWatchdogStatus();
+        
+        printDeadmanStatus();
+        
+        printPrefetchStatus();
         
         
     }
     
-    else if (strcmp(line_in, "Print Test Message") == 0) {
-        
-        terminalPrintTestMessage();
-        
-    }
+    
         
     else if (strcmp(line_in, "Credits") == 0) {
      
@@ -1386,11 +1349,10 @@ void usbUartPrintHelpMessage(void) {
     printf("    Clear: Clears the terminal\n\r");
     printf("    Cause of Reset?: Prints the cause of the most recent device reset\n\r");
     printf("    *IDN?: Prints identification string\n\r");
+    printf("    MCU IDs?: Print microcontroller serial number, device ID, and silicon revision ID\r\n");
+    printf("    MCU Status?: Prints the status of the watchdog timer, deadman timer and predictive prefetch module\n\r");
     printf("    Device On Time?: Returns the device on time since last reset\n\r");
     printf("    PMD Status?: Prints the state of Peripheral Module Disable settings\n\r");
-    printf("    WDT Status?: Prints the state of the watchdog timer\n\r");
-    printf("    DMT Status?: Prints the state of the deadman timer\n\r");
-    printf("    Prefetch Status?: Prints the status of the predictive prefetch module\n\r");
     printf("    EBI Status?: Prints status of EBI configuration\r\n");
     printf("    Test EBI SRAM: Tests writing to and reading from external EBI SRAM\n\r");
     printf("    Print EBI SRAM Contents: Prints the data saved in EBI SRAM\n\r");
@@ -1406,9 +1368,6 @@ void usbUartPrintHelpMessage(void) {
     printf("    Clock Status?: Prints system clock settings\n\r");
     printf("    Error Status?: Prints the state of system error flags\n\r");
     printf("    Clear Errors: Clears all error handler flags\n\r");
-    printf("    Serial Number?: Prints device serial number\n\r");
-    printf("    Device ID?: Returns part number and PIC32MZ Device ID\n\r");
-    printf("    Revision ID?: Prints silicon die revision ID\n\r");
     printf("    Initialize ADC: Sets up the Analog to Digital Converter for measuring analog signals within the system\n\r");
     printf("    ADC Results?: Prints results of the most recent ADC conversions for analog signals in the system\n\r");
     printf("    ADC Max Results?: prints the maximum recorded value for each ADC channel\n\r");
@@ -1421,7 +1380,6 @@ void usbUartPrintHelpMessage(void) {
     printf("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
     printf("    Enable Muxing: enables the multiplexing timer \n\r");
     printf("    Disable Muxing: disable the multiplexing timer \n\r");
-    printf("    Print Test Message: Print out terminal test data\n\r");
     printf("    Credits: Displays creators\n\r");
     printf("    Help: This Command\n\r");
     printf("    Set Red: Sets all pixels in display red\n\r");
@@ -1441,7 +1399,6 @@ void usbUartPrintHelpMessage(void) {
 //    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
 //    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
 //    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
-    printf("    Set Panel Muxing On Time <x>: Sets the panel multiplexing timer period to x\n\r");
     printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
     printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");
     printf("    IP Addr?: Prints the logic board IP Address and MAC Address\r\n");
@@ -1449,7 +1406,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Frame Num <x>: Sets the number of frames for the standard operation state machine to loop through\r\n");
     printf("    Get Frame Num: Reads how many frames the standard operation state machine is looping through\r\n");
     printf("    Enable State Machine: Enables the standard operation state machine, or 'Autopilot'\r\n");
-    printf("    Disable State Machine: Disables the standard operation state machine\r\n");
+    printf("    Disable State Machine: Disables the standard operation state machine, allowing serial interface image selection\r\n");
     
     
     printf("Help messages and neutral responses appear in yellow\n\r");
