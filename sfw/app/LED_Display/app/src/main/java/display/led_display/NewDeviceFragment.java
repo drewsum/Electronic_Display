@@ -66,6 +66,7 @@ public class NewDeviceFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().setTitle("New Device");
     }
 
     @Override
@@ -86,7 +87,7 @@ public class NewDeviceFragment extends Fragment {
                 String newIPAddress = inputIpAddress.getText().toString();
                 EditText inputPortNumber = rootView.findViewById(R.id.inputPortNumber);
                 String newPortNumber = inputPortNumber.getText().toString();
-                TinyDB tinyDB = new TinyDB(getContext());
+                TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
                 ArrayList<String> deviceList = tinyDB.getListString("deviceList");
                 deviceList.add(newDeviceName);
                 tinyDB.putListString("deviceList", deviceList);

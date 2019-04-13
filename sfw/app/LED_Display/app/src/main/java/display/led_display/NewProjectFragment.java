@@ -66,6 +66,7 @@ public class NewProjectFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().setTitle("New Project");
     }
 
     @Override
@@ -82,7 +83,7 @@ public class NewProjectFragment extends Fragment {
                 // TODO Auto-generated method stub
                 EditText inputProjectName = rootView.findViewById(R.id.inputProjectName);
                 String newProjectName = inputProjectName.getText().toString();
-                TinyDB tinyDB = new TinyDB(getContext());
+                TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
                 ArrayList<String> projectList = tinyDB.getListString("projectList");
                 projectList.add(newProjectName);
                 tinyDB.putListString("projectList", projectList);

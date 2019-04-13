@@ -75,6 +75,7 @@ public class UploadProjectFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().setTitle("Upload Project");
 //        MenuActivity parent = (MenuActivity)this.getActivity().getParent();
 //        Project[] projectList = parent.database.projectDao.loadAll();
 //        Log.d("projects: ", "" + projectList[0].getProjectName());
@@ -87,7 +88,7 @@ public class UploadProjectFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_upload_project, container, false);
         final View finView = rootView;
-        final TinyDB tinyDB = new TinyDB(getContext());
+        final TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
         final ArrayList<String> projectList = tinyDB.getListString("projectList");
         Log.d("projectList", projectList.toString());
         final ArrayList<String> deviceList = tinyDB.getListString("deviceList");
@@ -160,10 +161,30 @@ public class UploadProjectFragment extends Fragment {
                         io.printStackTrace();
                     }
                     byte[] printMe = pixelsConverter.BitmapToByteArray(bitmap, panels_width, panels_height);
-                    WiFiController wiFiController = new WiFiController(getActivity().getBaseContext(), "Display Board");
+                    WiFiController wiFiController = new WiFiController(getView(), getActivity().getBaseContext(), selectedDevice);
                     String str = "";
                     // use a string builder
                     payloadList.add("Clear_EBI");
+                    File file = new File("/storage/emulated/0/Download" + "/values.txt");
+                    Log.d("Filepath", file.getAbsolutePath());
+                    String s = "";
+//                    try (PrintWriter out = new PrintWriter(file)) {
+//                        for(int w = 0; w < printMe.length; w++) {
+//                            s = String.format("0x%02X, ", printMe[w]);
+//                            if(w == printMe.length-1)
+//                            {
+//                                s = String.format("0x%02X", printMe[w]);
+//                            }
+//                            if(w % 10 == 0)
+//                            {
+//                                out.println();
+//                            }
+//                            out.print(s);
+//                        }
+//                    } catch (FileNotFoundException io) {
+//                        System.out.println(io);
+//                    }
+
                     for (int h = 0; h < printMe.length; h++) {
                         if (h % 512 == 0) {
                             str = "";
@@ -177,6 +198,8 @@ public class UploadProjectFragment extends Fragment {
                     payloadList.add("EBI_2_Flash=" + i + " ");
                     if(i == frameList.size()-1) {
                         payloadList.add("Num_Frames=" + (frameList.size()-1) + " ");
+                        payloadList.add("Delay_Time=20_");
+                        payloadList.add("Restart_State_Machine");
                     }
                     Log.d("size of payload", "" + payloadList.size());
                     wiFiController.sendOverWiFi("ImageData", payloadList);

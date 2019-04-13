@@ -1,6 +1,8 @@
 package display.led_display.helper;
 
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -15,24 +17,25 @@ import java.util.ArrayList;
 public class TCPClient {
 
     private final Handler handler;
-    private MessageCallback messageCallback;
     private String ipAddress, incomingMessage;
     private int portNumber;
     private ArrayList<String> messages;
     private boolean mRun;
+    private int progressCount;
     BufferedReader in;
     PrintWriter out;
 
-    public TCPClient(Handler handler, String ipAddress, int portNumber, ArrayList<String> messages, MessageCallback messageCallback) {
+    public TCPClient(Handler handler, String ipAddress, int portNumber, ArrayList<String> messages) {
         this.handler = handler;
         this.ipAddress = ipAddress;
         this.portNumber = portNumber;
         this.messages = messages;
-        this.messageCallback = messageCallback;
+        this.progressCount = 0;
     }
 
     public void run() {
         mRun = true;
+        Bundle bundle = new Bundle();
         Log.d("handler", this.handler.toString());
         Log.d("handler", ""+this.handler.hasMessages(1));
         try {
@@ -44,8 +47,14 @@ public class TCPClient {
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 Log.d("TCPClient", "In/Out created");
                 for(int i = 0; i < messages.size(); i++) {
-                    Log.d("Loop Count", ""+i);
+                    progressCount++;
+                    Log.d("Progress Count", ""+progressCount);
                     //Sending message with command specified by AsyncTask
+                    bundle.remove("progress");
+                    bundle.putInt("progress", progressCount);
+                    Message msg = new Message();
+                    msg.setData(bundle);
+                    handler.sendMessage(msg);
                     sendMessage(messages.get(i));
                     while (mRun) {
                         Log.d("waiting", "give ME SOMETHING!!!");
@@ -90,9 +99,5 @@ public class TCPClient {
 
     public boolean isRunning() {
         return mRun;
-    }
-
-    public interface MessageCallback {
-        public void callbackMessageReceiver(String message);
     }
 }

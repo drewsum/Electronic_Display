@@ -1,6 +1,8 @@
 package display.led_display;
 
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -78,6 +80,7 @@ public class ProjectPreviewFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().setTitle("Project Preview");
     }
 
     @Override
@@ -87,11 +90,14 @@ public class ProjectPreviewFragment extends Fragment {
         // Inflate the layout for this fragment
         Bundle arguments = getArguments();
         final String projectName = arguments.getString("projectName");
+        Log.d("projectName", projectName);
         TextView textDisplayingProject = rootView.findViewById(R.id.textCurrentFrameCount);
         textDisplayingProject.setText("Preview Project: " + projectName);
-        TinyDB tinyDB = new TinyDB(getContext());
+        TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
         framesList = tinyDB.getListString(projectName + "frameList");
+        Log.d("frameList", framesList.toString());
         framesList.remove(0);
+        Log.d("frameList", framesList.toString());
         // set up edit button
         Button buttonEditProject = rootView.findViewById(R.id.buttonEditProject);
         buttonEditProject.setOnClickListener(new Button.OnClickListener() {
@@ -138,15 +144,18 @@ public class ProjectPreviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
-        Log.d("framesList[0]", framesList.get(0));
         updateImage();
     }
 
     private void updateImage() {
-        loadImageFromStorage(framesList.get(currentIndex));
-        TextView textFrameCount = getView().findViewById(R.id.textFrameDisplayed);
-        textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
-
+        if(!framesList.isEmpty()) {
+            loadImageFromStorage(framesList.get(currentIndex));
+            TextView textFrameCount = getView().findViewById(R.id.textFrameDisplayed);
+            textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
+        } else {
+            ImageView imagePreview = getView().findViewById(R.id.imagePreview);
+            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.marquette));
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -188,9 +197,12 @@ public class ProjectPreviewFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void loadImageFromStorage(String path) {
+    private void loadImageFromStorage(String fileName) {
         try {
-            File f = new File(path);
+            ContextWrapper cw = new ContextWrapper(getContext().getApplicationContext());
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            // Create imageDir
+            File f = new File(directory, fileName);
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
             imagePreview.setImageBitmap(b);

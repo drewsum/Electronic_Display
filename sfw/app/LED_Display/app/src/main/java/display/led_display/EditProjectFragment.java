@@ -74,6 +74,7 @@ public class EditProjectFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().setTitle("Edit Project");
     }
 
     @Override
@@ -86,7 +87,7 @@ public class EditProjectFragment extends Fragment {
         // this only works night now if you nav from new project
         projectName = arguments.getString("projectName");
         // get the frames for that project
-        TinyDB tinyDB = new TinyDB(getContext());
+        TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
         framesList = tinyDB.getListString(projectName + "frameList");
         Log.d("FrameList fetched", framesList.toString());
         namingNumber = Integer.parseInt(framesList.get(0));

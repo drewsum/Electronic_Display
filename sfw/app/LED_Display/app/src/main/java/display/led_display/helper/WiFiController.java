@@ -6,11 +6,16 @@ import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
+
+import display.led_display.R;
 
 public class WiFiController {
 
@@ -21,8 +26,9 @@ public class WiFiController {
     private ArrayList<String> messages;
     private TCPClient tcpClient;
     private Context context;
+    private ProgressBar pb;
 
-    public WiFiController(Context context, String deviceName) {
+    public WiFiController(View v, Context context, String deviceName) {
         this.context = context;
         TinyDB tinyDB = new TinyDB(context.getApplicationContext());
         ArrayList<String> deviceData = tinyDB.getListString(deviceName + "Data");
@@ -32,27 +38,33 @@ public class WiFiController {
                 .setTitle("TCP Connection:")
                 .setCancelable(true)
                 .create();
+        if(v!=null)
+            this.pb = v.findViewById(R.id.progressBar);
     }
 
     public void sendOverWiFi(String messageType, ArrayList<String> messages) {
         this.messages = messages;
         Log.d("data length", "" + messages.size());
         if (messageType == "ImageData") {
-            new TCPAsyncTask(WiFiController.handler).execute();
+            new TCPAsyncTask(handler).execute();
             while(!handler.hasMessages(2)) {
 
             }
             handler.removeMessages(2);
             Log.d("message removed if false", ""+handler.hasMessages(2));
         } else {
-            new TCPAsyncTask(WiFiController.handler).execute();
+            new TCPAsyncTask(handler).execute();
         }
     }
 
-    private static Handler handler = new Handler() {
+    private Handler handler = new Handler() {
+        public int progress;
         @Override
         public void handleMessage (Message msg){
             Log.d("h", "Handling something");
+            Bundle data = msg.getData();
+            progress = data.getInt("progress");
+            Log.d("Handler Received Progress", ""+progress);
             switch (msg.what) {
                 case 0:
                     Log.d("Handler is handling","0");
@@ -66,7 +78,6 @@ public class WiFiController {
 
     public class TCPAsyncTask extends AsyncTask<Void, Void, TCPClient> {
         private Handler handler;
-
         public TCPAsyncTask(Handler handler) {
             this.handler = handler;
         }
@@ -74,13 +85,7 @@ public class WiFiController {
         @Override
         protected TCPClient doInBackground(Void... params) {
             try {
-                tcpClient = new TCPClient(handler, ipAddress, portNumber, messages, new TCPClient.MessageCallback(){
-                    @Override
-                    public void callbackMessageReceiver(String message) {
-                        Log.d("got", "something");
-                        publishProgress();
-                    }
-                });
+                tcpClient = new TCPClient(handler, ipAddress, portNumber, messages);
             } catch (Exception e) {
                 e.printStackTrace();
             }

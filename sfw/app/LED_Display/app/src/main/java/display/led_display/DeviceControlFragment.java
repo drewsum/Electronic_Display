@@ -71,6 +71,7 @@ public class DeviceControlFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().setTitle("Device Control");
     }
 
     @Override
@@ -83,7 +84,7 @@ public class DeviceControlFragment extends Fragment {
         TextView textDeviceName = rootView.findViewById(R.id.textDeviceName);
         textDeviceName.setText("Controlling Device: " + deviceName);
         TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-        final WiFiController wiFiController = new WiFiController(getContext(), deviceName);
+        final WiFiController wiFiController = new WiFiController(getView(), getContext(), deviceName);
         //deviceList = tinyDB.getListString(projectName + "frameList");
         // set up Ping button
         Button buttonPing = rootView.findViewById(R.id.buttonPing);
@@ -125,7 +126,7 @@ public class DeviceControlFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 //wiFiController.connectToNetwork(getContext());
                 ArrayList<String> messageList = new ArrayList<>();
-                messageList.add("Dim=" + brightnessLevel + " ");
+                messageList.add("Dim=" + brightnessLevel + "_");
                 wiFiController.sendOverWiFi("Control", messageList);
            }
        });

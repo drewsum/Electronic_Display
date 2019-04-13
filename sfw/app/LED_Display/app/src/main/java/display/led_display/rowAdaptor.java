@@ -104,7 +104,7 @@ public class rowAdaptor extends BaseAdapter {
             buttonUp.setFocusable(false); // needed to allow row to still be clickable
             ImageButton buttonDown = vi.findViewById(R.id.buttonDown);
             buttonDown.setFocusable(false); // needed to allow row to still be clickable
-            final TinyDB tinyDB = new TinyDB(vi.getContext());
+            final TinyDB tinyDB = new TinyDB(vi.getContext().getApplicationContext());
             //data.get(position);
             String[] splitPath = data.get(position).split("/");
             String dirtyName = splitPath[splitPath.length-1];
