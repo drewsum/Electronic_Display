@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 
@@ -35,6 +37,7 @@ public class ImageSelectActivity extends AppCompatActivity {
 
     // true: Aspect Ratio, false: Stetch to Fit
     Boolean boolAspectRatio = false;
+    int rotationAmount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +61,6 @@ public class ImageSelectActivity extends AppCompatActivity {
                         boolAspectRatio = true;
                         Log.d("switchPressed", "Keep Aspect Ratio");
                         saveOff();
-//                        TinyDB tinyDB = new TinyDB(getApplicationContext());
-//                        Map<String, ?> tinyDBAll = tinyDB.getAll();
-//                        Log.d("print all", tinyDBAll.toString());
                     } else {
                         // switch is "OFF" so it is false
                         boolAspectRatio = false;
@@ -70,6 +70,20 @@ public class ImageSelectActivity extends AppCompatActivity {
                 }
             });
         }
+
+        ImageButton buttonRotateClockwise = findViewById(R.id.buttonRotateClockwise);
+        buttonRotateClockwise.setOnClickListener(new ImageButton.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if(rotationAmount < 270) {
+                    rotationAmount += 90;
+                } else {
+                    rotationAmount = 0;
+                }
+                saveOff();
+            }
+        });
 
         buttonLoadImage.setOnClickListener(new Button.OnClickListener() {
 
@@ -94,6 +108,8 @@ public class ImageSelectActivity extends AppCompatActivity {
             targetUri = data.getData();
             // display the image here depending on how the boolean value is
             Button confirmButton = findViewById(R.id.buttonConfirm);
+            rotationAmount = 0;
+            boolAspectRatio = false;
             saveOff();
             confirmButton.setOnClickListener(new Button.OnClickListener() {
                 @Override
@@ -117,10 +133,13 @@ public class ImageSelectActivity extends AppCompatActivity {
             int panels_width = 320;
             int panels_height = 256;
             if (!boolAspectRatio) {
+                bitmap = rotateImage(bitmap, rotationAmount);
                 scaledBitmap = Bitmap.createScaledBitmap(bitmap, panels_width, panels_height, true);
             } else {
+                bitmap = rotateImage(bitmap, rotationAmount);
                 scaledBitmap = fixedRatio(bitmap, panels_width, panels_height);
             }
+            bitmap.recycle();
             targetImage.setImageBitmap(scaledBitmap);
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
             File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
@@ -176,4 +195,13 @@ public class ImageSelectActivity extends AppCompatActivity {
             return imageToScale;
         }
     }
+
+    private Bitmap rotateImage(Bitmap src, int degree)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap bitmap = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+        return bitmap;
+    }
+
 }

@@ -96,8 +96,6 @@ public class ProjectPreviewFragment extends Fragment {
         TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
         framesList = tinyDB.getListString(projectName + "frameList");
         Log.d("frameList", framesList.toString());
-        framesList.remove(0);
-        Log.d("frameList", framesList.toString());
         // set up edit button
         Button buttonEditProject = rootView.findViewById(R.id.buttonEditProject);
         buttonEditProject.setOnClickListener(new Button.OnClickListener() {

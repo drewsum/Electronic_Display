@@ -94,11 +94,6 @@ public class rowAdaptor extends BaseAdapter {
             ImageView thumbnail = vi.findViewById(R.id.imageThumb);
             thumbnail.setImageBitmap(loadImageFromStorage(data.get(position)));
             text.setText("Frame " + (position + 1)); // populate rows
-            // use a spinner to select a number (time)
-//            Spinner dropdown = vi.findViewById(R.id.spinnerDropDown);
-//            String[] items = new String[]{"5", "10", "15", "20", "25", "30", "60", "120"};
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(vi.getContext(), android.R.layout.simple_spinner_dropdown_item, items);
-//            dropdown.setAdapter(adapter);
             // use up and down arrows to adjust ordering
             ImageButton buttonUp = vi.findViewById(R.id.buttonUp);
             buttonUp.setFocusable(false); // needed to allow row to still be clickable
@@ -110,8 +105,8 @@ public class rowAdaptor extends BaseAdapter {
             String dirtyName = splitPath[splitPath.length-1];
             final String projectName = dirtyName.substring(0, dirtyName.indexOf("frame"));
             final ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
-            final String namingNumber = framesList.get(0);
-            framesList.remove(0);
+            final ArrayList<String> dataList = tinyDB.getListString(projectName + "dataList");
+            final String namingNumber = dataList.get(0);
             buttonUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -124,10 +119,9 @@ public class rowAdaptor extends BaseAdapter {
                         Collections.swap(framesList, position, framesList.size() -1);
                     }
                     // save off the ordering
-                    framesList.add(0, namingNumber);
+                    dataList.add(0, namingNumber);
                     tinyDB.putListString(projectName + "frameList", framesList);
                     Log.d("new ordered frameList", framesList.toString());
-                    framesList.remove(0);
                     data = framesList;
                     notifyDataSetChanged();
                     //TextView textFrameCount = (TextView) finView.findViewById(R.id.textFrameCount);
@@ -144,10 +138,9 @@ public class rowAdaptor extends BaseAdapter {
                         Collections.swap(framesList, position, 0);
                     }
                     // save off the ordering
-                    framesList.add(0, namingNumber);
+                    dataList.add(0, namingNumber);
                     tinyDB.putListString(projectName + "frameList", framesList);
                     Log.d("new ordered frameList", framesList.toString());
-                    framesList.remove(0);
                     data = framesList;
                     notifyDataSetChanged();
                 }
@@ -172,7 +165,7 @@ public class rowAdaptor extends BaseAdapter {
                         projectName = projectName.substring(0, projectName.indexOf("frame"));
                         ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
                         data.remove(position);
-                        framesList.remove(position + 1);
+                        framesList.remove(position);
                         tinyDB.putListString(projectName + keyName, framesList);
                         Log.d("New " + projectName + keyName, data.toString());
                         TextView textFrameCount = finView.getRootView().findViewById(R.id.textFrameCount);

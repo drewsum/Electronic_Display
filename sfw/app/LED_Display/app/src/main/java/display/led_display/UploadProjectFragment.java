@@ -127,6 +127,7 @@ public class UploadProjectFragment extends Fragment {
                 ListView projectListview = getView().findViewById(R.id.projectList);
                 String selectedProject = projectList.get(projectListview.getSelectedItemPosition()+1);
                 ArrayList<String> frameList = tinyDB.getListString(selectedProject + "frameList");
+                ArrayList<String> dataList = tinyDB.getListString(selectedProject + "dataList");
                 ListView deviceListview = getView().findViewById(R.id.deviceList);
                 String selectedDevice = deviceList.get(deviceListview.getSelectedItemPosition()+1);
                 ArrayList<String> deviceData = tinyDB.getListString(selectedDevice + "Data");
@@ -141,9 +142,9 @@ public class UploadProjectFragment extends Fragment {
                 Log.d("frameList size", ""+frameList.size());
                 Log.d("frameList", frameList.toString());
 
-                for(int i = 1; i < frameList.size(); i++) {
+                for(int i = 0; i < frameList.size(); i++) {
                     payloadList.clear();
-                    if(i == 1) {
+                    if(i == 0) {
                         payloadList.add("Power=0");
                     }
                     // get image from internal storage
@@ -195,10 +196,9 @@ public class UploadProjectFragment extends Fragment {
                             payloadList.add(str);
                         }
                     }
-                    payloadList.add("EBI_2_Flash=" + i + " ");
+                    payloadList.add("EBI_2_Flash=" + (i+1) + " ");
                     if(i == frameList.size()-1) {
-                        payloadList.add("Num_Frames=" + (frameList.size()-1) + " ");
-                        payloadList.add("Delay_Time=20_");
+                        payloadList.add("Project_Data=" + (frameList.size()) + "," + dataList.get(1) + "_");
                         payloadList.add("Restart_State_Machine");
                     }
                     Log.d("size of payload", "" + payloadList.size());
