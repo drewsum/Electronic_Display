@@ -1312,6 +1312,22 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    else if (strcmp(line_in, "Easter Egg") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        
+        printf( " _    _ _           _   _              ______ _____ _____ ___  \r\n"
+                "| |  | | |         | | ( )             | ___ \\_   _/  __ \\__ \\ \r\n"
+                "| |  | | |__   __ _| |_|/ ___    __ _  | |_/ / | | | /  \\/  ) |\r\n"
+                "| |/\\| | '_ \\ / _` | __| / __|  / _` | |  __/  | | | |     / / \r\n"
+                "\\  /\\  / | | | (_| | |_  \\__ \\ | (_| | | |    _| |_| \\__/\\|_|  \r\n"
+                " \\/  \\/|_| |_|\\__,_|\\__| |___/  \\__,_| \\_|    \\___/ \\____/(_)  \r\n");
+
+        terminalTextAttributesReset();
+        
+    }
+    
 }
 
 // Print help message, used in a command above

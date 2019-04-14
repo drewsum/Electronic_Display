@@ -186,7 +186,7 @@ void pos5pPGoodFEHandler(void) {
 // Display enable falling edge interrupt handler
 void displayEnableFEHandler(void) {
     
-    if (T5CONbits.ON) {
+    if (T5CONbits.ON || autopilot || continue_autopilot) {
         
         panelMultiplexingSuspend();
         
