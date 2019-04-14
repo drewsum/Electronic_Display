@@ -42,11 +42,12 @@ enum spi_flash_state_t {
     
 } spi_flash_state;
 
+// This flag signifies that a SPI flash read operation has completed
+// Used for standard operation state machine
+uint8_t SPI_Read_Finished_Flag;
 
 // indexes ebi sram array as we read the flash chip
 uint32_t sram_addr_index;
-
-volatile uint8_t SPI_Read_Finished_Flag;
 
 // Function to initialize SPI
 void spiFlashInit(void);
@@ -64,10 +65,10 @@ void printSPIFlashStatus(void);
 void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void);
 
 // SPI3 Receive Done interrupt service routine
-void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void);
+void __ISR(_SPI3_RX_VECTOR, ipl2SRS) spi3ReceiveISR(void);
 
 //SPI3 Transfer Done interrupt service routine
-void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void);
+void __ISR(_SPI3_TX_VECTOR, ipl2SRS) spi3TransferISR(void);
 
 // Function to write single byte to transmit FIFO
 void SPI3_writeByte(uint8_t write_byte);

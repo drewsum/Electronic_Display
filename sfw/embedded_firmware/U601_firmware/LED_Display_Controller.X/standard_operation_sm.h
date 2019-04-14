@@ -30,6 +30,8 @@ volatile uint8_t image_num;
 volatile uint8_t SM_Timer_Done;
 volatile uint8_t First_Load;
 volatile uint8_t sm_previous;
+volatile uint8_t eventually_continue_flag;
+volatile uint32_t set_timer_val;
 
 // Initialize state machine 
 void standardOpSMInit(void);
@@ -53,10 +55,16 @@ void stateMachineTimerInit(void);
 void stateMachineTimerStart(uint32_t timer_period_seconds);
 
 // This function will read from the program flash memory and determine number of images to display
-uint8_t readFrameNumber(void);
+uint8_t readFrameNVM(void);
+
+// This function will read from the program flash memory and determine image on time
+uint32_t readDelayNVM(void);
 
 // This function will write to the program flash memory to tell how many images should be displayed
-void writeFrameNumber(uint8_t frame_num);
+void writeNVMVariables(uint8_t frame_num, uint32_t delay_value);
+
+// This function is required for writing to and erasing internal PIC Flash memory
+void NVMInitOperation(void);
 
 // This function will be called from main for autopilot mode
 void autopilotMode(void);

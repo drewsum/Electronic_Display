@@ -67,8 +67,12 @@ void esp8266ReceiveHandler(void);
 void esp8266RingBufferPull(void);
 void esp8266RingBufferLUT(char * esp_8266_line);
 
-// This function prints the current ESP Line to the USB UART terminal
-void esp8266PrintReceivedLine(void);
+// WiFi specific functions
+void sendCIPData(uint8_t connectionId, char *data, uint8_t length);
+void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length);
+
+// Caroline made this
+// void esp8266PutStringInArray(void);
 
 #endif /* _ESP8266_H */
 

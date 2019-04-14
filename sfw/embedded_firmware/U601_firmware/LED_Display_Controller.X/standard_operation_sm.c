@@ -12,22 +12,22 @@
 #include "panel_control.h"
 #include "device_control.h"
 #include "32mz_interrupt_control.h"
+#include "usb_uart.h"
 
 // Initialize state machine 
 void standardOpSMInit(void) {
     
     //if(readFrameNumber() >= 2 && readFrameNumber() <= 8) {
         
-        // stop muxing to begin state machine
-        panelMultiplexingSuspend();
-        
+        fillRamBufferSplashScreen();
+        panelMultiplexingTimerStart();
+    
         // set various start up flags and variables
         flash_chip = 1;
         autopilot = 1;
         continue_autopilot = 1;
         SM_Timer_Done = 1;
-        //image_num = readFrameNumber();
-        image_num = 8;
+        image_num = readFrameNVM();
         state = sm_first_load;
         
     //}
@@ -55,7 +55,7 @@ void nextFlashData(void){
 void exitSM(void) {
     
     // set various ending flags and variables
-    autopilot = 0;    
+    autopilot = 0; 
     T6CONbits.ON = 0;
     flash_chip = 1;
     
@@ -115,6 +115,11 @@ void stateMachineTimerInit(void) {
     TMR6 = 0x0000;
     TMR7 = 0x0000;
     
+    // This variable is the number of seconds each frame is displayed during
+    // standard operation state machine execution
+    // Starts at 5 for now
+    // set_timer_val = 5;
+    
 }
  
 
@@ -140,7 +145,7 @@ void stateMachineTimerStart(uint32_t timer_period_seconds) {
     
 }
 // This function will read from the program flash memory and determine number of images to display
-uint8_t readFrameNumber(void){
+uint8_t readFrameNVM(void){
         
     uint32_t frame_num_ret = *((uint32_t *)(0xBD1FFFF0));
     
@@ -148,61 +153,53 @@ uint8_t readFrameNumber(void){
     
 }
 
-// This function will write to the program flash memory to tell how many images should be displayed
-void writeFrameNumber(uint8_t frame_num){
+// This function will read from the program flash memory and determine image on time
+uint32_t readDelayNVM(void) {
     
-    // Page Erase
-    NVMADDR = 0x1D1FEFFF;
-    NVMCONbits.NVMOP = 0x4;
+    uint32_t delay_val_ret = *((uint32_t *)(0xBD1FFFF4));
+    
+    return (uint8_t) delay_val_ret;
+    
+}
 
-    int int_status; // storage for current Interrupt Enable state ]
+// This function will write to the program flash memory to tell how many images should be displayed
+void writeNVMVariables(uint8_t frame_num, uint32_t delay_value) {
     
-    // Disable Interrupts 
-    int_status = getGlobalInterruptsState();
+    PRECONbits.PREFEN = 0;
+    
     disableGlobalInterrupts();
     
-    NVMKEY = 0x0;
-    NVMKEY = 0xAA996655; 
-    NVMKEY = 0x556699AA; 
-    NVMCONSET = 1 << 15;// must be an atomic instruction 
-    while(NVMCONbits.WR);
-    NVMCONbits.WREN = 0;
+    // Page Erase
+    NVMADDR = 0x1D1FC000;
+    NVMCONbits.NVMOP = 0x4;
+
+    // NVM Write Enable
+    NVMCONbits.WREN = 1;
     
-    // Restore Interrupts
-    if (int_status && 0x00000001) {
-        
-        enableGlobalInterrupts();
-        
-    }
+    // Start operation
+    NVMInitOperation();
+    
+    // Wait for operation to complete
+    while(NVMCONbits.WR != 0);
+    NVMCONbits.WREN = 0;
     
     // set address and data reg
     NVMADDR = 0x1D1FFFF0;
     NVMDATA0 = (uint32_t) frame_num;
-        
-    NVMCONbits.NVMOP = 0x1;
+    NVMDATA1 = delay_value;
+    NVMDATA2 = 0x00000000;
+    NVMDATA3 = 0x00000000;
+    
+    NVMCONbits.NVMOP = 0x2;
     NVMCONbits.WREN = 1;
     
-    // Disable Interrupts 
-    int_status = getGlobalInterruptsState();
-    disableGlobalInterrupts();
+    // Start operation
+    NVMInitOperation();
     
-    NVMKEY = 0x0;
-    NVMKEY = 0xAA996655; 
-    NVMKEY = 0x556699AA; 
-    NVMCONSET = 1 << 15;// must be an atomic instruction 
-    
-    // Restore Interrupts
-    if (int_status && 0x00000001) {
-        
-        enableGlobalInterrupts();
-        
-    }
-    
-    while(NVMCONbits.WR);
-    
+    while(NVMCONbits.WR != 0);
     NVMCONbits.WREN = 0;
     
-    if (NVMCON & 0x3000) {
+    if (NVMCON && 0x3000) {
         
         // error flag
         
@@ -210,13 +207,29 @@ void writeFrameNumber(uint8_t frame_num){
     
     // Lock NVM
     NVMKEY = 0x0;
+    
+    enableGlobalInterrupts();
+    
+    PRECONbits.PREFEN = 1;
+    
+}
+
+// This function is required for writing to and erasing internal PIC Flash memory
+void NVMInitOperation(void) {
+    
+    NVMKEY = 0x0;
+    NVMKEY = 0xAA996655; 
+    NVMKEY = 0x556699AA; 
+    NVMCONSET = 1 << 15;// must be an atomic instruction 
+    
+    
 }
 
 // This function will be called from main for autopilot mode
 void autopilotMode(void) {
-    
-    // state machine switch statement
-    if(continue_autopilot) {
+//    
+//    // state machine switch statement
+//    if(continue_autopilot) {
 
         switch(state) {
             // sm_start state initializes state machine
@@ -233,7 +246,7 @@ void autopilotMode(void) {
             case(sm_next_load):
                 state = sm_display;
                 nextFlashData();
-                stateMachineTimerStart(3);
+                stateMachineTimerStart(readDelayNVM());
                 break;
             // sm_display puts ebi data to buffer    
             case(sm_display):
@@ -246,11 +259,21 @@ void autopilotMode(void) {
                     
                     movePanelDataFromEBISRAM();
 
-                    terminalTextAttributesReset();
-                    terminalTextAttributes(GREEN, BLACK, NORMAL);
-                    printf("Displaying Frame Number %u\n\r", flash_chip);
-                    terminalTextAttributesReset(); 
-
+                    if (usb_in_use_flag) {
+                    
+                        terminalTextAttributesReset();
+                        terminalTextAttributes(GREEN, BLACK, NORMAL);
+                        printf("Displaying Frame Number %u\n\r", flash_chip);
+                        terminalTextAttributesReset(); 
+                     
+                    }
+                    
+                    else {
+                     
+                        softwareDelay(200);
+                        
+                    }  
+                    
                     flash_chip++;
                     
                     // if it's the first image, start muxing
@@ -269,10 +292,10 @@ void autopilotMode(void) {
                 break;
 
         }
-
-    } else {
-
-        exitSM();
-
-    }
+//
+//    } else {
+//
+//        exitSM();
+//
+//    }
 }

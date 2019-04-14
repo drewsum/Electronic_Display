@@ -14,6 +14,8 @@
 #include "panel_control.h"
 #include "external_bus_interface.h"
 #include "standard_operation_sm.h"
+// #include "test_image_1.h"
+#include "spi_flash.h"
 
 // This pragma tells the linker to allow access of EBI memory space
 #pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
@@ -163,6 +165,19 @@ void esp8266InitializeConfiguration(void) {
 // This is the esp8266 receive interrupt service routine
 void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void) {
     
+    // Disable SPI3 receive interrupt to stop state machine
+    if (continue_autopilot) {
+        
+        // SPI_Read_Finished_Flag = 0;
+        disableInterrupt(SPI3_Receive_Done);
+        // continue_autopilot = 0;
+        // state = sm_start;
+        // sm_previous = 0;
+        T6CONbits.ON = 0;
+        panelMultiplexingSuspend();
+        
+    }
+    
     // Do receive tasks
     esp8266ReceiveHandler();
     
@@ -290,12 +305,7 @@ void esp8266ReceiveHandler(void) {
         U1STAbits.OERR = 0;
         U1MODEbits.ON = 1;
     }
-    // need to add a check on a flag to see if we are reading image
-    // bytes or just string bytes. image bytes need to go straight to
-    // EBI and not go into the ring buffer.
-    if(1 == esp_8266_FlashFlag) {
-        
-    }
+
     while(U1STAbits.URXDA) {
         
         esp_8266_RxBuffer[esp_8266_RxHead++] = U1RXREG;
@@ -349,7 +359,7 @@ void esp8266RingBufferPull(void) {
     esp_8266_RxTail = 0;
     esp_8266_RxHead = 0;
     esp_8266_RxCount = 0;
-    
+
     // Try to kill off ending returns/newlines
     /*while((esp_8266_line[strlen(esp_8266_line) - 1] == (int) '\n') ||
           (esp_8266_line[strlen(esp_8266_line) - 1] == (int) '\r')) {
@@ -370,8 +380,11 @@ void esp8266RingBufferPull(void) {
 
 void esp8266RingBufferLUT(char * line_in) {
  
-    // +IPD is satisfied during a TCP packet
-    if (strstart(line_in, "+IPD,") == 0 || strstart(line_in, "IPD,") == 0) {
+    if (    strstart(line_in, "+IPD,") == 0 || 
+            strstart(line_in, "IPD,") == 0 ||
+            strstart(line_in, "PD,") == 0 ||
+            strstart(line_in, "D,") == 0
+            ) {
     
         uint32_t dummy;
         sscanf(line_in, "+IPD,%u,%u:%2499c",
@@ -381,72 +394,94 @@ void esp8266RingBufferLUT(char * line_in) {
         
         // printf("Received string = %s, length = %u\r\n", received_string, strlen(received_string));
         
-        if (0 == strstart(received_string, "hello world")) {
-            printf("Received Hello World\r\n");
+        if (0 == strstart(received_string, "ping")) {
+            
+            eventually_continue_flag = 1;
+            
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
             
-            esp8266PrintReceivedLine();
+            if (usb_in_use_flag) {
             
-        }
-        
-        // This allows the android app to toggle the multiplexing state
-        else if (0 == strstart(received_string, "Power=toggle")) {
-         
-            if (muxing_state) {
-        
-                panelMultiplexingSuspend();
-                muxing_state = 0;
-                
-                // state machine flags
-                if (autopilot) continue_autopilot = 0;
-                state = sm_start;
-                
-            } else {
-        
-                //panelMultiplexingTimerStart();
-                //muxing_state = 1;
-                
-                // state machine flags
-                continue_autopilot = 1;
-                state = sm_start;
-                
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                // printf("WiFi Module Sent:\r\n");
+                printf("Received Hello World\r\n");
+                terminalTextAttributesReset();
+
             }
             
-            strcpy(response_message, "Message Received\r\n");
-            // Tell kevin we received message
-            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
-            
-            esp8266PrintReceivedLine();
-            
         }
         
-        // This allows the android app to disable multiplexing
+//        else if (0 == strstart(received_string, "Power=toggle")) {
+//         
+//            if (muxing_state || T5CONbits.ON) {
+//                
+//                panelMultiplexingSuspend();
+//                muxing_state = 0;
+//                continue_autopilot = 0;
+//                state = sm_start;
+//                sm_previous = 0;
+//                T6CONbits.ON = 0;
+//                eventually_continue_flag = 0;
+//                
+//            } else {
+//        
+//                //panelMultiplexingSuspend();
+//                fillRamBufferSplashScreen();
+//                // panelMultiplexingTimerStart();
+//                muxing_state = 1;
+//                
+//                // state machine flags
+//                eventually_continue_flag = 1;
+//                
+//            }
+//            
+//            strcpy(response_message, "Message Received\r\n");
+//            // Tell kevin we received message
+//            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
+//            
+//            if (usb_in_use_flag) {
+//            
+//                terminalTextAttributesReset();
+//                terminalTextAttributes(CYAN, BLACK, NORMAL);
+//                // printf("WiFi Module Sent:\r\n");
+//                printf("%s", esp_8266_line);
+//                terminalTextAttributesReset();
+//
+//            }
+//            
+//        }
+        
         else if (0 == strstart(received_string, "Power=0")) {
 
             panelMultiplexingSuspend();
             muxing_state = 0;
-            if (autopilot) {
-                
-                continue_autopilot = 0;
-                sm_previous = 1;
-                
-            } else {
-                
-                sm_previous = 0;
-                
-            }
-
+            
+            // Stop state machine
+            continue_autopilot = 0;
+            state = sm_start;
+            sm_previous = 0;
+            T6CONbits.ON = 0;
+            
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
             
-            esp8266PrintReceivedLine();
-            
+            if (usb_in_use_flag) {
+
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                // printf("WiFi Module Sent:\r\n");
+                printf("%s", esp_8266_line);
+                terminalTextAttributesReset();
+
+            }
+                
         }
         
-        // This allows the android app to clear EBI SRAM
+                
         else if (0 == strstart(received_string, "Clear_EBI")) {
 
             clearEBISRAM(); 
@@ -455,75 +490,44 @@ void esp8266RingBufferLUT(char * line_in) {
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
             
-            esp8266PrintReceivedLine();
-            
+            if (usb_in_use_flag) {
+
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                // printf("WiFi Module Sent:\r\n");
+                printf("%s", esp_8266_line);
+                terminalTextAttributesReset();
+
+            }
+                
         }
         
-        // This allows the android app to move data from EBI SRAM to SPI Flash
         else if (0 == strstart(received_string, "EBI_2_Flash=")) {
 
             uint32_t chip_to_write;
-            sscanf(received_string, "EBI_2_Flash=%u ", &chip_to_write);
+            sscanf(received_string, "EBI_2_Flash=%d", &chip_to_write);
             if (chip_to_write >= 1 && chip_to_write <= 8) SPI_FLASH_beginWrite((uint8_t) chip_to_write);
             
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
             
-            esp8266PrintReceivedLine();
-            
-        }
-        
-        // This allows the android app to tell us how many frames we need to loop through
-        // when operating on "autopilot"
-        else if (0 == strstart(received_string, "Num_Frames=")) {
+            if (usb_in_use_flag)  {
 
-            uint32_t number_of_frames;
-            sscanf(received_string, "Num_Frames=%u ", &number_of_frames);
-            if (number_of_frames >= 1 && number_of_frames <= 8) writeFrameNumber((uint8_t) number_of_frames);
-         
-            // erase unused flash chips
-//            if (number_of_frames < 8) {
-//                
-//                uint8_t erase_index;
-//                for (erase_index = number_of_frames + 1; erase_index <= 8; erase_index++) {
-//
-//                    SPI_FLASH_chipErase(erase_index);
-//                    
-//                }
-//
-//            }
-            
-            strcpy(response_message, "Message Received\r\n");
-            // Tell kevin we received message
-            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
-            
-            esp8266PrintReceivedLine();
-            
-        }
-        
-        // This allows the android app to tell us to resume "autopilot"
-        else if (0 == strstart(received_string, "Restart_State_Machine")) {
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                // printf("WiFi Module Sent:\r\n");
+                printf("%s", esp_8266_line);
+                terminalTextAttributesReset();
 
-            // set up state machine variables
-            state = sm_start;
-            continue_autopilot = 1;
-            
-            strcpy(response_message, "Message Received\r\n");
-            // Tell kevin we received message
-            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
-            
-            esp8266PrintReceivedLine();
-            
+            }
+                
         }
         
-        // This allows the android app to dim the panels
         else if (0 == strstart(received_string, "Dim=")) {
 
             uint32_t set_brightness;
-            sscanf(received_string, "Dim=%u ", &set_brightness);
-
-            printf("Set brightness = %u\r\n", set_brightness);
+            sscanf(received_string, "Dim=%d_", &set_brightness);
             
             if (set_brightness <= 100 && set_brightness >= 5) panelPWMSetBrightness((uint8_t) set_brightness);
             
@@ -531,14 +535,30 @@ void esp8266RingBufferLUT(char * line_in) {
             // Tell kevin we received message
             delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
             
-            esp8266PrintReceivedLine();
-        
+            if (usb_in_use_flag) {
+
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                // printf("WiFi Module Sent:\r\n");
+                printf("Set brightness = %d\r\n", set_brightness);
+                terminalTextAttributesReset();
+
+            }
+            
+            // panelMultiplexingSuspend();
+            fillRamBufferSplashScreen();
+            // panelMultiplexingTimerStart();
+            muxing_state = 1;
+
+            // state machine flags
+            eventually_continue_flag = 1;
+            
         }
         
-        // This allows the android app to send 512 Bytes of image data at a time
-        // This data is loaded into EBI SRAM
         else if (0 == strstart(received_string, "ImageData=")) {
 
+            disableInterrupt(PORTK_Input_Change_Interrupt);
+            
             uint32_t image_starting_addr;
             
             // Image data is encoded in this string
@@ -567,38 +587,111 @@ void esp8266RingBufferLUT(char * line_in) {
             strcpy(response_message, "Message Received\r\n");
             
             // Tell kevin we received message
-            // delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
-            memset(cipsend_message, 0, sizeof(cipsend_message));
-            sprintf(cipsend_message, "AT+CIPSEND=%u,%u\r\n\r\n", current_connection_id, strlen(response_message) + 1 + 15);
-            esp8266Putstring(cipsend_message);
-            delayTimerStart(0x0510, esp8266_tcp_response_delay2);
+            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
             
-            terminalTextAttributesReset();
-            terminalTextAttributes(CYAN, BLACK, NORMAL);
-            // printf("WiFi Module Sent:\r\n");
-            printf("Image Data Addr: 0x%06X\r\n", image_starting_addr);
-            terminalTextAttributesReset();
+            if (usb_in_use_flag)  {
+                
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                // printf("WiFi Module Sent:\r\n");
+                printf("Image Data: 0x%06X\r\n", image_starting_addr);
+                terminalTextAttributesReset();
         
+            }
+            
         }
         
-        // Send a late response to the android app if we were unable to parse strings
+        else if (0 == strstart(received_string, "Restart_State_Machine")) {
+
+            clearInterruptFlag(PORTK_Input_Change_Interrupt);
+            enableInterrupt(PORTK_Input_Change_Interrupt);
+            
+            fillRamBufferSplashScreen();
+            // panelMultiplexingTimerStart();
+            // muxing_state = 1;
+
+            // state machine flags
+//            continue_autopilot = 1;
+//            state = sm_start;
+            eventually_continue_flag = 1;
+                        
+            strcpy(response_message, "Message Received\r\n");
+            
+            // Tell kevin we received message
+            delayTimerStart(0x0FFF, esp8266_tcp_response_delay1);
+            
+            if (usb_in_use_flag) {
+
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                // printf("WiFi Module Sent:\r\n");
+                printf("State Machine Restarted\r\n");
+                terminalTextAttributesReset();
+
+            }
+                
+        }
+        
+        else if (0 == strstart(received_string, "Project_Data=")) {
+
+            uint32_t set_timer_val;
+            uint32_t set_frame_val;
+            sscanf(received_string, "Project_Data=%d,%d_", & set_frame_val, &set_timer_val);
+            
+            if (set_frame_val <= 8 && set_frame_val >= 1) writeNVMVariables((uint8_t) set_frame_val, set_timer_val);
+            
+            if (usb_in_use_flag) {
+                
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                printf("Set countdown value = %d\r\n", readDelayNVM());
+                printf("Set Frame num = %d\r\n", readFrameNVM());
+                terminalTextAttributesReset();
+
+            }
+
+            strcpy(response_message, "Message Received\r\n");
+            
+            // Tell kevin we received message
+            delayTimerStart(0x0FFF, esp8266_tcp_response_delay1);
+                            
+        }
+        
+        
+        
         else {
             strcpy(response_message, "Message Received\r\n");
             // Tell kevin we received message
             delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
             
-            esp8266PrintReceivedLine();
-            
+            if (usb_in_use_flag) {
+
+                terminalTextAttributesReset();
+                terminalTextAttributes(CYAN, BLACK, NORMAL);
+                // printf("WiFi Module Sent:\r\n");
+                printf("%s", esp_8266_line);
+                terminalTextAttributesReset();
+
+            }
+                
         }
         
     }
     
     else {
+    
+        if (usb_in_use_flag) {
 
-        esp8266PrintReceivedLine();
+            terminalTextAttributesReset();
+            terminalTextAttributes(CYAN, BLACK, NORMAL);
+            // printf("WiFi Module Sent:\r\n");
+            printf("%s", esp_8266_line);
+            terminalTextAttributesReset();
 
+        }
+            
     }
-        
+    
 }
 
 void esp8266Putstring(char * string) {
@@ -616,13 +709,87 @@ void esp8266Putstring(char * string) {
     
 }
 
-// This function prints the current ESP Line to the USB UART terminal
-void esp8266PrintReceivedLine(void) {
+/*
+ * sendCIPData sends bytes over the WiFi connection to the Android Device
+ */
+void sendCIPData(uint8_t connectionId, char *data, uint8_t length) {
     
-    terminalTextAttributesReset();
-    terminalTextAttributes(CYAN, BLACK, NORMAL);
-    // printf("WiFi Module Sent:\r\n");
-    printf("%s", esp_8266_line);
-    terminalTextAttributesReset();
+    char cip_output_string[256];
+    memset(cip_output_string, 0, sizeof(cip_output_string));
+    sprintf(cip_output_string, "AT+CIPSEND=%u, %u, %s",
+            connectionId,
+            length,
+            data);
+    
+    esp8266Putstring(cip_output_string);
+   
+}
+
+/*
+ * sendHTTPResponse sends HTTP Responses to the Android Device confirming
+ * receipt of command / data
+ */
+void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length) {    
+    // build HTTP response
+    uint8_t httpResponse[256];
+//    uint8_t httpHeader[256];
+//    uint8_t len[8];
+//    sprintf(len, "%u", length);
+//    // HTTP Header
+//    strcpy(httpHeader, "HTTP/1.1 200 OK Content-Type: text/html; charset=UTF-8 "); 
+//    strcat(httpHeader, "Content-Length: ");
+//    strcat(httpHeader, len);
+//    strcat(httpHeader, " Connection: close \r\n");
+//    strcpy(httpResponse, httpHeader);
+//    strcat(httpResponse, content);
+//    
+    sprintf(httpResponse, "HTTP/1.1 200 OK%%0D%%0AContent-Type: text/html; charset=UTF-8%%0D%%0AContent-Length: %u%%0D%%0AConnection: close%%0D%%0A %s%%0D%%0A\r\n",
+            length,
+            content);
+    
+    sendCIPData(connectionId, httpResponse, strlen(httpResponse));
     
 }
+
+//Caroline made this and it doesnt work
+//void esp8266PutStringInArray(void) {
+//        
+//    uint16_t array[16384];
+//    char * string;
+//    
+//    uint8_t a = 0;
+//    uint8_t b = 0;
+//    
+//    for (a = 0; a < 16384; a++) {
+//        
+//        b = 0;
+//        strcpy(string, "0x");
+//        strcat(string, http_android_string[b]);
+//        strcat(string, http_android_string[b+1]);
+//        array[a] = uint16_t(string, 16);           
+//        
+//    }
+//    
+//}
+
+// Find cases to set WiFi error handler state to show error led
+    // 
+// Create a connection verification function
+// Android sends "Marco" ESP replies "Polo"
+
+// Create a read data function
+// Android sends "Project: {# of images}"
+// ESP then knows its about to receive that much data
+// Android continues sending all 247600 bytes of each image
+// ESP replies "Received Frame {index of frame it received}
+// ESP finally replies "Received all Frames"
+
+// These reply messages could just be integers representing codes that get 
+// converted to messages on the Android side.
+
+// Create a device control command function
+// Android sends "System: {type of system control},{value}"
+// ex. "System: Dim, 85"
+// ESP replies "SUCCESS" or "FAILURE"
+// possibly include an optional description field afterward
+// up to one packet length

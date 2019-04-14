@@ -63,8 +63,10 @@
 #include "test_buffer_fills.h"
 // Delay Timer
 #include "delay_timer.h"
-// Standard operation state machine
+// "Autopilot" state machine
 #include "standard_operation_sm.h"
+
+#include "splash_screen.h"
 
 // USB UART Command Ready Flag
 extern volatile uint8_t usb_uart_RxStringReady;
@@ -220,7 +222,7 @@ void main(void) {
     POS5_RUN_PIN = 1;
     printf("+5V Power Supply Enabled\n\r");
     
-    // enable POS5p power supply
+    // enable POS5 power supply
     POS5P_RUN_PIN = 1;
     printf("+5VP Power Supply Enabled\n\r");
     
@@ -239,7 +241,7 @@ void main(void) {
     // Start Timer5
     panelMultiplexingTimerInitialize();
     printf("Panel Multiplexing Timer Initialized\n\r");
-     
+ 
     terminalTextAttributesReset();
     terminalTextAttributes(YELLOW, BLACK, NORMAL);
     printf("\n\rType 'Help' for list of supported commands, press enter twice after reset\n\r\n\r");
@@ -253,19 +255,43 @@ void main(void) {
     
     // Setup ESP after UART1 has been initialized
     esp8266InitializeConfiguration();
-        
+    
+    // Show start image
+    // fillRamBufferSplashScreen();
+    
     // Loop endlessly
     while (true) {
         
+        // Twiddle thumbs
+        // Nop();
+                
         // Check if we've got a received USB UART command waiting
-        if(usb_uart_RxStringReady) usbUartRingBufferPull();
+        if(usb_uart_RxStringReady != 0) {
+
+            usbUartRingBufferPull();
+        
+        }
         
         // Check if we've got a received WiFi string waiting
-        if(esp_8266_RxStringReady) esp8266RingBufferPull();
+        if(esp_8266_RxStringReady != 0) {
+            
+            esp8266RingBufferPull();
+            
+        }
         
-        // state machine switch
-        autopilotMode();
-             
+        if (continue_autopilot != 0) {
+        
+            // state machine switch
+            autopilotMode();
+                        
+        }
+        
+        else if ((autopilot) && (continue_autopilot == 0)) {
+            
+            exitSM();
+            
+        }
+        
     }
     
     

@@ -13,6 +13,7 @@
 #include "panel_control.h"
 #include "device_control.h"
 #include "standard_operation_sm.h"
+#include "splash_screen.h"
 
 // Initialize change notifications
 void changeNotificationInit(void) {
@@ -178,7 +179,7 @@ void pos5pPGoodFEHandler(void) {
 //    terminalTextAttributesReset();
 //    
     // flag error
-    if (POS5P_RUN_PIN == 1) error_handler.POS5P_regulation_error_flag = 1;
+    error_handler.POS5P_regulation_error_flag = 1;
     
 }
 
@@ -190,19 +191,22 @@ void displayEnableFEHandler(void) {
         panelMultiplexingSuspend();
         
         // state machine flags
-        if (autopilot) continue_autopilot = 0;
+        // if (autopilot) continue_autopilot = 0;
+        continue_autopilot = 0;
         state = sm_start;
-                
+        sm_previous = 0;
+        
     } else {
         
-        //panelMultiplexingTimerStart();
+        // panelMultiplexingSuspend();
+        fillRamBufferSplashScreen();
+        panelMultiplexingTimerStart();
         
         // state machine flags
         continue_autopilot = 1;
         state = sm_start;
                 
-    }
-    
+    }    
 }
 
 // Encoder step rising edge interrupt handler

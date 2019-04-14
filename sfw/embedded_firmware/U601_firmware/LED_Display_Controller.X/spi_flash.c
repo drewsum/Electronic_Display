@@ -11,6 +11,7 @@
 #include "panel_control.h"
 #include "device_control.h"
 #include "standard_operation_sm.h"
+#include "usb_uart.h"
 
 // This pragma tells the linker to allow access of EBI memory space
 #pragma region name = "EBI_SRAM" origin = 0xC0000000 size = 262144
@@ -30,13 +31,13 @@ void spiFlashInit(void)
     
     // Disable SPI3 Receive Done Interrupt
     disableInterrupt(SPI3_Receive_Done);
-    setInterruptPriority(SPI3_Receive_Done, 5);
+    setInterruptPriority(SPI3_Receive_Done, 2);
     setInterruptSubpriority(SPI3_Receive_Done, 3);
     clearInterruptFlag(SPI3_Receive_Done);
     
     // Disable SPI3 Transfer Done Interrupt
     disableInterrupt(SPI3_Transfer_Done);    
-    setInterruptPriority(SPI3_Transfer_Done, 5);
+    setInterruptPriority(SPI3_Transfer_Done, 2);
     setInterruptSubpriority(SPI3_Transfer_Done, 2);
     clearInterruptFlag(SPI3_Transfer_Done);
        
@@ -660,6 +661,16 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
     // Record a SPI error
     error_handler.SPI_error_flag = 1;
     
+//    if (SPI3STATbits.SPIROV) {
+//        error_handler.SPI_receive_overflow_error_flag = 1;
+//        SPI3STATbits.SPIROV = 0;
+//    }
+//    
+//    if (SPI3STATbits.SPITUR) {
+//        error_handler.SPI_transfer_underrun_error_flag = 1;
+//        SPI3STATbits.SPITUR = 0;
+//    }
+    
     // Disable SPI interrupts
     disableInterrupt(SPI3_Transfer_Done);
     disableInterrupt(SPI3_Receive_Done);
@@ -669,7 +680,7 @@ void __ISR(_SPI3_FAULT_VECTOR, ipl1SRS) spi3FaultISR(void) {
 }
 
 // SPI3 Receive Done interrupt service routine
-void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
+void __ISR(_SPI3_RX_VECTOR, ipl2SRS) spi3ReceiveISR(void) {
     
     // Load in byte to ebi_sram_array and increment index
     ebi_sram_array[sram_addr_index] = SPI3BUF;
@@ -684,18 +695,22 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
         
         spi_flash_state = idle;
         
-        if (continue_autopilot) {
-            
-            SPI_Read_Finished_Flag = 1;
-            
-        } else {
-
+        // Disable RX overrun interrupt trigger
+//        SPI3STATbits.SPIROV = 0;
+//        SPI3CON2bits.SPIROVEN = 0;
+        
+        SPI_Read_Finished_Flag = 1;
+        
+        if (continue_autopilot == 0 && autopilot == 0 && usb_in_use_flag == 1) {
+        
             terminalTextAttributesReset();
             terminalTextAttributes(GREEN, BLACK, NORMAL);
             printf("Transfer from Flash to EBI SRAM complete\n\r");
             terminalTextAttributesReset(); 
 
         }
+        
+        // panelMultiplexingTimerStart();
         
     } 
     
@@ -713,7 +728,7 @@ void __ISR(_SPI3_RX_VECTOR, ipl5SRS) spi3ReceiveISR(void) {
 }
 
 //SPI3 Transfer Done interrupt service routine
-void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
+void __ISR(_SPI3_TX_VECTOR, ipl2SRS) spi3TransferISR(void) {
 
     // Toggle CE pin for where we're writing high, wait a bit, then set low
     switch (spi_flash_state) {
@@ -752,7 +767,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
                 
     }
     
-    softwareDelay(1200);
+    softwareDelay(2000);
     
     // Toggle CE
     spiFlashGPIOSet();
@@ -817,7 +832,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
         }
 
-        softwareDelay(1200);
+        softwareDelay(2000);
 
         // Toggle CE
         spiFlashGPIOSet();
@@ -867,7 +882,7 @@ void __ISR(_SPI3_TX_VECTOR, ipl5SRS) spi3TransferISR(void) {
 
         }
 
-        softwareDelay(1200);
+        softwareDelay(2000);
 
         // Toggle CE
         spiFlashGPIOSet();
@@ -973,7 +988,7 @@ void SPI_FLASH_chipErase(uint8_t chip_select) {
     // Clear CS and WP signals
     spiFlashGPIOReset();
     
-    softwareDelay(2250000);
+    softwareDelay(2500000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
@@ -1207,7 +1222,7 @@ void SPI_Flash_writeEnable(uint8_t chip_select){
     // Clear CE and WP signals
     spiFlashGPIOReset();
     
-    softwareDelay(20000);
+    softwareDelay(30000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);
@@ -1270,7 +1285,7 @@ void SPI_Flash_blockProtectionDisable(uint8_t chip_select) {
     // Clear CE and WP signals
     spiFlashGPIOReset();
     
-    softwareDelay(20000);
+    softwareDelay(30000);
     
     clearInterruptFlag(SPI3_Transfer_Done);
     clearInterruptFlag(SPI3_Receive_Done);

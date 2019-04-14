@@ -43,8 +43,12 @@ extern volatile uint32_t usb_uart_TxTail;
 extern volatile uint32_t usb_uart_TxBufferRemaining;
 extern volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
 
-
+// This records if multiplexing was occurring before disabling it for printing
 uint8_t muxing_state;
+
+// This records if a user is using the USB port
+uint8_t usb_in_use_flag;
+
 
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void);

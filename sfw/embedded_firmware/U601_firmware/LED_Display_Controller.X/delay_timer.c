@@ -8,6 +8,9 @@
 #include "esp8266.h"
 #include "error_handler.h"
 #include "terminal_control.h"
+#include "standard_operation_sm.h"
+#include "panel_control.h"
+#include "usb_uart.h"
 
 void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
 {
@@ -17,6 +20,8 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
     // Clear interrupt flag
     clearInterruptFlag(Timer4);
     disableInterrupt(Timer4);
+    
+    char cipsend_message[40];
     
     // Handle the task
     switch(timer_task)
@@ -36,19 +41,26 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
             esp8266Putstring("AT+CIPSERVER=1,333\r\n");
             // Clear startup WIFI error
             error_handler.WIFI_error_flag = 0;
+            fillRamBufferSplashScreen();
+            panelMultiplexingTimerStart();
+            muxing_state = 1;
+            // state machine flags
+            continue_autopilot = 1;
+            state = sm_start;
+            
             break;
             
         case esp8266_tcp_response_delay1:
             memset(cipsend_message, 0, sizeof(cipsend_message));
             sprintf(cipsend_message, "AT+CIPSEND=%u,%u\r\n\r\n", current_connection_id, strlen(response_message) + 1 + 15);
             esp8266Putstring(cipsend_message);
-            delayTimerStart(0x0510, esp8266_tcp_response_delay2);
+            delayTimerStart(0x0500, esp8266_tcp_response_delay2);
             break;
             
         case esp8266_tcp_response_delay2:
             
             esp8266Putstring(response_message);
-            delayTimerStart(0x0510, esp8266_tcp_response_delay3);
+            delayTimerStart(0x0500, esp8266_tcp_response_delay3);
 
             break;
             
@@ -57,8 +69,17 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
             // sprintf(cipsend_message,"AT+CIPCLOSE=%u\r\n", current_connection_id);
             sprintf(cipsend_message,"AT+CIPSEND\r\n");
             esp8266Putstring(cipsend_message);
+            if (eventually_continue_flag) delayTimerStart(0xFFFF, state_machine_resume_delay);
             
             break;
+            
+        case state_machine_resume_delay:
+            // state machine flags
+            continue_autopilot = 1;
+            state = sm_start;
+            eventually_continue_flag = 0;
+            break;
+            
             
         default:
             break;

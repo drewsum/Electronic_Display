@@ -21,6 +21,8 @@
 
 #include <xc.h>
 
+#include "sys/attribs.h"
+
 // This typdef describes all of the interrupt sources available on the 32MZ EF family
 typedef enum {
     

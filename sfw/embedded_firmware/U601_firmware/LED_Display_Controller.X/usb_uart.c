@@ -25,6 +25,7 @@
 #include "esp8266.h"
 #include "standard_operation_sm.h"
 
+#include "splash_screen.h"
 // #include "test_image_1.h"
 // #include "test_image_2.h"
 
@@ -46,6 +47,10 @@ extern reset_cause_t reset_cause;
 
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void) {
+ 
+    __XC_UART = 3;
+    
+    usb_in_use_flag = 0;
     
     // Disable UART 3 interrupts
     disableInterrupt(UART3_Receive_Done);
@@ -161,6 +166,8 @@ void usbUartInitialize(void) {
 // This is the USB UART receive interrupt service routine
 void __ISR(_UART3_RX_VECTOR, ipl2SRS) usbUartReceiveISR(void) {
     
+    usb_in_use_flag = 1;
+    
     // Do receive tasks
     usbUartReceiveHandler();
     
@@ -248,7 +255,6 @@ void usbUartPutchar(uint8_t txData) {
 
      enableInterrupt(UART3_Transfer_Done);
    
-     
     
 }
 
@@ -445,6 +451,41 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+     else if (strcmp(line_in, "MCU IDs?") == 0) {
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        
+        // Print serial number
+        printf("    PIC32MZ Serial Number retrieved from Flash: %s\n\r",
+                getStringSerialNumber());
+        
+        // Print device ID
+        printf("    Device ID retrieved from Flash: %s (0x%X)\n\r", 
+            getDeviceIDString(getDeviceID()), 
+            getDeviceID());
+
+        // Print revision ID
+        printf("    Revision ID retrieved from Flash: %s (0x%X)\n\r", 
+            getRevisionIDString(getRevisionID()), 
+            getRevisionID());
+
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "MCU Status?") == 0) {
+     
+        printWatchdogStatus();
+        
+        printDeadmanStatus();
+        
+        printPrefetchStatus();
+        
+        
+    }
+
+
     else if (strcmp(line_in, "SPI Status?") == 0) {
      
         printSPIFlashStatus(); 
@@ -496,7 +537,6 @@ void usbUartRingBufferLUT(char * line_in) {
         printClockStatus(SYSCLK_INT);
         
     }
-    
     
     else if (strcmp(line_in, "EBI Status?") == 0) {
         
@@ -599,37 +639,6 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
         printf("Panel multiplexing Enabled\n\r");
-        terminalTextAttributesReset();
-        
-    }
-    
-    // start state machine
-    else if(strcmp(line_in, "Enable State Machine") == 0) {
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Starting State Machine...\n\r");
-        terminalTextAttributesReset();
-        
-        panelMultiplexingSuspend();
-             
-        // Setup state machine variables
-        continue_autopilot = 1;
-        state = sm_start;
-          
-    }
-    
-    // stop state machine
-    else if(strcmp(line_in, "Disable State Machine") == 0) {
-             
-        // Stop state machine
-        continue_autopilot = 0;
-        state = sm_start;
-        sm_previous = 0;
-        
-        terminalTextAttributesReset();
-        terminalTextAttributes(RED, BLACK, NORMAL);
-        printf("State Machine Disabled\n\r");
         terminalTextAttributesReset();
         
     }
@@ -755,81 +764,7 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributesReset();
         
     }
-    
-//    // set ram buffer every other red
-//    else if(strcmp(line_in, "Set Every Other Red") == 0) {
-//     
-//        fillRamBufferEveryOtherRed();
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Ram buffer filled with stripes of red\n\r");
-//        terminalTextAttributesReset();
-//        
-//    }     
-//    
-//    
-//    // set ram buffer every other blue
-//    else if(strcmp(line_in, "Set Every Other Blue") == 0) {
-//     
-//        fillRamBufferEveryOtherBlue();
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Ram buffer filled with stripes of blue\n\r");
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    // set ram buffer every other green
-//    else if(strcmp(line_in, "Set Every Other Green") == 0) {
-//     
-//        fillRamBufferEveryOtherGreen();
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Ram buffer filled with stripes of green\n\r");
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    // set ram buffer to christmas stripes
-//    else if(strcmp(line_in, "Set Christmas Stripes") == 0) {
-//     
-//        fillRamBufferChristmas();
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Ram buffer filled with christmas stripes\n\r");
-//        terminalTextAttributesReset();
-//        
-//    }    
-//    
-//    
-//    // set ram buffer to RGB pattern
-//    else if(strcmp(line_in, "Set RGB Stripes") == 0) {
-//     
-//        fillRamBufferRGBStripes();
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Ram buffer filled with rgb stripes\n\r");
-//        terminalTextAttributesReset();
-//        
-//    }  
-//
-//    // set ram buffer to red rows
-//    else if(strcmp(line_in, "Set Red Rows") == 0) {
-//     
-//        fillRamBufferRedRow();
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Ram buffer filled with red rows\n\r");
-//        terminalTextAttributesReset();
-//        
-//    }
-    
+
 //    else if(strcmp(line_in, "Set Test Image 1") == 0) {
 //     
 //        fillRamBufferTestImage1();
@@ -851,7 +786,7 @@ void usbUartRingBufferLUT(char * line_in) {
 //        terminalTextAttributesReset();
 //        
 //    }
-        
+    
     // Set panel brightness
     else if (strstart(line_in, "Set Panel Brightness ") == 0) {
     
@@ -882,28 +817,33 @@ void usbUartRingBufferLUT(char * line_in) {
             
     }
     
-    else if (strstart(line_in, "Set Frame Num ") == 0) {
+    else if (strstart(line_in, "Set Delay Time ") == 0) {
     
-        // Get which chip we're erasing
-        uint32_t set_frame;
-        sscanf(line_in, "Set Frame Num %u", readFrameNumber());
-        
-        writeFrameNumber((uint8_t) set_frame);
-        
+        sscanf(received_string, "Set Delay Time %u", &set_timer_val);
+            
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("Set NVM Frame Number to %u\n\r", set_frame);
+        printf("Set countdown value = %u\r\n", set_timer_val);
         terminalTextAttributesReset();
         
+        // panelMultiplexingSuspend();
+        fillRamBufferSplashScreen();
+        panelMultiplexingTimerStart();
+        muxing_state = 1;
+        
+        // state machine flags
+        continue_autopilot = 1;
+        state = sm_start;
+            
     }
     
-    else if (strcmp(line_in, "Get Frame Num") == 0) {  
-     
+    else if (strcmp(line_in, "Get Delay Time") == 0) {
+    
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("NVM Frame Number read as %u\n\r", readFrameNumber());
+        printf("Countdown value = %u\r\n", set_timer_val);
         terminalTextAttributesReset();
-        
+                    
     }
     
     else if (strcmp(line_in, "Error Status?") == 0) {
@@ -933,7 +873,6 @@ void usbUartRingBufferLUT(char * line_in) {
         terminalTextAttributesReset();
         
     }
-    
         
     else if (strstart(line_in, "SPI Flash Chip Read ") == 0) {
     
@@ -1017,42 +956,6 @@ void usbUartRingBufferLUT(char * line_in) {
 
     }
     
-    else if (strcmp(line_in, "MCU IDs?") == 0) {
-     
-        terminalTextAttributesReset();
-        terminalTextAttributes(GREEN, BLACK, NORMAL);
-        
-        // Print serial number
-        printf("    PIC32MZ Serial Number retrieved from Flash: %s\n\r",
-                getStringSerialNumber());
-        
-        // Print device ID
-        printf("    Device ID retrieved from Flash: %s (0x%X)\n\r", 
-            getDeviceIDString(getDeviceID()), 
-            getDeviceID());
-
-        // Print revision ID
-        printf("    Revision ID retrieved from Flash: %s (0x%X)\n\r", 
-            getRevisionIDString(getRevisionID()), 
-            getRevisionID());
-
-        terminalTextAttributesReset();
-        
-    }
-    
-    else if (strcmp(line_in, "MCU Status?") == 0) {
-     
-        printWatchdogStatus();
-        
-        printDeadmanStatus();
-        
-        printPrefetchStatus();
-        
-        
-    }
-    
-    
-        
     else if (strcmp(line_in, "Credits") == 0) {
      
         terminalClearScreen();
@@ -1333,6 +1236,82 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
     
+    // start state machine
+    else if(strcmp(line_in, "Enable State Machine") == 0) {
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Starting State Machine...\n\r");
+        terminalTextAttributesReset();
+        
+        // panelMultiplexingSuspend();
+        fillRamBufferSplashScreen();
+        panelMultiplexingTimerStart();
+        muxing_state = 1;
+        
+        // state machine flags
+        continue_autopilot = 1;
+        state = sm_start;
+        
+    }
+    
+    // stop state machine
+    else if(strcmp(line_in, "Disable State Machine") == 0) {
+             
+        // Stop state machine
+        panelMultiplexingSuspend();
+        muxing_state = 0;
+        continue_autopilot = 0;
+        state = sm_start;
+        sm_previous = 0;
+        T6CONbits.ON = 0;
+        eventually_continue_flag = 0;
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(RED, BLACK, NORMAL);
+        printf("State Machine Disabled\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strstart(line_in, "Set Project Vals ") == 0) {
+    
+        // Get which chip we're erasing
+        uint32_t set_frame;
+        uint32_t set_delay;
+        sscanf(line_in, "Set Project Vals %u, %u", &set_frame, &set_delay);
+        
+        if (set_frame >= 1 && set_frame <= 8 && set_delay <= 120) {
+
+            writeNVMVariables((uint8_t) set_frame, set_delay);
+        
+        }
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("NVM Frame Number set to %u, NVM delay value set to %u\n\r", readFrameNVM(), readDelayNVM());
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Get Frame Num") == 0) {  
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("NVM Frame Number read as %u\n\r", readFrameNVM());
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if (strcmp(line_in, "Get Delay Val") == 0) {  
+     
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("NVM Delay Value read as %u\n\r", readDelayNVM());
+        terminalTextAttributesReset();
+        
+    }
+    
 }
 
 // Print help message, used in a command above
@@ -1380,6 +1359,7 @@ void usbUartPrintHelpMessage(void) {
     printf("    POS5P Disable: Turns off the external +5V Power Supply for LED panels\n\r");
     printf("    Enable Muxing: enables the multiplexing timer \n\r");
     printf("    Disable Muxing: disable the multiplexing timer \n\r");
+//    printf("    Print Test Message: Print out terminal test data\n\r");
     printf("    Credits: Displays creators\n\r");
     printf("    Help: This Command\n\r");
     printf("    Set Red: Sets all pixels in display red\n\r");
@@ -1393,21 +1373,15 @@ void usbUartPrintHelpMessage(void) {
 //    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
 //    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
-//    printf("    Set Every Other Red: Fills ram buffer with stripes of red\n\r");
-//    printf("    Set Every Other Blue: Fills ram buffer with stripes of blue\n\r");
-//    printf("    Set Every Other Green: Fills ram buffer with stripes of green\n\r");
-//    printf("    Set Christmas Stripes: Fills ram buffer with christmas stripes\n\r");
-//    printf("    Set RGB Stripes: Fills ram buffer with stripes of rgb\n\r");
-//    printf("    Set Red Rows: Fills ram buffer with red rows\n\r");
     printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
     printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");
     printf("    IP Addr?: Prints the logic board IP Address and MAC Address\r\n");
     printf("    MAC Addr?: Prints the logic board IP Address and MAC Address\r\n");
-    printf("    Set Frame Num <x>: Sets the number of frames for the standard operation state machine to loop through\r\n");
-    printf("    Get Frame Num: Reads how many frames the standard operation state machine is looping through\r\n");
     printf("    Enable State Machine: Enables the standard operation state machine, or 'Autopilot'\r\n");
     printf("    Disable State Machine: Disables the standard operation state machine, allowing serial interface image selection\r\n");
-    
+    printf("    Set Project Vals <x>, <y>: Sets the number of state machine frames <x> and frame delay <y>\r\n");
+    printf("    Get Frame Num: Reads how many frames the standard operation state machine is looping through\r\n");
+    printf("    Get Delay Val: Reads how long each frame is se tto run\r\n");
     
     printf("Help messages and neutral responses appear in yellow\n\r");
     terminalTextAttributes(GREEN, BLACK, NORMAL);

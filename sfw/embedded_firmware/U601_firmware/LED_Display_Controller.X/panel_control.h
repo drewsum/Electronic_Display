@@ -19,7 +19,6 @@
 #include <xc.h>
 #include <sys/attribs.h>
 
-// #define PANEL_DATA_ARRAY_SIZE 153600
 #define PANEL_DATA_ARRAY_SIZE 245760
 
 #define PANEL_DATA_PWM_FRAMES   8
