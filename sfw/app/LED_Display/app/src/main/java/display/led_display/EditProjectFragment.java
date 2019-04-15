@@ -11,8 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,7 +44,9 @@ public class EditProjectFragment extends Fragment {
     private int frameCount = 0;
     private String projectName;
     private ArrayList<String> framesList;
+    private ArrayList<String> dataList;
     private int namingNumber;
+    private rowAdaptor adaptor;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,6 +79,7 @@ public class EditProjectFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().setTitle("Edit Project");
     }
 
     @Override
@@ -83,26 +89,28 @@ public class EditProjectFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_edit_project, container, false);
         // Set Project Name being edited
         Bundle arguments = getArguments();
-        // this only works night now if you nav from new project
         projectName = arguments.getString("projectName");
         // get the frames for that project
-        TinyDB tinyDB = new TinyDB(getContext());
+        final TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
         framesList = tinyDB.getListString(projectName + "frameList");
+        dataList = tinyDB.getListString(projectName + "dataList");
         Log.d("FrameList fetched", framesList.toString());
-        namingNumber = Integer.parseInt(framesList.get(0));
-        framesList.remove(0);
+        Log.d("dataList fetched", dataList.toString());
+        namingNumber = Integer.parseInt(dataList.get(0));
         // framesList.add("filepath in internal storage");
         frameCount = framesList.size();
         ListView listview = rootView.findViewById(R.id.framesList);
-        listview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
-
+        adaptor = new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList");
+        listview.setAdapter(adaptor);
         Button buttonAddFrame = rootView.findViewById(R.id.buttonAddFrame);
         buttonAddFrame.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // need to give index and project name for imagePath naming convention
-                if (frameCount < 8) {
+                if (adaptor.getCount() < 8) {
+                    Log.d("row count", "" + adaptor.getCount());
+                    Log.d("frameCount", "" + frameCount);
                     namingNumber++;
                     Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
                     intent.putExtra("projectName", projectName);
@@ -129,6 +137,35 @@ public class EditProjectFragment extends Fragment {
 
         TextView textFrameCount = rootView.findViewById(R.id.textFrameCount);
         textFrameCount.setText(frameCount + "/8");
+
+        final Spinner dropdown = rootView.findViewById(R.id.spinnerDropdown);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.time_values, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String value = (String)adapter.getItem(position);
+                dataList.set(1, value);
+                tinyDB.putListString(projectName + "dataList", dataList);
+                Log.d("dataList", dataList.toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        // set the intial value to the current value for the project
+        String[] a = getResources().getStringArray(R.array.time_values);
+        for (int item = 0; item < a.length; item++) {
+            if(a[item].equals(dataList.get(1))) {
+                dropdown.setSelection(item);
+            }
+
+        }
+
         return rootView;
     }
 
@@ -142,11 +179,9 @@ public class EditProjectFragment extends Fragment {
             TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
             framesList = tinyDB.getListString(projectName + "frameList");
             framesList.add(fileName);
-            //framesList.add(0, "" + namingNumber);
-            framesList.remove(0);
-            framesList.add(0, "" + namingNumber);
+            dataList.set(0, "" + namingNumber);
             tinyDB.putListString(projectName + "frameList", framesList);
-            framesList.remove(0);
+            tinyDB.putListString(projectName + "dataList", dataList);
             Log.d("frameList", framesList.toString());
             frameCount = framesList.size();
             /*if (frameCount > 7) {
@@ -156,8 +191,8 @@ public class EditProjectFragment extends Fragment {
             TextView textFrameCount = this.getView().findViewById(R.id.textFrameCount);
             textFrameCount.setText(frameCount + "/8");
             ListView listView = this.getView().findViewById(R.id.framesList);
-            //listView.getAdapter().notify();
-            listView.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList"));
+            adaptor = new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList");
+            listView.setAdapter(adaptor);
         }
     }
 

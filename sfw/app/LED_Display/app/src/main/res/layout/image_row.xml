@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/marquette" />
+        app:srcCompat="@drawable/no_image_selected" />
 
     <TextView
         android:id="@+id/text"

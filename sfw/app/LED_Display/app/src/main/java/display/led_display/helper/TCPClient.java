@@ -1,6 +1,8 @@
 package display.led_display.helper;
 
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -12,158 +14,90 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import display.led_display.MenuActivity;
-
 public class TCPClient {
 
-    private static final String TAG = "TCPClient";
-    private final Handler mHandler;
-    private String ipNumber, incomingMessage;
-    private ArrayList<String> command;
-    int portNumber;
+    private final Handler handler;
+    private String ipAddress, incomingMessage;
+    private int portNumber;
+    private ArrayList<String> messages;
+    private boolean mRun;
+    private int progressCount;
     BufferedReader in;
     PrintWriter out;
-    private MessageCallback listener = null;
-    private boolean mRun = false;
 
-    /**
-     * TCPClient class constructor, which is created in AsyncTasks after the button click.
-     *
-     * @param mHandler Handler passed as an argument for updating the UI with sent messages
-     * @param command  Command passed as an argument, e.g. "shutdown -r" for restarting computer
-     * @param ipNumber String retrieved from IpGetter class that is looking for ip number.
-     * @param listener Callback interface object
-     */
-    public TCPClient(Handler mHandler, ArrayList<String> command, String ipNumber, int portNumber, MessageCallback listener) {
-        this.listener = listener;
-        this.ipNumber = ipNumber;
+    public TCPClient(Handler handler, String ipAddress, int portNumber, ArrayList<String> messages) {
+        this.handler = handler;
+        this.ipAddress = ipAddress;
         this.portNumber = portNumber;
-        this.command = command;
-        this.mHandler = mHandler;
-    }
-
-    /**
-     * Public method for sending the message via OutputStream object.
-     *
-     * @param message Message passed as an argument and sent via OutputStream object.
-     */
-    public void sendMessage(String message) {
-        if (out != null && !out.checkError()) {
-            out.println(message);
-            out.flush();
-            mHandler.sendEmptyMessageDelayed(MenuActivity.SENDING, 1000);
-            Log.d(TAG, "Sent Message: " + message);
-
-        }
-    }
-
-    /**
-     * Public method for stopping the TCPClient object ( and finalizing it after that ) from AsyncTask
-     */
-    public void stopClient() {
-        Log.d(TAG, "Client stopped!");
-        mRun = false;
+        this.messages = messages;
+        this.progressCount = 0;
     }
 
     public void run() {
-
         mRun = true;
-
+        Bundle bundle = new Bundle();
+        Log.d("handler", this.handler.toString());
+        Log.d("handler", ""+this.handler.hasMessages(1));
         try {
-            // Creating InetAddress object from ipNumber passed via constructor from IpGetter class.
-            InetAddress serverAddress = InetAddress.getByName(ipNumber);
-
-            Log.d(TAG, "Connecting...");
-
-            /**
-             * Sending empty message with static int value from MenuActivity
-             * to update UI ( 'Connecting...' ).
-             *
-             * @see com.example.turnmeoff.MenuActivity.CONNECTING
-             */
-            mHandler.sendEmptyMessageDelayed(MenuActivity.CONNECTING, 1000);
-
-            /**
-             * Here the socket is created with hardcoded port.
-             * Also the port is given in IpGetter class.
-             *
-             * @see com.example.turnmeoff.IpGetter
-             */
+            InetAddress serverAddress = InetAddress.getByName(ipAddress);
             Socket socket = new Socket(serverAddress, portNumber);
 
-
             try {
-
-                // Create PrintWriter object for sending messages to server.
                 out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-
-                //Create BufferedReader object for receiving messages from server.
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                Log.d(TAG, "In/Out created");
-
-                for(int i = 0; i < command.size(); i++) {
-                    Log.d("Loop Count", ""+i);
+                Log.d("TCPClient", "In/Out created");
+                for(int i = 0; i < messages.size(); i++) {
+                    progressCount++;
+                    Log.d("Progress Count", ""+progressCount);
                     //Sending message with command specified by AsyncTask
-                    this.sendMessage(command.get(i));
-                    Log.d("being sent", "" + command.size());
-
-                    //
-                    //mHandler.sendEmptyMessageDelayed(MenuActivity.SENDING, 2000);
-
-                    //Listen for the incoming messages while mRun = true
+                    bundle.remove("progress");
+                    bundle.putInt("progress", progressCount);
+                    Message msg = new Message();
+                    msg.setData(bundle);
+                    handler.sendMessage(msg);
+                    sendMessage(messages.get(i));
                     while (mRun) {
                         Log.d("waiting", "give ME SOMETHING!!!");
                         incomingMessage = in.readLine();
-                        if (incomingMessage != null && listener != null) {
-                            Log.d("Received message", incomingMessage);
+                        if (incomingMessage != null) {
                             incomingMessage = incomingMessage.trim();
                             if (incomingMessage.equals("Message Received")) {
                                 Log.d("Response Parser", "Closing TCP connection");
                                 break;
                             }
-//                            } else if (incomingMessage.equals("Message Received, Keep Open")) {
-//                                Log.d("Response Parser", "Keeping Connection open");
-//                                break;
-//                            }
                         }
                         incomingMessage = null;
-
                     }
                 }
-
-                Log.d(TAG, "Received Message: " + incomingMessage);
-
+                Log.d("TCPClient", "Received Message: " + incomingMessage);
             } catch (Exception e) {
-
-                Log.d(TAG, "Error", e);
-                mHandler.sendEmptyMessageDelayed(MenuActivity.ERROR, 2000);
-
+                Log.d("TCPClient", "Error", e);
             } finally {
-
                 out.flush();
                 out.close();
                 in.close();
                 socket.close();
-                mHandler.sendEmptyMessageDelayed(MenuActivity.SENT, 3000);
-                Log.d(TAG, "Socket Closed");
+                Log.d("TCPClient", "Socket Closed");
             }
-
         } catch (Exception e) {
-
-            Log.d(TAG, "Error", e);
-            mHandler.sendEmptyMessageDelayed(MenuActivity.ERROR, 2000);
-
+            Log.d("TCPClient", "Error", e);
         }
-
+        handler.sendEmptyMessage(2);
     }
 
-    public interface MessageCallback {
-        /**
-         * Method overriden in AsyncTask 'doInBackground' method while creating the TCPClient object.
-         *
-         * @param message Received message from server app.
-         */
-        void callbackMessageReceiver(String message);
+    public void sendMessage(String message) {
+        if (out != null && !out.checkError()) {
+            out.println(message);
+            out.flush();
+            Log.d("TCPClient", "Sent Message: " + message);
+        }
+    }
+
+    public void stopClient() {
+        mRun = false;
+    }
+
+    public boolean isRunning() {
+        return mRun;
     }
 }

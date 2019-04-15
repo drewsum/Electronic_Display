@@ -7,7 +7,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_image_select">ImageSelectActivity</string>
-    <string name="power_button_text">Power</string>
+    <string name="power_on_button_text">Power ON</string>
+    <string name="power_off_button_text">Power OFF</string>
     <string name="brightness_text">Brightness Level:</string>
     <string name="device_name_text">Controlling Device:</string>
     <string name="at_command_hint">Send AT+COMMANDS</string>
@@ -27,7 +28,7 @@
     <string name="preview_project_title">Preview Project</string>
     <string name="upload_project_title">Upload Project</string>
     <string name="device_control_title">Device Control</string>
-    <string name="convert_button_text">Convert</string>
+    <string name="confirm_button_text">Confirm</string>
     <string name="aspect_switch_text_left">Stretch To Fit</string>
     <string name="aspect_switch_text_right">Fixed Aspect Ratio</string>
     <string name="input_project_name_hint">Project Name</string>
@@ -55,4 +56,15 @@
     <string name="frame_count_text">Current Frame Count:</string>
     <string name="project_name_editing_text">Editing Project: *Project Name*</string>
     <string name="frame_count_numeric_text">0/8</string>
+    <string-array name="time_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>120</item>
+    </string-array>
 </resources>

@@ -8,28 +8,25 @@ import java.util.ArrayList;
 public class PixelsConverter {
 
     private Bitmap[][] SplitBitmap(Bitmap bitmap, int dimX, int dimY) {
+        Log.d("Splitting bitmap", "X: " + dimX + " Y: " + dimY);
         Bitmap[][] bitmapArray = new Bitmap[dimX][dimY];
         int orig_width = bitmap.getWidth() / dimX;
         int orig_height = bitmap.getHeight() / dimY;
-        Log.d("wwidth", "" + orig_width);
-        Log.d("hheight", "" + orig_height);
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
                 bitmapArray[x][y] = Bitmap.createBitmap(bitmap, x * orig_width, y * orig_height, orig_width, orig_height);
             }
         }
+        Log.d("Splitting bitmap", "Done");
         return bitmapArray;
     }
 
     private int[] BitmapToPixels(Bitmap bitmap) {
-        bitmap.getRowBytes();
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
 
         int[] pixels = new int[width * height];
         bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-        //Log.d("width=", "" + width);
-        //Log.d("height=", "" + height);
         return pixels;
     }
 
@@ -40,66 +37,53 @@ public class PixelsConverter {
             RGB.add((pixel & 0x00ff00) >> 8);
             RGB.add(pixel & 0x0000ff);
         }
-        Log.d("RGB array Length: ", "" + RGB.size());
         return RGB;
     }
 
+    // This function takes the RGB bytes and converts them each to an
+    // 8 bit representation of how intense to display that color
     private ArrayList<Integer> RGBToBits(ArrayList<Integer> rgb) {
         ArrayList<Integer> bytesOfData = new ArrayList<>();
-        for (int i = 0; i < rgb.size(); i++) //12288
+        for (int i = 0; i < rgb.size(); i++)
         {
-            int[] spacedValue = new int[8];
             int val = rgb.get(i);
-            // 8 bit mode
-            spacedValue[0] = (val > 0) ? 1 : 0;
-            spacedValue[2] = (val > 32) ? 1 : 0;
-            spacedValue[4] = (val > 64) ? 1 : 0;
-            spacedValue[6] = (val > 96) ? 1 : 0;
-            spacedValue[1] = (val > 128) ? 1 : 0;
-            spacedValue[3] = (val > 160) ? 1 : 0;
-            spacedValue[5] = (val > 192) ? 1 : 0;
-            spacedValue[7] = (val > 224) ? 1 : 0;
-            // 8 bit mode
-            bytesOfData.add(spacedValue[0]);
-            bytesOfData.add(spacedValue[1]);
-            bytesOfData.add(spacedValue[2]);
-            bytesOfData.add(spacedValue[3]);
-            bytesOfData.add(spacedValue[4]);
-            bytesOfData.add(spacedValue[5]);
-            bytesOfData.add(spacedValue[6]);
-            bytesOfData.add(spacedValue[7]);
+            bytesOfData.add(val > 0 ? 1 : 0);
+            bytesOfData.add(val > 128 ? 1 : 0);
+            bytesOfData.add(val > 32 ? 1 : 0);
+            bytesOfData.add(val > 160 ? 1 : 0);
+            bytesOfData.add(val > 64 ? 1 : 0);
+            bytesOfData.add(val > 192 ? 1 : 0);
+            bytesOfData.add(val > 96 ? 1 : 0);
+            bytesOfData.add(val > 224 ? 1 : 0);
         }
-        Log.d("bytes of data Length: ", "" + bytesOfData.size());
         return bytesOfData;
     }
 
-    private ArrayList<Integer> BitsToMicro(ArrayList<Integer> bits) { // bits = 98304
+    private ArrayList<Integer> BitsToMicro(ArrayList<Integer> bits) {
         ArrayList<Integer> masterScript = new ArrayList<>();
         ArrayList<Integer> finalScript = new ArrayList<>();
-        ArrayList<Integer> secondHalf = new ArrayList<>(bits.subList(bits.size() / 2, bits.size())); // 49152 - 98304
+        ArrayList<Integer> secondHalf = new ArrayList<>(bits.subList(bits.size() / 2, bits.size()));
         Log.d("second half size: ", "" + secondHalf.size());
         Log.d("bits size: ", "" + bits.size());
         // 8 bit mode
         for (int j = 0; j < 8; j++) {
             finalScript.clear();
-            for (int i = 0; i < (secondHalf.size() / 8); i++) // 6144 times
+            for (int i = 0; i < (secondHalf.size() / 8); i++)
             {
                 finalScript.add(2 * i, bits.get(8 * i + j)); // grab every 8th bit and put in order
                 finalScript.add(2 * i + 1, secondHalf.get(8 * i + j)); // grab every 8th and put in order
             }
-            Log.d("final script size: ", "" + finalScript.size()); // 12288 long (1 time worth for full panel)
+            Log.d("final script size: ", "" + finalScript.size());
             masterScript.addAll(finalScript);
         }
-        Log.d("master script size: ", "" + masterScript.size()); // 98304 (8 times worth for 1 panel
+        Log.d("master script size: ", "" + masterScript.size());
         return masterScript;
     }
 
     private byte[] compilePanelLists(ArrayList<Integer> panel0, ArrayList<Integer> panel1, ArrayList<Integer> panel2, ArrayList<Integer> panel3) {
-        Log.d("Panel0 size: ", "" + panel0.size());
-        Log.d("Panel1 size: ", "" + panel0.size()); // 98304
         int size = panel0.size();
-        byte[] bites = new byte[size / 2]; // 49152
-        for (int i = 0; i < size / 2; i++) // 49152
+        byte[] bites = new byte[size / 2];
+        for (int i = 0; i < size / 2; i++)
         {
             byte bite = 0;
             bite |= panel0.get(2 * i);
@@ -113,9 +97,10 @@ public class PixelsConverter {
             bites[i] = bite;
         }
         Log.d("bites size: ", "" + bites.length);
-        return bites; // 49152
+        return bites;
     }
 
+    // master method that utilizes other pixel converter methods
     public byte[] BitmapToByteArray(Bitmap bitmap, int dimX, int dimY) {
         ArrayList[][] panelList = new ArrayList[dimX][dimY];
         Bitmap[][] bitmapArray = SplitBitmap(bitmap, dimX, dimY);

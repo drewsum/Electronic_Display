@@ -66,6 +66,7 @@ public class NewProjectFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().setTitle("New Project");
     }
 
     @Override
@@ -82,14 +83,18 @@ public class NewProjectFragment extends Fragment {
                 // TODO Auto-generated method stub
                 EditText inputProjectName = rootView.findViewById(R.id.inputProjectName);
                 String newProjectName = inputProjectName.getText().toString();
-                TinyDB tinyDB = new TinyDB(getContext());
+                TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
                 ArrayList<String> projectList = tinyDB.getListString("projectList");
                 projectList.add(newProjectName);
                 tinyDB.putListString("projectList", projectList);
                 Log.d("projectList", projectList.toString());
                 // create a framesList for project
                 ArrayList<String> newFrameList = new ArrayList<>();
-                newFrameList.add("0");
+                // create a projectData for the project
+                ArrayList<String> newDataList = new ArrayList<>();
+                newDataList.add(0, "0"); // initial Naming Number
+                newDataList.add(1, "10"); // initial frame duration
+                tinyDB.putListString(newProjectName + "dataList", newDataList);
                 tinyDB.putListString(newProjectName + "frameList", newFrameList);
                 // pass args
                 EditProjectFragment editFrag = new EditProjectFragment();
