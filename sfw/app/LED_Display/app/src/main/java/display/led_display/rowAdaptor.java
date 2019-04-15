@@ -28,7 +28,7 @@ public class rowAdaptor extends BaseAdapter {
 
     Context context;
     String keyName;
-    ArrayList<String> data = new ArrayList<>();
+    private ArrayList<String> data;
     private static LayoutInflater inflater = null;
 
     public rowAdaptor(Context context, ArrayList<String> data, String keyName) {
@@ -81,7 +81,7 @@ public class rowAdaptor extends BaseAdapter {
         if (vi == null) {
             if (keyName == "frameList") {
                 vi = inflater.inflate(R.layout.image_row, parent, false);
-            } else {
+            } else { // projectList and deviceList
                 vi = inflater.inflate(R.layout.row, parent, false);
             }
         }
@@ -101,9 +101,8 @@ public class rowAdaptor extends BaseAdapter {
             buttonDown.setFocusable(false); // needed to allow row to still be clickable
             final TinyDB tinyDB = new TinyDB(vi.getContext().getApplicationContext());
             //data.get(position);
-            String[] splitPath = data.get(position).split("/");
-            String dirtyName = splitPath[splitPath.length-1];
-            final String projectName = dirtyName.substring(0, dirtyName.indexOf("frame"));
+            String filename = data.get(position);
+            final String projectName = filename.substring(0, filename.indexOf("frame"));
             final ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
             final ArrayList<String> dataList = tinyDB.getListString(projectName + "dataList");
             final String namingNumber = dataList.get(0);
@@ -112,33 +111,28 @@ public class rowAdaptor extends BaseAdapter {
                 public void onClick(View v) {
                     Log.d("clickEvent", "up button clicked");
                     Log.d("original list location", "" + position);
-                    // decrement the position of image
+                    // decrement the position of image only if its not the 0th image
                     if (position != 0) {
                         Collections.swap(framesList, position, position - 1);
-                    } else {
-                        Collections.swap(framesList, position, framesList.size() -1);
                     }
                     // save off the ordering
-                    dataList.add(0, namingNumber);
+                    dataList.set(0, namingNumber);
                     tinyDB.putListString(projectName + "frameList", framesList);
                     Log.d("new ordered frameList", framesList.toString());
                     data = framesList;
                     notifyDataSetChanged();
-                    //TextView textFrameCount = (TextView) finView.findViewById(R.id.textFrameCount);
                 }
             });
             buttonDown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d("clickEvent", "down button clicked");
-                    // increment the position of image
+                    // increment the position of image only if its not the last image
                     if(position != framesList.size() - 1) {
                         Collections.swap(framesList, position, position + 1);
-                    } else {
-                        Collections.swap(framesList, position, 0);
                     }
                     // save off the ordering
-                    dataList.add(0, namingNumber);
+                    dataList.set(0, namingNumber);
                     tinyDB.putListString(projectName + "frameList", framesList);
                     Log.d("new ordered frameList", framesList.toString());
                     data = framesList;
@@ -159,10 +153,8 @@ public class rowAdaptor extends BaseAdapter {
                 switch (keyName) {
                     case "frameList": {
                         // delete frame from current framelist
-                        String path = data.get(position);
-                        String[] splitPath = path.split("/");
-                        String projectName = splitPath[splitPath.length - 1];
-                        projectName = projectName.substring(0, projectName.indexOf("frame"));
+                        String filename = data.get(position);
+                        String projectName = filename.substring(0, filename.indexOf("frame"));
                         ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
                         data.remove(position);
                         framesList.remove(position);
@@ -173,7 +165,7 @@ public class rowAdaptor extends BaseAdapter {
                         // also need delete image from internal storage
                         ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
                         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-                        File f = new File(directory, splitPath[splitPath.length - 1]);
+                        File f = new File(directory, filename);
                         f.delete();
                         break;
                     }
@@ -183,6 +175,7 @@ public class rowAdaptor extends BaseAdapter {
                         data.remove(position);
                         tinyDB.putListString(keyName, data);
                         tinyDB.remove(projectName + "frameList");
+                        tinyDB.remove(projectName + "dataList");
                         Log.d("deleted", projectName + "frameList");
                         Log.d(keyName, data.toString());
                         break;

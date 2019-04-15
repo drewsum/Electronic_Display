@@ -52,7 +52,7 @@
         android:layout_height="224dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/marquette"
+        android:src="@drawable/empty_project"
         android:contentDescription="@string/preview_image_description"
         app:layout_constraintBottom_toTopOf="@+id/textFrameDisplayed"
         app:layout_constraintTop_toBottomOf="@+id/textCurrentFrameCount"

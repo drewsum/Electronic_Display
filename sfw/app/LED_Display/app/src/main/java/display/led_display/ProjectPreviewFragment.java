@@ -152,7 +152,7 @@ public class ProjectPreviewFragment extends Fragment {
             textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
         } else {
             ImageView imagePreview = getView().findViewById(R.id.imagePreview);
-            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.marquette));
+            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.empty_project));
         }
     }
 

@@ -45,12 +45,12 @@ public class ImageSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_select);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Image Selection");
         Button buttonLoadImage = findViewById(R.id.buttonLoadImage);
         targetImage = findViewById(R.id.targetimage);
 
         projectName = getIntent().getExtras().getString("projectName");
         namingNumber = getIntent().getExtras().getInt("namingNumber");
-
         Switch switchAspectRatio = findViewById(R.id.switchAspectRatio);
         if (switchAspectRatio != null) {
             switchAspectRatio.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
