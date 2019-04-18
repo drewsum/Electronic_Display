@@ -2,7 +2,6 @@ package display.led_display;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -141,18 +140,18 @@ public class ProjectPreviewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final ImageView imagePreview = getView().findViewById(R.id.imagePreview);
         updateImage();
     }
 
     private void updateImage() {
+        TextView textFrameCount = getView().findViewById(R.id.textFrameDisplayed);
         if(!framesList.isEmpty()) {
             loadImageFromStorage(framesList.get(currentIndex));
-            TextView textFrameCount = getView().findViewById(R.id.textFrameDisplayed);
             textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
         } else {
             ImageView imagePreview = getView().findViewById(R.id.imagePreview);
-            imagePreview.setImageBitmap(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.empty_project));
+            imagePreview.setImageBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.empty_project));
+            textFrameCount.setText("There are not any images in this project yet");
         }
     }
 

@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 import display.led_display.helper.WiFiController;
 
 
@@ -84,9 +84,9 @@ public class DeviceControlFragment extends Fragment {
         final String deviceName = arguments.getString("deviceName");
         TextView textDeviceName = rootView.findViewById(R.id.textDeviceName);
         textDeviceName.setText("Controlling Device: " + deviceName);
-        TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
+        DataManager dataManager = new DataManager(getContext().getApplicationContext());
         final WiFiController wiFiController = new WiFiController(getView(), getContext(), deviceName);
-        //deviceList = tinyDB.getListString(projectName + "frameList");
+        //deviceList = dataManager.getListString(projectName + "frameList");
         // set up Ping button
         Button buttonPing = rootView.findViewById(R.id.buttonPing);
         buttonPing.setOnClickListener(new Button.OnClickListener() {
@@ -95,6 +95,7 @@ public class DeviceControlFragment extends Fragment {
                 // Ping the Micro
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add("ping");
+                //wiFiController.connectToNetwork(getContext());
                 wiFiController.sendOverWiFi("Control", messageList);
                 Log.d("WiFi", "Pinged Device");
             }

@@ -35,31 +35,33 @@
 
     <TextView
         android:id="@+id/textFrameDisplayed"
-        android:layout_width="166dp"
-        android:layout_height="27dp"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/frame_previewed_text"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/buttonEditProject"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRight" />
 
     <ImageView
         android:id="@+id/imagePreview"
-        android:layout_width="302dp"
-        android:layout_height="224dp"
+        android:layout_width="381dp"
+        android:layout_height="378dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/empty_project"
+        android:layout_marginEnd="8dp"
         android:contentDescription="@string/preview_image_description"
-        app:layout_constraintBottom_toTopOf="@+id/textFrameDisplayed"
-        app:layout_constraintTop_toBottomOf="@+id/textCurrentFrameCount"
-        app:layout_constraintStart_toEndOf="@id/buttonLeft"
-        app:layout_constraintEnd_toStartOf="@id/buttonRight"
-        app:layout_constraintVertical_bias="0.502"
-        tools:layout_editor_absoluteX="63dp" />
+        android:src="@drawable/empty_project"
+        app:layout_constraintBottom_toTopOf="@id/buttonLeft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textCurrentFrameCount" />
 
     <ImageButton
         android:id="@+id/buttonLeft"
@@ -67,28 +69,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_arrow_left"
         android:contentDescription="@string/left_button_description"
+        android:src="@drawable/ic_arrow_left"
         app:layout_constraintBottom_toTopOf="@+id/textFrameDisplayed"
-        app:layout_constraintEnd_toStartOf="@+id/imagePreview"
+        app:layout_constraintEnd_toStartOf="@+id/buttonRight"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCurrentFrameCount" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePreview" />
 
     <ImageButton
         android:id="@+id/buttonRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_arrow_right"
         android:contentDescription="@string/right_button_description"
+        android:src="@drawable/ic_arrow_right"
+        app:layout_constraintStart_toEndOf="@id/buttonLeft"
         app:layout_constraintBottom_toTopOf="@+id/textFrameDisplayed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagePreview"
-        app:layout_constraintTop_toBottomOf="@+id/textCurrentFrameCount" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePreview" />
 
 </android.support.constraint.ConstraintLayout>

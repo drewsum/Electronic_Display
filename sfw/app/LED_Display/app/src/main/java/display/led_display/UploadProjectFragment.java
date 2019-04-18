@@ -1,6 +1,9 @@
 package display.led_display;
 
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,9 +15,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import display.led_display.helper.DataManager;
+import display.led_display.helper.PixelsConverter;
+import display.led_display.helper.WiFiController;
 
 
 /**
@@ -115,7 +124,7 @@ public class UploadProjectFragment extends Fragment {
                 ArrayList<String> frameList = dataManager.getListString(selectedProject + "frameList");
                 ArrayList<String> dataList = dataManager.getListString(selectedProject + "dataList");
                 ArrayList<String> deviceData = dataManager.getListString(selectedDevice + "Data");
-/*
+
                 PixelsConverter pixelsConverter = new PixelsConverter();
                 int panels_width = 5;
                 int panels_height = 4;
@@ -187,7 +196,6 @@ public class UploadProjectFragment extends Fragment {
                     wiFiController.sendOverWiFi("ImageData", payloadList);
                     Log.d("wifi commands sent", "" + payloadList.size());
                 }
-                */
             }
         });
 
