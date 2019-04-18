@@ -1289,8 +1289,11 @@ void usbUartRingBufferLUT(char * line_in) {
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("NVM Frame Number set to %u, NVM delay value set to %u\n\r", readFrameNVM(), readDelayNVM());
+        printf("NVM Frame Number set to %u, NVM delay value set to %u, wait for reset\n\r", readFrameNVM(), readDelayNVM());
         terminalTextAttributesReset();
+        
+        softwareDelay(10000000);
+        deviceReset();
         
     }
     
