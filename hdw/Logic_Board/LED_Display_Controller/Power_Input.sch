@@ -767,4 +767,6 @@ F 7 "311-1344-1-ND" H 7935 4340 60  0001 C CNN "Digi-Key PN"
 	1    7510 3840
 	1    0    0    -1  
 $EndComp
+Text Notes 1380 4660 0    50   ~ 0
+DO NOT power the logic board using\nthe auxillary input power jack and input\npower shanks at the same time
 $EndSCHEMATC

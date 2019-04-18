@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:LTC7851_Demo-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
@@ -134,7 +134,7 @@ Text Notes 900  5780 0    100  ~ 20
 Text Notes 900  6190 0    100  ~ 20
 12. Active Load 2
 Text Notes 900  6600 0    100  ~ 20
-13. Actie Load 3
+13. Active Load 3
 Text Notes 900  7010 0    100  ~ 20
 14. Loop Response
 Text Notes 990  7850 0    50   ~ 0

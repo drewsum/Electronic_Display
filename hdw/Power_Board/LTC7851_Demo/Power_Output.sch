@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:LTC7851_Demo-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
@@ -102,8 +102,6 @@ Wire Wire Line
 Wire Wire Line
 	5240 3280 5320 3280
 Connection ~ 5240 3570
-Text Notes 3340 3220 0    50   ~ 0
-Place bulk output caps close to terminals
 Text Notes 540  690  0    100  ~ 20
 09. Power Output
 $Comp

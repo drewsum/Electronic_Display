@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:LTC7851_Demo-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
@@ -525,4 +525,6 @@ F 3 "" H 9900 1100 50  0001 C CNN
 	1    9900 1100
 	1    0    0    -1  
 $EndComp
+Text Notes 6620 6130 0    50   ~ 0
+Do not populate any components on this sheet
 $EndSCHEMATC
