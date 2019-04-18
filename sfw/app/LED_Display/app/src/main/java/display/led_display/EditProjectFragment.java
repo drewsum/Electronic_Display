@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 
 
 /**
@@ -90,9 +90,9 @@ public class EditProjectFragment extends Fragment {
         Bundle arguments = getArguments();
         projectName = arguments.getString("projectName");
         // get the frames for that project
-        final TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-        framesList = tinyDB.getListString(projectName + "frameList");
-        dataList = tinyDB.getListString(projectName + "dataList");
+        final DataManager dataManager = new DataManager(getContext().getApplicationContext());
+        framesList = dataManager.getListString(projectName + "frameList");
+        dataList = dataManager.getListString(projectName + "dataList");
         Log.d("FrameList fetched", framesList.toString());
         Log.d("dataList fetched", dataList.toString());
         namingNumber = Integer.parseInt(dataList.get(0));
@@ -144,7 +144,7 @@ public class EditProjectFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String value = (String)adapter.getItem(position);
                 dataList.set(1, value);
-                tinyDB.putListString(projectName + "dataList", dataList);
+                dataManager.putListString(projectName + "dataList", dataList);
                 Log.d("dataList", dataList.toString());
             }
 
@@ -173,12 +173,12 @@ public class EditProjectFragment extends Fragment {
             String fileName = data.getExtras().getString("fileName");
             Log.d("fileName", fileName);
 
-            TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-            framesList = tinyDB.getListString(projectName + "frameList");
+            DataManager dataManager = new DataManager(getContext().getApplicationContext());
+            framesList = dataManager.getListString(projectName + "frameList");
             framesList.add(fileName);
             dataList.set(0, "" + namingNumber);
-            tinyDB.putListString(projectName + "frameList", framesList);
-            tinyDB.putListString(projectName + "dataList", dataList);
+            dataManager.putListString(projectName + "frameList", framesList);
+            dataManager.putListString(projectName + "dataList", dataList);
             Log.d("frameList", framesList.toString());
             ListView listView = this.getView().findViewById(R.id.framesList);
             adaptor = new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList");

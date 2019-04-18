@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 
 
 /**
@@ -87,15 +87,15 @@ public class NewDeviceFragment extends Fragment {
                 String newIPAddress = inputIpAddress.getText().toString();
                 EditText inputPortNumber = rootView.findViewById(R.id.inputPortNumber);
                 String newPortNumber = inputPortNumber.getText().toString();
-                TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-                ArrayList<String> deviceList = tinyDB.getListString("deviceList");
+                DataManager dataManager = new DataManager(getContext().getApplicationContext());
+                ArrayList<String> deviceList = dataManager.getListString("deviceList");
                 deviceList.add(newDeviceName);
-                tinyDB.putListString("deviceList", deviceList);
+                dataManager.putListString("deviceList", deviceList);
                 Log.d("deviceList", deviceList.toString());
                 ArrayList<String> deviceData = new ArrayList<>();
                 deviceData.add(0, newIPAddress);
                 deviceData.add(1, newPortNumber);
-                tinyDB.putListString(newDeviceName + "Data", deviceData);
+                dataManager.putListString(newDeviceName + "Data", deviceData);
                 // pass args
                 UploadProjectFragment uploadFrag = new UploadProjectFragment();
                 // switch back to upload fragment

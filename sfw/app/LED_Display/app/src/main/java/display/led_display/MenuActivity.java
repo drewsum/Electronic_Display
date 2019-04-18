@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 
 public class MenuActivity extends AppCompatActivity
         implements UploadProjectFragment.OnFragmentInteractionListener,
@@ -48,16 +48,16 @@ public class MenuActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TinyDB tinyDB = new TinyDB(getApplicationContext());
-        ArrayList<String> deviceList = tinyDB.getListString("deviceList");
+        DataManager dataManager = new DataManager(getApplicationContext());
+        ArrayList<String> deviceList = dataManager.getListString("deviceList");
         if(deviceList.size() == 0)
         {
             deviceList.add("Default Display Board");
-            tinyDB.putListString("deviceList", deviceList);
+            dataManager.putListString("deviceList", deviceList);
             ArrayList<String> deviceData = new ArrayList<>();
             deviceData.add(0, "192.168.4.1");
             deviceData.add(1, "333");
-            tinyDB.putListString("Default Display BoardData", deviceData);
+            dataManager.putListString("Default Display BoardData", deviceData);
         }
 
         UploadProjectFragment firstFrag = new UploadProjectFragment();
@@ -72,61 +72,6 @@ public class MenuActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        /*} else {
-            if (menuItemStack.size() > 0) {
-                prevMenuItem = menuItemStack.pop();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().remove(curFragment).commit();
-                setTitle("MenuActivity");
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
-                }
-            } else {
-                Class fragmentClass = null;
-                // pass args
-                Bundle arguments = new Bundle();
-
-                int id = prevMenuItem.getItemId();
-                if (id == R.id.nav_add) {
-                    fragmentClass = NewProjectFragment.class;
-                } else if (id == R.id.nav_edit) {
-                    fragmentClass = SelectionFragment.class;
-                    arguments.putString( "selectionType" , "project");
-                    arguments.putString( "fragmentReturn" , "edit");
-                } else if (id == R.id.nav_preview) {
-                    fragmentClass = SelectionFragment.class;
-                    arguments.putString( "selectionType" , "project");
-                    arguments.putString( "fragmentReturn" , "preview");
-                } else if (id == R.id.nav_upload) {
-                    fragmentClass = UploadProjectFragment.class;
-                } else if (id == R.id.nav_control) {
-                    fragmentClass = SelectionFragment.class;
-                    arguments.putString("selectionType", "device");
-                    arguments.putString("fragmentReturn", "control");
-                }
-
-                try {
-                    curFragment = (Fragment) fragmentClass.newInstance();
-                    curFragment.setArguments(arguments);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                // Replace current fragment with new fragment
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
-                prevMenuItem.setChecked(true);
-                setTitle(prevMenuItem.getTitle());
-            }
-            if(!getTitle().toString().equals("MenuActivity")){
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().remove(curFragment).commit();
-                setTitle("MenuActivity");
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
-                }
-                return;
-            }*/
         } else {
             super.onBackPressed();
         }

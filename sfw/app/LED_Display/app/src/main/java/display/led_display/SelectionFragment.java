@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 
 
 /**
@@ -77,15 +77,15 @@ public class SelectionFragment extends Fragment {
         String selectionType = arguments.getString("selectionType");
         final String fragmentReturn = arguments.getString("fragmentReturn");
         final View rootView = inflater.inflate(R.layout.fragment_selection, container, false);
-        final TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
+        final DataManager dataManager = new DataManager(getContext().getApplicationContext());
         TextView textContentType = rootView.findViewById(R.id.textSelectContent);
         textContentType.setText("Select a " + selectionType);
         final ListView contentListview = rootView.findViewById(R.id.contentList);
         ArrayList<String> contentList = new ArrayList<>();
         if (selectionType == "project") {
-            contentList = tinyDB.getListString("projectList");
+            contentList = dataManager.getListString("projectList");
         } else if (selectionType == "device") {
-            contentList = tinyDB.getListString("deviceList");
+            contentList = dataManager.getListString("deviceList");
         }
         contentListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), contentList, selectionType + "List"));
         contentListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

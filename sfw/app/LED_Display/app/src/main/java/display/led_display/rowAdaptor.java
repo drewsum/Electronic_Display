@@ -22,7 +22,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 
 public class rowAdaptor extends BaseAdapter {
 
@@ -99,12 +99,12 @@ public class rowAdaptor extends BaseAdapter {
             buttonUp.setFocusable(false); // needed to allow row to still be clickable
             ImageButton buttonDown = vi.findViewById(R.id.buttonDown);
             buttonDown.setFocusable(false); // needed to allow row to still be clickable
-            final TinyDB tinyDB = new TinyDB(vi.getContext().getApplicationContext());
+            final DataManager dataManager = new DataManager(vi.getContext().getApplicationContext());
             //data.get(position);
             String filename = data.get(position);
             final String projectName = filename.substring(0, filename.indexOf("frame"));
-            final ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
-            final ArrayList<String> dataList = tinyDB.getListString(projectName + "dataList");
+            final ArrayList<String> framesList = dataManager.getListString(projectName + "frameList");
+            final ArrayList<String> dataList = dataManager.getListString(projectName + "dataList");
             final String namingNumber = dataList.get(0);
             buttonUp.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,7 +117,7 @@ public class rowAdaptor extends BaseAdapter {
                     }
                     // save off the ordering
                     dataList.set(0, namingNumber);
-                    tinyDB.putListString(projectName + "frameList", framesList);
+                    dataManager.putListString(projectName + "frameList", framesList);
                     Log.d("new ordered frameList", framesList.toString());
                     data = framesList;
                     notifyDataSetChanged();
@@ -133,7 +133,7 @@ public class rowAdaptor extends BaseAdapter {
                     }
                     // save off the ordering
                     dataList.set(0, namingNumber);
-                    tinyDB.putListString(projectName + "frameList", framesList);
+                    dataManager.putListString(projectName + "frameList", framesList);
                     Log.d("new ordered frameList", framesList.toString());
                     data = framesList;
                     notifyDataSetChanged();
@@ -148,17 +148,17 @@ public class rowAdaptor extends BaseAdapter {
         builder.setMessage("This action is permanent!");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                TinyDB tinyDB = new TinyDB(finView.getContext().getApplicationContext());
+                DataManager dataManager = new DataManager(finView.getContext().getApplicationContext());
                 Log.d("deleting item from", keyName);
                 switch (keyName) {
                     case "frameList": {
                         // delete frame from current framelist
                         String filename = data.get(position);
                         String projectName = filename.substring(0, filename.indexOf("frame"));
-                        ArrayList<String> framesList = tinyDB.getListString(projectName + "frameList");
+                        ArrayList<String> framesList = dataManager.getListString(projectName + "frameList");
                         data.remove(position);
                         framesList.remove(position);
-                        tinyDB.putListString(projectName + keyName, framesList);
+                        dataManager.putListString(projectName + keyName, framesList);
                         Log.d("New " + projectName + keyName, data.toString());
                         TextView textFrameCount = finView.getRootView().findViewById(R.id.textFrameCount);
                         textFrameCount.setText(data.size() + "/8");
@@ -173,9 +173,9 @@ public class rowAdaptor extends BaseAdapter {
                         Log.d("projectList", data.toString());
                         String projectName = data.get(position);
                         data.remove(position);
-                        tinyDB.putListString(keyName, data);
-                        tinyDB.remove(projectName + "frameList");
-                        tinyDB.remove(projectName + "dataList");
+                        dataManager.putListString(keyName, data);
+                        dataManager.remove(projectName + "frameList");
+                        dataManager.remove(projectName + "dataList");
                         Log.d("deleted", projectName + "frameList");
                         Log.d(keyName, data.toString());
                         break;
@@ -183,9 +183,9 @@ public class rowAdaptor extends BaseAdapter {
                     case "deviceList":
                         String deviceName = data.get(position);
                         data.remove(position);
-                        tinyDB.putListString(keyName, data);
+                        dataManager.putListString(keyName, data);
                         // delete the device data
-                        tinyDB.remove(deviceName + "Data");
+                        dataManager.remove(deviceName + "Data");
                         Log.d("deleted", deviceName + "Data");
                         break;
                 }

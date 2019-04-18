@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import display.led_display.helper.PixelsConverter;
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 import display.led_display.helper.WiFiController;
 
 
@@ -88,10 +88,10 @@ public class UploadProjectFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_upload_project, container, false);
         final View finView = rootView;
-        final TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-        final ArrayList<String> projectList = tinyDB.getListString("projectList");
+        final DataManager dataManager = new DataManager(getContext().getApplicationContext());
+        final ArrayList<String> projectList = dataManager.getListString("projectList");
         Log.d("projectList", projectList.toString());
-        final ArrayList<String> deviceList = tinyDB.getListString("deviceList");
+        final ArrayList<String> deviceList = dataManager.getListString("deviceList");
         Log.d("deviceList", deviceList.toString());
         final ListView projectListview = rootView.findViewById(R.id.projectList);
         projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "projectList"));
@@ -128,11 +128,11 @@ public class UploadProjectFragment extends Fragment {
                 // add the code to send start the upload project routine
                 ListView projectListview = getView().findViewById(R.id.projectList);
                 String selectedProject = projectList.get(projectListview.getSelectedItemPosition()+1);
-                ArrayList<String> frameList = tinyDB.getListString(selectedProject + "frameList");
-                ArrayList<String> dataList = tinyDB.getListString(selectedProject + "dataList");
+                ArrayList<String> frameList = dataManager.getListString(selectedProject + "frameList");
+                ArrayList<String> dataList = dataManager.getListString(selectedProject + "dataList");
                 ListView deviceListview = getView().findViewById(R.id.deviceList);
                 String selectedDevice = deviceList.get(deviceListview.getSelectedItemPosition()+1);
-                ArrayList<String> deviceData = tinyDB.getListString(selectedDevice + "Data");
+                ArrayList<String> deviceData = dataManager.getListString(selectedDevice + "Data");
                 Log.d("projectSelected", selectedProject);
                 Log.d("deviceSelected", selectedDevice);
 
