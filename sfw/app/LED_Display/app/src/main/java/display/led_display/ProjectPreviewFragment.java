@@ -108,7 +108,7 @@ public class ProjectPreviewFragment extends Fragment {
                 editFrag.setArguments(arguments);
                 // switch to edit project screen
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
+                fragmentManager.beginTransaction().addToBackStack(editFrag.getTag()).replace(R.id.flContent, editFrag).commit();
             }
         });
         // set up nav buttons

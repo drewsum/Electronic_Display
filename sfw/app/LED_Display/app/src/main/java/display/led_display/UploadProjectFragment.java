@@ -103,8 +103,9 @@ public class UploadProjectFragment extends Fragment {
 
             @Override
             public void onClick(View arg0) {
+                NewDeviceFragment newDeviceFragment = new NewDeviceFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, new NewDeviceFragment()).commit();
+                fragmentManager.beginTransaction().addToBackStack(newDeviceFragment.getTag()).replace(R.id.flContent, newDeviceFragment).commit();
             }
         });
 
@@ -114,8 +115,9 @@ public class UploadProjectFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
+                NewProjectFragment newProjectFragment = new NewProjectFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, new NewProjectFragment()).commit();
+                fragmentManager.beginTransaction().addToBackStack(newProjectFragment.getTag()).replace(R.id.flContent, newProjectFragment).commit();
             }
         });
         Button buttonUploadProject = rootView.findViewById(R.id.buttonUpload);

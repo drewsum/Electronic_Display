@@ -12,7 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.Stack;
+
+import display.led_display.helper.TinyDB;
 
 public class MenuActivity extends AppCompatActivity
         implements UploadProjectFragment.OnFragmentInteractionListener,
@@ -24,18 +27,13 @@ public class MenuActivity extends AppCompatActivity
         DeviceControlFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-    public static int SENDING = 1;
-    public static int SENT = 2;
-    public static int ERROR = 3;
-    public static int CONNECTING = 4;
-    public static int SHUTDOWN = 5;
-
     private Stack<MenuItem> menuItemStack = new Stack<>();
     private Fragment curFragment = null;
     private MenuItem prevMenuItem = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -50,9 +48,21 @@ public class MenuActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        TinyDB tinyDB = new TinyDB(getApplicationContext());
+        ArrayList<String> deviceList = tinyDB.getListString("deviceList");
+        if(deviceList.size() == 0)
+        {
+            deviceList.add("Default Display Board");
+            tinyDB.putListString("deviceList", deviceList);
+            ArrayList<String> deviceData = new ArrayList<>();
+            deviceData.add(0, "192.168.4.1");
+            deviceData.add(1, "333");
+            tinyDB.putListString("Default Display BoardData", deviceData);
+        }
+
         UploadProjectFragment firstFrag = new UploadProjectFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, firstFrag).commit();
+        fragmentManager.beginTransaction().addToBackStack(firstFrag.getTag()).replace(R.id.flContent, firstFrag).commit();
 
         //setTitle("Upload Project");
     }
@@ -159,7 +169,7 @@ public class MenuActivity extends AppCompatActivity
 
         // Replace current fragment with new fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(fragment.getTag()).commit();
+        fragmentManager.beginTransaction().addToBackStack(fragment.getTag()).replace(R.id.flContent, fragment).commit();
         item.setChecked(true);
         setTitle(item.getTitle());
 

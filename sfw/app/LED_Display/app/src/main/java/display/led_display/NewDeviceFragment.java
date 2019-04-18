@@ -100,7 +100,7 @@ public class NewDeviceFragment extends Fragment {
                 UploadProjectFragment uploadFrag = new UploadProjectFragment();
                 // switch back to upload fragment
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, uploadFrag).commit();
+                fragmentManager.beginTransaction().addToBackStack(uploadFrag.getTag()).replace(R.id.flContent, uploadFrag).commit();
             }
         });
         return rootView;

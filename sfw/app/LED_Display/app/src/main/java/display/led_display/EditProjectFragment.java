@@ -41,7 +41,6 @@ public class EditProjectFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private int frameCount = 0;
     private String projectName;
     private ArrayList<String> framesList;
     private ArrayList<String> dataList;
@@ -98,7 +97,6 @@ public class EditProjectFragment extends Fragment {
         Log.d("dataList fetched", dataList.toString());
         namingNumber = Integer.parseInt(dataList.get(0));
         // framesList.add("filepath in internal storage");
-        frameCount = framesList.size();
         ListView listview = rootView.findViewById(R.id.framesList);
         adaptor = new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList");
         listview.setAdapter(adaptor);
@@ -110,7 +108,6 @@ public class EditProjectFragment extends Fragment {
                 // need to give index and project name for imagePath naming convention
                 if (adaptor.getCount() < 8) {
                     Log.d("row count", "" + adaptor.getCount());
-                    Log.d("frameCount", "" + frameCount);
                     namingNumber++;
                     Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
                     intent.putExtra("projectName", projectName);
@@ -136,7 +133,7 @@ public class EditProjectFragment extends Fragment {
         textProjectName.setText("Editing Project: " + projectName);
 
         TextView textFrameCount = rootView.findViewById(R.id.textFrameCount);
-        textFrameCount.setText(frameCount + "/8");
+        textFrameCount.setText(adaptor.getCount() + "/8");
 
         final Spinner dropdown = rootView.findViewById(R.id.spinnerDropdown);
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.time_values, android.R.layout.simple_spinner_item);
@@ -171,7 +168,7 @@ public class EditProjectFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
+        if (data != null) {
             //Uri targetUri = Uri.parse(data.getExtras().getString("targetUri"));
             String fileName = data.getExtras().getString("fileName");
             Log.d("fileName", fileName);
@@ -183,16 +180,13 @@ public class EditProjectFragment extends Fragment {
             tinyDB.putListString(projectName + "frameList", framesList);
             tinyDB.putListString(projectName + "dataList", dataList);
             Log.d("frameList", framesList.toString());
-            frameCount = framesList.size();
-            /*if (frameCount > 7) {
-                Button buttonAddFrame = (Button) getView().findViewById(R.id.buttonAddFrame);
-                buttonAddFrame.setClickable(false);
-            }*/
-            TextView textFrameCount = this.getView().findViewById(R.id.textFrameCount);
-            textFrameCount.setText(frameCount + "/8");
             ListView listView = this.getView().findViewById(R.id.framesList);
             adaptor = new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList");
             listView.setAdapter(adaptor);
+            TextView textFrameCount = this.getView().findViewById(R.id.textFrameCount);
+            textFrameCount.setText(adaptor.getCount() + "/8");
+        } else {
+            Log.d("no image", "no image came back");
         }
     }
 

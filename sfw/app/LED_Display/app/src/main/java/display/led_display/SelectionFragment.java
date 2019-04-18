@@ -100,14 +100,14 @@ public class SelectionFragment extends Fragment {
                     editFrag.setArguments(arguments);
                     // switch to edit project screen
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
+                    fragmentManager.beginTransaction().addToBackStack(editFrag.getTag()).replace(R.id.flContent, editFrag).commit();
                 } else if (fragmentReturn == "preview") {
                     ProjectPreviewFragment previewFrag = new ProjectPreviewFragment();
                     arguments.putString("projectName", selectedItem);
                     previewFrag.setArguments(arguments);
                     // switch to project preview screen
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.flContent, previewFrag).commit();
+                    fragmentManager.beginTransaction().addToBackStack(previewFrag.getTag()).replace(R.id.flContent, previewFrag).commit();
                 } else if (fragmentReturn == "upload") {
                     // can select device or project from upload
 
@@ -118,7 +118,7 @@ public class SelectionFragment extends Fragment {
                     controlFrag.setArguments(arguments);
                     // switch to device control screen
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.flContent, controlFrag).commit();
+                    fragmentManager.beginTransaction().addToBackStack(controlFrag.getTag()).replace(R.id.flContent, controlFrag).commit();
                 }
             }
         });
