@@ -4,28 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-
-import java.util.ArrayList;
-
-import display.led_display.helper.DataManager;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewDeviceFragment.OnFragmentInteractionListener} interface
+ * {@link AboutFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewDeviceFragment#newInstance} factory method to
+ * Use the {@link AboutFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewDeviceFragment extends Fragment {
+public class AboutFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +29,7 @@ public class NewDeviceFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public NewDeviceFragment() {
+    public AboutFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +39,11 @@ public class NewDeviceFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewDeviceFragment.
+     * @return A new instance of fragment AboutFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewDeviceFragment newInstance(String param1, String param2) {
-        NewDeviceFragment fragment = new NewDeviceFragment();
+    public static AboutFragment newInstance(String param1, String param2) {
+        AboutFragment fragment = new AboutFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,43 +58,15 @@ public class NewDeviceFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        getActivity().setTitle("New Device");
+        getActivity().setTitle("About");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.fragment_new_device, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
 
-        Button buttonCreateDevice = rootView.findViewById(R.id.buttonCreateDevice);
-        buttonCreateDevice.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                EditText inputDeviceName = rootView.findViewById(R.id.inputDeviceName);
-                String newDeviceName = inputDeviceName.getText().toString();
-                EditText inputIpAddress = rootView.findViewById(R.id.inputIPAddress);
-                String newIPAddress = inputIpAddress.getText().toString();
-                EditText inputPortNumber = rootView.findViewById(R.id.inputPortNumber);
-                String newPortNumber = inputPortNumber.getText().toString();
-                DataManager dataManager = new DataManager(getContext().getApplicationContext());
-                ArrayList<String> deviceList = dataManager.getListString("deviceList");
-                deviceList.add(newDeviceName);
-                dataManager.putListString("deviceList", deviceList);
-                Log.d("deviceList", deviceList.toString());
-                ArrayList<String> deviceData = new ArrayList<>();
-                deviceData.add(0, newIPAddress);
-                deviceData.add(1, newPortNumber);
-                dataManager.putListString(newDeviceName + "Data", deviceData);
-                // pass args
-                UploadProjectFragment uploadFrag = new UploadProjectFragment();
-                // switch back to upload fragment
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().addToBackStack(uploadFrag.getTag()).replace(R.id.flContent, uploadFrag).commit();
-            }
-        });
         return rootView;
     }
 

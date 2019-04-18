@@ -25,7 +25,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 
 
 /**
@@ -93,8 +93,8 @@ public class ProjectPreviewFragment extends Fragment {
         Log.d("projectName", projectName);
         TextView textDisplayingProject = rootView.findViewById(R.id.textCurrentFrameCount);
         textDisplayingProject.setText("Preview Project: " + projectName);
-        TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-        framesList = tinyDB.getListString(projectName + "frameList");
+        DataManager dataManager = new DataManager(getContext().getApplicationContext());
+        framesList = dataManager.getListString(projectName + "frameList");
         Log.d("frameList", framesList.toString());
         // set up edit button
         Button buttonEditProject = rootView.findViewById(R.id.buttonEditProject);
@@ -108,7 +108,7 @@ public class ProjectPreviewFragment extends Fragment {
                 editFrag.setArguments(arguments);
                 // switch to edit project screen
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
+                fragmentManager.beginTransaction().addToBackStack(editFrag.getTag()).replace(R.id.flContent, editFrag).commit();
             }
         });
         // set up nav buttons

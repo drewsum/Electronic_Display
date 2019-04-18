@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-import display.led_display.helper.TinyDB;
+import display.led_display.helper.DataManager;
 
 
 /**
@@ -83,10 +83,10 @@ public class NewProjectFragment extends Fragment {
                 // TODO Auto-generated method stub
                 EditText inputProjectName = rootView.findViewById(R.id.inputProjectName);
                 String newProjectName = inputProjectName.getText().toString();
-                TinyDB tinyDB = new TinyDB(getContext().getApplicationContext());
-                ArrayList<String> projectList = tinyDB.getListString("projectList");
+                DataManager dataManager = new DataManager(getContext().getApplicationContext());
+                ArrayList<String> projectList = dataManager.getListString("projectList");
                 projectList.add(newProjectName);
-                tinyDB.putListString("projectList", projectList);
+                dataManager.putListString("projectList", projectList);
                 Log.d("projectList", projectList.toString());
                 // create a framesList for project
                 ArrayList<String> newFrameList = new ArrayList<>();
@@ -94,8 +94,8 @@ public class NewProjectFragment extends Fragment {
                 ArrayList<String> newDataList = new ArrayList<>();
                 newDataList.add(0, "0"); // initial Naming Number
                 newDataList.add(1, "10"); // initial frame duration
-                tinyDB.putListString(newProjectName + "dataList", newDataList);
-                tinyDB.putListString(newProjectName + "frameList", newFrameList);
+                dataManager.putListString(newProjectName + "dataList", newDataList);
+                dataManager.putListString(newProjectName + "frameList", newFrameList);
                 // pass args
                 EditProjectFragment editFrag = new EditProjectFragment();
                 Bundle arguments = new Bundle();
@@ -103,7 +103,7 @@ public class NewProjectFragment extends Fragment {
                 editFrag.setArguments(arguments);
                 // switch to edit project screen
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, editFrag).commit();
+                fragmentManager.beginTransaction().addToBackStack(editFrag.getTag()).replace(R.id.flContent, editFrag).commit();
             }
         });
         return rootView;

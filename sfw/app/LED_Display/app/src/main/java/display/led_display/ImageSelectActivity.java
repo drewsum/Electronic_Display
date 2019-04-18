@@ -45,6 +45,8 @@ public class ImageSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_select);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setTitle("Image Selection");
         Button buttonLoadImage = findViewById(R.id.buttonLoadImage);
         targetImage = findViewById(R.id.targetimage);
@@ -123,6 +125,12 @@ public class ImageSelectActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     protected void saveOff() {
