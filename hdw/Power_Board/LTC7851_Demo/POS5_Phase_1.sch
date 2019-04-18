@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:LTC7851_Demo-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
@@ -1127,21 +1127,6 @@ F 3 "" H 5430 2510 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L LED_Display_Local_Library:C_Custom C401
-U 1 1 5BD9BA31
-P 1710 5140
-F 0 "C401" H 1735 5240 50  0000 L CNN
-F 1 "1nF" H 1735 5040 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0402" H 1748 4990 50  0001 C CNN
-F 3 "" H 1735 5240 50  0001 C CNN
-F 4 "311-1080-1-ND" H 2135 5640 60  0001 C CNN "Digi-Key PN"
-F 5 "0402" H 1560 5240 50  0000 R CNN "display_footprint"
-F 6 "50V" H 1560 5140 50  0000 R CNN "Voltage"
-F 7 "X7R" H 1560 5040 50  0000 R CNN "Dielectric"
-	1    1710 5140
-	-1   0    0    1   
-$EndComp
-$Comp
 L LED_Display_Local_Library:C_Custom C402
 U 1 1 5BDA2680
 P 1710 5740
@@ -1302,4 +1287,55 @@ F 3 "" H 9900 1100 50  0001 C CNN
 	1    9900 1100
 	1    0    0    -1  
 $EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C401
+U 1 1 5CB97CA5
+P 1710 5140
+F 0 "C401" H 1735 5240 50  0000 L CNN
+F 1 "0.1uF" H 1735 5040 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 1748 4990 50  0001 C CNN
+F 3 "" H 1735 5240 50  0001 C CNN
+F 4 "490-4779-1-ND" H 2135 5640 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 1560 5240 50  0000 R CNN "display_footprint"
+F 6 "50V" H 1560 5140 50  0000 R CNN "Voltage"
+F 7 "X7R" H 1560 5040 50  0000 R CNN "Dielectric"
+	1    1710 5140
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom ECO
+U 1 1 5CB9FAA6
+P 950 5140
+F 0 "ECO" H 975 5240 50  0000 L CNN
+F 1 "0.1uF" H 975 5040 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 988 4990 50  0001 C CNN
+F 3 "" H 975 5240 50  0001 C CNN
+F 4 "490-4779-1-ND" H 1375 5640 60  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 800 5240 50  0000 R CNN "display_footprint"
+F 6 "50V" H 800 5140 50  0000 R CNN "Voltage"
+F 7 "X7R" H 800 5040 50  0000 R CNN "Dielectric"
+	1    950  5140
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5CBA06CB
+P 950 5290
+F 0 "#PWR?" H 950 5040 50  0001 C CNN
+F 1 "GND" H 950 5140 50  0000 C CNN
+F 2 "" H 950 5290 50  0001 C CNN
+F 3 "" H 950 5290 50  0001 C CNN
+	1    950  5290
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	950  4990 950  4780
+Wire Wire Line
+	950  4780 1710 4780
+Wire Wire Line
+	1710 4780 1710 4910
+Text Notes 3790 6870 0    50   ~ 0
+Do not populate any of the capacitors below:\nC405, C407, C408, C410, C412
+Text Notes 700  4630 0    50   ~ 0
+ECO 0.1uF capacitor on SS pin\nis critical for converter startup
 $EndSCHEMATC

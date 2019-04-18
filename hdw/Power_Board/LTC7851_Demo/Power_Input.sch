@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:LTC7851_Demo-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
@@ -858,8 +858,8 @@ AR Path="/5BAAE16C/5BFDF337" Ref="C?"  Part="1"
 AR Path="/5BB181D8/5BFDF337" Ref="C?"  Part="1" 
 AR Path="/5BB2595E/5BFDF337" Ref="C?"  Part="1" 
 AR Path="/5BAAE0FA/5BFDF337" Ref="C?"  Part="1" 
-AR Path="/5BB86F23/5BFDF337" Ref="ECO1"  Part="1" 
-F 0 "ECO1" H 7655 4500 50  0000 L CNN
+AR Path="/5BB86F23/5BFDF337" Ref="ECO"  Part="1" 
+F 0 "ECO" H 7655 4500 50  0000 L CNN
 F 1 "470nF" H 7655 4300 50  0000 L CNN
 F 2 "" H 7668 4250 50  0001 C CNN
 F 3 "" H 7655 4500 50  0001 C CNN
@@ -888,12 +888,12 @@ Connection ~ 7000 4210
 Wire Wire Line
 	7000 4210 7000 4170
 Text Notes 7550 3910 0    50   ~ 0
-ECO1 Cap added to slow down +12V rise time
+ECO 470nF cap added to slow down +12V rise time
 $Comp
-L Motor:Fan ECO2
+L Motor:Fan ECO
 U 1 1 5BFE4F70
 P 1970 6930
-F 0 "ECO2" H 2070 7130 50  0000 L CNN
+F 0 "ECO" H 2070 7130 50  0000 L CNN
 F 1 "Fan" H 2070 6830 50  0000 L TNN
 F 2 "" H 1970 6940 50  0001 C CNN
 F 3 "~" H 1970 6940 50  0001 C CNN
@@ -902,8 +902,8 @@ F 3 "~" H 1970 6940 50  0001 C CNN
 $EndComp
 NoConn ~ 1970 6630
 NoConn ~ 1970 7130
-Text Notes 1240 7370 0    50   ~ 0
-Fan added for forced air cooling
+Text Notes 1240 7480 0    50   ~ 0
+Fan added for forced air cooling.\nWired to +12V input voltage through\nexternal connector
 $Comp
 L LED_Display_Local_Library:MU_Logo #G?
 U 1 1 5C0029CF
@@ -919,4 +919,28 @@ Text Notes 6540 6460 0    50   ~ 0
 Note: Components with 'ECO' Reference Designators are modifications to the original design
 Text Notes 1270 5160 0    50   ~ 0
 UVLO threshold set to 10V\nOVLO threshold set to 14V
+$Comp
+L Mechanical:Heatsink ECO
+U 1 1 5CBCAE52
+P 4690 2130
+F 0 "ECO" H 4690 2330 50  0000 C CNN
+F 1 "Heatsink" H 4690 2080 50  0000 C CNN
+F 2 "" H 4702 2130 50  0001 C CNN
+F 3 "~" H 4702 2130 50  0001 C CNN
+	1    4690 2130
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Heatsink ECO
+U 1 1 5CBCB0B3
+P 6040 2130
+F 0 "ECO" H 6040 2330 50  0000 C CNN
+F 1 "Heatsink" H 6040 2080 50  0000 C CNN
+F 2 "" H 6052 2130 50  0001 C CNN
+F 3 "~" H 6052 2130 50  0001 C CNN
+	1    6040 2130
+	1    0    0    -1  
+$EndComp
+Text Notes 4630 1690 0    50   ~ 0
+ECO heatsinks added due to insufficient PCB\ncopper area for cooling of Q201
 $EndSCHEMATC

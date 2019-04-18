@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:LTC7851_Demo-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8

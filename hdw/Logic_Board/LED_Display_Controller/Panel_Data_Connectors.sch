@@ -219,7 +219,7 @@ G0_POS5
 Text GLabel 5030 1450 1    50   Input ~ 0
 G1_POS5
 Text Notes 2130 7740 0    50   ~ 0
-String 1 is the top string,\nString 4 is the bottom string.\nEach string is 5 panels long\nEach panel is 64x64 pixels\nThis yields a 320x256 pixel overall display resolution
+String 1 is the top string,\nString 4 is the bottom string.\nEach string is 5 panels long\nEach panel is 64x64 pixels\nThis yields an overall 320x256 pixel display resolution
 Text Notes 550  700  0    100  ~ 20
 29. Panel Data Connectors
 $Comp
@@ -661,4 +661,130 @@ G6_POS5
 Text GLabel 5030 5950 1    50   Input ~ 0
 G7_POS5
 NoConn ~ 8330 5950
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5CBDEB4C
+P 1040 1970
+AR Path="/5BE5222A/5CBDEB4C" Ref="C?"  Part="1" 
+AR Path="/5BAAE10E/5CBDEB4C" Ref="C?"  Part="1" 
+AR Path="/5BAAE2CE/5CBDEB4C" Ref="ECO"  Part="1" 
+F 0 "ECO" H 1065 2070 50  0000 L CNN
+F 1 "15pF" H 1065 1870 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 1078 1820 50  0001 C CNN
+F 3 "" H 1065 2070 50  0001 C CNN
+F 4 "478-10289-1-ND" H 1040 1970 50  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 890 2070 50  0000 R CNN "display_footprint"
+F 6 "50V" H 890 1970 50  0000 R CNN "Voltage"
+F 7 "NP0" H 890 1870 50  0000 R CNN "Dielectric"
+	1    1040 1970
+	1    0    0    -1  
+$EndComp
+Text GLabel 1040 1820 1    40   UnSpc ~ 0
+~Panel_OE_POS5
+$Comp
+L power:GND #PWR?
+U 1 1 5CBDEF57
+P 1040 2120
+F 0 "#PWR?" H 1040 1870 50  0001 C CNN
+F 1 "GND" H 1040 1970 50  0000 C CNN
+F 2 "" H 1040 2120 50  0001 C CNN
+F 3 "" H 1040 2120 50  0001 C CNN
+	1    1040 2120
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5CBDFC49
+P 1040 3470
+AR Path="/5BE5222A/5CBDFC49" Ref="C?"  Part="1" 
+AR Path="/5BAAE10E/5CBDFC49" Ref="C?"  Part="1" 
+AR Path="/5BAAE2CE/5CBDFC49" Ref="ECO"  Part="1" 
+F 0 "ECO" H 1065 3570 50  0000 L CNN
+F 1 "15pF" H 1065 3370 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 1078 3320 50  0001 C CNN
+F 3 "" H 1065 3570 50  0001 C CNN
+F 4 "478-10289-1-ND" H 1040 3470 50  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 890 3570 50  0000 R CNN "display_footprint"
+F 6 "50V" H 890 3470 50  0000 R CNN "Voltage"
+F 7 "NP0" H 890 3370 50  0000 R CNN "Dielectric"
+	1    1040 3470
+	1    0    0    -1  
+$EndComp
+Text GLabel 1040 3320 1    40   UnSpc ~ 0
+~Panel_OE_POS5
+$Comp
+L power:GND #PWR?
+U 1 1 5CBDFC54
+P 1040 3620
+F 0 "#PWR?" H 1040 3370 50  0001 C CNN
+F 1 "GND" H 1040 3470 50  0000 C CNN
+F 2 "" H 1040 3620 50  0001 C CNN
+F 3 "" H 1040 3620 50  0001 C CNN
+	1    1040 3620
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5CBE0DA5
+P 1030 4970
+AR Path="/5BE5222A/5CBE0DA5" Ref="C?"  Part="1" 
+AR Path="/5BAAE10E/5CBE0DA5" Ref="C?"  Part="1" 
+AR Path="/5BAAE2CE/5CBE0DA5" Ref="ECO"  Part="1" 
+F 0 "ECO" H 1055 5070 50  0000 L CNN
+F 1 "15pF" H 1055 4870 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 1068 4820 50  0001 C CNN
+F 3 "" H 1055 5070 50  0001 C CNN
+F 4 "478-10289-1-ND" H 1030 4970 50  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 880 5070 50  0000 R CNN "display_footprint"
+F 6 "50V" H 880 4970 50  0000 R CNN "Voltage"
+F 7 "NP0" H 880 4870 50  0000 R CNN "Dielectric"
+	1    1030 4970
+	1    0    0    -1  
+$EndComp
+Text GLabel 1030 4820 1    40   UnSpc ~ 0
+~Panel_OE_POS5
+$Comp
+L power:GND #PWR?
+U 1 1 5CBE0DB0
+P 1030 5120
+F 0 "#PWR?" H 1030 4870 50  0001 C CNN
+F 1 "GND" H 1030 4970 50  0000 C CNN
+F 2 "" H 1030 5120 50  0001 C CNN
+F 3 "" H 1030 5120 50  0001 C CNN
+	1    1030 5120
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_Display_Local_Library:C_Custom C?
+U 1 1 5CBE0DBE
+P 1030 6470
+AR Path="/5BE5222A/5CBE0DBE" Ref="C?"  Part="1" 
+AR Path="/5BAAE10E/5CBE0DBE" Ref="C?"  Part="1" 
+AR Path="/5BAAE2CE/5CBE0DBE" Ref="ECO"  Part="1" 
+F 0 "ECO" H 1055 6570 50  0000 L CNN
+F 1 "15pF" H 1055 6370 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 1068 6320 50  0001 C CNN
+F 3 "" H 1055 6570 50  0001 C CNN
+F 4 "478-10289-1-ND" H 1030 6470 50  0001 C CNN "Digi-Key PN"
+F 5 "0603" H 880 6570 50  0000 R CNN "display_footprint"
+F 6 "50V" H 880 6470 50  0000 R CNN "Voltage"
+F 7 "NP0" H 880 6370 50  0000 R CNN "Dielectric"
+	1    1030 6470
+	1    0    0    -1  
+$EndComp
+Text GLabel 1030 6320 1    40   UnSpc ~ 0
+~Panel_OE_POS5
+$Comp
+L power:GND #PWR?
+U 1 1 5CBE0DC9
+P 1030 6620
+F 0 "#PWR?" H 1030 6370 50  0001 C CNN
+F 1 "GND" H 1030 6470 50  0000 C CNN
+F 2 "" H 1030 6620 50  0001 C CNN
+F 3 "" H 1030 6620 50  0001 C CNN
+	1    1030 6620
+	1    0    0    -1  
+$EndComp
+Text Notes 760  7130 0    50   ~ 0
+ECO 15pF caps added to slow down ~OE~ rising edge
 $EndSCHEMATC
