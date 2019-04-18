@@ -25,6 +25,7 @@ public class MenuActivity extends AppCompatActivity
         EditProjectFragment.OnFragmentInteractionListener,
         SelectionFragment.OnFragmentInteractionListener,
         DeviceControlFragment.OnFragmentInteractionListener,
+        AboutFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     private Stack<MenuItem> menuItemStack = new Stack<>();
@@ -99,10 +100,14 @@ public class MenuActivity extends AppCompatActivity
             arguments.putString( "fragmentReturn" , "preview");
         } else if (id == R.id.nav_upload) {
             fragmentClass = UploadProjectFragment.class;
+        } else if (id == R.id.nav_new) {
+            fragmentClass = NewDeviceFragment.class;
         } else if (id == R.id.nav_control) {
             fragmentClass = SelectionFragment.class;
             arguments.putString("selectionType", "device");
             arguments.putString("fragmentReturn", "control");
+        } else if (id == R.id.nav_about) {
+            fragmentClass = AboutFragment.class;
         }
 
         try {

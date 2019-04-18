@@ -11,57 +11,27 @@
     <TextView
         android:id="@+id/textSelectDevice"
         android:layout_width="122dp"
-        android:layout_height="31dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/select_device_text"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonNewProject"
-        app:layout_constraintBottom_toTopOf="@+id/deviceList" />
+        app:layout_constraintTop_toBottomOf="@id/projectList" />
 
     <ListView
         android:id="@+id/projectList"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="250dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:choiceMode="singleChoice"
         android:listSelector="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/buttonNewProject"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.588"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSelectProject"
-        app:layout_constraintVertical_bias="0.954" />
-
-    <Button
-        android:id="@+id/buttonNewDevice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/add_new_device_button_text"
-        app:layout_constraintBottom_toTopOf="@+id/buttonUpload"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceList" />
-
-    <Button
-        android:id="@+id/buttonNewProject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/create_new_project_button_text"
-        app:layout_constraintBottom_toTopOf="@+id/textSelectDevice"
-        app:layout_constraintTop_toBottomOf="@+id/projectList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textSelectProject" />
 
     <Button
         android:id="@+id/buttonUpload"
@@ -75,37 +45,32 @@
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonNewDevice" />
+        app:layout_constraintTop_toBottomOf="@id/deviceList" />
 
     <TextView
         android:id="@+id/textSelectProject"
         android:layout_width="124dp"
-        android:layout_height="33dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/select_project_text"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/projectList"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/deviceList"
         android:layout_width="match_parent"
-        android:layout_height="92dp"
+        android:layout_height="150dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:choiceMode="singleChoice"
         android:listSelector="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/buttonNewDevice"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSelectDevice"
-        app:layout_constraintVertical_bias="0.432" />
+        app:layout_constraintTop_toBottomOf="@+id/textSelectDevice" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -113,11 +78,13 @@
         android:layout_width="357dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:max="100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUpload" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,29 +1,20 @@
 package display.led_display;
 
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
-import display.led_display.helper.PixelsConverter;
 import display.led_display.helper.DataManager;
-import display.led_display.helper.WiFiController;
 
 
 /**
@@ -35,6 +26,11 @@ import display.led_display.helper.WiFiController;
  * create an instance of this fragment.
  */
 public class UploadProjectFragment extends Fragment {
+
+    private String selectedProject;
+    private String selectedDevice;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -95,29 +91,19 @@ public class UploadProjectFragment extends Fragment {
         Log.d("deviceList", deviceList.toString());
         final ListView projectListview = rootView.findViewById(R.id.projectList);
         projectListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), projectList, "projectList"));
+        projectListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedProject = projectListview.getItemAtPosition(position).toString();
+            }
+        });
         // populate physical boards list
         final ListView deviceListview = rootView.findViewById(R.id.deviceList);
         deviceListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), deviceList, "deviceList"));
-        Button buttonNewDevice = rootView.findViewById(R.id.buttonNewDevice);
-        buttonNewDevice.setOnClickListener(new Button.OnClickListener() {
-
+        deviceListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View arg0) {
-                NewDeviceFragment newDeviceFragment = new NewDeviceFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().addToBackStack(newDeviceFragment.getTag()).replace(R.id.flContent, newDeviceFragment).commit();
-            }
-        });
-
-        Button buttonNewProject = rootView.findViewById(R.id.buttonNewProject);
-        buttonNewProject.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                NewProjectFragment newProjectFragment = new NewProjectFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().addToBackStack(newProjectFragment.getTag()).replace(R.id.flContent, newProjectFragment).commit();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedDevice = deviceListview.getItemAtPosition(position).toString();
             }
         });
         Button buttonUploadProject = rootView.findViewById(R.id.buttonUpload);
@@ -126,16 +112,10 @@ public class UploadProjectFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // add the code to send start the upload project routine
-                ListView projectListview = getView().findViewById(R.id.projectList);
-                String selectedProject = projectList.get(projectListview.getSelectedItemPosition()+1);
                 ArrayList<String> frameList = dataManager.getListString(selectedProject + "frameList");
                 ArrayList<String> dataList = dataManager.getListString(selectedProject + "dataList");
-                ListView deviceListview = getView().findViewById(R.id.deviceList);
-                String selectedDevice = deviceList.get(deviceListview.getSelectedItemPosition()+1);
                 ArrayList<String> deviceData = dataManager.getListString(selectedDevice + "Data");
-                Log.d("projectSelected", selectedProject);
-                Log.d("deviceSelected", selectedDevice);
-
+/*
                 PixelsConverter pixelsConverter = new PixelsConverter();
                 int panels_width = 5;
                 int panels_height = 4;
@@ -207,6 +187,7 @@ public class UploadProjectFragment extends Fragment {
                     wiFiController.sendOverWiFi("ImageData", payloadList);
                     Log.d("wifi commands sent", "" + payloadList.size());
                 }
+                */
             }
         });
 
