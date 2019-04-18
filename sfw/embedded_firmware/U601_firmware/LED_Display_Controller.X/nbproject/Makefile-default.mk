@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=gpio_setup.c heartbeat_timer.c power_saving.c error_handler.c usb_uart.c panel_control.c spi_flash.c esp8266.c adc.c misc_board_control.c rotary_encoder.c external_bus_interface.c terminal_control.c test_buffer_fills.c delay_timer.c standard_operation_sm.c device_control.c cause_of_reset.c 32mz_interrupt_control.c watchdog_timer.c prefetch.c test_image_1.c test_image_2.c main.c splash_screen.c
+SOURCEFILES_QUOTED_IF_SPACED=gpio_setup.c heartbeat_timer.c power_saving.c error_handler.c usb_uart.c panel_control.c spi_flash.c esp8266.c adc.c misc_board_control.c rotary_encoder.c external_bus_interface.c terminal_control.c test_buffer_fills.c delay_timer.c standard_operation_sm.c device_control.c cause_of_reset.c 32mz_interrupt_control.c watchdog_timer.c prefetch.c test_image_1.c test_image_2.c splash_screen.c main.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/gpio_setup.o ${OBJECTDIR}/heartbeat_timer.o ${OBJECTDIR}/power_saving.o ${OBJECTDIR}/error_handler.o ${OBJECTDIR}/usb_uart.o ${OBJECTDIR}/panel_control.o ${OBJECTDIR}/spi_flash.o ${OBJECTDIR}/esp8266.o ${OBJECTDIR}/adc.o ${OBJECTDIR}/misc_board_control.o ${OBJECTDIR}/rotary_encoder.o ${OBJECTDIR}/external_bus_interface.o ${OBJECTDIR}/terminal_control.o ${OBJECTDIR}/test_buffer_fills.o ${OBJECTDIR}/delay_timer.o ${OBJECTDIR}/standard_operation_sm.o ${OBJECTDIR}/device_control.o ${OBJECTDIR}/cause_of_reset.o ${OBJECTDIR}/32mz_interrupt_control.o ${OBJECTDIR}/watchdog_timer.o ${OBJECTDIR}/prefetch.o ${OBJECTDIR}/test_image_1.o ${OBJECTDIR}/test_image_2.o ${OBJECTDIR}/main.o ${OBJECTDIR}/splash_screen.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/gpio_setup.o.d ${OBJECTDIR}/heartbeat_timer.o.d ${OBJECTDIR}/power_saving.o.d ${OBJECTDIR}/error_handler.o.d ${OBJECTDIR}/usb_uart.o.d ${OBJECTDIR}/panel_control.o.d ${OBJECTDIR}/spi_flash.o.d ${OBJECTDIR}/esp8266.o.d ${OBJECTDIR}/adc.o.d ${OBJECTDIR}/misc_board_control.o.d ${OBJECTDIR}/rotary_encoder.o.d ${OBJECTDIR}/external_bus_interface.o.d ${OBJECTDIR}/terminal_control.o.d ${OBJECTDIR}/test_buffer_fills.o.d ${OBJECTDIR}/delay_timer.o.d ${OBJECTDIR}/standard_operation_sm.o.d ${OBJECTDIR}/device_control.o.d ${OBJECTDIR}/cause_of_reset.o.d ${OBJECTDIR}/32mz_interrupt_control.o.d ${OBJECTDIR}/watchdog_timer.o.d ${OBJECTDIR}/prefetch.o.d ${OBJECTDIR}/test_image_1.o.d ${OBJECTDIR}/test_image_2.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/splash_screen.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/gpio_setup.o ${OBJECTDIR}/heartbeat_timer.o ${OBJECTDIR}/power_saving.o ${OBJECTDIR}/error_handler.o ${OBJECTDIR}/usb_uart.o ${OBJECTDIR}/panel_control.o ${OBJECTDIR}/spi_flash.o ${OBJECTDIR}/esp8266.o ${OBJECTDIR}/adc.o ${OBJECTDIR}/misc_board_control.o ${OBJECTDIR}/rotary_encoder.o ${OBJECTDIR}/external_bus_interface.o ${OBJECTDIR}/terminal_control.o ${OBJECTDIR}/test_buffer_fills.o ${OBJECTDIR}/delay_timer.o ${OBJECTDIR}/standard_operation_sm.o ${OBJECTDIR}/device_control.o ${OBJECTDIR}/cause_of_reset.o ${OBJECTDIR}/32mz_interrupt_control.o ${OBJECTDIR}/watchdog_timer.o ${OBJECTDIR}/prefetch.o ${OBJECTDIR}/test_image_1.o ${OBJECTDIR}/test_image_2.o ${OBJECTDIR}/splash_screen.o ${OBJECTDIR}/main.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/gpio_setup.o.d ${OBJECTDIR}/heartbeat_timer.o.d ${OBJECTDIR}/power_saving.o.d ${OBJECTDIR}/error_handler.o.d ${OBJECTDIR}/usb_uart.o.d ${OBJECTDIR}/panel_control.o.d ${OBJECTDIR}/spi_flash.o.d ${OBJECTDIR}/esp8266.o.d ${OBJECTDIR}/adc.o.d ${OBJECTDIR}/misc_board_control.o.d ${OBJECTDIR}/rotary_encoder.o.d ${OBJECTDIR}/external_bus_interface.o.d ${OBJECTDIR}/terminal_control.o.d ${OBJECTDIR}/test_buffer_fills.o.d ${OBJECTDIR}/delay_timer.o.d ${OBJECTDIR}/standard_operation_sm.o.d ${OBJECTDIR}/device_control.o.d ${OBJECTDIR}/cause_of_reset.o.d ${OBJECTDIR}/32mz_interrupt_control.o.d ${OBJECTDIR}/watchdog_timer.o.d ${OBJECTDIR}/prefetch.o.d ${OBJECTDIR}/test_image_1.o.d ${OBJECTDIR}/test_image_2.o.d ${OBJECTDIR}/splash_screen.o.d ${OBJECTDIR}/main.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/gpio_setup.o ${OBJECTDIR}/heartbeat_timer.o ${OBJECTDIR}/power_saving.o ${OBJECTDIR}/error_handler.o ${OBJECTDIR}/usb_uart.o ${OBJECTDIR}/panel_control.o ${OBJECTDIR}/spi_flash.o ${OBJECTDIR}/esp8266.o ${OBJECTDIR}/adc.o ${OBJECTDIR}/misc_board_control.o ${OBJECTDIR}/rotary_encoder.o ${OBJECTDIR}/external_bus_interface.o ${OBJECTDIR}/terminal_control.o ${OBJECTDIR}/test_buffer_fills.o ${OBJECTDIR}/delay_timer.o ${OBJECTDIR}/standard_operation_sm.o ${OBJECTDIR}/device_control.o ${OBJECTDIR}/cause_of_reset.o ${OBJECTDIR}/32mz_interrupt_control.o ${OBJECTDIR}/watchdog_timer.o ${OBJECTDIR}/prefetch.o ${OBJECTDIR}/test_image_1.o ${OBJECTDIR}/test_image_2.o ${OBJECTDIR}/main.o ${OBJECTDIR}/splash_screen.o
+OBJECTFILES=${OBJECTDIR}/gpio_setup.o ${OBJECTDIR}/heartbeat_timer.o ${OBJECTDIR}/power_saving.o ${OBJECTDIR}/error_handler.o ${OBJECTDIR}/usb_uart.o ${OBJECTDIR}/panel_control.o ${OBJECTDIR}/spi_flash.o ${OBJECTDIR}/esp8266.o ${OBJECTDIR}/adc.o ${OBJECTDIR}/misc_board_control.o ${OBJECTDIR}/rotary_encoder.o ${OBJECTDIR}/external_bus_interface.o ${OBJECTDIR}/terminal_control.o ${OBJECTDIR}/test_buffer_fills.o ${OBJECTDIR}/delay_timer.o ${OBJECTDIR}/standard_operation_sm.o ${OBJECTDIR}/device_control.o ${OBJECTDIR}/cause_of_reset.o ${OBJECTDIR}/32mz_interrupt_control.o ${OBJECTDIR}/watchdog_timer.o ${OBJECTDIR}/prefetch.o ${OBJECTDIR}/test_image_1.o ${OBJECTDIR}/test_image_2.o ${OBJECTDIR}/splash_screen.o ${OBJECTDIR}/main.o
 
 # Source Files
-SOURCEFILES=gpio_setup.c heartbeat_timer.c power_saving.c error_handler.c usb_uart.c panel_control.c spi_flash.c esp8266.c adc.c misc_board_control.c rotary_encoder.c external_bus_interface.c terminal_control.c test_buffer_fills.c delay_timer.c standard_operation_sm.c device_control.c cause_of_reset.c 32mz_interrupt_control.c watchdog_timer.c prefetch.c test_image_1.c test_image_2.c main.c splash_screen.c
+SOURCEFILES=gpio_setup.c heartbeat_timer.c power_saving.c error_handler.c usb_uart.c panel_control.c spi_flash.c esp8266.c adc.c misc_board_control.c rotary_encoder.c external_bus_interface.c terminal_control.c test_buffer_fills.c delay_timer.c standard_operation_sm.c device_control.c cause_of_reset.c 32mz_interrupt_control.c watchdog_timer.c prefetch.c test_image_1.c test_image_2.c splash_screen.c main.c
 
 
 CFLAGS=
@@ -244,17 +244,17 @@ ${OBJECTDIR}/test_image_2.o: test_image_2.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/test_image_2.o 
 	@${FIXDEPS} "${OBJECTDIR}/test_image_2.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/test_image_2.o.d" -o ${OBJECTDIR}/test_image_2.o test_image_2.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O2
 	
-${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/main.o.d 
-	@${RM} ${OBJECTDIR}/main.o 
-	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O2
-	
 ${OBJECTDIR}/splash_screen.o: splash_screen.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/splash_screen.o.d 
 	@${RM} ${OBJECTDIR}/splash_screen.o 
 	@${FIXDEPS} "${OBJECTDIR}/splash_screen.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/splash_screen.o.d" -o ${OBJECTDIR}/splash_screen.o splash_screen.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O2
+	
+${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main.o.d 
+	@${RM} ${OBJECTDIR}/main.o 
+	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O2
 	
 else
 ${OBJECTDIR}/gpio_setup.o: gpio_setup.c  nbproject/Makefile-${CND_CONF}.mk
@@ -395,17 +395,17 @@ ${OBJECTDIR}/test_image_2.o: test_image_2.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/test_image_2.o 
 	@${FIXDEPS} "${OBJECTDIR}/test_image_2.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/test_image_2.o.d" -o ${OBJECTDIR}/test_image_2.o test_image_2.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O2
 	
-${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/main.o.d 
-	@${RM} ${OBJECTDIR}/main.o 
-	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O2
-	
 ${OBJECTDIR}/splash_screen.o: splash_screen.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/splash_screen.o.d 
 	@${RM} ${OBJECTDIR}/splash_screen.o 
 	@${FIXDEPS} "${OBJECTDIR}/splash_screen.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/splash_screen.o.d" -o ${OBJECTDIR}/splash_screen.o splash_screen.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O2
+	
+${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main.o.d 
+	@${RM} ${OBJECTDIR}/main.o 
+	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O2
 	
 endif
 

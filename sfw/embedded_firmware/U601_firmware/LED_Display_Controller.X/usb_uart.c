@@ -26,7 +26,7 @@
 #include "standard_operation_sm.h"
 
 #include "splash_screen.h"
-// #include "test_image_1.h"
+#include "test_image_1.h"
 // #include "test_image_2.h"
 
 volatile uint32_t usb_uart_TxHead = 0;
@@ -765,27 +765,27 @@ void usbUartRingBufferLUT(char * line_in) {
         
     }
 
-//    else if(strcmp(line_in, "Set Test Image 1") == 0) {
-//     
-//        fillRamBufferTestImage1();
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Ram buffer filled with Test Image 1\n\r");
-//        terminalTextAttributesReset();
-//        
-//    }
-//    
-//    else if(strcmp(line_in, "Set Test Image 2") == 0) {
-//     
-//        fillRamBufferTestImage2();
-//        
-//        terminalTextAttributesReset();
-//        terminalTextAttributes(GREEN, BLACK, NORMAL);
-//        printf("Ram buffer filled with Test Image 2\n\r");
-//        terminalTextAttributesReset();
-//        
-//    }
+    else if(strcmp(line_in, "Set MU Logo") == 0) {
+     
+        fillRamBufferTestImage1();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with MU Logo Image\n\r");
+        terminalTextAttributesReset();
+        
+    }
+    
+    else if(strcmp(line_in, "Set Splash Screen") == 0) {
+     
+        fillRamBufferSplashScreen();
+        
+        terminalTextAttributesReset();
+        terminalTextAttributes(GREEN, BLACK, NORMAL);
+        printf("Ram buffer filled with Splash Screen\n\r");
+        terminalTextAttributesReset();
+        
+    }
     
     // Set panel brightness
     else if (strstart(line_in, "Set Panel Brightness ") == 0) {
@@ -1386,8 +1386,8 @@ void usbUartPrintHelpMessage(void) {
     printf("    Set Cyan: Sets all pixels in display cyan\n\r");    
     printf("    Set Green: Sets all pixels in display green\n\r");    
     printf("    Set Magenta: Sets all pixels in display magenta\n\r");
-//    printf("    Set Test Image 1: Loads RAM buffer with data for the first test image\n\r");
-//    printf("    Set Test Image 2: Loads RAM buffer with data for the second test image\n\r");
+    printf("    Set MU Logo: Loads RAM buffer with data for the MU Logo\n\r");
+    printf("    Set Splash Screen: Loads RAM buffer with data for the splash screen\n\r");
     printf("    Set Rand: Sets pixels to display random data\n\r");
     printf("    Set Panel Brightness <x>: Sets the panel brightness to x%%, x = 0:100\n\r");
     printf("    WiFi: <s>: Writes a string <s> to the WiFi module\n\r");
