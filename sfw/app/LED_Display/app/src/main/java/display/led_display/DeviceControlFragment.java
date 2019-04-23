@@ -4,12 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -142,16 +142,13 @@ public class DeviceControlFragment extends Fragment {
                 wiFiController.sendOverWiFi("Control", messageList);
            }
        });
-        Button buttonSendCommand = rootView.findViewById(R.id.buttonSendCommand);
-        buttonSendCommand.setOnClickListener(new Button.OnClickListener() {
+        Button buttonUploadProj = rootView.findViewById(R.id.buttonUploadProj);
+        buttonUploadProj.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // send AT command to microcontroller
-                EditText editWiFiCommands = rootView.findViewById(R.id.inputWiFiCommands);
-                ArrayList<String> messageList = new ArrayList<>();
-                messageList.add(editWiFiCommands.getText().toString());
-                wiFiController.sendOverWiFi("ATCommand", messageList);
-                Log.d("wifi", "message sent");
+                UploadProjectFragment uploadFrag = new UploadProjectFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().addToBackStack(uploadFrag.getTag()).replace(R.id.flContent, uploadFrag).commit();
             }
         });
         return rootView;
@@ -173,6 +170,7 @@ public class DeviceControlFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        getActivity().setTitle("Device Control");
     }
 
     @Override
