@@ -1,9 +1,6 @@
 package display.led_display;
 
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,15 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import display.led_display.helper.DataManager;
-import display.led_display.helper.PixelsConverter;
 import display.led_display.helper.WiFiController;
 
 
@@ -121,81 +115,10 @@ public class UploadProjectFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // add the code to send start the upload project routine
-                ArrayList<String> frameList = dataManager.getListString(selectedProject + "frameList");
-                ArrayList<String> dataList = dataManager.getListString(selectedProject + "dataList");
-                ArrayList<String> deviceData = dataManager.getListString(selectedDevice + "Data");
-
-                PixelsConverter pixelsConverter = new PixelsConverter();
-                int panels_width = 5;
-                int panels_height = 4;
-                Bitmap bitmap = null;
-                ArrayList<String> payloadList = new ArrayList<>();
-                Log.d("frameList size", ""+frameList.size());
-                Log.d("frameList", frameList.toString());
-
-                for(int i = 0; i < frameList.size(); i++) {
-                    payloadList.clear();
-                    if(i == 0) {
-                        payloadList.add("Power=0");
-                    }
-                    // get image from internal storage
-                    String filename = frameList.get(i);
-                    ContextWrapper cw = new ContextWrapper(getActivity().getApplicationContext());
-                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-                    File f = new File(directory, filename);
-                    Log.d("directory", directory.toString());
-                    Log.d("fileName", filename);
-                    try {
-                        InputStream is = new FileInputStream(f);
-                        bitmap = BitmapFactory.decodeStream(is);
-                        is.close();
-                    } catch (IOException io) {
-                        io.printStackTrace();
-                    }
-                    byte[] printMe = pixelsConverter.BitmapToByteArray(bitmap, panels_width, panels_height);
-                    WiFiController wiFiController = new WiFiController(getView(), getActivity().getBaseContext(), selectedDevice);
-                    String str = "";
-                    // use a string builder
-                    payloadList.add("Clear_EBI");
-                    File file = new File("/storage/emulated/0/Download" + "/values.txt");
-                    Log.d("Filepath", file.getAbsolutePath());
-                    String s = "";
-//                    try (PrintWriter out = new PrintWriter(file)) {
-//                        for(int w = 0; w < printMe.length; w++) {
-//                            s = String.format("0x%02X, ", printMe[w]);
-//                            if(w == printMe.length-1)
-//                            {
-//                                s = String.format("0x%02X", printMe[w]);
-//                            }
-//                            if(w % 10 == 0)
-//                            {
-//                                out.println();
-//                            }
-//                            out.print(s);
-//                        }
-//                    } catch (FileNotFoundException io) {
-//                        System.out.println(io);
-//                    }
-
-                    for (int h = 0; h < printMe.length; h++) {
-                        if (h % 512 == 0) {
-                            str = "";
-                            str += String.format("ImageData=Addr=0x%06X,Data=", h);
-                        }
-                        str += String.format("%02X", printMe[h]);
-                        if (h % 512 == 511) {
-                            payloadList.add(str);
-                        }
-                    }
-                    payloadList.add("EBI_2_Flash=" + (i+1) + " ");
-                    if(i == frameList.size()-1) {
-                        payloadList.add("Project_Data=" + (frameList.size()) + "," + dataList.get(1) + "_");
-                        payloadList.add("Restart_State_Machine");
-                    }
-                    Log.d("size of payload", "" + payloadList.size());
-                    wiFiController.sendOverWiFi("ImageData", payloadList);
-                    Log.d("wifi commands sent", "" + payloadList.size());
-                }
+                WiFiController wiFiController = new WiFiController(getView(), getActivity().getBaseContext(), selectedDevice);
+                TextView textUpdate = getView().findViewById(R.id.textUpdate);
+                ProgressBar pb = getView().findViewById(R.id.progressBar);
+                wiFiController.sendOverWiFi(selectedProject, pb, textUpdate);
             }
         });
 

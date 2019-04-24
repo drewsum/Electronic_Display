@@ -96,7 +96,7 @@ public class DeviceControlFragment extends Fragment {
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add("ping");
                 //wiFiController.connectToNetwork(getContext());
-                wiFiController.sendOverWiFi("Control", messageList);
+                wiFiController.sendOverWiFi(messageList);
                 Log.d("WiFi", "Pinged Device");
             }
         });
@@ -108,7 +108,7 @@ public class DeviceControlFragment extends Fragment {
                 // send WiFi command to Turn Multiplexing ON
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add("Restart_State_Machine");
-                wiFiController.sendOverWiFi("Control", messageList);
+                wiFiController.sendOverWiFi(messageList);
             }
         });
         Button buttonPowerOff = rootView.findViewById(R.id.buttonPowerOff);
@@ -118,7 +118,7 @@ public class DeviceControlFragment extends Fragment {
                 // send WiFi command to Turn Multiplexing ON
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add("Power=0");
-                wiFiController.sendOverWiFi("Control", messageList);
+                wiFiController.sendOverWiFi(messageList);
             }
         });
         // set up Brightness seekbar
@@ -139,7 +139,7 @@ public class DeviceControlFragment extends Fragment {
                 //wiFiController.connectToNetwork(getContext());
                 ArrayList<String> messageList = new ArrayList<>();
                 messageList.add("Dim=" + brightnessLevel + "_");
-                wiFiController.sendOverWiFi("Control", messageList);
+                wiFiController.sendOverWiFi(messageList);
            }
        });
         Button buttonUploadProj = rootView.findViewById(R.id.buttonUploadProj);

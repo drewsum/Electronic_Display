@@ -1,6 +1,5 @@
 package display.led_display.helper;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -25,6 +24,8 @@ public class TCPClient {
     BufferedReader in;
     PrintWriter out;
 
+    private static final int SENDING = 1;
+
     public TCPClient(Handler handler, String ipAddress, int portNumber, ArrayList<String> messages) {
         this.handler = handler;
         this.ipAddress = ipAddress;
@@ -35,9 +36,6 @@ public class TCPClient {
 
     public void run() {
         mRun = true;
-        Bundle bundle = new Bundle();
-        Log.d("handler", this.handler.toString());
-        Log.d("handler", ""+this.handler.hasMessages(1));
         try {
             InetAddress serverAddress = InetAddress.getByName(ipAddress);
             Socket socket = new Socket(serverAddress, portNumber);
@@ -48,16 +46,15 @@ public class TCPClient {
                 Log.d("TCPClient", "In/Out created");
                 for(int i = 0; i < messages.size(); i++) {
                     progressCount++;
-                    Log.d("Progress Count", ""+progressCount);
                     //Sending message with command specified by AsyncTask
-                    bundle.remove("progress");
-                    bundle.putInt("progress", progressCount);
                     Message msg = new Message();
-                    msg.setData(bundle);
+                    msg.what = SENDING;
+                    msg.arg1 = progressCount;
+                    msg.arg2 = messages.size();
                     handler.sendMessage(msg);
-                    sendMessage(messages.get(i));
+                    sendTCPMessage(messages.get(i));
                     while (mRun) {
-                        Log.d("waiting", "give ME SOMETHING!!!");
+                        Log.d("In a loop", "Waiting for server to respond");
                         incomingMessage = in.readLine();
                         if (incomingMessage != null) {
                             incomingMessage = incomingMessage.trim();
@@ -67,6 +64,7 @@ public class TCPClient {
                             }
                         }
                         incomingMessage = null;
+                        break;
                     }
                 }
                 Log.d("TCPClient", "Received Message: " + incomingMessage);
@@ -82,10 +80,9 @@ public class TCPClient {
         } catch (Exception e) {
             Log.d("TCPClient", "Error", e);
         }
-        handler.sendEmptyMessage(2);
     }
 
-    public void sendMessage(String message) {
+    public void sendTCPMessage(String message) {
         if (out != null && !out.checkError()) {
             out.println(message);
             out.flush();

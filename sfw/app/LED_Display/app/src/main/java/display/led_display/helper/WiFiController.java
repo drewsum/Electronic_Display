@@ -2,26 +2,23 @@ package display.led_display.helper;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
-
-import display.led_display.R;
 
 public class WiFiController {
 
@@ -33,6 +30,15 @@ public class WiFiController {
     private TCPClient tcpClient;
     private Context context;
     private ProgressBar pb;
+    private TextView textUpdate;
+    private String selectedProject;
+    private Boolean isProject;
+    private int currentIndex;
+    private int totalSize;
+
+    private static final int STARTING = 0;
+    private static final int SENDING = 1;
+    private static final int CONVERTING = 2;
 
     public WiFiController(View v, Context context, String deviceName) {
         this.context = context;
@@ -44,39 +50,52 @@ public class WiFiController {
                 .setTitle("TCP Connection:")
                 .setCancelable(true)
                 .create();
-        if(v!=null)
-            this.pb = v.findViewById(R.id.progressBar);
     }
 
-    public void sendOverWiFi(String messageType, ArrayList<String> messages) {
+    // for control messages
+    public void sendOverWiFi(ArrayList<String> messages) {
         this.messages = messages;
+        this.isProject = false;
         Log.d("data length", "" + messages.size());
-        if (messageType == "ImageData") {
-            new TCPAsyncTask(handler).execute();
-            while(!handler.hasMessages(2)) {
+        new TCPAsyncTask(handler, isProject).execute();
+    }
 
-            }
-            handler.removeMessages(2);
-            Log.d("message removed if false", ""+handler.hasMessages(2));
-        } else {
-            new TCPAsyncTask(handler).execute();
-        }
+    // for image uploads
+    public void sendOverWiFi(String selectedProject, ProgressBar pb, TextView textUpdate) {
+        this.textUpdate = textUpdate;
+        this.pb = pb;
+        this.selectedProject = selectedProject;
+        this.isProject = true;
+        DataManager dataManager = new DataManager(context.getApplicationContext());
+        ArrayList<String> frameList = dataManager.getListString(selectedProject + "frameList");
+        this.totalSize = frameList.size();
+        this.currentIndex = 0;
+        new TCPAsyncTask(handler, isProject).execute();
     }
 
     private Handler handler = new Handler() {
-        public int progress;
         @Override
         public void handleMessage (Message msg){
-            Log.d("h", "Handling something");
-            Bundle data = msg.getData();
-            progress = data.getInt("progress");
-            Log.d("Handler Received Progress", ""+progress);
             switch (msg.what) {
-                case 0:
-                    Log.d("Handler is handling","0");
+                case STARTING:
+                    Log.d("Handler", "Start Sending image");
+                    textUpdate.setText("Sending image " + (msg.arg1 + 1) + " of " + msg.arg2 + "...");
                     break;
-                case 1:
-                    Log.d("Handler is handling", "1");
+                case CONVERTING:
+                    Log.d("Handler", "Converting image " + msg.arg1 + " of " + msg.arg2);
+                    textUpdate.setText("Converting frame " + msg.arg1 + " of " + msg.arg2 + "...");
+                    pb.setProgress(0);
+                    if (currentIndex + 1 < totalSize) {
+                        currentIndex++;
+                    }
+                    break;
+                case SENDING:
+                    Log.d("Handler", "Progress is at "+msg.arg1);
+                    pb.setProgress((int)(100*msg.arg1/(double)msg.arg2));
+                    if((msg.arg1 == msg.arg2) && ((currentIndex + 1) < totalSize)) {
+                        // image is done start the next one
+                        new TCPAsyncTask(handler, isProject).execute();
+                    }
                     break;
             }
         }
@@ -84,19 +103,28 @@ public class WiFiController {
 
     public class TCPAsyncTask extends AsyncTask<Void, Void, TCPClient> {
         private Handler handler;
-        public TCPAsyncTask(Handler handler) {
+        private Boolean isProject;
+        public TCPAsyncTask(Handler handler, Boolean isProject) {
             this.handler = handler;
+            this.isProject = isProject;
         }
 
         @Override
         protected TCPClient doInBackground(Void... params) {
+            if(isProject) {
+                messages = convertFrame(currentIndex, selectedProject);
+                Message msg = new Message();
+                msg.what = STARTING;
+                msg.arg1 = currentIndex;
+                msg.arg2 = totalSize;
+                handler.sendMessage(msg);
+            }
             try {
                 tcpClient = new TCPClient(handler, ipAddress, portNumber, messages);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             tcpClient.run();
-            //handler.sendEmptyMessage(2);
             return null;
         }
 
@@ -104,7 +132,6 @@ public class WiFiController {
         protected void onPreExecute()    {
             super.onPreExecute();
             Log.d("wifi", "On Pre Execute");
-            //dialog.show();
         }
 
         @Override
@@ -114,65 +141,60 @@ public class WiFiController {
             if(result != null && result.isRunning()){
                 result.stopClient();
             }
-            //handler.sendEmptyMessage(1);
-            //dialog.show();
         }
-    }
-    WifiManager wifiManager;
-    ArrayList<String> arrayList;
-    public void connectToNetwork(Context context) {
-        WifiConfiguration wifiConfig = new WifiConfiguration();
-        wifiConfig.SSID = String.format("\"%s\"", "AI-THINKER_5D90B5");
-        Log.d("SSID", "" + wifiConfig.SSID);
-        wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-        // case 1: Network is already connected
-        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        Log.d("network connected to", "" + wifiInfo.getHiddenSSID());
-        Log.d("network connected to", "" + wifiInfo.getBSSID());
-        Log.d("network connected to", "" + wifiInfo.getSSID());
-        if(wifiConfig.SSID.equals(wifiInfo.getSSID())) {
-            Log.d("CONNECTED", "Already Connected to AI-THINKER");
-        }
-        // case 2: Network is saved on device but not connected
-        List<WifiConfiguration> savedConfigs = wifiManager.getConfiguredNetworks();
-        if(savedConfigs.contains(wifiConfig)) {
-            Log.d("SAVED", "wifi configuration found");
-        }
-        // case 3: Network is not connected or saved on the device.
-        scanWifi();
-        List<ScanResult> scanResults = wifiManager.getScanResults();
-        Log.d("hi", scanResults.toString());
-        for(int i = 0; i < scanResults.size(); i++) {
-            Log.d("scanned Item" + i, scanResults.get(i).SSID);
-        }
-        if(scanResults.contains(wifiConfig)) {
-            Log.d("SCANNED", "wifi configuration found on scanner");
-        }
-        int netId = wifiManager.addNetwork(wifiConfig);
-        Log.d("netId", "" + netId);
-        boolean worked = wifiManager.disconnect();
-        Log.d("worked", String.valueOf(worked));
-        wifiManager.enableNetwork(netId, true);
-        worked = wifiManager.reconnect();
-        Log.d("worked", String.valueOf(worked));
 
-    }
-
-    private void scanWifi() {
-        context.registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-        wifiManager.startScan();
-    }
-    private List<ScanResult> results;
-
-    BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            results = wifiManager.getScanResults();
-            context.unregisterReceiver(this);
-
-            for (ScanResult scanResult : results) {
-                arrayList.add(scanResult.SSID + " - " + scanResult.capabilities);
+        private ArrayList<String> convertFrame(int index, String selectedProject) {
+            DataManager dataManager = new DataManager(context.getApplicationContext());
+            ArrayList<String> frameList = dataManager.getListString(selectedProject + "frameList");
+            ArrayList<String> dataList = dataManager.getListString(selectedProject + "dataList");
+            ArrayList<String> payloadList = new ArrayList<>();
+            PixelsConverter pixelsConverter = new PixelsConverter();
+            int panels_width = 5;
+            int panels_height = 4;
+            Bitmap bitmap = null;
+            payloadList.clear();
+            Message msg = new Message();
+            msg.what = 102;
+            msg.arg1 = index + 1;
+            msg.arg2 = frameList.size();
+            handler.sendMessage(msg);
+            if (index == 0) {
+                payloadList.add("Power=0");
             }
-        };
-    };
+            // get image from internal storage
+            String filename = frameList.get(index);
+            ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File f = new File(directory, filename);
+            Log.d("directory", directory.toString());
+            Log.d("fileName", filename);
+            try {
+                InputStream is = new FileInputStream(f);
+                bitmap = BitmapFactory.decodeStream(is);
+                is.close();
+            } catch (IOException io) {
+                io.printStackTrace();
+            }
+            byte[] printMe = pixelsConverter.BitmapToByteArray(bitmap, panels_width, panels_height);
+            StringBuilder str = new StringBuilder();
+            payloadList.add("Clear_EBI");
+
+            for (int h = 0; h < printMe.length; h++) {
+                if (h % 512 == 0) {
+                    str.setLength(0);
+                    str.append(String.format("ImageData=Addr=0x%06X,Data=", h));
+                }
+                str.append(String.format("%02X", printMe[h]));
+                if (h % 512 == 511) {
+                    payloadList.add(str.toString());
+                }
+            }
+            payloadList.add("EBI_2_Flash=" + (index + 1) + " ");
+            if (index == frameList.size() - 1) {
+                payloadList.add("Project_Data=" + (frameList.size()) + "," + dataList.get(1) + "_");
+                payloadList.add("Restart_State_Machine");
+            }
+            return payloadList;
+        }
+    }
 }
