@@ -24,10 +24,10 @@ import java.util.Collections;
 
 import display.led_display.helper.DataManager;
 
-public class rowAdaptor extends BaseAdapter {
+class rowAdaptor extends BaseAdapter {
 
-    Context context;
-    String keyName;
+    private Context context;
+    private String keyName;
     private ArrayList<String> data;
     private static LayoutInflater inflater = null;
 
@@ -79,7 +79,7 @@ public class rowAdaptor extends BaseAdapter {
         // TODO Auto-generated method stub
         View vi = convertView;
         if (vi == null) {
-            if (keyName == "frameList") {
+            if (keyName.equals("frameList")) {
                 vi = inflater.inflate(R.layout.image_row, parent, false);
             } else { // projectList and deviceList
                 vi = inflater.inflate(R.layout.row, parent, false);
@@ -90,7 +90,7 @@ public class rowAdaptor extends BaseAdapter {
         text.setText(data.get(position)); // populate rows
         Button buttonDelete = vi.findViewById(R.id.buttonDelete);
         buttonDelete.setFocusable(false); // needed to allow row to still be clickable
-        if (keyName == "frameList") {
+        if (keyName.equals("frameList")) {
             ImageView thumbnail = vi.findViewById(R.id.imageThumb);
             thumbnail.setImageBitmap(loadImageFromStorage(data.get(position)));
             text.setText("Frame " + (position + 1)); // populate rows

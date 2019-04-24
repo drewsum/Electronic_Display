@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class PixelsConverter {
+class PixelsConverter {
 
     private Bitmap[][] SplitBitmap(Bitmap bitmap, int dimX, int dimY) {
         Log.d("Splitting bitmap", "X: " + dimX + " Y: " + dimY);
@@ -63,8 +63,6 @@ public class PixelsConverter {
         ArrayList<Integer> masterScript = new ArrayList<>();
         ArrayList<Integer> finalScript = new ArrayList<>();
         ArrayList<Integer> secondHalf = new ArrayList<>(bits.subList(bits.size() / 2, bits.size()));
-        Log.d("second half size: ", "" + secondHalf.size());
-        Log.d("bits size: ", "" + bits.size());
         // 8 bit mode
         for (int j = 0; j < 8; j++) {
             finalScript.clear();
@@ -73,10 +71,8 @@ public class PixelsConverter {
                 finalScript.add(2 * i, bits.get(8 * i + j)); // grab every 8th bit and put in order
                 finalScript.add(2 * i + 1, secondHalf.get(8 * i + j)); // grab every 8th and put in order
             }
-            Log.d("final script size: ", "" + finalScript.size());
             masterScript.addAll(finalScript);
         }
-        Log.d("master script size: ", "" + masterScript.size());
         return masterScript;
     }
 
@@ -96,7 +92,6 @@ public class PixelsConverter {
             bite |= (panel3.get(2 * i + 1) << 7);
             bites[i] = bite;
         }
-        Log.d("bites size: ", "" + bites.length);
         return bites;
     }
 
@@ -118,7 +113,6 @@ public class PixelsConverter {
         byte[] pillar3 = compilePanelLists(panelList[3][0], panelList[3][1], panelList[3][2], panelList[3][3]);
         byte[] pillar4 = compilePanelLists(panelList[4][0], panelList[4][1], panelList[4][2], panelList[4][3]);
         byte[] allPillars = new byte[pillar0.length + pillar1.length + pillar2.length + pillar3.length + pillar4.length];
-        Log.d("pillar size: ", "" + pillar0.length);
         for (int index = 0; index < (allPillars.length / (192 * 5)); index++) {
             System.arraycopy(pillar0, index * 192, allPillars, (index * 5) * 192, 192);
             System.arraycopy(pillar1, index * 192, allPillars, (index * 5 + 1) * 192, 192);
@@ -126,7 +120,6 @@ public class PixelsConverter {
             System.arraycopy(pillar3, index * 192, allPillars, (index * 5 + 3) * 192, 192);
             System.arraycopy(pillar4, index * 192, allPillars, (index * 5 + 4) * 192, 192);
         }
-        Log.d("total size: ", "" + allPillars.length);
         return allPillars;
     }
 }

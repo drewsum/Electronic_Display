@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MU-MatriX</string>
-    <string name="title_activity_menu">MenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="menu_image_description">Menu Logo</string>
@@ -9,8 +8,6 @@
     <string name="power_off_button_text">Power OFF</string>
     <string name="brightness_text">Brightness Level:</string>
     <string name="device_name_text">Controlling Device:</string>
-    <string name="at_command_hint">Send AT+COMMANDS</string>
-    <string name="send_text">Send</string>
     <string name="ping_button_text">Ping</string>
     <string name="ping_button_description">Use this button to test connection</string>
     <string name="left_button_description">Go Left</string>
@@ -18,7 +15,6 @@
     <string name="up_button_description">Move Up</string>
     <string name="down_button_description">Move Down</string>
     <string name="preview_image_description">Frame being previewed</string>
-    <string name="splash_image_description">Splash Screen Image</string>
     <string name="selection_image_description">Image loaded from android device</string>
     <string name="row_image_description">Thumbnail for frame selection</string>
     <string name="new_project_title">New Project</string>
@@ -37,8 +33,6 @@
     <string name="load_image_button_text">Load Image</string>
     <string name="delete_button_text">X</string>
     <string name="select_device_text">Select Device:</string>
-    <string name="add_new_device_button_text">Add New Device</string>
-    <string name="create_new_project_button_text">Create New Project</string>
     <string name="upload_project_button_text">Upload Project</string>
     <string name="select_project_text">Select Project:</string>
     <string name="select_text">Select a Project</string>
@@ -56,6 +50,8 @@
     <string name="frame_count_text">Current Frame Count:</string>
     <string name="project_name_editing_text">Editing Project: *Project Name*</string>
     <string name="frame_count_numeric_text">0/8</string>
+    <string name="button_rotate_clockwise_description">Rotate Image Clockwise</string>
+    <string name="image_logo_description">Logo for the App</string>
     <string-array name="time_values">
         <item>5</item>
         <item>10</item>
@@ -67,7 +63,4 @@
         <item>60</item>
         <item>120</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

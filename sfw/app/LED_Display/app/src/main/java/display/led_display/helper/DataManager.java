@@ -43,7 +43,7 @@ public class DataManager {
 
     public void putListString(String key, ArrayList<String> stringList) {
         checkForNullKey(key);
-        String[] myStringList = stringList.toArray(new String[stringList.size()]);
+        String[] myStringList = stringList.toArray(new String[0]);
         preferences.edit().putString(key, TextUtils.join("‚‗‚", myStringList)).apply();
     }
 
@@ -51,7 +51,7 @@ public class DataManager {
         preferences.edit().remove(key).apply();
     }
 
-    public void checkForNullKey(String key){
+    private void checkForNullKey(String key){
         if (key == null){
             throw new NullPointerException();
         }
