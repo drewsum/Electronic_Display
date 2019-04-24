@@ -62,13 +62,12 @@ public class ImageSelectActivity extends AppCompatActivity {
                         // switch is "ON" so it is true
                         boolAspectRatio = true;
                         Log.d("switchPressed", "Keep Aspect Ratio");
-                        saveOff();
                     } else {
                         // switch is "OFF" so it is false
                         boolAspectRatio = false;
                         Log.d("switchPressed", "Stretch To Fit");
-                        saveOff();
                     }
+                    saveOff();
                 }
             });
         }
@@ -208,8 +207,7 @@ public class ImageSelectActivity extends AppCompatActivity {
     {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
-        Bitmap bitmap = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
-        return bitmap;
+        return Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
     }
 
 }

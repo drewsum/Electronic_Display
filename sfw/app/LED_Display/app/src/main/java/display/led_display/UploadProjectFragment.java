@@ -86,7 +86,6 @@ public class UploadProjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_upload_project, container, false);
-        final View finView = rootView;
         final DataManager dataManager = new DataManager(getContext().getApplicationContext());
         final ArrayList<String> projectList = dataManager.getListString("projectList");
         Log.d("projectList", projectList.toString());

@@ -82,9 +82,9 @@ public class SelectionFragment extends Fragment {
         textContentType.setText("Select a " + selectionType);
         final ListView contentListview = rootView.findViewById(R.id.contentList);
         ArrayList<String> contentList = new ArrayList<>();
-        if (selectionType == "project") {
+        if (selectionType.equals("project")) {
             contentList = dataManager.getListString("projectList");
-        } else if (selectionType == "device") {
+        } else if (selectionType.equals("device")) {
             contentList = dataManager.getListString("deviceList");
         }
         contentListview.setAdapter(new rowAdaptor(this.getActivity().getBaseContext(), contentList, selectionType + "List"));
@@ -94,24 +94,21 @@ public class SelectionFragment extends Fragment {
                 Log.d("clickEvent", "item selected");
                 String selectedItem = contentListview.getItemAtPosition(i).toString();
                 Bundle arguments = new Bundle();
-                if (fragmentReturn == "edit") {
+                if (fragmentReturn.equals("edit")) {
                     EditProjectFragment editFrag = new EditProjectFragment();
                     arguments.putString("projectName", selectedItem);
                     editFrag.setArguments(arguments);
                     // switch to edit project screen
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().addToBackStack(editFrag.getTag()).replace(R.id.flContent, editFrag).commit();
-                } else if (fragmentReturn == "preview") {
+                } else if (fragmentReturn.equals("preview")) {
                     ProjectPreviewFragment previewFrag = new ProjectPreviewFragment();
                     arguments.putString("projectName", selectedItem);
                     previewFrag.setArguments(arguments);
                     // switch to project preview screen
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().addToBackStack(previewFrag.getTag()).replace(R.id.flContent, previewFrag).commit();
-                } else if (fragmentReturn == "upload") {
-                    // can select device or project from upload
-
-                } else if (fragmentReturn == "control") {
+                } else if (fragmentReturn.equals("control")) {
                     // device contol
                     DeviceControlFragment controlFrag = new DeviceControlFragment();
                     arguments.putString("deviceName", selectedItem);

@@ -43,7 +43,7 @@ public class DataManager {
 
     public void putListString(String key, ArrayList<String> stringList) {
         checkForNullKey(key);
-        String[] myStringList = stringList.toArray(new String[stringList.size()]);
+        String[] myStringList = stringList.toArray(new String[0]);
         preferences.edit().putString(key, TextUtils.join("‚‗‚", myStringList)).apply();
     }
 
