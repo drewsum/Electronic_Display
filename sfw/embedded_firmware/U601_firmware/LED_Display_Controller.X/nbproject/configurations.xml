@@ -16,7 +16,6 @@
         <itemPath>esp8266.h</itemPath>
         <itemPath>adc.h</itemPath>
         <itemPath>misc_board_control.h</itemPath>
-        <itemPath>rotary_encoder.h</itemPath>
         <itemPath>terminal_control.h</itemPath>
         <itemPath>test_buffer_fills.h</itemPath>
         <itemPath>delay_timer.h</itemPath>
@@ -55,7 +54,6 @@
         <itemPath>esp8266.c</itemPath>
         <itemPath>adc.c</itemPath>
         <itemPath>misc_board_control.c</itemPath>
-        <itemPath>rotary_encoder.c</itemPath>
         <itemPath>external_bus_interface.c</itemPath>
         <itemPath>terminal_control.c</itemPath>
         <itemPath>test_buffer_fills.c</itemPath>
