@@ -21,8 +21,8 @@ public class TCPClient {
     private ArrayList<String> messages;
     private boolean mRun;
     private int progressCount;
-    BufferedReader in;
-    PrintWriter out;
+    private BufferedReader in;
+    private PrintWriter out;
 
     private static final int SENDING = 1;
 
@@ -82,7 +82,7 @@ public class TCPClient {
         }
     }
 
-    public void sendTCPMessage(String message) {
+    private void sendTCPMessage(String message) {
         if (out != null && !out.checkError()) {
             out.println(message);
             out.flush();

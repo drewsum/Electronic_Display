@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class PixelsConverter {
+class PixelsConverter {
 
     private Bitmap[][] SplitBitmap(Bitmap bitmap, int dimX, int dimY) {
         Log.d("Splitting bitmap", "X: " + dimX + " Y: " + dimY);

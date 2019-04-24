@@ -25,19 +25,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class ImageSelectActivity extends AppCompatActivity {
-    ImageView targetImage;
-    Uri targetUri;
-    String fileName;
+    private ImageView targetImage;
+    private Uri targetUri;
+    private String fileName;
 
-    String projectName;
-    int namingNumber;
+    private String projectName;
+    private int namingNumber;
 
-    Bitmap bitmap;
-    Bitmap scaledBitmap;
+    private Bitmap bitmap;
+    private Bitmap scaledBitmap;
 
     // true: Aspect Ratio, false: Stetch to Fit
-    Boolean boolAspectRatio = false;
-    int rotationAmount = 0;
+    private Boolean boolAspectRatio = false;
+    private int rotationAmount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,19 +133,19 @@ public class ImageSelectActivity extends AppCompatActivity {
         return true;
     }
 
-    protected void saveOff() {
+    private void saveOff() {
         fileName = projectName + "frame" + namingNumber + ".png";
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
             int panels_width = 320;
             int panels_height = 256;
-            if (!boolAspectRatio) {
-                bitmap = rotateImage(bitmap, rotationAmount);
-                scaledBitmap = Bitmap.createScaledBitmap(bitmap, panels_width, panels_height, true);
-            } else {
+            if (boolAspectRatio) {
                 bitmap = rotateImage(bitmap, rotationAmount);
                 scaledBitmap = fixedRatio(bitmap, panels_width, panels_height);
+            } else {
+                bitmap = rotateImage(bitmap, rotationAmount);
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, panels_width, panels_height, true);
             }
             bitmap.recycle();
             targetImage.setImageBitmap(scaledBitmap);

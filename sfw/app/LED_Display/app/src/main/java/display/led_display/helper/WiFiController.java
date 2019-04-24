@@ -44,7 +44,7 @@ public class WiFiController {
         this.context = context;
         DataManager dataManager = new DataManager(context.getApplicationContext());
         ArrayList<String> deviceData = dataManager.getListString(deviceName + "Data");
-        this.ipAddress = deviceData.get(0);;
+        this.ipAddress = deviceData.get(0);
         this.portNumber = Integer.parseInt(deviceData.get(1));
         this.dialog = new AlertDialog.Builder(this.context)
                 .setTitle("TCP Connection:")
@@ -101,10 +101,10 @@ public class WiFiController {
         }
     };
 
-    public class TCPAsyncTask extends AsyncTask<Void, Void, TCPClient> {
+    class TCPAsyncTask extends AsyncTask<Void, Void, TCPClient> {
         private Handler handler;
         private Boolean isProject;
-        public TCPAsyncTask(Handler handler, Boolean isProject) {
+        TCPAsyncTask(Handler handler, Boolean isProject) {
             this.handler = handler;
             this.isProject = isProject;
         }

@@ -24,10 +24,10 @@ import java.util.Collections;
 
 import display.led_display.helper.DataManager;
 
-public class rowAdaptor extends BaseAdapter {
+class rowAdaptor extends BaseAdapter {
 
-    Context context;
-    String keyName;
+    private Context context;
+    private String keyName;
     private ArrayList<String> data;
     private static LayoutInflater inflater = null;
 

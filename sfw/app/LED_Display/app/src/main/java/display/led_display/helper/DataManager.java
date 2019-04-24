@@ -51,7 +51,7 @@ public class DataManager {
         preferences.edit().remove(key).apply();
     }
 
-    public void checkForNullKey(String key){
+    private void checkForNullKey(String key){
         if (key == null){
             throw new NullPointerException();
         }

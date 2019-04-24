@@ -145,13 +145,13 @@ public class ProjectPreviewFragment extends Fragment {
 
     private void updateImage() {
         TextView textFrameCount = getView().findViewById(R.id.textFrameDisplayed);
-        if(!framesList.isEmpty()) {
-            loadImageFromStorage(framesList.get(currentIndex));
-            textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
-        } else {
+        if (framesList.isEmpty()) {
             ImageView imagePreview = getView().findViewById(R.id.imagePreview);
             imagePreview.setImageBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.empty_project));
             textFrameCount.setText("There are not any images in this project yet");
+        } else {
+            loadImageFromStorage(framesList.get(currentIndex));
+            textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
         }
     }
 
