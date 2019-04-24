@@ -1,6 +1,5 @@
 package display.led_display;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,24 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 import display.led_display.helper.DataManager;
 
 public class MenuActivity extends AppCompatActivity
-        implements UploadProjectFragment.OnFragmentInteractionListener,
-        NewProjectFragment.OnFragmentInteractionListener,
-        NewDeviceFragment.OnFragmentInteractionListener,
-        ProjectPreviewFragment.OnFragmentInteractionListener,
-        EditProjectFragment.OnFragmentInteractionListener,
-        SelectionFragment.OnFragmentInteractionListener,
-        DeviceControlFragment.OnFragmentInteractionListener,
-        AboutFragment.OnFragmentInteractionListener,
-        NavigationView.OnNavigationItemSelectedListener {
-
-    private Stack<MenuItem> menuItemStack = new Stack<>();
-    private Fragment curFragment = null;
-    private MenuItem prevMenuItem = null;
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,8 +114,4 @@ public class MenuActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri){
-        //you can leave it empty
-    }
 }
