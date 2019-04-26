@@ -78,23 +78,31 @@ public class WiFiController {
         public void handleMessage (Message msg){
             switch (msg.what) {
                 case STARTING:
-                    Log.d("Handler", "Start Sending image");
-                    textUpdate.setText("Sending image " + (msg.arg1 + 1) + " of " + msg.arg2 + "...");
+                    Log.d("Handler", "Sending image " + (msg.arg1) + " of " + msg.arg2 + "...");
+                    textUpdate.setText("Sending frame " + (msg.arg1) + " of " + msg.arg2 + "...");
+                    currentIndex++;
                     break;
                 case CONVERTING:
                     Log.d("Handler", "Converting image " + msg.arg1 + " of " + msg.arg2);
+                    textUpdate.setVisibility(View.VISIBLE);
                     textUpdate.setText("Converting frame " + msg.arg1 + " of " + msg.arg2 + "...");
                     pb.setProgress(0);
-                    if (currentIndex + 1 < totalSize) {
-                        currentIndex++;
+                    if (pb.getVisibility() != View.VISIBLE) {
+                        pb.setVisibility(View.VISIBLE);
                     }
                     break;
                 case SENDING:
                     Log.d("Handler", "Progress is at "+msg.arg1);
                     pb.setProgress((int)(100*msg.arg1/(double)msg.arg2));
-                    if((msg.arg1 == msg.arg2) && ((currentIndex + 1) < totalSize)) {
-                        // image is done start the next one
-                        new TCPAsyncTask(handler, isProject).execute();
+                    if(msg.arg1 == msg.arg2) {
+                        if (currentIndex < totalSize) {
+                            // image is done start the next one
+                            new TCPAsyncTask(handler, isProject).execute();
+                        } else {
+                            pb.setProgress(0);
+                            pb.setVisibility(View.INVISIBLE);
+                            textUpdate.setText("Upload Complete");
+                        }
                     }
                     break;
             }
@@ -115,7 +123,7 @@ public class WiFiController {
                 messages = convertFrame(currentIndex, selectedProject);
                 Message msg = new Message();
                 msg.what = STARTING;
-                msg.arg1 = currentIndex;
+                msg.arg1 = currentIndex + 1;
                 msg.arg2 = totalSize;
                 handler.sendMessage(msg);
             }
@@ -154,7 +162,7 @@ public class WiFiController {
             Bitmap bitmap = null;
             payloadList.clear();
             Message msg = new Message();
-            msg.what = 102;
+            msg.what = CONVERTING;
             msg.arg1 = index + 1;
             msg.arg2 = frameList.size();
             handler.sendMessage(msg);
