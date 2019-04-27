@@ -165,23 +165,23 @@ void esp8266InitializeConfiguration(void) {
 // This is the esp8266 receive interrupt service routine
 void __ISR(_UART1_RX_VECTOR, ipl7SRS) esp8266ReceiveISR(void) {
     
-    // Disable SPI3 receive interrupt to stop state machine
-    if (continue_autopilot) {
+    // Disable SPI3 receive interrupt and stop state machine
+    // if (continue_autopilot) {
         
         // SPI_Read_Finished_Flag = 0;
         disableInterrupt(SPI3_Receive_Done);
-        // continue_autopilot = 0;
+        clearInterruptFlag(SPI3_Receive_Done);
+        continue_autopilot = 0;
         // state = sm_start;
         // sm_previous = 0;
         T6CONbits.ON = 0;
         panelMultiplexingSuspend();
         
-    }
+        
+    // }
     
     // Do receive tasks
     esp8266ReceiveHandler();
-    
-    //usbUartPutchar(U1RXREG);
     
     // Clear receive interrupt flag
     clearInterruptFlag(UART1_Receive_Done);
@@ -414,46 +414,6 @@ void esp8266RingBufferLUT(char * line_in) {
             
         }
         
-//        else if (0 == strstart(received_string, "Power=toggle")) {
-//         
-//            if (muxing_state || T5CONbits.ON) {
-//                
-//                panelMultiplexingSuspend();
-//                muxing_state = 0;
-//                continue_autopilot = 0;
-//                state = sm_start;
-//                sm_previous = 0;
-//                T6CONbits.ON = 0;
-//                eventually_continue_flag = 0;
-//                
-//            } else {
-//        
-//                //panelMultiplexingSuspend();
-//                fillRamBufferSplashScreen();
-//                // panelMultiplexingTimerStart();
-//                muxing_state = 1;
-//                
-//                // state machine flags
-//                eventually_continue_flag = 1;
-//                
-//            }
-//            
-//            strcpy(response_message, "Message Received\r\n");
-//            // Tell kevin we received message
-//            delayTimerStart(0x00FF, esp8266_tcp_response_delay1);
-//            
-//            if (usb_in_use_flag) {
-//            
-//                terminalTextAttributesReset();
-//                terminalTextAttributes(CYAN, BLACK, NORMAL);
-//                // printf("WiFi Module Sent:\r\n");
-//                printf("%s", esp_8266_line);
-//                terminalTextAttributesReset();
-//
-//            }
-//            
-//        }
-        
         else if (0 == strstart(received_string, "Power=0")) {
 
             panelMultiplexingSuspend();
@@ -473,7 +433,6 @@ void esp8266RingBufferLUT(char * line_in) {
 
                 terminalTextAttributesReset();
                 terminalTextAttributes(CYAN, BLACK, NORMAL);
-                // printf("WiFi Module Sent:\r\n");
                 printf("%s", esp_8266_line);
                 terminalTextAttributesReset();
 
@@ -710,87 +669,3 @@ void esp8266Putstring(char * string) {
     
 }
 
-/*
- * sendCIPData sends bytes over the WiFi connection to the Android Device
- */
-void sendCIPData(uint8_t connectionId, char *data, uint8_t length) {
-    
-    char cip_output_string[256];
-    memset(cip_output_string, 0, sizeof(cip_output_string));
-    sprintf(cip_output_string, "AT+CIPSEND=%u, %u, %s",
-            connectionId,
-            length,
-            data);
-    
-    esp8266Putstring(cip_output_string);
-   
-}
-
-/*
- * sendHTTPResponse sends HTTP Responses to the Android Device confirming
- * receipt of command / data
- */
-void sendHTTPResponse(uint8_t connectionId, uint8_t * content, uint8_t length) {    
-    // build HTTP response
-    uint8_t httpResponse[256];
-//    uint8_t httpHeader[256];
-//    uint8_t len[8];
-//    sprintf(len, "%u", length);
-//    // HTTP Header
-//    strcpy(httpHeader, "HTTP/1.1 200 OK Content-Type: text/html; charset=UTF-8 "); 
-//    strcat(httpHeader, "Content-Length: ");
-//    strcat(httpHeader, len);
-//    strcat(httpHeader, " Connection: close \r\n");
-//    strcpy(httpResponse, httpHeader);
-//    strcat(httpResponse, content);
-//    
-    sprintf(httpResponse, "HTTP/1.1 200 OK%%0D%%0AContent-Type: text/html; charset=UTF-8%%0D%%0AContent-Length: %u%%0D%%0AConnection: close%%0D%%0A %s%%0D%%0A\r\n",
-            length,
-            content);
-    
-    sendCIPData(connectionId, httpResponse, strlen(httpResponse));
-    
-}
-
-//Caroline made this and it doesnt work
-//void esp8266PutStringInArray(void) {
-//        
-//    uint16_t array[16384];
-//    char * string;
-//    
-//    uint8_t a = 0;
-//    uint8_t b = 0;
-//    
-//    for (a = 0; a < 16384; a++) {
-//        
-//        b = 0;
-//        strcpy(string, "0x");
-//        strcat(string, http_android_string[b]);
-//        strcat(string, http_android_string[b+1]);
-//        array[a] = uint16_t(string, 16);           
-//        
-//    }
-//    
-//}
-
-// Find cases to set WiFi error handler state to show error led
-    // 
-// Create a connection verification function
-// Android sends "Marco" ESP replies "Polo"
-
-// Create a read data function
-// Android sends "Project: {# of images}"
-// ESP then knows its about to receive that much data
-// Android continues sending all 247600 bytes of each image
-// ESP replies "Received Frame {index of frame it received}
-// ESP finally replies "Received all Frames"
-
-// These reply messages could just be integers representing codes that get 
-// converted to messages on the Android side.
-
-// Create a device control command function
-// Android sends "System: {type of system control},{value}"
-// ex. "System: Dim, 85"
-// ESP replies "SUCCESS" or "FAILURE"
-// possibly include an optional description field afterward
-// up to one packet length

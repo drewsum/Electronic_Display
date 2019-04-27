@@ -74,6 +74,10 @@ void panelMultiplexingHandler(void) {
         PANEL_CLK_PIN_HIGH();
         
         // DO NOT REMOVE THIS
+        // These NO OPERATION instructions are needed for fine-tuning multiplexing clock timing
+        // Removing these will make clock rates too fast for printed circuit board to support
+        // Adding Nops will result in screen flicker
+        // This only applies when compiling with -O2 optimization
         Nop();
         Nop();
         Nop();
@@ -200,9 +204,6 @@ void panelMultiplexingTimerInitialize(void) {
     
     // Set timer 5 period match to 250
     PR5 = MUXING_TIMER_PERIOD;
-    
-    // Start timer 5
-    // T5CONbits.ON = 1;
     
     // Enable timer5 interrupt
     enableInterrupt(Timer5);

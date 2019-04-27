@@ -30,6 +30,11 @@ void standardOpSMInit(void) {
         image_num = readFrameNVM();
         state = sm_first_load;
         
+        // Reset SPI state
+        spi_flash_state = idle;
+        spiFlashGPIOReset();
+        sram_addr_index = 0;
+        
     //}
     
 }
