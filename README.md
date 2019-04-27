@@ -6,6 +6,8 @@
 Microconctroller U601 on logic PCB is programmed with firmware in sfw/embedded_firmware/U601_Firmware with PICKIT 3
 
 Two PCBs reside in hdw, designed in KiCad v5.1.0
+
 Embedded firmware resides in sfw/embedded_firmware, built with XC32 v21.0 w/ Pro license (-O2 omptimization level) with MPLabX v5.15
+
 Android app resides in sfw/app/LED_Display, built with Android Studio API level 26
 
