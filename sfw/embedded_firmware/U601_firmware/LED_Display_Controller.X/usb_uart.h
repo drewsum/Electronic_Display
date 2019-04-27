@@ -47,8 +47,8 @@ extern volatile uint8_t usb_uart_TxBuffer[USB_UART_TX_BUFFER_SIZE];
 uint8_t muxing_state;
 
 // This records if a user is using the USB port
+// This variable is deprecated, but still included
 uint8_t usb_in_use_flag;
-
 
 // This function initializes UART 6 for USB debugging
 void usbUartInitialize(void);

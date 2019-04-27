@@ -50,7 +50,7 @@ void usbUartInitialize(void) {
  
     __XC_UART = 3;
     
-    usb_in_use_flag = 0;
+    usb_in_use_flag = 1;
     
     // Disable UART 3 interrupts
     disableInterrupt(UART3_Receive_Done);

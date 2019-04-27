@@ -329,11 +329,11 @@ void movePanelDataToEBISRAM(void) {
 void movePanelDataFromEBISRAM(void) {
  
     // Get muxing state
-//    uint8_t muxing_state = T5CONbits.ON;
-//    
-//    // Stop multiplexing
-//    panelMultiplexingSuspend();
-//    
+    uint8_t muxing_state = T5CONbits.ON;
+    
+    // Stop multiplexing
+    panelMultiplexingSuspend();
+    
     uint32_t loop_address;
     for (loop_address = 0; loop_address < PANEL_DATA_ARRAY_SIZE; loop_address++) {
      
@@ -341,7 +341,7 @@ void movePanelDataFromEBISRAM(void) {
         
     }
     
-    // if (muxing_state) panelMultiplexingTimerStart();
+    if (muxing_state) panelMultiplexingTimerStart();
     
 }
 
