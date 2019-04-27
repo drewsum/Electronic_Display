@@ -660,9 +660,10 @@ void esp8266RingBufferLUT(char * line_in) {
         
         
         else {
-            strcpy(response_message, "Message Received\r\n");
+            
+            strcpy(response_message, "Resend Message\r\n");
             // Tell kevin we received message
-            delayTimerStart(0xFFFF, esp8266_tcp_response_delay1);
+            delayTimerStart(0x0FFF, esp8266_tcp_response_delay1);
             
             if (usb_in_use_flag) {
 

@@ -55,8 +55,6 @@
 #include "esp8266.h"
 // Analog to Digital Converter
 #include "adc.h"
-// Rotary encoder for controlling brightness
-#include "rotary_encoder.h"
 // Miscellaneous Board Control
 #include "misc_board_control.h"
 // Test Buffer Fills

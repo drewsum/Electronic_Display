@@ -66,8 +66,8 @@ void __ISR(_TIMER_4_VECTOR, ipl1SRS) delayTimerISR(void)
             
         case esp8266_tcp_response_delay3:
             
-            // sprintf(cipsend_message,"AT+CIPCLOSE=%u\r\n", current_connection_id);
-            sprintf(cipsend_message,"AT+CIPSEND\r\n");
+            sprintf(cipsend_message,"AT+CIPCLOSE=%u\r\n", current_connection_id);
+            // sprintf(cipsend_message,"AT+CIPSEND\r\n");
             esp8266Putstring(cipsend_message);
             if (eventually_continue_flag) delayTimerStart(0xFFFF, state_machine_resume_delay);
             

@@ -50,7 +50,7 @@ void usbUartInitialize(void) {
  
     __XC_UART = 3;
     
-    usb_in_use_flag = 0;
+    usb_in_use_flag = 1;
     
     // Disable UART 3 interrupts
     disableInterrupt(UART3_Receive_Done);
@@ -1289,8 +1289,11 @@ void usbUartRingBufferLUT(char * line_in) {
         
         terminalTextAttributesReset();
         terminalTextAttributes(GREEN, BLACK, NORMAL);
-        printf("NVM Frame Number set to %u, NVM delay value set to %u\n\r", readFrameNVM(), readDelayNVM());
+        printf("NVM Frame Number set to %u, NVM delay value set to %u, wait for reset\n\r", readFrameNVM(), readDelayNVM());
         terminalTextAttributesReset();
+        
+        softwareDelay(10000000);
+        deviceReset();
         
     }
     
