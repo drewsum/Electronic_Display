@@ -120,15 +120,18 @@ public class WiFiController {
         @Override
         protected TCPClient doInBackground(Void... params) {
             if(isProject) {
+                // sending images
                 messages = convertFrame(currentIndex, selectedProject);
                 Message msg = new Message();
                 msg.what = STARTING;
                 msg.arg1 = currentIndex + 1;
                 msg.arg2 = totalSize;
                 handler.sendMessage(msg);
+            } else {
+                // device control
             }
             try {
-                tcpClient = new TCPClient(handler, ipAddress, portNumber, messages);
+                tcpClient = new TCPClient(handler, ipAddress, portNumber, messages, isProject);
             } catch (Exception e) {
                 e.printStackTrace();
             }
