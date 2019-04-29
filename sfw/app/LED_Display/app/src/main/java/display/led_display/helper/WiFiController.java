@@ -1,7 +1,5 @@
 package display.led_display.helper;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
@@ -22,7 +20,6 @@ import java.util.ArrayList;
 
 public class WiFiController {
 
-    private Dialog dialog;
     private static final String TAG = "TCPClient";
     private String ipAddress, incomingMessage;
     private int portNumber;
@@ -46,10 +43,6 @@ public class WiFiController {
         ArrayList<String> deviceData = dataManager.getListString(deviceName + "Data");
         this.ipAddress = deviceData.get(0);
         this.portNumber = Integer.parseInt(deviceData.get(1));
-        this.dialog = new AlertDialog.Builder(this.context)
-                .setTitle("TCP Connection:")
-                .setCancelable(true)
-                .create();
     }
 
     // for control messages
@@ -120,15 +113,18 @@ public class WiFiController {
         @Override
         protected TCPClient doInBackground(Void... params) {
             if(isProject) {
+                // sending images
                 messages = convertFrame(currentIndex, selectedProject);
                 Message msg = new Message();
                 msg.what = STARTING;
                 msg.arg1 = currentIndex + 1;
                 msg.arg2 = totalSize;
                 handler.sendMessage(msg);
+            } else {
+                // device control
             }
             try {
-                tcpClient = new TCPClient(handler, ipAddress, portNumber, messages);
+                tcpClient = new TCPClient(handler, ipAddress, portNumber, messages, isProject);
             } catch (Exception e) {
                 e.printStackTrace();
             }
