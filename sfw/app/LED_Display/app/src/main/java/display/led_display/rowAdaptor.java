@@ -63,7 +63,7 @@ class rowAdaptor extends BaseAdapter {
         Bitmap b = null;
         try {
             ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File directory = cw.getDir(context.getResources().getString(R.string.image_directory), Context.MODE_PRIVATE);
             File f=new File(directory, fileName);
             b = BitmapFactory.decodeStream(new FileInputStream(f));
         }
@@ -164,7 +164,7 @@ class rowAdaptor extends BaseAdapter {
                         textFrameCount.setText(data.size() + "/8");
                         // also need delete image from internal storage
                         ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
-                        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                        File directory = cw.getDir(context.getResources().getString(R.string.image_directory), Context.MODE_PRIVATE);
                         File f = new File(directory, filename);
                         f.delete();
                         break;

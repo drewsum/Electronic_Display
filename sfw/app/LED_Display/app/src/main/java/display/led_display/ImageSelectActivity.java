@@ -149,7 +149,7 @@ public class ImageSelectActivity extends AppCompatActivity {
             bitmap.recycle();
             targetImage.setImageBitmap(scaledBitmap);
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File directory = cw.getDir(getString(R.string.image_directory), Context.MODE_PRIVATE);
             // Create imageDir
             File f = new File(directory, fileName);
             FileOutputStream outputStream = new FileOutputStream(f);

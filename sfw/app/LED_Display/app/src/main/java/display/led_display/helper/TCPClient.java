@@ -1,5 +1,6 @@
 package display.led_display.helper;
 
+import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -12,6 +13,8 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+
+import display.led_display.R;
 
 public class TCPClient {
 
@@ -63,10 +66,10 @@ public class TCPClient {
                         incomingMessage = in.readLine();
                         if (incomingMessage != null) {
                             incomingMessage = incomingMessage.trim();
-                            if (incomingMessage.equals("Message Received")) {
+                            if (incomingMessage.equals(Resources.getSystem().getString(R.string.message_received))) {
                                 Log.d("TCPClient", "Received Message: " + incomingMessage);
                                 mRun = false;
-                            } else if (incomingMessage.equals("Resend Message")) {
+                            } else if (incomingMessage.equals(Resources.getSystem().getString(R.string.resend_message))) {
                                 Log.d("TCPClient", "Received Message: " + incomingMessage);
                                 // resends message over and over
                                 mRun = false;

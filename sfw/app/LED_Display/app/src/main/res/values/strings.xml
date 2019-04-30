@@ -29,7 +29,7 @@
     <string name="aspect_switch_text_right">Fixed Aspect Ratio</string>
     <string name="input_project_name_hint">Project Name</string>
     <string name="create_project_button_text">Create Project</string>
-    <string name="please_name_project_text">Please Enter a name for the Project</string>
+    <string name="please_name_project_text">Please enter a name for the project</string>
     <string name="load_image_button_text">Load Image</string>
     <string name="delete_button_text">X</string>
     <string name="select_device_text">Select Device:</string>
@@ -41,9 +41,9 @@
     <string name="frame_previewed_text">Previewing Frame: 1/8</string>
     <string name="add_device_button_text">Add Device</string>
     <string name="port_number_input_hint">Port Number</string>
-    <string name="port_number_prompt_text">Enter the Port Number of the Device</string>
+    <string name="port_number_prompt_text">Enter the port number of the device</string>
     <string name="ip_address_input_hint">IP Address</string>
-    <string name="ip_address_prompt_text">Enter the IP Address of the Device</string>
+    <string name="ip_address_prompt_text">Enter the ip address of the device</string>
     <string name="device_name_input_hint">Device Name</string>
     <string name="device_name_prompt_text">Enter a name for the new device</string>
     <string name="add_frame_button_text">Add a Frame</string>
@@ -52,6 +52,20 @@
     <string name="frame_count_numeric_text">0/8</string>
     <string name="button_rotate_clockwise_description">Rotate Image Clockwise</string>
     <string name="image_logo_description">Logo for the App</string>
+    <string name="text_rotate_clockwise">Rotate Clockwise</string>
+    <string name="controlling_device_text">Controlling Device: %s</string>
+    <string name="brightness_level_text">Brightness: %d</string>
+    <string name="frame_count_outof_text">%d/8</string>
+    <string name="editing_project_text">Editing Project: %s</string>
+    <string name="no_images_text">There are not any images in this project yet</string>
+    <string name="previewing_frame_count_text">Previewing Frame: %d/%d</string>
+    <string name="image_directory">imageDir</string>
+    <string name="selection_text">Select a %s</string>
+    <string name="message_received">Message Received</string>
+    <string name="resend_message">Resend Message</string>
+    <string name="sending_image_text">Sending frame %d of %d ...</string>
+    <string name="converting_frame_text">Converting frame %d of %d ...</string>
+    <string name="upload_complete">Upload Complete</string>
     <string-array name="time_values">
         <item>5</item>
         <item>10</item>

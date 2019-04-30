@@ -36,7 +36,7 @@ public class SelectionFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_selection, container, false);
         final DataManager dataManager = new DataManager(getContext().getApplicationContext());
         TextView textContentType = rootView.findViewById(R.id.textSelectContent);
-        textContentType.setText("Select a " + selectionType);
+        textContentType.setText(getString(R.string.selection_text, selectionType));
         final ListView contentListview = rootView.findViewById(R.id.contentList);
         ArrayList<String> contentList = new ArrayList<>();
         if (selectionType.equals("project")) {

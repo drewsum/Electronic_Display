@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import display.led_display.R;
+
 public class WiFiController {
 
     private static final String TAG = "TCPClient";
@@ -72,13 +74,13 @@ public class WiFiController {
             switch (msg.what) {
                 case STARTING:
                     Log.d("Handler", "Sending image " + (msg.arg1) + " of " + msg.arg2 + "...");
-                    textUpdate.setText("Sending frame " + (msg.arg1) + " of " + msg.arg2 + "...");
+                    textUpdate.setText(context.getString(R.string.sending_image_text, msg.arg1, msg.arg2));
                     currentIndex++;
                     break;
                 case CONVERTING:
                     Log.d("Handler", "Converting image " + msg.arg1 + " of " + msg.arg2);
                     textUpdate.setVisibility(View.VISIBLE);
-                    textUpdate.setText("Converting frame " + msg.arg1 + " of " + msg.arg2 + "...");
+                    textUpdate.setText(context.getString(R.string.converting_frame_text, msg.arg1, msg.arg2));
                     pb.setProgress(0);
                     if (pb.getVisibility() != View.VISIBLE) {
                         pb.setVisibility(View.VISIBLE);
@@ -94,7 +96,7 @@ public class WiFiController {
                         } else {
                             pb.setProgress(0);
                             pb.setVisibility(View.INVISIBLE);
-                            textUpdate.setText("Upload Complete");
+                            textUpdate.setText(context.getString(R.string.upload_complete));
                         }
                     }
                     break;
@@ -168,7 +170,7 @@ public class WiFiController {
             // get image from internal storage
             String filename = frameList.get(index);
             ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File directory = cw.getDir(context.getResources().getString(R.string.image_directory), Context.MODE_PRIVATE);
             File f = new File(directory, filename);
             Log.d("directory", directory.toString());
             Log.d("fileName", filename);
