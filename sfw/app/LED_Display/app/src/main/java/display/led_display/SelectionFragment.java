@@ -36,7 +36,7 @@ public class SelectionFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_selection, container, false);
         final DataManager dataManager = new DataManager(getContext().getApplicationContext());
         TextView textContentType = rootView.findViewById(R.id.textSelectContent);
-        textContentType.setText("Select a " + selectionType);
+        textContentType.setText(getString(R.string.selection_text, selectionType));
         final ListView contentListview = rootView.findViewById(R.id.contentList);
         ArrayList<String> contentList = new ArrayList<>();
         if (selectionType.equals("project")) {
@@ -51,28 +51,33 @@ public class SelectionFragment extends Fragment {
                 Log.d("clickEvent", "item selected");
                 String selectedItem = contentListview.getItemAtPosition(i).toString();
                 Bundle arguments = new Bundle();
-                if (fragmentReturn.equals("edit")) {
-                    EditProjectFragment editFrag = new EditProjectFragment();
-                    arguments.putString("projectName", selectedItem);
-                    editFrag.setArguments(arguments);
-                    // switch to edit project screen
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().addToBackStack(editFrag.getTag()).replace(R.id.flContent, editFrag).commit();
-                } else if (fragmentReturn.equals("preview")) {
-                    ProjectPreviewFragment previewFrag = new ProjectPreviewFragment();
-                    arguments.putString("projectName", selectedItem);
-                    previewFrag.setArguments(arguments);
-                    // switch to project preview screen
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().addToBackStack(previewFrag.getTag()).replace(R.id.flContent, previewFrag).commit();
-                } else if (fragmentReturn.equals("control")) {
-                    // device contol
-                    DeviceControlFragment controlFrag = new DeviceControlFragment();
-                    arguments.putString("deviceName", selectedItem);
-                    controlFrag.setArguments(arguments);
-                    // switch to device control screen
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().addToBackStack(controlFrag.getTag()).replace(R.id.flContent, controlFrag).commit();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                switch (fragmentReturn) {
+                    case "edit": {
+                        EditProjectFragment editFrag = new EditProjectFragment();
+                        arguments.putString("projectName", selectedItem);
+                        editFrag.setArguments(arguments);
+                        // switch to edit project screen
+                        fragmentManager.beginTransaction().addToBackStack(editFrag.getTag()).replace(R.id.flContent, editFrag).commit();
+                        break;
+                    }
+                    case "preview": {
+                        ProjectPreviewFragment previewFrag = new ProjectPreviewFragment();
+                        arguments.putString("projectName", selectedItem);
+                        previewFrag.setArguments(arguments);
+                        // switch to project preview screen
+                        fragmentManager.beginTransaction().addToBackStack(previewFrag.getTag()).replace(R.id.flContent, previewFrag).commit();
+                        break;
+                    }
+                    case "control": {
+                        // device contol
+                        DeviceControlFragment controlFrag = new DeviceControlFragment();
+                        arguments.putString("deviceName", selectedItem);
+                        controlFrag.setArguments(arguments);
+                        // switch to device control screen
+                        fragmentManager.beginTransaction().addToBackStack(controlFrag.getTag()).replace(R.id.flContent, controlFrag).commit();
+                        break;
+                    }
                 }
             }
         });

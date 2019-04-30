@@ -26,8 +26,8 @@ import display.led_display.helper.DataManager;
 
 class rowAdaptor extends BaseAdapter {
 
-    private Context context;
-    private String keyName;
+    private final Context context;
+    private final String keyName;
     private ArrayList<String> data;
     private static LayoutInflater inflater = null;
 
@@ -36,8 +36,7 @@ class rowAdaptor extends BaseAdapter {
         this.context = context;
         this.data = data;
         this.keyName = keyName;
-        inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -63,7 +62,7 @@ class rowAdaptor extends BaseAdapter {
         Bitmap b = null;
         try {
             ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File directory = cw.getDir(context.getResources().getString(R.string.image_directory), Context.MODE_PRIVATE);
             File f=new File(directory, fileName);
             b = BitmapFactory.decodeStream(new FileInputStream(f));
         }
@@ -93,7 +92,7 @@ class rowAdaptor extends BaseAdapter {
         if (keyName.equals("frameList")) {
             ImageView thumbnail = vi.findViewById(R.id.imageThumb);
             thumbnail.setImageBitmap(loadImageFromStorage(data.get(position)));
-            text.setText("Frame " + (position + 1)); // populate rows
+            text.setText(context.getString(R.string.frame_num, (position + 1))); // populate rows
             // use up and down arrows to adjust ordering
             ImageButton buttonUp = vi.findViewById(R.id.buttonUp);
             buttonUp.setFocusable(false); // needed to allow row to still be clickable
@@ -161,10 +160,10 @@ class rowAdaptor extends BaseAdapter {
                         dataManager.putListString(projectName + keyName, framesList);
                         Log.d("New " + projectName + keyName, data.toString());
                         TextView textFrameCount = finView.getRootView().findViewById(R.id.textFrameCount);
-                        textFrameCount.setText(data.size() + "/8");
+                        textFrameCount.setText(context.getString(R.string.frame_count_num, data.size()));
                         // also need delete image from internal storage
                         ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
-                        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                        File directory = cw.getDir(context.getResources().getString(R.string.image_directory), Context.MODE_PRIVATE);
                         File f = new File(directory, filename);
                         f.delete();
                         break;

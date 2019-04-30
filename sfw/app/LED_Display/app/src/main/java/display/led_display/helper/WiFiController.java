@@ -18,26 +18,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import display.led_display.R;
+
 public class WiFiController {
 
-    private static final String TAG = "TCPClient";
-    private String ipAddress, incomingMessage;
-    private int portNumber;
-    private ArrayList<String> messages;
-    private TCPClient tcpClient;
-    private Context context;
-    private ProgressBar pb;
-    private TextView textUpdate;
-    private String selectedProject;
-    private Boolean isProject;
-    private int currentIndex;
-    private int totalSize;
+    private final String ipAddress;
+    private final int portNumber;
+    private ArrayList<String> messages = null;
+    private TCPClient tcpClient = null;
+    private final Context context;
+    private ProgressBar pb = null;
+    private TextView textUpdate = null;
+    private String selectedProject = null;
+    private Boolean isProject = null;
+    private int currentIndex = 0;
+    private int totalSize = 0;
 
     private static final int STARTING = 0;
     private static final int SENDING = 1;
     private static final int CONVERTING = 2;
 
-    public WiFiController(View v, Context context, String deviceName) {
+    public WiFiController(Context context, String deviceName) {
         this.context = context;
         DataManager dataManager = new DataManager(context.getApplicationContext());
         ArrayList<String> deviceData = dataManager.getListString(deviceName + "Data");
@@ -66,19 +67,19 @@ public class WiFiController {
         new TCPAsyncTask(handler, isProject).execute();
     }
 
-    private Handler handler = new Handler() {
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage (Message msg){
             switch (msg.what) {
                 case STARTING:
                     Log.d("Handler", "Sending image " + (msg.arg1) + " of " + msg.arg2 + "...");
-                    textUpdate.setText("Sending frame " + (msg.arg1) + " of " + msg.arg2 + "...");
+                    textUpdate.setText(context.getString(R.string.sending_image_text, msg.arg1, msg.arg2));
                     currentIndex++;
                     break;
                 case CONVERTING:
                     Log.d("Handler", "Converting image " + msg.arg1 + " of " + msg.arg2);
                     textUpdate.setVisibility(View.VISIBLE);
-                    textUpdate.setText("Converting frame " + msg.arg1 + " of " + msg.arg2 + "...");
+                    textUpdate.setText(context.getString(R.string.converting_frame_text, msg.arg1, msg.arg2));
                     pb.setProgress(0);
                     if (pb.getVisibility() != View.VISIBLE) {
                         pb.setVisibility(View.VISIBLE);
@@ -94,7 +95,7 @@ public class WiFiController {
                         } else {
                             pb.setProgress(0);
                             pb.setVisibility(View.INVISIBLE);
-                            textUpdate.setText("Upload Complete");
+                            textUpdate.setText(context.getString(R.string.upload_complete));
                         }
                     }
                     break;
@@ -103,8 +104,8 @@ public class WiFiController {
     };
 
     class TCPAsyncTask extends AsyncTask<Void, Void, TCPClient> {
-        private Handler handler;
-        private Boolean isProject;
+        private final Handler handler;
+        private final Boolean isProject;
         TCPAsyncTask(Handler handler, Boolean isProject) {
             this.handler = handler;
             this.isProject = isProject;
@@ -120,8 +121,6 @@ public class WiFiController {
                 msg.arg1 = currentIndex + 1;
                 msg.arg2 = totalSize;
                 handler.sendMessage(msg);
-            } else {
-                // device control
             }
             try {
                 tcpClient = new TCPClient(handler, ipAddress, portNumber, messages, isProject);
@@ -168,7 +167,7 @@ public class WiFiController {
             // get image from internal storage
             String filename = frameList.get(index);
             ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File directory = cw.getDir(context.getResources().getString(R.string.image_directory), Context.MODE_PRIVATE);
             File f = new File(directory, filename);
             Log.d("directory", directory.toString());
             Log.d("fileName", filename);

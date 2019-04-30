@@ -22,11 +22,11 @@ import display.led_display.helper.DataManager;
 
 public class EditProjectFragment extends Fragment {
 
-    private String projectName;
-    private ArrayList<String> framesList;
-    private ArrayList<String> dataList;
-    private int namingNumber;
-    private rowAdaptor adaptor;
+    private String projectName = null;
+    private ArrayList<String> framesList = null;
+    private ArrayList<String> dataList = null;
+    private int namingNumber = 0;
+    private rowAdaptor adaptor = null;
 
     public EditProjectFragment() {
         // Required empty public constructor
@@ -86,10 +86,10 @@ public class EditProjectFragment extends Fragment {
             }
         });
         TextView textProjectName = rootView.findViewById(R.id.textProjectName);
-        textProjectName.setText("Editing Project: " + projectName);
+        textProjectName.setText(getString(R.string.editing_project_text, projectName));
 
         TextView textFrameCount = rootView.findViewById(R.id.textFrameCount);
-        textFrameCount.setText(adaptor.getCount() + "/8");
+        textFrameCount.setText(getString(R.string.frame_count_outof_text, adaptor.getCount()));
 
         final Spinner dropdown = rootView.findViewById(R.id.spinnerDropdown);
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.time_values, android.R.layout.simple_spinner_item);
@@ -110,7 +110,7 @@ public class EditProjectFragment extends Fragment {
             }
         });
 
-        // set the intial value to the current value for the project
+        // set the initial value to the current value for the project
         String[] a = getResources().getStringArray(R.array.time_values);
         for (int item = 0; item < a.length; item++) {
             if(a[item].equals(dataList.get(1))) {
@@ -140,7 +140,7 @@ public class EditProjectFragment extends Fragment {
             adaptor = new rowAdaptor(this.getActivity().getBaseContext(), framesList, "frameList");
             listView.setAdapter(adaptor);
             TextView textFrameCount = this.getView().findViewById(R.id.textFrameCount);
-            textFrameCount.setText(adaptor.getCount() + "/8");
+            textFrameCount.setText(getString(R.string.frame_count_outof_text, adaptor.getCount()));
         } else {
             Log.d("no image", "no image came back");
         }

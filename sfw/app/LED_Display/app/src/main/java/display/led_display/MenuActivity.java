@@ -74,26 +74,34 @@ public class MenuActivity extends AppCompatActivity
         // pass args
         Bundle arguments = new Bundle();
 
-        if (id == R.id.nav_add) {
-            fragmentClass = NewProjectFragment.class;
-        } else if (id == R.id.nav_edit) {
-            fragmentClass = SelectionFragment.class;
-            arguments.putString( "selectionType" , "project");
-            arguments.putString( "fragmentReturn" , "edit");
-        } else if (id == R.id.nav_preview) {
-            fragmentClass = SelectionFragment.class;
-            arguments.putString( "selectionType" , "project");
-            arguments.putString( "fragmentReturn" , "preview");
-        } else if (id == R.id.nav_upload) {
-            fragmentClass = UploadProjectFragment.class;
-        } else if (id == R.id.nav_new) {
-            fragmentClass = NewDeviceFragment.class;
-        } else if (id == R.id.nav_control) {
-            fragmentClass = SelectionFragment.class;
-            arguments.putString("selectionType", "device");
-            arguments.putString("fragmentReturn", "control");
-        } else if (id == R.id.nav_about) {
-            fragmentClass = AboutFragment.class;
+        switch (id) {
+            case R.id.nav_add:
+                fragmentClass = NewProjectFragment.class;
+                break;
+            case R.id.nav_edit:
+                fragmentClass = SelectionFragment.class;
+                arguments.putString("selectionType", "project");
+                arguments.putString("fragmentReturn", "edit");
+                break;
+            case R.id.nav_preview:
+                fragmentClass = SelectionFragment.class;
+                arguments.putString("selectionType", "project");
+                arguments.putString("fragmentReturn", "preview");
+                break;
+            case R.id.nav_upload:
+                fragmentClass = UploadProjectFragment.class;
+                break;
+            case R.id.nav_new:
+                fragmentClass = NewDeviceFragment.class;
+                break;
+            case R.id.nav_control:
+                fragmentClass = SelectionFragment.class;
+                arguments.putString("selectionType", "device");
+                arguments.putString("fragmentReturn", "control");
+                break;
+            case R.id.nav_about:
+                fragmentClass = AboutFragment.class;
+                break;
         }
 
         try {

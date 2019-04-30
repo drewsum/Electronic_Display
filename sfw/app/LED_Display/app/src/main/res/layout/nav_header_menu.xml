@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_header_menu_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
@@ -30,7 +29,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="MU - MatriX"
+        android:text="@string/header_title"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"

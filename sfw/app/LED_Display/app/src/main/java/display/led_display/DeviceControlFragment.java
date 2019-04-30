@@ -13,14 +13,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import display.led_display.helper.DataManager;
 import display.led_display.helper.WiFiController;
 
 public class DeviceControlFragment extends Fragment {
 
-    private ArrayList<String> deviceList;
     private int brightnessLevel = 0;
-    private boolean powerToggle = false;
 
     public DeviceControlFragment() {
         // Required empty public constructor
@@ -39,10 +36,8 @@ public class DeviceControlFragment extends Fragment {
         Bundle arguments = getArguments();
         final String deviceName = arguments.getString("deviceName");
         TextView textDeviceName = rootView.findViewById(R.id.textDeviceName);
-        textDeviceName.setText("Controlling Device: " + deviceName);
-        DataManager dataManager = new DataManager(getContext().getApplicationContext());
-        final WiFiController wiFiController = new WiFiController(getView(), getContext(), deviceName);
-        //deviceList = dataManager.getListString(projectName + "frameList");
+        textDeviceName.setText(getString(R.string.controlling_device_text, deviceName));
+        final WiFiController wiFiController = new WiFiController(getContext(), deviceName);
         // set up Ping button
         Button buttonPing = rootView.findViewById(R.id.buttonPing);
         buttonPing.setOnClickListener(new Button.OnClickListener() {
@@ -83,7 +78,7 @@ public class DeviceControlFragment extends Fragment {
            @Override
            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                brightnessLevel = progress;
-                textBrightness.setText("Brightness: " + progress);
+                textBrightness.setText(getString(R.string.brightness_level_text, progress));
            }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {

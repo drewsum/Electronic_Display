@@ -27,7 +27,7 @@ import display.led_display.helper.DataManager;
 
 public class ProjectPreviewFragment extends Fragment {
 
-    private ArrayList<String> framesList;
+    private ArrayList<String> framesList = null;
     private int currentIndex = 0;
 
     public ProjectPreviewFragment() {
@@ -48,7 +48,7 @@ public class ProjectPreviewFragment extends Fragment {
         final String projectName = arguments.getString("projectName");
         Log.d("projectName", projectName);
         TextView textDisplayingProject = rootView.findViewById(R.id.textCurrentFrameCount);
-        textDisplayingProject.setText("Preview Project: " + projectName);
+        textDisplayingProject.setText(getString(R.string.preview_project_text, projectName));
         DataManager dataManager = new DataManager(getContext().getApplicationContext());
         framesList = dataManager.getListString(projectName + "frameList");
         Log.d("frameList", framesList.toString());
@@ -105,10 +105,10 @@ public class ProjectPreviewFragment extends Fragment {
         if (framesList.isEmpty()) {
             ImageView imagePreview = getView().findViewById(R.id.imagePreview);
             imagePreview.setImageBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.empty_project));
-            textFrameCount.setText("There are not any images in this project yet");
+            textFrameCount.setText(getString(R.string.no_images_text));
         } else {
             loadImageFromStorage(framesList.get(currentIndex));
-            textFrameCount.setText("Previewing Frame: " + (currentIndex + 1) + "/" + framesList.size());
+            textFrameCount.setText(getString(R.string.previewing_frame_count_text, (currentIndex + 1), framesList.size()));
         }
     }
 
@@ -121,7 +121,7 @@ public class ProjectPreviewFragment extends Fragment {
     private void loadImageFromStorage(String fileName) {
         try {
             ContextWrapper cw = new ContextWrapper(getContext().getApplicationContext());
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File directory = cw.getDir(getString(R.string.image_directory), Context.MODE_PRIVATE);
             // Create imageDir
             File f = new File(directory, fileName);
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));

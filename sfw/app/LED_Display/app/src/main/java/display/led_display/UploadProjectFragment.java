@@ -19,8 +19,8 @@ import display.led_display.helper.WiFiController;
 
 public class UploadProjectFragment extends Fragment {
 
-    private String selectedProject;
-    private String selectedDevice;
+    private String selectedProject = null;
+    private String selectedDevice = null;
 
     public UploadProjectFragment() {
         // Required empty public constructor
@@ -64,7 +64,7 @@ public class UploadProjectFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // add the code to send start the upload project routine
-                WiFiController wiFiController = new WiFiController(getView(), getActivity().getBaseContext(), selectedDevice);
+                WiFiController wiFiController = new WiFiController(getActivity().getBaseContext(), selectedDevice);
                 TextView textUpdate = getView().findViewById(R.id.textUpdate);
                 ProgressBar pb = getView().findViewById(R.id.progressBar);
                 wiFiController.sendOverWiFi(selectedProject, pb, textUpdate);

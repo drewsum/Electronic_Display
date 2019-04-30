@@ -1,5 +1,6 @@
 package display.led_display.helper;
 
+import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -13,17 +14,19 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import display.led_display.R;
+
 public class TCPClient {
 
     private final Handler handler;
-    private String ipAddress, incomingMessage;
-    private int portNumber;
-    private ArrayList<String> messages;
-    private boolean mRun;
+    private final String ipAddress;
+    private final int portNumber;
+    private final ArrayList<String> messages;
+    private boolean mRun = false;
     private int progressCount;
-    private BufferedReader in;
-    private PrintWriter out;
-    private Boolean isProject;
+    private BufferedReader in = null;
+    private PrintWriter out = null;
+    private final Boolean isProject;
 
     private static final int SENDING = 1;
 
@@ -60,15 +63,15 @@ public class TCPClient {
                     mRun = true;
                     while (mRun) {
                         Log.d("In a loop", "Waiting for server to respond");
-                        incomingMessage = in.readLine();
+                        String incomingMessage = in.readLine();
                         if (incomingMessage != null) {
                             incomingMessage = incomingMessage.trim();
-                            if (incomingMessage.equals("Message Received")) {
+                            if (incomingMessage.equals(Resources.getSystem().getString(R.string.message_received))) {
                                 Log.d("TCPClient", "Received Message: " + incomingMessage);
                                 mRun = false;
-                            } else if (incomingMessage.equals("Resend Message")) {
+                            } else if (incomingMessage.equals(Resources.getSystem().getString(R.string.resend_message))) {
                                 Log.d("TCPClient", "Received Message: " + incomingMessage);
-                                // resends message over and over
+                                // re-sends message over and over
                                 mRun = false;
                                 i--;
                             }
