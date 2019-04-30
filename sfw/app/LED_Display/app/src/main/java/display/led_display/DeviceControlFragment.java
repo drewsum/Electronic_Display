@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import display.led_display.helper.DataManager;
 import display.led_display.helper.WiFiController;
 
 public class DeviceControlFragment extends Fragment {
@@ -38,9 +37,7 @@ public class DeviceControlFragment extends Fragment {
         final String deviceName = arguments.getString("deviceName");
         TextView textDeviceName = rootView.findViewById(R.id.textDeviceName);
         textDeviceName.setText(getString(R.string.controlling_device_text, deviceName));
-        DataManager dataManager = new DataManager(getContext().getApplicationContext());
-        final WiFiController wiFiController = new WiFiController(getView(), getContext(), deviceName);
-        //deviceList = dataManager.getListString(projectName + "frameList");
+        final WiFiController wiFiController = new WiFiController(getContext(), deviceName);
         // set up Ping button
         Button buttonPing = rootView.findViewById(R.id.buttonPing);
         buttonPing.setOnClickListener(new Button.OnClickListener() {

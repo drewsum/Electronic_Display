@@ -26,8 +26,8 @@ import display.led_display.helper.DataManager;
 
 class rowAdaptor extends BaseAdapter {
 
-    private Context context;
-    private String keyName;
+    private final Context context;
+    private final String keyName;
     private ArrayList<String> data;
     private static LayoutInflater inflater = null;
 
@@ -36,8 +36,7 @@ class rowAdaptor extends BaseAdapter {
         this.context = context;
         this.data = data;
         this.keyName = keyName;
-        inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

@@ -25,15 +25,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class ImageSelectActivity extends AppCompatActivity {
-    private ImageView targetImage;
-    private Uri targetUri;
-    private String fileName;
+    private ImageView targetImage = null;
+    private Uri targetUri = null;
+    private String fileName = null;
 
-    private String projectName;
-    private int namingNumber;
-
-    private Bitmap bitmap;
-    private Bitmap scaledBitmap;
+    private String projectName = null;
+    private int namingNumber = 0;
 
     // true: Aspect Ratio, false: Stetch to Fit
     private Boolean boolAspectRatio = false;
@@ -136,9 +133,10 @@ public class ImageSelectActivity extends AppCompatActivity {
         fileName = projectName + "frame" + namingNumber + ".png";
 
         try {
-            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+            Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
             int panels_width = 320;
             int panels_height = 256;
+            Bitmap scaledBitmap;
             if (boolAspectRatio) {
                 bitmap = rotateImage(bitmap, rotationAmount);
                 scaledBitmap = fixedRatio(bitmap, panels_width, panels_height);
@@ -178,7 +176,7 @@ public class ImageSelectActivity extends AppCompatActivity {
             }
 
             //Scale given bitmap to fit into the desired area
-            imageToScale = Bitmap.createScaledBitmap(imageToScale, finalWidth, finalHeight, true);
+            Bitmap newBitmap = Bitmap.createScaledBitmap(imageToScale, finalWidth, finalHeight, true);
 
             //Created a bitmap with desired sizes
             Bitmap scaledImage = Bitmap.createBitmap(destinationWidth, destinationHeight, Bitmap.Config.ARGB_8888);
@@ -195,7 +193,7 @@ public class ImageSelectActivity extends AppCompatActivity {
             float destinationRatio = (float) destinationWidth / (float) destinationHeight;
             float left = ratioBitmap >= destinationRatio ? 0 : (float) (destinationWidth - finalWidth) / 2;
             float top = ratioBitmap < destinationRatio ? 0 : (float) (destinationHeight - finalHeight) / 2;
-            canvas.drawBitmap(imageToScale, left, top, null);
+            canvas.drawBitmap(newBitmap, left, top, null);
 
             return scaledImage;
         } else {

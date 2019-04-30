@@ -22,11 +22,11 @@ import display.led_display.helper.DataManager;
 
 public class EditProjectFragment extends Fragment {
 
-    private String projectName;
-    private ArrayList<String> framesList;
-    private ArrayList<String> dataList;
-    private int namingNumber;
-    private rowAdaptor adaptor;
+    private String projectName = null;
+    private ArrayList<String> framesList = null;
+    private ArrayList<String> dataList = null;
+    private int namingNumber = 0;
+    private rowAdaptor adaptor = null;
 
     public EditProjectFragment() {
         // Required empty public constructor
@@ -110,7 +110,7 @@ public class EditProjectFragment extends Fragment {
             }
         });
 
-        // set the intial value to the current value for the project
+        // set the initial value to the current value for the project
         String[] a = getResources().getStringArray(R.array.time_values);
         for (int item = 0; item < a.length; item++) {
             if(a[item].equals(dataList.get(1))) {

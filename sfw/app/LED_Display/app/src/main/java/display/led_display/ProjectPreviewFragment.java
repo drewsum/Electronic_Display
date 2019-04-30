@@ -27,7 +27,7 @@ import display.led_display.helper.DataManager;
 
 public class ProjectPreviewFragment extends Fragment {
 
-    private ArrayList<String> framesList;
+    private ArrayList<String> framesList = null;
     private int currentIndex = 0;
 
     public ProjectPreviewFragment() {

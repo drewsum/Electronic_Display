@@ -63,9 +63,13 @@
     <string name="selection_text">Select a %s</string>
     <string name="message_received">Message Received</string>
     <string name="resend_message">Resend Message</string>
-    <string name="sending_image_text">Sending frame %d of %d ...</string>
-    <string name="converting_frame_text">Converting frame %d of %d ...</string>
+    <string name="sending_image_text">Sending frame %d of %d …</string>
+    <string name="converting_frame_text">Converting frame %d of %d …</string>
     <string name="upload_complete">Upload Complete</string>
+    <string name="mu_matrix_text">MU-MatriX</string>
+    <string name="about_body">Developers: \t• Kevin Etta \t• Caroline Gilger \t• Drew Maatman \t• Tuoxuan Ren \t• Logan Wedel Advisor: \t• Cris Ababei</string>
+    <string name="about_sub_body">Marquette University Senior Design Project E44</string>
+    <string name="upload_proj_button">Upload a Project to Device</string>
     <string-array name="time_values">
         <item>5</item>
         <item>10</item>
