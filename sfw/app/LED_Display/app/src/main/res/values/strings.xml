@@ -70,6 +70,12 @@
     <string name="about_body">Developers: \t• Kevin Etta \t• Caroline Gilger \t• Drew Maatman \t• Tuoxuan Ren \t• Logan Wedel Advisor: \t• Cris Ababei</string>
     <string name="about_sub_body">Marquette University Senior Design Project E44</string>
     <string name="upload_proj_button">Upload a Project to Device</string>
+    <string name="duration_text">Frame Duration (sec)</string>
+    <string name="progress_hint_text">Progress shown below</string>
+    <string name="header_title">MU - MatriX</string>
+    <string name="preview_project_text">Preview Project: %s</string>
+    <string name="frame_num">Frame %d</string>
+    <string name="frame_count_num">%d/8</string>
     <string-array name="time_values">
         <item>5</item>
         <item>10</item>

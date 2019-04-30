@@ -92,7 +92,7 @@ class rowAdaptor extends BaseAdapter {
         if (keyName.equals("frameList")) {
             ImageView thumbnail = vi.findViewById(R.id.imageThumb);
             thumbnail.setImageBitmap(loadImageFromStorage(data.get(position)));
-            text.setText("Frame " + (position + 1)); // populate rows
+            text.setText(context.getString(R.string.frame_num, (position + 1))); // populate rows
             // use up and down arrows to adjust ordering
             ImageButton buttonUp = vi.findViewById(R.id.buttonUp);
             buttonUp.setFocusable(false); // needed to allow row to still be clickable
@@ -160,7 +160,7 @@ class rowAdaptor extends BaseAdapter {
                         dataManager.putListString(projectName + keyName, framesList);
                         Log.d("New " + projectName + keyName, data.toString());
                         TextView textFrameCount = finView.getRootView().findViewById(R.id.textFrameCount);
-                        textFrameCount.setText(data.size() + "/8");
+                        textFrameCount.setText(context.getString(R.string.frame_count_num, data.size()));
                         // also need delete image from internal storage
                         ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
                         File directory = cw.getDir(context.getResources().getString(R.string.image_directory), Context.MODE_PRIVATE);

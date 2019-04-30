@@ -48,7 +48,7 @@ public class ProjectPreviewFragment extends Fragment {
         final String projectName = arguments.getString("projectName");
         Log.d("projectName", projectName);
         TextView textDisplayingProject = rootView.findViewById(R.id.textCurrentFrameCount);
-        textDisplayingProject.setText("Preview Project: " + projectName);
+        textDisplayingProject.setText(getString(R.string.preview_project_text, projectName));
         DataManager dataManager = new DataManager(getContext().getApplicationContext());
         framesList = dataManager.getListString(projectName + "frameList");
         Log.d("frameList", framesList.toString());
