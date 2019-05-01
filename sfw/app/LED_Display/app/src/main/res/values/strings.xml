@@ -67,8 +67,8 @@
     <string name="converting_frame_text">Converting Slide %d of %d …</string>
     <string name="upload_complete">Upload Complete</string>
     <string name="mu_matrix_text">MU-MatriX</string>
-    <string name="about_body">Developers: \t• Kevin Etta \t• Caroline Gilger \t• Drew Maatman \t• Tuoxuan Ren \t• Logan Wedel Advisor: \t• Cris Ababei</string>
-    <string name="about_sub_body">Marquette University Senior Design Project E44</string>
+    <string name="about_body">Developers:\n\t• Kevin Etta\n\t• Caroline Gilger\n\t• Drew Maatman\n\t• Tuoxuan Ren\n\t• Logan Wedel\nAdvisor: \n\t• Cris Ababei</string>
+    <string name="about_sub_body">Marquette University\nSenior Design Project E44</string>
     <string name="upload_proj_button">Upload a Project to Device</string>
     <string name="duration_text">Slide Duration (sec)</string>
     <string name="progress_hint_text">Progress shown below</string>
